@@ -6,7 +6,6 @@ import java.util.Optional;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.fluids.FluidFX;
-import com.simibubi.create.content.fluids.potion.PotionMixingRecipes;
 import com.simibubi.create.content.kinetics.press.MechanicalPressBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 import com.simibubi.create.content.processing.basin.BasinOperatingBlockEntity;
@@ -44,7 +43,6 @@ import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
 public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
@@ -156,7 +154,7 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 						if (!tanks.getFirst()
 							.isEmpty()
 							|| !tanks.getSecond()
-								.isEmpty())
+							.isEmpty())
 							level.playSound(null, worldPosition, SoundEvents.BUBBLE_COLUMN_WHIRLPOOL_AMBIENT,
 								SoundSource.BLOCKS, .75f, speed < 65 ? .75f : 1.5f);
 					}
@@ -217,47 +215,12 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 	}
 
 	@Override
-	protected List<Recipe<?>> getMatchingRecipes() {
-		List<Recipe<?>> matchingRecipes = super.getMatchingRecipes();
-
-		if (!AllConfigs.server().recipes.allowBrewingInMixer.get())
-			return matchingRecipes;
-
-		Optional<BasinBlockEntity> basin = getBasin();
-		if (!basin.isPresent())
-			return matchingRecipes;
-
-		BasinBlockEntity basinBlockEntity = basin.get();
-		if (basin.isEmpty())
-			return matchingRecipes;
-
-		IItemHandler availableItems = level.getCapability(Capabilities.ItemHandler.BLOCK, basinBlockEntity.getBlockPos(), null);
-		if (availableItems == null)
-			return matchingRecipes;
-
-		for (int i = 0; i < availableItems.getSlots(); i++) {
-			ItemStack stack = availableItems.getStackInSlot(i);
-			if (stack.isEmpty())
-				continue;
-
-			List<MixingRecipe> list = PotionMixingRecipes.sortRecipesByItem(level).get(stack.getItem());
-			if (list == null)
-				continue;
-			for (MixingRecipe mixingRecipe : list)
-				if (matchBasinRecipe(mixingRecipe))
-					matchingRecipes.add(mixingRecipe);
-		}
-
-		return matchingRecipes;
-	}
-
-	@Override
 	protected boolean matchStaticFilters(RecipeHolder<? extends Recipe<?>> recipe) {
 		Recipe<?> r = recipe.value();
 		return ((r instanceof CraftingRecipe && !(r instanceof ShapedRecipe)
-				 && AllConfigs.server().recipes.allowShapelessInMixer.get() && r.getIngredients()
-				.size() > 1
-				 && !MechanicalPressBlockEntity.canCompress(r)) && !AllRecipeTypes.shouldIgnoreInAutomation(recipe)
+			&& AllConfigs.server().recipes.allowShapelessInMixer.get() && r.getIngredients()
+			.size() > 1
+			&& !MechanicalPressBlockEntity.canCompress(r)) && !AllRecipeTypes.shouldIgnoreInAutomation(recipe)
 			|| r.getType() == AllRecipeTypes.MIXING.getType());
 	}
 

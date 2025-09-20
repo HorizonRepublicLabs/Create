@@ -54,7 +54,6 @@ import com.simibubi.create.content.trains.entity.CarriageEntityHandler;
 import com.simibubi.create.content.trains.station.StationBlockEntity;
 import com.simibubi.create.foundation.data.RuntimeDataGenerator;
 import com.simibubi.create.foundation.map.StationMapDecorationRenderer;
-import com.simibubi.create.foundation.pack.DynamicPack;
 import com.simibubi.create.foundation.pack.DynamicPackSource;
 import com.simibubi.create.foundation.recipe.RecipeFinder;
 import com.simibubi.create.foundation.recipe.trie.RecipeTrieFinder;
@@ -177,6 +176,7 @@ public class CommonEvents {
 		event.addListener(RecipeFinder.LISTENER);
 		event.addListener(RecipeTrieFinder.LISTENER);
 		event.addListener(BeltHelper.LISTENER);
+		event.addListener(RuntimeDataGenerator.LISTENER);
 	}
 
 	@SubscribeEvent
@@ -250,9 +250,8 @@ public class CommonEvents {
 //			}
 
 			if (event.getPackType() == PackType.SERVER_DATA) {
-				DynamicPack dynamicPack = new DynamicPack("create:dynamic_data", PackType.SERVER_DATA);
-				RuntimeDataGenerator.insertIntoPack(dynamicPack);
-				event.addRepositorySource(new DynamicPackSource("create:dynamic_data", PackType.SERVER_DATA, Pack.Position.BOTTOM, dynamicPack));
+				RuntimeDataGenerator.insertIntoPack();
+				event.addRepositorySource(new DynamicPackSource("create:dynamic_data", PackType.SERVER_DATA, Pack.Position.BOTTOM, RuntimeDataGenerator.PACK));
 			}
 		}
 

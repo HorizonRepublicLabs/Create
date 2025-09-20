@@ -1,11 +1,7 @@
 package com.simibubi.create.content.fluids.potion;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.potion.PotionFluid.BottleType;
@@ -33,37 +29,13 @@ import net.neoforged.neoforge.common.brewing.IBrewingRecipe;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public class PotionMixingRecipes {
-
 	public static final List<Item> SUPPORTED_CONTAINERS = List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION);
 
-	private static List<RecipeHolder<MixingRecipe>> RECIPES;
-	private static Map<Item, List<MixingRecipe>> SORTED;
+	public static List<MixingRecipe> createRecipes() {
+		List<MixingRecipe> mixingRecipes = new ArrayList<>();
 
-	private static boolean alreadyGenerated = false;
-	private static boolean alreadySorted = false;
-
-	public static List<RecipeHolder<MixingRecipe>> createRecipes(Level level) {
-		if (!alreadyGenerated) {
-			RECIPES = createRecipesImpl(level);
-			alreadyGenerated = true;
-		}
-
-		return RECIPES;
-	}
-
-	public static Map<Item, List<MixingRecipe>> sortRecipesByItem(Level level) {
-		if (!alreadySorted) {
-			SORTED = sortRecipesByItem(createRecipes(level));
-			alreadySorted = true;
-		}
-
-		return SORTED;
-	}
-
-	private static List<RecipeHolder<MixingRecipe>> createRecipesImpl(Level level) {
-		PotionBrewing potionBrewing = level.potionBrewing();
-
-		List<RecipeHolder<MixingRecipe>> mixingRecipes = new ArrayList<>();
+		if (!AllConfigs.server().recipes.allowBrewingInMixer.get())
+			return mixingRecipes;
 
 		int recipeIndex = 0;
 
@@ -127,7 +99,7 @@ public class PotionMixingRecipes {
 				for (ItemStack stack : supportedContainerStacks) {
 					if (input.test(stack)) {
 						ItemStack[] stacks = input.getItems();
-						if (stacks.length == 0){
+						if (stacks.length == 0) {
 							continue;
 						}
 						FluidStack inputFluid = PotionFluidHandler.getFluidFromPotionItem(stacks[0]);
@@ -156,23 +128,4 @@ public class PotionMixingRecipes {
 
 		return new RecipeHolder<>(recipeId, recipe);
 	}
-
-	private static Map<Item, List<MixingRecipe>> sortRecipesByItem(List<RecipeHolder<MixingRecipe>> all) {
-		Map<Item, List<MixingRecipe>> byItem = new HashMap<>();
-		Set<Item> processedItems = new HashSet<>();
-		for (RecipeHolder<MixingRecipe> recipe : all) {
-			for (Ingredient ingredient : recipe.value().getIngredients()) {
-				for (ItemStack itemStack : ingredient.getItems()) {
-					Item item = itemStack.getItem();
-					if (processedItems.add(item)) {
-						byItem.computeIfAbsent(item, i -> new ArrayList<>())
-							.add(recipe.value());
-					}
-				}
-			}
-			processedItems.clear();
-		}
-		return byItem;
-	}
-
 }

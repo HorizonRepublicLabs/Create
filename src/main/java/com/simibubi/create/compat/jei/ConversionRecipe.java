@@ -20,7 +20,6 @@ import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
  */
 @ParametersAreNonnullByDefault
 public class ConversionRecipe extends StandardProcessingRecipe<RecipeWrapper> {
-
 	static int counter = 0;
 
 	public static RecipeHolder<ConversionRecipe> create(ItemStack from, ItemStack to) {

@@ -2,6 +2,7 @@ package com.simibubi.create.foundation.data;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -15,9 +16,12 @@ import com.google.common.collect.Multimap;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import com.simibubi.create.Create;
+import com.simibubi.create.content.fluids.potion.PotionMixingRecipes;
 import com.simibubi.create.content.kinetics.fan.processing.SplashingRecipe;
+import com.simibubi.create.content.kinetics.mixer.MixingRecipe;
 import com.simibubi.create.content.kinetics.saw.CuttingRecipe;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.DataGenResult;
 import com.simibubi.create.foundation.data.recipe.Mods;
 import com.simibubi.create.foundation.mixin.accessor.ConcretePowderBlockAccessor;
 import com.simibubi.create.foundation.pack.DynamicPack;
@@ -28,6 +32,8 @@ import net.createmod.catnip.codecs.CatnipCodecUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagFile;
 import net.minecraft.tags.TagKey;
@@ -54,19 +60,27 @@ public class RuntimeDataGenerator {
 		.put(Mods.DD.asResource("blooming"), Mods.DD.asResource("bloom"))
 		.build();
 
-	public static void insertIntoPack(DynamicPack dynamicPack) {
+	public static final DynamicPack PACK = new DynamicPack("create:dynamic_data", PackType.SERVER_DATA);
+	public static final ResourceManagerReloadListener LISTENER = resourceManager -> PACK.clear();
+
+	public static void insertIntoPack() {
 		for (ResourceLocation itemId : BuiltInRegistries.ITEM.keySet()) {
 			cuttingRecipes(itemId);
 			washingRecipes(itemId);
 		}
 
+		for (MixingRecipe recipe : PotionMixingRecipes.createRecipes()) {
+			DataGenResult<MixingRecipe> result = new DataGenResult<>(recipe, Collections.emptyList());
+			JSON_FILES.put(result.getId().withPrefix("recipes/"), result.serializeRecipe());
+		}
+
 		Create.LOGGER.info("Created {} recipes which will be injected into the game", JSON_FILES.size());
-		JSON_FILES.forEach(dynamicPack::put);
+		JSON_FILES.forEach(PACK::put);
 
 		Create.LOGGER.info("Created {} tags which will be injected into the game", TAGS.size());
 		for (Map.Entry<ResourceLocation, Collection<TagEntry>> tags : TAGS.asMap().entrySet()) {
 			TagFile tagFile = new TagFile(new ArrayList<>(tags.getValue()), false);
-			dynamicPack.put(tags.getKey().withPrefix("tags/item/"), TagFile.CODEC.encodeStart(JsonOps.INSTANCE, tagFile).result().orElseThrow());
+			PACK.put(tags.getKey().withPrefix("tags/item/"), TagFile.CODEC.encodeStart(JsonOps.INSTANCE, tagFile).result().orElseThrow());
 		}
 
 		JSON_FILES.clear();
