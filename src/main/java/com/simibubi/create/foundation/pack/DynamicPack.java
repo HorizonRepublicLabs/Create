@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnmodifiableView;
 
 import com.google.gson.JsonElement;
 import com.simibubi.create.Create;
@@ -30,6 +32,7 @@ import net.minecraft.server.packs.resources.IoSupplier;
 // TODO - Move into catnip
 public class DynamicPack implements PackResources {
 	private final Map<String, IoSupplier<InputStream>> files = new HashMap<>();
+	private final Map<String, IoSupplier<InputStream>> files_view = Collections.unmodifiableMap(files);
 
 	private final String packId;
 	private final PackType packType;
@@ -51,6 +54,11 @@ public class DynamicPack implements PackResources {
 	public DynamicPack clear() {
 		files.clear();
 		return this;
+	}
+
+	@UnmodifiableView
+	public Map<String, IoSupplier<InputStream>> getFiles() {
+		return files_view;
 	}
 
 	public DynamicPack put(ResourceLocation location, IoSupplier<InputStream> stream) {

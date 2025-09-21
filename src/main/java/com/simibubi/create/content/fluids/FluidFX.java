@@ -17,13 +17,11 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
+
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public class FluidFX {
-
-	static RandomSource r = RandomSource.create();
-
-	public static void splash(BlockPos pos, FluidStack fluidStack) {
+	public static void splash(RandomSource random, BlockPos pos, FluidStack fluidStack) {
 		Fluid fluid = fluidStack.getFluid();
 		if (fluid == Fluids.EMPTY)
 			return;
@@ -37,7 +35,7 @@ public class FluidFX {
 		Vec3 center = VecHelper.getCenterOf(pos);
 
 		for (int i = 0; i < 20; i++) {
-			Vec3 v = VecHelper.offsetRandomly(Vec3.ZERO, r, .25f);
+			Vec3 v = VecHelper.offsetRandomly(Vec3.ZERO, random, .25f);
 			particle(blockParticleData, center.add(v), v);
 		}
 
@@ -62,11 +60,11 @@ public class FluidFX {
 		float rimRadius) {
 		Vec3 directionVec = Vec3.atLowerCornerOf(side.getNormal());
 		for (int i = 0; i < amount; i++) {
-			Vec3 vec = VecHelper.offsetRandomly(Vec3.ZERO, r, 1)
+			Vec3 vec = VecHelper.offsetRandomly(Vec3.ZERO, world.random, 1)
 				.normalize();
 			vec = VecHelper.clampComponentWise(vec, rimRadius)
 				.multiply(VecHelper.axisAlingedPlaneOf(directionVec))
-				.add(directionVec.scale(.45 + r.nextFloat() / 16f));
+				.add(directionVec.scale(.45 + world.random.nextFloat() / 16f));
 			Vec3 m = vec.scale(.05f);
 			vec = vec.add(VecHelper.getCenterOf(pos));
 
@@ -77,9 +75,9 @@ public class FluidFX {
 	public static void spawnPouringLiquid(Level world, BlockPos pos, int amount, ParticleOptions particle,
 		float rimRadius, Vec3 directionVec, boolean inbound) {
 		for (int i = 0; i < amount; i++) {
-			Vec3 vec = VecHelper.offsetRandomly(Vec3.ZERO, r, rimRadius * .75f);
+			Vec3 vec = VecHelper.offsetRandomly(Vec3.ZERO, world.random, rimRadius * .75f);
 			vec = vec.multiply(VecHelper.axisAlingedPlaneOf(directionVec))
-				.add(directionVec.scale(.5 + r.nextFloat() / 4f));
+				.add(directionVec.scale(.5 + world.random.nextFloat() / 4f));
 			Vec3 m = vec.scale(1 / 4f);
 			Vec3 centerOf = VecHelper.getCenterOf(pos);
 			vec = vec.add(centerOf);
@@ -100,5 +98,4 @@ public class FluidFX {
 	private static Level world() {
 		return Minecraft.getInstance().level;
 	}
-
 }

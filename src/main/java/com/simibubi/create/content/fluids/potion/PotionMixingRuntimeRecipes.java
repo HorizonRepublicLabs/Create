@@ -1,8 +1,12 @@
 package com.simibubi.create.content.fluids.potion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.jetbrains.annotations.Unmodifiable;
+
+import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.fluids.potion.PotionFluid.BottleType;
 import com.simibubi.create.content.kinetics.mixer.MixingRecipe;
@@ -10,8 +14,12 @@ import com.simibubi.create.content.processing.recipe.HeatCondition;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe.Builder;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.mixin.accessor.PotionBrewingAccessor;
+import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.minecraft.core.Holder.Reference;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -22,22 +30,20 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.level.Level;
 
 import net.neoforged.neoforge.common.brewing.BrewingRecipe;
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-public class PotionMixingRecipes {
+public class PotionMixingRuntimeRecipes {
 	public static final List<Item> SUPPORTED_CONTAINERS = List.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION);
 
-	public static List<MixingRecipe> createRecipes() {
-		List<MixingRecipe> mixingRecipes = new ArrayList<>();
-
+	@Unmodifiable
+	public static List<RecipeHolder<MixingRecipe>> createRecipes(PotionBrewing potionBrewing, RegistryAccess registryAccess) {
 		if (!AllConfigs.server().recipes.allowBrewingInMixer.get())
-			return mixingRecipes;
+			return List.of();
 
-		int recipeIndex = 0;
+		List<RecipeHolder<MixingRecipe>> mixingRecipes = new ArrayList<>();
 
 		List<Item> allowedSupportedContainers = new ArrayList<>();
 		List<ItemStack> supportedContainerStacks = new ArrayList<>();
@@ -55,7 +61,7 @@ public class PotionMixingRecipes {
 				FluidStack fromFluid = PotionFluidHandler.getFluidFromPotion(new PotionContents(mix.from()), bottleType, 1000);
 				FluidStack toFluid = PotionFluidHandler.getFluidFromPotion(new PotionContents(mix.to()), bottleType, 1000);
 
-				mixingRecipes.add(createRecipe("potion_mixing_vanilla_" + recipeIndex++, mix.ingredient(), fromFluid, toFluid));
+				mixingRecipes.add(createRecipe("potion_mixing_vanilla", mix.ingredient(), fromFluid, toFluid));
 			}
 		}
 
@@ -72,7 +78,7 @@ public class PotionMixingRecipes {
 			BottleType toBottleType = PotionFluidHandler.bottleTypeFromItem(to);
 			Ingredient ingredient = mix.ingredient();
 
-			List<Reference<Potion>> potions = level.registryAccess()
+			List<Reference<Potion>> potions = registryAccess
 				.lookupOrThrow(Registries.POTION)
 				.listElements()
 				.toList();
@@ -81,11 +87,10 @@ public class PotionMixingRecipes {
 				FluidStack fromFluid = PotionFluidHandler.getFluidFromPotion(new PotionContents(potion), fromBottleType, 1000);
 				FluidStack toFluid = PotionFluidHandler.getFluidFromPotion(new PotionContents(potion), toBottleType, 1000);
 
-				mixingRecipes.add(createRecipe("potion_mixing_vanilla_" + recipeIndex++, ingredient, fromFluid, toFluid));
+				mixingRecipes.add(createRecipe("potion_mixing_vanilla", ingredient, fromFluid, toFluid));
 			}
 		}
 
-		recipeIndex = 0;
 		for (IBrewingRecipe recipe : potionBrewing.getRecipes()) {
 			if (recipe instanceof BrewingRecipe recipeImpl) {
 				ItemStack output = recipeImpl.getOutput();
@@ -108,17 +113,23 @@ public class PotionMixingRecipes {
 							outputFluid = PotionFluidHandler.getFluidFromPotionItem(output);
 						}
 						outputFluid.setAmount(1000);
-						mixingRecipes.add(createRecipe("potion_mixing_modded_" + recipeIndex++, ingredient, inputFluid, outputFluid));
+						mixingRecipes.add(createRecipe("potion_mixing_modded", ingredient, inputFluid, outputFluid));
 					}
 				}
 			}
 		}
 
-		return mixingRecipes;
+		return Collections.unmodifiableList(mixingRecipes);
 	}
 
 	private static RecipeHolder<MixingRecipe> createRecipe(String id, Ingredient ingredient, FluidStack fromFluid, FluidStack toFluid) {
-		ResourceLocation recipeId = Create.asResource(id);
+		String fromLoc = getLoc(fromFluid);
+		String toLoc = getLoc(toFluid);
+
+		BottleType fromBottleType = fromFluid.getOrDefault(AllDataComponents.POTION_FLUID_BOTTLE_TYPE, BottleType.REGULAR);
+		BottleType toBottleType = toFluid.getOrDefault(AllDataComponents.POTION_FLUID_BOTTLE_TYPE, BottleType.SPLASH);
+
+		ResourceLocation recipeId = Create.asResource("runtime_generated/" + id + "/" + fromBottleType.getSerializedName() + "_" + fromLoc + "_to_" + toBottleType.getSerializedName() + "_" + toLoc);
 		MixingRecipe recipe = new Builder<>(MixingRecipe::new, recipeId)
 				.require(ingredient)
 				.require(FluidIngredient.fromFluidStack(fromFluid))
@@ -127,5 +138,15 @@ public class PotionMixingRecipes {
 				.build();
 
 		return new RecipeHolder<>(recipeId, recipe);
+	}
+
+	private static String getLoc(FluidStack stack) {
+		PotionContents contents = stack.get(DataComponents.POTION_CONTENTS);
+
+		if (contents != null && contents.potion().isPresent()) {
+			return BuiltInRegistries.POTION.getKey(contents.potion().get().value()).toString().replace(":", "_");
+		} else {
+			return BuiltInRegistries.FLUID.getKey(stack.getFluid()).toString().replace(":", "_");
+		}
 	}
 }

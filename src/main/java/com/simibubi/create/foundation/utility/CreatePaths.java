@@ -13,6 +13,9 @@ public class CreatePaths {
 	public static final Path SCHEMATICS_DIR = GAME_DIR.resolve("schematics");
 	public static final Path UPLOADED_SCHEMATICS_DIR = SCHEMATICS_DIR.resolve("uploaded");
 
+	public static final Path CREATE_DEBUG = GAME_DIR.resolve(".create-debug");
+	public static final Path DYNAMIC_PACK_DUMP = CREATE_DEBUG.resolve("dynamic-pack");
+
 	private CreatePaths() {
 	}
 }

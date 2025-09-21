@@ -41,7 +41,9 @@ public class AllCommands {
 			.then(util);
 
 		if (CatnipServices.PLATFORM.isDevelopmentEnvironment() && CatnipServices.PLATFORM.getEnv().isClient())
-			root.then(CreateTestCommand.register());
+			root.then(CreateTestCommand.register())
+				.then(DumpDynamicPackCommand.register())
+				.then(DebugHatsCommand.register());
 
 		LiteralCommandNode<CommandSourceStack> createRoot = dispatcher.register(root);
 

@@ -18,6 +18,7 @@
     "MobMixin",
     "PlayerMixin",
     "ProjectileUtilMixin",
+    "RecipeManagerMixin",
     "ShulkerBoxBlockMixin",
     "SmithingMenuMixin",
     "TestCommandMixin",

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.events;
 
+import java.util.Collection;
+
 import com.simibubi.create.AllMapDecorationTypes;
 import com.simibubi.create.Create;
 import com.simibubi.create.compat.trainmap.TrainMapSync;
@@ -62,6 +64,7 @@ import com.simibubi.create.foundation.utility.TickBasedCache;
 import com.simibubi.create.infrastructure.command.AllCommands;
 
 import net.createmod.catnip.data.WorldAttached;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
@@ -88,6 +91,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedInEven
 import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import net.neoforged.neoforge.event.level.ChunkEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
@@ -176,7 +180,6 @@ public class CommonEvents {
 		event.addListener(RecipeFinder.LISTENER);
 		event.addListener(RecipeTrieFinder.LISTENER);
 		event.addListener(BeltHelper.LISTENER);
-		event.addListener(RuntimeDataGenerator.LISTENER);
 	}
 
 	@SubscribeEvent
@@ -207,7 +210,7 @@ public class CommonEvents {
 		CapabilityMinecartController.attach(event);
 	}
 
-	@net.neoforged.bus.api.SubscribeEvent
+	@SubscribeEvent
 	public static void onEntityLeaveLevel(EntityLeaveLevelEvent event) {
 		if (!event.getEntity()
 			.isAlive())
@@ -250,17 +253,28 @@ public class CommonEvents {
 //			}
 
 			if (event.getPackType() == PackType.SERVER_DATA) {
-				RuntimeDataGenerator.insertIntoPack();
-				event.addRepositorySource(new DynamicPackSource("create:dynamic_data", PackType.SERVER_DATA, Pack.Position.BOTTOM, RuntimeDataGenerator.PACK));
+				event.addRepositorySource(new DynamicPackSource(RuntimeDataGenerator.PACK.packId(), PackType.SERVER_DATA, Pack.Position.BOTTOM, RuntimeDataGenerator.PACK));
 			}
 		}
 
-		@net.neoforged.bus.api.SubscribeEvent
+		@SubscribeEvent
+		public static void onServerStarting(ServerStartingEvent event) {
+			MinecraftServer server = event.getServer();
+			Collection<String> selectedIds = server.getPackRepository()
+				.getSelectedIds();
+
+			server.reloadResources(selectedIds).exceptionally(e -> {
+				Create.LOGGER.warn("Failed to execute reload!", e);
+				return null;
+			});
+		}
+
+		@SubscribeEvent
 		public static void onRegisterMapDecorationRenderers(RegisterMapDecorationRenderersEvent event) {
 			event.register(AllMapDecorationTypes.STATION_MAP_DECORATION.value(), new StationMapDecorationRenderer());
 		}
 
-		@net.neoforged.bus.api.SubscribeEvent
+		@SubscribeEvent
 		public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 			ChuteBlockEntity.registerCapabilities(event);
 			SmartChuteBlockEntity.registerCapabilities(event);

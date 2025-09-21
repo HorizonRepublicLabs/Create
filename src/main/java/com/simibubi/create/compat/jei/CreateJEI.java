@@ -180,8 +180,8 @@ public class CreateJEI implements IModPlugin {
 				.build("fan_haunting", FanHauntingCategory::new),
 
 			mixing = builder(BasinRecipe.class)
-				.addTypedRecipesIf(AllRecipeTypes.MIXING.getType(), r ->
-					!(r.getId().getNamespace().equals(Create.ID) && r.getId().getPath().startsWith("potion_mixing_")))
+				.addTypedRecipesIf(AllRecipeTypes.MIXING::getType, r ->
+					!(r.id().getNamespace().equals(Create.ID) && r.id().getPath().startsWith("mixing/runtime_generated/potion_mixing_")))
 				.catalyst(AllBlocks.MECHANICAL_MIXER::get)
 				.catalyst(AllBlocks.BASIN::get)
 				.doubleItemIcon(AllBlocks.MECHANICAL_MIXER.get(), AllBlocks.BASIN.get())
@@ -202,9 +202,9 @@ public class CreateJEI implements IModPlugin {
 				.build("automatic_shapeless", MixingCategory::autoShapeless),
 
 			brewing = builder(BasinRecipe.class)
-				.enableWhen(c -> c.allowBrewingInMixer)
-				.addAllRecipesIf(r -> r instanceof MixingRecipe &&
-					r.getId().getNamespace().equals(Create.ID) && r.getId().getPath().startsWith("potion_mixing_"))
+				.enableWhen(AllConfigs.server().recipes.allowBrewingInMixer)
+				.addAllRecipesIf(r -> r.value() instanceof MixingRecipe &&
+					r.id().getNamespace().equals(Create.ID) && r.id().getPath().startsWith("mixing/runtime_generated/potion_mixing_"))
 				.catalyst(AllBlocks.MECHANICAL_MIXER::get)
 				.catalyst(AllBlocks.BASIN::get)
 				.doubleItemIcon(AllBlocks.MECHANICAL_MIXER.get(), Blocks.BREWING_STAND)
