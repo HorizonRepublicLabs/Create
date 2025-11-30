@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRende
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
+
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.core.BlockPos;
@@ -17,37 +18,46 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class TrackObserverRenderer extends SmartBlockEntityRenderer<TrackObserverBlockEntity> {
 
-	public TrackObserverRenderer(Context context) {
-		super(context);
-	}
+    public TrackObserverRenderer(Context context) {
+        super(context);
+    }
 
-	@Override
-	protected void renderSafe(TrackObserverBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
-							  int light, int overlay) {
-		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
+    @Override
+    protected void renderSafe(
+            TrackObserverBlockEntity be,
+            float partialTicks,
+            PoseStack ms,
+            MultiBufferSource buffer,
+            int light,
+            int overlay) {
+        super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 
-		if (VisualizationManager.supportsVisualization(be.getLevel()))
-			return;
+        if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 
-		BlockPos pos = be.getBlockPos();
+        BlockPos pos = be.getBlockPos();
 
-		TrackTargetingBehaviour<TrackObserver> target = be.edgePoint;
-		BlockPos targetPosition = target.getGlobalPosition();
-		Level level = be.getLevel();
-		BlockState trackState = level.getBlockState(targetPosition);
-		Block block = trackState.getBlock();
+        TrackTargetingBehaviour<TrackObserver> target = be.edgePoint;
+        BlockPos targetPosition = target.getGlobalPosition();
+        Level level = be.getLevel();
+        BlockState trackState = level.getBlockState(targetPosition);
+        Block block = trackState.getBlock();
 
-		if (!(block instanceof ITrackBlock))
-			return;
+        if (!(block instanceof ITrackBlock)) return;
 
-		ms.pushPose();
-		TransformStack.of(ms)
-			.translate(targetPosition.subtract(pos));
-		RenderedTrackOverlayType type = RenderedTrackOverlayType.OBSERVER;
-		TrackTargetingBehaviour.render(level, targetPosition, target.getTargetDirection(), target.getTargetBezier(), ms,
-			buffer, light, overlay, type, 1);
-		ms.popPose();
-
-	}
-
+        ms.pushPose();
+        TransformStack.of(ms).translate(targetPosition.subtract(pos));
+        RenderedTrackOverlayType type = RenderedTrackOverlayType.OBSERVER;
+        TrackTargetingBehaviour.render(
+                level,
+                targetPosition,
+                target.getTargetDirection(),
+                target.getTargetBezier(),
+                ms,
+                buffer,
+                light,
+                overlay,
+                type,
+                1);
+        ms.popPose();
+    }
 }

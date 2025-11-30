@@ -1,7 +1,5 @@
 package com.simibubi.create.content.contraptions.render;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
@@ -14,6 +12,7 @@ import com.simibubi.create.foundation.virtualWorld.VirtualRenderWorld;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
+
 import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.render.ShadedBlockSbbBuilder;
 import net.createmod.catnip.render.SuperByteBuffer;
@@ -35,142 +34,176 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-
 import net.neoforged.neoforge.client.model.data.ModelData;
 
-public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> extends EntityRenderer<C> {
-	public static final SuperByteBufferCache.Compartment<Pair<Contraption, RenderType>> CONTRAPTION = new SuperByteBufferCache.Compartment<>();
-	private static final ThreadLocal<ThreadLocalObjects> THREAD_LOCAL_OBJECTS = ThreadLocal.withInitial(ThreadLocalObjects::new);
+import org.apache.commons.lang3.tuple.Pair;
 
-	public ContraptionEntityRenderer(EntityRendererProvider.Context context) {
-		super(context);
-	}
+public class ContraptionEntityRenderer<C extends AbstractContraptionEntity>
+        extends EntityRenderer<C> {
+    public static final SuperByteBufferCache.Compartment<Pair<Contraption, RenderType>>
+            CONTRAPTION = new SuperByteBufferCache.Compartment<>();
+    private static final ThreadLocal<ThreadLocalObjects> THREAD_LOCAL_OBJECTS =
+            ThreadLocal.withInitial(ThreadLocalObjects::new);
 
-	public static SuperByteBuffer getBuffer(Contraption contraption, VirtualRenderWorld renderWorld, RenderType renderType) {
-		return SuperByteBufferCache.getInstance().get(CONTRAPTION, Pair.of(contraption, renderType), () -> buildStructureBuffer(contraption, renderWorld, renderType));
-	}
+    public ContraptionEntityRenderer(EntityRendererProvider.Context context) {
+        super(context);
+    }
 
-	private static SuperByteBuffer buildStructureBuffer(Contraption contraption, VirtualRenderWorld renderWorld, RenderType layer) {
-		BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
-		ModelBlockRenderer renderer = dispatcher.getModelRenderer();
-		ThreadLocalObjects objects = THREAD_LOCAL_OBJECTS.get();
+    public static SuperByteBuffer getBuffer(
+            Contraption contraption, VirtualRenderWorld renderWorld, RenderType renderType) {
+        return SuperByteBufferCache.getInstance()
+                .get(
+                        CONTRAPTION,
+                        Pair.of(contraption, renderType),
+                        () -> buildStructureBuffer(contraption, renderWorld, renderType));
+    }
 
-		PoseStack poseStack = objects.poseStack;
-		RandomSource random = objects.random;
-		var clientContraption = contraption.getOrCreateClientContraptionLazy();
-		RenderedBlocks blocks = clientContraption.getRenderedBlocks();
+    private static SuperByteBuffer buildStructureBuffer(
+            Contraption contraption, VirtualRenderWorld renderWorld, RenderType layer) {
+        BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
+        ModelBlockRenderer renderer = dispatcher.getModelRenderer();
+        ThreadLocalObjects objects = THREAD_LOCAL_OBJECTS.get();
 
-		ShadedBlockSbbBuilder sbbBuilder = objects.sbbBuilder;
-		sbbBuilder.begin();
+        PoseStack poseStack = objects.poseStack;
+        RandomSource random = objects.random;
+        var clientContraption = contraption.getOrCreateClientContraptionLazy();
+        RenderedBlocks blocks = clientContraption.getRenderedBlocks();
 
-		ModelBlockRenderer.enableCaching();
-		for (BlockPos pos : blocks.positions()) {
-			BlockState state = blocks.lookup().apply(pos);
-			if (state.getRenderShape() == RenderShape.MODEL) {
-				BakedModel model = dispatcher.getBlockModel(state);
-				ModelData modelData = renderWorld.getModelData(pos);
-				modelData = model.getModelData(renderWorld, pos, state, modelData);
-				long randomSeed = state.getSeed(pos);
-				random.setSeed(randomSeed);
-				if (model.getRenderTypes(state, random, modelData).contains(layer)) {
-					poseStack.pushPose();
-					poseStack.translate(pos.getX(), pos.getY(), pos.getZ());
-					renderer.tesselateBlock(renderWorld, model, state, pos, poseStack, sbbBuilder, true, random, randomSeed, OverlayTexture.NO_OVERLAY, modelData, layer);
-					poseStack.popPose();
-				}
-			}
-		}
-		ModelBlockRenderer.clearCache();
+        ShadedBlockSbbBuilder sbbBuilder = objects.sbbBuilder;
+        sbbBuilder.begin();
 
-		return sbbBuilder.end();
-	}
+        ModelBlockRenderer.enableCaching();
+        for (BlockPos pos : blocks.positions()) {
+            BlockState state = blocks.lookup().apply(pos);
+            if (state.getRenderShape() == RenderShape.MODEL) {
+                BakedModel model = dispatcher.getBlockModel(state);
+                ModelData modelData = renderWorld.getModelData(pos);
+                modelData = model.getModelData(renderWorld, pos, state, modelData);
+                long randomSeed = state.getSeed(pos);
+                random.setSeed(randomSeed);
+                if (model.getRenderTypes(state, random, modelData).contains(layer)) {
+                    poseStack.pushPose();
+                    poseStack.translate(pos.getX(), pos.getY(), pos.getZ());
+                    renderer.tesselateBlock(
+                            renderWorld,
+                            model,
+                            state,
+                            pos,
+                            poseStack,
+                            sbbBuilder,
+                            true,
+                            random,
+                            randomSeed,
+                            OverlayTexture.NO_OVERLAY,
+                            modelData,
+                            layer);
+                    poseStack.popPose();
+                }
+            }
+        }
+        ModelBlockRenderer.clearCache();
 
-	@Override
-	public ResourceLocation getTextureLocation(C entity) {
-		return null;
-	}
+        return sbbBuilder.end();
+    }
 
-	@Override
-	public boolean shouldRender(C entity, Frustum frustum, double cameraX, double cameraY,
-		double cameraZ) {
-		if (entity.getContraption() == null)
-			return false;
-		if (!entity.isAliveOrStale())
-			return false;
-		if (!entity.isReadyForRender())
-			return false;
+    @Override
+    public ResourceLocation getTextureLocation(C entity) {
+        return null;
+    }
 
-		return super.shouldRender(entity, frustum, cameraX, cameraY, cameraZ);
-	}
+    @Override
+    public boolean shouldRender(
+            C entity, Frustum frustum, double cameraX, double cameraY, double cameraZ) {
+        if (entity.getContraption() == null) return false;
+        if (!entity.isAliveOrStale()) return false;
+        if (!entity.isReadyForRender()) return false;
 
-	@Override
-	public void render(C entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffers,
-		int overlay) {
-		super.render(entity, yaw, partialTicks, poseStack, buffers, overlay);
+        return super.shouldRender(entity, frustum, cameraX, cameraY, cameraZ);
+    }
 
-		Contraption contraption = entity.getContraption();
-		if (contraption == null) {
-			return;
-		}
+    @Override
+    public void render(
+            C entity,
+            float yaw,
+            float partialTicks,
+            PoseStack poseStack,
+            MultiBufferSource buffers,
+            int overlay) {
+        super.render(entity, yaw, partialTicks, poseStack, buffers, overlay);
 
-		Level level = entity.level();
-		ClientContraption clientContraption = contraption.getOrCreateClientContraptionLazy();
-		VirtualRenderWorld renderWorld = clientContraption.getRenderLevel();
-		ContraptionMatrices matrices = clientContraption.getMatrices();
-		matrices.setup(poseStack, entity);
+        Contraption contraption = entity.getContraption();
+        if (contraption == null) {
+            return;
+        }
 
-		if (!VisualizationManager.supportsVisualization(level)) {
-			for (RenderType renderType : RenderType.chunkBufferLayers()) {
-				SuperByteBuffer sbb = getBuffer(contraption, renderWorld, renderType);
-				if (!sbb.isEmpty()) {
-					VertexConsumer vc = buffers.getBuffer(renderType);
-					sbb.transform(matrices.getModel())
-						.useLevelLight(level, matrices.getWorld())
-						.renderInto(poseStack, vc);
-				}
-			}
-		}
+        Level level = entity.level();
+        ClientContraption clientContraption = contraption.getOrCreateClientContraptionLazy();
+        VirtualRenderWorld renderWorld = clientContraption.getRenderLevel();
+        ContraptionMatrices matrices = clientContraption.getMatrices();
+        matrices.setup(poseStack, entity);
 
-		var adjustRenderedBlockEntities = clientContraption.getAndAdjustShouldRenderBlockEntities();
+        if (!VisualizationManager.supportsVisualization(level)) {
+            for (RenderType renderType : RenderType.chunkBufferLayers()) {
+                SuperByteBuffer sbb = getBuffer(contraption, renderWorld, renderType);
+                if (!sbb.isEmpty()) {
+                    VertexConsumer vc = buffers.getBuffer(renderType);
+                    sbb.transform(matrices.getModel())
+                            .useLevelLight(level, matrices.getWorld())
+                            .renderInto(poseStack, vc);
+                }
+            }
+        }
 
-		clientContraption.scratchErroredBlockEntities.clear();
+        var adjustRenderedBlockEntities = clientContraption.getAndAdjustShouldRenderBlockEntities();
 
-		BlockEntityRenderHelper.renderBlockEntities(clientContraption.renderedBlockEntityView, adjustRenderedBlockEntities, clientContraption.scratchErroredBlockEntities, renderWorld, level, matrices.getModelViewProjection(), matrices.getLight(), buffers, AnimationTickHolder.getPartialTicks());
+        clientContraption.scratchErroredBlockEntities.clear();
 
-		clientContraption.shouldRenderBlockEntities.andNot(clientContraption.scratchErroredBlockEntities);
-		renderActors(level, renderWorld, contraption, matrices, buffers);
+        BlockEntityRenderHelper.renderBlockEntities(
+                clientContraption.renderedBlockEntityView,
+                adjustRenderedBlockEntities,
+                clientContraption.scratchErroredBlockEntities,
+                renderWorld,
+                level,
+                matrices.getModelViewProjection(),
+                matrices.getLight(),
+                buffers,
+                AnimationTickHolder.getPartialTicks());
 
-		matrices.clear();
-	}
+        clientContraption.shouldRenderBlockEntities.andNot(
+                clientContraption.scratchErroredBlockEntities);
+        renderActors(level, renderWorld, contraption, matrices, buffers);
 
-	private static void renderActors(Level level, VirtualRenderWorld renderWorld, Contraption c,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
-		PoseStack m = matrices.getModel();
+        matrices.clear();
+    }
 
-		for (Pair<StructureTemplate.StructureBlockInfo, MovementContext> actor : c.getActors()) {
-			MovementContext context = actor.getRight();
-			if (context == null)
-				continue;
-			if (context.world == null)
-				context.world = level;
-			StructureTemplate.StructureBlockInfo blockInfo = actor.getLeft();
+    private static void renderActors(
+            Level level,
+            VirtualRenderWorld renderWorld,
+            Contraption c,
+            ContraptionMatrices matrices,
+            MultiBufferSource buffer) {
+        PoseStack m = matrices.getModel();
 
-			MovementBehaviour movementBehaviour = MovementBehaviour.REGISTRY.get(blockInfo.state());
-			if (movementBehaviour != null) {
-				if (c.isHiddenInPortal(blockInfo.pos()))
-					continue;
-				m.pushPose();
-				TransformStack.of(m)
-					.translate(blockInfo.pos());
-				movementBehaviour.renderInContraption(context, renderWorld, matrices, buffer);
-				m.popPose();
-			}
-		}
-	}
+        for (Pair<StructureTemplate.StructureBlockInfo, MovementContext> actor : c.getActors()) {
+            MovementContext context = actor.getRight();
+            if (context == null) continue;
+            if (context.world == null) context.world = level;
+            StructureTemplate.StructureBlockInfo blockInfo = actor.getLeft();
 
-	private static class ThreadLocalObjects {
-		public final PoseStack poseStack = new PoseStack();
-		public final RandomSource random = RandomSource.createNewThreadLocalInstance();
-		public final ShadedBlockSbbBuilder sbbBuilder = ShadedBlockSbbBuilder.create();
-	}
+            MovementBehaviour movementBehaviour = MovementBehaviour.REGISTRY.get(blockInfo.state());
+            if (movementBehaviour != null) {
+                if (c.isHiddenInPortal(blockInfo.pos())) continue;
+                m.pushPose();
+                TransformStack.of(m).translate(blockInfo.pos());
+                movementBehaviour.renderInContraption(context, renderWorld, matrices, buffer);
+                m.popPose();
+            }
+        }
+    }
+
+    private static class ThreadLocalObjects {
+        public final PoseStack poseStack = new PoseStack();
+        public final RandomSource random = RandomSource.createNewThreadLocalInstance();
+        public final ShadedBlockSbbBuilder sbbBuilder = ShadedBlockSbbBuilder.create();
+    }
 }

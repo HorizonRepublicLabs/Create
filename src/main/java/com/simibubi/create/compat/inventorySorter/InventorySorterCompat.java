@@ -12,13 +12,14 @@ import net.neoforged.fml.event.lifecycle.InterModEnqueueEvent;
  * We need to stop it from interfering with scrolling in the Redstone Requester's screen.
  */
 public class InventorySorterCompat {
-	public static final String SLOT_BLACKLIST = "slotblacklist";
+    public static final String SLOT_BLACKLIST = "slotblacklist";
 
-	public static void init(IEventBus bus) {
-		bus.addListener(InventorySorterCompat::sendImc);
-	}
+    public static void init(IEventBus bus) {
+        bus.addListener(InventorySorterCompat::sendImc);
+    }
 
-	private static void sendImc(InterModEnqueueEvent event) {
-		InterModComms.sendTo(Mods.INVENTORYSORTER.id(), SLOT_BLACKLIST, SorterProofSlot.class::getName);
-	}
+    private static void sendImc(InterModEnqueueEvent event) {
+        InterModComms.sendTo(
+                Mods.INVENTORYSORTER.id(), SLOT_BLACKLIST, SorterProofSlot.class::getName);
+    }
 }

@@ -13,4 +13,4 @@ import net.minecraft.world.level.block.state.BlockState;
  * <p>
  * For examples look at {@link TrackBlock} and {@link SlidingDoorBlock}
  */
-public interface IHaveBigOutline { }
+public interface IHaveBigOutline {}

@@ -6,11 +6,11 @@ import dev.engine_room.flywheel.lib.instance.TransformedInstance;
 
 public class FluidInstance extends TransformedInstance {
 
-	public float progress;
-	public float vScale;
-	public float v0;
+    public float progress;
+    public float vScale;
+    public float v0;
 
-	public FluidInstance(InstanceType<? extends FluidInstance> type, InstanceHandle handle) {
-		super(type, handle);
-	}
+    public FluidInstance(InstanceType<? extends FluidInstance> type, InstanceHandle handle) {
+        super(type, handle);
+    }
 }

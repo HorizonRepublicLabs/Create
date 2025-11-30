@@ -13,11 +13,17 @@ import net.minecraft.world.phys.BlockHitResult;
  * Implement this interface to indicate that this block is encased.
  */
 public interface EncasedBlock {
-	Block getCasing();
+    Block getCasing();
 
-	/**
-	 * Handles how encasing should be done if {@link EncasableBlock#tryEncase(BlockState, Level, BlockPos, ItemStack, Player, InteractionHand, BlockHitResult)} is successful.
-	 */
-	default void handleEncasing(BlockState state, Level level, BlockPos pos, ItemStack heldItem, Player player, InteractionHand hand, BlockHitResult ray) {
-	}
+    /**
+     * Handles how encasing should be done if {@link EncasableBlock#tryEncase(BlockState, Level, BlockPos, ItemStack, Player, InteractionHand, BlockHitResult)} is successful.
+     */
+    default void handleEncasing(
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            ItemStack heldItem,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult ray) {}
 }

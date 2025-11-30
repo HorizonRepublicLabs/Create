@@ -13,20 +13,22 @@ import net.minecraft.world.level.block.state.BlockState;
  * These interfaces are alternatives to the {@link TransformableBlock} and {@link TransformableBlockEntity} interfaces.
  */
 public class MovedBlockTransformerRegistries {
-	public static final SimpleRegistry<Block, BlockTransformer> BLOCK_TRANSFORMERS = SimpleRegistry.create();
-	public static final SimpleRegistry<BlockEntityType<?>, BlockEntityTransformer> BLOCK_ENTITY_TRANSFORMERS = SimpleRegistry.create();
+    public static final SimpleRegistry<Block, BlockTransformer> BLOCK_TRANSFORMERS =
+            SimpleRegistry.create();
+    public static final SimpleRegistry<BlockEntityType<?>, BlockEntityTransformer>
+            BLOCK_ENTITY_TRANSFORMERS = SimpleRegistry.create();
 
-	@FunctionalInterface
-	public interface BlockTransformer {
-		BlockState transform(BlockState state, StructureTransform transform);
-	}
+    @FunctionalInterface
+    public interface BlockTransformer {
+        BlockState transform(BlockState state, StructureTransform transform);
+    }
 
-	@FunctionalInterface
-	public interface BlockEntityTransformer {
-		void transform(BlockEntity be, StructureTransform transform);
-	}
+    @FunctionalInterface
+    public interface BlockEntityTransformer {
+        void transform(BlockEntity be, StructureTransform transform);
+    }
 
-	private MovedBlockTransformerRegistries() {
-		throw new AssertionError("This class should not be instantiated");
-	}
+    private MovedBlockTransformerRegistries() {
+        throw new AssertionError("This class should not be instantiated");
+    }
 }

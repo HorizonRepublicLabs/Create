@@ -19,33 +19,33 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 @FunctionalInterface
 public interface BoilerHeater {
-	int PASSIVE_HEAT = 0;
-	int NO_HEAT = -1;
+    int PASSIVE_HEAT = 0;
+    int NO_HEAT = -1;
 
-	/**
-	 * The heater used by common passively-heating blocks. Automatically provides
-	 * heat for any block in the {@code create:passive_boiler_heaters} block tag.
-	 */
-	BoilerHeater PASSIVE = BoilerHeaters::passive;
-	/**
-	 * The heater used by Blaze Burners. Addons can register this to their own blocks if they use the same functionality.
-	 */
-	BoilerHeater BLAZE_BURNER = BoilerHeaters::blazeBurner;
+    /**
+     * The heater used by common passively-heating blocks. Automatically provides
+     * heat for any block in the {@code create:passive_boiler_heaters} block tag.
+     */
+    BoilerHeater PASSIVE = BoilerHeaters::passive;
+    /**
+     * The heater used by Blaze Burners. Addons can register this to their own blocks if they use the same functionality.
+     */
+    BoilerHeater BLAZE_BURNER = BoilerHeaters::blazeBurner;
 
-	SimpleRegistry<Block, BoilerHeater> REGISTRY = SimpleRegistry.create();
+    SimpleRegistry<Block, BoilerHeater> REGISTRY = SimpleRegistry.create();
 
-	/**
-	 * Gets the heat at the given location. If a heater is present, queries it for heat. If not, returns {@link #NO_HEAT}.
-	 */
-	static float findHeat(Level level, BlockPos pos, BlockState state) {
-		BoilerHeater heater = REGISTRY.get(state);
-		return heater != null ? heater.getHeat(level, pos, state) : NO_HEAT;
-	}
+    /**
+     * Gets the heat at the given location. If a heater is present, queries it for heat. If not, returns {@link #NO_HEAT}.
+     */
+    static float findHeat(Level level, BlockPos pos, BlockState state) {
+        BoilerHeater heater = REGISTRY.get(state);
+        return heater != null ? heater.getHeat(level, pos, state) : NO_HEAT;
+    }
 
-	/**
-	 * @return the amount of heat to provide.
-	 * @see #NO_HEAT
-	 * @see #PASSIVE_HEAT
-	 */
-	float getHeat(Level level, BlockPos pos, BlockState state);
+    /**
+     * @return the amount of heat to provide.
+     * @see #NO_HEAT
+     * @see #PASSIVE_HEAT
+     */
+    float getHeat(Level level, BlockPos pos, BlockState state);
 }

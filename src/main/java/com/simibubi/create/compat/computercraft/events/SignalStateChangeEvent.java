@@ -4,10 +4,9 @@ import com.simibubi.create.content.trains.signal.SignalBlockEntity;
 
 public class SignalStateChangeEvent implements ComputerEvent {
 
-	public SignalBlockEntity.SignalState state;
+    public SignalBlockEntity.SignalState state;
 
-	public SignalStateChangeEvent(SignalBlockEntity.SignalState state) {
-		this.state = state;
-	}
-
+    public SignalStateChangeEvent(SignalBlockEntity.SignalState state) {
+        this.state = state;
+    }
 }

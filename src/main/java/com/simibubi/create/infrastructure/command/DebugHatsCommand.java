@@ -20,40 +20,42 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.DyeColor;
 
 public class DebugHatsCommand {
-	public static ArgumentBuilder<CommandSourceStack, ?> register() {
-		return Commands.literal("debugHats")
-			.requires(cs -> cs.hasPermission(4))
-			.then(Commands.argument("pos", BlockPosArgument.blockPos())
-				.executes((ctx) -> {
-					BlockPos origin = BlockPosArgument.getLoadedBlockPos(ctx, "pos");
-					BlockPos.MutableBlockPos pos = origin.mutable();
-					for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
-						ServerLevel level = ctx.getSource().getLevel();
+    public static ArgumentBuilder<CommandSourceStack, ?> register() {
+        return Commands.literal("debugHats")
+                .requires(cs -> cs.hasPermission(4))
+                .then(Commands.argument("pos", BlockPosArgument.blockPos()).executes((ctx) -> {
+                    BlockPos origin = BlockPosArgument.getLoadedBlockPos(ctx, "pos");
+                    BlockPos.MutableBlockPos pos = origin.mutable();
+                    for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
+                        ServerLevel level = ctx.getSource().getLevel();
 
-						Entity entity = entityType.create(level);
-						if (entity instanceof LivingEntity) {
-							level.setBlockAndUpdate(pos, AllBlocks.SEATS.get(DyeColor.RED).getDefaultState());
-							level.setBlockAndUpdate(pos.east(), AllBlocks.STOCK_TICKER.getDefaultState().setValue(StockTickerBlock.FACING, Direction.EAST));
+                        Entity entity = entityType.create(level);
+                        if (entity instanceof LivingEntity) {
+                            level.setBlockAndUpdate(
+                                    pos, AllBlocks.SEATS.get(DyeColor.RED).getDefaultState());
+                            level.setBlockAndUpdate(
+                                    pos.east(),
+                                    AllBlocks.STOCK_TICKER
+                                            .getDefaultState()
+                                            .setValue(StockTickerBlock.FACING, Direction.EAST));
 
-							entity.moveTo(pos.getCenter());
+                            entity.moveTo(pos.getCenter());
 
-							if (entity instanceof Mob mob)
-								mob.setNoAi(true);
+                            if (entity instanceof Mob mob) mob.setNoAi(true);
 
-							entity.setInvulnerable(true);
-							entity.setSilent(true);
+                            entity.setInvulnerable(true);
+                            entity.setSilent(true);
 
-							level.tryAddFreshEntityWithPassengers(entity);
+                            level.tryAddFreshEntityWithPassengers(entity);
 
-							SeatBlock.sitDown(level, pos, entity);
+                            SeatBlock.sitDown(level, pos, entity);
 
-							pos.move(0, 0, 2);
-						}
-					}
+                            pos.move(0, 0, 2);
+                        }
+                    }
 
-					ctx.getSource().sendSuccess(() -> Component.literal("Placed entities"), true);
-					return 1;
-				}));
-
-	}
+                    ctx.getSource().sendSuccess(() -> Component.literal("Placed entities"), true);
+                    return 1;
+                }));
+    }
 }

@@ -15,18 +15,20 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
  * This is provided as an alternative to {@link PartialSafeNBT}.
  */
 public class SafeNbtWriterRegistry {
-	public static final SimpleRegistry<BlockEntityType<?>, SafeNbtWriter> REGISTRY = SimpleRegistry.create();
+    public static final SimpleRegistry<BlockEntityType<?>, SafeNbtWriter> REGISTRY =
+            SimpleRegistry.create();
 
-	@FunctionalInterface
-	public interface SafeNbtWriter {
-		/**
-		 * Write filtered, safe NBT to the given tag. This is always called on the logical server.
-		 * @param tag the NBT tag to write to
-		 */
-		void writeSafe(BlockEntity be, CompoundTag tag, HolderLookup.Provider registries);
-	}
+    @FunctionalInterface
+    public interface SafeNbtWriter {
+        /**
+         * Write filtered, safe NBT to the given tag. This is always called on the logical server.
+         *
+         * @param tag the NBT tag to write to
+         */
+        void writeSafe(BlockEntity be, CompoundTag tag, HolderLookup.Provider registries);
+    }
 
-	private SafeNbtWriterRegistry() {
-		throw new AssertionError("This class should not be instantiated");
-	}
+    private SafeNbtWriterRegistry() {
+        throw new AssertionError("This class should not be instantiated");
+    }
 }

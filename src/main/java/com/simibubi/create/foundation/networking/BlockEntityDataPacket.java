@@ -12,22 +12,23 @@ import net.neoforged.api.distmarker.OnlyIn;
 /**
  * A server to client version of {@link BlockEntityConfigurationPacket}
  */
-public abstract class BlockEntityDataPacket<BE extends SyncedBlockEntity> implements ClientboundPacketPayload {
-	protected final BlockPos pos;
+public abstract class BlockEntityDataPacket<BE extends SyncedBlockEntity>
+        implements ClientboundPacketPayload {
+    protected final BlockPos pos;
 
-	public BlockEntityDataPacket(BlockPos pos) {
-		this.pos = pos;
-	}
+    public BlockEntityDataPacket(BlockPos pos) {
+        this.pos = pos;
+    }
 
-	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void handle(LocalPlayer player) {
-		BlockEntity blockEntity = player.clientLevel.getBlockEntity(pos);
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void handle(LocalPlayer player) {
+        BlockEntity blockEntity = player.clientLevel.getBlockEntity(pos);
 
-		if (blockEntity instanceof SyncedBlockEntity) {
-			handlePacket((BE) blockEntity);
-		}
-	}
+        if (blockEntity instanceof SyncedBlockEntity) {
+            handlePacket((BE) blockEntity);
+        }
+    }
 
-	protected abstract void handlePacket(BE blockEntity);
+    protected abstract void handlePacket(BE blockEntity);
 }

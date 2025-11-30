@@ -9,15 +9,13 @@ import net.neoforged.neoforge.items.wrapper.PlayerMainInvWrapper;
  */
 public class ItemReturnInvWrapper extends PlayerMainInvWrapper {
 
-	public ItemReturnInvWrapper(Inventory inv) {
-		super(inv);
-	}
+    public ItemReturnInvWrapper(Inventory inv) {
+        super(inv);
+    }
 
-	@Override
-	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		if (slot >= 0 && slot < 9)
-			return stack;
-		return super.insertItem(slot, stack, simulate);
-	}
-
+    @Override
+    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+        if (slot >= 0 && slot < 9) return stack;
+        return super.insertItem(slot, stack, simulate);
+    }
 }

@@ -9,14 +9,17 @@ import net.minecraft.world.phys.Vec3;
 
 public interface ISchematicTool {
 
-	public void init();
-	public void updateSelection();
+    void init();
 
-	public boolean handleRightClick();
-	public boolean handleMouseWheel(double delta);
+    void updateSelection();
 
-	public void renderTool(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera);
-	public void renderOverlay(Gui gui, GuiGraphics graphics, float partialTicks, int width, int height);
-	public void renderOnSchematic(PoseStack ms, SuperRenderTypeBuffer buffer);
+    boolean handleRightClick();
 
+    boolean handleMouseWheel(double delta);
+
+    void renderTool(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera);
+
+    void renderOverlay(Gui gui, GuiGraphics graphics, float partialTicks, int width, int height);
+
+    void renderOnSchematic(PoseStack ms, SuperRenderTypeBuffer buffer);
 }

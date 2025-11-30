@@ -1,12 +1,12 @@
 package com.simibubi.create.api.event;
 
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.bus.api.Event;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This Event is fired when two fluids meet in a pipe ({@link Flow})<br>
@@ -18,65 +18,80 @@ import net.neoforged.bus.api.Event;
  */
 public class PipeCollisionEvent extends Event {
 
-	protected final Fluid firstFluid, secondFluid;
-	private final Level level;
-	private final BlockPos pos;
-	@Nullable
-	private BlockState state;
+    protected final Fluid firstFluid, secondFluid;
+    private final Level level;
+    private final BlockPos pos;
 
-	protected PipeCollisionEvent(Level level, BlockPos pos, Fluid firstFluid, Fluid secondFluid,
-								 @Nullable BlockState defaultState) {
-		this.level = level;
-		this.pos = pos;
-		this.firstFluid = firstFluid;
-		this.secondFluid = secondFluid;
-		this.state = defaultState;
-	}
+    @Nullable
+    private BlockState state;
 
-	public Level getLevel() {
-		return level;
-	}
+    protected PipeCollisionEvent(
+            Level level,
+            BlockPos pos,
+            Fluid firstFluid,
+            Fluid secondFluid,
+            @Nullable BlockState defaultState) {
+        this.level = level;
+        this.pos = pos;
+        this.firstFluid = firstFluid;
+        this.secondFluid = secondFluid;
+        this.state = defaultState;
+    }
 
-	public BlockPos getPos() {
-		return pos;
-	}
+    public Level getLevel() {
+        return level;
+    }
 
-	@Nullable
-	public BlockState getState() {
-		return state;
-	}
+    public BlockPos getPos() {
+        return pos;
+    }
 
-	public void setState(@Nullable BlockState state) {
-		this.state = state;
-	}
+    @Nullable
+    public BlockState getState() {
+        return state;
+    }
 
-	public static class Flow extends PipeCollisionEvent {
+    public void setState(@Nullable BlockState state) {
+        this.state = state;
+    }
 
-		public Flow(Level level, BlockPos pos, Fluid firstFluid, Fluid secondFluid, @Nullable BlockState defaultState) {
-			super(level, pos, firstFluid, secondFluid, defaultState);
-		}
+    public static class Flow extends PipeCollisionEvent {
 
-		public Fluid getFirstFluid() {
-			return firstFluid;
-		}
+        public Flow(
+                Level level,
+                BlockPos pos,
+                Fluid firstFluid,
+                Fluid secondFluid,
+                @Nullable BlockState defaultState) {
+            super(level, pos, firstFluid, secondFluid, defaultState);
+        }
 
-		public Fluid getSecondFluid() {
-			return secondFluid;
-		}
-	}
+        public Fluid getFirstFluid() {
+            return firstFluid;
+        }
 
-	public static class Spill extends PipeCollisionEvent {
+        public Fluid getSecondFluid() {
+            return secondFluid;
+        }
+    }
 
-		public Spill(Level level, BlockPos pos, Fluid worldFluid, Fluid pipeFluid, @Nullable BlockState defaultState) {
-			super(level, pos, worldFluid, pipeFluid, defaultState);
-		}
+    public static class Spill extends PipeCollisionEvent {
 
-		public Fluid getWorldFluid() {
-			return firstFluid;
-		}
+        public Spill(
+                Level level,
+                BlockPos pos,
+                Fluid worldFluid,
+                Fluid pipeFluid,
+                @Nullable BlockState defaultState) {
+            super(level, pos, worldFluid, pipeFluid, defaultState);
+        }
 
-		public Fluid getPipeFluid() {
-			return secondFluid;
-		}
-	}
+        public Fluid getWorldFluid() {
+            return firstFluid;
+        }
+
+        public Fluid getPipeFluid() {
+            return secondFluid;
+        }
+    }
 }

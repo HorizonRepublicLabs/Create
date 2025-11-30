@@ -1,13 +1,13 @@
 package com.simibubi.create.api.data.recipe;
 
-import java.util.concurrent.CompletableFuture;
-
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.kinetics.mixer.MixingRecipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.material.Fluids;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * The base class for Mixing recipe generation.
@@ -18,21 +18,23 @@ import net.minecraft.world.level.material.Fluids;
  */
 public abstract class MixingRecipeGen extends StandardProcessingRecipeGen<MixingRecipe> {
 
-	protected GeneratedRecipe moddedMud(DatagenMod mod, String name) {
-		String mud = name + "_mud";
-		return create(mod.recipeId(mud), b -> b.require(Fluids.WATER, 250)
-			.require(mod, name + "_dirt")
-			.output(mod, mud)
-			.whenModLoaded(mod.getId()));
-	}
+    protected GeneratedRecipe moddedMud(DatagenMod mod, String name) {
+        String mud = name + "_mud";
+        return create(mod.recipeId(mud), b -> b.require(Fluids.WATER, 250)
+                .require(mod, name + "_dirt")
+                .output(mod, mud)
+                .whenModLoaded(mod.getId()));
+    }
 
-	public MixingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, String defaultNamespace) {
-		super(output, registries, defaultNamespace);
-	}
+    public MixingRecipeGen(
+            PackOutput output,
+            CompletableFuture<HolderLookup.Provider> registries,
+            String defaultNamespace) {
+        super(output, registries, defaultNamespace);
+    }
 
-	@Override
-	protected AllRecipeTypes getRecipeType() {
-		return AllRecipeTypes.MIXING;
-	}
-
+    @Override
+    protected AllRecipeTypes getRecipeType() {
+        return AllRecipeTypes.MIXING;
+    }
 }

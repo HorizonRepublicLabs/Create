@@ -13,94 +13,91 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class SchematicTableMenu extends MenuBase<SchematicTableBlockEntity> {
 
-	private Slot inputSlot;
-	private Slot outputSlot;
+    private Slot inputSlot;
+    private Slot outputSlot;
 
-	public SchematicTableMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
-		super(type, id, inv, extraData);
-	}
+    public SchematicTableMenu(
+            MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
+        super(type, id, inv, extraData);
+    }
 
-	public SchematicTableMenu(MenuType<?> type, int id, Inventory inv, SchematicTableBlockEntity be) {
-		super(type, id, inv, be);
-	}
+    public SchematicTableMenu(
+            MenuType<?> type, int id, Inventory inv, SchematicTableBlockEntity be) {
+        super(type, id, inv, be);
+    }
 
-	public static SchematicTableMenu create(int id, Inventory inv, SchematicTableBlockEntity be) {
-		return new SchematicTableMenu(AllMenuTypes.SCHEMATIC_TABLE.get(), id, inv, be);
-	}
+    public static SchematicTableMenu create(int id, Inventory inv, SchematicTableBlockEntity be) {
+        return new SchematicTableMenu(AllMenuTypes.SCHEMATIC_TABLE.get(), id, inv, be);
+    }
 
-	public boolean canWrite() {
-		return inputSlot.hasItem() && !outputSlot.hasItem();
-	}
+    public boolean canWrite() {
+        return inputSlot.hasItem() && !outputSlot.hasItem();
+    }
 
-	@Override
-	public ItemStack quickMoveStack(Player playerIn, int index) {
-		Slot clickedSlot = getSlot(index);
-		if (!clickedSlot.hasItem())
-			return ItemStack.EMPTY;
+    @Override
+    public ItemStack quickMoveStack(Player playerIn, int index) {
+        Slot clickedSlot = getSlot(index);
+        if (!clickedSlot.hasItem()) return ItemStack.EMPTY;
 
-		ItemStack stack = clickedSlot.getItem();
-		if (index < 2)
-			moveItemStackTo(stack, 2, slots.size(), true);
-		else
-			moveItemStackTo(stack, 0, 1, false);
+        ItemStack stack = clickedSlot.getItem();
+        if (index < 2) moveItemStackTo(stack, 2, slots.size(), true);
+        else moveItemStackTo(stack, 0, 1, false);
 
-		return ItemStack.EMPTY;
-	}
+        return ItemStack.EMPTY;
+    }
 
-	@Override
-	protected SchematicTableBlockEntity createOnClient(RegistryFriendlyByteBuf extraData) {
-		ClientLevel world = Minecraft.getInstance().level;
-		BlockEntity blockEntity = world.getBlockEntity(extraData.readBlockPos());
-		if (blockEntity instanceof SchematicTableBlockEntity schematicTable) {
-			schematicTable.readClient(extraData.readNbt(), extraData.registryAccess());
-			return schematicTable;
-		}
-		return null;
-	}
+    @Override
+    protected SchematicTableBlockEntity createOnClient(RegistryFriendlyByteBuf extraData) {
+        ClientLevel world = Minecraft.getInstance().level;
+        BlockEntity blockEntity = world.getBlockEntity(extraData.readBlockPos());
+        if (blockEntity instanceof SchematicTableBlockEntity schematicTable) {
+            schematicTable.readClient(extraData.readNbt(), extraData.registryAccess());
+            return schematicTable;
+        }
+        return null;
+    }
 
-	@Override
-	protected void initAndReadInventory(SchematicTableBlockEntity contentHolder) {
-	}
+    @Override
+    protected void initAndReadInventory(SchematicTableBlockEntity contentHolder) {}
 
-	@Override
-	protected void addSlots() {
-		inputSlot = new SlotItemHandler(contentHolder.inventory, 0, 21, 59) {
-			@Override
-			public boolean mayPlace(ItemStack stack) {
-				return AllItems.EMPTY_SCHEMATIC.isIn(stack) || AllItems.SCHEMATIC_AND_QUILL.isIn(stack)
-						|| AllItems.SCHEMATIC.isIn(stack);
-			}
-		};
+    @Override
+    protected void addSlots() {
+        inputSlot = new SlotItemHandler(contentHolder.inventory, 0, 21, 59) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return AllItems.EMPTY_SCHEMATIC.isIn(stack)
+                        || AllItems.SCHEMATIC_AND_QUILL.isIn(stack)
+                        || AllItems.SCHEMATIC.isIn(stack);
+            }
+        };
 
-		outputSlot = new SlotItemHandler(contentHolder.inventory, 1, 166, 59) {
-			@Override
-			public boolean mayPlace(ItemStack stack) {
-				return false;
-			}
-		};
+        outputSlot = new SlotItemHandler(contentHolder.inventory, 1, 166, 59) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return false;
+            }
+        };
 
-		addSlot(inputSlot);
-		addSlot(outputSlot);
+        addSlot(inputSlot);
+        addSlot(outputSlot);
 
-		// player Slots
-		for (int row = 0; row < 3; ++row) {
-			for (int col = 0; col < 9; ++col) {
-				this.addSlot(new Slot(player.getInventory(), col + row * 9 + 9, 38 + col * 18, 107 + row * 18));
-			}
-		}
+        // player Slots
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                this.addSlot(new Slot(
+                        player.getInventory(), col + row * 9 + 9, 38 + col * 18, 107 + row * 18));
+            }
+        }
 
-		for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot) {
-			this.addSlot(new Slot(player.getInventory(), hotbarSlot, 38 + hotbarSlot * 18, 165));
-		}
-	}
+        for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot) {
+            this.addSlot(new Slot(player.getInventory(), hotbarSlot, 38 + hotbarSlot * 18, 165));
+        }
+    }
 
-	@Override
-	protected void saveData(SchematicTableBlockEntity contentHolder) {
-	}
-
+    @Override
+    protected void saveData(SchematicTableBlockEntity contentHolder) {}
 }

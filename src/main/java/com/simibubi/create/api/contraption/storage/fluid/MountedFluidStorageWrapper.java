@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
 
 import net.minecraft.core.BlockPos;
-
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 /**
@@ -12,10 +11,10 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
  * They can still be accessed individually through the map.
  */
 public class MountedFluidStorageWrapper extends CombinedTankWrapper {
-	public final ImmutableMap<BlockPos, MountedFluidStorage> storages;
+    public final ImmutableMap<BlockPos, MountedFluidStorage> storages;
 
-	public MountedFluidStorageWrapper(ImmutableMap<BlockPos, MountedFluidStorage> storages) {
-		super(storages.values().toArray(IFluidHandler[]::new));
-		this.storages = storages;
-	}
+    public MountedFluidStorageWrapper(ImmutableMap<BlockPos, MountedFluidStorage> storages) {
+        super(storages.values().toArray(IFluidHandler[]::new));
+        this.storages = storages;
+    }
 }

@@ -1,16 +1,5 @@
 package com.simibubi.create.content.trains.bogey;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
-
-import org.jetbrains.annotations.ApiStatus;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.simibubi.create.AllBlocks;
@@ -58,291 +47,329 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> extends Block implements IBE<T>, ProperWaterloggedBlock, SpecialBlockItemRequirement, IWrenchable {
-	public static final StreamCodec<RegistryFriendlyByteBuf, AbstractBogeyBlock<?>> STREAM_CODEC = ByteBufCodecs.registry(Registries.BLOCK).map(
-			block -> (AbstractBogeyBlock<?>) block, Function.identity()
-	);
-	public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
-	static final List<ResourceLocation> BOGEYS = new ArrayList<>();
-	public BogeySizes.BogeySize size;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-	public AbstractBogeyBlock(Properties pProperties, BogeySizes.BogeySize size) {
-		super(pProperties);
-		registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
-		this.size = size;
-	}
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
 
-	public boolean isOnIncompatibleTrack(Carriage carriage, boolean leading) {
-		TravellingPoint point = leading ? carriage.getLeadingPoint() : carriage.getTrailingPoint();
-		CarriageBogey bogey = leading ? carriage.leadingBogey() : carriage.trailingBogey();
-		TrackEdge currentEdge = point.edge;
-		if (currentEdge == null)
-			return false;
-		return currentEdge.getTrackMaterial().trackType != getTrackType(bogey.getStyle());
-	}
+public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> extends Block
+        implements IBE<T>, ProperWaterloggedBlock, SpecialBlockItemRequirement, IWrenchable {
+    public static final StreamCodec<RegistryFriendlyByteBuf, AbstractBogeyBlock<?>> STREAM_CODEC =
+            ByteBufCodecs.registry(Registries.BLOCK)
+                    .map(block -> (AbstractBogeyBlock<?>) block, Function.identity());
+    public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
+    static final List<ResourceLocation> BOGEYS = new ArrayList<>();
+    public BogeySizes.BogeySize size;
 
-	public Set<TrackMaterial.TrackType> getValidPathfindingTypes(BogeyStyle style) {
-		return ImmutableSet.of(getTrackType(style));
-	}
+    public AbstractBogeyBlock(Properties pProperties, BogeySizes.BogeySize size) {
+        super(pProperties);
+        registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
+        this.size = size;
+    }
 
-	public abstract TrackMaterial.TrackType getTrackType(BogeyStyle style);
+    public boolean isOnIncompatibleTrack(Carriage carriage, boolean leading) {
+        TravellingPoint point = leading ? carriage.getLeadingPoint() : carriage.getTrailingPoint();
+        CarriageBogey bogey = leading ? carriage.leadingBogey() : carriage.trailingBogey();
+        TrackEdge currentEdge = point.edge;
+        if (currentEdge == null) return false;
+        return currentEdge.getTrackMaterial().trackType != getTrackType(bogey.getStyle());
+    }
 
-	/**
-	 * Only for internal Create use. If you have your own style set, do not call this method
-	 */
-	@ApiStatus.Internal
-	public static void registerStandardBogey(ResourceLocation block) {
-		BOGEYS.add(block);
-	}
+    public Set<TrackMaterial.TrackType> getValidPathfindingTypes(BogeyStyle style) {
+        return ImmutableSet.of(getTrackType(style));
+    }
 
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(AXIS, WATERLOGGED);
-		super.createBlockStateDefinition(builder);
-	}
+    public abstract TrackMaterial.TrackType getTrackType(BogeyStyle style);
 
-	@Override
-	public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState,
-								  LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
-		updateWater(pLevel, pState, pCurrentPos);
-		return pState;
-	}
+    /**
+     * Only for internal Create use. If you have your own style set, do not call this method
+     */
+    @ApiStatus.Internal
+    public static void registerStandardBogey(ResourceLocation block) {
+        BOGEYS.add(block);
+    }
 
-	@Override
-	public FluidState getFluidState(BlockState pState) {
-		return fluidState(pState);
-	}
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(AXIS, WATERLOGGED);
+        super.createBlockStateDefinition(builder);
+    }
 
-	static final EnumSet<Direction> STICKY_X = EnumSet.of(Direction.EAST, Direction.WEST);
-	static final EnumSet<Direction> STICKY_Z = EnumSet.of(Direction.SOUTH, Direction.NORTH);
+    @Override
+    public BlockState updateShape(
+            BlockState pState,
+            Direction pDirection,
+            BlockState pNeighborState,
+            LevelAccessor pLevel,
+            BlockPos pCurrentPos,
+            BlockPos pNeighborPos) {
+        updateWater(pLevel, pState, pCurrentPos);
+        return pState;
+    }
 
-	public EnumSet<Direction> getStickySurfaces(BlockGetter world, BlockPos pos, BlockState state) {
-		return state.getValue(BlockStateProperties.HORIZONTAL_AXIS) == Direction.Axis.X ? STICKY_X : STICKY_Z;
-	}
+    @Override
+    public FluidState getFluidState(BlockState pState) {
+        return fluidState(pState);
+    }
 
-	public abstract double getWheelPointSpacing();
+    static final EnumSet<Direction> STICKY_X = EnumSet.of(Direction.EAST, Direction.WEST);
+    static final EnumSet<Direction> STICKY_Z = EnumSet.of(Direction.SOUTH, Direction.NORTH);
 
-	public abstract double getWheelRadius();
+    public EnumSet<Direction> getStickySurfaces(BlockGetter world, BlockPos pos, BlockState state) {
+        return state.getValue(BlockStateProperties.HORIZONTAL_AXIS) == Direction.Axis.X
+                ? STICKY_X
+                : STICKY_Z;
+    }
 
-	public Vec3 getConnectorAnchorOffset(boolean upsideDown) {
-		return getConnectorAnchorOffset();
-	}
+    public abstract double getWheelPointSpacing();
 
-	/**
-	 * This should be implemented, but not called directly
-	 */
-	protected abstract Vec3 getConnectorAnchorOffset();
+    public abstract double getWheelRadius();
 
-	public boolean allowsSingleBogeyCarriage() {
-		return true;
-	}
+    public Vec3 getConnectorAnchorOffset(boolean upsideDown) {
+        return getConnectorAnchorOffset();
+    }
 
-	public abstract BogeyStyle getDefaultStyle();
+    /**
+     * This should be implemented, but not called directly
+     */
+    protected abstract Vec3 getConnectorAnchorOffset();
 
-	/**
-	 * Legacy system doesn't capture bogey block entities when constructing a train
-	 */
-	public boolean captureBlockEntityForTrain() {
-		return false;
-	}
+    public boolean allowsSingleBogeyCarriage() {
+        return true;
+    }
 
-	public BogeySizes.BogeySize getSize() {
-		return this.size;
-	}
+    public abstract BogeyStyle getDefaultStyle();
 
-	public Direction getBogeyUpDirection() {
-		return Direction.UP;
-	}
+    /**
+     * Legacy system doesn't capture bogey block entities when constructing a train
+     */
+    public boolean captureBlockEntityForTrain() {
+        return false;
+    }
 
-	public boolean isTrackAxisAlongFirstCoordinate(BlockState state) {
-		return state.getValue(AXIS) == Direction.Axis.X;
-	}
+    public BogeySizes.BogeySize getSize() {
+        return this.size;
+    }
 
-	@Nullable
-	public BlockState getMatchingBogey(Direction upDirection, boolean axisAlongFirst) {
-		if (upDirection != Direction.UP)
-			return null;
-		return defaultBlockState().setValue(AXIS, axisAlongFirst ? Direction.Axis.X : Direction.Axis.Z);
-	}
+    public Direction getBogeyUpDirection() {
+        return Direction.UP;
+    }
 
-	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if (level.isClientSide)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    public boolean isTrackAxisAlongFirstCoordinate(BlockState state) {
+        return state.getValue(AXIS) == Direction.Axis.X;
+    }
 
-		if (!player.isShiftKeyDown() && stack.is(AllItems.WRENCH.get()) && !player.getCooldowns().isOnCooldown(stack.getItem())
-				&& AllBogeyStyles.BOGEY_STYLES.size() > 1) {
+    @Nullable
+    public BlockState getMatchingBogey(Direction upDirection, boolean axisAlongFirst) {
+        if (upDirection != Direction.UP) return null;
+        return defaultBlockState()
+                .setValue(AXIS, axisAlongFirst ? Direction.Axis.X : Direction.Axis.Z);
+    }
 
-			BlockEntity be = level.getBlockEntity(pos);
+    @Override
+    protected ItemInteractionResult useItemOn(
+            ItemStack stack,
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult hitResult) {
+        if (level.isClientSide) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
-			if (!(be instanceof AbstractBogeyBlockEntity sbbe))
-				return ItemInteractionResult.FAIL;
+        if (!player.isShiftKeyDown()
+                && stack.is(AllItems.WRENCH.get())
+                && !player.getCooldowns().isOnCooldown(stack.getItem())
+                && AllBogeyStyles.BOGEY_STYLES.size() > 1) {
 
-			player.getCooldowns().addCooldown(stack.getItem(), 20);
-			BogeyStyle currentStyle = sbbe.getStyle();
+            BlockEntity be = level.getBlockEntity(pos);
 
-			BogeySizes.BogeySize size = getSize();
+            if (!(be instanceof AbstractBogeyBlockEntity sbbe)) return ItemInteractionResult.FAIL;
 
-			BogeyStyle style = this.getNextStyle(currentStyle);
-			if (style == currentStyle)
-				return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            player.getCooldowns().addCooldown(stack.getItem(), 20);
+            BogeyStyle currentStyle = sbbe.getStyle();
 
-			Set<BogeySizes.BogeySize> validSizes = style.validSizes();
+            BogeySizes.BogeySize size = getSize();
 
-			for (int i = 0; i < BogeySizes.all().size(); i++) {
-				if (validSizes.contains(size)) break;
-				size = size.nextBySize();
-			}
+            BogeyStyle style = this.getNextStyle(currentStyle);
+            if (style == currentStyle)
+                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
-			sbbe.setBogeyStyle(style);
+            Set<BogeySizes.BogeySize> validSizes = style.validSizes();
 
-			CompoundTag defaultData = style.defaultData;
-			sbbe.setBogeyData(sbbe.getBogeyData().merge(defaultData));
+            for (int i = 0; i < BogeySizes.all().size(); i++) {
+                if (validSizes.contains(size)) break;
+                size = size.nextBySize();
+            }
 
-			if (size == getSize()) {
-				if (state.getBlock() != style.getBlockForSize(size)) {
-					CompoundTag oldData = sbbe.getBogeyData();
-					level.setBlock(pos, copyProperties(state, getStateOfSize(sbbe, size)), Block.UPDATE_ALL);
-					if (!(level.getBlockEntity(pos) instanceof AbstractBogeyBlockEntity bogeyBlockEntity))
-						return ItemInteractionResult.FAIL;
-					bogeyBlockEntity.setBogeyData(oldData);
-				}
-				player.displayClientMessage(CreateLang.translateDirect("bogey.style.updated_style")
-						.append(": ").append(style.displayName), true);
-			} else {
-				CompoundTag oldData = sbbe.getBogeyData();
-				level.setBlock(pos, this.getStateOfSize(sbbe, size), Block.UPDATE_ALL);
-				if (!(level.getBlockEntity(pos) instanceof AbstractBogeyBlockEntity bogeyBlockEntity))
-					return ItemInteractionResult.FAIL;
-				bogeyBlockEntity.setBogeyData(oldData);
-				player.displayClientMessage(CreateLang.translateDirect("bogey.style.updated_style_and_size")
-						.append(": ").append(style.displayName), true);
-			}
+            sbbe.setBogeyStyle(style);
 
-			return ItemInteractionResult.CONSUME;
-		}
+            CompoundTag defaultData = style.defaultData;
+            sbbe.setBogeyData(sbbe.getBogeyData().merge(defaultData));
 
-		return onInteractWithBogey(state, level, pos, player, hand, hitResult);
-	}
+            if (size == getSize()) {
+                if (state.getBlock() != style.getBlockForSize(size)) {
+                    CompoundTag oldData = sbbe.getBogeyData();
+                    level.setBlock(
+                            pos,
+                            copyProperties(state, getStateOfSize(sbbe, size)),
+                            Block.UPDATE_ALL);
+                    if (!(level.getBlockEntity(pos)
+                            instanceof AbstractBogeyBlockEntity bogeyBlockEntity))
+                        return ItemInteractionResult.FAIL;
+                    bogeyBlockEntity.setBogeyData(oldData);
+                }
+                player.displayClientMessage(
+                        CreateLang.translateDirect("bogey.style.updated_style")
+                                .append(": ")
+                                .append(style.displayName),
+                        true);
+            } else {
+                CompoundTag oldData = sbbe.getBogeyData();
+                level.setBlock(pos, this.getStateOfSize(sbbe, size), Block.UPDATE_ALL);
+                if (!(level.getBlockEntity(pos)
+                        instanceof AbstractBogeyBlockEntity bogeyBlockEntity))
+                    return ItemInteractionResult.FAIL;
+                bogeyBlockEntity.setBogeyData(oldData);
+                player.displayClientMessage(
+                        CreateLang.translateDirect("bogey.style.updated_style_and_size")
+                                .append(": ")
+                                .append(style.displayName),
+                        true);
+            }
 
-	// Allows for custom interactions with bogey block to be added simply
-	protected ItemInteractionResult onInteractWithBogey(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
-													BlockHitResult hit) {
-		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-	}
+            return ItemInteractionResult.CONSUME;
+        }
 
-	/**
-	 * If, instead of using the style-based cycling system you prefer to use separate blocks, return them from this method
-	 */
-	protected List<ResourceLocation> getBogeyBlockCycle() {
-		return BOGEYS;
-	}
+        return onInteractWithBogey(state, level, pos, player, hand, hitResult);
+    }
 
-	@Override
-	public BlockState getRotatedBlockState(BlockState state, Direction targetedFace) {
-		Block block = state.getBlock();
-		List<ResourceLocation> bogeyCycle = getBogeyBlockCycle();
-		int indexOf = bogeyCycle.indexOf(RegisteredObjectsHelper.getKeyOrThrow(block));
-		if (indexOf == -1)
-			return state;
-		int index = (indexOf + 1) % bogeyCycle.size();
-		Direction bogeyUpDirection = getBogeyUpDirection();
-		boolean trackAxisAlongFirstCoordinate = isTrackAxisAlongFirstCoordinate(state);
+    // Allows for custom interactions with bogey block to be added simply
+    protected ItemInteractionResult onInteractWithBogey(
+            BlockState state,
+            Level level,
+            BlockPos pos,
+            Player player,
+            InteractionHand hand,
+            BlockHitResult hit) {
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
 
-		while (index != indexOf) {
-			ResourceLocation id = bogeyCycle.get(index);
-			Block newBlock = BuiltInRegistries.BLOCK.get(id);
-			if (newBlock instanceof AbstractBogeyBlock<?> bogey) {
-				BlockState matchingBogey = bogey.getMatchingBogey(bogeyUpDirection, trackAxisAlongFirstCoordinate);
-				if (matchingBogey != null)
-					return copyProperties(state, matchingBogey);
-			}
-			index = (index + 1) % bogeyCycle.size();
-		}
+    /**
+     * If, instead of using the style-based cycling system you prefer to use separate blocks, return them from this method
+     */
+    protected List<ResourceLocation> getBogeyBlockCycle() {
+        return BOGEYS;
+    }
 
-		return state;
-	}
+    @Override
+    public BlockState getRotatedBlockState(BlockState state, Direction targetedFace) {
+        Block block = state.getBlock();
+        List<ResourceLocation> bogeyCycle = getBogeyBlockCycle();
+        int indexOf = bogeyCycle.indexOf(RegisteredObjectsHelper.getKeyOrThrow(block));
+        if (indexOf == -1) return state;
+        int index = (indexOf + 1) % bogeyCycle.size();
+        Direction bogeyUpDirection = getBogeyUpDirection();
+        boolean trackAxisAlongFirstCoordinate = isTrackAxisAlongFirstCoordinate(state);
 
-	public BlockState getNextSize(Level level, BlockPos pos) {
-		BlockEntity be = level.getBlockEntity(pos);
-		if (be instanceof AbstractBogeyBlockEntity sbbe)
-			return this.getNextSize(sbbe);
-		return level.getBlockState(pos);
-	}
+        while (index != indexOf) {
+            ResourceLocation id = bogeyCycle.get(index);
+            Block newBlock = BuiltInRegistries.BLOCK.get(id);
+            if (newBlock instanceof AbstractBogeyBlock<?> bogey) {
+                BlockState matchingBogey =
+                        bogey.getMatchingBogey(bogeyUpDirection, trackAxisAlongFirstCoordinate);
+                if (matchingBogey != null) return copyProperties(state, matchingBogey);
+            }
+            index = (index + 1) % bogeyCycle.size();
+        }
 
-	/**
-	 * List of BlockState Properties to copy between sizes
-	 */
-	public List<Property<?>> propertiesToCopy() {
-		return ImmutableList.of(WATERLOGGED, AXIS);
-	}
+        return state;
+    }
 
-	// generic method needed to satisfy Property and BlockState's generic requirements
-	private <V extends Comparable<V>> BlockState copyProperty(BlockState source, BlockState target, Property<V> property) {
-		if (source.hasProperty(property) && target.hasProperty(property)) {
-			return target.setValue(property, source.getValue(property));
-		}
-		return target;
-	}
+    public BlockState getNextSize(Level level, BlockPos pos) {
+        BlockEntity be = level.getBlockEntity(pos);
+        if (be instanceof AbstractBogeyBlockEntity sbbe) return this.getNextSize(sbbe);
+        return level.getBlockState(pos);
+    }
 
-	private BlockState copyProperties(BlockState source, BlockState target) {
-		for (Property<?> property : propertiesToCopy())
-			target = copyProperty(source, target, property);
-		return target;
-	}
+    /**
+     * List of BlockState Properties to copy between sizes
+     */
+    public List<Property<?>> propertiesToCopy() {
+        return ImmutableList.of(WATERLOGGED, AXIS);
+    }
 
-	public BlockState getNextSize(AbstractBogeyBlockEntity sbbe) {
-		BogeySizes.BogeySize size = this.getSize();
-		BogeyStyle style = sbbe.getStyle();
-		BlockState nextBlock = style.getNextBlock(size).defaultBlockState();
-		nextBlock = copyProperties(sbbe.getBlockState(), nextBlock);
-		return nextBlock;
-	}
+    // generic method needed to satisfy Property and BlockState's generic requirements
+    private <V extends Comparable<V>> BlockState copyProperty(
+            BlockState source, BlockState target, Property<V> property) {
+        if (source.hasProperty(property) && target.hasProperty(property)) {
+            return target.setValue(property, source.getValue(property));
+        }
+        return target;
+    }
 
-	public BlockState getStateOfSize(AbstractBogeyBlockEntity sbbe, BogeySizes.BogeySize size) {
-		BogeyStyle style = sbbe.getStyle();
-		BlockState state = style.getBlockForSize(size).defaultBlockState();
-		return copyProperties(sbbe.getBlockState(), state);
-	}
+    private BlockState copyProperties(BlockState source, BlockState target) {
+        for (Property<?> property : propertiesToCopy())
+            target = copyProperty(source, target, property);
+        return target;
+    }
 
-	public BogeyStyle getNextStyle(Level level, BlockPos pos) {
-		BlockEntity te = level.getBlockEntity(pos);
-		if (te instanceof AbstractBogeyBlockEntity sbbe)
-			return this.getNextStyle(sbbe.getStyle());
-		return getDefaultStyle();
-	}
+    public BlockState getNextSize(AbstractBogeyBlockEntity sbbe) {
+        BogeySizes.BogeySize size = this.getSize();
+        BogeyStyle style = sbbe.getStyle();
+        BlockState nextBlock = style.getNextBlock(size).defaultBlockState();
+        nextBlock = copyProperties(sbbe.getBlockState(), nextBlock);
+        return nextBlock;
+    }
 
-	public BogeyStyle getNextStyle(BogeyStyle style) {
-		Collection<BogeyStyle> allStyles = style.getCycleGroup().values();
-		if (allStyles.size() <= 1)
-			return style;
-		List<BogeyStyle> list = new ArrayList<>(allStyles);
-		return Iterate.cycleValue(list, style);
-	}
+    public BlockState getStateOfSize(AbstractBogeyBlockEntity sbbe, BogeySizes.BogeySize size) {
+        BogeyStyle style = sbbe.getStyle();
+        BlockState state = style.getBlockForSize(size).defaultBlockState();
+        return copyProperties(sbbe.getBlockState(), state);
+    }
 
+    public BogeyStyle getNextStyle(Level level, BlockPos pos) {
+        BlockEntity te = level.getBlockEntity(pos);
+        if (te instanceof AbstractBogeyBlockEntity sbbe) return this.getNextStyle(sbbe.getStyle());
+        return getDefaultStyle();
+    }
 
-	@Override
-	public @NotNull BlockState rotate(@NotNull BlockState pState, Rotation pRotation) {
-		return switch (pRotation) {
-			case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> pState.cycle(AXIS);
-			default -> pState;
-		};
-	}
+    public BogeyStyle getNextStyle(BogeyStyle style) {
+        Collection<BogeyStyle> allStyles = style.getCycleGroup().values();
+        if (allStyles.size() <= 1) return style;
+        List<BogeyStyle> list = new ArrayList<>(allStyles);
+        return Iterate.cycleValue(list, style);
+    }
 
-	@Override
-	public ItemRequirement getRequiredItems(BlockState state, BlockEntity te) {
-		return new ItemRequirement(ItemRequirement.ItemUseType.CONSUME, AllBlocks.RAILWAY_CASING.asStack());
-	}
+    @Override
+    public @NotNull BlockState rotate(@NotNull BlockState pState, Rotation pRotation) {
+        return switch (pRotation) {
+            case COUNTERCLOCKWISE_90, CLOCKWISE_90 -> pState.cycle(AXIS);
+            default -> pState;
+        };
+    }
 
-	public boolean canBeUpsideDown() {
-		return false;
-	}
+    @Override
+    public ItemRequirement getRequiredItems(BlockState state, BlockEntity te) {
+        return new ItemRequirement(
+                ItemRequirement.ItemUseType.CONSUME, AllBlocks.RAILWAY_CASING.asStack());
+    }
 
-	public boolean isUpsideDown(BlockState state) {
-		return false;
-	}
+    public boolean canBeUpsideDown() {
+        return false;
+    }
 
-	public BlockState getVersion(BlockState base, boolean upsideDown) {
-		return base;
-	}
+    public boolean isUpsideDown(BlockState state) {
+        return false;
+    }
+
+    public BlockState getVersion(BlockState base, boolean upsideDown) {
+        return base;
+    }
 }

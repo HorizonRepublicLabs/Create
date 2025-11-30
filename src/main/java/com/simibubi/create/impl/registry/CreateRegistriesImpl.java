@@ -9,12 +9,11 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 
 @EventBusSubscriber
 public class CreateRegistriesImpl {
-	@SubscribeEvent
-	public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
-		event.dataPackRegistry(
-			CreateRegistries.POTATO_PROJECTILE_TYPE,
-			PotatoCannonProjectileType.CODEC,
-			PotatoCannonProjectileType.CODEC
-		);
-	}
+    @SubscribeEvent
+    public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
+        event.dataPackRegistry(
+                CreateRegistries.POTATO_PROJECTILE_TYPE,
+                PotatoCannonProjectileType.CODEC,
+                PotatoCannonProjectileType.CODEC);
+    }
 }

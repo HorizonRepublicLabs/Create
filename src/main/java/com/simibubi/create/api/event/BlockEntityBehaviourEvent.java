@@ -1,15 +1,14 @@
 package com.simibubi.create.api.event;
 
-import java.util.Map;
-import java.util.function.Consumer;
-
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
-
 import net.neoforged.bus.api.Event;
+
+import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * Event that is fired just before a SmartBlockEntity is being deserialized<br>
@@ -29,32 +28,32 @@ import net.neoforged.bus.api.Event;
  * 		neoForgeEventBus.addListener((BlockEntityBehaviourEvent event) -> {
  * 			event.forType(AllBlockEntityTypes.FUNNEL.get(), be -> {
  * 				event.attach(new FunFunnelBehaviour(be));
- * 			});
- * 		});
+ *            });
+ *        });
  * } <pre>
  */
 public class BlockEntityBehaviourEvent extends Event {
-	private final SmartBlockEntity smartBlockEntity;
-	private final Map<BehaviourType<?>, BlockEntityBehaviour> behaviours;
+    private final SmartBlockEntity smartBlockEntity;
+    private final Map<BehaviourType<?>, BlockEntityBehaviour> behaviours;
 
-	public BlockEntityBehaviourEvent(SmartBlockEntity blockEntity, Map<BehaviourType<?>, BlockEntityBehaviour> behaviours) {
-		smartBlockEntity = blockEntity;
-		this.behaviours = behaviours;
-	}
+    public BlockEntityBehaviourEvent(
+            SmartBlockEntity blockEntity, Map<BehaviourType<?>, BlockEntityBehaviour> behaviours) {
+        smartBlockEntity = blockEntity;
+        this.behaviours = behaviours;
+    }
 
-	public <T extends SmartBlockEntity> void forType(BlockEntityType<T> type, Consumer<T> action) {
-		if (smartBlockEntity.getType() == type) {
-			//noinspection unchecked
-			action.accept((T) smartBlockEntity);
-		}
-	}
+    public <T extends SmartBlockEntity> void forType(BlockEntityType<T> type, Consumer<T> action) {
+        if (smartBlockEntity.getType() == type) {
+            //noinspection unchecked
+            action.accept((T) smartBlockEntity);
+        }
+    }
 
-	public void attach(BlockEntityBehaviour behaviour) {
-		behaviours.put(behaviour.getType(), behaviour);
-	}
+    public void attach(BlockEntityBehaviour behaviour) {
+        behaviours.put(behaviour.getType(), behaviour);
+    }
 
-	public BlockEntityBehaviour remove(BehaviourType<?> type) {
-		return behaviours.remove(type);
-	}
-
+    public BlockEntityBehaviour remove(BehaviourType<?> type) {
+        return behaviours.remove(type);
+    }
 }

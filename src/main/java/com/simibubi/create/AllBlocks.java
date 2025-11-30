@@ -2233,15 +2233,15 @@ public class AllBlocks {
 			.addLayer(() -> RenderType::cutoutMipped)
 			.loot((lt, block) -> {
 				lt.add(block, LootTable.lootTable().withPool(LootPool.lootPool()
-						.when(ExplosionCondition.survivesExplosion())
-						.setRolls(ConstantValue.exactly(1))
-						.add(LootItem.lootTableItem(block)
-								.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
-								.apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
-										.include(AllDataComponents.TOOLBOX_UUID)
-										.include(AllDataComponents.TOOLBOX_INVENTORY)
-								)
+					.when(ExplosionCondition.survivesExplosion())
+					.setRolls(ConstantValue.exactly(1))
+					.add(LootItem.lootTableItem(block)
+						.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
+						.apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+							.include(AllDataComponents.TOOLBOX_UUID)
+							.include(AllDataComponents.TOOLBOX_INVENTORY)
 						)
+					)
 				));
 			})
 			.blockstate((c, p) -> {
@@ -2482,13 +2482,13 @@ public class AllBlocks {
 			.requiresCorrectToolForDrops()
 			.sound(SoundType.STONE))
 		.transform(pickaxeOnly())
-		.loot((lt, b) ->  {
+		.loot((lt, b) -> {
 			HolderLookup.RegistryLookup<Enchantment> enchantmentRegistryLookup = lt.getRegistries().lookupOrThrow(Registries.ENCHANTMENT);
 
 			lt.add(b,
 				lt.createSilkTouchDispatchTable(b,
-				lt.applyExplosionDecay(b, LootItem.lootTableItem(AllItems.RAW_ZINC.get())
-					.apply(ApplyBonusCount.addOreBonusCount(enchantmentRegistryLookup.getOrThrow(Enchantments.FORTUNE))))));
+					lt.applyExplosionDecay(b, LootItem.lootTableItem(AllItems.RAW_ZINC.get())
+						.apply(ApplyBonusCount.addOreBonusCount(enchantmentRegistryLookup.getOrThrow(Enchantments.FORTUNE))))));
 		})
 		.tag(BlockTags.NEEDS_IRON_TOOL)
 		.tag(Tags.Blocks.ORES)
@@ -2510,9 +2510,9 @@ public class AllBlocks {
 			HolderLookup.RegistryLookup<Enchantment> enchantmentRegistryLookup = lt.getRegistries().lookupOrThrow(Registries.ENCHANTMENT);
 
 			lt.add(b,
-					lt.createSilkTouchDispatchTable(b,
+				lt.createSilkTouchDispatchTable(b,
 					lt.applyExplosionDecay(b, LootItem.lootTableItem(AllItems.RAW_ZINC.get())
-							.apply(ApplyBonusCount.addOreBonusCount(enchantmentRegistryLookup.getOrThrow(Enchantments.FORTUNE))))));
+						.apply(ApplyBonusCount.addOreBonusCount(enchantmentRegistryLookup.getOrThrow(Enchantments.FORTUNE))))));
 		})
 		.tag(BlockTags.NEEDS_IRON_TOOL)
 		.tag(Tags.Blocks.ORES)

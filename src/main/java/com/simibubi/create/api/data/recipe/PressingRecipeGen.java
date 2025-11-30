@@ -1,12 +1,12 @@
 package com.simibubi.create.api.data.recipe;
 
-import java.util.concurrent.CompletableFuture;
-
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.kinetics.press.PressingRecipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * The base class for Pressing recipe generation.
@@ -17,26 +17,28 @@ import net.minecraft.data.PackOutput;
  */
 public abstract class PressingRecipeGen extends StandardProcessingRecipeGen<PressingRecipe> {
 
-	protected GeneratedRecipe moddedCompacting(DatagenMod mod, String input, String output) {
-		return create("compat/" + mod.getId() + "/" + output, b -> b.require(mod, input)
-			.output(mod, output)
-			.whenModLoaded(mod.getId()));
-	}
+    protected GeneratedRecipe moddedCompacting(DatagenMod mod, String input, String output) {
+        return create(
+                "compat/" + mod.getId() + "/" + output,
+                b -> b.require(mod, input).output(mod, output).whenModLoaded(mod.getId()));
+    }
 
-	protected GeneratedRecipe moddedPaths(DatagenMod mod, String... blocks) {
-		for (String block : blocks) {
-			moddedCompacting(mod, block, block + "_path");
-		}
-		return null;
-	}
+    protected GeneratedRecipe moddedPaths(DatagenMod mod, String... blocks) {
+        for (String block : blocks) {
+            moddedCompacting(mod, block, block + "_path");
+        }
+        return null;
+    }
 
-	public PressingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, String defaultNamespace) {
-		super(output, registries, defaultNamespace);
-	}
+    public PressingRecipeGen(
+            PackOutput output,
+            CompletableFuture<HolderLookup.Provider> registries,
+            String defaultNamespace) {
+        super(output, registries, defaultNamespace);
+    }
 
-	@Override
-	protected AllRecipeTypes getRecipeType() {
-		return AllRecipeTypes.PRESSING;
-	}
-
+    @Override
+    protected AllRecipeTypes getRecipeType() {
+        return AllRecipeTypes.PRESSING;
+    }
 }

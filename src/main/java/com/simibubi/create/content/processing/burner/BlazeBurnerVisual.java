@@ -1,10 +1,5 @@
 package com.simibubi.create.content.processing.burner;
 
-import java.util.function.Consumer;
-
-import net.createmod.catnip.animation.AnimationTickHolder;
-import org.jetbrains.annotations.Nullable;
-
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
@@ -22,252 +17,279 @@ import dev.engine_room.flywheel.lib.transform.Translate;
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual;
 import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual;
 import dev.engine_room.flywheel.lib.visual.SimpleTickableVisual;
-import net.createmod.catnip.render.SpriteShiftEntry;
+
+import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.render.SpriteShiftEntry;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 
-public class BlazeBurnerVisual extends AbstractBlockEntityVisual<BlazeBurnerBlockEntity> implements SimpleDynamicVisual, SimpleTickableVisual {
+import org.jetbrains.annotations.Nullable;
 
-	private BlazeBurnerBlock.HeatLevel heatLevel;
+import java.util.function.Consumer;
 
-	private final TransformedInstance head;
+public class BlazeBurnerVisual extends AbstractBlockEntityVisual<BlazeBurnerBlockEntity>
+        implements SimpleDynamicVisual, SimpleTickableVisual {
 
-	private final boolean isInert;
+    private BlazeBurnerBlock.HeatLevel heatLevel;
 
-	@Nullable
-	private TransformedInstance smallRods;
-	@Nullable
-	private TransformedInstance largeRods;
-	@Nullable
-	private ScrollInstance flame;
-	@Nullable
-	private TransformedInstance goggles;
-	@Nullable
-	private TransformedInstance hat;
+    private final TransformedInstance head;
 
-	private boolean validBlockAbove;
+    private final boolean isInert;
 
-	public BlazeBurnerVisual(VisualizationContext ctx, BlazeBurnerBlockEntity blockEntity, float partialTick) {
-		super(ctx, blockEntity, partialTick);
+    @Nullable
+    private TransformedInstance smallRods;
 
-		heatLevel = HeatLevel.SMOULDERING;
-		validBlockAbove = blockEntity.isValidBlockAbove();
+    @Nullable
+    private TransformedInstance largeRods;
 
-		PartialModel blazeModel = BlazeBurnerRenderer.getBlazeModel(heatLevel, validBlockAbove);
-		isInert = blazeModel == AllPartialModels.BLAZE_INERT;
+    @Nullable
+    private ScrollInstance flame;
 
-		head = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(blazeModel))
-				.createInstance();
+    @Nullable
+    private TransformedInstance goggles;
 
-		head.light(LightTexture.FULL_BRIGHT);
+    @Nullable
+    private TransformedInstance hat;
 
-		animate(partialTick);
-	}
+    private boolean validBlockAbove;
 
-	@Override
-	public void tick(TickableVisual.Context context) {
-		blockEntity.tickAnimation();
-	}
+    public BlazeBurnerVisual(
+            VisualizationContext ctx, BlazeBurnerBlockEntity blockEntity, float partialTick) {
+        super(ctx, blockEntity, partialTick);
 
-	@Override
-	public void beginFrame(DynamicVisual.Context ctx) {
-		if (!isVisible(ctx.frustum()) || doDistanceLimitThisFrame(ctx)) {
-			return;
-		}
+        heatLevel = HeatLevel.SMOULDERING;
+        validBlockAbove = blockEntity.isValidBlockAbove();
 
-		animate(ctx.partialTick());
-	}
+        PartialModel blazeModel = BlazeBurnerRenderer.getBlazeModel(heatLevel, validBlockAbove);
+        isInert = blazeModel == AllPartialModels.BLAZE_INERT;
 
-	private void animate(float partialTicks) {
-		float animation = blockEntity.headAnimation.getValue(partialTicks) * .175f;
+        head = instancerProvider()
+                .instancer(InstanceTypes.TRANSFORMED, Models.partial(blazeModel))
+                .createInstance();
 
-		boolean validBlockAbove = animation > 0.125f;
-		HeatLevel heatLevel = blockEntity.getHeatLevelForRender();
+        head.light(LightTexture.FULL_BRIGHT);
 
-		if (validBlockAbove != this.validBlockAbove || heatLevel != this.heatLevel) {
-			this.validBlockAbove = validBlockAbove;
+        animate(partialTick);
+    }
 
-			PartialModel blazeModel = BlazeBurnerRenderer.getBlazeModel(heatLevel, validBlockAbove);
-			instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(blazeModel))
-					.stealInstance(head);
-			
-			boolean needsRods = heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING);
-			boolean hasRods = this.heatLevel.isAtLeast(HeatLevel.FADING);
-			
-			if (needsRods && !hasRods) {
-				PartialModel rodsModel = heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING ? AllPartialModels.BLAZE_BURNER_SUPER_RODS
-						: AllPartialModels.BLAZE_BURNER_RODS;
-				PartialModel rodsModel2 = heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING ? AllPartialModels.BLAZE_BURNER_SUPER_RODS_2
-						: AllPartialModels.BLAZE_BURNER_RODS_2;
+    @Override
+    public void tick(TickableVisual.Context context) {
+        blockEntity.tickAnimation();
+    }
 
-				smallRods = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(rodsModel))
-						.createInstance();
-				largeRods = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(rodsModel2))
-						.createInstance();
+    @Override
+    public void beginFrame(DynamicVisual.Context ctx) {
+        if (!isVisible(ctx.frustum()) || doDistanceLimitThisFrame(ctx)) {
+            return;
+        }
 
-				smallRods.light(LightTexture.FULL_BRIGHT);
-				largeRods.light(LightTexture.FULL_BRIGHT);
-				
-			} else if (!needsRods && hasRods) {
-				if (smallRods != null)
-					smallRods.delete();
-				if (largeRods != null)
-					largeRods.delete();
-				smallRods = null;
-				largeRods = null;
-			}
-			
-			this.heatLevel = heatLevel;
-		}
+        animate(ctx.partialTick());
+    }
 
-		// Switch between showing/hiding the flame
-		if (validBlockAbove && flame == null) {
-			setupFlameInstance();
-		} else if (!validBlockAbove && flame != null) {
-			flame.delete();
-			flame = null;
-		}
+    private void animate(float partialTicks) {
+        float animation = blockEntity.headAnimation.getValue(partialTicks) * .175f;
 
-		if (blockEntity.goggles && goggles == null) {
-			goggles = instancerProvider().instancer(InstanceTypes.TRANSFORMED, Models.partial(isInert ? AllPartialModels.BLAZE_GOGGLES_SMALL : AllPartialModels.BLAZE_GOGGLES))
-					.createInstance();
-			goggles.light(LightTexture.FULL_BRIGHT);
-		} else if (!blockEntity.goggles && goggles != null) {
-			goggles.delete();
-			goggles = null;
-		}
+        boolean validBlockAbove = animation > 0.125f;
+        HeatLevel heatLevel = blockEntity.getHeatLevelForRender();
 
-		boolean hatPresent = blockEntity.hat || blockEntity.stockKeeper;
-		if (hatPresent && hat == null) {
-			hat = instancerProvider()
-					.instancer(InstanceTypes.TRANSFORMED,
-						Models.partial(
-							blockEntity.stockKeeper ? AllPartialModels.LOGISTICS_HAT : AllPartialModels.TRAIN_HAT))
-					.createInstance();
-			hat.light(LightTexture.FULL_BRIGHT);
-		} else if (!hatPresent && hat != null) {
-			hat.delete();
-			hat = null;
-		}
+        if (validBlockAbove != this.validBlockAbove || heatLevel != this.heatLevel) {
+            this.validBlockAbove = validBlockAbove;
 
-		var hashCode = blockEntity.hashCode();
-		float time = AnimationTickHolder.getRenderTime(level);
-		float renderTick = time + (hashCode % 13) * 16f;
-		float offsetMult = heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING) ? 64 : 16;
-		float offset = Mth.sin((float) ((renderTick / 16f) % (2 * Math.PI))) / offsetMult;
-		float headY = offset - (animation * .75f);
+            PartialModel blazeModel = BlazeBurnerRenderer.getBlazeModel(heatLevel, validBlockAbove);
+            instancerProvider()
+                    .instancer(InstanceTypes.TRANSFORMED, Models.partial(blazeModel))
+                    .stealInstance(head);
 
-		float horizontalAngle = AngleHelper.rad(blockEntity.headAngle.getValue(partialTicks));
+            boolean needsRods = heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING);
+            boolean hasRods = this.heatLevel.isAtLeast(HeatLevel.FADING);
 
-		head.setIdentityTransform()
-				.translate(getVisualPosition())
-				.translateY(headY)
-				.translate(Translate.CENTER)
-				.rotateY(horizontalAngle)
-				.translateBack(Translate.CENTER)
-				.setChanged();
+            if (needsRods && !hasRods) {
+                PartialModel rodsModel = heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING
+                        ? AllPartialModels.BLAZE_BURNER_SUPER_RODS
+                        : AllPartialModels.BLAZE_BURNER_RODS;
+                PartialModel rodsModel2 = heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING
+                        ? AllPartialModels.BLAZE_BURNER_SUPER_RODS_2
+                        : AllPartialModels.BLAZE_BURNER_RODS_2;
 
-		if (goggles != null) {
-			goggles.setIdentityTransform()
-					.translate(getVisualPosition())
-					.translateY(headY + 8 / 16f)
-					.translate(Translate.CENTER)
-					.rotateY(horizontalAngle)
-					.translateBack(Translate.CENTER)
-					.setChanged();
-		}
+                smallRods = instancerProvider()
+                        .instancer(InstanceTypes.TRANSFORMED, Models.partial(rodsModel))
+                        .createInstance();
+                largeRods = instancerProvider()
+                        .instancer(InstanceTypes.TRANSFORMED, Models.partial(rodsModel2))
+                        .createInstance();
 
-		if (hat != null) {
-			hat.setIdentityTransform()
-					.translate(getVisualPosition())
-					.translateY(headY)
-					.translateY(0.75f);
-			hat.rotateCentered(horizontalAngle + Mth.PI, Direction.UP)
-					.translate(0.5f, 0, 0.5f)
-					.light(LightTexture.FULL_BRIGHT);
+                smallRods.light(LightTexture.FULL_BRIGHT);
+                largeRods.light(LightTexture.FULL_BRIGHT);
 
-			hat.setChanged();
-		}
+            } else if (!needsRods && hasRods) {
+                if (smallRods != null) smallRods.delete();
+                if (largeRods != null) largeRods.delete();
+                smallRods = null;
+                largeRods = null;
+            }
 
-		if (smallRods != null) {
-			float offset1 = Mth.sin((float) ((renderTick / 16f + Math.PI) % (2 * Math.PI))) / offsetMult;
+            this.heatLevel = heatLevel;
+        }
 
-			smallRods.setIdentityTransform()
-					.translate(getVisualPosition())
-					.translateY(offset1 + animation + .125f)
-					.setChanged();
-		}
+        // Switch between showing/hiding the flame
+        if (validBlockAbove && flame == null) {
+            setupFlameInstance();
+        } else if (!validBlockAbove && flame != null) {
+            flame.delete();
+            flame = null;
+        }
 
-		if (largeRods != null) {
-			float offset2 = Mth.sin((float) ((renderTick / 16f + Math.PI / 2) % (2 * Math.PI))) / offsetMult;
+        if (blockEntity.goggles && goggles == null) {
+            goggles = instancerProvider()
+                    .instancer(
+                            InstanceTypes.TRANSFORMED,
+                            Models.partial(
+                                    isInert
+                                            ? AllPartialModels.BLAZE_GOGGLES_SMALL
+                                            : AllPartialModels.BLAZE_GOGGLES))
+                    .createInstance();
+            goggles.light(LightTexture.FULL_BRIGHT);
+        } else if (!blockEntity.goggles && goggles != null) {
+            goggles.delete();
+            goggles = null;
+        }
 
-			largeRods.setIdentityTransform()
-					.translate(getVisualPosition())
-					.translateY(offset2 + animation - 3 / 16f)
-					.setChanged();
-		}
-	}
+        boolean hatPresent = blockEntity.hat || blockEntity.stockKeeper;
+        if (hatPresent && hat == null) {
+            hat = instancerProvider()
+                    .instancer(
+                            InstanceTypes.TRANSFORMED,
+                            Models.partial(
+                                    blockEntity.stockKeeper
+                                            ? AllPartialModels.LOGISTICS_HAT
+                                            : AllPartialModels.TRAIN_HAT))
+                    .createInstance();
+            hat.light(LightTexture.FULL_BRIGHT);
+        } else if (!hatPresent && hat != null) {
+            hat.delete();
+            hat = null;
+        }
 
-	private void setupFlameInstance() {
-		flame = instancerProvider().instancer(AllInstanceTypes.SCROLLING, Models.partial(AllPartialModels.BLAZE_BURNER_FLAME))
-				.createInstance();
+        var hashCode = blockEntity.hashCode();
+        float time = AnimationTickHolder.getRenderTime(level);
+        float renderTick = time + (hashCode % 13) * 16f;
+        float offsetMult = heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING) ? 64 : 16;
+        float offset = Mth.sin((float) ((renderTick / 16f) % (2 * Math.PI))) / offsetMult;
+        float headY = offset - (animation * .75f);
 
-		flame.position(getVisualPosition())
-				.light(LightTexture.FULL_BRIGHT);
+        float horizontalAngle = AngleHelper.rad(blockEntity.headAngle.getValue(partialTicks));
 
-		SpriteShiftEntry spriteShift =
-				heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING ? AllSpriteShifts.SUPER_BURNER_FLAME : AllSpriteShifts.BURNER_FLAME;
+        head.setIdentityTransform()
+                .translate(getVisualPosition())
+                .translateY(headY)
+                .translate(Translate.CENTER)
+                .rotateY(horizontalAngle)
+                .translateBack(Translate.CENTER)
+                .setChanged();
 
-		float spriteWidth = spriteShift.getTarget()
-				.getU1()
-				- spriteShift.getTarget()
-				.getU0();
+        if (goggles != null) {
+            goggles.setIdentityTransform()
+                    .translate(getVisualPosition())
+                    .translateY(headY + 8 / 16f)
+                    .translate(Translate.CENTER)
+                    .rotateY(horizontalAngle)
+                    .translateBack(Translate.CENTER)
+                    .setChanged();
+        }
 
-		float spriteHeight = spriteShift.getTarget()
-				.getV1()
-				- spriteShift.getTarget()
-				.getV0();
+        if (hat != null) {
+            hat.setIdentityTransform()
+                    .translate(getVisualPosition())
+                    .translateY(headY)
+                    .translateY(0.75f);
+            hat.rotateCentered(horizontalAngle + Mth.PI, Direction.UP)
+                    .translate(0.5f, 0, 0.5f)
+                    .light(LightTexture.FULL_BRIGHT);
 
-		float speed = 1 / 32f + 1 / 64f * heatLevel.ordinal();
+            hat.setChanged();
+        }
 
-		flame.speedU = speed / 2;
-		flame.speedV = speed;
+        if (smallRods != null) {
+            float offset1 =
+                    Mth.sin((float) ((renderTick / 16f + Math.PI) % (2 * Math.PI))) / offsetMult;
 
-		flame.scaleU = spriteWidth / 2;
-		flame.scaleV = spriteHeight / 2;
+            smallRods
+                    .setIdentityTransform()
+                    .translate(getVisualPosition())
+                    .translateY(offset1 + animation + .125f)
+                    .setChanged();
+        }
 
-		flame.diffU = spriteShift.getTarget().getU0() - spriteShift.getOriginal().getU0();
-		flame.diffV = spriteShift.getTarget().getV0() - spriteShift.getOriginal().getV0();
-	}
+        if (largeRods != null) {
+            float offset2 = Mth.sin((float) ((renderTick / 16f + Math.PI / 2) % (2 * Math.PI)))
+                    / offsetMult;
 
-	@Override
-	public void updateLight(float partialTick) {
-	}
+            largeRods
+                    .setIdentityTransform()
+                    .translate(getVisualPosition())
+                    .translateY(offset2 + animation - 3 / 16f)
+                    .setChanged();
+        }
+    }
 
-	@Override
-	public void collectCrumblingInstances(Consumer<@Nullable Instance> consumer) {
+    private void setupFlameInstance() {
+        flame = instancerProvider()
+                .instancer(
+                        AllInstanceTypes.SCROLLING,
+                        Models.partial(AllPartialModels.BLAZE_BURNER_FLAME))
+                .createInstance();
 
-	}
+        flame.position(getVisualPosition()).light(LightTexture.FULL_BRIGHT);
 
-	@Override
-	protected void _delete() {
-		head.delete();
-		if (smallRods != null) {
-			smallRods.delete();
-		}
-		if (largeRods != null) {
-			largeRods.delete();
-		}
-		if (flame != null) {
-			flame.delete();
-		}
-		if (goggles != null) {
-			goggles.delete();
-		}
-		if (hat != null) {
-			hat.delete();
-		}
-	}
+        SpriteShiftEntry spriteShift = heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING
+                ? AllSpriteShifts.SUPER_BURNER_FLAME
+                : AllSpriteShifts.BURNER_FLAME;
+
+        float spriteWidth =
+                spriteShift.getTarget().getU1() - spriteShift.getTarget().getU0();
+
+        float spriteHeight =
+                spriteShift.getTarget().getV1() - spriteShift.getTarget().getV0();
+
+        float speed = 1 / 32f + 1 / 64f * heatLevel.ordinal();
+
+        flame.speedU = speed / 2;
+        flame.speedV = speed;
+
+        flame.scaleU = spriteWidth / 2;
+        flame.scaleV = spriteHeight / 2;
+
+        flame.diffU =
+                spriteShift.getTarget().getU0() - spriteShift.getOriginal().getU0();
+        flame.diffV =
+                spriteShift.getTarget().getV0() - spriteShift.getOriginal().getV0();
+    }
+
+    @Override
+    public void updateLight(float partialTick) {}
+
+    @Override
+    public void collectCrumblingInstances(Consumer<@Nullable Instance> consumer) {}
+
+    @Override
+    protected void _delete() {
+        head.delete();
+        if (smallRods != null) {
+            smallRods.delete();
+        }
+        if (largeRods != null) {
+            largeRods.delete();
+        }
+        if (flame != null) {
+            flame.delete();
+        }
+        if (goggles != null) {
+            goggles.delete();
+        }
+        if (hat != null) {
+            hat.delete();
+        }
+    }
 }

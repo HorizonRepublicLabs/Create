@@ -8,15 +8,15 @@ import xaero.map.gui.GuiMap;
 
 @Mixin(GuiMap.class)
 public interface XaeroFullscreenMapAccessor {
-	@Accessor(remap = false)
-	double getCameraX();
+    @Accessor(remap = false)
+    double getCameraX();
 
-	@Accessor(remap = false)
-	double getCameraZ();
+    @Accessor(remap = false)
+    double getCameraZ();
 
-	@Accessor(remap = false)
-	double getScale();
+    @Accessor(remap = false)
+    double getScale();
 
-	@Accessor(remap = false)
-	MapProcessor getMapProcessor();
+    @Accessor(remap = false)
+    MapProcessor getMapProcessor();
 }

@@ -1,9 +1,5 @@
 package com.simibubi.create.foundation.blockEntity.behaviour.inventory;
 
-import java.util.function.Predicate;
-
-import org.jetbrains.annotations.Nullable;
-
 import com.google.common.base.Predicates;
 import com.simibubi.create.api.packager.InventoryIdentifier;
 import com.simibubi.create.content.logistics.packager.IdentifiedInventory;
@@ -20,93 +16,96 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
-public class InvManipulationBehaviour extends CapManipulationBehaviourBase<IItemHandler, InvManipulationBehaviour> {
+import org.jetbrains.annotations.Nullable;
 
-	// Extra types available for multibehaviour
-	public static final BehaviourType<InvManipulationBehaviour>
+import java.util.function.Predicate;
 
-	TYPE = new BehaviourType<>(), EXTRACT = new BehaviourType<>(), INSERT = new BehaviourType<>();
+public class InvManipulationBehaviour
+        extends CapManipulationBehaviourBase<IItemHandler, InvManipulationBehaviour> {
 
-	private BehaviourType<InvManipulationBehaviour> behaviourType;
+    // Extra types available for multibehaviour
+    public static final BehaviourType<InvManipulationBehaviour> TYPE = new BehaviourType<>(),
+            EXTRACT = new BehaviourType<>(),
+            INSERT = new BehaviourType<>();
 
-	public static InvManipulationBehaviour forExtraction(SmartBlockEntity be, InterfaceProvider target) {
-		return new InvManipulationBehaviour(EXTRACT, be, target);
-	}
+    private final BehaviourType<InvManipulationBehaviour> behaviourType;
 
-	public static InvManipulationBehaviour forInsertion(SmartBlockEntity be, InterfaceProvider target) {
-		return new InvManipulationBehaviour(INSERT, be, target);
-	}
+    public static InvManipulationBehaviour forExtraction(
+            SmartBlockEntity be, InterfaceProvider target) {
+        return new InvManipulationBehaviour(EXTRACT, be, target);
+    }
 
-	public InvManipulationBehaviour(SmartBlockEntity be, InterfaceProvider target) {
-		this(TYPE, be, target);
-	}
+    public static InvManipulationBehaviour forInsertion(
+            SmartBlockEntity be, InterfaceProvider target) {
+        return new InvManipulationBehaviour(INSERT, be, target);
+    }
 
-	private InvManipulationBehaviour(BehaviourType<InvManipulationBehaviour> type, SmartBlockEntity be,
-		InterfaceProvider target) {
-		super(be, target);
-		behaviourType = type;
-	}
+    public InvManipulationBehaviour(SmartBlockEntity be, InterfaceProvider target) {
+        this(TYPE, be, target);
+    }
 
-	@Nullable
-	public IdentifiedInventory getIdentifiedInventory() {
-		IItemHandler inventory = this.getInventory();
-		if (inventory == null)
-			return null;
+    private InvManipulationBehaviour(
+            BehaviourType<InvManipulationBehaviour> type,
+            SmartBlockEntity be,
+            InterfaceProvider target) {
+        super(be, target);
+        behaviourType = type;
+    }
 
-		InventoryIdentifier identifier = InventoryIdentifier.get(this.getWorld(), this.getTarget().getOpposite());
-		return new IdentifiedInventory(identifier, inventory);
-	}
+    @Nullable
+    public IdentifiedInventory getIdentifiedInventory() {
+        IItemHandler inventory = this.getInventory();
+        if (inventory == null) return null;
 
-	@Override
-	protected BlockCapability<IItemHandler, Direction> capability() {
-		return Capabilities.ItemHandler.BLOCK;
-	}
+        InventoryIdentifier identifier =
+                InventoryIdentifier.get(this.getWorld(), this.getTarget().getOpposite());
+        return new IdentifiedInventory(identifier, inventory);
+    }
 
-	public ItemStack extract() {
-		return extract(getModeFromFilter(), getAmountFromFilter());
-	}
+    @Override
+    protected BlockCapability<IItemHandler, Direction> capability() {
+        return Capabilities.ItemHandler.BLOCK;
+    }
 
-	public ItemStack extract(ExtractionCountMode mode, int amount) {
-		return extract(mode, amount, Predicates.alwaysTrue());
-	}
+    public ItemStack extract() {
+        return extract(getModeFromFilter(), getAmountFromFilter());
+    }
 
-	public ItemStack extract(ExtractionCountMode mode, int amount, Predicate<ItemStack> filter) {
-		boolean shouldSimulate = simulateNext;
-		simulateNext = false;
+    public ItemStack extract(ExtractionCountMode mode, int amount) {
+        return extract(mode, amount, Predicates.alwaysTrue());
+    }
 
-		if (getWorld().isClientSide)
-			return ItemStack.EMPTY;
-		IItemHandler inventory = targetCapability;
-		if (inventory == null)
-			return ItemStack.EMPTY;
+    public ItemStack extract(ExtractionCountMode mode, int amount, Predicate<ItemStack> filter) {
+        boolean shouldSimulate = simulateNext;
+        simulateNext = false;
 
-		Predicate<ItemStack> test = getFilterTest(filter);
-		ItemStack simulatedItems = ItemHelper.extract(inventory, test, mode, amount, true);
-		if (shouldSimulate || simulatedItems.isEmpty())
-			return simulatedItems;
-		return ItemHelper.extract(inventory, test, mode, amount, false);
-	}
+        if (getWorld().isClientSide) return ItemStack.EMPTY;
+        IItemHandler inventory = targetCapability;
+        if (inventory == null) return ItemStack.EMPTY;
 
-	public ItemStack insert(ItemStack stack) {
-		boolean shouldSimulate = simulateNext;
-		simulateNext = false;
-		IItemHandler inventory = targetCapability;
-		if (inventory == null)
-			return stack;
-		return ItemHandlerHelper.insertItemStacked(inventory, stack, shouldSimulate);
-	}
+        Predicate<ItemStack> test = getFilterTest(filter);
+        ItemStack simulatedItems = ItemHelper.extract(inventory, test, mode, amount, true);
+        if (shouldSimulate || simulatedItems.isEmpty()) return simulatedItems;
+        return ItemHelper.extract(inventory, test, mode, amount, false);
+    }
 
-	protected Predicate<ItemStack> getFilterTest(Predicate<ItemStack> customFilter) {
-		Predicate<ItemStack> test = customFilter;
-		FilteringBehaviour filter = blockEntity.getBehaviour(FilteringBehaviour.TYPE);
-		if (filter != null)
-			test = customFilter.and(filter::test);
-		return test;
-	}
+    public ItemStack insert(ItemStack stack) {
+        boolean shouldSimulate = simulateNext;
+        simulateNext = false;
+        IItemHandler inventory = targetCapability;
+        if (inventory == null) return stack;
+        return ItemHandlerHelper.insertItemStacked(inventory, stack, shouldSimulate);
+    }
 
-	@Override
-	public BehaviourType<?> getType() {
-		return behaviourType;
-	}
+    protected Predicate<ItemStack> getFilterTest(Predicate<ItemStack> customFilter) {
+        Predicate<ItemStack> test = customFilter;
+        FilteringBehaviour filter = blockEntity.getBehaviour(FilteringBehaviour.TYPE);
+        if (filter != null) test = customFilter.and(filter::test);
+        return test;
+    }
 
+    @Override
+    public BehaviourType<?> getType() {
+        return behaviourType;
+    }
 }

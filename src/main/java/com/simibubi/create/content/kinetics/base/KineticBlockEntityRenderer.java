@@ -1,7 +1,5 @@
 package com.simibubi.create.content.kinetics.base;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllBlocks;
@@ -9,6 +7,7 @@ import com.simibubi.create.content.kinetics.KineticDebugger;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
+
 import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SuperByteBuffer;
@@ -26,115 +25,128 @@ import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 
-public class KineticBlockEntityRenderer<T extends KineticBlockEntity> extends SafeBlockEntityRenderer<T> {
+import org.apache.commons.lang3.ArrayUtils;
 
-	public static final SuperByteBufferCache.Compartment<BlockState> KINETIC_BLOCK = new SuperByteBufferCache.Compartment<>();
-	public static boolean rainbowMode = false;
+public class KineticBlockEntityRenderer<T extends KineticBlockEntity>
+        extends SafeBlockEntityRenderer<T> {
 
-	protected static final RenderType[] REVERSED_CHUNK_BUFFER_LAYERS = RenderType.chunkBufferLayers().toArray(RenderType[]::new);
+    public static final SuperByteBufferCache.Compartment<BlockState> KINETIC_BLOCK =
+            new SuperByteBufferCache.Compartment<>();
+    public static boolean rainbowMode = false;
 
-	static {
-		ArrayUtils.reverse(REVERSED_CHUNK_BUFFER_LAYERS);
-	}
+    protected static final RenderType[] REVERSED_CHUNK_BUFFER_LAYERS =
+            RenderType.chunkBufferLayers().toArray(RenderType[]::new);
 
-	public KineticBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-	}
+    static {
+        ArrayUtils.reverse(REVERSED_CHUNK_BUFFER_LAYERS);
+    }
 
-	@Override
-	protected void renderSafe(T be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
-							  int light, int overlay) {
-		if (VisualizationManager.supportsVisualization(be.getLevel())) return;
+    public KineticBlockEntityRenderer(BlockEntityRendererProvider.Context context) {}
 
-		BlockState state = getRenderedBlockState(be);
-		RenderType type = getRenderType(be, state);
-		renderRotatingBuffer(be, getRotatedModel(be, state), ms, buffer.getBuffer(type), light);
-	}
+    @Override
+    protected void renderSafe(
+            T be,
+            float partialTicks,
+            PoseStack ms,
+            MultiBufferSource buffer,
+            int light,
+            int overlay) {
+        if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 
-	protected BlockState getRenderedBlockState(T be) {
-		return be.getBlockState();
-	}
+        BlockState state = getRenderedBlockState(be);
+        RenderType type = getRenderType(be, state);
+        renderRotatingBuffer(be, getRotatedModel(be, state), ms, buffer.getBuffer(type), light);
+    }
 
-	protected RenderType getRenderType(T be, BlockState state) {
-		// TODO: this is not very clean
-		BakedModel model = Minecraft.getInstance()
-			.getBlockRenderer().getBlockModel(state);
-		ChunkRenderTypeSet typeSet = model.getRenderTypes(state, RandomSource.create(42L), ModelData.EMPTY);
-		for (RenderType type : REVERSED_CHUNK_BUFFER_LAYERS)
-			if (typeSet.contains(type))
-				return type;
-		return RenderType.cutoutMipped();
-	}
+    protected BlockState getRenderedBlockState(T be) {
+        return be.getBlockState();
+    }
 
-	protected SuperByteBuffer getRotatedModel(T be, BlockState state) {
-		return CachedBuffers.block(KINETIC_BLOCK, state);
-	}
+    protected RenderType getRenderType(T be, BlockState state) {
+        // TODO: this is not very clean
+        BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModel(state);
+        ChunkRenderTypeSet typeSet =
+                model.getRenderTypes(state, RandomSource.create(42L), ModelData.EMPTY);
+        for (RenderType type : REVERSED_CHUNK_BUFFER_LAYERS)
+            if (typeSet.contains(type)) return type;
+        return RenderType.cutoutMipped();
+    }
 
-	public static void renderRotatingKineticBlock(KineticBlockEntity be, BlockState renderedState, PoseStack ms,
-												  VertexConsumer buffer, int light) {
-		SuperByteBuffer superByteBuffer = CachedBuffers.block(KINETIC_BLOCK, renderedState);
-		renderRotatingBuffer(be, superByteBuffer, ms, buffer, light);
-	}
+    protected SuperByteBuffer getRotatedModel(T be, BlockState state) {
+        return CachedBuffers.block(KINETIC_BLOCK, state);
+    }
 
-	public static void renderRotatingBuffer(KineticBlockEntity be, SuperByteBuffer superBuffer, PoseStack ms,
-											VertexConsumer buffer, int light) {
-		standardKineticRotationTransform(superBuffer, be, light).renderInto(ms, buffer);
-	}
+    public static void renderRotatingKineticBlock(
+            KineticBlockEntity be,
+            BlockState renderedState,
+            PoseStack ms,
+            VertexConsumer buffer,
+            int light) {
+        SuperByteBuffer superByteBuffer = CachedBuffers.block(KINETIC_BLOCK, renderedState);
+        renderRotatingBuffer(be, superByteBuffer, ms, buffer, light);
+    }
 
-	public static float getAngleForBe(KineticBlockEntity be, final BlockPos pos, Axis axis) {
-		float time = AnimationTickHolder.getRenderTime(be.getLevel());
-		float offset = getRotationOffsetForPosition(be, pos, axis);
-		float angle = ((time * be.getSpeed() * 3f / 10 + offset) % 360) / 180 * (float) Math.PI;
-		return angle;
-	}
+    public static void renderRotatingBuffer(
+            KineticBlockEntity be,
+            SuperByteBuffer superBuffer,
+            PoseStack ms,
+            VertexConsumer buffer,
+            int light) {
+        standardKineticRotationTransform(superBuffer, be, light).renderInto(ms, buffer);
+    }
 
-	public static SuperByteBuffer standardKineticRotationTransform(SuperByteBuffer buffer, KineticBlockEntity be,
-																   int light) {
-		final BlockPos pos = be.getBlockPos();
-		Axis axis = ((IRotate) be.getBlockState()
-			.getBlock()).getRotationAxis(be.getBlockState());
-		return kineticRotationTransform(buffer, be, axis, getAngleForBe(be, pos, axis), light);
-	}
+    public static float getAngleForBe(KineticBlockEntity be, final BlockPos pos, Axis axis) {
+        float time = AnimationTickHolder.getRenderTime(be.getLevel());
+        float offset = getRotationOffsetForPosition(be, pos, axis);
+        float angle = ((time * be.getSpeed() * 3f / 10 + offset) % 360) / 180 * (float) Math.PI;
+        return angle;
+    }
 
-	public static SuperByteBuffer kineticRotationTransform(SuperByteBuffer buffer, KineticBlockEntity be, Axis axis,
-														   float angle, int light) {
-		buffer.light(light);
-		buffer.rotateCentered(angle, Direction.get(AxisDirection.POSITIVE, axis));
+    public static SuperByteBuffer standardKineticRotationTransform(
+            SuperByteBuffer buffer, KineticBlockEntity be, int light) {
+        final BlockPos pos = be.getBlockPos();
+        Axis axis = ((IRotate) be.getBlockState().getBlock()).getRotationAxis(be.getBlockState());
+        return kineticRotationTransform(buffer, be, axis, getAngleForBe(be, pos, axis), light);
+    }
 
-		if (KineticDebugger.isActive()) {
-			rainbowMode = true;
-			buffer.color(be.hasNetwork() ? Color.generateFromLong(be.network) : Color.WHITE);
-		} else {
-			float overStressedEffect = be.effects.overStressedEffect;
-			if (overStressedEffect != 0) {
-				boolean overstressed = overStressedEffect > 0;
-				Color color = overstressed ? Color.RED : Color.SPRING_GREEN;
-				float weight = overstressed ? overStressedEffect : -overStressedEffect;
+    public static SuperByteBuffer kineticRotationTransform(
+            SuperByteBuffer buffer, KineticBlockEntity be, Axis axis, float angle, int light) {
+        buffer.light(light);
+        buffer.rotateCentered(angle, Direction.get(AxisDirection.POSITIVE, axis));
 
-				buffer.color(Color.WHITE.mixWith(color, weight));
-			} else {
-				buffer.color(Color.WHITE);
-			}
-		}
+        if (KineticDebugger.isActive()) {
+            rainbowMode = true;
+            buffer.color(be.hasNetwork() ? Color.generateFromLong(be.network) : Color.WHITE);
+        } else {
+            float overStressedEffect = be.effects.overStressedEffect;
+            if (overStressedEffect != 0) {
+                boolean overstressed = overStressedEffect > 0;
+                Color color = overstressed ? Color.RED : Color.SPRING_GREEN;
+                float weight = overstressed ? overStressedEffect : -overStressedEffect;
 
-		return buffer;
-	}
+                buffer.color(Color.WHITE.mixWith(color, weight));
+            } else {
+                buffer.color(Color.WHITE);
+            }
+        }
 
-	public static float getRotationOffsetForPosition(KineticBlockEntity be, final BlockPos pos, final Axis axis) {
-		return KineticBlockEntityVisual.rotationOffset(be.getBlockState(), axis, pos) + be.getRotationAngleOffset(axis);
-	}
+        return buffer;
+    }
 
-	public static BlockState shaft(Axis axis) {
-		return AllBlocks.SHAFT.getDefaultState()
-			.setValue(BlockStateProperties.AXIS, axis);
-	}
+    public static float getRotationOffsetForPosition(
+            KineticBlockEntity be, final BlockPos pos, final Axis axis) {
+        return KineticBlockEntityVisual.rotationOffset(be.getBlockState(), axis, pos)
+                + be.getRotationAngleOffset(axis);
+    }
 
-	public static Axis getRotationAxisOf(KineticBlockEntity be) {
-		return ((IRotate) be.getBlockState()
-			.getBlock()).getRotationAxis(be.getBlockState());
-	}
+    public static BlockState shaft(Axis axis) {
+        return AllBlocks.SHAFT.getDefaultState().setValue(BlockStateProperties.AXIS, axis);
+    }
 
+    public static Axis getRotationAxisOf(KineticBlockEntity be) {
+        return ((IRotate) be.getBlockState().getBlock()).getRotationAxis(be.getBlockState());
+    }
 }

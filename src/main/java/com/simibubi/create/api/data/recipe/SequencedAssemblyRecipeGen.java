@@ -1,12 +1,12 @@
 package com.simibubi.create.api.data.recipe;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.function.UnaryOperator;
-
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeBuilder;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.function.UnaryOperator;
 
 /**
  * The base class for Sequenced Assembly recipe generation.
@@ -17,20 +17,24 @@ import net.minecraft.data.PackOutput;
  */
 public abstract class SequencedAssemblyRecipeGen extends BaseRecipeProvider {
 
-	public SequencedAssemblyRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, String defaultNamespace) {
-		super(output, registries, defaultNamespace);
-	}
+    public SequencedAssemblyRecipeGen(
+            PackOutput output,
+            CompletableFuture<HolderLookup.Provider> registries,
+            String defaultNamespace) {
+        super(output, registries, defaultNamespace);
+    }
 
-	@Override
-	public String getName() {
-		return modid + "'s sequenced assembly recipes";
-	}
+    @Override
+    public String getName() {
+        return modid + "'s sequenced assembly recipes";
+    }
 
-	protected GeneratedRecipe create(String name, UnaryOperator<SequencedAssemblyRecipeBuilder> transform) {
-		GeneratedRecipe generatedRecipe =
-			c -> transform.apply(new SequencedAssemblyRecipeBuilder(asResource(name)))
-				.build(c);
-		all.add(generatedRecipe);
-		return generatedRecipe;
-	}
+    protected GeneratedRecipe create(
+            String name, UnaryOperator<SequencedAssemblyRecipeBuilder> transform) {
+        GeneratedRecipe generatedRecipe = c -> transform
+                .apply(new SequencedAssemblyRecipeBuilder(asResource(name)))
+                .build(c);
+        all.add(generatedRecipe);
+        return generatedRecipe;
+    }
 }
