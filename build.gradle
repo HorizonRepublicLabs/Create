@@ -4,7 +4,7 @@ plugins {
     id("maven-publish")
     id("net.kyori.blossom") version "2.2.0" // https://github.com/KyoriPowered/blossom
     id("dev.ithundxr.silk") version "1.0.1" // https://github.com/ithundxr/silk
-    id("net.neoforged.moddev") version "2.0.141" // https://projects.neoforged.net/neoforged/ModDevGradle
+    id("net.neoforged.moddev") version "2.0.144" // https://projects.neoforged.net/neoforged/ModDevGradle
     id("me.modmuss50.mod-publish-plugin") version "1.1.0" // https://github.com/modmuss50/mod-publish-plugin
 }
 
@@ -16,7 +16,7 @@ group = "com.simibubi.create"
 version = mod_version + (dev && buildNumber != null ? "-${buildNumber}" : "")
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
     withSourcesJar()
 }
 
