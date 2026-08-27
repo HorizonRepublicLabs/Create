@@ -42,7 +42,7 @@ import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.createmod.catnip.api.theme.Color;
 import net.createmod.ponder.impl.client.gui.element.PonderGuiTextures;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
@@ -182,7 +182,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 	}
 
 	@Override
-	protected void renderWindow(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		int x = this.width / 2;
 		int y = this.height / 2;
 
@@ -235,7 +235,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 
 	}
 
-	private void renderRadialSectors(GuiGraphics graphics) {
+	private void renderRadialSectors(GuiGraphicsExtractor graphics) {
 		int sectors = allStates.size();
 		if (sectors < 2)
 			return;
@@ -317,7 +317,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 
 	}
 
-	private void renderDirectionIndicator(GuiGraphics graphics, double theta) {
+	private void renderDirectionIndicator(GuiGraphicsExtractor graphics, double theta) {
 		PoseStack poseStack = graphics.pose();
 
 		float r = 0.8f;
@@ -379,7 +379,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
 		Color color = BACKGROUND_COLOR
 			.scaleAlpha(Math.min(1, (ticksOpen + AnimationTickHolder.getPartialTicks()) / 20f));
 

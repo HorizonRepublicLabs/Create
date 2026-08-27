@@ -20,7 +20,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -85,27 +85,27 @@ public class BasinBlock extends Block implements IBE<BasinBlockEntity>, IWrencha
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 								 return onBlockEntityUseItemOn(level, pos, be -> {
 			if (!stack.isEmpty()) {
 				if (FluidHelper.tryEmptyItemIntoBE(level, player, hand, stack, be))
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				if (FluidHelper.tryFillItemFromBE(level, player, hand, stack, be))
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 
 				if (GenericItemEmptying.canItemBeEmptied(level, stack)
 					|| GenericItemFilling.canItemBeFilled(level, stack))
-					return ItemInteractionResult.SUCCESS;
+					return InteractionResult.SUCCESS;
 				if (stack.getItem().equals(Items.SPONGE)) {
 					IFluidHandler fluidHandler = level.getCapability(Capabilities.FluidHandler.BLOCK, pos, null);
 					if (fluidHandler != null) {
 					FluidStack drained = fluidHandler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
 					if (!drained.isEmpty()) {
-							return ItemInteractionResult.SUCCESS;
+							return InteractionResult.SUCCESS;
 						}
 					}
 				}
-				return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+				return InteractionResult.TRY_WITH_EMPTY_HAND;
 			}
 
 			IItemHandlerModifiable inv = be.itemCapability;
@@ -125,7 +125,7 @@ public class BasinBlock extends Block implements IBE<BasinBlockEntity>, IWrencha
 				level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
 					1f + level.getRandom().nextFloat());
 			be.onEmptied();
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		});
 	}
 

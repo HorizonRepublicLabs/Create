@@ -29,7 +29,7 @@ import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.network.chat.Component;
@@ -317,7 +317,7 @@ public class BlueprintOverlayRenderer {
 		}
 	}
 
-	public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+	public static void renderOverlay(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui || mc.screen != null)
 			return;
@@ -415,7 +415,7 @@ public class BlueprintOverlayRenderer {
 		RenderSystem.disableBlend();
 	}
 
-	public static void drawItemStack(GuiGraphics graphics, Minecraft mc, int x, int y, ItemStack itemStack,
+	public static void drawItemStack(GuiGraphicsExtractor graphics, Minecraft mc, int x, int y, ItemStack itemStack,
 									 String count) {
 		if (itemStack.getItem() instanceof FilterItem) {
 			int step = AnimationTickHolder.getTicks(mc.level) / 10;

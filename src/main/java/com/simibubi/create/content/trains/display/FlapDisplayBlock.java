@@ -31,7 +31,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
@@ -114,9 +114,9 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 	}
 
 	@Override
-	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player.isShiftKeyDown())
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 
 		IPlacementHelper placementHelper = PlacementHelpers.get(placementHelperId);
 		if (placementHelper.matchesItem(stack))
@@ -126,10 +126,10 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 		FlapDisplayBlockEntity flapBE = getBlockEntity(level, pos);
 
 		if (flapBE == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		flapBE = flapBE.getController();
 		if (flapBE == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 
 		double yCoord = hitResult.getLocation()
 			.add(Vec3.atLowerCornerOf(hitResult.getDirection()
@@ -141,9 +141,9 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 
 		if (stack.isEmpty()) {
 			if (!flapBE.isSpeedRequirementFulfilled())
-				return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+				return InteractionResult.TRY_WITH_EMPTY_HAND;
 			flapBE.applyTextManually(lineIndex, null);
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		if (stack.getItem() == Items.GLOW_INK_SAC) {
@@ -151,7 +151,7 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 				level.playSound(null, pos, SoundEvents.INK_SAC_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
 				flapBE.setGlowing(lineIndex);
 			}
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		boolean display =
@@ -159,11 +159,11 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 		DyeColor dye = DyeColor.getColor(stack);
 
 		if (!display && dye == null)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		if (dye == null && !flapBE.isSpeedRequirementFulfilled())
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		if (level.isClientSide)
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 
 		Component customName = stack.get(DataComponents.CUSTOM_NAME);
 
@@ -177,7 +177,7 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 						flapBE.applyTextManually(line++, Component.literal(string));
 					}
 				}
-				return ItemInteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 
 			flapBE.applyTextManually(lineIndex, customName);
@@ -187,7 +187,7 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 			flapBE.setColour(lineIndex, dye);
 		}
 
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override

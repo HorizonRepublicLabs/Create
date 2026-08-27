@@ -9,7 +9,7 @@ import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -116,7 +116,7 @@ public class ValueSettingsClient implements LayeredDraw.Layer {
 	}
 
 	@Override
-	public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui || !ValueSettingsInputHandler.canInteract(mc.player))
 			return;

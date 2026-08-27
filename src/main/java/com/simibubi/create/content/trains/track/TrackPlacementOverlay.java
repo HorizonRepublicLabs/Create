@@ -8,7 +8,7 @@ import net.createmod.catnip.api.theme.Color;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -19,7 +19,7 @@ public class TrackPlacementOverlay implements LayeredDraw.Layer {
 	public static final TrackPlacementOverlay INSTANCE = new TrackPlacementOverlay();
 
 	@Override
-	public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;

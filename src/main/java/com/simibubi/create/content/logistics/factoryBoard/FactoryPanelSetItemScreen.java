@@ -11,7 +11,7 @@ import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -45,7 +45,7 @@ public class FactoryPanelSetItemScreen extends AbstractSimiContainerScreen<Facto
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+	protected void renderBg(GuiGraphicsExtractor pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
 		int x = getGuiLeft();
 		int y = getGuiTop();
 		AllGuiTextures.FACTORY_GAUGE_SET_ITEM.render(pGuiGraphics, x - 5, y);

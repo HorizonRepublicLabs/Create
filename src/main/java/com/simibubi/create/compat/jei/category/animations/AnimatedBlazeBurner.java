@@ -12,7 +12,7 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SpriteShiftEntry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.util.Mth;
@@ -27,7 +27,7 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 		return this;
 	}
 
-	public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
+	public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 		PoseStack matrixStack = graphics.pose();
 		matrixStack.pushPose();
 		matrixStack.translate(xOffset, yOffset, 200);

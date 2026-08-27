@@ -20,7 +20,7 @@ import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
 import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -131,7 +131,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	protected void renderWindow(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		int x = guiLeft;
 		int y = guiTop;
 		int milestoneCount = board.maxValue() / board.milestoneInterval() + 1;
@@ -253,7 +253,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		graphics.drawString(font, cursorText, cursorX + 2, cursorY + 3, 0x442000, false);
 	}
 
-	protected void renderBrassFrame(GuiGraphics graphics, int x, int y, int w, int h) {
+	protected void renderBrassFrame(GuiGraphicsExtractor graphics, int x, int y, int w, int h) {
 		AllGuiTextures.BRASS_FRAME_TL.render(graphics, x, y);
 		AllGuiTextures.BRASS_FRAME_TR.render(graphics, x + w - 4, y);
 		AllGuiTextures.BRASS_FRAME_BL.render(graphics, x, y + h - 4);
@@ -274,7 +274,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public void renderBackground(@NotNull GuiGraphics graphics, int pMouseX, int pMouseY, float pPartialTick) {
+	public void renderBackground(@NotNull GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pPartialTick) {
 		int a = ((int) (0x50 * Math.min(1, (ticksOpen + AnimationTickHolder.getPartialTicks()) / 20f))) << 24;
 		graphics.fillGradient(0, 0, this.width, this.height, 0x101010 | a, 0x101010 | a);
 	}

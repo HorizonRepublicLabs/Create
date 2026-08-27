@@ -15,7 +15,7 @@ import net.createmod.catnip.api.client.outliner.AABBOutline;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -120,7 +120,7 @@ public abstract class SchematicToolBase implements ISchematicTool {
 	}
 
 	@Override
-	public void renderOverlay(Gui gui, GuiGraphics graphics, float partialTicks, int width, int height) {
+	public void renderOverlay(Gui gui, GuiGraphicsExtractor graphics, float partialTicks, int width, int height) {
 	}
 
 	@Override

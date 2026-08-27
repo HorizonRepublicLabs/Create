@@ -12,7 +12,7 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.createmod.catnip.api.client.gui.ScreenOpener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -36,7 +36,7 @@ public class OpenCreateMenuButton extends Button {
 	}
 
 	@Override
-	public void renderString(GuiGraphics graphics, Font pFont, int pColor) {
+	public void renderString(GuiGraphicsExtractor graphics, Font pFont, int pColor) {
 		ItemStack icon = AllItems.GOGGLES.asStack();
 		BakedModel bakedmodel = Minecraft.getInstance()
 			.getItemRenderer()

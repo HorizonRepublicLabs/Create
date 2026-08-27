@@ -35,7 +35,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.StringSplitter;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.font.TextFieldHelper;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
@@ -276,7 +276,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	protected void renderWindow(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		int x = guiLeft;
 		int y = guiTop - 8;
 
@@ -532,7 +532,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		editContext.setCursorPos(j, Screen.hasShiftDown());
 	}
 
-	private void renderCursor(GuiGraphics graphics, Pos2i pCursorPos, boolean pIsEndOfText) {
+	private void renderCursor(GuiGraphicsExtractor graphics, Pos2i pCursorPos, boolean pIsEndOfText) {
 		if (frameTick / 6 % 2 != 0)
 			return;
 		pCursorPos = convertLocalToScreen(pCursorPos);

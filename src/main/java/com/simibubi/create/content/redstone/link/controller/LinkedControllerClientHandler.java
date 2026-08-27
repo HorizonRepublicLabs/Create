@@ -26,7 +26,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
@@ -212,7 +212,7 @@ public class LinkedControllerClientHandler {
 		controls.forEach(kb -> kb.setDown(false));
 	}
 
-	public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+	public static void renderOverlay(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		int width1 = guiGraphics.guiWidth();
 									 int height1 = guiGraphics.guiHeight();
 		Minecraft mc = Minecraft.getInstance();

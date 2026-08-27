@@ -14,7 +14,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.data.Pair;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -99,7 +99,7 @@ public class TimeOfDayCondition extends ScheduleWaitCondition {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public boolean renderSpecialIcon(GuiGraphics graphics, int x, int y) {
+	public boolean renderSpecialIcon(GuiGraphicsExtractor graphics, int x, int y) {
 		int displayHr = (intData("Hour") + 12) % 24;
 		float progress = (displayHr * 60f + intData("Minute")) / (24 * 60);
 		Identifier location =

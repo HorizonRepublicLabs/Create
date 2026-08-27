@@ -19,7 +19,7 @@ import net.createmod.catnip.api.nbt.NBTHelper;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -154,7 +154,7 @@ public class ToolboxHandlerClient {
 			ScreenOpener.open(new RadialToolboxMenu(toolboxes, RadialToolboxMenu.State.SELECT_BOX, null));
 	}
 
-	public static void renderOverlay(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+	public static void renderOverlay(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		int width = guiGraphics.guiWidth();
 		int height = guiGraphics.guiHeight();
 		Minecraft mc = Minecraft.getInstance();

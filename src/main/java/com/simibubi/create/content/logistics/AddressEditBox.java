@@ -14,7 +14,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -101,7 +101,7 @@ public class AddressEditBox extends EditBox {
 	}
 
 	@Override
-	public void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+	public void renderWidget(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
 		super.renderWidget(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
 		PoseStack matrixStack = pGuiGraphics.pose();
 		matrixStack.pushPose();

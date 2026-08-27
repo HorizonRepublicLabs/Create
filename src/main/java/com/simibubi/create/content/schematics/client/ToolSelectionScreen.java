@@ -12,7 +12,7 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -59,7 +59,7 @@ public class ToolSelectionScreen extends Screen {
 		selection = (selection + tools.size()) % tools.size();
 	}
 
-	private void draw(GuiGraphics graphics, float partialTicks) {
+	private void draw(GuiGraphicsExtractor graphics, float partialTicks) {
 		PoseStack matrixStack = graphics.pose();
 		Window mainWindow = minecraft.getWindow();
 		if (!initialized)
@@ -149,7 +149,7 @@ public class ToolSelectionScreen extends Screen {
 			yOffset *= .9f;
 	}
 
-	public void renderPassive(GuiGraphics graphics, float partialTicks) {
+	public void renderPassive(GuiGraphicsExtractor graphics, float partialTicks) {
 		draw(graphics, partialTicks);
 	}
 

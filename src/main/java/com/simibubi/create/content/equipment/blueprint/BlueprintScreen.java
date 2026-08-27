@@ -12,7 +12,7 @@ import net.createmod.catnip.platform.CatnipServices;
 import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -63,7 +63,7 @@ public class BlueprintScreen extends AbstractSimiContainerScreen<BlueprintMenu> 
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
 		int invX = getLeftOfCentered(PLAYER_INVENTORY.getWidth());
 		int invY = topPos + background.getHeight() + 4;
 		renderPlayerInventory(graphics, invX, invY);
@@ -82,7 +82,7 @@ public class BlueprintScreen extends AbstractSimiContainerScreen<BlueprintMenu> 
 	}
 
 	@Override
-	protected void renderTooltip(GuiGraphics graphics, int x, int y) {
+	protected void renderTooltip(GuiGraphicsExtractor graphics, int x, int y) {
 		if (!menu.getCarried()
 			.isEmpty() || this.hoveredSlot == null || hoveredSlot.container == menu.playerInventory) {
 			super.renderTooltip(graphics, x, y);

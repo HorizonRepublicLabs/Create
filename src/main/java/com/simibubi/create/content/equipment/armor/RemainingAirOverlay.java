@@ -9,7 +9,7 @@ import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -25,7 +25,7 @@ public class RemainingAirOverlay implements LayeredDraw.Layer {
 	public static final RemainingAirOverlay INSTANCE = new RemainingAirOverlay();
 
 	@Override
-	public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;

@@ -6,7 +6,7 @@ import com.simibubi.create.AllBlocks;
 
 import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.platform.NeoForgeCatnipServices;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.LightTexture;
 
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -21,7 +21,7 @@ public class AnimatedItemDrain extends AnimatedKinetics {
 	}
 
 	@Override
-	public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
+	public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 		PoseStack matrixStack = graphics.pose();
 		matrixStack.pushPose();
 		matrixStack.translate(xOffset, yOffset, 100);

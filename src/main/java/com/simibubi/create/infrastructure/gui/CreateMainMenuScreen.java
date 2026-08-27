@@ -22,7 +22,7 @@ import net.createmod.catnip.api.theme.Color;
 import net.createmod.ponder.impl.client.gui.PonderTagIndexScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
@@ -77,14 +77,14 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		if (firstRenderTime == 0L)
 			this.firstRenderTime = Util.getMillis();
 		super.render(graphics, mouseX, mouseY, partialTicks);
 	}
 
 	@Override
-	protected void renderWindow(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		float f = (float) (Util.getMillis() - this.firstRenderTime) / 1000.0F;
 		float alpha = Mth.clamp(f, 0.0F, 1.0F);
 		float elapsedPartials = minecraft.getTimer().getGameTimeDeltaPartialTick(false);
@@ -191,7 +191,7 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	protected void renderWindowForeground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderWindowForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		super.renderWindowForeground(graphics, mouseX, mouseY, partialTicks);
 		renderables.forEach(w -> w.render(graphics, mouseX, mouseY, partialTicks));
 
@@ -238,7 +238,7 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 		}
 
 		@Override
-		protected void renderWidget(GuiGraphics graphics, int pMouseX, int pMouseY, float pt) {
+		protected void renderWidget(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pt) {
 			super.renderWidget(graphics, pMouseX, pMouseY, pt);
 			PoseStack pPoseStack = graphics.pose();
 			pPoseStack.pushPose();

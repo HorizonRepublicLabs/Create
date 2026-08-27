@@ -18,7 +18,7 @@ import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.client.gui.widget.AbstractSimiWidget;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
@@ -111,7 +111,7 @@ public class PackagePortScreen extends AbstractSimiContainerScreen<PackagePortMe
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics graphics, float pPartialTick, int pMouseX, int pMouseY) {
+	protected void renderBg(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
 		int x = getGuiLeft();
 		int y = getGuiTop();
 

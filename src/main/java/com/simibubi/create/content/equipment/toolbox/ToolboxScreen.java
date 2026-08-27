@@ -18,7 +18,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.data.Iterate;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -71,14 +71,14 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 	}
 
 	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		menu.renderPass = true;
 		super.render(graphics, mouseX, mouseY, partialTicks);
 		menu.renderPass = false;
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
 		int x = leftPos + imageWidth - BG.getWidth();
 		int y = topPos;
 
@@ -127,7 +127,7 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 		}
 	}
 
-	private void renderToolbox(GuiGraphics graphics, int x, int y, float partialTicks) {
+	private void renderToolbox(GuiGraphicsExtractor graphics, int x, int y, float partialTicks) {
         PoseStack ms = graphics.pose();
 		TransformStack.of(ms)
 			.pushPose()
@@ -161,7 +161,7 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 	}
 
 	@Override
-	protected void renderForeground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		if (hoveredToolboxSlot != null)
 			hoveredSlot = hoveredToolboxSlot;
 		super.renderForeground(graphics, mouseX, mouseY, partialTicks);

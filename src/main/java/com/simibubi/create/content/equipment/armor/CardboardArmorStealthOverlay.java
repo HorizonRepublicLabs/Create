@@ -7,7 +7,7 @@ import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
@@ -42,7 +42,7 @@ public class CardboardArmorStealthOverlay extends Gui implements IClientItemExte
 		float value = opacity.getValue(partialTick);
 		if (value == 0)
 			return;
-		((GuiAccessor) this).create$renderTextureOverlay(new GuiGraphics(mc, mc.renderBuffers()
+		((GuiAccessor) this).create$renderTextureOverlay(new GuiGraphicsExtractor(mc, mc.renderBuffers()
 			.bufferSource()), PACKAGE_BLUR_LOCATION, value);
 	}
 

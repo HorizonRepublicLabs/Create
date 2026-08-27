@@ -10,7 +10,7 @@ import com.simibubi.create.foundation.gui.widget.TooltipArea;
 import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.api.data.Couple;
 import net.createmod.catnip.api.data.Pair;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Renderable;
@@ -30,7 +30,7 @@ public class ModularGuiLine {
 		speechBubble = false;
 	}
 
-	public void renderWidgetBG(int guiLeft, GuiGraphics graphics) {
+	public void renderWidgetBG(int guiLeft, GuiGraphicsExtractor graphics) {
 		boolean first = true;
 
 		if (!customBoxes.isEmpty()) {
@@ -62,7 +62,7 @@ public class ModularGuiLine {
 		}
 	}
 
-	private void box(GuiGraphics graphics, int x, int width, boolean b) {
+	private void box(GuiGraphicsExtractor graphics, int x, int width, boolean b) {
 		UIRenderHelper.drawStretched(graphics, x, 0, width, 18, 0, AllGuiTextures.DATA_AREA);
 		if (b)
 			AllGuiTextures.DATA_AREA_SPEECH.render(graphics, x - 3, 0);

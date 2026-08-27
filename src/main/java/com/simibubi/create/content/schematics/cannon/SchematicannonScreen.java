@@ -24,7 +24,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.client.lang.FontHelper.Palette;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.CommonComponents;
@@ -269,7 +269,7 @@ public class SchematicannonScreen extends AbstractSimiContainerScreen<Schematica
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
 		int invX = getLeftOfCentered(AllGuiTextures.PLAYER_INVENTORY.getWidth());
 		int invY = topPos + BG_TOP.getHeight() + BG_BOTTOM.getHeight() + 2;
 		renderPlayerInventory(graphics, invX, invY);
@@ -316,23 +316,23 @@ public class SchematicannonScreen extends AbstractSimiContainerScreen<Schematica
 				x + 103 - stringWidth / 2, y + 65, 0xDDEEFF);
 	}
 
-	protected void renderBlueprintHighlight(GuiGraphics graphics, int x, int y) {
+	protected void renderBlueprintHighlight(GuiGraphicsExtractor graphics, int x, int y) {
 		AllGuiTextures.SCHEMATICANNON_HIGHLIGHT.render(graphics, x + 10, y + 60);
 	}
 
-	protected void renderPrintingProgress(GuiGraphics graphics, int x, int y, float progress) {
+	protected void renderPrintingProgress(GuiGraphicsExtractor graphics, int x, int y, float progress) {
 		progress = Math.min(progress, 1);
 		AllGuiTextures sprite = AllGuiTextures.SCHEMATICANNON_PROGRESS;
 		graphics.blit(sprite.location, x + 44, y + 64, sprite.getStartX(), sprite.getStartY(), (int) (sprite.getWidth() * progress), sprite.getHeight());
 	}
 
-	protected void renderChecklistPrinterProgress(GuiGraphics graphics, int x, int y, float progress) {
+	protected void renderChecklistPrinterProgress(GuiGraphicsExtractor graphics, int x, int y, float progress) {
 		AllGuiTextures sprite = AllGuiTextures.SCHEMATICANNON_CHECKLIST_PROGRESS;
 		graphics.blit(sprite.location, x + 154, y + 20, sprite.getStartX(), sprite.getStartY(), (int) (sprite.getWidth() * progress),
 			sprite.getHeight());
 	}
 
-	protected void renderFuelBar(GuiGraphics graphics, int x, int y, float amount) {
+	protected void renderFuelBar(GuiGraphicsExtractor graphics, int x, int y, float amount) {
 		AllGuiTextures sprite = AllGuiTextures.SCHEMATICANNON_FUEL;
 		if (menu.contentHolder.hasCreativeCrate) {
 			AllGuiTextures.SCHEMATICANNON_FUEL_CREATIVE.render(graphics, x + 36, y + 19);
@@ -342,7 +342,7 @@ public class SchematicannonScreen extends AbstractSimiContainerScreen<Schematica
 	}
 
 	@Override
-	protected void renderForeground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		SchematicannonBlockEntity be = menu.contentHolder;
 
 		int x = leftPos;

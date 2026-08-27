@@ -15,7 +15,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.createmod.catnip.api.data.Couple;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
@@ -130,7 +130,7 @@ public class TrainMapRenderer implements AutoCloseable {
 
 	//
 
-	public void render(GuiGraphics graphics, boolean linearFiltering, Rect2i bounds) {
+	public void render(GuiGraphicsExtractor graphics, boolean linearFiltering, Rect2i bounds) {
 		BufferSource bufferSource = graphics.bufferSource();
 		PoseStack pose = graphics.pose();
 		maps.forEach((key, tmi) -> {

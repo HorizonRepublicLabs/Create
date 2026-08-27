@@ -27,7 +27,7 @@ import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -107,7 +107,7 @@ public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAss
 	final String[] romans = { "I", "II", "III", "IV", "V", "VI", "-" };
 
 	@Override
-	public void draw(SequencedAssemblyRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+	public void draw(SequencedAssemblyRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
 		Font font = Minecraft.getInstance().font;
 
 		PoseStack matrixStack = graphics.pose();

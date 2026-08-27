@@ -25,7 +25,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
@@ -96,7 +96,7 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 	}
 
 	@Override
-	public void draw(CraftingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphics graphics, double mouseX,
+	public void draw(CraftingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphicsExtractor graphics, double mouseX,
 		double mouseY) {
 		PoseStack matrixStack = graphics.pose();
 		matrixStack.pushPose();
@@ -151,7 +151,7 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 		}
 
 		@Override
-		public void render(GuiGraphics graphics, @NotNull ItemStack ingredient) {
+		public void render(GuiGraphicsExtractor graphics, @NotNull ItemStack ingredient) {
 			PoseStack matrixStack = graphics.pose();
 			matrixStack.pushPose();
 			float scale = getScale(recipe);

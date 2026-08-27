@@ -46,7 +46,7 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.createmod.catnip.api.config.ConfigBase.ConfigBool;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -108,7 +108,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 	}
 
 	@Override
-	public void draw(RecipeHolder<T> holder, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
+	public void draw(RecipeHolder<T> holder, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor gui, double mouseX, double mouseY) {
 		draw(holder.value(), recipeSlotsView, gui, mouseX, mouseY);
 	}
 
@@ -119,7 +119,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 
 	protected abstract void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses);
 
-	protected abstract void draw(T recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY);
+	protected abstract void draw(T recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor gui, double mouseX, double mouseY);
 
 	protected List<Component> getTooltipStrings(T recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 		return List.of();
@@ -214,7 +214,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 			}
 
 			@Override
-			public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
+			public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 				texture.render(graphics, xOffset, yOffset);
 			}
 		};

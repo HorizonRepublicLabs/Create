@@ -22,7 +22,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
@@ -179,7 +179,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 	}
 
 	@Override
-	public void renderForeground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		ItemStack stack = menu.ghostInventory.getStackInSlot(1);
 		PoseStack matrixStack = graphics.pose();
 		matrixStack.pushPose();
@@ -200,7 +200,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 	}
 
 	@Override
-	protected void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
+	protected void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		if (this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
 			if (this.hoveredSlot.index == 37) {
 				graphics.renderComponentTooltip(font, selectedAttributes, mouseX, mouseY);

@@ -19,7 +19,7 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -104,7 +104,7 @@ public class RedstoneRequesterScreen extends AbstractSimiContainerScreen<Redston
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+	protected void renderBg(GuiGraphicsExtractor pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
 		int x = getGuiLeft();
 		int y = getGuiTop();
 		AllGuiTextures.REDSTONE_REQUESTER.render(pGuiGraphics, x + 3, y);
@@ -122,7 +122,7 @@ public class RedstoneRequesterScreen extends AbstractSimiContainerScreen<Redston
 	}
 
 	@Override
-	protected void renderForeground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		super.renderForeground(graphics, mouseX, mouseY, partialTicks);
 		int x = getGuiLeft();
 		int y = getGuiTop();

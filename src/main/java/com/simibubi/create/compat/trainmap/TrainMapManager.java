@@ -35,7 +35,7 @@ import net.createmod.catnip.api.data.Couple;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.data.Pair;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -67,7 +67,7 @@ public class TrainMapManager {
 		}
 	}
 
-	public static List<FormattedText> renderAndPick(GuiGraphics graphics, int mouseX, int mouseY,
+	public static List<FormattedText> renderAndPick(GuiGraphicsExtractor graphics, int mouseX, int mouseY,
 		boolean linearFiltering, Rect2i bounds) {
 		Object hoveredElement = null;
 
@@ -94,7 +94,7 @@ public class TrainMapManager {
 		return null;
 	}
 
-	public static void renderToggleWidget(GuiGraphics graphics, int x, int y) {
+	public static void renderToggleWidget(GuiGraphicsExtractor graphics, int x, int y) {
 		boolean enabled = AllConfigs.client().showTrainMapOverlay.get();
 		if (CreateClient.RAILWAYS.trackNetworks.isEmpty())
 			return;
@@ -241,7 +241,7 @@ public class TrainMapManager {
 		return output;
 	}
 
-	private static Object drawPoints(GuiGraphics graphics, int mouseX, int mouseY, Object hoveredElement,
+	private static Object drawPoints(GuiGraphicsExtractor graphics, int mouseX, int mouseY, Object hoveredElement,
 		Rect2i bounds) {
 		PoseStack pose = graphics.pose();
 		RenderSystem.enableDepthTest();
@@ -309,7 +309,7 @@ public class TrainMapManager {
 		return hoveredElement;
 	}
 
-	private static Object drawTrains(GuiGraphics graphics, int mouseX, int mouseY, Object hoveredElement,
+	private static Object drawTrains(GuiGraphicsExtractor graphics, int mouseX, int mouseY, Object hoveredElement,
 		Rect2i bounds) {
 		PoseStack pose = graphics.pose();
 		RenderSystem.enableDepthTest();

@@ -1,6 +1,6 @@
 package com.simibubi.create.foundation.mixin.accessor;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SubtitleOverlay;
 
 import net.minecraft.resources.Identifier;
@@ -21,5 +21,5 @@ public interface GuiAccessor {
 	int create$getToolHighlightTimer();
 
 	@Invoker("renderTextureOverlay")
-	void create$renderTextureOverlay(GuiGraphics guiGraphics, Identifier shaderLocation, float alpha);
+	void create$renderTextureOverlay(GuiGraphicsExtractor guiGraphics, Identifier shaderLocation, float alpha);
 }

@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.simibubi.create.foundation.gui.ModularGuiLineBuilder;
 
 import net.createmod.catnip.api.data.Pair;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -56,7 +56,7 @@ public interface IScheduleInput {
 	public default void initConfigurationWidgets(ModularGuiLineBuilder builder) {};
 
 	@OnlyIn(Dist.CLIENT)
-	public default boolean renderSpecialIcon(GuiGraphics graphics, int x, int y) {
+	public default boolean renderSpecialIcon(GuiGraphicsExtractor graphics, int x, int y) {
 		return false;
 	}
 

@@ -25,7 +25,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -86,21 +86,21 @@ public class WaterWheelBlockEntity extends GeneratingKineticBlockEntity {
 		return (getSize() == 1 ? SMALL_OFFSETS : LARGE_OFFSETS).get(getAxis());
 	}
 
-	public ItemInteractionResult applyMaterialIfValid(ItemStack stack) {
+	public InteractionResult applyMaterialIfValid(ItemStack stack) {
 		if (!(stack.getItem()instanceof BlockItem blockItem))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		BlockState material = blockItem.getBlock()
 			.defaultBlockState();
 		if (material == this.material)
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		if (!material.is(BlockTags.PLANKS))
-			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		if (level.isClientSide() && !isVirtual())
-			return ItemInteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		this.material = material;
 		notifyUpdate();
 		level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, worldPosition, Block.getId(material));
-		return ItemInteractionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	protected Axis getAxis() {

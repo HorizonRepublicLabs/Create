@@ -6,7 +6,7 @@ import net.createmod.catnip.api.client.gui.TextureSheetSegment;
 import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.api.client.gui.element.ScreenElement;
 import net.createmod.catnip.api.theme.Color;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.resources.Identifier;
 
 import net.neoforged.api.distmarker.Dist;
@@ -297,12 +297,12 @@ public enum AllGuiTextures implements ScreenElement, TextureSheetSegment {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void render(GuiGraphics graphics, int x, int y) {
+	public void render(GuiGraphicsExtractor graphics, int x, int y) {
 		graphics.blit(location, x, y, startX, startY, width, height);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void render(GuiGraphics graphics, int x, int y, Color c) {
+	public void render(GuiGraphicsExtractor graphics, int x, int y, Color c) {
 		bind();
 		UIRenderHelper.drawColoredTexture(graphics, c, x, y, startX, startY, width, height);
 	}

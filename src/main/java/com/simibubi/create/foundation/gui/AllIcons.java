@@ -10,7 +10,7 @@ import com.simibubi.create.Create;
 import net.createmod.catnip.api.client.gui.element.DelegatedStencilElement;
 import net.createmod.catnip.api.client.gui.element.ScreenElement;
 import net.createmod.catnip.api.theme.Color;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
@@ -190,7 +190,7 @@ public class AllIcons implements ScreenElement {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void render(GuiGraphics graphics, int x, int y) {
+	public void render(GuiGraphicsExtractor graphics, int x, int y) {
 		graphics.blit(ICON_ATLAS, x, y, 0, iconX, iconY, 16, 16, 256, 256);
 	}
 

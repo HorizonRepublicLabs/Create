@@ -27,7 +27,7 @@ import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.renderer.Rect2i;
@@ -162,7 +162,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	}
 
 	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		partialTicks = AnimationTickHolder.getPartialTicksUI();
 
 		if (menu.slotsActive)
@@ -176,7 +176,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		}
 	}
 
-	protected void renderCategories(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderCategories(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		PoseStack matrixStack = graphics.pose();
 
 		int yOffset = 25;
@@ -209,7 +209,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		graphics.disableScissor();
 	}
 
-	public int renderScheduleEntry(GuiGraphics graphics, int i, ItemStack entry, int yOffset, int mouseX, int mouseY,
+	public int renderScheduleEntry(GuiGraphicsExtractor graphics, int i, ItemStack entry, int yOffset, int mouseX, int mouseY,
 								   float partialTicks) {
 		int cardWidth = CARD_WIDTH;
 		int cardHeader = CARD_HEADER;
@@ -245,7 +245,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	private final Component clickToEdit = CreateLang.translateDirect("gui.schedule.lmb_edit")
 		.withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
 
-	public boolean action(@Nullable GuiGraphics graphics, double mouseX, double mouseY, int click) {
+	public boolean action(@Nullable GuiGraphicsExtractor graphics, double mouseX, double mouseY, int click) {
 		// Prevent actions outside the window for them
 		if (mouseX < leftPos || mouseX >= leftPos + imageWidth || mouseY < topPos + 15 || mouseY >= topPos + 99)
 			return false;
@@ -352,7 +352,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		return false;
 	}
 
-	private void renderActionTooltip(@Nullable GuiGraphics graphics, List<Component> tooltip, int mx, int my) {
+	private void renderActionTooltip(@Nullable GuiGraphicsExtractor graphics, List<Component> tooltip, int mx, int my) {
 		if (graphics != null)
 			graphics.renderTooltip(font, tooltip, Optional.empty(), mx, my);
 	}
@@ -415,7 +415,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	}
 
 	@Override
-	protected void renderForeground(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+	protected void renderForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		super.renderForeground(graphics, mouseX, mouseY, partialTicks);
 
 		GuiGameElement.of(AllBlocks.STOCK_TICKER.asStack()).<GuiGameElement
@@ -452,7 +452,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	}
 
 	@Override
-	protected void renderBg(GuiGraphics graphics, float pPartialTick, int pMouseX, int pMouseY) {
+	protected void renderBg(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
 		int y = topPos;
 		AllGuiTextures.STOCK_KEEPER_CATEGORY_HEADER.render(graphics, leftPos, y);
 		y += AllGuiTextures.STOCK_KEEPER_CATEGORY_HEADER.getHeight();

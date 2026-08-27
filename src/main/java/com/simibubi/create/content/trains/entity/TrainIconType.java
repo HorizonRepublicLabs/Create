@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.simibubi.create.Create;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import io.netty.buffer.ByteBuf;
@@ -57,7 +57,7 @@ public class TrainIconType {
 	public static final int FLIPPED_ENGINE = -2;
 
 	@OnlyIn(Dist.CLIENT)
-	public int render(int lengthOrEngine, GuiGraphics graphics, int x, int y) {
+	public int render(int lengthOrEngine, GuiGraphicsExtractor graphics, int x, int y) {
 		int offset = getIconOffset(lengthOrEngine);
 		int width = getIconWidth(lengthOrEngine);
 		graphics.blit(sheet, x, y, 0, this.x + offset, this.y, width, 10, 256, 256);
