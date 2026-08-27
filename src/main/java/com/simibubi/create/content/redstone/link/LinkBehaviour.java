@@ -146,12 +146,12 @@ public class LinkBehaviour extends BlockEntityBehaviour implements IRedstoneLink
 	public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
 		long positionInTag = blockEntity.getBlockPos()
 			.asLong();
-		long positionKey = nbt.getLong("LastKnownPosition");
+		long positionKey = nbt.getLongOr("LastKnownPosition", 0L);
 		newPosition = positionInTag != positionKey;
 
 		super.read(nbt, registries, clientPacket);
-		frequencyFirst = Frequency.of(ItemStack.parseOptional(registries, nbt.getCompound("FrequencyFirst")));
-		frequencyLast = Frequency.of(ItemStack.parseOptional(registries, nbt.getCompound("FrequencyLast")));
+		frequencyFirst = Frequency.of(ItemStack.parseOptional(registries, nbt.getCompoundOrEmpty("FrequencyFirst")));
+		frequencyLast = Frequency.of(ItemStack.parseOptional(registries, nbt.getCompoundOrEmpty("FrequencyLast")));
 	}
 
 	public void setFrequency(boolean first, ItemStack stack) {
@@ -247,8 +247,8 @@ public class LinkBehaviour extends BlockEntityBehaviour implements IRedstoneLink
 			return false;
 		if (simulate)
 			return true;
-		setFrequency(true, ItemStack.parseOptional(registries, tag.getCompound("First")));
-		setFrequency(false, ItemStack.parseOptional(registries, tag.getCompound("Last")));
+		setFrequency(true, ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("First")));
+		setFrequency(false, ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("Last")));
 		return true;
 	}
 

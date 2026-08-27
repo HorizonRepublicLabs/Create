@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -168,7 +170,7 @@ public class StockTickerBlockEntity extends StockCheckingBlockEntity implements 
 		tag.put("Categories", NBTHelper.writeItemList(categories, registries));
 		tag.put("HiddenCategories", NBTHelper.writeCompoundList(hiddenCategoriesByPlayer.entrySet(), e -> {
 			CompoundTag c = new CompoundTag();
-			c.putUUID("Id", e.getKey());
+			c.store("Id", UUIDUtil.CODEC, e.getKey());
 			c.putIntArray("Indices", e.getValue());
 			return c;
 		}));
@@ -180,19 +182,19 @@ public class StockTickerBlockEntity extends StockCheckingBlockEntity implements 
 	@Override
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
-		previouslyUsedAddress = tag.getString("PreviousAddress");
-		receivedPayments.deserializeNBT(registries, tag.getCompound("ReceivedPayments"));
-		categories = NBTHelper.readItemList(tag.getList("Categories", Tag.TAG_COMPOUND), registries);
+		previouslyUsedAddress = tag.getStringOr("PreviousAddress", "");
+		receivedPayments.deserializeNBT(registries, tag.getCompoundOrEmpty("ReceivedPayments"));
+		categories = NBTHelper.readItemList(tag.getListOrEmpty("Categories"), registries);
 		categories.removeIf(stack -> !stack.isEmpty() && !(stack.getItem() instanceof FilterItem));
 		hiddenCategoriesByPlayer.clear();
 
-		NBTHelper.iterateCompoundList(tag.getList("HiddenCategories", Tag.TAG_COMPOUND),
-			c -> hiddenCategoriesByPlayer.put(c.getUUID("Id"), IntStream.of(c.getIntArray("Indices"))
+		NBTHelper.iterateCompoundList(tag.getListOrEmpty("HiddenCategories"),
+			c -> hiddenCategoriesByPlayer.put(c.read("Id", UUIDUtil.CODEC).orElseThrow(), IntStream.of(c.getIntArray("Indices"))
 				.boxed()
 				.toList()));
 
 		if (clientPacket)
-			activeLinks = tag.getInt("ActiveLinks");
+			activeLinks = tag.getIntOr("ActiveLinks", 0);
 	}
 
 	public void receiveStockPacket(List<BigItemStack> stacks, boolean endOfTransmission) {

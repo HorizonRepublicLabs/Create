@@ -161,7 +161,7 @@ public class GantryContraptionEntity extends AbstractContraptionEntity {
 	protected void readAdditional(CompoundTag compound, boolean spawnData) {
 		movementAxis = NBTHelper.readEnum(compound, "GantryAxis", Direction.class);
 		sequencedOffsetLimit =
-			compound.contains("SequencedOffsetLimit") ? compound.getDouble("SequencedOffsetLimit") : -1;
+			compound.contains("SequencedOffsetLimit") ? compound.getDoubleOr("SequencedOffsetLimit", 0.0) : -1;
 		super.readAdditional(compound, spawnData);
 	}
 

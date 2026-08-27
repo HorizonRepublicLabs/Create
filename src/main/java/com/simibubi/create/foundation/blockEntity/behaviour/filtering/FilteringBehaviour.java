@@ -96,9 +96,9 @@ public class FilteringBehaviour extends BlockEntityBehaviour implements ValueSet
 
 	@Override
 	public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
-		filter = FilterItemStack.of(registries, nbt.getCompound("Filter"));
-		count = nbt.getInt("FilterAmount");
-		upTo = nbt.getBoolean("UpTo");
+		filter = FilterItemStack.of(registries, nbt.getCompoundOrEmpty("Filter"));
+		count = nbt.getIntOr("FilterAmount", 0);
+		upTo = nbt.getBooleanOr("UpTo", false);
 
 		// Migrate from previous behaviour
 		if (count == 0) {
@@ -382,7 +382,7 @@ public class FilteringBehaviour extends BlockEntityBehaviour implements ValueSet
 		if (getFilter(side).getItem() instanceof FilterItem && !player.isCreative())
 			refund = getFilter(side).copy();
 
-		ItemStack copied = ItemStack.parseOptional(registries, tag.getCompound("Filter"));
+		ItemStack copied = ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("Filter"));
 
 		if (copied.getItem() instanceof FilterItem filterType && !player.isCreative()) {
 			InvWrapper inv = new InvWrapper(player.getInventory());

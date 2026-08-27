@@ -71,14 +71,14 @@ public class PressingBehaviour extends BeltProcessingBehaviour {
 
 	@Override
 	public void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		running = compound.getBoolean("Running");
-		mode = Mode.values()[compound.getInt("Mode")];
-		finished = compound.getBoolean("Finished");
-		prevRunningTicks = runningTicks = compound.getInt("Ticks");
+		running = compound.getBooleanOr("Running", false);
+		mode = Mode.values()[compound.getIntOr("Mode", 0)];
+		finished = compound.getBooleanOr("Finished", false);
+		prevRunningTicks = runningTicks = compound.getIntOr("Ticks", 0);
 		super.read(compound, registries, clientPacket);
 
 		if (clientPacket) {
-			NBTHelper.iterateCompoundList(compound.getList("ParticleItems", Tag.TAG_COMPOUND),
+			NBTHelper.iterateCompoundList(compound.getListOrEmpty("ParticleItems"),
 				c -> particleItems.add(ItemStack.parseOptional(registries, c)));
 			spawnParticles();
 		}

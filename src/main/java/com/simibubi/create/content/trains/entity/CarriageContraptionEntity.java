@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.lang.ref.WeakReference;
@@ -469,15 +471,15 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 	@Override
 	protected void writeAdditional(CompoundTag compound, HolderLookup.Provider registries, boolean spawnPacket) {
 		super.writeAdditional(compound, registries, spawnPacket);
-		compound.putUUID("TrainId", trainId);
+		compound.store("TrainId", UUIDUtil.CODEC, trainId);
 		compound.putInt("CarriageIndex", carriageIndex);
 	}
 
 	@Override
 	protected void readAdditional(CompoundTag compound, boolean spawnPacket) {
 		super.readAdditional(compound, spawnPacket);
-		trainId = compound.getUUID("TrainId");
-		carriageIndex = compound.getInt("CarriageIndex");
+		trainId = compound.read("TrainId", UUIDUtil.CODEC).orElseThrow();
+		carriageIndex = compound.getIntOr("CarriageIndex", 0);
 		if (spawnPacket) {
 			xOld = getX();
 			yOld = getY();

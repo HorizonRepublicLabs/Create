@@ -302,9 +302,9 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		heldItem = null;
-		processingTicks = compound.getInt("ProcessingTicks");
+		processingTicks = compound.getIntOr("ProcessingTicks", 0);
 		if (compound.contains("HeldItem"))
-			heldItem = TransportedItemStack.read(compound.getCompound("HeldItem"), registries);
+			heldItem = TransportedItemStack.read(compound.getCompoundOrEmpty("HeldItem"), registries);
 		super.read(compound, registries, clientPacket);
 	}
 

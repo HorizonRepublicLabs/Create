@@ -576,21 +576,21 @@ public class PackagerBlockEntity extends SmartBlockEntity implements Clearable {
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
-		redstonePowered = compound.getBoolean("Active");
-		animationInward = compound.getBoolean("AnimationInward");
-		animationTicks = compound.getInt("AnimationTicks");
-		signBasedAddress = compound.getString("SignAddress");
-		customComputerAddress = compound.getString("ComputerAddress");
-		hasCustomComputerAddress = compound.getBoolean("HasComputerAddress");
-		heldBox = ItemStack.parseOptional(registries, compound.getCompound("HeldBox"));
-		previouslyUnwrapped = ItemStack.parseOptional(registries, compound.getCompound("InsertedBox"));
+		redstonePowered = compound.getBooleanOr("Active", false);
+		animationInward = compound.getBooleanOr("AnimationInward", false);
+		animationTicks = compound.getIntOr("AnimationTicks", 0);
+		signBasedAddress = compound.getStringOr("SignAddress", "");
+		customComputerAddress = compound.getStringOr("ComputerAddress", "");
+		hasCustomComputerAddress = compound.getBooleanOr("HasComputerAddress", false);
+		heldBox = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("HeldBox"));
+		previouslyUnwrapped = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("InsertedBox"));
 		if (clientPacket)
 			return;
-		queuedExitingPackages = NBTHelper.readCompoundList(compound.getList("QueuedExitingPackages", Tag.TAG_COMPOUND),
+		queuedExitingPackages = NBTHelper.readCompoundList(compound.getListOrEmpty("QueuedExitingPackages"),
 			c -> CatnipCodecUtils.decode(BigItemStack.CODEC, registries, c)
 				.orElseThrow());
 		if (compound.contains("LastSummary"))
-			availableItems = CatnipCodecUtils.decodeOrNull(InventorySummary.CODEC, registries, compound.getCompound("LastSummary"));
+			availableItems = CatnipCodecUtils.decodeOrNull(InventorySummary.CODEC, registries, compound.getCompoundOrEmpty("LastSummary"));
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -118,7 +120,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 	protected void checkForTrackPlacementAdvancement(MovementContext context, DeployerFakePlayer player) {
 		if ((context.contraption instanceof MountedContraption || context.contraption instanceof CarriageContraption)
 			&& player.placedTracks && context.blockEntityData != null && context.blockEntityData.contains("Owner"))
-			AllAdvancements.SELF_DEPLOYING.awardTo(context.world.getPlayerByUUID(context.blockEntityData.getUUID("Owner")));
+			AllAdvancements.SELF_DEPLOYING.awardTo(context.world.getPlayerByUUID(context.blockEntityData.read("Owner", UUIDUtil.CODEC).orElseThrow()));
 	}
 
 	protected void activateAsSchematicPrinter(MovementContext context, BlockPos pos, DeployerFakePlayer player,
@@ -183,7 +185,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 
 		Pair<BlockPos, Float> blockBreakingProgress = player.blockBreakingProgress;
 		if (blockBreakingProgress != null) {
-			int timer = context.data.getInt("Timer");
+			int timer = context.data.getIntOr("Timer", 0);
 			if (timer < 20) {
 				timer++;
 				context.data.putInt("Timer", timer);
@@ -275,14 +277,14 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 
 	private DeployerFakePlayer getPlayer(MovementContext context) {
 		if (!(context.temporaryData instanceof DeployerFakePlayer) && context.world instanceof ServerLevel) {
-			UUID owner = context.blockEntityData.contains("Owner") ? context.blockEntityData.getUUID("Owner") : null;
+			UUID owner = context.blockEntityData.contains("Owner") ? context.blockEntityData.read("Owner", UUIDUtil.CODEC).orElseThrow() : null;
 			DeployerFakePlayer deployerFakePlayer = new DeployerFakePlayer((ServerLevel) context.world, owner);
 			deployerFakePlayer.onMinecartContraption = context.contraption instanceof MountedContraption;
 			deployerFakePlayer.getInventory()
-				.load(context.blockEntityData.getList("Inventory", Tag.TAG_COMPOUND));
+				.load(context.blockEntityData.getListOrEmpty("Inventory"));
 			if (context.data.contains("HeldItem"))
 				deployerFakePlayer.setItemInHand(InteractionHand.MAIN_HAND,
-					ItemStack.parseOptional(context.world.registryAccess(), context.data.getCompound("HeldItem")));
+					ItemStack.parseOptional(context.world.registryAccess(), context.data.getCompoundOrEmpty("HeldItem")));
 			context.blockEntityData.remove("Inventory");
 			context.temporaryData = deployerFakePlayer;
 		}

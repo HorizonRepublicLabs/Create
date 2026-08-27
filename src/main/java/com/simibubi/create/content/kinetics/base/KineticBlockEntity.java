@@ -252,21 +252,21 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 			return;
 		}
 
-		speed = compound.getFloat("Speed");
-		sequenceContext = SequenceContext.fromNBT(compound.getCompound("Sequence"));
+		speed = compound.getFloatOr("Speed", 0.0F);
+		sequenceContext = SequenceContext.fromNBT(compound.getCompoundOrEmpty("Sequence"));
 
 		source = null;
 		if (compound.contains("Source"))
 			source = NBTHelper.readBlockPos(compound, "Source");
 
 		if (compound.contains("Network")) {
-			CompoundTag networkTag = compound.getCompound("Network");
-			network = networkTag.getLong("Id");
-			stress = networkTag.getFloat("Stress");
-			capacity = networkTag.getFloat("Capacity");
-			networkSize = networkTag.getInt("Size");
-			lastStressApplied = networkTag.getFloat("AddedStress");
-			lastCapacityProvided = networkTag.getFloat("AddedCapacity");
+			CompoundTag networkTag = compound.getCompoundOrEmpty("Network");
+			network = networkTag.getLongOr("Id", 0L);
+			stress = networkTag.getFloatOr("Stress", 0.0F);
+			capacity = networkTag.getFloatOr("Capacity", 0.0F);
+			networkSize = networkTag.getIntOr("Size", 0);
+			lastStressApplied = networkTag.getFloatOr("AddedStress", 0.0F);
+			lastCapacityProvided = networkTag.getFloatOr("AddedCapacity", 0.0F);
 			overStressed = capacity < stress && StressImpact.isEnabled();
 		}
 

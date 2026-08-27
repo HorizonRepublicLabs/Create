@@ -207,17 +207,17 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 		Phase phaseBefore = phase;
 		GroupedItems before = this.groupedItems;
 
-		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
-		input.read(compound.getCompound("ConnectedInput"));
-		groupedItems = GroupedItems.read(compound.getCompound("GroupedItems"), registries);
+		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
+		input.read(compound.getCompoundOrEmpty("ConnectedInput"));
+		groupedItems = GroupedItems.read(compound.getCompoundOrEmpty("GroupedItems"), registries);
 		phase = Phase.IDLE;
-		String name = compound.getString("Phase");
+		String name = compound.getStringOr("Phase", "");
 		for (Phase phase : Phase.values())
 			if (phase.name()
 				.equals(name))
 				this.phase = phase;
-		countDown = compound.getInt("CountDown");
-		covered = compound.getBoolean("Cover");
+		countDown = compound.getIntOr("CountDown", 0);
+		covered = compound.getBooleanOr("Cover", false);
 		super.read(compound, registries, clientPacket);
 		if (!clientPacket)
 			return;

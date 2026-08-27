@@ -27,7 +27,7 @@ public class KineticStressDisplaySource extends PercentOrProgressBarDisplaySourc
 
 	private int getMode(DisplayLinkContext context) {
 		return context.sourceConfig()
-			.getInt("Mode");
+			.getIntOr("Mode", 0);
 	}
 
 	@Override

@@ -38,8 +38,8 @@ public class AnalogLeverBlockEntity extends SmartBlockEntity implements IHaveGog
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		state = compound.getInt("State");
-		lastChange = compound.getInt("ChangeTimer");
+		state = compound.getIntOr("State", 0);
+		lastChange = compound.getIntOr("ChangeTimer", 0);
 		clientState.chase(state, 0.2f, Chaser.EXP);
 		super.read(compound, registries, clientPacket);
 	}

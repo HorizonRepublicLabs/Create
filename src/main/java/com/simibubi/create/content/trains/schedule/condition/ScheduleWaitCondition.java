@@ -25,7 +25,7 @@ public abstract class ScheduleWaitCondition extends ScheduleDataEntry {
 	public abstract boolean tickCompletion(Level level, Train train, CompoundTag context);
 
 	protected void requestStatusToUpdate(CompoundTag context) {
-		context.putInt("StatusVersion", context.getInt("StatusVersion") + 1);
+		context.putInt("StatusVersion", context.getIntOr("StatusVersion", 0) + 1);
 	}
 
 	public final CompoundTag write(HolderLookup.Provider registries) {
@@ -38,7 +38,7 @@ public abstract class ScheduleWaitCondition extends ScheduleDataEntry {
 	}
 
 	public static ScheduleWaitCondition fromTag(HolderLookup.Provider registries, CompoundTag tag) {
-		Identifier location = Identifier.parse(tag.getString("Id"));
+		Identifier location = Identifier.parse(tag.getStringOr("Id", ""));
 		Supplier<? extends ScheduleWaitCondition> supplier = null;
 		for (Pair<Identifier, Supplier<? extends ScheduleWaitCondition>> pair : Schedule.CONDITION_TYPES)
 			if (pair.getFirst()
@@ -53,7 +53,7 @@ public abstract class ScheduleWaitCondition extends ScheduleDataEntry {
 		ScheduleWaitCondition condition = supplier.get();
 		// Left around for migration purposes. Data added in writeAdditional has moved into the "Data" tag
 		condition.readAdditional(registries, tag);
-		CompoundTag data = tag.getCompound("Data");
+		CompoundTag data = tag.getCompoundOrEmpty("Data");
 		condition.readAdditional(registries, data);
 		condition.data = data;
 		return condition;

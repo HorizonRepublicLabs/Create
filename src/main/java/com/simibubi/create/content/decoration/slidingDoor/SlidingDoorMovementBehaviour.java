@@ -110,7 +110,7 @@ public class SlidingDoorMovementBehaviour implements MovementBehaviour {
 			context.data.putBoolean("Open", shouldOpen);
 			return true;
 		}
-		boolean wasOpen = context.data.getBoolean("Open");
+		boolean wasOpen = context.data.getBooleanOr("Open", false);
 		context.data.putBoolean("Open", shouldOpen);
 		return wasOpen != shouldOpen;
 	}

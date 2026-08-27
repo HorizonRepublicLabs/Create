@@ -335,7 +335,7 @@ public class CreateGameTestHelper extends GameTestHelper {
 			if (stack.isEmpty())
 				continue;
 			Item item = stack.getItem();
-			long amount = map.getLong(item);
+			long amount = map.getLongOr(item, 0L);
 			amount += stack.getCount();
 			map.put(item, amount);
 		}
@@ -383,7 +383,7 @@ public class CreateGameTestHelper extends GameTestHelper {
 			if (stack.isEmpty())
 				continue;
 			Item item = stack.getItem();
-			long amount = map.getLong(item);
+			long amount = map.getLongOr(item, 0L);
 			amount -= stack.getCount();
 			if (amount == 0)
 				map.removeLong(item);

@@ -70,9 +70,9 @@ public class SchematicPrinter {
 			}
 		}
 
-		printingEntityIndex = compound.getInt("EntityProgress");
-		printStage = PrintStage.valueOf(compound.getString("PrintStage"));
-		compound.getList("DeferredBlocks", 10).stream()
+		printingEntityIndex = compound.getIntOr("EntityProgress", 0);
+		printStage = PrintStage.valueOf(compound.getStringOr("PrintStage", ""));
+		compound.getListOrEmpty("DeferredBlocks").stream()
 			.map(p -> NBTHelper.readBlockPos((CompoundTag) p, "Pos"))
 			.collect(Collectors.toCollection(() -> deferredBlocks));
 	}

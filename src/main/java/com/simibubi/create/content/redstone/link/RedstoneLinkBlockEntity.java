@@ -79,13 +79,13 @@ public class RedstoneLinkBlockEntity extends SmartBlockEntity {
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		transmitter = compound.getBoolean("Transmitter");
+		transmitter = compound.getBooleanOr("Transmitter", false);
 		super.read(compound, registries, clientPacket);
 
-		receivedSignal = compound.getInt("Receive");
-		receivedSignalChanged = compound.getBoolean("ReceivedChanged");
+		receivedSignal = compound.getIntOr("Receive", 0);
+		receivedSignalChanged = compound.getBooleanOr("ReceivedChanged", false);
 		if (level == null || level.isClientSide || !link.newPosition)
-			transmittedSignal = compound.getInt("Transmit");
+			transmittedSignal = compound.getIntOr("Transmit", 0);
 	}
 
 	@Override

@@ -192,7 +192,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 			return;
 		CompoundTag nbt = new CompoundTag();
 		itemEntity.addAdditionalSaveData(nbt);
-		if (nbt.getInt("PickupDelay") != 32767) // See: ItemEntity#makeFakeItem
+		if (nbt.getIntOr("PickupDelay", 0) != 32767) // See: ItemEntity#makeFakeItem
 			return;
 		discard();
 	}
@@ -393,7 +393,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
-		box = ItemStack.parseOptional(level().registryAccess(), compound.getCompound("Box"));
+		box = ItemStack.parseOptional(level().registryAccess(), compound.getCompoundOrEmpty("Box"));
 		refreshDimensions();
 	}
 

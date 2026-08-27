@@ -77,8 +77,8 @@ public class HandCrankBlockEntity extends GeneratingKineticBlockEntity {
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		inUse = compound.getInt("InUse");
-		backwards = compound.getBoolean("Backwards");
+		inUse = compound.getIntOr("InUse", 0);
+		backwards = compound.getBooleanOr("Backwards", false);
 		super.read(compound, registries, clientPacket);
 	}
 

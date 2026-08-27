@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -50,7 +52,7 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 		CompoundTag tag = pStack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
 		if (!tag.hasUUID("Freq"))
 			return null;
-		return tag.getUUID("Freq");
+		return tag.read("Freq", UUIDUtil.CODEC).orElseThrow();
 	}
 
 	@Override
@@ -124,7 +126,7 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 
 	public static void assignFrequency(ItemStack stack, Player player, UUID frequency) {
 		CompoundTag tag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
-		tag.putUUID("Freq", frequency);
+		tag.store("Freq", UUIDUtil.CODEC, frequency);
 
 		player.displayClientMessage(CreateLang.translateDirect("logistically_linked.tuned"), true);
 

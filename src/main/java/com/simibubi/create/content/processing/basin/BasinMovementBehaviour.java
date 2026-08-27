@@ -19,7 +19,7 @@ public class BasinMovementBehaviour implements MovementBehaviour {
 		Map<String, ItemStackHandler> map = new HashMap<>();
 		map.put("InputItems", new ItemStackHandler(9));
 		map.put("OutputItems", new ItemStackHandler(8));
-		map.forEach((s, h) -> h.deserializeNBT(context.world.registryAccess(), context.blockEntityData.getCompound(s)));
+		map.forEach((s, h) -> h.deserializeNBT(context.world.registryAccess(), context.blockEntityData.getCompoundOrEmpty(s)));
 		return map;
 	}
 

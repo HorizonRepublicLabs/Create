@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.redstoneRequester;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -107,7 +109,7 @@ public class RedstoneRequesterBlock extends Block implements IBE<RedstoneRequest
 
 		if (isRequester) {
 			CompoundTag beTag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
-			beTag.putUUID("Freq", be.behaviour.freqId);
+			beTag.store("Freq", UUIDUtil.CODEC, be.behaviour.freqId);
 			BlockEntity.addEntityType(beTag, AllBlockEntityTypes.REDSTONE_REQUESTER.get());
 			stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(beTag));
 		}

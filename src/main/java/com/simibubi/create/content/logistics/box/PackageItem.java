@@ -232,12 +232,12 @@ public class PackageItem extends Item {
 
 		/*
 		 * Debug Fragmentation Data if (tag.contains("Fragment")) { CompoundTag
-		 * fragTag = tag.getCompound("Fragment");
+		 * fragTag = tag.getCompoundOrEmpty("Fragment");
 		 * pTooltipComponents.add(Component.literal("Order Information (Temporary)")
 		 * .withStyle(ChatFormatting.GREEN)); pTooltipComponents.add(Components
-		 * .literal(" Link " + fragTag.getInt("LinkIndex") +
-		 * (fragTag.getBoolean("IsFinalLink") ? " Final" : "") + " | Fragment " +
-		 * fragTag.getInt("Index") + (fragTag.getBoolean("IsFinal") ? " Final" : ""))
+		 * .literal(" Link " + fragTag.getIntOr("LinkIndex", 0) +
+		 * (fragTag.getBooleanOr("IsFinalLink", false) ? " Final" : "") + " | Fragment " +
+		 * fragTag.getIntOr("Index", 0) + (fragTag.getBooleanOr("IsFinal", false) ? " Final" : ""))
 		 * .withStyle(ChatFormatting.DARK_GREEN)); if (fragTag.contains("OrderContext"))
 		 * pTooltipComponents.add(Component.literal("Has Context!")
 		 * .withStyle(ChatFormatting.DARK_GREEN)); }

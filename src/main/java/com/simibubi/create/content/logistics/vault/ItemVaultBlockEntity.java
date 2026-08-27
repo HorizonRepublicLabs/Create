@@ -278,12 +278,12 @@ public class ItemVaultBlockEntity extends SmartBlockEntity implements IMultiBloc
 			controller = NBTHelper.readBlockPos(compound, "Controller");
 
 		if (isController()) {
-			radius = compound.getInt("Size");
-			length = compound.getInt("Length");
+			radius = compound.getIntOr("Size", 0);
+			length = compound.getIntOr("Length", 0);
 		}
 
 		if (!clientPacket) {
-			inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
+			inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
 			return;
 		}
 

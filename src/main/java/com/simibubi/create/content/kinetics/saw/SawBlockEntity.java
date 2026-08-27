@@ -128,10 +128,10 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
-		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
-		recipeIndex = compound.getInt("RecipeIndex");
+		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
+		recipeIndex = compound.getIntOr("RecipeIndex", 0);
 		if (compound.contains("PlayEvent"))
-			playEvent = ItemStack.parseOptional(registries, compound.getCompound("PlayEvent"));
+			playEvent = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("PlayEvent"));
 	}
 
 	@Override

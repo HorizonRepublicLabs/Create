@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -38,7 +40,7 @@ public class LogisticsNetwork {
 
 	public CompoundTag write(HolderLookup.Provider registries) {
 		CompoundTag tag = new CompoundTag();
-		tag.putUUID("Id", id);
+		tag.store("Id", UUIDUtil.CODEC, id);
 		tag.put("Promises", panelPromises.write(registries));
 
 		tag.put("Links", NBTHelper.writeCompoundList(totalLinks, p -> {
@@ -50,24 +52,24 @@ public class LogisticsNetwork {
 		}));
 
 		if (owner != null)
-			tag.putUUID("Owner", owner);
+			tag.store("Owner", UUIDUtil.CODEC, owner);
 
 		tag.putBoolean("Locked", locked);
 		return tag;
 	}
 
 	public static LogisticsNetwork read(CompoundTag tag, HolderLookup.Provider registries) {
-		LogisticsNetwork network = new LogisticsNetwork(tag.getUUID("Id"));
-		network.panelPromises = RequestPromiseQueue.read(tag.getCompound("Promises"), registries, Create.LOGISTICS::markDirty);
+		LogisticsNetwork network = new LogisticsNetwork(tag.read("Id", UUIDUtil.CODEC).orElseThrow());
+		network.panelPromises = RequestPromiseQueue.read(tag.getCompoundOrEmpty("Promises"), registries, Create.LOGISTICS::markDirty);
 
-		NBTHelper.iterateCompoundList(tag.getList("Links", Tag.TAG_COMPOUND), nbt -> {
+		NBTHelper.iterateCompoundList(tag.getListOrEmpty("Links"), nbt -> {
 			network.totalLinks.add(GlobalPos.of(nbt.contains("Dim")
 				? ResourceKey.create(Registries.DIMENSION, NBTHelper.readResourceLocation(nbt, "Dim"))
 				: Level.OVERWORLD, NBTHelper.readBlockPos(nbt, "Pos")));
 		});
 
-		network.owner = tag.contains("Owner") ? tag.getUUID("Owner") : null;
-		network.locked = tag.getBoolean("Locked");
+		network.owner = tag.contains("Owner") ? tag.read("Owner", UUIDUtil.CODEC).orElseThrow() : null;
+		network.locked = tag.getBooleanOr("Locked", false);
 
 		return network;
 	}

@@ -353,14 +353,14 @@ public class FrogportBlockEntity extends PackagePortBlockEntity implements IHave
 	@Override
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
-		passiveYaw = tag.getFloat("PlacedYaw");
-		failedLastExport = tag.getBoolean("FailedLastExport");
-		goggles = tag.getBoolean("Goggles");
+		passiveYaw = tag.getFloatOr("PlacedYaw", 0.0F);
+		failedLastExport = tag.getBooleanOr("FailedLastExport", false);
+		goggles = tag.getBooleanOr("Goggles", false);
 		if (!clientPacket)
 			animatedPackage = null;
 		if (tag.contains("AnimatedPackage")) {
-			deferAnimationInward = tag.getBoolean("Deposit");
-			deferAnimationStart = ItemStack.parseOptional(registries, tag.getCompound("AnimatedPackage"));
+			deferAnimationInward = tag.getBooleanOr("Deposit", false);
+			deferAnimationStart = ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("AnimatedPackage"));
 		}
 		if (clientPacket && tag.contains("Anticipate"))
 			anticipate();

@@ -269,8 +269,8 @@ public class SmartFluidTankBehaviour extends BlockEntityBehaviour {
 		}
 
 		public void readNBT(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-			tank.readFromNBT(registries, compound.getCompound("TankContent"));
-			fluidLevel.readNBT(compound.getCompound("Level"), clientPacket);
+			tank.readFromNBT(registries, compound.getCompoundOrEmpty("TankContent"));
+			fluidLevel.readNBT(compound.getCompoundOrEmpty("Level"), clientPacket);
 			if (!tank.getFluid()
 				.isEmpty())
 				renderedFluid = tank.getFluid();

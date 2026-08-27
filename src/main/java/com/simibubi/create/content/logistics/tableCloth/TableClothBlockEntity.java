@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tableCloth;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.util.ArrayList;
@@ -333,17 +335,17 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 		tag.putInt("Facing", facing.get2DDataValue());
 		tag.put("RequestData", CatnipCodecUtils.encode(AutoRequestData.CODEC, registries, requestData).orElseThrow());
 		if (owner != null)
-			tag.putUUID("OwnerUUID", owner);
+			tag.store("OwnerUUID", UUIDUtil.CODEC, owner);
 	}
 
 	@Override
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
-		manuallyAddedItems = NBTHelper.readItemList(tag.getList("Items", Tag.TAG_COMPOUND), registries);
+		manuallyAddedItems = NBTHelper.readItemList(tag.getListOrEmpty("Items"), registries);
 		requestData = CatnipCodecUtils.decode(AutoRequestData.CODEC, registries, tag.get("RequestData"))
 			.orElse(new AutoRequestData());
-		owner = tag.contains("OwnerUUID") ? tag.getUUID("OwnerUUID") : null;
-		facing = Direction.from2DDataValue(Mth.positiveModulo(tag.getInt("Facing"), 4));
+		owner = tag.contains("OwnerUUID") ? tag.read("OwnerUUID", UUIDUtil.CODEC).orElseThrow() : null;
+		facing = Direction.from2DDataValue(Mth.positiveModulo(tag.getIntOr("Facing", 0), 4));
 	}
 
 	@Override

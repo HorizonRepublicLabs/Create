@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -87,7 +89,7 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 
 	@Override
 	public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
-		nbt.putUUID("Id", id);
+		nbt.store("Id", UUIDUtil.CODEC, id);
 		nbt.put("TargetTrack", NbtUtils.writeBlockPos(targetTrack));
 		nbt.putBoolean("Ortho", orthogonal);
 		nbt.putBoolean("TargetDirection", targetDirection == AxisDirection.POSITIVE);
@@ -109,23 +111,23 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 
 	@Override
 	public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
-		id = nbt.contains("Id") ? nbt.getUUID("Id") : UUID.randomUUID();
+		id = nbt.contains("Id") ? nbt.read("Id", UUIDUtil.CODEC).orElseThrow() : UUID.randomUUID();
 		targetTrack = NBTHelper.readBlockPos(nbt, "TargetTrack");
-		targetDirection = nbt.getBoolean("TargetDirection") ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
-		orthogonal = nbt.getBoolean("Ortho");
+		targetDirection = nbt.getBooleanOr("TargetDirection", false) ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
+		orthogonal = nbt.getBooleanOr("Ortho", false);
 		if (nbt.contains("PrevAxis"))
-			prevDirection = VecHelper.readNBT(nbt.getList("PrevAxis", Tag.TAG_DOUBLE));
+			prevDirection = VecHelper.readNBT(nbt.getListOrEmpty("PrevAxis"));
 		if (nbt.contains("RotatedAxis"))
-			rotatedDirection = VecHelper.readNBT(nbt.getList("RotatedAxis", Tag.TAG_DOUBLE));
+			rotatedDirection = VecHelper.readNBT(nbt.getListOrEmpty("RotatedAxis"));
 		if (nbt.contains("Migrate"))
-			migrationData = nbt.getCompound("Migrate");
+			migrationData = nbt.getCompoundOrEmpty("Migrate");
 		if (clientPacket)
 			edgePoint = null;
 		if (nbt.contains("Bezier")) {
-			CompoundTag bezierNbt = nbt.getCompound("Bezier");
+			CompoundTag bezierNbt = nbt.getCompoundOrEmpty("Bezier");
 			BlockPos key = NBTHelper.readBlockPos(bezierNbt, "Key");
 			targetBezier = new BezierTrackPointLocation(key.offset(getPos()),
-				bezierNbt.getInt("Segment"));
+				bezierNbt.getIntOr("Segment", 0));
 		}
 		super.read(nbt, registries, clientPacket);
 	}

@@ -70,7 +70,7 @@ public record ToolboxEquipPacket(BlockPos toolboxPos, int slot, int hotbarSlot) 
 		}
 
 		CompoundTag compound = player.getPersistentData()
-				.getCompound("CreateToolboxData");
+				.getCompoundOrEmpty("CreateToolboxData");
 		String key = String.valueOf(hotbarSlot);
 
 		CompoundTag data = new CompoundTag();

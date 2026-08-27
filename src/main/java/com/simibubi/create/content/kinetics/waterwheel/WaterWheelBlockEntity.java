@@ -188,13 +188,13 @@ public class WaterWheelBlockEntity extends GeneratingKineticBlockEntity {
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
-		flowScore = compound.getInt("FlowScore");
+		flowScore = compound.getIntOr("FlowScore", 0);
 
 		BlockState prevMaterial = material;
 		if (!compound.contains("Material"))
 			return;
 
-		material = NbtUtils.readBlockState(blockHolderGetter(), compound.getCompound("Material"));
+		material = NbtUtils.readBlockState(blockHolderGetter(), compound.getCompoundOrEmpty("Material"));
 		if (material.isAir())
 			material = Blocks.SPRUCE_PLANKS.defaultBlockState();
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Collections;
@@ -233,13 +235,13 @@ public class LogisticallyLinkedBehaviour extends BlockEntityBehaviour {
 
 	@Override
 	public void writeSafe(CompoundTag tag, HolderLookup.Provider registries) {
-		tag.putUUID("Freq", freqId);
+		tag.store("Freq", UUIDUtil.CODEC, freqId);
 	}
 
 	@Override
 	public void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.write(tag, registries, clientPacket);
-		tag.putUUID("Freq", freqId);
+		tag.store("Freq", UUIDUtil.CODEC, freqId);
 		tag.putInt("Power", redstonePower);
 		tag.putBoolean("Added", addedGlobally);
 	}
@@ -248,9 +250,9 @@ public class LogisticallyLinkedBehaviour extends BlockEntityBehaviour {
 	public void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
 		if (tag.hasUUID("Freq"))
-			freqId = tag.getUUID("Freq");
-		redstonePower = tag.getInt("Power");
-		addedGlobally = tag.getBoolean("Added");
+			freqId = tag.read("Freq", UUIDUtil.CODEC).orElseThrow();
+		redstonePower = tag.getIntOr("Power", 0);
+		addedGlobally = tag.getBooleanOr("Added", false);
 	}
 
 	@Override

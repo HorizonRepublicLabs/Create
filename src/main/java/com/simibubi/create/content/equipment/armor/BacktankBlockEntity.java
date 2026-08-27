@@ -133,14 +133,14 @@ public class BacktankBlockEntity extends KineticBlockEntity implements Nameable 
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
 		int prev = airLevel;
-		airLevel = compound.getInt("Air");
-		airLevelTimer = compound.getInt("Timer");
-		capacityEnchantLevel = compound.getInt("CapacityEnchantment");
+		airLevel = compound.getIntOr("Air", 0);
+		airLevelTimer = compound.getIntOr("Timer", 0);
+		capacityEnchantLevel = compound.getIntOr("CapacityEnchantment", 0);
 
 		if (compound.contains("CustomName", 8))
-			this.customName = Component.Serializer.fromJson(compound.getString("CustomName"), registries);
+			this.customName = Component.Serializer.fromJson(compound.getStringOr("CustomName", ""), registries);
 
-		componentPatch = CatnipCodecUtils.decode(DataComponentPatch.CODEC, registries, compound.getCompound("Components")).orElse(DataComponentPatch.EMPTY);
+		componentPatch = CatnipCodecUtils.decode(DataComponentPatch.CODEC, registries, compound.getCompoundOrEmpty("Components")).orElse(DataComponentPatch.EMPTY);
 		if (prev != 0 && prev != airLevel && airLevel == BacktankUtil.maxAir(capacityEnchantLevel) && clientPacket)
 			playFilledEffect();
 	}

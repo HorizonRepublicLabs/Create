@@ -44,7 +44,7 @@ public class RemainingAirOverlay implements LayeredDraw.Layer {
 			return;
 
 		int timeLeft = player.getPersistentData()
-			.getInt("VisualBacktankAir");
+			.getIntOr("VisualBacktankAir", 0);
 
 		PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();

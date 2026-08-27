@@ -112,9 +112,9 @@ public class BlueprintEntity extends HangingEntity
 	@Override
 	public void readAdditionalSaveData(CompoundTag p_70037_1_) {
 		if (p_70037_1_.contains("Facing", Tag.TAG_ANY_NUMERIC)) {
-			this.direction = Direction.from3DDataValue(p_70037_1_.getByte("Facing"));
-			this.verticalOrientation = Direction.from3DDataValue(p_70037_1_.getByte("Orientation"));
-			this.size = p_70037_1_.getInt("Size");
+			this.direction = Direction.from3DDataValue(p_70037_1_.getByteOr("Facing", (byte) 0));
+			this.verticalOrientation = Direction.from3DDataValue(p_70037_1_.getByteOr("Orientation", (byte) 0));
+			this.size = p_70037_1_.getIntOr("Size", 0);
 		} else {
 			this.direction = Direction.SOUTH;
 			this.verticalOrientation = Direction.DOWN;
@@ -286,7 +286,7 @@ public class BlueprintEntity extends HangingEntity
 	@Override
 	public void dropItem(@Nullable Entity p_110128_1_) {
 		if (!level().getGameRules()
-			.getBoolean(GameRules.RULE_DOENTITYDROPS))
+			.getBooleanOr(GameRules.RULE_DOENTITYDROPS, false))
 			return;
 
 		playSound(SoundEvents.PAINTING_BREAK, 1.0F, 1.0F);
@@ -489,7 +489,7 @@ public class BlueprintEntity extends HangingEntity
 		CompoundTag persistentData = getPersistentData();
 		if (!persistentData.contains("Recipes"))
 			persistentData.put("Recipes", new CompoundTag());
-		return persistentData.getCompound("Recipes");
+		return persistentData.getCompoundOrEmpty("Recipes");
 	}
 
 	private Map<Integer, BlueprintSection> sectionCache = new HashMap<>();
@@ -517,8 +517,8 @@ public class BlueprintEntity extends HangingEntity
 		public ItemStackHandler getItems() {
 			ItemStackHandler newInv = new ItemStackHandler(11);
 			CompoundTag list = getOrCreateRecipeCompound();
-			CompoundTag invNBT = list.getCompound(index + "");
-			inferredIcon = list.getBoolean("InferredIcon");
+			CompoundTag invNBT = list.getCompoundOrEmpty(index + "");
+			inferredIcon = list.getBooleanOr("InferredIcon", false);
 			if (!invNBT.isEmpty())
 				newInv.deserializeNBT(registryAccess(), invNBT);
 			return newInv;

@@ -33,8 +33,8 @@ public abstract class GaugeBlockEntity extends KineticBlockEntity implements IHa
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		dialTarget = compound.getFloat("Value");
-		color = compound.getInt("Color");
+		dialTarget = compound.getFloatOr("Value", 0.0F);
+		color = compound.getIntOr("Color", 0);
 		super.read(compound, registries, clientPacket);
 	}
 

@@ -66,8 +66,8 @@ public class PlacardBlockEntity extends SmartBlockEntity {
 	@Override
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		int prevTicks = poweredTicks;
-		poweredTicks = tag.getInt("PoweredTicks");
-		heldItem = ItemStack.parseOptional(registries, tag.getCompound("Item"));
+		poweredTicks = tag.getIntOr("PoweredTicks", 0);
+		heldItem = ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("Item"));
 		super.read(tag, registries, clientPacket);
 
 		if (clientPacket && prevTicks < poweredTicks)

@@ -162,26 +162,26 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		if (!clientPacket) {
-			inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
+			inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
 		}
 
 		// Gui information
-		statusMsg = compound.getString("Status");
-		schematicProgress = compound.getFloat("Progress");
-		bookPrintingProgress = compound.getFloat("PaperProgress");
-		remainingFuel = compound.getInt("RemainingFuel");
-		String stateString = compound.getString("State");
-		state = stateString.isEmpty() ? State.STOPPED : State.valueOf(compound.getString("State"));
-		blocksPlaced = compound.getInt("AmountPlaced");
-		blocksToPlace = compound.getInt("AmountToPlace");
+		statusMsg = compound.getStringOr("Status", "");
+		schematicProgress = compound.getFloatOr("Progress", 0.0F);
+		bookPrintingProgress = compound.getFloatOr("PaperProgress", 0.0F);
+		remainingFuel = compound.getIntOr("RemainingFuel", 0);
+		String stateString = compound.getStringOr("State", "");
+		state = stateString.isEmpty() ? State.STOPPED : State.valueOf(compound.getStringOr("State", ""));
+		blocksPlaced = compound.getIntOr("AmountPlaced", 0);
+		blocksToPlace = compound.getIntOr("AmountToPlace", 0);
 
 		missingItem = null;
 		if (compound.contains("MissingItem")) {
-			ItemStack.parse(registries, compound.getCompound("MissingItem")).ifPresent(i -> missingItem = i);
+			ItemStack.parse(registries, compound.getCompoundOrEmpty("MissingItem")).ifPresent(i -> missingItem = i);
 		}
 
 		// Settings
-		SchematicannonOptions options = CatnipCodecUtils.decode(SchematicannonOptions.CODEC, registries, compound.getCompound("Options"))
+		SchematicannonOptions options = CatnipCodecUtils.decode(SchematicannonOptions.CODEC, registries, compound.getCompoundOrEmpty("Options"))
 			.orElse(new SchematicannonOptions(2, false, false));
 		replaceMode = options.replaceMode;
 		skipMissing = options.skipMissing;
@@ -189,24 +189,24 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 
 		// Printer & Flying Blocks
 		if (compound.contains("Printer"))
-			printer.fromTag(compound.getCompound("Printer"), clientPacket);
+			printer.fromTag(compound.getCompoundOrEmpty("Printer"), clientPacket);
 		if (compound.contains("FlyingBlocks"))
 			readFlyingBlocks(compound, registries);
 
-		defaultYaw = compound.getFloat("DefaultYaw");
+		defaultYaw = compound.getFloatOr("DefaultYaw", 0.0F);
 
 		super.read(compound, registries, clientPacket);
 	}
 
 	protected void readFlyingBlocks(CompoundTag compound, HolderLookup.Provider registries) {
-		ListTag tagBlocks = compound.getList("FlyingBlocks", 10);
+		ListTag tagBlocks = compound.getListOrEmpty("FlyingBlocks");
 		if (tagBlocks.isEmpty())
 			flyingBlocks.clear();
 
 		boolean pastDead = false;
 
 		for (int i = 0; i < tagBlocks.size(); i++) {
-			CompoundTag c = tagBlocks.getCompound(i);
+			CompoundTag c = tagBlocks.getCompoundOrEmpty(i);
 			LaunchedItem launched = LaunchedItem.fromNBT(c, registries, blockHolderGetter());
 			BlockPos readBlockPos = launched.target;
 

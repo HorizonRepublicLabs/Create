@@ -220,8 +220,8 @@ public class ElevatorColumn {
 		}
 
 		public static ColumnCoords read(CompoundTag tag) {
-			int x = tag.getInt("X");
-			int z = tag.getInt("Z");
+			int x = tag.getIntOr("X", 0);
+			int z = tag.getIntOr("Z", 0);
 			Direction side = NBTHelper.readEnum(tag, "Side", Direction.class);
 			return new ColumnCoords(x, z, side);
 		}

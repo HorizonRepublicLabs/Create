@@ -61,17 +61,17 @@ public class GlobalStation extends SingleBlockEntityEdgePoint {
 	@Override
 	public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean migration, DimensionPalette dimensions) {
 		super.read(nbt, registries, migration, dimensions);
-		name = nbt.getString("Name");
-		assembling = nbt.getBoolean("Assembling");
+		name = nbt.getStringOr("Name", "");
+		assembling = nbt.getBooleanOr("Assembling", false);
 		nearestTrain = new WeakReference<>(null);
 
 		connectedPorts.clear();
-		ListTag portList = nbt.getList("Ports", Tag.TAG_COMPOUND);
+		ListTag portList = nbt.getListOrEmpty("Ports");
 		NBTHelper.iterateCompoundList(portList, c -> {
 			GlobalPackagePort port = new GlobalPackagePort();
-			port.address = c.getString("Address");
-			port.offlineBuffer.deserializeNBT(registries, c.getCompound("OfflineBuffer"));
-			port.primed = c.getBoolean("Primed");
+			port.address = c.getStringOr("Address", "");
+			port.offlineBuffer.deserializeNBT(registries, c.getCompoundOrEmpty("OfflineBuffer"));
+			port.primed = c.getBooleanOr("Primed", false);
 			connectedPorts.put(NBTHelper.readBlockPos(c, "Pos"), port);
 		});
 	}

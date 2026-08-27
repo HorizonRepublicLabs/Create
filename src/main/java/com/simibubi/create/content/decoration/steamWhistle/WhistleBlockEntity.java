@@ -104,7 +104,7 @@ public class WhistleBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
 	@Override
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
-		pitch = tag.getInt("Pitch");
+		pitch = tag.getIntOr("Pitch", 0);
 		super.read(tag, registries, clientPacket);
 	}
 

@@ -256,9 +256,9 @@ public class MountedStorageManager {
 		this.reset();
 
 		try {
-			NBTHelper.iterateCompoundList(nbt.getList("items", Tag.TAG_COMPOUND), tag -> {
+			NBTHelper.iterateCompoundList(nbt.getListOrEmpty("items"), tag -> {
 				BlockPos pos = NBTHelper.readBlockPos(tag, "pos");
-				CompoundTag data = tag.getCompound("storage");
+				CompoundTag data = tag.getCompoundOrEmpty("storage");
 				// TODO - Use CatnipCodecUtils
 				MountedItemStorage.CODEC.decode(registryOps, data)
 					.resultOrPartial(err -> Create.LOGGER.error("Failed to deserialize mounted item storage: {}", err))
@@ -266,9 +266,9 @@ public class MountedStorageManager {
 					.ifPresent(storage -> this.addStorage(storage, pos));
 			});
 
-			NBTHelper.iterateCompoundList(nbt.getList("fluids", Tag.TAG_COMPOUND), tag -> {
+			NBTHelper.iterateCompoundList(nbt.getListOrEmpty("fluids"), tag -> {
 				BlockPos pos = NBTHelper.readBlockPos(tag, "pos");
-				CompoundTag data = tag.getCompound("storage");
+				CompoundTag data = tag.getCompoundOrEmpty("storage");
 				// TODO - Use CatnipCodecUtils
 				MountedFluidStorage.CODEC.decode(registryOps, data)
 					.resultOrPartial(err -> Create.LOGGER.error("Failed to deserialize mounted fluid storage: {}", err))
@@ -280,8 +280,8 @@ public class MountedStorageManager {
 
 			if (nbt.contains("interactable_positions")) {
 				this.interactablePositions = new HashSet<>();
-				NBTHelper.iterateCompoundList(nbt.getList("interactable_positions", Tag.TAG_COMPOUND), tag -> {
-					BlockPos pos = new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
+				NBTHelper.iterateCompoundList(nbt.getListOrEmpty("interactable_positions"), tag -> {
+					BlockPos pos = new BlockPos(tag.getIntOr("X", 0), tag.getIntOr("Y", 0), tag.getIntOr("Z", 0));
 					this.interactablePositions.add(pos);
 				});
 			}
@@ -440,16 +440,16 @@ public class MountedStorageManager {
 	}
 
 	private void readLegacy(HolderLookup.Provider registries, CompoundTag nbt) {
-		NBTHelper.iterateCompoundList(nbt.getList("Storage", Tag.TAG_COMPOUND), tag -> {
+		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Storage"), tag -> {
 			BlockPos pos = NBTHelper.readBlockPos(tag, "Pos");
-			CompoundTag data = tag.getCompound("Data");
+			CompoundTag data = tag.getCompoundOrEmpty("Data");
 
 			if (data.contains("Toolbox")) {
 				this.addStorage(ToolboxMountedStorage.fromLegacy(registries, data), pos);
 			} else if (data.contains("NoFuel")) {
 				this.addStorage(ItemVaultMountedStorage.fromLegacy(registries, data), pos);
 			} else if (data.contains("Bottomless")) {
-				ItemStack supplied = ItemStack.parseOptional(registries, data.getCompound("ProvidedStack"));
+				ItemStack supplied = ItemStack.parseOptional(registries, data.getCompoundOrEmpty("ProvidedStack"));
 				this.addStorage(new CreativeCrateMountedStorage(supplied), pos);
 			} else if (data.contains("Synced")) {
 				this.addStorage(DepotMountedStorage.fromLegacy(registries, data), pos);
@@ -461,9 +461,9 @@ public class MountedStorageManager {
 			}
 		});
 
-		NBTHelper.iterateCompoundList(nbt.getList("FluidStorage", Tag.TAG_COMPOUND), tag -> {
+		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("FluidStorage"), tag -> {
 			BlockPos pos = NBTHelper.readBlockPos(tag, "Pos");
-			CompoundTag data = tag.getCompound("Data");
+			CompoundTag data = tag.getCompoundOrEmpty("Data");
 
 			if (data.contains("Bottomless")) {
 				this.addStorage(CreativeFluidTankMountedStorage.fromLegacy(registries, data), pos);

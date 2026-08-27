@@ -162,11 +162,11 @@ public class ElevatorContraption extends PulleyContraption {
 
 	@Override
 	public void readNBT(Level world, CompoundTag nbt, boolean spawnData) {
-		arrived = nbt.getBoolean("Arrived");
-		column = ColumnCoords.read(nbt.getCompound("Column"));
-		contactYOffset = nbt.getInt("ContactY");
-		maxContactY = nbt.getInt("MaxContactY");
-		minContactY = nbt.getInt("MinContactY");
+		arrived = nbt.getBooleanOr("Arrived", false);
+		column = ColumnCoords.read(nbt.getCompoundOrEmpty("Column"));
+		contactYOffset = nbt.getIntOr("ContactY", 0);
+		maxContactY = nbt.getIntOr("MaxContactY", 0);
+		minContactY = nbt.getIntOr("MinContactY", 0);
 		super.readNBT(world, nbt, spawnData);
 	}
 

@@ -625,25 +625,25 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 		boolean wasConnectedLeft = connectedLeft;
 		boolean wasConnectedRight = connectedRight;
 
-		syncedOutputActive = compound.getBoolean("SyncedOutput");
-		connectedLeft = compound.getBoolean("ConnectedLeft");
-		connectedRight = compound.getBoolean("ConnectedRight");
+		syncedOutputActive = compound.getBooleanOr("SyncedOutput", false);
+		connectedLeft = compound.getBooleanOr("ConnectedLeft", false);
+		connectedRight = compound.getBooleanOr("ConnectedRight", false);
 
-		stackToDistribute = ItemStack.parseOptional(registries, compound.getCompound("StackToDistribute"));
+		stackToDistribute = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("StackToDistribute"));
 		stackEnteredFrom =
 			compound.contains("StackEnteredFrom") ? NBTHelper.readEnum(compound, "StackEnteredFrom", Direction.class)
 				: null;
 
-		distributionProgress = compound.getFloat("DistributionProgress");
-		previousOutputIndex = compound.getInt("PreviousIndex");
-		distributionDistanceLeft = compound.getInt("DistanceLeft");
-		distributionDistanceRight = compound.getInt("DistanceRight");
+		distributionProgress = compound.getFloatOr("DistributionProgress", 0.0F);
+		previousOutputIndex = compound.getIntOr("PreviousIndex", 0);
+		distributionDistanceLeft = compound.getIntOr("DistanceLeft", 0);
+		distributionDistanceRight = compound.getIntOr("DistanceRight", 0);
 
 		for (boolean filtered : Iterate.trueAndFalse) {
 			distributionTargets.set(filtered, NBTHelper
-				.readCompoundList(compound.getList(filtered ? "FilteredTargets" : "Targets", Tag.TAG_COMPOUND), nbt -> {
+				.readCompoundList(compound.getListOrEmpty(filtered ? "FilteredTargets" : "Targets"), nbt -> {
 					BlockPos pos = NBTHelper.readBlockPos(nbt, "Pos");
-					Direction face = Direction.from3DDataValue(nbt.getInt("Face"));
+					Direction face = Direction.from3DDataValue(nbt.getIntOr("Face", 0));
 					return Pair.of(pos, face);
 				}));
 		}

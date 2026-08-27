@@ -75,8 +75,8 @@ public class FunnelMovementBehaviour implements MovementBehaviour {
 			return;
 
 		FilterItemStack filter = context.getFilterFromBE();
-		int filterAmount = context.blockEntityData.getInt("FilterAmount");
-		boolean upTo = context.blockEntityData.getBoolean("UpTo");
+		int filterAmount = context.blockEntityData.getIntOr("FilterAmount", 0);
+		boolean upTo = context.blockEntityData.getBooleanOr("UpTo", false);
 		filterAmount = hasFilter ? filterAmount : 1;
 
 		ItemStack extract = ItemHelper.extract(context.contraption.getStorage().getAllItems(),

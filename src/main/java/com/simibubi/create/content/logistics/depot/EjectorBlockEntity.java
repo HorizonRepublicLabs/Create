@@ -546,8 +546,8 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
-		int horizontalDistance = compound.getInt("HorizontalDistance");
-		int verticalDistance = compound.getInt("VerticalDistance");
+		int horizontalDistance = compound.getIntOr("HorizontalDistance", 0);
+		int verticalDistance = compound.getIntOr("VerticalDistance", 0);
 
 		if (launcher.getHorizontalDistance() != horizontalDistance
 			|| launcher.getVerticalDistance() != verticalDistance) {
@@ -555,22 +555,22 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 			launcher.clamp(AllConfigs.server().kinetics.maxEjectorDistance.get());
 		}
 
-		powered = compound.getBoolean("Powered");
+		powered = compound.getBooleanOr("Powered", false);
 		state = NBTHelper.readEnum(compound, "State", State.class);
-		lidProgress.readNBT(compound.getCompound("Lid"), false);
-		launchedItems = NBTHelper.readCompoundList(compound.getList("LaunchedItems", Tag.TAG_COMPOUND),
+		lidProgress.readNBT(compound.getCompoundOrEmpty("Lid"), false);
+		launchedItems = NBTHelper.readCompoundList(compound.getListOrEmpty("LaunchedItems"),
 			nbt -> IntAttached.read(nbt, t -> ItemStack.parseOptional(registries, t)));
 
 		earlyTarget = null;
 		earlyTargetTime = 0;
 		if (compound.contains("EarlyTarget")) {
-			earlyTarget = Pair.of(VecHelper.readNBT(compound.getList("EarlyTarget", Tag.TAG_DOUBLE)),
+			earlyTarget = Pair.of(VecHelper.readNBT(compound.getListOrEmpty("EarlyTarget")),
 					NBTHelper.readBlockPos(compound, "EarlyTargetPos"));
-			earlyTargetTime = compound.getFloat("EarlyTargetTime");
+			earlyTargetTime = compound.getFloatOr("EarlyTargetTime", 0.0F);
 		}
 
 		if (compound.contains("ForceAngle"))
-			lidProgress.startWithValue(compound.getFloat("ForceAngle"));
+			lidProgress.startWithValue(compound.getFloatOr("ForceAngle", 0.0F));
 	}
 
 	public void updateSignal() {

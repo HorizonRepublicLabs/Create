@@ -33,7 +33,7 @@ public class MechanicalPistonBlockEntity extends LinearActuatorBlockEntity {
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		extensionLength = compound.getInt("ExtensionLength");
+		extensionLength = compound.getIntOr("ExtensionLength", 0);
 		super.read(compound, registries, clientPacket);
 	}
 

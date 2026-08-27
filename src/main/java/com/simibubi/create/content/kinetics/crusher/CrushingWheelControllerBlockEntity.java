@@ -349,8 +349,8 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 			entityUUID = NbtUtils.loadUUID(NBTHelper.getINBT(compound, "Entity"));
 			this.searchForEntity = true;
 		}
-		crushingspeed = compound.getFloat("Speed");
-		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
+		crushingspeed = compound.getFloatOr("Speed", 0.0F);
+		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
 	}
 
 	@Override

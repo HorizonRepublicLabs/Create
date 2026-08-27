@@ -140,8 +140,8 @@ public class FlapDisplaySection {
 	}
 
 	public static FlapDisplaySection load(CompoundTag tag, HolderLookup.Provider registries) {
-		float width = tag.getFloat("Width");
-		String cycle = tag.getString("Cycle");
+		float width = tag.getFloatOr("Width", 0.0F);
+		String cycle = tag.getStringOr("Cycle", "");
 		boolean singleFlap = tag.contains("SingleFlap");
 		boolean hasGap = tag.contains("Gap");
 
@@ -153,18 +153,18 @@ public class FlapDisplaySection {
 		if (!tag.contains("Text"))
 			return section;
 
-		section.component = Component.Serializer.fromJson(tag.getString("Text"), registries);
-		section.refresh(tag.getBoolean("Transition"));
+		section.component = Component.Serializer.fromJson(tag.getStringOr("Text", ""), registries);
+		section.refresh(tag.getBooleanOr("Transition", false));
 		return section;
 	}
 
 	public void update(CompoundTag tag, HolderLookup.Provider registries) {
-		String text = tag.getString("Text");
+		String text = tag.getStringOr("Text", "");
 		if (!text.isEmpty())
 			component = Component.Serializer.fromJson(text, registries);
 		if (cyclingOptions == null)
 			cyclingOptions = getFlapCycle(cycle);
-		refresh(tag.getBoolean("Transition"));
+		refresh(tag.getBooleanOr("Transition", false));
 	}
 
 	public boolean renderCharsIndividually() {

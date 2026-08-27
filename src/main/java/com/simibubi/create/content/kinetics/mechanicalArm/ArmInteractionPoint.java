@@ -159,7 +159,7 @@ public class ArmInteractionPoint {
 
 	@Nullable
 	public static ArmInteractionPoint deserialize(CompoundTag nbt, Level level, BlockPos anchor) {
-		Identifier id = Identifier.tryParse(nbt.getString("Type"));
+		Identifier id = Identifier.tryParse(nbt.getStringOr("Type", ""));
 		if (id == null)
 			return null;
 		ArmInteractionPointType type = CreateBuiltInRegistries.ARM_INTERACTION_POINT_TYPE.get(id);

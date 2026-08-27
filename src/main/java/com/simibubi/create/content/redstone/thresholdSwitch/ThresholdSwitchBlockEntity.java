@@ -77,15 +77,15 @@ public class ThresholdSwitchBlockEntity extends SmartBlockEntity implements Clea
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		onWhenAbove = compound.getInt("OnAboveAmount");
-		offWhenBelow = compound.getInt("OffBelowAmount");
-		currentLevel = compound.getInt("CurrentAmount");
-		currentMinLevel = compound.getInt("CurrentMinAmount");
-		currentMaxLevel = compound.getInt("CurrentMaxAmount");
-		inStacks = compound.getBoolean("InStacks");
-		redstoneState = compound.getBoolean("Powered");
-		inverted = compound.getBoolean("Inverted");
-		poweredAfterDelay = compound.getBoolean("PoweredAfterDelay");
+		onWhenAbove = compound.getIntOr("OnAboveAmount", 0);
+		offWhenBelow = compound.getIntOr("OffBelowAmount", 0);
+		currentLevel = compound.getIntOr("CurrentAmount", 0);
+		currentMinLevel = compound.getIntOr("CurrentMinAmount", 0);
+		currentMaxLevel = compound.getIntOr("CurrentMaxAmount", 0);
+		inStacks = compound.getBooleanOr("InStacks", false);
+		redstoneState = compound.getBooleanOr("Powered", false);
+		inverted = compound.getBooleanOr("Inverted", false);
+		poweredAfterDelay = compound.getBooleanOr("PoweredAfterDelay", false);
 		super.read(compound, registries, clientPacket);
 	}
 

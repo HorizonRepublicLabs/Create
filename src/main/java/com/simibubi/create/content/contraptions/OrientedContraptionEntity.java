@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import net.minecraft.core.UUIDUtil;
+
 import static net.createmod.catnip.api.math.AngleHelper.angleLerp;
 
 import java.util.Optional;
@@ -158,22 +160,22 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		if (compound.contains("InitialOrientation"))
 			setInitialOrientation(NBTHelper.readEnum(compound, "InitialOrientation", Direction.class));
 
-		yaw = compound.getFloat("Yaw");
-		pitch = compound.getFloat("Pitch");
-		manuallyPlaced = compound.getBoolean("Placed");
+		yaw = compound.getFloatOr("Yaw", 0.0F);
+		pitch = compound.getFloatOr("Pitch", 0.0F);
+		manuallyPlaced = compound.getBooleanOr("Placed", false);
 
 		if (compound.contains("ForceYaw"))
-			startAtYaw(compound.getFloat("ForceYaw"));
+			startAtYaw(compound.getFloatOr("ForceYaw", 0.0F));
 
-		ListTag vecNBT = compound.getList("CachedMotion", 6);
+		ListTag vecNBT = compound.getListOrEmpty("CachedMotion");
 		if (!vecNBT.isEmpty()) {
-			motionBeforeStall = new Vec3(vecNBT.getDouble(0), vecNBT.getDouble(1), vecNBT.getDouble(2));
+			motionBeforeStall = new Vec3(vecNBT.getDoubleOr(0, 0.0), vecNBT.getDoubleOr(1, 0.0), vecNBT.getDoubleOr(2, 0.0));
 			if (!motionBeforeStall.equals(Vec3.ZERO))
 				targetYaw = prevYaw = yaw += yawFromVector(motionBeforeStall);
 			setDeltaMovement(Vec3.ZERO);
 		}
 
-		setCouplingId(compound.contains("OnCoupling") ? compound.getUUID("OnCoupling") : null);
+		setCouplingId(compound.contains("OnCoupling") ? compound.read("OnCoupling", UUIDUtil.CODEC).orElseThrow() : null);
 	}
 
 	@Override
@@ -197,7 +199,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		compound.putFloat("Pitch", pitch);
 
 		if (getCouplingId() != null)
-			compound.putUUID("OnCoupling", getCouplingId());
+			compound.store("OnCoupling", UUIDUtil.CODEC, getCouplingId());
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.List;
@@ -52,7 +54,7 @@ public class LecternControllerBlockEntity extends SmartBlockEntity {
 		super.write(compound, registries, clientPacket);
 		compound.put("ControllerData", CatnipCodecUtils.encode(ItemContainerContents.CODEC, registries, controllerData).orElseThrow());
 		if (user != null)
-			compound.putUUID("User", user);
+			compound.store("User", UUIDUtil.CODEC, user);
 	}
 
 	@Override
@@ -67,7 +69,7 @@ public class LecternControllerBlockEntity extends SmartBlockEntity {
 
 		controllerData = CatnipCodecUtils.decode(ItemContainerContents.CODEC, registries, compound.get("ControllerData"))
 			.orElse(ItemContainerContents.EMPTY);
-		user = compound.hasUUID("User") ? compound.getUUID("User") : null;
+		user = compound.hasUUID("User") ? compound.read("User", UUIDUtil.CODEC).orElseThrow() : null;
 	}
 
 	public ItemStack getController() {

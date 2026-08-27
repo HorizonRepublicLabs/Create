@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.signal;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -272,13 +274,13 @@ public class SignalBoundary extends TrackEdgePoint {
 		for (int i = 1; i <= 2; i++)
 			if (nbt.contains("Tiles" + i)) {
 				boolean first = i == 1;
-				NBTHelper.iterateCompoundList(nbt.getList("Tiles" + i, Tag.TAG_COMPOUND), c -> blockEntities.get(first)
-					.put(NBTHelper.readBlockPos(c, "Pos"), c.getBoolean("Power")));
+				NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Tiles" + i), c -> blockEntities.get(first)
+					.put(NBTHelper.readBlockPos(c, "Pos"), c.getBooleanOr("Power", false)));
 			}
 
 		for (int i = 1; i <= 2; i++)
 			if (nbt.contains("Group" + i))
-				groups.set(i == 1, nbt.getUUID("Group" + i));
+				groups.set(i == 1, nbt.read("Group" + i, UUIDUtil.CODEC).orElseThrow());
 		for (int i = 1; i <= 2; i++)
 			sidesToUpdate.set(i == 1, nbt.contains("Update" + i));
 		for (int i = 1; i <= 2; i++)
@@ -311,7 +313,7 @@ public class SignalBoundary extends TrackEdgePoint {
 					}));
 		for (int i = 1; i <= 2; i++)
 			if (groups.get(i == 1) != null)
-				nbt.putUUID("Group" + i, groups.get(i == 1));
+				nbt.store("Group" + i, UUIDUtil.CODEC, groups.get(i == 1));
 		for (int i = 1; i <= 2; i++)
 			if (sidesToUpdate.get(i == 1))
 				nbt.putBoolean("Update" + i, true);

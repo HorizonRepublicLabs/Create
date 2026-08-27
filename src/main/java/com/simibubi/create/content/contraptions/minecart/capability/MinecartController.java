@@ -342,13 +342,13 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 		Optional<CouplingData> connectedCD = Optional.empty();
 
 		if (nbt.contains("InternalStallData"))
-			internalSD = Optional.of(StallData.read(nbt.getCompound("InternalStallData")));
+			internalSD = Optional.of(StallData.read(nbt.getCompoundOrEmpty("InternalStallData")));
 		if (nbt.contains("StallData"))
-			externalSD = Optional.of(StallData.read(nbt.getCompound("StallData")));
+			externalSD = Optional.of(StallData.read(nbt.getCompoundOrEmpty("StallData")));
 		if (nbt.contains("MainCoupling"))
-			mainCD = Optional.of(CouplingData.read(nbt.getCompound("MainCoupling")));
+			mainCD = Optional.of(CouplingData.read(nbt.getCompoundOrEmpty("MainCoupling")));
 		if (nbt.contains("ConnectedCoupling"))
-			connectedCD = Optional.of(CouplingData.read(nbt.getCompound("ConnectedCoupling")));
+			connectedCD = Optional.of(CouplingData.read(nbt.getCompoundOrEmpty("ConnectedCoupling")));
 
 		stallData = Couple.create(internalSD, externalSD);
 		couplings = Couple.create(mainCD, connectedCD);
@@ -401,8 +401,8 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 		static CouplingData read(CompoundTag nbt) {
 			UUID mainCartID = NbtUtils.loadUUID(NBTHelper.getINBT(nbt, "Main"));
 			UUID connectedCartID = NbtUtils.loadUUID(NBTHelper.getINBT(nbt, "Connected"));
-			float length = nbt.getFloat("Length");
-			boolean contraption = nbt.getBoolean("Contraption");
+			float length = nbt.getFloatOr("Length", 0.0F);
+			boolean contraption = nbt.getBooleanOr("Contraption", false);
 			return new CouplingData(mainCartID, connectedCartID, length, contraption);
 		}
 
@@ -450,10 +450,10 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 
 		static StallData read(CompoundTag nbt) {
 			StallData stallData = new StallData();
-			stallData.position = VecHelper.readNBT(nbt.getList("Pos", Tag.TAG_DOUBLE));
-			stallData.motion = VecHelper.readNBT(nbt.getList("Motion", Tag.TAG_DOUBLE));
-			stallData.yaw = nbt.getFloat("Yaw");
-			stallData.pitch = nbt.getFloat("Pitch");
+			stallData.position = VecHelper.readNBT(nbt.getListOrEmpty("Pos"));
+			stallData.motion = VecHelper.readNBT(nbt.getListOrEmpty("Motion"));
+			stallData.yaw = nbt.getFloatOr("Yaw", 0.0F);
+			stallData.pitch = nbt.getFloatOr("Pitch", 0.0F);
 			return stallData;
 		}
 	}
@@ -616,7 +616,7 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 		private static final IAttachmentSerializer<CompoundTag, MinecartController> SERIALIZER = new IAttachmentSerializer<>() {
 			@Override
 			public @NotNull MinecartController read(@NotNull IAttachmentHolder holder, @NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
-				return Type.valueOf(tag.getString("Type")).getSerializer().read(holder, tag, provider);
+				return Type.valueOf(tag.getStringOr("Type", "")).getSerializer().read(holder, tag, provider);
 			}
 
 			@Override

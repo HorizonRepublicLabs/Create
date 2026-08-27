@@ -104,7 +104,7 @@ public class ClientContraption {
 		for (StructureBlockInfo info : contraption.getBlocks().values()) {
 			renderLevel.setBlock(info.pos(), info.state(), 0);
 
-			BlockEntity blockEntity = readBlockEntity(renderLevel, info, contraption.getIsLegacy().getBoolean(info.pos()));
+			BlockEntity blockEntity = readBlockEntity(renderLevel, info, contraption.getIsLegacy().getBooleanOr(info.pos(), false));
 
 			if (blockEntity != null) {
 				renderLevel.setBlockEntity(blockEntity);

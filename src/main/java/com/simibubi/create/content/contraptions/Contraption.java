@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import net.minecraft.core.UUIDUtil;
+
 import static com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock.isExtensionPole;
 import static com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock.isPistonHead;
 
@@ -225,7 +227,7 @@ public abstract class Contraption {
 	}
 
 	public static Contraption fromNBT(Level world, CompoundTag nbt, boolean spawnData) {
-		String type = nbt.getString("Type");
+		String type = nbt.getStringOr("Type", "");
 		Contraption contraption = ContraptionType.fromType(type);
 		contraption.readNBT(world, nbt, spawnData);
 		contraption.collisionLevel = new ContraptionWorld(world, contraption);
@@ -736,17 +738,17 @@ public abstract class Contraption {
 		readBlocksCompound(blocks, world, usePalettedDeserialization);
 
 		capturedMultiblocks.clear();
-		nbt.getList("CapturedMultiblocks", Tag.TAG_COMPOUND).forEach(c -> {
+		nbt.getListOrEmpty("CapturedMultiblocks").forEach(c -> {
 			CompoundTag tag = (CompoundTag) c;
 			if (!tag.contains("Controller", Tag.TAG_COMPOUND) && !tag.contains("Parts", Tag.TAG_LIST))
 				return;
 
 			BlockPos controllerPos = NBTHelper.readBlockPos(tag, "Controller");
-				tag.getList("Parts", Tag.TAG_COMPOUND)
+				tag.getListOrEmpty("Parts")
 					.forEach(part -> {
 						CompoundTag cPart = (CompoundTag) part;
 						BlockPos partPos = cPart.contains("Pos") ? NBTHelper.readBlockPos(cPart, "Pos")
-							: new BlockPos(cPart.getInt("X"), cPart.getInt("Y"), cPart.getInt("Z"));
+							: new BlockPos(cPart.getIntOr("X", 0), cPart.getIntOr("Y", 0), cPart.getIntOr("Z", 0));
 						StructureBlockInfo partInfo = this.blocks.get(partPos);
 						capturedMultiblocks.put(controllerPos, partInfo);
 					});
@@ -755,7 +757,7 @@ public abstract class Contraption {
 		storage.read(nbt, world.registryAccess(), spawnData, this);
 
 		actors.clear();
-		nbt.getList("Actors", Tag.TAG_COMPOUND)
+		nbt.getListOrEmpty("Actors")
 			.forEach(c -> {
 				CompoundTag comp = (CompoundTag) c;
 				StructureBlockInfo info = this.blocks.get(NBTHelper.readBlockPos(comp, "Pos"));
@@ -765,29 +767,29 @@ public abstract class Contraption {
 				getActors().add(MutablePair.of(info, context));
 			});
 
-		disabledActors = NBTHelper.readItemList(nbt.getList("DisabledActors", Tag.TAG_COMPOUND), world.registryAccess());
+		disabledActors = NBTHelper.readItemList(nbt.getListOrEmpty("DisabledActors"), world.registryAccess());
 		for (ItemStack stack : disabledActors)
 			setActorsActive(stack, false);
 
 		superglue.clear();
-		NBTHelper.iterateCompoundList(nbt.getList("Superglue", Tag.TAG_COMPOUND),
+		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Superglue"),
 			c -> superglue.add(SuperGlueEntity.readBoundingBox(c)));
 
 		seats.clear();
-		NBTHelper.iterateCompoundList(nbt.getList("Seats", Tag.TAG_COMPOUND),
+		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Seats"),
 			c -> seats.add(c.contains("Pos") ? NBTHelper.readBlockPos(c, "Pos")
-				: new BlockPos(c.getInt("X"), c.getInt("Y"), c.getInt("Z"))));
+				: new BlockPos(c.getIntOr("X", 0), c.getIntOr("Y", 0), c.getIntOr("Z", 0))));
 
 		seatMapping.clear();
-		NBTHelper.iterateCompoundList(nbt.getList("Passengers", Tag.TAG_COMPOUND),
-			c -> seatMapping.put(NbtUtils.loadUUID(NBTHelper.getINBT(c, "Id")), c.getInt("Seat")));
+		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Passengers"),
+			c -> seatMapping.put(NbtUtils.loadUUID(NBTHelper.getINBT(c, "Id")), c.getIntOr("Seat", 0)));
 
 		stabilizedSubContraptions.clear();
-		NBTHelper.iterateCompoundList(nbt.getList("SubContraptions", Tag.TAG_COMPOUND),
-			c -> stabilizedSubContraptions.put(c.getUUID("Id"), BlockFace.fromNBT(c.getCompound("Location"))));
+		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("SubContraptions"),
+			c -> stabilizedSubContraptions.put(c.read("Id", UUIDUtil.CODEC).orElseThrow(), BlockFace.fromNBT(c.getCompoundOrEmpty("Location"))));
 
 		interactors.clear();
-		NBTHelper.iterateCompoundList(nbt.getList("Interactors", Tag.TAG_COMPOUND), c -> {
+		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Interactors"), c -> {
 			BlockPos pos = NBTHelper.readBlockPos(c, "Pos");
 			StructureBlockInfo structureBlockInfo = getBlocks().get(pos);
 			if (structureBlockInfo == null)
@@ -798,10 +800,10 @@ public abstract class Contraption {
 		});
 
 		if (nbt.contains("BoundsFront"))
-			bounds = NBTHelper.readAABB(nbt.getList("BoundsFront", Tag.TAG_FLOAT));
+			bounds = NBTHelper.readAABB(nbt.getListOrEmpty("BoundsFront"));
 
-		stalled = nbt.getBoolean("Stalled");
-		hasUniversalCreativeCrate = nbt.getBoolean("BottomlessSupply");
+		stalled = nbt.getBooleanOr("Stalled", false);
+		hasUniversalCreativeCrate = nbt.getBooleanOr("BottomlessSupply", false);
 		anchor = NBTHelper.readBlockPos(nbt, "Anchor");
 	}
 
@@ -875,7 +877,7 @@ public abstract class Contraption {
 
 		nbt.put("SubContraptions", NBTHelper.writeCompoundList(stabilizedSubContraptions.entrySet(), e -> {
 			CompoundTag tag = new CompoundTag();
-			tag.putUUID("Id", e.getKey());
+			tag.store("Id", UUIDUtil.CODEC, e.getKey());
 			tag.put("Location", e.getValue()
 				.serializeNBT());
 			return tag;
@@ -965,12 +967,12 @@ public abstract class Contraption {
 				throw new IllegalStateException("Palette Map index exceeded maximum");
 			});
 
-			ListTag list = c.getList("Palette", Tag.TAG_COMPOUND);
+			ListTag list = c.getListOrEmpty("Palette");
 			palette.values.clear();
 			for (int i = 0; i < list.size(); ++i)
-				palette.values.add(NbtUtils.readBlockState(holderGetter, list.getCompound(i)));
+				palette.values.add(NbtUtils.readBlockState(holderGetter, list.getCompoundOrEmpty(i)));
 
-			blockList = c.getList("BlockList", Tag.TAG_COMPOUND);
+			blockList = c.getListOrEmpty("BlockList");
 		} else {
 			blockList = (ListTag) compound;
 		}
@@ -983,7 +985,7 @@ public abstract class Contraption {
 			this.blocks.put(info.pos(), info);
 
 			if (c.contains("UpdateTag", Tag.TAG_COMPOUND)) {
-				CompoundTag updateTag = c.getCompound("UpdateTag");
+				CompoundTag updateTag = c.getCompoundOrEmpty("UpdateTag");
 				// it's very important that empty tags are read here. see writeBlocksCompound
 				this.updateTags.put(info.pos(), updateTag);
 			}
@@ -998,15 +1000,15 @@ public abstract class Contraption {
 
 	private static StructureBlockInfo readStructureBlockInfo(CompoundTag blockListEntry,
 															 HashMapPalette<BlockState> palette) {
-		return new StructureBlockInfo(BlockPos.of(blockListEntry.getLong("Pos")),
-			Objects.requireNonNull(palette.valueFor(blockListEntry.getInt("State"))),
-			blockListEntry.contains("Data") ? blockListEntry.getCompound("Data") : null);
+		return new StructureBlockInfo(BlockPos.of(blockListEntry.getLongOr("Pos", 0L)),
+			Objects.requireNonNull(palette.valueFor(blockListEntry.getIntOr("State", 0))),
+			blockListEntry.contains("Data") ? blockListEntry.getCompoundOrEmpty("Data") : null);
 	}
 
 	private static StructureBlockInfo legacyReadStructureBlockInfo(CompoundTag blockListEntry, HolderGetter<Block> holderGetter) {
 		return new StructureBlockInfo(NBTHelper.readBlockPos(blockListEntry, "Pos"),
-			NbtUtils.readBlockState(holderGetter, blockListEntry.getCompound("Block")),
-			blockListEntry.contains("Data") ? blockListEntry.getCompound("Data") : null);
+			NbtUtils.readBlockState(holderGetter, blockListEntry.getCompoundOrEmpty("Block")),
+			blockListEntry.contains("Data") ? blockListEntry.getCompoundOrEmpty("Data") : null);
 	}
 
 	public void removeBlocksFromWorld(Level world, BlockPos offset) {

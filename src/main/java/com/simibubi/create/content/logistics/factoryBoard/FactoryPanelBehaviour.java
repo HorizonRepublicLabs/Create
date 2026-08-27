@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
@@ -814,7 +816,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 		panelTag.put("Filter", getFilter().saveOptional(registries));
 		panelTag.putBoolean("UpTo", upTo);
 		panelTag.putInt("FilterAmount", count);
-		panelTag.putUUID("Freq", network);
+		panelTag.store("Freq", UUIDUtil.CODEC, network);
 		panelTag.putString("RecipeAddress", recipeAddress);
 		panelTag.putInt("PromiseClearingInterval", -1);
 		panelTag.putInt("RecipeOutput", 1);
@@ -847,7 +849,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 		panelTag.putString("RecipeAddress", recipeAddress);
 		panelTag.putInt("RecipeOutput", recipeOutput);
 		panelTag.putInt("PromiseClearingInterval", promiseClearingInterval);
-		panelTag.putUUID("Freq", network);
+		panelTag.store("Freq", UUIDUtil.CODEC, network);
 		panelTag.put("Craft", NBTHelper.writeItemList(activeCraftingArrangement, registries));
 
 		if (panelBE().restocker && !clientPacket)
@@ -865,20 +867,20 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 		}
 
 		active = true;
-		filter = FilterItemStack.of(registries, panelTag.getCompound("Filter"));
-		count = panelTag.getInt("FilterAmount");
-		upTo = panelTag.getBoolean("UpTo");
-		timer = panelTag.getInt("Timer");
-		lastReportedLevelInStorage = panelTag.getInt("LastLevel");
-		lastReportedPromises = panelTag.getInt("LastPromised");
-		lastReportedUnloadedLinks = panelTag.getInt("LastUnloadedLinks");
-		satisfied = panelTag.getBoolean("Satisfied");
-		promisedSatisfied = panelTag.getBoolean("PromisedSatisfied");
-		waitingForNetwork = panelTag.getBoolean("Waiting");
-		redstonePowered = panelTag.getBoolean("RedstonePowered");
-		promiseClearingInterval = panelTag.getInt("PromiseClearingInterval");
+		filter = FilterItemStack.of(registries, panelTag.getCompoundOrEmpty("Filter"));
+		count = panelTag.getIntOr("FilterAmount", 0);
+		upTo = panelTag.getBooleanOr("UpTo", false);
+		timer = panelTag.getIntOr("Timer", 0);
+		lastReportedLevelInStorage = panelTag.getIntOr("LastLevel", 0);
+		lastReportedPromises = panelTag.getIntOr("LastPromised", 0);
+		lastReportedUnloadedLinks = panelTag.getIntOr("LastUnloadedLinks", 0);
+		satisfied = panelTag.getBooleanOr("Satisfied", false);
+		promisedSatisfied = panelTag.getBooleanOr("PromisedSatisfied", false);
+		waitingForNetwork = panelTag.getBooleanOr("Waiting", false);
+		redstonePowered = panelTag.getBooleanOr("RedstonePowered", false);
+		promiseClearingInterval = panelTag.getIntOr("PromiseClearingInterval", 0);
 		if (panelTag.hasUUID("Freq"))
-			network = panelTag.getUUID("Freq");
+			network = panelTag.read("Freq", UUIDUtil.CODEC).orElseThrow();
 
 		targeting.clear();
 		targeting.addAll(CatnipCodecUtils.decode(CatnipCodecs.set(FactoryPanelPosition.CODEC), registries, panelTag.get("Targeting")).orElse(Set.of()));
@@ -891,12 +893,12 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 		CatnipCodecUtils.decode(Codec.list(FactoryPanelConnection.CODEC), registries, panelTag.get("TargetedByLinks")).orElse(List.of())
 			.forEach(c -> targetedByLinks.put(c.from.pos(), c));
 
-		activeCraftingArrangement = NBTHelper.readItemList(panelTag.getList("Craft", Tag.TAG_COMPOUND), registries);
-		recipeAddress = panelTag.getString("RecipeAddress");
-		recipeOutput = panelTag.getInt("RecipeOutput");
+		activeCraftingArrangement = NBTHelper.readItemList(panelTag.getListOrEmpty("Craft"), registries);
+		recipeAddress = panelTag.getStringOr("RecipeAddress", "");
+		recipeOutput = panelTag.getIntOr("RecipeOutput", 0);
 
-		if (nbt.getBoolean("Restocker") && !clientPacket) {
-			restockerPromises = RequestPromiseQueue.read(panelTag.getCompound("Promises"), registries, () -> {
+		if (nbt.getBooleanOr("Restocker", false) && !clientPacket) {
+			restockerPromises = RequestPromiseQueue.read(panelTag.getCompoundOrEmpty("Promises"), registries, () -> {
 			});
 			promisePrimedForMarkDirty = false;
 		}

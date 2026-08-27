@@ -402,7 +402,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 	}
 
 	protected BlockState getStateToPaveWith(MovementContext context) {
-		return getStateToPaveWith(ItemStack.parseOptional(context.world.registryAccess(), context.blockEntityData.getCompound("Filter")));
+		return getStateToPaveWith(ItemStack.parseOptional(context.world.registryAccess(), context.blockEntityData.getCompoundOrEmpty("Filter")));
 	}
 
 	protected BlockState getStateToPaveWithAsSlab(MovementContext context) {
@@ -439,7 +439,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 	}
 
 	protected RollingMode getMode(MovementContext context) {
-		return RollingMode.values()[context.blockEntityData.getInt("ScrollValue")];
+		return RollingMode.values()[context.blockEntityData.getIntOr("ScrollValue", 0)];
 	}
 
 	private final class RollerTravellingPoint extends TravellingPoint {

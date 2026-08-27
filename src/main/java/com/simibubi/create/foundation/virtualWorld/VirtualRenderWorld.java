@@ -196,7 +196,7 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 		blockStates.put(pos, newState);
 
 		SectionPos sectionPos = SectionPos.of(pos);
-		short nonEmptyBlockCount = nonEmptyBlockCounts.getShort(sectionPos);
+		short nonEmptyBlockCount = nonEmptyBlockCounts.getShortOr(sectionPos, (short) 0);
 		boolean prevEmpty = nonEmptyBlockCount == 0;
 		if (!oldState.isAir()) {
 			--nonEmptyBlockCount;

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,13 +100,13 @@ public class PackagerLinkBlockEntity extends LinkWithBulbBlockEntity {
 	protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.write(tag, registries, clientPacket);
 		if (placedBy != null)
-			tag.putUUID("PlacedBy", placedBy);
+			tag.store("PlacedBy", UUIDUtil.CODEC, placedBy);
 	}
 
 	@Override
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
-		placedBy = tag.contains("PlacedBy") ? tag.getUUID("PlacedBy") : null;
+		placedBy = tag.contains("PlacedBy") ? tag.read("PlacedBy", UUIDUtil.CODEC).orElseThrow() : null;
 	}
 
 	@Override

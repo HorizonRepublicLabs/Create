@@ -224,7 +224,7 @@ public class BeltBlockEntity extends KineticBlockEntity implements Clearable {
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
 
-		if (compound.getBoolean("IsController"))
+		if (compound.getBooleanOr("IsController", false))
 			controller = worldPosition;
 
 		color = compound.contains("Dye") ? Optional.of(NBTHelper.readEnum(compound, "Dye", DyeColor.class))
@@ -234,17 +234,17 @@ public class BeltBlockEntity extends KineticBlockEntity implements Clearable {
 			if (!isController())
 				controller = NBTHelper.readBlockPos(compound, "Controller");
 			trackerUpdateTag = compound;
-			index = compound.getInt("Index");
-			beltLength = compound.getInt("Length");
+			index = compound.getIntOr("Index", 0);
+			beltLength = compound.getIntOr("Length", 0);
 		}
 
 		if (isController())
-			getInventory().read(compound.getCompound("Inventory"), registries);
+			getInventory().read(compound.getCompoundOrEmpty("Inventory"), registries);
 
 		CasingType casingBefore = casing;
 		boolean coverBefore = covered;
 		casing = NBTHelper.readEnum(compound, "Casing", CasingType.class);
-		covered = compound.getBoolean("Covered");
+		covered = compound.getBooleanOr("Covered", false);
 
 		if (!clientPacket)
 			return;

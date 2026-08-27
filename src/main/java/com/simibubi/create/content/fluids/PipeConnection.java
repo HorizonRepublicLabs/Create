@@ -241,23 +241,23 @@ public class PipeConnection {
 	}
 
 	public void deserializeNBT(CompoundTag tag, HolderLookup.Provider registries, BlockPos blockEntityPos, boolean clientPacket) {
-		CompoundTag connectionData = tag.getCompound(side.getName());
+		CompoundTag connectionData = tag.getCompoundOrEmpty(side.getName());
 
 		if (connectionData.contains("Pressure")) {
-			ListTag pressureData = connectionData.getList("Pressure", Tag.TAG_FLOAT);
-			pressure = Couple.create(pressureData.getFloat(0), pressureData.getFloat(1));
+			ListTag pressureData = connectionData.getListOrEmpty("Pressure");
+			pressure = Couple.create(pressureData.getFloatOr(0, 0.0F), pressureData.getFloatOr(1, 0.0F));
 		} else
 			pressure.replace(f -> 0f);
 
 		source = Optional.empty();
 		if (connectionData.contains("OpenEnd"))
-			source = Optional.of(OpenEndedPipe.fromNBT(connectionData.getCompound("OpenEnd"), registries, blockEntityPos));
+			source = Optional.of(OpenEndedPipe.fromNBT(connectionData.getCompoundOrEmpty("OpenEnd"), registries, blockEntityPos));
 
 		if (connectionData.contains("Flow")) {
-			CompoundTag flowData = connectionData.getCompound("Flow");
+			CompoundTag flowData = connectionData.getCompoundOrEmpty("Flow");
 
-			FluidStack fluid = FluidStack.parseOptional(registries, flowData.getCompound("Fluid"));
-			boolean inbound = flowData.getBoolean("In");
+			FluidStack fluid = FluidStack.parseOptional(registries, flowData.getCompoundOrEmpty("Fluid"));
+			boolean inbound = flowData.getBooleanOr("In", false);
 			if (flow.isEmpty()) {
 				flow = Optional.of(new Flow(inbound, fluid));
 				if (clientPacket)
@@ -270,7 +270,7 @@ public class PipeConnection {
 			flow.complete = !flowData.contains("Progress");
 
 			if (!flow.complete)
-				flow.progress.readNBT(flowData.getCompound("Progress"), clientPacket);
+				flow.progress.readNBT(flowData.getCompoundOrEmpty("Progress"), clientPacket);
 			else {
 				if (flow.progress.getValue() == 0)
 					flow.progress.startWithValue(1);

@@ -279,7 +279,7 @@ public class AllFanProcessingTypes {
 			}
 			if (entity instanceof Horse horse) {
 				int progress = horse.getPersistentData()
-					.getInt("CreateHaunting");
+					.getIntOr("CreateHaunting", 0);
 				if (progress < 100) {
 					if (progress % 10 == 0) {
 						level.playSound(null, entity.blockPosition(), SoundEvents.SOUL_ESCAPE.value(), SoundSource.NEUTRAL,

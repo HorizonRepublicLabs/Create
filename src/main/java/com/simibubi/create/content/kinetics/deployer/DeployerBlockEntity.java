@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.core.UUIDUtil;
+
 import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING;
 
 import java.util.ArrayList;
@@ -374,24 +376,24 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		state = NBTHelper.readEnum(compound, "State", State.class);
 		mode = NBTHelper.readEnum(compound, "Mode", Mode.class);
-		timer = compound.getInt("Timer");
-		redstoneLocked = compound.getBoolean("Powered");
+		timer = compound.getIntOr("Timer", 0);
+		redstoneLocked = compound.getBooleanOr("Powered", false);
 		if (compound.contains("Owner"))
-			owner = compound.getUUID("Owner");
+			owner = compound.read("Owner", UUIDUtil.CODEC).orElseThrow();
 
-		deferredInventoryList = compound.getList("Inventory", Tag.TAG_COMPOUND);
-		overflowItems = NBTHelper.readItemList(compound.getList("Overflow", Tag.TAG_COMPOUND), registries);
+		deferredInventoryList = compound.getListOrEmpty("Inventory");
+		overflowItems = NBTHelper.readItemList(compound.getListOrEmpty("Overflow"), registries);
 		if (compound.contains("HeldItem")) {
-			heldItem = ItemStack.parseOptional(registries, compound.getCompound("HeldItem"));
+			heldItem = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("HeldItem"));
 		}
 		super.read(compound, registries, clientPacket);
 
 		if (!clientPacket)
 			return;
-		fistBump = compound.getBoolean("Fistbump");
-		reach = compound.getFloat("Reach");
+		fistBump = compound.getBooleanOr("Fistbump", false);
+		reach = compound.getFloatOr("Reach", 0.0F);
 		if (compound.contains("Particle")) {
-			ItemStack particleStack = ItemStack.parseOptional(registries, compound.getCompound("Particle"));
+			ItemStack particleStack = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("Particle"));
 			SandPaperItem.spawnParticles(VecHelper.getCenterOf(worldPosition)
 				.add(getMovementVector().scale(reach + 1)), particleStack, this.level);
 		}
@@ -404,7 +406,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 		compound.putInt("Timer", timer);
 		compound.putBoolean("Powered", redstoneLocked);
 		if (owner != null)
-			compound.putUUID("Owner", owner);
+			compound.store("Owner", UUIDUtil.CODEC, owner);
 
 		if (player != null) {
 			ListTag invNBT = new ListTag();

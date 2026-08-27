@@ -93,15 +93,15 @@ public class PoweredShaftBlockEntity extends GeneratingKineticBlockEntity {
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
-		movementDirection = compound.getInt("Direction");
-		initialTicks = compound.getInt("Warmup");
+		movementDirection = compound.getIntOr("Direction", 0);
+		initialTicks = compound.getIntOr("Warmup", 0);
 		enginePos = null;
 		engineEfficiency = 0;
 
 		if (compound.contains("EnginePos")) {
 			enginePos = NBTHelper.readBlockPos(compound, "EnginePos");
-			engineEfficiency = compound.getFloat("EnginePower");
-			capacityKey = BuiltInRegistries.BLOCK.get(Identifier.parse(compound.getString("EngineType")));
+			engineEfficiency = compound.getFloatOr("EnginePower", 0.0F);
+			capacityKey = BuiltInRegistries.BLOCK.get(Identifier.parse(compound.getStringOr("EngineType", "")));
 		}
 	}
 

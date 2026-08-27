@@ -153,7 +153,7 @@ public abstract class ValueListDisplaySource extends DisplaySource {
 
 	protected boolean shortenNumbers(DisplayLinkContext context) {
 		return context.sourceConfig()
-			.getInt("Format") == 0;
+			.getIntOr("Format", 0) == 0;
 	}
 
 	@Override

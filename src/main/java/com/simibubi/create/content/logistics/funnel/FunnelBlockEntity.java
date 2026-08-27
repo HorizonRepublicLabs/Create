@@ -352,7 +352,7 @@ public class FunnelBlockEntity extends SmartBlockEntity implements IHaveHovering
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
-		extractionCooldown = compound.getInt("TransferCooldown");
+		extractionCooldown = compound.getIntOr("TransferCooldown", 0);
 
 		if (clientPacket)
 			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));

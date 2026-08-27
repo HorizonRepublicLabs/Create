@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.signal;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.UUID;
 
 import com.simibubi.create.Create;
@@ -91,9 +93,9 @@ public abstract class TrackEdgePoint {
 		if (migration)
 			return;
 
-		id = nbt.getUUID("Id");
-		position = nbt.getDouble("Position");
-		edgeLocation = Couple.deserializeEach(nbt.getList("Edge", Tag.TAG_COMPOUND),
+		id = nbt.read("Id", UUIDUtil.CODEC).orElseThrow();
+		position = nbt.getDoubleOr("Position", 0.0);
+		edgeLocation = Couple.deserializeEach(nbt.getListOrEmpty("Edge"),
 			tag -> TrackNodeLocation.read(tag, dimensions));
 	}
 
@@ -104,7 +106,7 @@ public abstract class TrackEdgePoint {
 	}
 
 	public void write(CompoundTag nbt, HolderLookup.Provider registries, DimensionPalette dimensions) {
-		nbt.putUUID("Id", id);
+		nbt.store("Id", UUIDUtil.CODEC, id);
 		nbt.putDouble("Position", position);
 		nbt.put("Edge", edgeLocation.serializeEach(loc -> loc.write(dimensions)));
 	}

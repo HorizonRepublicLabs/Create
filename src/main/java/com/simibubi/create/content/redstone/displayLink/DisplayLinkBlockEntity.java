@@ -177,15 +177,15 @@ public class DisplayLinkBlockEntity extends LinkWithBulbBlockEntity  implements 
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
 		targetOffset = NBTHelper.readBlockPos(tag, "TargetOffset");
-		targetLine = tag.getInt("TargetLine");
+		targetLine = tag.getIntOr("TargetLine", 0);
 
 		if (clientPacket && tag.contains("TargetType"))
-			activeTarget = DisplayTarget.get(Identifier.tryParse(tag.getString("TargetType")));
+			activeTarget = DisplayTarget.get(Identifier.tryParse(tag.getStringOr("TargetType", "")));
 		if (!tag.contains("Source"))
 			return;
 
-		CompoundTag data = tag.getCompound("Source");
-		activeSource = DisplaySource.get(Identifier.tryParse(data.getString("Id")));
+		CompoundTag data = tag.getCompoundOrEmpty("Source");
+		activeSource = DisplaySource.get(Identifier.tryParse(data.getStringOr("Id", "")));
 		sourceConfig = new CompoundTag();
 		if (activeSource != null)
 			sourceConfig = data.copy();

@@ -545,15 +545,15 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 		ListTag interactionPointTagBefore = interactionPointTag;
 
 		super.read(tag, registries, clientPacket);
-		heldItem = ItemStack.parseOptional(registries, tag.getCompound("HeldItem"));
+		heldItem = ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("HeldItem"));
 		phase = NBTHelper.readEnum(tag, "Phase", Phase.class);
-		chasedPointIndex = tag.getInt("TargetPointIndex");
-		chasedPointProgress = tag.getFloat("MovementProgress");
-		interactionPointTag = tag.getList("InteractionPoints", Tag.TAG_COMPOUND);
-		redstoneLocked = tag.getBoolean("Powered");
+		chasedPointIndex = tag.getIntOr("TargetPointIndex", 0);
+		chasedPointProgress = tag.getFloatOr("MovementProgress", 0.0F);
+		interactionPointTag = tag.getListOrEmpty("InteractionPoints");
+		redstoneLocked = tag.getBooleanOr("Powered", false);
 
 		boolean hadGoggles = goggles;
-		goggles = tag.getBoolean("Goggles");
+		goggles = tag.getBooleanOr("Goggles", false);
 
 		if (!clientPacket)
 			return;

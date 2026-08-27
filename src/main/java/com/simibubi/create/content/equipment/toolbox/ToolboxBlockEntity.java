@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -148,7 +150,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 				if (clear || !playerStack.isEmpty()
 					&& !ToolboxInventory.canItemsShareCompartment(playerStack, referenceItem)) {
 					player.getPersistentData()
-						.getCompound("CreateToolboxData")
+						.getCompoundOrEmpty("CreateToolboxData")
 						.remove(String.valueOf(hotbarSlot));
 					playerEntries.remove();
 					if (player instanceof ServerPlayer)
@@ -282,12 +284,12 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		inventory.deserializeNBT(registries, compound.getCompound("Inventory"));
+		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
 		super.read(compound, registries, clientPacket);
 		if (compound.contains("UniqueId", 11))
-			this.uniqueId = compound.getUUID("UniqueId");
+			this.uniqueId = compound.read("UniqueId", UUIDUtil.CODEC).orElseThrow();
 		if (compound.contains("CustomName", 8))
-			this.customName = Component.Serializer.fromJson(compound.getString("CustomName"), registries);
+			this.customName = Component.Serializer.fromJson(compound.getStringOr("CustomName", ""), registries);
 	}
 
 	@Override
@@ -296,7 +298,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 			uniqueId = UUID.randomUUID();
 
 		compound.put("Inventory", inventory.serializeNBT(registries));
-		compound.putUUID("UniqueId", uniqueId);
+		compound.store("UniqueId", UUIDUtil.CODEC, uniqueId);
 
 		if (customName != null)
 			compound.putString("CustomName", Component.Serializer.toJson(customName, registries));

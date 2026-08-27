@@ -92,11 +92,11 @@ public abstract class PackagePortBlockEntity extends SmartBlockEntity implements
 	@Override
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
-		inventory.deserializeNBT(registries, tag.getCompound("Inventory"));
+		inventory.deserializeNBT(registries, tag.getCompoundOrEmpty("Inventory"));
 		PackagePortTarget prevTarget = target;
-		target = CatnipCodecUtils.decodeOrNull(PackagePortTarget.CODEC, registries, tag.getCompound("Target"));
-		addressFilter = tag.getString("AddressFilter");
-		acceptsPackages = tag.getBoolean("AcceptsPackages");
+		target = CatnipCodecUtils.decodeOrNull(PackagePortTarget.CODEC, registries, tag.getCompoundOrEmpty("Target"));
+		addressFilter = tag.getStringOr("AddressFilter", "");
+		acceptsPackages = tag.getBooleanOr("AcceptsPackages", false);
 		if (clientPacket && prevTarget != target)
 			invalidateRenderBoundingBox();
 	}

@@ -288,8 +288,8 @@ public class PulleyBlockEntity extends LinearActuatorBlockEntity implements Thre
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		initialOffset = compound.getInt("InitialOffset");
-		needsContraption = compound.getBoolean("NeedsContraption");
+		initialOffset = compound.getIntOr("InitialOffset", 0);
+		needsContraption = compound.getBooleanOr("NeedsContraption", false);
 		super.read(compound, registries, clientPacket);
 
 		BlockPos prevMirrorParent = mirrorParent;
@@ -298,7 +298,7 @@ public class PulleyBlockEntity extends LinearActuatorBlockEntity implements Thre
 			mirrorParent = NBTHelper.readBlockPos(compound, "MirrorParent");
 		mirrorChildren = null;
 		if (compound.contains("MirrorChildren"))
-			mirrorChildren = NBTHelper.readCompoundList(compound.getList("MirrorChildren", Tag.TAG_COMPOUND), t -> NBTHelper.readBlockPos(t, "Pos"));
+			mirrorChildren = NBTHelper.readCompoundList(compound.getListOrEmpty("MirrorChildren"), t -> NBTHelper.readBlockPos(t, "Pos"));
 
 		if (mirrorParent != null) {
 			offset = 0;

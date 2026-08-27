@@ -227,9 +227,9 @@ public class ConnectedInputHandler {
 		}
 
 		public void read(CompoundTag nbt) {
-			isController = nbt.getBoolean("Controller");
-			data = NBTHelper.readCompoundList(nbt.getList("Data", Tag.TAG_COMPOUND),
-				c -> new BlockPos(c.getInt("X"), c.getInt("Y"), c.getInt("Z")));
+			isController = nbt.getBooleanOr("Controller", false);
+			data = NBTHelper.readCompoundList(nbt.getListOrEmpty("Data"),
+				c -> new BlockPos(c.getIntOr("X", 0), c.getIntOr("Y", 0), c.getIntOr("Z", 0)));
 
 			// nbt got wiped -> reset
 			if (data.isEmpty()) {

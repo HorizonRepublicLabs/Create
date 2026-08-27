@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.UUID;
 
 import com.simibubi.create.AllSoundEvents;
@@ -58,11 +60,11 @@ public class FactoryPanelBlockItem extends LogisticallyLinkedBlockItem {
 			for (PanelSlot slot : PanelSlot.values()) {
 				CompoundTag panelTag = bet.getCompound(CreateLang.asId(slot.name()));
 				if (panelTag.hasUUID("Freq"))
-					frequency = panelTag.getUUID("Freq");
+					frequency = panelTag.read("Freq", UUIDUtil.CODEC).orElseThrow();
 			}
 
 			bet = new CompoundTag();
-			bet.putUUID("Freq", frequency);
+			bet.store("Freq", UUIDUtil.CODEC, frequency);
 
 			BlockEntity.addEntityType(bet, ((IBE<?>) ((BlockItem) stack.getItem()).getBlock()).getBlockEntityType());
 			stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(bet));

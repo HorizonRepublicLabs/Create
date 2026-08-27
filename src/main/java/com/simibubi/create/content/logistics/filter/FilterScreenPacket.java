@@ -45,8 +45,8 @@ public record FilterScreenPacket(Option option, @Nullable CompoundTag data) impl
 				c.respectNBT = false;
 			if (this.option == Option.UPDATE_FILTER_ITEM)
 				c.ghostInventory.setStackInSlot(
-					tag.getInt("Slot"),
-					ItemStack.parseOptional(player.registryAccess(), tag.getCompound("Item"))
+					tag.getIntOr("Slot", 0),
+					ItemStack.parseOptional(player.registryAccess(), tag.getCompoundOrEmpty("Item"))
 				);
 		}
 
@@ -65,7 +65,7 @@ public record FilterScreenPacket(Option option, @Nullable CompoundTag data) impl
 
 		if (player.containerMenu instanceof PackageFilterMenu c) {
 			if (option == Option.UPDATE_ADDRESS)
-				c.address = tag.getString("Address");
+				c.address = tag.getStringOr("Address", "");
 		}
 	}
 

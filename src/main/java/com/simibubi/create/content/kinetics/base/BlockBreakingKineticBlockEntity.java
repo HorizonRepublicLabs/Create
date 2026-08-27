@@ -67,8 +67,8 @@ public abstract class BlockBreakingKineticBlockEntity extends KineticBlockEntity
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		destroyProgress = compound.getInt("Progress");
-		ticksUntilNextProgress = compound.getInt("NextTick");
+		destroyProgress = compound.getIntOr("Progress", 0);
+		ticksUntilNextProgress = compound.getIntOr("NextTick", 0);
 		breakingPos = null;
 		if (compound.contains("Breaking"))
 			breakingPos = NBTHelper.readBlockPos(compound, "Breaking");
@@ -142,7 +142,7 @@ public abstract class BlockBreakingKineticBlockEntity extends KineticBlockEntity
 			if (stack.isEmpty())
 				return;
 			if (!level.getGameRules()
-				.getBoolean(GameRules.RULE_DOBLOCKDROPS))
+				.getBooleanOr(GameRules.RULE_DOBLOCKDROPS, false))
 				return;
 			if (level.restoringBlockSnapshots)
 				return;

@@ -100,10 +100,10 @@ public class ChainConveyorPackage {
 	}
 
 	public static ChainConveyorPackage read(CompoundTag compoundTag, HolderLookup.Provider registries) {
-		float pos = compoundTag.getFloat("Position");
-		ItemStack item = ItemStack.parseOptional(registries, compoundTag.getCompound("Item"));
+		float pos = compoundTag.getFloatOr("Position", 0.0F);
+		ItemStack item = ItemStack.parseOptional(registries, compoundTag.getCompoundOrEmpty("Item"));
 		if (compoundTag.contains("NetID"))
-			return new ChainConveyorPackage(pos, item, compoundTag.getInt("NetID"));
+			return new ChainConveyorPackage(pos, item, compoundTag.getIntOr("NetID", 0));
 		return new ChainConveyorPackage(pos, item);
 	}
 

@@ -417,7 +417,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 		int prevLum = luminosity;
 
 		updateConnectivity = compound.contains("Uninitialized");
-		luminosity = compound.getInt("Luminosity");
+		luminosity = compound.getIntOr("Luminosity", 0);
 
 		lastKnownPos = null;
 		if (compound.contains("LastKnownPos"))
@@ -428,17 +428,17 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 			controller = NBTHelper.readBlockPos(compound, "Controller");
 
 		if (isController()) {
-			window = compound.getBoolean("Window");
-			width = compound.getInt("Size");
-			height = compound.getInt("Height");
+			window = compound.getBooleanOr("Window", false);
+			width = compound.getIntOr("Size", 0);
+			height = compound.getIntOr("Height", 0);
 			tankInventory.setCapacity(getTotalTankSize() * getCapacityMultiplier());
 
-			tankInventory.readFromNBT(registries, compound.getCompound("TankContent"));
+			tankInventory.readFromNBT(registries, compound.getCompoundOrEmpty("TankContent"));
 			if (tankInventory.getSpace() < 0)
 				tankInventory.drain(-tankInventory.getSpace(), FluidAction.EXECUTE);
 		}
 
-		boiler.read(compound.getCompound("Boiler"), width * width * height);
+		boiler.read(compound.getCompoundOrEmpty("Boiler"), width * width * height);
 
 		if (compound.contains("ForceFluidLevel") || fluidLevel == null)
 			fluidLevel = LerpedFloat.linear()

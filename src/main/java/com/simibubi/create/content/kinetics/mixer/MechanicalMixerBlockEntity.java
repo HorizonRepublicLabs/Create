@@ -107,8 +107,8 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		running = compound.getBoolean("Running");
-		runningTicks = compound.getInt("Ticks");
+		running = compound.getBooleanOr("Running", false);
+		runningTicks = compound.getIntOr("Ticks", 0);
 		super.read(compound, registries, clientPacket);
 
 		if (clientPacket && hasLevel())

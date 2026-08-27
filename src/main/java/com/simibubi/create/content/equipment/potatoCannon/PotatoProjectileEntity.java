@@ -91,10 +91,10 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag nbt) {
-		setItem(ItemStack.parseOptional(this.registryAccess(), nbt.getCompound("Item")));
-		additionalDamageMult = nbt.getFloat("AdditionalDamage");
-		additionalKnockback = nbt.getFloat("AdditionalKnockback");
-		recoveryChance = nbt.getFloat("Recovery");
+		setItem(ItemStack.parseOptional(this.registryAccess(), nbt.getCompoundOrEmpty("Item")));
+		additionalDamageMult = nbt.getFloatOr("AdditionalDamage", 0.0F);
+		additionalKnockback = nbt.getFloatOr("AdditionalKnockback", 0.0F);
+		recoveryChance = nbt.getFloatOr("Recovery", 0.0F);
 		super.readAdditionalSaveData(nbt);
 	}
 

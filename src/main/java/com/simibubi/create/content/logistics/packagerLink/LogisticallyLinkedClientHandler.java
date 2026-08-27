@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.UUID;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -38,7 +40,7 @@ public class LogisticallyLinkedClientHandler {
 		if (!tag.hasUUID("Freq"))
 			return;
 
-		UUID uuid = tag.getUUID("Freq");
+		UUID uuid = tag.read("Freq", UUIDUtil.CODEC).orElseThrow();
 		previouslyHeldFrequency = uuid;
 
 		for (LogisticallyLinkedBehaviour behaviour : LogisticallyLinkedBehaviour.getAllPresent(uuid, false, true)) {

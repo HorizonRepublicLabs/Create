@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.UUID;
 
 import net.minecraft.nbt.CompoundTag;
@@ -45,11 +47,11 @@ public class DeployerMovingInteraction extends MovingInteractionBehaviour {
 			DeployerFakePlayer fake = null;
 
 			if (!(ctx.temporaryData instanceof DeployerFakePlayer) && ctx.world instanceof ServerLevel) {
-				UUID owner = ctx.blockEntityData.contains("Owner") ? ctx.blockEntityData.getUUID("Owner") : null;
+				UUID owner = ctx.blockEntityData.contains("Owner") ? ctx.blockEntityData.read("Owner", UUIDUtil.CODEC).orElseThrow() : null;
 				DeployerFakePlayer deployerFakePlayer = new DeployerFakePlayer((ServerLevel) ctx.world, owner);
 				deployerFakePlayer.onMinecartContraption = ctx.contraption instanceof MountedContraption;
 				deployerFakePlayer.getInventory()
-					.load(ctx.blockEntityData.getList("Inventory", Tag.TAG_COMPOUND));
+					.load(ctx.blockEntityData.getListOrEmpty("Inventory"));
 				ctx.temporaryData = fake = deployerFakePlayer;
 				ctx.blockEntityData.remove("Inventory");
 			} else

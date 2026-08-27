@@ -36,7 +36,7 @@ public class AnimatedContainerBehaviour<M extends MenuBase<? extends SmartBlockE
 	public void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
 		if (clientPacket)
-			openCount = compound.getInt("OpenCount");
+			openCount = compound.getIntOr("OpenCount", 0);
 	}
 
 	@Override

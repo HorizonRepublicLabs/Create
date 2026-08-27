@@ -709,10 +709,10 @@ public class ChainConveyorBlockEntity extends KineticBlockEntity implements Tran
 		connections.clear();
 		CatnipCodecUtils.decode(CatnipCodecs.set(BlockPos.CODEC), registries, compound.get("Connections")).ifPresent(connections::addAll);
 		travellingPackages.clear();
-		NBTHelper.iterateCompoundList(compound.getList("TravellingPackages", Tag.TAG_COMPOUND),
+		NBTHelper.iterateCompoundList(compound.getListOrEmpty("TravellingPackages"),
 			c -> travellingPackages.put(NBTHelper.readBlockPos(c, "Target"),
-				NBTHelper.readCompoundList(c.getList("Packages", Tag.TAG_COMPOUND), t -> ChainConveyorPackage.read(t, registries))));
-		loopingPackages = NBTHelper.readCompoundList(compound.getList("LoopingPackages", Tag.TAG_COMPOUND),
+				NBTHelper.readCompoundList(c.getListOrEmpty("Packages"), t -> ChainConveyorPackage.read(t, registries))));
+		loopingPackages = NBTHelper.readCompoundList(compound.getListOrEmpty("LoopingPackages"),
 			t -> ChainConveyorPackage.read(t, registries));
 		connectionStats = null;
 		updateBoxWorldPositions();

@@ -207,12 +207,12 @@ public class RecipeGridHandler {
 
 		public static GroupedItems read(CompoundTag nbt, HolderLookup.Provider registries) {
 			GroupedItems items = new GroupedItems();
-			ListTag gridNBT = nbt.getList("Grid", Tag.TAG_COMPOUND);
+			ListTag gridNBT = nbt.getListOrEmpty("Grid");
 			gridNBT.forEach(inbt -> {
 				CompoundTag entry = (CompoundTag) inbt;
-				int x = entry.getInt("x");
-				int y = entry.getInt("y");
-				ItemStack stack = ItemStack.parseOptional(registries, entry.getCompound("item"));
+				int x = entry.getIntOr("x", 0);
+				int y = entry.getIntOr("y", 0);
+				ItemStack stack = ItemStack.parseOptional(registries, entry.getCompoundOrEmpty("item"));
 				items.grid.put(Pair.of(x, y), stack);
 			});
 			return items;

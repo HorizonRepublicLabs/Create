@@ -107,7 +107,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 			return;
 
 		Level world = context.world;
-		int id = data.getInt("BreakerId");
+		int id = data.getIntOr("BreakerId", 0);
 		BlockPos breakingPos = NBTHelper.readBlockPos(data, "BreakingPos");
 
 		data.remove("Progress");
@@ -131,7 +131,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 		if (!data.contains("WaitingTicks"))
 			return;
 
-		int waitingTicks = data.getInt("WaitingTicks");
+		int waitingTicks = data.getIntOr("WaitingTicks", 0);
 		if (waitingTicks-- > 0) {
 			data.putInt("WaitingTicks", waitingTicks);
 			context.stall = true;
@@ -158,7 +158,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 			return;
 		}
 
-		int ticksUntilNextProgress = data.getInt("TicksUntilNextProgress");
+		int ticksUntilNextProgress = data.getIntOr("TicksUntilNextProgress", 0);
 		if (ticksUntilNextProgress-- > 0) {
 			data.putInt("TicksUntilNextProgress", ticksUntilNextProgress);
 			return;
@@ -166,8 +166,8 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 
 		Level world = context.world;
 		BlockPos breakingPos = NBTHelper.readBlockPos(data, "BreakingPos");
-		int destroyProgress = data.getInt("Progress");
-		int id = data.getInt("BreakerId");
+		int destroyProgress = data.getIntOr("Progress", 0);
+		int id = data.getIntOr("BreakerId", 0);
 		BlockState stateToBreak = world.getBlockState(breakingPos);
 		float blockHardness = stateToBreak.getDestroySpeed(world, breakingPos);
 

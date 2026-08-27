@@ -39,7 +39,7 @@ public class DisplayLinkConfigurationPacket extends BlockEntityConfigurationPack
 			return;
 		}
 
-		Identifier id = Identifier.tryParse(configData.getString("Id"));
+		Identifier id = Identifier.tryParse(configData.getStringOr("Id", ""));
 		DisplaySource source = DisplaySource.get(id);
 		if (source == null) {
 			be.notifyUpdate();

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.graph;
 
+import net.minecraft.core.UUIDUtil;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -180,12 +182,12 @@ public class EdgeData {
 		if (singleSignalGroup == passiveGroup)
 			NBTHelper.putMarker(nbt, "PassiveGroup");
 		else if (singleSignalGroup != null)
-			nbt.putUUID("SignalGroup", singleSignalGroup);
+			nbt.store("SignalGroup", UUIDUtil.CODEC, singleSignalGroup);
 
 		if (hasPoints())
 			nbt.put("Points", NBTHelper.writeCompoundList(points, point -> {
 				CompoundTag tag = new CompoundTag();
-				tag.putUUID("Id", point.id);
+				tag.store("Id", UUIDUtil.CODEC, point.id);
 				tag.putString("Type", point.getType()
 					.getId()
 					.toString());
@@ -199,22 +201,22 @@ public class EdgeData {
 	public static EdgeData read(CompoundTag nbt, TrackEdge edge, TrackGraph graph, DimensionPalette dimensions) {
 		EdgeData data = new EdgeData(edge);
 		if (nbt.contains("SignalGroup"))
-			data.singleSignalGroup = nbt.getUUID("SignalGroup");
+			data.singleSignalGroup = nbt.read("SignalGroup", UUIDUtil.CODEC).orElseThrow();
 		else if (!nbt.contains("PassiveGroup"))
 			data.singleSignalGroup = null;
 
 		if (nbt.contains("Points"))
-			NBTHelper.iterateCompoundList(nbt.getList("Points", Tag.TAG_COMPOUND), tag -> {
-				Identifier location = Identifier.parse(tag.getString("Type"));
+			NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Points"), tag -> {
+				Identifier location = Identifier.parse(tag.getStringOr("Type", ""));
 				EdgePointType<?> type = EdgePointType.TYPES.get(location);
 				if (type == null || !tag.contains("Id"))
 					return;
-				TrackEdgePoint point = graph.getPoint(type, tag.getUUID("Id"));
+				TrackEdgePoint point = graph.getPoint(type, tag.read("Id", UUIDUtil.CODEC).orElseThrow());
 				if (point != null)
 					data.points.add(point);
 			});
 		if (nbt.contains("Intersections"))
-			data.intersections = NBTHelper.readCompoundList(nbt.getList("Intersections", Tag.TAG_COMPOUND),
+			data.intersections = NBTHelper.readCompoundList(nbt.getListOrEmpty("Intersections"),
 				c -> TrackEdgeIntersection.read(c, dimensions));
 		return data;
 	}

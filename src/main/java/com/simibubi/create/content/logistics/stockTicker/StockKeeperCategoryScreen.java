@@ -232,7 +232,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 			entry.isEmpty() ? CreateLang.translate("gui.stock_ticker.empty_category_name_placeholder")
 				.string()
 				: entry.getHoverName()
-				.getString(20)
+				.getStringOr(20, "")
 				.stripTrailing()
 				+ (entry.getHoverName()
 				.getString()

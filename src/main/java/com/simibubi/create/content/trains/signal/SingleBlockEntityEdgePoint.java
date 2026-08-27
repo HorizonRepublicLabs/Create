@@ -53,7 +53,7 @@ public abstract class SingleBlockEntityEdgePoint extends TrackEdgePoint {
 		if (migration)
 			return;
 		blockEntityPos = NBTHelper.readBlockPos(nbt, "BlockEntityPos");
-		blockEntityDimension = dimensions.decode(nbt.contains("BlockEntityDimension") ? nbt.getInt("BlockEntityDimension") : -1);
+		blockEntityDimension = dimensions.decode(nbt.contains("BlockEntityDimension") ? nbt.getIntOr("BlockEntityDimension", 0) : -1);
 	}
 
 	@Override

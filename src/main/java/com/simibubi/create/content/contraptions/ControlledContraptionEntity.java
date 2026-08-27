@@ -84,7 +84,7 @@ public class ControlledContraptionEntity extends AbstractContraptionEntity {
 			controllerPos = NBTHelper.readBlockPos(compound, "ControllerRelative").offset(blockPosition());
 		if (compound.contains("Axis"))
 			rotationAxis = NBTHelper.readEnum(compound, "Axis", Axis.class);
-		angle = compound.getFloat("Angle");
+		angle = compound.getFloatOr("Angle", 0.0F);
 	}
 
 	@Override
@@ -191,7 +191,7 @@ public class ControlledContraptionEntity extends AbstractContraptionEntity {
 		context.motion = Vec3.atLowerCornerOf(facing.getNormal())
 			.scale(angleDelta / 360.0);
 		context.relativeMotion = context.motion;
-		int timer = context.data.getInt("StationaryTimer");
+		int timer = context.data.getIntOr("StationaryTimer", 0);
 		if (timer > 0) {
 			context.data.putInt("StationaryTimer", timer - 1);
 			return false;

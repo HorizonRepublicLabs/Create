@@ -198,9 +198,9 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements Clearabl
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		timer = compound.getInt("Timer");
-		inputInv.deserializeNBT(registries, compound.getCompound("InputInventory"));
-		outputInv.deserializeNBT(registries, compound.getCompound("OutputInventory"));
+		timer = compound.getIntOr("Timer", 0);
+		inputInv.deserializeNBT(registries, compound.getCompoundOrEmpty("InputInventory"));
+		outputInv.deserializeNBT(registries, compound.getCompoundOrEmpty("OutputInventory"));
 		super.read(compound, registries, clientPacket);
 	}
 

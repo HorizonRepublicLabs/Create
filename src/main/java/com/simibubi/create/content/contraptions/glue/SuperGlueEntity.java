@@ -231,8 +231,8 @@ public class SuperGlueEntity extends Entity implements IEntityWithComplexSpawn, 
 	}
 
 	public static AABB readBoundingBox(CompoundTag compound) {
-		Vec3 from = VecHelper.readNBT(compound.getList("From", Tag.TAG_DOUBLE));
-		Vec3 to = VecHelper.readNBT(compound.getList("To", Tag.TAG_DOUBLE));
+		Vec3 from = VecHelper.readNBT(compound.getListOrEmpty("From"));
+		Vec3 to = VecHelper.readNBT(compound.getListOrEmpty("To"));
 		return new AABB(from, to);
 	}
 

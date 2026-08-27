@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.List;
@@ -77,7 +79,7 @@ public class ClipboardBlockEntity extends SmartBlockEntity {
 				.ifPresent(encoded -> tag.put("components", encoded));
 
 			if (lastEdit != null)
-				tag.putUUID("LastEdit", lastEdit);
+				tag.store("LastEdit", UUIDUtil.CODEC, lastEdit);
 		}
 	}
 
@@ -87,7 +89,7 @@ public class ClipboardBlockEntity extends SmartBlockEntity {
 
 		if (clientPacket) {
 			if (tag.contains("components"))
-				DataComponentMap.CODEC.decode(registries.createSerializationContext(NbtOps.INSTANCE), tag.getCompound("components"))
+				DataComponentMap.CODEC.decode(registries.createSerializationContext(NbtOps.INSTANCE), tag.getCompoundOrEmpty("components"))
 					.result()
 					.map(Pair::getFirst)
 					.ifPresent(this::setComponents);
@@ -101,7 +103,7 @@ public class ClipboardBlockEntity extends SmartBlockEntity {
 		Minecraft mc = Minecraft.getInstance();
 		if (!(mc.screen instanceof ClipboardScreen cs))
 			return;
-		if (tag.contains("LastEdit") && tag.getUUID("LastEdit")
+		if (tag.contains("LastEdit") && tag.read("LastEdit", UUIDUtil.CODEC).orElseThrow()
 			.equals(mc.player.getUUID()))
 			return;
 		if (!worldPosition.equals(cs.targetedBlock))

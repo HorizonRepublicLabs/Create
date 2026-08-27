@@ -93,8 +93,8 @@ public class WindmillBearingBlockEntity extends MechanicalBearingBlockEntity {
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		if (!wasMoved)
-			lastGeneratedSpeed = compound.getFloat("LastGenerated");
-		queuedReassembly = compound.getBoolean("QueueAssembly");
+			lastGeneratedSpeed = compound.getFloatOr("LastGenerated", 0.0F);
+		queuedReassembly = compound.getBooleanOr("QueueAssembly", false);
 		super.read(compound, registries, clientPacket);
 	}
 

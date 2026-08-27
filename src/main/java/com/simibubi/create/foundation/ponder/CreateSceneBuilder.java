@@ -227,11 +227,11 @@ public class CreateSceneBuilder extends PonderSceneBuilder {
 
 		public void modifyKineticSpeed(Selection selection, UnaryOperator<Float> speedFunc) {
 			modifyBlockEntityNBT(selection, SpeedGaugeBlockEntity.class, nbt -> {
-				float newSpeed = speedFunc.apply(nbt.getFloat("Speed"));
+				float newSpeed = speedFunc.apply(nbt.getFloatOr("Speed", 0.0F));
 				nbt.putFloat("Value", SpeedGaugeBlockEntity.getDialTarget(newSpeed));
 			});
 			modifyBlockEntityNBT(selection, KineticBlockEntity.class, nbt -> {
-				nbt.putFloat("Speed", speedFunc.apply(nbt.getFloat("Speed")));
+				nbt.putFloat("Speed", speedFunc.apply(nbt.getFloatOr("Speed", 0.0F)));
 			});
 		}
 

@@ -68,8 +68,8 @@ public class DimensionPalette {
 
 	public static DimensionPalette read(CompoundTag tag) {
 		DimensionPalette palette = new DimensionPalette();
-		NBTHelper.iterateCompoundList(tag.getList("DimensionPalette", Tag.TAG_COMPOUND), c -> palette.gatheredDims
-			.add(ResourceKey.create(Registries.DIMENSION, Identifier.parse(c.getString("Id")))));
+		NBTHelper.iterateCompoundList(tag.getListOrEmpty("DimensionPalette"), c -> palette.gatheredDims
+			.add(ResourceKey.create(Registries.DIMENSION, Identifier.parse(c.getStringOr("Id", "")))));
 		return palette;
 	}
 

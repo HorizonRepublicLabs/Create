@@ -191,14 +191,14 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		if (!data.contains("ContraptionDismountLocation"))
 			return position;
 
-		position = VecHelper.readNBT(data.getList("ContraptionDismountLocation", Tag.TAG_DOUBLE));
+		position = VecHelper.readNBT(data.getListOrEmpty("ContraptionDismountLocation"));
 		data.remove("ContraptionDismountLocation");
 		entityLiving.setOnGround(false);
 
 		if (!data.contains("ContraptionMountLocation"))
 			return position;
 
-		Vec3 prevPosition = VecHelper.readNBT(data.getList("ContraptionMountLocation", Tag.TAG_DOUBLE));
+		Vec3 prevPosition = VecHelper.readNBT(data.getListOrEmpty("ContraptionMountLocation"));
 		data.remove("ContraptionMountLocation");
 		if (entityLiving instanceof Player player && !prevPosition.closerThan(position, 5000))
 			AllAdvancements.LONG_TRAVEL.awardTo(player);
@@ -648,10 +648,10 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		if (compound.isEmpty())
 			return;
 
-		initialized = compound.getBoolean("Initialized");
-		contraption = Contraption.fromNBT(level(), compound.getCompound("Contraption"), spawnData);
+		initialized = compound.getBooleanOr("Initialized", false);
+		contraption = Contraption.fromNBT(level(), compound.getCompoundOrEmpty("Contraption"), spawnData);
 		contraption.entity = this;
-		entityData.set(STALLED, compound.getBoolean("Stalled"));
+		entityData.set(STALLED, compound.getBooleanOr("Stalled", false));
 	}
 
 	public void disassemble() {

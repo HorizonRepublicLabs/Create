@@ -42,7 +42,7 @@ public class RedstoneRequesterPeripheral extends SyncedPeripheral<RedstoneReques
 
 	@LuaFunction(mainThread = true)
 	public final void setCraftingRequest(IArguments arguments) throws LuaException {
-		int count = arguments.getInt(0);
+		int count = arguments.getIntOr(0, 0);
 		arguments = arguments.drop(1);
 
 		List<BigItemStack> orderStacks = generateOrder(arguments);

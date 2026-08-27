@@ -202,12 +202,12 @@ public class CarriageBogey {
 	}
 
 	public static CarriageBogey read(CompoundTag tag, TrackGraph graph, DimensionPalette dimensions) {
-		Identifier location = Identifier.parse(tag.getString("Type"));
+		Identifier location = Identifier.parse(tag.getStringOr("Type", ""));
 		AbstractBogeyBlock<?> type = (AbstractBogeyBlock<?>) BuiltInRegistries.BLOCK.get(location);
-		boolean upsideDown = tag.getBoolean("UpsideDown");
-		Couple<TravellingPoint> points = Couple.deserializeEach(tag.getList("Points", Tag.TAG_COMPOUND),
+		boolean upsideDown = tag.getBooleanOr("UpsideDown", false);
+		Couple<TravellingPoint> points = Couple.deserializeEach(tag.getListOrEmpty("Points"),
 			c -> TravellingPoint.read(c, graph, dimensions));
-		CompoundTag data = tag.getCompound(AbstractBogeyBlockEntity.BOGEY_DATA_KEY);
+		CompoundTag data = tag.getCompoundOrEmpty(AbstractBogeyBlockEntity.BOGEY_DATA_KEY);
 		return new CarriageBogey(type, upsideDown, data, points.getFirst(), points.getSecond());
 	}
 

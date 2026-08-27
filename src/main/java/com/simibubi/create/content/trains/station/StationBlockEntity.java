@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.lang.ref.WeakReference;
@@ -165,15 +167,15 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 	@Override
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		lastException = AssemblyException.read(tag, registries);
-		failedCarriageIndex = tag.getInt("FailedCarriageIndex");
+		failedCarriageIndex = tag.getIntOr("FailedCarriageIndex", 0);
 		super.read(tag, registries, clientPacket);
 		invalidateRenderBoundingBox();
 
 		if (tag.contains("ForceFlag"))
-			trainPresent = tag.getBoolean("ForceFlag");
+			trainPresent = tag.getBooleanOr("ForceFlag", false);
 		if (tag.contains("PrevTrainName"))
-			lastDisassembledTrainName = Component.Serializer.fromJson(tag.getString("PrevTrainName"), registries);
-		lastDisassembledMapColorIndex = tag.getInt("PrevTrainColor");
+			lastDisassembledTrainName = Component.Serializer.fromJson(tag.getStringOr("PrevTrainName", ""), registries);
+		lastDisassembledMapColorIndex = tag.getIntOr("PrevTrainColor", 0);
 
 		if (!clientPacket)
 			return;
@@ -185,7 +187,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 			return;
 		}
 
-		imminentTrain = tag.getUUID("ImminentTrain");
+		imminentTrain = tag.read("ImminentTrain", UUIDUtil.CODEC).orElseThrow();
 		trainPresent = tag.contains("TrainPresent");
 		trainCanDisassemble = tag.contains("TrainCanDisassemble");
 		trainBackwards = tag.contains("TrainBackwards");
@@ -209,7 +211,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 		if (imminentTrain == null)
 			return;
 
-		tag.putUUID("ImminentTrain", imminentTrain);
+		tag.store("ImminentTrain", UUIDUtil.CODEC, imminentTrain);
 
 		if (trainPresent)
 			NBTHelper.putMarker(tag, "TrainPresent");
