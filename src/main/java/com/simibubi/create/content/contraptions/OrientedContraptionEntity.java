@@ -1,6 +1,6 @@
 package com.simibubi.create.content.contraptions;
 
-import static net.createmod.catnip.math.AngleHelper.angleLerp;
+import static net.createmod.catnip.api.math.AngleHelper.angleLerp;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -21,10 +21,10 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.mixin.accessor.MinecartFurnaceAccessor;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.data.Couple;
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.data.Couple;
+import net.createmod.catnip.api.math.AngleHelper;
+import net.createmod.catnip.api.math.VecHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,7 +39,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.entity.vehicle.MinecartFurnace;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

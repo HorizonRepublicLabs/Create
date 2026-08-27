@@ -79,12 +79,12 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import it.unimi.dsi.fastutil.objects.Object2BooleanArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.data.UniqueLinkedList;
-import net.createmod.catnip.math.BBHelper;
-import net.createmod.catnip.math.BlockFace;
-import net.createmod.catnip.nbt.NBTHelper;
-import net.createmod.catnip.nbt.NBTProcessors;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.data.UniqueLinkedList;
+import net.createmod.catnip.api.math.BBHelper;
+import net.createmod.catnip.api.math.BlockFace;
+import net.createmod.catnip.api.nbt.NBTHelper;
+import net.createmod.catnip.api.nbt.NBTProcessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -97,7 +97,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.game.DebugPackets;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
@@ -807,7 +807,7 @@ public abstract class Contraption {
 
 	public CompoundTag writeNBT(HolderLookup.Provider registries, boolean spawnPacket) {
 		CompoundTag nbt = new CompoundTag();
-		ResourceLocation typeId = this.getType().holder.key().location();
+		Identifier typeId = this.getType().holder.key().location();
 		nbt.putString("Type", typeId.toString());
 
 		CompoundTag blocksNBT = writeBlocksCompound(spawnPacket);

@@ -24,17 +24,17 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.nbt.NBTHelper;
-import net.createmod.catnip.levelWrappers.SchematicLevel;
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.nbt.NBTHelper;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.ponder.api.level.PonderLevel;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.math.VecHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
+import net.createmod.catnip.api.level.wrapper.SchematicLevel;
+import net.createmod.catnip.api.math.VecHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
+import net.createmod.catnip.api.client.render.CachedBuffers;
+import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;

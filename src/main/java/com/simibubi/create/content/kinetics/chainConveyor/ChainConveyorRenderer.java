@@ -16,21 +16,21 @@ import com.simibubi.create.foundation.render.RenderTypes;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.animation.AnimationTickHolder;
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.catnip.render.SuperByteBuffer;
+import net.createmod.catnip.api.client.animation.AnimationTickHolder;
+import net.createmod.catnip.api.math.AngleHelper;
+import net.createmod.catnip.api.math.VecHelper;
+import net.createmod.catnip.api.client.render.CachedBuffers;
+import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
@@ -39,7 +39,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConveyorBlockEntity> {
 
-	public static final ResourceLocation CHAIN_LOCATION = ResourceLocation.withDefaultNamespace("textures/block/chain.png");
+	public static final Identifier CHAIN_LOCATION = Identifier.withDefaultNamespace("textures/block/chain.png");
 	public static final int MIP_DISTANCE = 48;
 
 	public ChainConveyorRenderer(Context context) {
@@ -93,7 +93,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 			level.getBrightness(LightLayer.SKY, containingPos));
 
 		if (physicsData.modelKey == null) {
-			ResourceLocation key = BuiltInRegistries.ITEM.getKey(box.item.getItem());
+			Identifier key = BuiltInRegistries.ITEM.getKey(box.item.getItem());
 			if (key == BuiltInRegistries.ITEM.getDefaultKey())
 				return;
 			physicsData.modelKey = key;

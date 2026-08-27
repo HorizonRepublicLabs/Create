@@ -11,10 +11,10 @@ import com.simibubi.create.AllEntityTypes;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.logistics.chute.ChuteBlock;
 
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.api.math.AngleHelper;
+import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.platform.CatnipServices;
-import net.createmod.ponder.api.level.PonderLevel;
+import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;

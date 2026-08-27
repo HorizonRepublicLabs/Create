@@ -14,13 +14,13 @@ import com.simibubi.create.content.logistics.packagePort.PackagePortTargetSelect
 import com.simibubi.create.foundation.utility.RaycastHelper;
 import com.simibubi.create.foundation.utility.TickBasedCache;
 
-import net.createmod.catnip.data.WorldAttached;
-import net.createmod.catnip.outliner.Outliner;
+import net.createmod.catnip.api.data.WorldAttached;
+import net.createmod.catnip.api.client.outliner.Outliner;
 import net.createmod.catnip.platform.CatnipServices;
-import net.createmod.catnip.theme.Color;
+import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;

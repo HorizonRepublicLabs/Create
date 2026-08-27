@@ -5,7 +5,7 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.content.redstone.DirectedDirectionalBlock;
 import com.simibubi.create.foundation.block.IBE;
 
-import net.createmod.catnip.gui.ScreenOpener;
+import net.createmod.catnip.api.client.gui.ScreenOpener;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;

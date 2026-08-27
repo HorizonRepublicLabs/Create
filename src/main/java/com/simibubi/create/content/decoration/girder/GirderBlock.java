@@ -19,9 +19,9 @@ import com.simibubi.create.content.trains.track.TrackBlock;
 import com.simibubi.create.content.trains.track.TrackShape;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.placement.IPlacementHelper;
-import net.createmod.catnip.placement.PlacementHelpers;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.placement.IPlacementHelper;
+import net.createmod.catnip.api.placement.PlacementHelpers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;

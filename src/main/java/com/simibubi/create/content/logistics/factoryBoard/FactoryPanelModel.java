@@ -14,9 +14,9 @@ import com.simibubi.create.foundation.model.BakedModelWrapperWithData;
 import com.simibubi.create.foundation.model.BakedQuadHelper;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.ponder.api.level.PonderLevel;
-import net.minecraft.client.renderer.RenderType;
+import net.createmod.catnip.api.math.VecHelper;
+import net.createmod.ponder.api.client.level.PonderLevel;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;

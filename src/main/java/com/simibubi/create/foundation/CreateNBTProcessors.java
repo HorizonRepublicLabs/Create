@@ -7,14 +7,14 @@ import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.content.equipment.clipboard.ClipboardContent;
 import com.simibubi.create.content.equipment.clipboard.ClipboardEntry;
 
-import net.createmod.catnip.codecs.CatnipCodecUtils;
-import net.createmod.catnip.nbt.NBTProcessors;
+import net.createmod.catnip.api.data.codec.CatnipCodecUtils;
+import net.createmod.catnip.api.nbt.NBTProcessors;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.network.Filterable;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.WrittenBookContent;
@@ -28,7 +28,7 @@ public class CreateNBTProcessors {
 			CompoundTag book = data.getCompound("Book");
 
 			// Writable books can't have click events, so they're safe to keep
-			ResourceLocation writableBookResource = BuiltInRegistries.ITEM.getKey(Items.WRITABLE_BOOK);
+			Identifier writableBookResource = BuiltInRegistries.ITEM.getKey(Items.WRITABLE_BOOK);
 			if (writableBookResource != BuiltInRegistries.ITEM.getDefaultKey() && book.getString("id").equals(writableBookResource.toString()))
 				return data;
 

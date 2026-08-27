@@ -5,13 +5,13 @@ import org.jetbrains.annotations.Nullable;
 import com.simibubi.create.api.registry.CreateBuiltInRegistries;
 import com.simibubi.create.content.contraptions.StructureTransform;
 
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.math.VecHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -146,7 +146,7 @@ public class ArmInteractionPoint {
 	}
 
 	public final CompoundTag serialize(BlockPos anchor) {
-		ResourceLocation key = CreateBuiltInRegistries.ARM_INTERACTION_POINT_TYPE.getKey(type);
+		Identifier key = CreateBuiltInRegistries.ARM_INTERACTION_POINT_TYPE.getKey(type);
 		if (key == null)
 			throw new IllegalArgumentException("Could not get id for ArmInteractionPointType " + type + "!");
 
@@ -159,7 +159,7 @@ public class ArmInteractionPoint {
 
 	@Nullable
 	public static ArmInteractionPoint deserialize(CompoundTag nbt, Level level, BlockPos anchor) {
-		ResourceLocation id = ResourceLocation.tryParse(nbt.getString("Type"));
+		Identifier id = Identifier.tryParse(nbt.getString("Type"));
 		if (id == null)
 			return null;
 		ArmInteractionPointType type = CreateBuiltInRegistries.ARM_INTERACTION_POINT_TYPE.get(id);

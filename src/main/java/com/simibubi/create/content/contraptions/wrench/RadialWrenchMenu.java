@@ -31,22 +31,22 @@ import com.simibubi.create.content.redstone.DirectedDirectionalBlock;
 import com.simibubi.create.foundation.gui.AllIcons;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.animation.AnimationTickHolder;
-import net.createmod.catnip.gui.AbstractSimiScreen;
-import net.createmod.catnip.gui.UIRenderHelper;
-import net.createmod.catnip.gui.element.GuiGameElement;
-import net.createmod.catnip.gui.element.RenderElement;
-import net.createmod.catnip.math.AngleHelper;
+import net.createmod.catnip.api.client.animation.AnimationTickHolder;
+import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
+import net.createmod.catnip.api.client.gui.UIRenderHelper;
+import net.createmod.catnip.api.client.gui.element.GuiGameElement;
+import net.createmod.catnip.api.client.gui.element.RenderElement;
+import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.platform.CatnipServices;
-import net.createmod.catnip.registry.RegisteredObjectsHelper;
-import net.createmod.catnip.theme.Color;
-import net.createmod.ponder.enums.PonderGuiTextures;
+import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
+import net.createmod.catnip.api.theme.Color;
+import net.createmod.ponder.impl.client.gui.element.PonderGuiTextures;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HopperBlock;
@@ -69,7 +69,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 		registerRotationProperty(SequencedGearshiftBlock.VERTICAL, "Vertical");
 	}
 
-	public static final Set<ResourceLocation> BLOCK_BLACKLIST = new HashSet<>();
+	public static final Set<Identifier> BLOCK_BLACKLIST = new HashSet<>();
 
 	static {
 		registerBlacklistedBlock(AllBlocks.LARGE_WATER_WHEEL.getId());
@@ -83,7 +83,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 		VALID_PROPERTIES.put(property, label);
 	}
 
-	public static void registerBlacklistedBlock(ResourceLocation location) {
+	public static void registerBlacklistedBlock(Identifier location) {
 		if (BLOCK_BLACKLIST.contains(location))
 			return;
 

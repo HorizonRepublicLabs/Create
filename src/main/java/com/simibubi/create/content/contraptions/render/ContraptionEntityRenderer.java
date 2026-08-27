@@ -14,13 +14,13 @@ import com.simibubi.create.foundation.virtualWorld.VirtualRenderWorld;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.animation.AnimationTickHolder;
-import net.createmod.catnip.render.ShadedBlockSbbBuilder;
-import net.createmod.catnip.render.SuperByteBuffer;
-import net.createmod.catnip.render.SuperByteBufferCache;
+import net.createmod.catnip.api.client.animation.AnimationTickHolder;
+import net.createmod.catnip.api.client.render.ShadedBlockSbbBuilder;
+import net.createmod.catnip.api.client.render.SuperByteBuffer;
+import net.createmod.catnip.api.client.render.SuperByteBufferCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -29,7 +29,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
@@ -86,7 +86,7 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(C entity) {
+	public Identifier getTextureLocation(C entity) {
 		return null;
 	}
 

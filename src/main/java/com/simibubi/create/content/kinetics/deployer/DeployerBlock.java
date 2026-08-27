@@ -13,10 +13,9 @@ import com.simibubi.create.content.kinetics.base.DirectionalAxisKineticBlock;
 import com.simibubi.create.content.processing.AssemblyOperatorUseContext;
 import com.simibubi.create.foundation.block.IBE;
 
-import net.createmod.catnip.placement.IPlacementHelper;
-import net.createmod.catnip.placement.PlacementHelpers;
-import net.createmod.catnip.placement.PlacementOffset;
-import net.minecraft.MethodsReturnNonnullByDefault;
+import net.createmod.catnip.api.placement.IPlacementHelper;
+import net.createmod.catnip.api.placement.PlacementHelpers;
+import net.createmod.catnip.api.placement.PlacementOffset;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,7 +41,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class DeployerBlock extends DirectionalAxisKineticBlock implements IBE<DeployerBlockEntity> {
 
 	private static final int placementHelperId = PlacementHelpers.register(new PlacementHelper());

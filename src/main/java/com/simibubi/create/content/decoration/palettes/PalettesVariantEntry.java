@@ -13,7 +13,7 @@ import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;

@@ -9,7 +9,7 @@ import com.simibubi.create.content.kinetics.base.KineticBlock;
 import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 
-import net.createmod.catnip.gui.ScreenOpener;
+import net.createmod.catnip.api.client.gui.ScreenOpener;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;

@@ -10,16 +10,16 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.config.ui.BaseConfigScreen;
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.gui.AbstractSimiScreen;
-import net.createmod.catnip.gui.ScreenOpener;
-import net.createmod.catnip.gui.element.BoxElement;
-import net.createmod.catnip.gui.element.GuiGameElement;
-import net.createmod.catnip.lang.FontHelper;
-import net.createmod.catnip.lang.FontHelper.Palette;
-import net.createmod.catnip.theme.Color;
-import net.createmod.ponder.foundation.ui.PonderTagIndexScreen;
+import net.createmod.catnip.api.client.config.BaseConfigScreen;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
+import net.createmod.catnip.api.client.gui.ScreenOpener;
+import net.createmod.catnip.api.client.gui.element.BoxElement;
+import net.createmod.catnip.api.client.gui.element.GuiGameElement;
+import net.createmod.catnip.api.client.lang.FontHelper;
+import net.createmod.catnip.api.client.lang.FontHelper.Palette;
+import net.createmod.catnip.api.theme.Color;
+import net.createmod.ponder.impl.client.gui.PonderTagIndexScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,15 +32,15 @@ import net.minecraft.client.renderer.CubeMap;
 import net.minecraft.client.renderer.PanoramaRenderer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public class CreateMainMenuScreen extends AbstractSimiScreen {
 
 	public static final CubeMap PANORAMA_RESOURCES =
 		new CubeMap(Create.asResource("textures/gui/title/background/panorama"));
-	public static final ResourceLocation PANORAMA_OVERLAY_TEXTURES =
-		ResourceLocation.withDefaultNamespace("textures/gui/title/background/panorama_overlay.png");
+	public static final Identifier PANORAMA_OVERLAY_TEXTURES =
+		Identifier.withDefaultNamespace("textures/gui/title/background/panorama_overlay.png");
 	public static final PanoramaRenderer PANORAMA = new PanoramaRenderer(PANORAMA_RESOURCES);
 
 	private static final Component CURSEFORGE_TOOLTIP;

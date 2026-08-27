@@ -21,13 +21,13 @@ import com.simibubi.create.content.trains.station.GlobalPackagePort;
 import com.simibubi.create.content.trains.station.GlobalStation;
 import com.simibubi.create.foundation.utility.CreateLang;
 
-import net.createmod.catnip.data.Glob;
-import net.createmod.catnip.data.Pair;
+import net.createmod.catnip.api.data.Glob;
+import net.createmod.catnip.api.data.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -88,7 +88,7 @@ public class FetchPackagesInstruction extends TextScheduleInstruction {
 	}
 
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return Create.asResource("package_retrieval");
 	}
 

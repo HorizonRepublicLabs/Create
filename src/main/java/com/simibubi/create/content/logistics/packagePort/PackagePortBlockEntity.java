@@ -15,7 +15,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.animatedContainer.An
 import com.simibubi.create.foundation.item.SmartInventory;
 import com.simibubi.create.foundation.utility.CreateLang;
 
-import net.createmod.catnip.codecs.CatnipCodecUtils;
+import net.createmod.catnip.api.data.codec.CatnipCodecUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

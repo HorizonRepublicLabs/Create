@@ -16,15 +16,15 @@ import com.simibubi.create.content.logistics.factoryBoard.FactoryPanelSupportBeh
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.math.VecHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import dan200.computercraft.api.peripheral.PeripheralCapability;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -152,7 +152,7 @@ public class DisplayLinkBlockEntity extends LinkWithBulbBlockEntity  implements 
 		super.write(tag, registries, clientPacket);
 		writeGatheredData(tag);
 		if (clientPacket && activeTarget != null) {
-			ResourceLocation id = CreateBuiltInRegistries.DISPLAY_TARGET.getKey(this.activeTarget);
+			Identifier id = CreateBuiltInRegistries.DISPLAY_TARGET.getKey(this.activeTarget);
 			if (id != null) {
 				tag.putString("TargetType", id.toString());
 			}
@@ -165,7 +165,7 @@ public class DisplayLinkBlockEntity extends LinkWithBulbBlockEntity  implements 
 
 		if (activeSource != null) {
 			CompoundTag data = sourceConfig.copy();
-			ResourceLocation id = CreateBuiltInRegistries.DISPLAY_SOURCE.getKey(this.activeSource);
+			Identifier id = CreateBuiltInRegistries.DISPLAY_SOURCE.getKey(this.activeSource);
 			if (id != null) {
 				data.putString("Id", id.toString());
 			}
@@ -180,12 +180,12 @@ public class DisplayLinkBlockEntity extends LinkWithBulbBlockEntity  implements 
 		targetLine = tag.getInt("TargetLine");
 
 		if (clientPacket && tag.contains("TargetType"))
-			activeTarget = DisplayTarget.get(ResourceLocation.tryParse(tag.getString("TargetType")));
+			activeTarget = DisplayTarget.get(Identifier.tryParse(tag.getString("TargetType")));
 		if (!tag.contains("Source"))
 			return;
 
 		CompoundTag data = tag.getCompound("Source");
-		activeSource = DisplaySource.get(ResourceLocation.tryParse(data.getString("Id")));
+		activeSource = DisplaySource.get(Identifier.tryParse(data.getString("Id")));
 		sourceConfig = new CompoundTag();
 		if (activeSource != null)
 			sourceConfig = data.copy();

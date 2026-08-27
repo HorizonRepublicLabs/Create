@@ -5,8 +5,8 @@ import java.util.List;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 
-import net.createmod.catnip.nbt.NBTHelper;
-import net.createmod.catnip.registry.RegisteredObjectsHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
+import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.HolderLookup;
@@ -14,7 +14,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -101,7 +101,7 @@ public class PoweredShaftBlockEntity extends GeneratingKineticBlockEntity {
 		if (compound.contains("EnginePos")) {
 			enginePos = NBTHelper.readBlockPos(compound, "EnginePos");
 			engineEfficiency = compound.getFloat("EnginePower");
-			capacityKey = BuiltInRegistries.BLOCK.get(ResourceLocation.parse(compound.getString("EngineType")));
+			capacityKey = BuiltInRegistries.BLOCK.get(Identifier.parse(compound.getString("EngineType")));
 		}
 	}
 

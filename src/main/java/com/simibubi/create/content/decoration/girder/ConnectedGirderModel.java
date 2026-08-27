@@ -7,8 +7,8 @@ import java.util.List;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.block.connected.CTModel;
 
-import net.createmod.catnip.data.Iterate;
-import net.minecraft.client.renderer.RenderType;
+import net.createmod.catnip.api.data.Iterate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;

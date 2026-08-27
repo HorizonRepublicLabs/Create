@@ -23,7 +23,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import net.createmod.catnip.registry.RegisteredObjectsHelper;
+import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -31,7 +31,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
@@ -39,7 +39,7 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 @ParametersAreNonnullByDefault
 public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAssemblyRecipe> {
 
-	Map<ResourceLocation, SequencedAssemblySubCategory> subCategories = new HashMap<>();
+	Map<Identifier, SequencedAssemblySubCategory> subCategories = new HashMap<>();
 
 	public SequencedAssemblyCategory(Info<SequencedAssemblyRecipe> info) {
 		super(info);

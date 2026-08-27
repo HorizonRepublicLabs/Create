@@ -277,8 +277,8 @@ import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 
-import net.createmod.catnip.data.Couple;
-import net.minecraft.client.renderer.RenderType;
+import net.createmod.catnip.api.data.Couple;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.core.HolderLookup;
@@ -287,7 +287,7 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -1777,7 +1777,7 @@ public class AllBlocks {
 	public static final BlockEntry<BeltTunnelBlock> ANDESITE_TUNNEL =
 		REGISTRATE.block("andesite_tunnel", BeltTunnelBlock::new)
 			.properties(p -> p.mapColor(MapColor.STONE))
-			.transform(BuilderTransformers.beltTunnel("andesite", ResourceLocation.withDefaultNamespace("block/polished_andesite")))
+			.transform(BuilderTransformers.beltTunnel("andesite", Identifier.withDefaultNamespace("block/polished_andesite")))
 			.transform(displaySource(AllDisplaySources.ACCUMULATE_ITEMS))
 			.transform(displaySource(AllDisplaySources.ITEM_THROUGHPUT))
 			.register();

@@ -20,8 +20,8 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper;
-import net.createmod.catnip.data.Pair;
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.data.Pair;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
@@ -32,7 +32,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ChunkPos;
@@ -238,7 +238,7 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 
 		if (tag.contains("BoundLocation"))
 			boundLocation = Pair.of(
-				ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(tag.getString("BoundDimension"))),
+				ResourceKey.create(Registries.DIMENSION, Identifier.parse(tag.getString("BoundDimension"))),
 				NBTHelper.readBlockPos(tag, "BoundLocation"));
 	}
 

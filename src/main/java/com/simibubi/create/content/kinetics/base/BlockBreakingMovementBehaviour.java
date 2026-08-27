@@ -8,7 +8,7 @@ import com.simibubi.create.content.contraptions.mounted.MountedContraption;
 import com.simibubi.create.content.trains.entity.CarriageContraption;
 import com.simibubi.create.foundation.utility.BlockHelper;
 
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -18,7 +18,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;

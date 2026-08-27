@@ -9,10 +9,10 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.foundation.placement.PoleHelper;
 
-import net.createmod.catnip.math.VoxelShaper;
-import net.createmod.catnip.placement.IPlacementHelper;
-import net.createmod.catnip.placement.PlacementHelpers;
-import net.createmod.catnip.placement.PlacementOffset;
+import net.createmod.catnip.api.math.VoxelShaper;
+import net.createmod.catnip.api.placement.IPlacementHelper;
+import net.createmod.catnip.api.placement.PlacementHelpers;
+import net.createmod.catnip.api.placement.PlacementOffset;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;

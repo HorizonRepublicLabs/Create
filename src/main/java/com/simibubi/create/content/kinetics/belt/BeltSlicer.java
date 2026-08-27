@@ -15,8 +15,8 @@ import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.utility.CreateLang;
 
-import net.createmod.catnip.math.VecHelper;
-import net.createmod.catnip.outliner.Outliner;
+import net.createmod.catnip.api.math.VecHelper;
+import net.createmod.catnip.api.client.outliner.Outliner;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

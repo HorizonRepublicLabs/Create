@@ -22,13 +22,13 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.ponder.AllCreatePonderTags;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.data.Couple;
-import net.createmod.catnip.gui.AbstractSimiScreen;
-import net.createmod.catnip.gui.ScreenOpener;
-import net.createmod.catnip.gui.element.GuiGameElement;
-import net.createmod.catnip.gui.widget.AbstractSimiWidget;
-import net.createmod.catnip.gui.widget.ElementWidget;
-import net.createmod.ponder.foundation.ui.PonderTagScreen;
+import net.createmod.catnip.api.data.Couple;
+import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
+import net.createmod.catnip.api.client.gui.ScreenOpener;
+import net.createmod.catnip.api.client.gui.element.GuiGameElement;
+import net.createmod.catnip.api.client.gui.widget.AbstractSimiWidget;
+import net.createmod.catnip.api.client.gui.widget.ElementWidget;
+import net.createmod.ponder.impl.client.gui.PonderTagScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -38,7 +38,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -243,7 +243,7 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 
 		if (!sources.isEmpty()) {
 			DisplaySource source = sources.get(sourceTypeSelector == null ? 0 : sourceTypeSelector.getState());
-			ResourceLocation id = CreateBuiltInRegistries.DISPLAY_SOURCE.getKey(source);
+			Identifier id = CreateBuiltInRegistries.DISPLAY_SOURCE.getKey(source);
 			if (id != null) {
 				sourceData.putString("Id", id.toString());
 			}

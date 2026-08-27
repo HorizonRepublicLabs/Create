@@ -8,7 +8,7 @@ import com.simibubi.create.foundation.mixin.accessor.LevelRendererAccessor;
 
 import com.simibubi.create.foundation.mixin.accessor.LevelRendererAccessor;
 
-import net.createmod.ponder.api.level.PonderLevel;
+import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;

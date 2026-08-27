@@ -8,11 +8,11 @@ import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEn
 import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.catnip.render.SuperByteBuffer;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.client.render.CachedBuffers;
+import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

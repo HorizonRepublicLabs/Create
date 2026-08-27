@@ -6,12 +6,12 @@ import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.catnip.render.SuperByteBuffer;
-import net.createmod.catnip.math.AngleHelper;
-import net.createmod.catnip.theme.Color;
+import net.createmod.catnip.api.client.render.CachedBuffers;
+import net.createmod.catnip.api.client.render.SuperByteBuffer;
+import net.createmod.catnip.api.math.AngleHelper;
+import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;

@@ -5,14 +5,14 @@ import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
-import net.createmod.catnip.render.CachedBuffers;
-import net.createmod.catnip.render.SuperByteBuffer;
+import net.createmod.catnip.api.client.render.CachedBuffers;
+import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
@@ -152,7 +152,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 			return;
 		if (scale < 0.45)
 			return;
-		ResourceLocation key = BuiltInRegistries.ITEM.getKey(blockEntity.animatedPackage.getItem());
+		Identifier key = BuiltInRegistries.ITEM.getKey(blockEntity.animatedPackage.getItem());
 		if (key == BuiltInRegistries.ITEM.getDefaultKey())
 			return;
 		SuperByteBuffer rigBuffer =

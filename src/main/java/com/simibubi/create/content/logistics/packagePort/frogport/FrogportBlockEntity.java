@@ -21,10 +21,10 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.TooltipHelper;
 
 import dan200.computercraft.api.peripheral.PeripheralCapability;
-import net.createmod.catnip.animation.LerpedFloat;
-import net.createmod.catnip.animation.LerpedFloat.Chaser;
-import net.createmod.catnip.data.Iterate;
-import net.createmod.catnip.nbt.NBTHelper;
+import net.createmod.catnip.api.animation.LerpedFloat;
+import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
+import net.createmod.catnip.api.data.Iterate;
+import net.createmod.catnip.api.nbt.NBTHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;

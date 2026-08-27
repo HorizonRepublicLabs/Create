@@ -14,9 +14,9 @@ import com.simibubi.create.foundation.model.BakedModelWrapperWithData;
 import com.simibubi.create.foundation.model.BakedQuadHelper;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
-import net.createmod.catnip.render.SpriteShiftEntry;
-import net.createmod.catnip.data.Iterate;
-import net.minecraft.client.renderer.RenderType;
+import net.createmod.catnip.api.client.render.SpriteShiftEntry;
+import net.createmod.catnip.api.data.Iterate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;

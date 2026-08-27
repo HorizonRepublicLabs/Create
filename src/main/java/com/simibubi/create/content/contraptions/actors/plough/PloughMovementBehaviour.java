@@ -8,7 +8,7 @@ import com.simibubi.create.content.trains.track.FakeTrackBlock;
 import com.simibubi.create.content.trains.track.ITrackBlock;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;

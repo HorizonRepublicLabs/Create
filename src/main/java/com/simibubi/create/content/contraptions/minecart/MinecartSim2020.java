@@ -7,13 +7,13 @@ import com.mojang.datafixers.util.Pair;
 import com.simibubi.create.AllAttachmentTypes;
 import com.simibubi.create.content.contraptions.minecart.capability.MinecartController;
 
-import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.entity.vehicle.MinecartFurnace;
 import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.state.BlockState;

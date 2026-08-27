@@ -8,8 +8,8 @@ import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.content.kinetics.belt.BeltBlockEntity.CasingType;
 import com.simibubi.create.foundation.model.BakedQuadHelper;
 
-import net.createmod.catnip.render.SpriteShiftEntry;
-import net.minecraft.client.renderer.RenderType;
+import net.createmod.catnip.api.client.render.SpriteShiftEntry;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
