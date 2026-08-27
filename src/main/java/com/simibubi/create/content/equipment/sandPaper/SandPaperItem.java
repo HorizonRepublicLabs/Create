@@ -19,7 +19,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
@@ -50,13 +50,13 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+	public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
-		InteractionResultHolder<ItemStack> FAIL = new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
+		InteractionResult FAIL = new InteractionResult(InteractionResult.FAIL, itemstack);
 
 		if (itemstack.has(AllDataComponents.SAND_PAPER_POLISHING)) {
 			playerIn.startUsingItem(handIn);
-			return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
+			return new InteractionResult(InteractionResult.PASS, itemstack);
 		}
 
 		InteractionHand otherHand =
@@ -68,7 +68,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 			playerIn.startUsingItem(handIn);
 			itemstack.set(AllDataComponents.SAND_PAPER_POLISHING, new SandPaperItemComponent(toPolish));
 			playerIn.setItemInHand(otherHand, item);
-			return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
+			return new InteractionResult(InteractionResult.SUCCESS, itemstack);
 		}
 
 		BlockHitResult raytraceresult = getPlayerPOVHitResult(worldIn, playerIn, ClipContext.Fluid.NONE);
@@ -106,7 +106,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 				pickUp.setItem(item);
 		}
 
-		return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
+		return new InteractionResult(InteractionResult.SUCCESS, itemstack);
 	}
 
 	@Override

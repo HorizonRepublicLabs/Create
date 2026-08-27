@@ -35,7 +35,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -88,22 +88,22 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
 		ItemStack heldStack = player.getItemInHand(hand);
 		if (ShootableGadgetItemMethods.shouldSwap(player, heldStack, hand, s -> s.getItem() instanceof PotatoCannonItem)) {
-			return InteractionResultHolder.fail(heldStack);
+			return InteractionResult.FAIL;
 		}
 
 		Ammo ammo = getAmmo(player, heldStack);
 		if (ammo == null) {
-			return InteractionResultHolder.pass(heldStack);
+			return InteractionResult.PASS;
 		}
 		ItemStack ammoStack = ammo.stack();
 		PotatoCannonProjectileType projectileType = ammo.type();
 
 		if (level.isClientSide) {
 			CreateClient.POTATO_CANNON_RENDER_HANDLER.dontAnimateItem(hand);
-			return InteractionResultHolder.success(heldStack);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(heldStack);
 		}
 
 		Vec3 barrelPos = ShootableGadgetItemMethods.getGunBarrelVec(player, hand == InteractionHand.MAIN_HAND,
@@ -160,7 +160,7 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 		ShootableGadgetItemMethods.applyCooldown(player, heldStack, hand, s -> s.getItem() instanceof PotatoCannonItem, projectileType.reloadTicks());
 		ShootableGadgetItemMethods.sendPackets(player,
 			b -> new PotatoCannonPacket(barrelPos, lookVec.normalize(), ammoStack, hand, soundPitch, b));
-		return InteractionResultHolder.success(heldStack);
+		return InteractionResult.SUCCESS.heldItemTransformedTo(heldStack);
 	}
 
 	@Override

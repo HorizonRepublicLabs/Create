@@ -28,7 +28,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -161,7 +161,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 		boolean doNotConsume = player.isCreative();
 		boolean forceOverflow = !(player instanceof FakePlayer);
 
-		InteractionResultHolder<ItemStack> res =
+		InteractionResult res =
 			tryInsert(state, level, pos, stack, doNotConsume, forceOverflow, false);
 		ItemStack leftover = res.getObject();
 		if (!level.isClientSide && !doNotConsume && !leftover.isEmpty()) {
@@ -176,31 +176,31 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 		return res.getResult() == InteractionResult.SUCCESS ? InteractionResult.SUCCESS : InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
-	public static InteractionResultHolder<ItemStack> tryInsert(BlockState state, Level world, BlockPos pos,
+	public static InteractionResult tryInsert(BlockState state, Level world, BlockPos pos,
 															   ItemStack stack, boolean doNotConsume, boolean forceOverflow, boolean simulate) {
 		if (!state.hasBlockEntity())
-			return InteractionResultHolder.fail(ItemStack.EMPTY);
+			return InteractionResult.FAIL;
 
 		BlockEntity be = world.getBlockEntity(pos);
 		if (!(be instanceof BlazeBurnerBlockEntity burnerBE))
-			return InteractionResultHolder.fail(ItemStack.EMPTY);
+			return InteractionResult.FAIL;
 
 		if (burnerBE.isCreativeFuel(stack)) {
 			if (!simulate)
 				burnerBE.applyCreativeFuel();
-			return InteractionResultHolder.success(ItemStack.EMPTY);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(ItemStack.EMPTY);
 		}
 		if (!burnerBE.tryUpdateFuel(stack, forceOverflow, simulate))
-			return InteractionResultHolder.fail(ItemStack.EMPTY);
+			return InteractionResult.FAIL;
 
 		if (!doNotConsume) {
 			ItemStack container = stack.hasCraftingRemainingItem() ? stack.getCraftingRemainingItem() : ItemStack.EMPTY;
 			if (!world.isClientSide) {
 				stack.shrink(1);
 			}
-			return InteractionResultHolder.success(container);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(container);
 		}
-		return InteractionResultHolder.success(ItemStack.EMPTY);
+		return InteractionResult.SUCCESS.heldItemTransformedTo(ItemStack.EMPTY);
 	}
 
 	@Override

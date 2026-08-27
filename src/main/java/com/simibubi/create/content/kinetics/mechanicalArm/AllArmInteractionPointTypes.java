@@ -40,7 +40,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -361,7 +361,7 @@ public class AllArmInteractionPointTypes {
 		@Override
 		public ItemStack insert(ArmBlockEntity armBlockEntity, ItemStack stack, boolean simulate) {
 			ItemStack input = stack.copy();
-			InteractionResultHolder<ItemStack> res =
+			InteractionResult res =
 				BlazeBurnerBlock.tryInsert(cachedState, level, pos, input, false, false, simulate);
 			ItemStack remainder = res.getObject();
 			if (input.isEmpty()) {

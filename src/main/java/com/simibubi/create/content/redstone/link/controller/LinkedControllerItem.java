@@ -18,7 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -86,7 +86,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResult use(Level world, Player player, InteractionHand hand) {
 		ItemStack heldItem = player.getItemInHand(hand);
 
 		if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
@@ -94,7 +94,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 				player.openMenu(this, buf -> {
 					ItemStack.STREAM_CODEC.encode(buf, heldItem);
 				});
-			return InteractionResultHolder.success(heldItem);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(heldItem);
 		}
 
 		if (!player.isShiftKeyDown()) {
@@ -104,7 +104,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 				.addCooldown(this, 2);
 		}
 
-		return InteractionResultHolder.pass(heldItem);
+		return InteractionResult.PASS;
 	}
 
 	@OnlyIn(Dist.CLIENT)

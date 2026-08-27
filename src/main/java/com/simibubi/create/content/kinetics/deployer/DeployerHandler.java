@@ -34,7 +34,7 @@ import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -349,7 +349,7 @@ public class DeployerHandler {
 		if (item instanceof BucketItem || item instanceof SandPaperItem)
 			itemUseWorld = new ItemUseWorld(level, face, pos);
 
-		InteractionResultHolder<ItemStack> onItemRightClick = item.use(itemUseWorld, player, hand);
+		InteractionResult onItemRightClick = item.use(itemUseWorld, player, hand);
 
 		if (onItemRightClick.getResult().consumesAction() && item instanceof MobBucketItem bucketItem)
 			bucketItem.checkExtraContent(player, level, stack, clickedPos);

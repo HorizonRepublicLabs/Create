@@ -32,7 +32,7 @@ import net.minecraft.nbt.NbtIo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -142,10 +142,10 @@ public class SchematicItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+	public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		if (!onItemUse(playerIn, handIn))
 			return super.use(worldIn, playerIn, handIn);
-		return new InteractionResultHolder<>(InteractionResult.SUCCESS, playerIn.getItemInHand(handIn));
+		return new InteractionResult(InteractionResult.SUCCESS, playerIn.getItemInHand(handIn));
 	}
 
 	private boolean onItemUse(Player player, InteractionHand hand) {

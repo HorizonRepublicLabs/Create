@@ -19,7 +19,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -72,7 +72,7 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+	public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
 		ItemStack stack = player.getItemInHand(usedHand);
 		if (isTuned(stack)) {
 			if (level.isClientSide) {
@@ -81,7 +81,7 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 				player.displayClientMessage(CreateLang.translateDirect("logistically_linked.cleared"), true);
 				stack.remove(DataComponents.BLOCK_ENTITY_DATA);
 			}
-			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
+			return (level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER).heldItemTransformedTo(stack);
 		} else {
 			return super.use(level, player, usedHand);
 		}

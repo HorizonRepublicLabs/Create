@@ -33,7 +33,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -286,7 +286,7 @@ public class PackageItem extends Item {
 		return UseAnim.BOW;
 	}
 
-	public InteractionResultHolder<ItemStack> open(Level worldIn, Player playerIn, InteractionHand handIn) {
+	public InteractionResult open(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack box = playerIn.getItemInHand(handIn);
 		ItemStackHandler contents = getContents(box);
 		ItemStack particle = box.copy();
@@ -330,7 +330,7 @@ public class PackageItem extends Item {
 			}
 		}
 
-		return new InteractionResultHolder<>(InteractionResult.SUCCESS, box);
+		return new InteractionResult(InteractionResult.SUCCESS, box);
 	}
 
 	@Override
@@ -368,12 +368,12 @@ public class PackageItem extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResult use(Level world, Player player, InteractionHand hand) {
 		if (player.isShiftKeyDown())
 			return open(world, player, hand);
 		ItemStack itemstack = player.getItemInHand(hand);
 		player.startUsingItem(hand);
-		return InteractionResultHolder.success(itemstack);
+		return InteractionResult.SUCCESS.heldItemTransformedTo(itemstack);
 	}
 
 	@Override
