@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +26,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -105,7 +106,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		editingIndex = index;
 		editingItem = index == -1 ? ItemStack.EMPTY : schedule.get(index);
 		menu.proxyInventory.setStackInSlot(0, editingItem);
-		CatnipServices.NETWORK.sendToServer(new GhostItemSubmitPacket(editingItem, 0));
+		ClientNetworkHelper.INSTANCE.sendToServer(new GhostItemSubmitPacket(editingItem, 0));
 
 		addRenderableWidget(editorConfirm);
 		addRenderableWidget(editorEditBox);
@@ -136,7 +137,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 				schedule.set(editingIndex, stackInSlot);
 		}
 
-		CatnipServices.NETWORK.sendToServer(new GhostItemSubmitPacket(ItemStack.EMPTY, 0));
+		ClientNetworkHelper.INSTANCE.sendToServer(new GhostItemSubmitPacket(ItemStack.EMPTY, 0));
 
 		editingItem = null;
 		editorConfirm = null;
@@ -293,7 +294,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 					.component()), mx, my);
 				if (click == 0) {
 					if (!entry.isEmpty())
-						CatnipServices.NETWORK.sendToServer(new StockKeeperCategoryRefundPacket(menu.contentHolder.getBlockPos(), entry));
+						ClientNetworkHelper.INSTANCE.sendToServer(new StockKeeperCategoryRefundPacket(menu.contentHolder.getBlockPos(), entry));
 					entries.remove(entry);
 					init();
 				}
@@ -498,7 +499,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	@Override
 	public void removed() {
 		super.removed();
-		CatnipServices.NETWORK.sendToServer(new StockKeeperCategoryEditPacket(menu.contentHolder.getBlockPos(), schedule));
+		ClientNetworkHelper.INSTANCE.sendToServer(new StockKeeperCategoryEditPacket(menu.contentHolder.getBlockPos(), schedule));
 	}
 
 	@Override

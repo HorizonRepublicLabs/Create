@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import static com.simibubi.create.content.trains.track.TrackMaterialFactory.make;
 
 import java.util.ArrayList;
@@ -9,7 +11,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 
-import net.createmod.catnip.platform.CatnipServices;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -76,7 +77,7 @@ public class TrackMaterial {
 		this.particle = particle;
 		this.trackType = trackType;
 		this.customFactory = customFactory;
-		if (CatnipServices.PLATFORM.getEnv().isClient())
+		if (PlatformHelper.INSTANCE.getEnv().isClient())
 			this.modelHolder = modelHolder.get().get();
 		ALL.put(this.id, this);
 	}

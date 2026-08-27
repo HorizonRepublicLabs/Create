@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tableCloth;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -31,7 +33,6 @@ import dan200.computercraft.api.peripheral.PeripheralCapability;
 import net.createmod.catnip.api.data.codec.CatnipCodecUtils;
 import net.createmod.catnip.api.data.IntAttached;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -116,7 +117,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 
 	public void notifyShopUpdate() {
 		if (level instanceof ServerLevel serverLevel)
-			CatnipServices.NETWORK.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new ShopUpdatePacket(worldPosition));
+			NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new ShopUpdatePacket(worldPosition));
 	}
 
 	@Override
@@ -152,7 +153,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 			if (manuallyAddedItems.isEmpty() && !computerBehaviour.hasAttachedComputer()) {
 				level.setBlock(worldPosition, getBlockState().setValue(TableClothBlock.HAS_BE, false), Block.UPDATE_ALL);
 				if (level instanceof ServerLevel serverLevel)
-					CatnipServices.NETWORK.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new RemoveBlockEntityPacket(worldPosition));
+					NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new RemoveBlockEntityPacket(worldPosition));
 			} else
 				notifyUpdate();
 

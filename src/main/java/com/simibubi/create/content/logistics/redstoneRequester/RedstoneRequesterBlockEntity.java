@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.redstoneRequester;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -17,7 +19,6 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 
 import dan200.computercraft.api.peripheral.PeripheralCapability;
 import net.createmod.catnip.api.data.codec.CatnipCodecUtils;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
@@ -104,7 +105,7 @@ public class RedstoneRequesterBlockEntity extends StockCheckingBlockEntity imple
 				continue;
 			}
 			if (!allowPartialRequests && level instanceof ServerLevel serverLevel) {
-				CatnipServices.NETWORK.sendToClientsAround(serverLevel, worldPosition, 32,
+				NetworkHelper.INSTANCE.sendToClientsAround(serverLevel, worldPosition, 32,
 					new RedstoneRequesterEffectPacket(worldPosition, false));
 				return;
 			}
@@ -112,7 +113,7 @@ public class RedstoneRequesterBlockEntity extends StockCheckingBlockEntity imple
 
 		broadcastPackageRequest(RequestType.REDSTONE, encodedRequest, null, encodedTargetAdress);
 		if (level instanceof ServerLevel serverLevel)
-			CatnipServices.NETWORK.sendToClientsAround(serverLevel, worldPosition, 32, new RedstoneRequesterEffectPacket(worldPosition, anySucceeded));
+			NetworkHelper.INSTANCE.sendToClientsAround(serverLevel, worldPosition, 32, new RedstoneRequesterEffectPacket(worldPosition, anySucceeded));
 		lastRequestSucceeded = true;
 	}
 

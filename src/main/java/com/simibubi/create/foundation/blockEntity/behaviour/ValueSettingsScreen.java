@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +20,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
 import net.createmod.catnip.api.client.gui.UIRenderHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -322,7 +323,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	protected void saveAndClose(double pMouseX, double pMouseY) {
 		ValueSettings closest = getClosestCoordinate((int) pMouseX, (int) pMouseY);
 		// FIXME: value settings may be face-sensitive on future components
-		CatnipServices.NETWORK.sendToServer(new ValueSettingsPacket(pos, closest.row(), closest.value(), null, null, Direction.UP,
+		ClientNetworkHelper.INSTANCE.sendToServer(new ValueSettingsPacket(pos, closest.row(), closest.value(), null, null, Direction.UP,
 				AllKeys.ctrlDown(), netId));
 		onClose();
 	}

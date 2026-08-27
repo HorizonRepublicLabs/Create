@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.function.Consumer;
 
 import com.simibubi.create.AllBlocks;
@@ -11,7 +13,6 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 
 import net.createmod.catnip.api.data.Couple;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -62,7 +63,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 			} else {
 				if (AllBlocks.REDSTONE_LINK.has(hitState)) {
 					if (world.isClientSide)
-						CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> this.toggleBindMode(ctx.getClickedPos()));
+						PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> this.toggleBindMode(ctx.getClickedPos()));
 					player.getCooldowns()
 						.addCooldown(this, 2);
 					return InteractionResult.SUCCESS;
@@ -98,7 +99,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 
 		if (!player.isShiftKeyDown()) {
 			if (world.isClientSide)
-				CatnipServices.PLATFORM.executeOnClientOnly(() -> this::toggleActive);
+				PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::toggleActive);
 			player.getCooldowns()
 				.addCooldown(this, 2);
 		}

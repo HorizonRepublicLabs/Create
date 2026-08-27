@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.util.UUID;
 
 import com.simibubi.create.AllPackets;
@@ -13,7 +15,6 @@ import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecs;
 import net.createmod.catnip.net.base.ServerboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.UUIDUtil;
@@ -72,7 +73,7 @@ public record TrainRelocationPacket(UUID trainId, BlockPos pos, Vec3 lookAngle, 
 					.withStyle(ChatFormatting.GREEN), true);
 			train.carriages.forEach(c -> c.forEachPresentEntity(e -> {
 				e.nonDamageTicks = 10;
-				CatnipServices.NETWORK.sendToClientsTrackingEntity(e,
+				NetworkHelper.INSTANCE.sendToClientsTrackingEntity(e,
 						new ContraptionRelocationPacket(e.getId()));
 			}));
 			return;

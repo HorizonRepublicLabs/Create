@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,7 +35,6 @@ import com.simibubi.create.content.logistics.vault.ItemVaultMountedStorage;
 import com.simibubi.create.impl.contraption.storage.FallbackMountedStorage;
 
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -210,7 +211,7 @@ public class MountedStorageManager {
 
 		if (!items.isEmpty() || !fluids.isEmpty()) {
 			MountedStorageSyncPacket packet = new MountedStorageSyncPacket(entity.getId(), items, fluids);
-			CatnipServices.NETWORK.sendToClientsTrackingEntity(entity, packet);
+			NetworkHelper.INSTANCE.sendToClientsTrackingEntity(entity, packet);
 			this.syncCooldown = 8;
 		}
 	}

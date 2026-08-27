@@ -1,8 +1,9 @@
 package com.simibubi.create.content.contraptions;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import com.simibubi.create.AllPackets;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import io.netty.buffer.ByteBuf;
@@ -41,7 +42,7 @@ public record ContraptionColliderLockPacket(int contraption, double offset, int 
 
 		@Override
 		public void handle(ServerPlayer player) {
-			CatnipServices.NETWORK.sendToClientsTrackingEntity(player, new ContraptionColliderLockPacket(contraption, offset, player.getId()));
+			NetworkHelper.INSTANCE.sendToClientsTrackingEntity(player, new ContraptionColliderLockPacket(contraption, offset, player.getId()));
 		}
 
 		@Override

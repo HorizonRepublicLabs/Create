@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.util.UUID;
 
 import com.mojang.datafixers.util.Function4;
@@ -11,7 +13,6 @@ import com.simibubi.create.content.trains.entity.TrainIconType;
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.createmod.catnip.net.base.ServerboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.chat.Component;
@@ -59,7 +60,7 @@ public abstract class TrainEditPacket implements CustomPacketPayload {
 		train.icon = TrainIconType.byId(iconType);
 		train.mapColorIndex = mapColor;
 		if (sender != null)
-			CatnipServices.NETWORK.sendToAllClients(new TrainEditReturnPacket(id, name, iconType, mapColor));
+			NetworkHelper.INSTANCE.sendToAllClients(new TrainEditReturnPacket(id, name, iconType, mapColor));
 	}
 
 	public static class Serverbound extends TrainEditPacket implements ServerboundPacketPayload {

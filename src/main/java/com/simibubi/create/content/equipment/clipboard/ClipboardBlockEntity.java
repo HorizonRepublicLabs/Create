@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -10,7 +12,6 @@ import com.simibubi.create.content.logistics.AddressEditBoxHelper;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -47,7 +48,7 @@ public class ClipboardBlockEntity extends SmartBlockEntity {
 	public void lazyTick() {
 		super.lazyTick();
 		if (level.isClientSide())
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> this::advertiseToAddressHelper);
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::advertiseToAddressHelper);
 	}
 
 	public void updateWrittenState() {
@@ -91,7 +92,7 @@ public class ClipboardBlockEntity extends SmartBlockEntity {
 					.map(Pair::getFirst)
 					.ifPresent(this::setComponents);
 
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> readClientSide(tag));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> readClientSide(tag));
 		}
 	}
 

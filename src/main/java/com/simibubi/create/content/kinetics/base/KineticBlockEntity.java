@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.base;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import static net.minecraft.ChatFormatting.GOLD;
 import static net.minecraft.ChatFormatting.GRAY;
 
@@ -31,7 +33,6 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper;
 import net.createmod.catnip.api.client.lang.FontHelper.Palette;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -105,7 +106,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 		preventSpeedUpdate = 0;
 
 		if (level.isClientSide) {
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> this.tickAudio());
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> this.tickAudio());
 			return;
 		}
 
@@ -275,7 +276,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 			effects.triggerOverStressedEffect();
 
 		if (clientPacket)
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
 	}
 
 	public float getGeneratedSpeed() {
@@ -593,7 +594,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 	public void requestModelDataUpdate() {
 		super.requestModelDataUpdate();
 		if (!this.remove)
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
 	}
 
 	@OnlyIn(Dist.CLIENT)

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +16,6 @@ import com.simibubi.create.foundation.utility.BlockHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.nbt.NBTProcessors;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.model.HumanoidModel.ArmPose;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -80,7 +81,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 		if (context.getPlayer() != null && context.getPlayer()
 			.isShiftKeyDown()) {
 			if (context.getLevel().isClientSide) {
-				CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 					openHandgunGUI(context.getItemInHand(), context.getHand());
 				});
 				context.getPlayer()
@@ -101,7 +102,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 		// Shift -> Open GUI
 		if (player.isShiftKeyDown()) {
 			if (world.isClientSide) {
-				CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> {
+				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 					openHandgunGUI(item, hand);
 				});
 				player.getCooldowns()

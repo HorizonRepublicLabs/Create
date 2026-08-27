@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.chassis;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,7 +26,6 @@ import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollVa
 import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -61,7 +62,7 @@ public class ChassisBlockEntity extends SmartBlockEntity {
 		range.requiresWrench();
 		range.between(1, max);
 		range.withClientCallback(
-			i -> CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> ChassisRangeDisplay.display(this)));
+			i -> PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> ChassisRangeDisplay.display(this)));
 		range.setValue(max / 2);
 		range.withFormatter(s -> String.valueOf(currentlySelectedRange));
 		behaviours.add(range);

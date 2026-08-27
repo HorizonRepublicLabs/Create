@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 import java.util.Collections;
@@ -35,7 +37,6 @@ import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Registry;
@@ -271,22 +272,22 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 
 	public static <T extends Block> NonNullConsumer<? super T> casingConnectivity(
 		BiConsumer<T, CasingConnectivity> consumer) {
-		return entry -> CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> registerCasingConnectivity(entry, consumer));
+		return entry -> PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> registerCasingConnectivity(entry, consumer));
 	}
 
 	public static <T extends Block> NonNullConsumer<? super T> blockModel(
 		Supplier<NonNullFunction<BakedModel, ? extends BakedModel>> func) {
-		return entry -> CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> registerBlockModel(entry, func));
+		return entry -> PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> registerBlockModel(entry, func));
 	}
 
 	public static <T extends Item> NonNullConsumer<? super T> itemModel(
 		Supplier<NonNullFunction<BakedModel, ? extends BakedModel>> func) {
-		return entry -> CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> registerItemModel(entry, func));
+		return entry -> PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> registerItemModel(entry, func));
 	}
 
 	public static NonNullConsumer<? super Block> connectedTextures(
 		Supplier<ConnectedTextureBehaviour> behavior) {
-		return entry -> CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> registerCTBehviour(entry, behavior));
+		return entry -> PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> registerCTBehviour(entry, behavior));
 	}
 
 	@OnlyIn(Dist.CLIENT)

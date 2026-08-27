@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import static com.simibubi.create.foundation.gui.AllGuiTextures.TOOLBELT_HOTBAR_OFF;
 import static com.simibubi.create.foundation.gui.AllGuiTextures.TOOLBELT_HOTBAR_ON;
 import static com.simibubi.create.foundation.gui.AllGuiTextures.TOOLBELT_SELECTED_OFF;
@@ -16,7 +18,6 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -91,7 +92,7 @@ public class ToolboxHandlerClient {
 				if (!ItemStack.matches(inSlot, result))
 					continue;
 
-				CatnipServices.NETWORK.sendToServer(
+				ClientNetworkHelper.INSTANCE.sendToServer(
 					new ToolboxEquipPacket(toolboxBlockEntity.getBlockPos(), comp, player.getInventory().selected));
 				return true;
 			}

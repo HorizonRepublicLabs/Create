@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.transmission.sequencer;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.Vector;
 
 import com.simibubi.create.AllBlocks;
@@ -9,7 +11,6 @@ import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.gui.widget.SelectionScrollInput;
-import net.createmod.catnip.platform.CatnipServices;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
@@ -188,7 +189,7 @@ public class SequencedGearshiftScreen extends AbstractSimiScreen {
 	}
 
 	public void sendPacket() {
-		CatnipServices.NETWORK.sendToServer(new ConfigureSequencedGearshiftPacket(be.getBlockPos(), instructions));
+		ClientNetworkHelper.INSTANCE.sendToServer(new ConfigureSequencedGearshiftPacket(be.getBlockPos(), instructions));
 	}
 
 	@Override

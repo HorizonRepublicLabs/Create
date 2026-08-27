@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -10,7 +12,6 @@ import net.createmod.catnip.api.data.Couple;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.math.BlockFace;
 import net.createmod.catnip.api.math.VecHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -362,11 +363,11 @@ public class PipeConnection {
 	public static final float RIM_RADIUS = 1 / 4f + 1 / 64f;
 
 	public void spawnSplashOnRim(Level world, BlockPos pos, FluidStack fluid) {
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> spawnSplashOnRimInner(world, pos, fluid));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> spawnSplashOnRimInner(world, pos, fluid));
 	}
 
 	public void spawnParticles(Level world, BlockPos pos, FluidStack fluid) {
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> spawnParticlesInner(world, pos, fluid));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> spawnParticlesInner(world, pos, fluid));
 	}
 
 	@OnlyIn(Dist.CLIENT)

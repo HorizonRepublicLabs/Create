@@ -1,6 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 
 import org.joml.Vector3f;
 
@@ -121,7 +122,7 @@ public class EjectorTargetHandler {
 		h = Math.abs(diff.getX() + diff.getZ());
 		v = -diff.getY();
 
-		CatnipServices.NETWORK.sendToServer(new EjectorPlacementPacket(h, v, pos, validTargetDirection));
+		ClientNetworkHelper.INSTANCE.sendToServer(new EjectorPlacementPacket(h, v, pos, validTargetDirection));
 		currentSelection = null;
 		currentItem = null;
 

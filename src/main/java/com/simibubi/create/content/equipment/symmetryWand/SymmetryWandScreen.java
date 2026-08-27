@@ -1,6 +1,7 @@
 package com.simibubi.create.content.equipment.symmetryWand;
 
-import net.createmod.catnip.platform.CatnipServices;
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 
 import org.joml.Vector3f;
 
@@ -155,7 +156,7 @@ public class SymmetryWandScreen extends AbstractSimiScreen {
 	@Override
 	public void removed() {
 		SymmetryWandItem.configureSettings(wand, currentElement);
-		CatnipServices.NETWORK.sendToServer(new ConfigureSymmetryWandPacket(hand, currentElement));
+		ClientNetworkHelper.INSTANCE.sendToServer(new ConfigureSymmetryWandPacket(hand, currentElement));
 	}
 
 }

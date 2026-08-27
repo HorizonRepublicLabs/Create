@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -21,7 +23,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.foundation.utility.CreatePaths;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -154,7 +155,7 @@ public class SchematicItem extends Item {
 			return false;
 		if (!player.level().isClientSide())
 			return true;
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> this::displayBlueprintScreen);
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::displayBlueprintScreen);
 		return true;
 	}
 

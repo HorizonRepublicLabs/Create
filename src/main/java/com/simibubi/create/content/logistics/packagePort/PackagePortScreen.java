@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
@@ -16,7 +18,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.client.gui.widget.AbstractSimiWidget;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
@@ -177,7 +178,7 @@ public class PackagePortScreen extends AbstractSimiContainerScreen<PackagePortMe
 
 	@Override
 	public void removed() {
-		CatnipServices.NETWORK.sendToServer(new PackagePortConfigurationPacket(menu.contentHolder.getBlockPos(), addressBox.getValue(),
+		ClientNetworkHelper.INSTANCE.sendToServer(new PackagePortConfigurationPacket(menu.contentHolder.getBlockPos(), addressBox.getValue(),
 				acceptPackages.green));
 		super.removed();
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -20,7 +22,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.data.Couple;
 import net.createmod.catnip.api.data.IntAttached;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -72,7 +73,7 @@ public class ElevatorContraption extends PulleyContraption {
 
 		namesList = column.compileNamesList();
 		namesListVersion = column.namesListVersion;
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(entity,
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(entity,
 			new ElevatorFloorListPacket(entity, namesList));
 	}
 

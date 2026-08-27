@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.extendoGrip;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -14,7 +16,6 @@ import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;
@@ -279,7 +280,7 @@ public class ExtendoGripItem extends Item {
 			return;
 		Player player = (Player) entity;
 		if (isHoldingExtendoGrip(player))
-			CatnipServices.NETWORK.sendToServer(new ExtendoGripInteractionPacket(target));
+			ClientNetworkHelper.INSTANCE.sendToServer(new ExtendoGripInteractionPacket(target));
 	}
 
 	@SubscribeEvent
@@ -291,7 +292,7 @@ public class ExtendoGripItem extends Item {
 			return;
 		Player player = (Player) entity;
 		if (isHoldingExtendoGrip(player))
-			CatnipServices.NETWORK.sendToServer(new ExtendoGripInteractionPacket(target, event.getHand()));
+			ClientNetworkHelper.INSTANCE.sendToServer(new ExtendoGripInteractionPacket(target, event.getHand()));
 	}
 
 	@SubscribeEvent
@@ -302,7 +303,7 @@ public class ExtendoGripItem extends Item {
 		if (!isUncaughtClientInteraction(entity, target))
 			return;
 		if (isHoldingExtendoGrip(entity))
-			CatnipServices.NETWORK.sendToServer(new ExtendoGripInteractionPacket(target, event.getHand(), event.getLocalPos()));
+			ClientNetworkHelper.INSTANCE.sendToServer(new ExtendoGripInteractionPacket(target, event.getHand(), event.getLocalPos()));
 	}
 
 	public static boolean isHoldingExtendoGrip(Player player) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 
@@ -16,7 +18,6 @@ import com.simibubi.create.foundation.utility.RaycastHelper.PredicateTraceResult
 import net.createmod.catnip.api.data.Couple;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.math.VecHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.player.RemotePlayer;
@@ -122,7 +123,7 @@ public class ContraptionHandlerClient {
 		BlockPos pos = bestResult.getBlockPos();
 
 		if (bestEntity.handlePlayerInteraction(player, pos, face, hand)) {
-			CatnipServices.NETWORK.sendToServer(new ContraptionInteractionPacket(bestEntity, hand, pos, face));
+			ClientNetworkHelper.INSTANCE.sendToServer(new ContraptionInteractionPacket(bestEntity, hand, pos, face));
 		} else
 			handleSpecialInteractions(bestEntity, player, pos, face, hand);
 

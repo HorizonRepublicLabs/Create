@@ -1,11 +1,12 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.util.List;
 
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
@@ -67,7 +68,7 @@ public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<Stri
 				return;
 			if (!(ace.getContraption()instanceof ElevatorContraption ec))
 				return;
-			CatnipServices.NETWORK.sendToClient(sender,
+			NetworkHelper.INSTANCE.sendToClient(sender,
 					new ElevatorFloorListPacket(ace, ec.namesList));
 		}
 

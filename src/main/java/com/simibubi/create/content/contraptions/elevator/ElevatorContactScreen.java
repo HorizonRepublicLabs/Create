@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import org.lwjgl.glfw.GLFW;
 
 import com.google.common.collect.ImmutableList;
@@ -11,7 +13,6 @@ import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.Label;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.gui.widget.TooltipArea;
-import net.createmod.catnip.platform.CatnipServices;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.data.Pair;
@@ -177,7 +178,7 @@ public class ElevatorContactScreen extends AbstractSimiScreen {
 	}
 
 	private void confirm() {
-		CatnipServices.NETWORK.sendToServer(new ElevatorContactEditPacket(pos, shortName, longName, doorControl));
+		ClientNetworkHelper.INSTANCE.sendToServer(new ElevatorContactEditPacket(pos, shortName, longName, doorControl));
 		onClose();
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +15,6 @@ import com.simibubi.create.foundation.gui.menu.GhostItemSubmitPacket;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import mezz.jei.api.ingredients.ITypedIngredient;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -83,7 +84,7 @@ public class GhostIngredientHandler<T extends GhostItemMenu<?>>
 				return;
 
 			// sync new filter contents with server
-			CatnipServices.NETWORK.sendToServer(new GhostItemSubmitPacket(stack, slotIndex));
+			ClientNetworkHelper.INSTANCE.sendToServer(new GhostItemSubmitPacket(stack, slotIndex));
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +32,6 @@ import mezz.jei.common.transfer.RecipeTransferOperationsResult;
 import mezz.jei.common.transfer.RecipeTransferUtil;
 import mezz.jei.library.transfer.RecipeTransferErrorMissingSlots;
 import mezz.jei.library.transfer.RecipeTransferErrorTooltip;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
@@ -69,7 +70,7 @@ public class StockKeeperTransferHandler implements IUniversalRecipeTransferHandl
 		MutableObject<IRecipeTransferError> result = new MutableObject<>();
 		if (level.isClientSide())
 			//noinspection unchecked
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> result
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> result
 				.setValue(transferRecipeOnClient(container, (RecipeHolder<Recipe<?>>) recipe, recipeSlots, player, maxTransfer, doTransfer)));
 		return result.getValue();
 	}

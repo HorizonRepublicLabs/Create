@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,6 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.data.Couple;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.data.Pair;
 import net.createmod.catnip.api.client.outliner.Outliner;
 import net.minecraft.ChatFormatting;
@@ -154,7 +155,7 @@ public class TrainRelocator {
 		boolean result = relocate(relocating, mc.level, blockPos, hoveredBezier, direction, lookAngle, true);
 		if (!simulate && result) {
 			relocating.carriages.forEach(c -> c.forEachPresentEntity(e -> e.nonDamageTicks = 10));
-			CatnipServices.NETWORK.sendToServer(new TrainRelocationPacket(relocatingTrain, blockPos, lookAngle,
+			ClientNetworkHelper.INSTANCE.sendToServer(new TrainRelocationPacket(relocatingTrain, blockPos, lookAngle,
 				relocatingEntityId, direction, hoveredBezier));
 		}
 

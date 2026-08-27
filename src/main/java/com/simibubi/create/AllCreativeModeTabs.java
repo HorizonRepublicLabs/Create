@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +9,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -87,7 +88,7 @@ public class AllCreativeModeTabs {
 
 		static {
 			MutableObject<Predicate<Item>> isItem3d = new MutableObject<>(item -> false);
-			if (CatnipServices.PLATFORM.getEnv().isClient())
+			if (PlatformHelper.INSTANCE.getEnv().isClient())
 				isItem3d.setValue(item -> {
 					ItemRenderer itemRenderer = Minecraft.getInstance()
 						.getItemRenderer();

@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.trainmap;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +26,6 @@ import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipLargerStreamCodecs;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import net.createmod.catnip.api.data.Pair;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -177,7 +178,7 @@ public class TrainMapSync {
 			ServerPlayer player = weakReference.get();
 			if (player == null)
 				continue;
-			CatnipServices.NETWORK.sendToClient(player, packet);
+			NetworkHelper.INSTANCE.sendToClient(player, packet);
 		}
 	}
 

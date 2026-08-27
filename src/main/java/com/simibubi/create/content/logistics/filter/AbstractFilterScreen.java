@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.filter;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import static com.simibubi.create.foundation.gui.AllGuiTextures.PLAYER_INVENTORY;
 
 import java.util.Collections;
@@ -15,7 +17,6 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.client.lang.FontHelper.Palette;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
@@ -141,7 +142,7 @@ public abstract class AbstractFilterScreen<F extends AbstractFilterMenu> extends
 	protected void contentsCleared() {}
 
 	protected void sendOptionUpdate(Option option) {
-		CatnipServices.NETWORK.sendToServer(new FilterScreenPacket(option));
+		ClientNetworkHelper.INSTANCE.sendToServer(new FilterScreenPacket(option));
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +14,6 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.widget.IconButton;
-import net.createmod.catnip.platform.CatnipServices;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
@@ -60,7 +61,7 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 
 		disposeButton = new IconButton(leftPos + 30 + 81, topPos + 69, AllIcons.I_TOOLBOX);
 		disposeButton.withCallback(() -> {
-			CatnipServices.NETWORK.sendToServer(new ToolboxDisposeAllPacket(menu.contentHolder.getBlockPos()));
+			ClientNetworkHelper.INSTANCE.sendToServer(new ToolboxDisposeAllPacket(menu.contentHolder.getBlockPos()));
 		});
 		disposeButton.setToolTip(CreateLang.translateDirect("toolbox.depositBox"));
 		addRenderableWidget(disposeButton);

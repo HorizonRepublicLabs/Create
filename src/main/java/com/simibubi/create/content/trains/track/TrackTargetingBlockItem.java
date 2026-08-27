@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -22,7 +24,6 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.tterrag.registrate.util.nullness.NonNullBiFunction;
 
 import net.createmod.catnip.api.data.Couple;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -184,7 +185,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 		boolean front = player.getLookAngle()
 			.dot(selection.direction()) < 0;
 
-		CatnipServices.NETWORK.sendToServer(new CurvedTrackSelectionPacket(be.getBlockPos(), loc.curveTarget(),
+		ClientNetworkHelper.INSTANCE.sendToServer(new CurvedTrackSelectionPacket(be.getBlockPos(), loc.curveTarget(),
 			front, loc.segment(), player.getInventory().selected));
 		return true;
 	}

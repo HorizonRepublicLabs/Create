@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.filter;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +21,6 @@ import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.gui.widget.SelectionScrollInput;
 import com.simibubi.create.foundation.utility.CreateLang;
 
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -229,7 +230,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 		addInverted.active = false;
 		ItemAttribute itemAttribute = attributesOfItem.get(index);
 		CompoundTag tag = ItemAttribute.saveStatic(itemAttribute, Minecraft.getInstance().level.registryAccess());
-		CatnipServices.NETWORK.sendToServer(new FilterScreenPacket(inverted ? Option.ADD_INVERTED_TAG : Option.ADD_TAG, tag));
+		ClientNetworkHelper.INSTANCE.sendToServer(new FilterScreenPacket(inverted ? Option.ADD_INVERTED_TAG : Option.ADD_TAG, tag));
 		menu.appendSelectedAttribute(itemAttribute, inverted);
 		if (menu.selectedAttributes.size() == 1)
 			selectedAttributes.set(0, selectedT.plainCopy()

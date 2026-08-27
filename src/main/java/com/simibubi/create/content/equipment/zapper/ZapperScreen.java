@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -114,7 +115,7 @@ public abstract class ZapperScreen extends AbstractSimiScreen {
 	public void removed() {
 		ConfigureZapperPacket packet = getConfigurationPacket();
 		packet.configureZapper(zapper);
-		CatnipServices.NETWORK.sendToServer(packet);
+		ClientNetworkHelper.INSTANCE.sendToServer(packet);
 	}
 
 	protected void renderZapper(GuiGraphicsExtractor graphics, int x, int y) {

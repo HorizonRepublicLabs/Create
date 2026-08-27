@@ -1,5 +1,8 @@
 package com.simibubi.create.content.logistics.tunnel;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -16,7 +19,6 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
 import dev.engine_room.flywheel.lib.visualization.VisualizationHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
@@ -130,7 +132,7 @@ public class BeltTunnelBlockEntity extends SmartBlockEntity {
 			sides.addAll(flaps.keySet());
 		super.read(compound, registries, clientPacket);
 		if (clientPacket)
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
 	}
 
 	private LerpedFloat createChasingFlap() {
@@ -204,7 +206,7 @@ public class BeltTunnelBlockEntity extends SmartBlockEntity {
 
 	private void sendFlaps() {
 		if (level instanceof ServerLevel serverLevel)
-			CatnipServices.NETWORK.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new TunnelFlapPacket(this, flapsToSend));
+			NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new TunnelFlapPacket(this, flapsToSend));
 
 		flapsToSend.clear();
 	}

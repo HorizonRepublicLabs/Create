@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +15,6 @@ import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -99,7 +100,7 @@ public class ClipboardBlock extends FaceAttachedHorizontalDirectionalBlock
 
 		return onBlockEntityUse(level, pos, cbe -> {
 			if (level.isClientSide())
-				CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> openScreen(player, cbe.components(), pos));
+				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> openScreen(player, cbe.components(), pos));
 			return InteractionResult.SUCCESS;
 		});
 	}

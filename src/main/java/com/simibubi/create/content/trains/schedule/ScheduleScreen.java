@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.schedule;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -41,7 +43,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.data.IntAttached;
 import net.createmod.catnip.api.data.Pair;
 import net.createmod.catnip.api.animation.LerpedFloat;
@@ -192,7 +193,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		for (int i = 0; i < field.slotsTargeted(); i++) {
 			ItemStack item = field.getItem(i);
 			menu.ghostInventory.setStackInSlot(i, item);
-			CatnipServices.NETWORK.sendToServer(new GhostItemSubmitPacket(item, i));
+			ClientNetworkHelper.INSTANCE.sendToServer(new GhostItemSubmitPacket(item, i));
 		}
 
 		if (field instanceof ScheduleInstruction instruction) {
@@ -277,7 +278,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		IScheduleInput editing = editingCondition == null ? editingDestination : editingCondition;
 		for (int i = 0; i < editing.slotsTargeted(); i++) {
 			editing.setItem(i, menu.ghostInventory.getStackInSlot(i));
-			CatnipServices.NETWORK.sendToServer(new GhostItemSubmitPacket(ItemStack.EMPTY, i));
+			ClientNetworkHelper.INSTANCE.sendToServer(new GhostItemSubmitPacket(ItemStack.EMPTY, i));
 		}
 
 		editorSubWidgets.save(editing.getData());
@@ -1074,7 +1075,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 	@Override
 	public void removed() {
 		super.removed();
-		CatnipServices.NETWORK.sendToServer(new ScheduleEditPacket(schedule));
+		ClientNetworkHelper.INSTANCE.sendToServer(new ScheduleEditPacket(schedule));
 	}
 
 	@Override

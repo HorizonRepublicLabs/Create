@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart.capability;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,6 @@ import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.lang.Lang;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -318,7 +319,7 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 
 		if (getWorld() == null || getWorld().isClientSide)
 			return;
-		CatnipServices.NETWORK.sendToClientsTrackingEntity(this.cart(), new MinecartControllerUpdatePacket(this, getWorld().registryAccess()));
+		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this.cart(), new MinecartControllerUpdatePacket(this, getWorld().registryAccess()));
 	}
 
 	@Override

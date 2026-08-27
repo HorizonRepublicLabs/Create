@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlocks;
@@ -10,7 +12,6 @@ import com.simibubi.create.content.contraptions.elevator.ElevatorColumn.ColumnCo
 import com.simibubi.create.content.contraptions.pulley.PulleyBlockEntity;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import net.createmod.catnip.platform.CatnipServices;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.minecraft.core.BlockPos;
@@ -54,7 +55,7 @@ public class ElevatorPulleyBlockEntity extends PulleyBlockEntity {
 		if (offset >= 0)
 			resetContraptionToOffset();
 		if (level.isClientSide) {
-			CatnipServices.NETWORK.sendToServer(new ElevatorFloorListPacket.RequestFloorList(contraption));
+			ClientNetworkHelper.INSTANCE.sendToServer(new ElevatorFloorListPacket.RequestFloorList(contraption));
 			return;
 		}
 

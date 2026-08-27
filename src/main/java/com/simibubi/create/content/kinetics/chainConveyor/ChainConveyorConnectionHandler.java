@@ -1,9 +1,10 @@
 package com.simibubi.create.content.kinetics.chainConveyor;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.content.equipment.blueprint.BlueprintOverlayRenderer;
-import net.createmod.catnip.platform.CatnipServices;
 import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
@@ -262,7 +263,7 @@ public class ChainConveyorConnectionHandler {
 		if (simulate)
 			return true;
 
-		CatnipServices.NETWORK.sendToServer(new ChainConveyorConnectionPacket(firstPos, pos, chain, true));
+		ClientNetworkHelper.INSTANCE.sendToServer(new ChainConveyorConnectionPacket(firstPos, pos, chain, true));
 
 		CreateLang.text("") // Clear status message
 			.sendStatus(player);

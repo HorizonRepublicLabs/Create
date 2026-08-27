@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags.AllItemTags;
 import com.simibubi.create.content.trains.station.StationBlockEntity;
@@ -8,7 +10,6 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.client.outliner.Outliner;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -39,7 +40,7 @@ public class PackagePortTargetSelectionHandler {
 
 		if (validateDiff(exactPositionOfTarget, pos) == null) {
 			activePackageTarget.relativePos = activePackageTarget.relativePos.subtract(pos);
-			CatnipServices.NETWORK.sendToServer(new PackagePortPlacementPacket(activePackageTarget, pos));
+			ClientNetworkHelper.INSTANCE.sendToServer(new PackagePortPlacementPacket(activePackageTarget, pos));
 		}
 
 		activePackageTarget = null;

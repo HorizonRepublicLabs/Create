@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.glue;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +11,6 @@ import com.simibubi.create.api.contraption.BlockMovementChecks;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.level.wrapper.RayTraceLevel;
 import net.createmod.catnip.api.placement.IPlacementHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -52,7 +53,7 @@ public class SuperGlueHandler {
 			BlockPos relative = pos.relative(direction);
 			if (SuperGlueEntity.isGlued(world, pos, direction, cached)
 				&& BlockMovementChecks.isMovementNecessary(world.getBlockState(relative), entity.level(), relative))
-				CatnipServices.NETWORK.sendToClientsTrackingAndSelf(entity, new GlueEffectPacket(pos, direction, true));
+				NetworkHelper.INSTANCE.sendToClientsTrackingAndSelf(entity, new GlueEffectPacket(pos, direction, true));
 		}
 
 		if (entity instanceof Player)
@@ -102,7 +103,7 @@ public class SuperGlueHandler {
 		if (SuperGlueEntity.isValidFace(world, gluePos, face)) {
 			if (!world.isClientSide) {
 				world.addFreshEntity(entity);
-				CatnipServices.NETWORK.sendToClientsTrackingEntity(entity,
+				NetworkHelper.INSTANCE.sendToClientsTrackingEntity(entity,
 					new GlueEffectPacket(gluePos, face, true));
 			}
 

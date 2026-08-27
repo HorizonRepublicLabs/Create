@@ -1,11 +1,12 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlocks;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -86,7 +87,7 @@ public class ValueSettingsClient implements LayeredDraw.Layer {
 			return;
 		}
 		if (!mc.options.keyUse.isDown()) {
-			CatnipServices.NETWORK.sendToServer(new ValueSettingsPacket(interactHeldPos, 0, 0, interactHeldHand, blockHitResult,
+			ClientNetworkHelper.INSTANCE.sendToServer(new ValueSettingsPacket(interactHeldPos, 0, 0, interactHeldHand, blockHitResult,
 					interactHeldFace, false, valueSettingBehaviour.netId()));
 			valueSettingBehaviour.onShortInteract(player, interactHeldHand, interactHeldFace, blockHitResult);
 			cancelInteraction();

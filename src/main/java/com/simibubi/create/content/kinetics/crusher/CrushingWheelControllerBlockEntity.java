@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crusher;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +22,6 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -113,7 +114,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 			return;
 
 		if (level.isClientSide)
-			CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> this.tickAudio());
+			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> this.tickAudio());
 
 		float speed = crushingspeed * 4;
 

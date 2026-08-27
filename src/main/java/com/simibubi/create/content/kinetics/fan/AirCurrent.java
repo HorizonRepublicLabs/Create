@@ -1,11 +1,12 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 
-import net.createmod.catnip.platform.CatnipServices;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
@@ -99,7 +100,7 @@ public class AirCurrent {
 
 			entity.setDeltaMovement(previousMotion.add(new Vec3(xIn, yIn, zIn).scale(1 / 8f)));
 			entity.fallDistance = 0;
-			if (CatnipServices.PLATFORM.getEnv().isClient()) {
+			if (PlatformHelper.INSTANCE.getEnv().isClient()) {
 				Client.enableClientPlayerSound(entity, Mth.clamp(speed / 128f * .4f, 0.01f, .4f));
 			}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +68,6 @@ import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.data.WorldAttached;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
@@ -891,7 +892,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 
 		train.collectInitiallyOccupiedSignalBlocks();
 		Create.RAILWAYS.addTrain(train);
-		CatnipServices.NETWORK.sendToAllClients(new AddTrainPacket(train));
+		NetworkHelper.INSTANCE.sendToAllClients(new AddTrainPacket(train));
 		clearException();
 
 		award(AllAdvancements.TRAIN);

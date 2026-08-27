@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.displayLink;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -17,7 +19,6 @@ import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.Label;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.gui.widget.SelectionScrollInput;
-import net.createmod.catnip.platform.CatnipServices;
 import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.infrastructure.ponder.AllCreatePonderTags;
 
@@ -250,7 +251,7 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 			configWidgets.forEach(s -> s.saveValues(sourceData));
 		}
 
-		CatnipServices.NETWORK.sendToServer(new DisplayLinkConfigurationPacket(blockEntity.getBlockPos(), sourceData,
+		ClientNetworkHelper.INSTANCE.sendToServer(new DisplayLinkConfigurationPacket(blockEntity.getBlockPos(), sourceData,
 			targetLineSelector == null ? 0 : targetLineSelector.getState()));
 	}
 

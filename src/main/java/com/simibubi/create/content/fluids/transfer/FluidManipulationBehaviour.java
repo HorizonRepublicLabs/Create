@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.transfer;
 
+import net.createmod.catnip.api.network.NetworkHelper;
+
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +20,6 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -214,7 +215,7 @@ public abstract class FluidManipulationBehaviour extends BlockEntityBehaviour {
 		SoundEvent soundevent = fillSound ? FluidHelper.getFillSound(stack) : FluidHelper.getEmptySound(stack);
 		world.playSound(null, splooshPos, soundevent, SoundSource.BLOCKS, 0.3F, 1.0F);
 		if (world instanceof ServerLevel serverLevel)
-			CatnipServices.NETWORK.sendToClientsAround(serverLevel, splooshPos, 10, new FluidSplashPacket(splooshPos, stack));
+			NetworkHelper.INSTANCE.sendToClientsAround(serverLevel, splooshPos, 10, new FluidSplashPacket(splooshPos, stack));
 	}
 
 	protected boolean canDrainInfinitely(Fluid fluid) {

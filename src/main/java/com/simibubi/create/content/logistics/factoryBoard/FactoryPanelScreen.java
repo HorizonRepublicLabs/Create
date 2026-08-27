@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import static com.simibubi.create.foundation.gui.AllGuiTextures.FACTORY_GAUGE_BOTTOM;
 import static com.simibubi.create.foundation.gui.AllGuiTextures.FACTORY_GAUGE_RECIPE;
 import static com.simibubi.create.foundation.gui.AllGuiTextures.FACTORY_GAUGE_RESTOCK;
@@ -29,7 +31,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -659,7 +660,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 
 		FactoryPanelConfigurationPacket packet = new FactoryPanelConfigurationPacket(pos, address, inputs,
 			craftingArrangement, outputConfig.count, promiseExp, toRemove, clearPromises, sendReset, sendRedstoneReset);
-		CatnipServices.NETWORK.sendToServer(packet);
+		ClientNetworkHelper.INSTANCE.sendToServer(packet);
 	}
 
 	private void searchForCraftingRecipe() {

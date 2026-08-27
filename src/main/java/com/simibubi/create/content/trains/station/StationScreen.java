@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.function.Consumer;
@@ -19,7 +21,6 @@ import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.Label;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
-import net.createmod.catnip.platform.CatnipServices;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
@@ -102,7 +103,7 @@ public class StationScreen extends AbstractStationScreen {
 		dropScheduleButton.active = false;
 		dropScheduleButton.visible = false;
 		dropScheduleButton.withCallback(() ->
-				CatnipServices.NETWORK.sendToServer(StationEditPacket.dropSchedule(blockEntity.getBlockPos())));
+				ClientNetworkHelper.INSTANCE.sendToServer(StationEditPacket.dropSchedule(blockEntity.getBlockPos())));
 		addRenderableWidget(dropScheduleButton);
 
 		colorTypeScroll = new ScrollInput(x + 166, y + 17, 22, 14).titled(CreateLang.translateDirect("station.train_map_color"));
@@ -404,13 +405,13 @@ public class StationScreen extends AbstractStationScreen {
 		Train train = displayedTrain.get();
 		if (train != null && !trainNameBox.getValue()
 			.equals(train.name.getString()))
-			CatnipServices.NETWORK.sendToServer(new TrainEditPacket.Serverbound(train.id, trainNameBox.getValue(), train.icon.getId(), train.mapColorIndex));
+			ClientNetworkHelper.INSTANCE.sendToServer(new TrainEditPacket.Serverbound(train.id, trainNameBox.getValue(), train.icon.getId(), train.mapColorIndex));
 	}
 
 	private void syncStationName() {
 		if (!nameBox.getValue()
 			.equals(station.name))
-			CatnipServices.NETWORK.sendToServer(
+			ClientNetworkHelper.INSTANCE.sendToServer(
 					StationEditPacket.configure(blockEntity.getBlockPos(), false, nameBox.getValue(), doorControl));
 	}
 
@@ -419,13 +420,13 @@ public class StationScreen extends AbstractStationScreen {
 		super.removed();
 		if (nameBox == null || trainNameBox == null)
 			return;
-		CatnipServices.NETWORK.sendToServer(StationEditPacket.configure(blockEntity.getBlockPos(), switchingToAssemblyMode,
+		ClientNetworkHelper.INSTANCE.sendToServer(StationEditPacket.configure(blockEntity.getBlockPos(), switchingToAssemblyMode,
 				nameBox.getValue(), doorControl));
 		Train train = displayedTrain.get();
 		if (train == null)
 			return;
 		if (!switchingToAssemblyMode)
-			CatnipServices.NETWORK.sendToServer(
+			ClientNetworkHelper.INSTANCE.sendToServer(
 					new TrainEditPacket.Serverbound(train.id, trainNameBox.getValue(), train.icon.getId(), train.mapColorIndex));
 		else
 			blockEntity.imminentTrain = null;

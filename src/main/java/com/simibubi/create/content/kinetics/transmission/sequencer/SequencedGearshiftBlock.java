@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.transmission.sequencer;
 
+import net.createmod.catnip.api.platform.services.PlatformHelper;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.api.contraption.transformable.TransformableBlock;
@@ -10,7 +12,6 @@ import com.simibubi.create.content.kinetics.base.RotatedPillarKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -97,7 +98,7 @@ public class SequencedGearshiftBlock extends HorizontalAxisKineticBlock implemen
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
 		}
 
-		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> withBlockEntityDo(level, pos, be -> this.displayScreen(be, player)));
+		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> withBlockEntityDo(level, pos, be -> this.displayScreen(be, player)));
 		return InteractionResult.SUCCESS;
 	}
 

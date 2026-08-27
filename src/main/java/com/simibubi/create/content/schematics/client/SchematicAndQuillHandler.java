@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.client;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +22,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.client.gui.ScreenOpener;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.client.outliner.Outliner;
-import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -226,7 +227,7 @@ public class SchematicAndQuillHandler {
 		try {
 			if (!ClientSchematicLoader.validateSizeLimitation(Files.size(file)))
 				return;
-			CatnipServices.NETWORK.sendToServer(new InstantSchematicPacket(result.fileName(), result.origin(), result.bounds()));
+			ClientNetworkHelper.INSTANCE.sendToServer(new InstantSchematicPacket(result.fileName(), result.origin(), result.bounds()));
 		} catch (IOException e) {
 			Create.LOGGER.error("Error instantly uploading Schematic file: " + file, e);
 		}

@@ -1,9 +1,10 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+
 import org.joml.Vector3f;
 
 import com.simibubi.create.AllItems;
-import net.createmod.catnip.platform.CatnipServices;
 
 
 import net.createmod.catnip.api.math.VecHelper;
@@ -46,7 +47,7 @@ public class CouplingHandlerClient {
 			return;
 		}
 		spawnSelectionParticles(entity.getBoundingBox(), true);
-		CatnipServices.NETWORK.sendToServer(new CouplingCreationPacket(selectedCart, entity));
+		ClientNetworkHelper.INSTANCE.sendToServer(new CouplingCreationPacket(selectedCart, entity));
 		selectedCart = null;
 	}
 
