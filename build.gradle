@@ -95,6 +95,7 @@ neoForge {
 }
 
 repositories {
+    mavenLocal() // locally built Flywheel / Ponder / Registrate for 26.2
     maven { url = "https://maven.createmod.net" } // Ponder, Flywheel
     maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
     maven { url = "https://maven.blamejared.com" } // JEI, Vazkii's Mods
@@ -129,15 +130,15 @@ dependencies {
     // Required dependencies
     jarJar(api("com.tterrag.registrate:Registrate:$registrate_version"))
 
-    compileOnlyApi("dev.engine-room.flywheel:flywheel-neoforge-api-$minecraft_version:$flywheel_version")
-    jarJar(runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-$minecraft_version:$flywheel_version") {
+    compileOnlyApi("dev.engine-room.flywheel:flywheel-neoforge:$flywheel_version:api")
+    jarJar(runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge:$flywheel_version") {
         version {
             strictly "[${flywheel_version},2.0)"
             prefer flywheel_version
         }
     })
 
-    jarJar(api("net.createmod.ponder:ponder-neoforge:$ponder_version+mc$minecraft_version") {
+    jarJar(api("net.createmod.ponder:neoforge:$ponder_version+mc$minecraft_version") {
         version {
             strictly "[$ponder_version+mc$minecraft_version,)"
             prefer "$ponder_version+mc$minecraft_version"
@@ -211,6 +212,7 @@ tasks.withType(Jar).configureEach {
 }
 
 tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs.addAll(['-Xmaxerrs', '100000', '-Xmaxwarns', '100'])
     options.encoding = "UTF-8"
 }
 
