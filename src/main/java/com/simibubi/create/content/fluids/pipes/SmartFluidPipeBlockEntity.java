@@ -47,7 +47,7 @@ public class SmartFluidPipeBlockEntity extends SmartBlockEntity implements Clear
 	}
 
 	private void onFilterChanged(ItemStack newFilter) {
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			FluidPropagator.propagateChangedPipe(level, worldPosition, getBlockState());
 	}
 

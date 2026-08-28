@@ -42,7 +42,7 @@ public abstract class AbstractBellBlock<BE extends AbstractBellBlockEntity> exte
 	@Override
 	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos,
 		boolean pIsMoving) {
-		if (pLevel.isClientSide)
+		if (pLevel.isClientSide())
 			return;
 		boolean shouldPower = pLevel.hasNeighborSignal(pPos);
 		if (shouldPower == pState.getValue(POWERED))
@@ -70,7 +70,7 @@ public abstract class AbstractBellBlock<BE extends AbstractBellBlockEntity> exte
 
 	protected boolean ring(Level world, BlockPos pos, Direction direction, Player player) {
 		BE be = getBlockEntity(world, pos);
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return true;
 		if (be == null || !be.ring(world, pos, direction))
 			return false;

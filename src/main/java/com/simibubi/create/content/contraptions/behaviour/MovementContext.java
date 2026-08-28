@@ -69,7 +69,7 @@ public class MovementContext {
 		double length = -motion.length();
 		if (disabled)
 			return 0;
-		if (world.isClientSide && contraption.stalled)
+		if (world.isClientSide() && contraption.stalled)
 			return 700;
 		if (Math.abs(length) < 1 / 512f)
 			return 0;

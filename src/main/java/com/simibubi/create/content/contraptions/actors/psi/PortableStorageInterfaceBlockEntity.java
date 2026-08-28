@@ -77,7 +77,7 @@ public abstract class PortableStorageInterfaceBlockEntity extends SmartBlockEnti
 
 		if (keepAlive > 0) {
 			keepAlive--;
-			if (keepAlive == 0 && !level.isClientSide) {
+			if (keepAlive == 0 && !level.isClientSide()) {
 				stopTransferring();
 				transferTimer = ANIMATION - 1;
 				sendData();
@@ -88,7 +88,7 @@ public abstract class PortableStorageInterfaceBlockEntity extends SmartBlockEnti
 		transferTimer = Math.min(transferTimer, ANIMATION * 2 + timeUnit);
 
 		boolean timerCanDecrement = transferTimer > ANIMATION || transferTimer > 0 && keepAlive == 0
-			&& (isVirtual() || !level.isClientSide || transferTimer != ANIMATION);
+			&& (isVirtual() || !level.isClientSide() || transferTimer != ANIMATION);
 
 		if (timerCanDecrement && (!isVirtual() || transferTimer != ANIMATION)) {
 			transferTimer--;
@@ -99,7 +99,7 @@ public abstract class PortableStorageInterfaceBlockEntity extends SmartBlockEnti
 		}
 
 		boolean isConnected = isConnected();
-		if (wasConnected != isConnected && !level.isClientSide)
+		if (wasConnected != isConnected && !level.isClientSide())
 			setChanged();
 
 		float progress = 0;

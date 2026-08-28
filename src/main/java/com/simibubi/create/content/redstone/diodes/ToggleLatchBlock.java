@@ -82,7 +82,7 @@ public class ToggleLatchBlock extends AbstractDiodeBlock {
 	}
 
 	protected InteractionResult activated(Level worldIn, BlockPos pos, BlockState state) {
-		if (!worldIn.isClientSide) {
+		if (!worldIn.isClientSide()) {
 			float f = !state.getValue(POWERING) ? 0.6F : 0.5F;
 			worldIn.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, f);
 			worldIn.setBlock(pos, state.cycle(POWERING), Block.UPDATE_CLIENTS);

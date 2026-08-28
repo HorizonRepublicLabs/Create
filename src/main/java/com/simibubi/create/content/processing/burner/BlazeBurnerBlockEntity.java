@@ -91,7 +91,7 @@ public class BlazeBurnerBlockEntity extends SmartBlockEntity {
 	public void tick() {
 		super.tick();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			if (shouldTickAnimation())
 				tickAnimation();
 			if (!isVirtual())
@@ -289,7 +289,7 @@ public class BlazeBurnerBlockEntity extends SmartBlockEntity {
 		activeFuel = newFuel;
 		remainingBurnTime = newBurnTime;
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			spawnParticleBurst(activeFuel == FuelType.SPECIAL);
 			return true;
 		}
@@ -300,7 +300,7 @@ public class BlazeBurnerBlockEntity extends SmartBlockEntity {
 
 		if (prev != getHeatLevelFromBlock())
 			level.playSound(null, worldPosition, SoundEvents.BLAZE_AMBIENT, SoundSource.BLOCKS,
-				.125f + level.random.nextFloat() * .125f, 1.15f - level.random.nextFloat() * .25f);
+				.125f + level.getRandom().nextFloat() * .125f, 1.15f - level.getRandom().nextFloat() * .25f);
 
 		return true;
 	}
@@ -312,7 +312,7 @@ public class BlazeBurnerBlockEntity extends SmartBlockEntity {
 
 		HeatLevel next = getHeatLevelFromBlock().nextActiveLevel();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			spawnParticleBurst(next.isAtLeast(HeatLevel.SEETHING));
 			return;
 		}
@@ -336,7 +336,7 @@ public class BlazeBurnerBlockEntity extends SmartBlockEntity {
 
 	protected void playSound() {
 		level.playSound(null, worldPosition, SoundEvents.BLAZE_SHOOT, SoundSource.BLOCKS,
-			.125f + level.random.nextFloat() * .125f, .75f - level.random.nextFloat() * .25f);
+			.125f + level.getRandom().nextFloat() * .125f, .75f - level.getRandom().nextFloat() * .25f);
 	}
 
 	protected HeatLevel getHeatLevel() {
@@ -390,7 +390,7 @@ public class BlazeBurnerBlockEntity extends SmartBlockEntity {
 
 	public void spawnParticleBurst(boolean soulFlame) {
 		Vec3 c = VecHelper.getCenterOf(worldPosition);
-		RandomSource r = level.random;
+		RandomSource r = level.getRandom();
 		for (int i = 0; i < 20; i++) {
 			Vec3 offset = VecHelper.offsetRandomly(Vec3.ZERO, r, .5f)
 				.multiply(1, .25f, 1)

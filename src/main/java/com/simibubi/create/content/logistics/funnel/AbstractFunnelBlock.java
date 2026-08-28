@@ -71,7 +71,7 @@ public abstract class AbstractFunnelBlock extends Block
 	@Override
 	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
 								boolean isMoving) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		InvManipulationBehaviour behaviour = BlockEntityBehaviour.get(level, pos, InvManipulationBehaviour.TYPE);
 		if (behaviour != null)

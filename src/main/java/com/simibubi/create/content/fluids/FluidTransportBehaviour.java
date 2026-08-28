@@ -63,7 +63,7 @@ public abstract class FluidTransportBehaviour extends BlockEntityBehaviour {
 		super.tick();
 		Level world = getWorld();
 		BlockPos pos = getPos();
-		boolean onServer = !world.isClientSide || blockEntity.isVirtual();
+		boolean onServer = !world.isClientSide() || blockEntity.isVirtual();
 
 		if (interfaces == null)
 			return;

@@ -119,7 +119,7 @@ public class ClipboardBlock extends FaceAttachedHorizontalDirectionalBlock
 	private void breakAndCollect(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
 		if (pPlayer instanceof FakePlayer)
 			return;
-		if (pLevel.isClientSide)
+		if (pLevel.isClientSide())
 			return;
 		ItemStack cloneItemStack = getCloneItemStack(pLevel, pPos, pState);
 		pLevel.destroyBlock(pPos, false);
@@ -143,7 +143,7 @@ public class ClipboardBlock extends FaceAttachedHorizontalDirectionalBlock
 	public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
 		if (!(level.getBlockEntity(pos) instanceof ClipboardBlockEntity cbe))
 			return state;
-		if (level.isClientSide || player.isCreative())
+		if (level.isClientSide() || player.isCreative())
 			return state;
 		Block.popResource(level, pos, applyComponentsToDropStack(new ItemStack(this), cbe));
 

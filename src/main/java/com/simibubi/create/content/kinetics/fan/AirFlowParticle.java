@@ -26,7 +26,7 @@ public class AirFlowParticle extends SimpleAnimatedParticle {
 
 	protected AirFlowParticle(ClientLevel world, IAirCurrentSource source, double x, double y, double z,
 							  SpriteSet sprite) {
-		super(world, x, y, z, sprite, world.random.nextFloat() * .5f);
+		super(world, x, y, z, sprite, world.getRandom().nextFloat() * .5f);
 		this.source = source;
 		this.quadSize *= 0.75F;
 		this.lifetime = 40;

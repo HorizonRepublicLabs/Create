@@ -110,7 +110,7 @@ public class GirderBlock extends Block implements SimpleWaterloggedBlock, IWrenc
 					.getAxis() == Axis.Z ? Axis.Z : Axis.X));
 
 			level.playSound(null, pos, SoundEvents.NETHERITE_BLOCK_HIT, SoundSource.BLOCKS, 0.5f, 1.25f);
-			if (!level.isClientSide && !player.isCreative()) {
+			if (!level.isClientSide() && !player.isCreative()) {
 				stack.shrink(1);
 				if (stack.isEmpty())
 					player.setItemInHand(hand, ItemStack.EMPTY);

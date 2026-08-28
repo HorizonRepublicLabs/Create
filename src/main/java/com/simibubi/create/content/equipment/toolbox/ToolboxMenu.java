@@ -93,7 +93,7 @@ public class ToolboxMenu extends MenuBase<ToolboxBlockEntity> {
 			}
 
 			if (type == ClickType.PICKUP && carried.isEmpty() && itemInClickedSlot.isEmpty())
-				if (!player.level().isClientSide) {
+				if (!player.level().isClientSide()) {
 					contentHolder.inventory.filters.set(index / STACKS_PER_COMPARTMENT, ItemStack.EMPTY);
 					contentHolder.sendData();
 				}
@@ -154,7 +154,7 @@ public class ToolboxMenu extends MenuBase<ToolboxBlockEntity> {
 	@Override
 	public void removed(Player playerIn) {
 		super.removed(playerIn);
-		if (!playerIn.level().isClientSide)
+		if (!playerIn.level().isClientSide())
 			BlockEntityBehaviour.get(contentHolder, AnimatedContainerBehaviour.TYPE)
 				.stopOpen(playerIn);
 	}

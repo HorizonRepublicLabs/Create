@@ -129,7 +129,7 @@ public class SteamEngineBlockEntity extends SmartBlockEntity implements IHaveGog
 
 		shaft.update(worldPosition, conveyedSpeedLevel, efficiency);
 
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			return;
 
 		PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::spawnParticles);
@@ -225,7 +225,7 @@ public class SteamEngineBlockEntity extends SmartBlockEntity implements IHaveGog
 
 		Direction facing = SteamEngineBlock.getFacing(getBlockState());
 
-		Vec3 offset = VecHelper.rotate(new Vec3(0, 0, 1).add(VecHelper.offsetRandomly(Vec3.ZERO, level.random, 1)
+		Vec3 offset = VecHelper.rotate(new Vec3(0, 0, 1).add(VecHelper.offsetRandomly(Vec3.ZERO, level.getRandom(), 1)
 			.multiply(1, 1, 0)
 			.normalize()
 			.scale(.5f)), AngleHelper.verticalAngle(facing), Axis.X);

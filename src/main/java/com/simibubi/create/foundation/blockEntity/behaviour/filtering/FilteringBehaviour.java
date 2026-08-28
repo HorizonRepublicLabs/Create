@@ -375,7 +375,7 @@ public class FilteringBehaviour extends BlockEntityBehaviour implements ValueSet
 			return upstreamResult;
 		if (simulate)
 			return true;
-		if (getWorld().isClientSide)
+		if (getWorld().isClientSide())
 			return true;
 
 		ItemStack refund = ItemStack.EMPTY;

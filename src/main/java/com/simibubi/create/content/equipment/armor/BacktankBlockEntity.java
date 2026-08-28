@@ -87,9 +87,9 @@ public class BacktankBlockEntity extends KineticBlockEntity implements Nameable 
 		}
 
 		int max = BacktankUtil.maxAir(capacityEnchantLevel);
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			Vec3 centerOf = VecHelper.getCenterOf(worldPosition);
-			Vec3 v = VecHelper.offsetRandomly(centerOf, level.random, .65f);
+			Vec3 v = VecHelper.offsetRandomly(centerOf, level.getRandom(), .65f);
 			Vec3 m = centerOf.subtract(v);
 			if (airLevel != max)
 				level.addParticle(new AirParticleData(1, .05f), v.x, v.y, v.z, m.x, m.y, m.z);
@@ -103,7 +103,7 @@ public class BacktankBlockEntity extends KineticBlockEntity implements Nameable 
 		float abs = Math.abs(getSpeed());
 		int increment = Mth.clamp(((int) abs - 100) / 20, 1, 5);
 		airLevel = Math.min(max, airLevel + increment);
-		if (getComparatorOutput() != prevComparatorLevel && !level.isClientSide)
+		if (getComparatorOutput() != prevComparatorLevel && !level.isClientSide())
 			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 		if (airLevel == max)
 			sendData();

@@ -228,7 +228,7 @@ public class SpoutBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			}
 		}
 
-		if (processingTicks >= 8 && level.isClientSide) {
+		if (processingTicks >= 8 && level.isClientSide()) {
 			spawnProcessingParticles(tank.getPrimaryTank()
 				.getRenderedFluid());
 		}
@@ -252,7 +252,7 @@ public class SpoutBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		vec = vec.subtract(0, 2 - 5 / 16f, 0);
 		ParticleOptions particle = FluidFX.getFluidParticle(fluid);
 		for (int i = 0; i < SPLASH_PARTICLE_COUNT; i++) {
-			Vec3 m = VecHelper.offsetRandomly(Vec3.ZERO, level.random, 0.125f);
+			Vec3 m = VecHelper.offsetRandomly(Vec3.ZERO, level.getRandom(), 0.125f);
 			m = new Vec3(m.x, Math.abs(m.y), m.z);
 			level.addAlwaysVisibleParticle(particle, vec.x, vec.y, vec.z, m.x, m.y, m.z);
 		}

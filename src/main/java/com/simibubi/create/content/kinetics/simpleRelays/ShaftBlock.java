@@ -83,7 +83,7 @@ public class ShaftBlock extends AbstractSimpleShaftBlock implements EncasableBlo
 			KineticBlockEntity.switchToBlockState(level, pos, AllBlocks.METAL_GIRDER_ENCASED_SHAFT.getDefaultState()
 				.setValue(WATERLOGGED, state.getValue(WATERLOGGED))
 				.setValue(GirderEncasedShaftBlock.HORIZONTAL_AXIS, state.getValue(AXIS) == Axis.Z ? Axis.Z : Axis.X));
-			if (!level.isClientSide && !player.isCreative()) {
+			if (!level.isClientSide() && !player.isCreative()) {
 				stack.shrink(1);
 				if (stack.isEmpty())
 					player.setItemInHand(hand, ItemStack.EMPTY);

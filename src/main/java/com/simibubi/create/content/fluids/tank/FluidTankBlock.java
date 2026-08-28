@@ -153,7 +153,7 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 
 	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		boolean onClient = level.isClientSide;
+		boolean onClient = level.isClientSide();
 
 		if (stack.isEmpty())
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
@@ -217,7 +217,7 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 				.clamp(1 - (1f * fluidInTank.getAmount() / (FluidTankBlockEntity.getCapacityMultiplier() * 16)), 0, 1);
 			pitch /= 1.5f;
 			pitch += .5f;
-			pitch += (level.random.nextFloat() - .5f) / 4f;
+			pitch += (level.getRandom().nextFloat() - .5f) / 4f;
 			level.playSound(null, pos, soundevent, SoundSource.BLOCKS, .5f, pitch);
 		}
 

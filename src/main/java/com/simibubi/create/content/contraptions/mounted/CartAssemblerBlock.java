@@ -122,7 +122,7 @@ public class CartAssemblerBlock extends BaseRailBlock
 		AbstractMinecart cart) {
 		if (!canAssembleTo(cart))
 			return;
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 
 		withBlockEntityDo(world, pos, be -> be.assembleNextTick(cart));
@@ -194,7 +194,7 @@ public class CartAssemblerBlock extends BaseRailBlock
 	@Override
 	public void neighborChanged(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos,
 								@NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return;
 		boolean previouslyPowered = state.getValue(POWERED);
 		if (previouslyPowered != worldIn.hasNeighborSignal(pos))
@@ -286,7 +286,7 @@ public class CartAssemblerBlock extends BaseRailBlock
 		Level world = context.getLevel();
 		BlockPos pos = context.getClickedPos();
 		Player player = context.getPlayer();
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return InteractionResult.SUCCESS;
 		if (player != null && !player.isCreative())
 			getDropsNoRail(state, (ServerLevel) world, pos, world.getBlockEntity(pos), player, context.getItemInHand())
@@ -326,7 +326,7 @@ public class CartAssemblerBlock extends BaseRailBlock
 	@Override
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
 		Level world = context.getLevel();
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return InteractionResult.SUCCESS;
 		BlockPos pos = context.getClickedPos();
 		world.setBlock(pos, rotate(state, Rotation.CLOCKWISE_90), Block.UPDATE_ALL);

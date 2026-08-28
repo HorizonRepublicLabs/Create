@@ -33,7 +33,7 @@ public class PlacardBlockEntity extends SmartBlockEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (poweredTicks == 0)
 			return;
@@ -86,7 +86,7 @@ public class PlacardBlockEntity extends SmartBlockEntity {
 		Vec3 offset = VecHelper.axisAlingedPlaneOf(normal);
 
 		for (int i = 0; i < 10; i++) {
-			Vec3 v = VecHelper.offsetRandomly(Vec3.ZERO, level.random, .5f)
+			Vec3 v = VecHelper.offsetRandomly(Vec3.ZERO, level.getRandom(), .5f)
 				.multiply(offset)
 				.normalize()
 				.scale(.45f)

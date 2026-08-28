@@ -135,7 +135,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 			return;
 		if (stackToDistribute.isEmpty() && !syncedOutputActive)
 			return;
-		if (level.isClientSide && !isVirtual())
+		if (level.isClientSide() && !isVirtual())
 			return;
 
 		if (distributionProgress == -1) {
@@ -236,7 +236,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 		boolean robin = mode == SelectionMode.FORCED_ROUND_ROBIN || mode == SelectionMode.ROUND_ROBIN;
 
 		if (mode == SelectionMode.RANDOMIZE)
-			indexStart = level.random.nextInt(amountTargets);
+			indexStart = level.getRandom().nextInt(amountTargets);
 		if (mode == SelectionMode.PREFER_NEAREST || mode == SelectionMode.SYNCHRONIZE)
 			indexStart = 0;
 
@@ -675,7 +675,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 			connectedLeft = nowConnectedLeft;
 			connectivityChanged = true;
 			BrassTunnelBlockEntity adjacent = getAdjacent(true);
-			if (adjacent != null && !level.isClientSide) {
+			if (adjacent != null && !level.isClientSide()) {
 				adjacent.updateTunnelConnections();
 				adjacent.selectionMode.setValue(selectionMode.getValue());
 			}
@@ -685,7 +685,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 			connectedRight = nowConnectedRight;
 			connectivityChanged = true;
 			BrassTunnelBlockEntity adjacent = getAdjacent(false);
-			if (adjacent != null && !level.isClientSide) {
+			if (adjacent != null && !level.isClientSide()) {
 				adjacent.updateTunnelConnections();
 				adjacent.selectionMode.setValue(selectionMode.getValue());
 			}

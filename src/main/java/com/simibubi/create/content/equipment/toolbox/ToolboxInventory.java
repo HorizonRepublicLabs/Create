@@ -170,7 +170,7 @@ public class ToolboxInventory extends ItemStackHandler {
 
 	@Override
 	protected void onContentsChanged(int slot) {
-		if (!settling && (blockEntity == null || !blockEntity.getLevel().isClientSide))
+		if (!settling && (blockEntity == null || !blockEntity.getLevel().isClientSide()))
 			settle(slot / STACKS_PER_COMPARTMENT);
 		notifyUpdate();
 		super.onContentsChanged(slot);

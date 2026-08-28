@@ -170,7 +170,7 @@ public class DeployerHandler {
 			.toList();
 		InteractionHand hand = InteractionHand.MAIN_HAND;
 		if (!entities.isEmpty()) {
-			Entity entity = entities.get(level.random.nextInt(entities.size()));
+			Entity entity = entities.get(level.getRandom().nextInt(entities.size()));
 			List<ItemEntity> capturedDrops = new ArrayList<>();
 			boolean success = false;
 			entity.captureDrops(capturedDrops);

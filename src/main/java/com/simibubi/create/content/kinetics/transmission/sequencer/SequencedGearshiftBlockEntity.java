@@ -96,7 +96,7 @@ public class SequencedGearshiftBlockEntity extends SplitShaftBlockEntity {
 
 		if (isIdle())
 			return;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (currentInstructionDuration < 0)
 			return;

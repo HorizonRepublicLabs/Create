@@ -53,7 +53,7 @@ public class BrassDiodeBlock extends AbstractDiodeBlock implements IBE<BrassDiod
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		if (AllItems.WRENCH.isIn(player.getItemInHand(pHand)))
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (pLevel.isClientSide)
+		if (pLevel.isClientSide())
 			return InteractionResult.SUCCESS;
 		pLevel.setBlock(pPos, pState.cycle(INVERTED), Block.UPDATE_ALL);
 		float f = !pState.getValue(INVERTED) ? 0.6F : 0.5F;

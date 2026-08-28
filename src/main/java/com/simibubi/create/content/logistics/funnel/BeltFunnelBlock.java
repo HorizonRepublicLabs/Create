@@ -172,7 +172,7 @@ public class BeltFunnelBlock extends AbstractHorizontalFunnelBlock implements Sp
 	@Override
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
 		Level world = context.getLevel();
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		Shape shape = state.getValue(SHAPE);

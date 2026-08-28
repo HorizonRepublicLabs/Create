@@ -40,7 +40,7 @@ public class EncasedShaftBlock extends AbstractEncasedShaftBlock
 
 	@Override
 	public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
-		if (context.getLevel().isClientSide)
+		if (context.getLevel().isClientSide())
 			return InteractionResult.SUCCESS;
 		context.getLevel()
 			.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, context.getClickedPos(), Block.getId(state));

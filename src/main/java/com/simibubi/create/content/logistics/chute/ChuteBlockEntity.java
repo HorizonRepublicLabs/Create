@@ -148,12 +148,12 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	public void tick() {
 		super.tick();
 
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			canPickUpItems = canDirectlyInsert();
 
-		boolean clientSide = level != null && level.isClientSide && !isVirtual();
+		boolean clientSide = level != null && level.isClientSide() && !isVirtual();
 		float itemMotion = getItemMotion();
-		if (itemMotion != 0 && level != null && level.isClientSide)
+		if (itemMotion != 0 && level != null && level.isClientSide())
 			spawnParticles(itemMotion);
 		tickAirStreams(itemMotion);
 
@@ -193,7 +193,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	private void updateAirFlow(float itemSpeed) {
 		updateAirFlow = false;
 		// airCurrent.rebuild();
-		if (itemSpeed > 0 && level != null && !level.isClientSide) {
+		if (itemSpeed > 0 && level != null && !level.isClientSide()) {
 			float speed = pull - push;
 			beltBelow = null;
 
@@ -230,7 +230,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	private void findEntities(float itemSpeed) {
 		// if (getSpeed() != 0)
 		// airCurrent.findEntities();
-		if (bottomPullDistance <= 0 && !getItem().isEmpty() || itemSpeed <= 0 || level == null || level.isClientSide)
+		if (bottomPullDistance <= 0 && !getItem().isEmpty() || itemSpeed <= 0 || level == null || level.isClientSide())
 			return;
 		if (!canActivate())
 			return;
@@ -250,7 +250,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	}
 
 	private void extractFromBelt(float itemSpeed) {
-		if (itemSpeed <= 0 || level == null || level.isClientSide)
+		if (itemSpeed <= 0 || level == null || level.isClientSide())
 			return;
 		if (getItem().isEmpty() && beltBelow != null) {
 			beltBelow.handleCenteredProcessingOnAllItems(.5f, ts -> {
@@ -264,7 +264,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	}
 
 	private void tickAirStreams(float itemSpeed) {
-		if (!level.isClientSide && airCurrentUpdateCooldown-- <= 0) {
+		if (!level.isClientSide() && airCurrentUpdateCooldown-- <= 0) {
 			airCurrentUpdateCooldown = AllConfigs.server().kinetics.fanBlockCheckRate.get();
 			updateAirFlow = true;
 		}
@@ -370,7 +370,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			return false;
 		IItemHandler capBelow = grabCapability(Direction.DOWN);
 		if (capBelow != null) {
-			if (level.isClientSide && !isVirtual())
+			if (level.isClientSide() && !isVirtual())
 				return false;
 			if (invVersionTracker.stillWaiting(capBelow))
 				return false;
@@ -426,7 +426,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		if (AbstractChuteBlock.isOpenChute(getBlockState())) {
 			IItemHandler capAbove = grabCapability(Direction.UP);
 			if (capAbove != null) {
-				if (level.isClientSide && !isVirtual() && !ChuteBlock.isChute(stateAbove))
+				if (level.isClientSide() && !isVirtual() && !ChuteBlock.isChute(stateAbove))
 					return false;
 				int countBefore = item.getCount();
 				if (invVersionTracker.stillWaiting(capAbove))
@@ -532,7 +532,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		item = stack;
 		itemPosition.startWithValue(insertionPos);
 		invVersionTracker.reset();
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			notifyUpdate();
 			award(AllAdvancements.CHUTE);
 		}
@@ -568,11 +568,11 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 //		if (clientPacket)
 //			airCurrent.rebuild();
 
-		if (hasLevel() && level != null && level.isClientSide && !ItemStack.matches(previousItem, item) && !item.isEmpty()) {
-			if (level.random.nextInt(3) != 0)
+		if (hasLevel() && level != null && level.isClientSide() && !ItemStack.matches(previousItem, item) && !item.isEmpty()) {
+			if (level.getRandom().nextInt(3) != 0)
 				return;
 			Vec3 p = VecHelper.getCenterOf(worldPosition);
-			p = VecHelper.offsetRandomly(p, level.random, .5f);
+			p = VecHelper.offsetRandomly(p, level.getRandom(), .5f);
 			Vec3 m = Vec3.ZERO;
 			level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, item), p.x, p.y, p.z, m.x, m.y, m.z);
 		}

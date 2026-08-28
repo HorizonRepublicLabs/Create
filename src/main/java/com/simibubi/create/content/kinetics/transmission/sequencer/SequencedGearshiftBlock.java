@@ -62,7 +62,7 @@ public class SequencedGearshiftBlock extends HorizontalAxisKineticBlock implemen
 	@Override
 	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
 								boolean isMoving) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (!level.getBlockTicks()
 			.willTickThisTick(pos, this))

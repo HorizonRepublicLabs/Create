@@ -84,7 +84,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 
 	@Override
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState p_220082_4_, boolean p_220082_5_) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		BlockEntity blockEntity = world.getBlockEntity(pos.above());
 		if (!(blockEntity instanceof BasinBlockEntity basin))
@@ -148,8 +148,8 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 		if (heat == HeatLevel.NONE) {
 			if (stack.getItem() instanceof FlintAndSteelItem) {
 				level.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
-					level.random.nextFloat() * 0.4F + 0.8F);
-				if (level.isClientSide)
+					level.getRandom().nextFloat() * 0.4F + 0.8F);
+				if (level.isClientSide())
 					return InteractionResult.SUCCESS;
 				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
 				level.setBlockAndUpdate(pos, AllBlocks.LIT_BLAZE_BURNER.getDefaultState());
@@ -164,7 +164,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 		InteractionResult res =
 			tryInsert(state, level, pos, stack, doNotConsume, forceOverflow, false);
 		ItemStack leftover = res.getObject();
-		if (!level.isClientSide && !doNotConsume && !leftover.isEmpty()) {
+		if (!level.isClientSide() && !doNotConsume && !leftover.isEmpty()) {
 			if (stack.isEmpty()) {
 				player.setItemInHand(hand, leftover);
 			} else if (!player.getInventory()
@@ -195,7 +195,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 
 		if (!doNotConsume) {
 			ItemStack container = stack.hasCraftingRemainingItem() ? stack.getCraftingRemainingItem() : ItemStack.EMPTY;
-			if (!world.isClientSide) {
+			if (!world.isClientSide()) {
 				stack.shrink(1);
 			}
 			return InteractionResult.SUCCESS.heldItemTransformedTo(container);

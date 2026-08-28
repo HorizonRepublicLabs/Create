@@ -141,7 +141,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 	}
 
 	protected boolean cannotLaunch() {
-		return state != State.CHARGED && !(level.isClientSide && state == State.LAUNCHING);
+		return state != State.CHARGED && !(level.isClientSide() && state == State.LAUNCHING);
 	}
 
 	public void activateDeferred() {
@@ -152,7 +152,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 			level.getEntitiesOfClass(Entity.class, new AABB(worldPosition).inflate(-1 / 16f, 0, -1 / 16f));
 
 		// Launch Items
-		boolean doLogic = !level.isClientSide || isVirtual();
+		boolean doLogic = !level.isClientSide() || isVirtual();
 		if (doLogic)
 			launchItems();
 
@@ -170,7 +170,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 
 			entity.setOnGround(false);
 
-			if (isPlayerEntity != level.isClientSide)
+			if (isPlayerEntity != level.isClientSide())
 				continue;
 
 			entity.setPos(worldPosition.getX() + 0.5, worldPosition.getY() + 1.0, worldPosition.getZ() + 0.5);
@@ -200,7 +200,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 		if (doLogic) {
 			lidProgress.chase(1, .8f, Chaser.EXP);
 			state = State.LAUNCHING;
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				level.playSound(null, worldPosition, SoundEvents.WOODEN_TRAPDOOR_CLOSE, SoundSource.BLOCKS, .35f, 1f);
 				level.playSound(null, worldPosition, SoundEvents.CHEST_OPEN, SoundSource.BLOCKS, .1f, 1.4f);
 			}
@@ -250,7 +250,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 			return;
 		}
 
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			for (Direction d : Iterate.directions) {
 				BlockState blockState = level.getBlockState(worldPosition.relative(d));
 				if (!(blockState.getBlock() instanceof ObserverBlock))
@@ -278,7 +278,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 	}
 
 	protected boolean addToLaunchedItems(ItemStack stack) {
-		if ((!level.isClientSide || isVirtual()) && trackedItem == null && scanCooldown == 0) {
+		if ((!level.isClientSide() || isVirtual()) && trackedItem == null && scanCooldown == 0) {
 			scanCooldown = AllConfigs.server().kinetics.ejectorScanInterval.get();
 			trackedItem = stack;
 		}
@@ -297,7 +297,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 	public void tick() {
 		super.tick();
 
-		boolean doLogic = !level.isClientSide || isVirtual();
+		boolean doLogic = !level.isClientSide() || isVirtual();
 		State prevState = state;
 		float totalTime = Math.max(3, (float) launcher.getTotalFlyingTicks());
 

@@ -219,7 +219,7 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player == null)
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 		if (!AllBlocks.FACTORY_GAUGE.isIn(stack))
 			return InteractionResult.SUCCESS;

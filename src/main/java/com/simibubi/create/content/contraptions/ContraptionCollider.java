@@ -569,7 +569,7 @@ public class ContraptionCollider {
 	private static PlayerType getPlayerType(Entity entity) {
 		if (!(entity instanceof Player))
 			return PlayerType.NONE;
-		if (!entity.level().isClientSide)
+		if (!entity.level().isClientSide())
 			return PlayerType.SERVER;
 		MutableBoolean isClient = new MutableBoolean(false);
 		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> isClient.setValue(isClientPlayerEntity(entity)));

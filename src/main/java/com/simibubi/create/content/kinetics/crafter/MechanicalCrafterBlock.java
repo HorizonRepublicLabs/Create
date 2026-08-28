@@ -144,7 +144,7 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 	@Override
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
 		if (context.getClickedFace() == state.getValue(HORIZONTAL_FACING)) {
-			if (!context.getLevel().isClientSide)
+			if (!context.getLevel().isClientSide())
 				KineticBlockEntity.switchToBlockState(context.getLevel(), context.getClickedPos(),
 					state.cycle(POINTING));
 			return InteractionResult.SUCCESS;
@@ -173,7 +173,7 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 			}
 
 			if (crafter.phase == Phase.IDLE && !isHand && !wrenched) {
-				if (level.isClientSide)
+				if (level.isClientSide())
 					return InteractionResult.SUCCESS;
 
 				if (AllItems.CRAFTER_SLOT_COVER.isIn(stack)) {
@@ -203,7 +203,7 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 				.getItem(0);
 			if (inSlot.isEmpty()) {
 				if (crafter.covered && !wrenched) {
-					if (level.isClientSide)
+					if (level.isClientSide())
 						return InteractionResult.SUCCESS;
 					crafter.covered = false;
 					crafter.setChanged();
@@ -217,7 +217,7 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 			}
 			if (!isHand && !ItemStack.isSameItemSameComponents(stack, inSlot))
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			player.getInventory()
 				.placeItemBackInInventory(inSlot);

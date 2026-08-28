@@ -58,7 +58,7 @@ public abstract class LaunchedItem {
 			ticksRemaining--;
 			return false;
 		}
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return false;
 
 		place(world);

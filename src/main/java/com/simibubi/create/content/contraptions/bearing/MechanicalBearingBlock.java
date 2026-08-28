@@ -27,7 +27,7 @@ public class MechanicalBearingBlock extends BearingBlock implements IBE<Mechanic
 		if (player.isShiftKeyDown())
 			return InteractionResult.FAIL;
 		if (stack.isEmpty()) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			withBlockEntityDo(level, pos, be -> {
 				if (be.running) {

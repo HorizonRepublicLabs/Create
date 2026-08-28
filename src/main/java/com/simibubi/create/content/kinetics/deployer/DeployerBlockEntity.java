@@ -177,7 +177,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 
 		if (getSpeed() == 0)
 			return;
-		if (!level.isClientSide && player != null && player.blockBreakingProgress != null) {
+		if (!level.isClientSide() && player != null && player.blockBreakingProgress != null) {
 			if (level.isEmptyBlock(player.blockBreakingProgress.getKey())) {
 				level.destroyBlockProgress(player.getId(), player.blockBreakingProgress.getKey(), -1);
 				player.blockBreakingProgress = null;
@@ -187,7 +187,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 			timer -= getTimerSpeed();
 			return;
 		}
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (player == null)
 			return;
@@ -445,7 +445,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 	}
 
 	public void redstoneUpdate() {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		boolean blockPowered = level.hasNeighborSignal(worldPosition);
 		if (blockPowered == redstoneLocked)

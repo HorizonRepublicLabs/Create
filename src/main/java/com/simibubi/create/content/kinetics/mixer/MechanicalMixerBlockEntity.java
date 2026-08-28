@@ -135,7 +135,7 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 
 		float speed = Math.abs(getSpeed());
 		if (running && level != null) {
-			if (level.isClientSide && runningTicks == 20)
+			if (level.isClientSide() && runningTicks == 20)
 				renderParticles();
 
 			if (getSpeed() == 0 || !isSpeedRequirementFulfilled()) {
@@ -145,7 +145,7 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 					runningTicks++;
 			}
 
-			if ((!level.isClientSide || isVirtual()) && runningTicks == 20) {
+			if ((!level.isClientSide() || isVirtual()) && runningTicks == 20) {
 				if (processingTicks < 0) {
 					float recipeSpeed = 1;
 					if (currentRecipe instanceof StandardProcessingRecipe) {
@@ -213,13 +213,13 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 	}
 
 	protected void spillParticle(ParticleOptions data) {
-		float angle = level.random.nextFloat() * 360;
+		float angle = level.getRandom().nextFloat() * 360;
 		Vec3 offset = new Vec3(0, 0, 0.25f);
 		offset = VecHelper.rotate(offset, angle, Axis.Y);
 		Vec3 target = VecHelper.rotate(offset, getSpeed() > 0 ? 25 : -25, Axis.Y)
 			.add(0, .25f, 0);
 		Vec3 center = offset.add(VecHelper.getCenterOf(worldPosition));
-		target = VecHelper.offsetRandomly(target.subtract(offset), level.random, 1 / 128f);
+		target = VecHelper.offsetRandomly(target.subtract(offset), level.getRandom(), 1 / 128f);
 		level.addParticle(data, center.x, center.y - 1.75f, center.z, target.x, target.y, target.z);
 	}
 

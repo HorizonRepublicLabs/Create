@@ -51,7 +51,7 @@ public abstract class AbstractChassisBlock extends RotatedPillarBlock implements
 				BooleanProperty glueableSide = getGlueableSide(state, face);
 				if (glueableSide != null && !state.getValue(glueableSide)
 					&& glueAllowedOnSide(level, pos, state, face)) {
-					if (level.isClientSide) {
+					if (level.isClientSide()) {
 						Vec3 vec = hitResult.getLocation();
 						level.addParticle(ParticleTypes.ITEM_SLIME, vec.x, vec.y, vec.z, 0, 0, 0);
 						return InteractionResult.SUCCESS;
@@ -60,7 +60,7 @@ public abstract class AbstractChassisBlock extends RotatedPillarBlock implements
 					state = state.setValue(glueableSide, true);
 				}
 			}
-			if (!level.isClientSide)
+			if (!level.isClientSide())
 				level.setBlockAndUpdate(pos, state);
 			return InteractionResult.SUCCESS;
 		}
@@ -71,7 +71,7 @@ public abstract class AbstractChassisBlock extends RotatedPillarBlock implements
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		if (!glueAllowedOnSide(level, pos, state, hitResult.getDirection()))
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			Vec3 vec = hitResult.getLocation();
 			level.addParticle(ParticleTypes.ITEM_SLIME, vec.x, vec.y, vec.z, 0, 0, 0);
 			return InteractionResult.SUCCESS;

@@ -390,7 +390,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 		promisedSatisfied = shouldPromiseSatisfy;
 		lastReportedUnloadedLinks = unloadedLinkCount;
 		waitingForNetwork = shouldWait;
-		if (!getWorld().isClientSide)
+		if (!getWorld().isClientSide())
 			blockEntity.sendData();
 		if (notifyOutputs)
 			notifyRedstoneOutputs();
@@ -590,7 +590,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 			return;
 		}
 
-		boolean isClientSide = player.level().isClientSide;
+		boolean isClientSide = player.level().isClientSide();
 
 		// Wrench cycles through arrow bending
 		if (targeting.size() + targetedByLinks.size() > 0 && player.getItemInHand(hand).is(Items.TOOLS_WRENCH)) {
@@ -940,7 +940,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 		blockEntity.sendData();
 		playFeedbackSound(this);
 		resetTimerSlightly();
-		if (!getWorld().isClientSide)
+		if (!getWorld().isClientSide())
 			notifyRedstoneOutputs();
 	}
 

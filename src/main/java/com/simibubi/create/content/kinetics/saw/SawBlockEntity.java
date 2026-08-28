@@ -186,7 +186,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 			spawnParticles(inventory.getStackInSlot(0));
 
 		if (inventory.remainingTime < 5 && !inventory.appliedRecipe) {
-			if (level.isClientSide && !isVirtual())
+			if (level.isClientSide() && !isVirtual())
 				return;
 			playEvent = inventory.getStackInSlot(0);
 			applyRecipe();
@@ -226,7 +226,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 			boolean changed = false;
 			if (!behaviour.canInsertFromSide(itemMovementFacing))
 				return;
-			if (level.isClientSide && !isVirtual())
+			if (level.isClientSide() && !isVirtual())
 				return;
 			for (int slot = 0; slot < inventory.getSlots(); slot++) {
 				ItemStack stack = inventory.getStackInSlot(slot);
@@ -294,7 +294,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 		else
 			particleData = new ItemParticleOption(ParticleTypes.ITEM, stack);
 
-		RandomSource r = level.random;
+		RandomSource r = level.getRandom();
 		Vec3 v = VecHelper.getCenterOf(this.worldPosition)
 			.add(0, 5 / 16f, 0);
 		for (int i = 0; i < 10; i++) {
@@ -317,7 +317,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 			speed = .125f;
 		}
 
-		RandomSource r = level.random;
+		RandomSource r = level.getRandom();
 		Vec3 vec = getItemMovementVec();
 		Vec3 pos = VecHelper.getCenterOf(this.worldPosition);
 		float offset = inventory.recipeDuration != 0 ? (float) (inventory.remainingTime) / inventory.recipeDuration : 0;
@@ -365,7 +365,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 		for (int roll = 0; roll < rolls; roll++) {
 			List<ItemStack> results = new LinkedList<>();
 			if (recipe instanceof CuttingRecipe)
-				results = ((CuttingRecipe) recipe).rollResults(level.random);
+				results = ((CuttingRecipe) recipe).rollResults(level.getRandom());
 			else if (recipe instanceof StonecutterRecipe || recipe.getType() == woodcuttingRecipeType.get())
 				results.add(recipe.getResultItem(level.registryAccess())
 					.copy());
@@ -408,7 +408,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 			return;
 		if (!entity.isAlive())
 			return;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		inventory.clear();
@@ -425,7 +425,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 			return;
 		if (inventory.isEmpty())
 			return;
-		if (level.isClientSide && !isVirtual())
+		if (level.isClientSide() && !isVirtual())
 			return;
 
 		List<RecipeHolder<? extends Recipe<?>>> recipes = getRecipes();

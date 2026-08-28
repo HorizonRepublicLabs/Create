@@ -66,7 +66,7 @@ public class HauntedBellBlockEntity extends AbstractBellBlockEntity {
 			return;
 		effectTicks--;
 
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			return;
 
 		RandomSource rand = level.getRandom();

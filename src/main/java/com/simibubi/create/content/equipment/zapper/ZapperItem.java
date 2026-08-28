@@ -80,7 +80,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 		// Shift -> open GUI
 		if (context.getPlayer() != null && context.getPlayer()
 			.isShiftKeyDown()) {
-			if (context.getLevel().isClientSide) {
+			if (context.getLevel().isClientSide()) {
 				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 					openHandgunGUI(context.getItemInHand(), context.getHand());
 				});
@@ -101,7 +101,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 
 		// Shift -> Open GUI
 		if (player.isShiftKeyDown()) {
-			if (world.isClientSide) {
+			if (world.isClientSide()) {
 				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 					openHandgunGUI(item, hand);
 				});
@@ -152,7 +152,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 		Vec3 barrelPos = ShootableGadgetItemMethods.getGunBarrelVec(player, mainHand, new Vec3(.35f, -0.1f, 1));
 
 		// Client side
-		if (world.isClientSide) {
+		if (world.isClientSide()) {
 			CreateClient.ZAPPER_RENDER_HANDLER.dontAnimateItem(hand);
 			return new InteractionResult(InteractionResult.SUCCESS, item);
 		}

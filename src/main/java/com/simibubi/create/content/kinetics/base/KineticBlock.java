@@ -80,7 +80,7 @@ public abstract class KineticBlock extends Block implements IRotate {
 	@Override
 	public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		AdvancementBehaviour.setPlacedBy(worldIn, pos, placer);
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return;
 
 		BlockEntity blockEntity = worldIn.getBlockEntity(pos);

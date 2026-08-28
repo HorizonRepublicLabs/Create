@@ -49,7 +49,7 @@ public class BasinMovementBehaviour implements MovementBehaviour {
 			context.blockEntityData.put(key, itemStackHandler.serializeNBT(context.world.registryAccess()));
 		});
 		// FIXME: Why are we setting client-side data here?
-		if (context.contraption.entity.level().isClientSide) {
+		if (context.contraption.entity.level().isClientSide()) {
 			BlockEntity blockEntity = context.contraption.getBlockEntityClientSide(context.localPos);
 			if (blockEntity instanceof BasinBlockEntity)
 				((BasinBlockEntity) blockEntity).readOnlyItems(context.blockEntityData, context.world.registryAccess());

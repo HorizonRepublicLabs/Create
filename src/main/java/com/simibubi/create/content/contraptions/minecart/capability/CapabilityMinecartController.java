@@ -62,7 +62,7 @@ public class CapabilityMinecartController {
 		for (AbstractMinecart cart : queued) {
 			UUID uniqueID = cart.getUUID();
 
-			if (world.isClientSide && carts.containsKey(uniqueID)) {
+			if (world.isClientSide() && carts.containsKey(uniqueID)) {
 				MinecartController minecartController = carts.get(uniqueID);
 				if (minecartController != null) {
 					AbstractMinecart minecartEntity = minecartController.cart();
@@ -78,7 +78,7 @@ public class CapabilityMinecartController {
 				carts.put(uniqueID, controller);
 				if (controller.isLeadingCoupling())
 					cartsWithCoupling.add(uniqueID);
-				if (!world.isClientSide && controller != null)
+				if (!world.isClientSide() && controller != null)
 					controller.sendData();
 			}
 		}
@@ -135,7 +135,7 @@ public class CapabilityMinecartController {
 		UUID uniqueID = entity.getUUID();
 		if (!carts.containsKey(uniqueID) || unloads.contains(uniqueID))
 			return;
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		handleKilledMinecart(world, carts.get(uniqueID), entity.position());
 	}

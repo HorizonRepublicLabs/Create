@@ -116,12 +116,12 @@ public class LecternControllerBlockEntity extends SmartBlockEntity {
 	public void tick() {
 		super.tick();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::tryToggleActive);
 			prevUser = user;
 		}
 
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			deactivatedThisTick = false;
 
 			if (!(level instanceof ServerLevel))

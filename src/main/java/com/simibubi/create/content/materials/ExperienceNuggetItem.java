@@ -28,7 +28,7 @@ public class ExperienceNuggetItem extends Item {
 	@Override
 	public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
 		ItemStack itemInHand = pPlayer.getItemInHand(pUsedHand);
-		if (pLevel.isClientSide) {
+		if (pLevel.isClientSide()) {
 			pLevel.playSound(pPlayer, pPlayer.blockPosition(), SoundEvents.AMETHYST_BLOCK_BREAK, SoundSource.PLAYERS,
 				.5f, 1);
 			return InteractionResult.CONSUME.heldItemTransformedTo(itemInHand);
@@ -44,7 +44,7 @@ public class ExperienceNuggetItem extends Item {
 			if (value == 0)
 				continue;
 
-			Vec3 offset = VecHelper.offsetRandomly(Vec3.ZERO, pLevel.random, 1)
+			Vec3 offset = VecHelper.offsetRandomly(Vec3.ZERO, pLevel.getRandom(), 1)
 				.normalize();
 			Vec3 look = pPlayer.getLookAngle();
 			Vec3 motion = look.scale(0.2)

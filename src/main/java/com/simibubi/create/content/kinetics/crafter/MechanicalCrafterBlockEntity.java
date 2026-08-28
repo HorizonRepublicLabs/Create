@@ -258,7 +258,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 		if (phase == Phase.ACCEPTING)
 			return;
 
-		boolean onClient = level.isClientSide;
+		boolean onClient = level.isClientSide();
 		boolean runLogic = !onClient || isVirtual();
 
 		if (wasPoweredBefore != level.hasNeighborSignal(worldPosition)) {
@@ -357,7 +357,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 				Vec3 facingVec = Vec3.atLowerCornerOf(facing.getUnitVec3i());
 				Vec3 vec = facingVec.scale(.65)
 					.add(VecHelper.getCenterOf(worldPosition));
-				Vec3 offset = VecHelper.offsetRandomly(Vec3.ZERO, level.random, .125f)
+				Vec3 offset = VecHelper.offsetRandomly(Vec3.ZERO, level.getRandom(), .125f)
 					.multiply(VecHelper.axisAlingedPlaneOf(facingVec))
 					.normalize()
 					.scale(progress * .5f)
@@ -371,7 +371,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 						groupedItemsBeforeCraft = new GroupedItems();
 
 						for (int i = 0; i < 10; i++) {
-							Vec3 randVec = VecHelper.offsetRandomly(Vec3.ZERO, level.random, .125f)
+							Vec3 randVec = VecHelper.offsetRandomly(Vec3.ZERO, level.getRandom(), .125f)
 								.multiply(VecHelper.axisAlingedPlaneOf(facingVec))
 								.normalize()
 								.scale(.25f);
@@ -486,7 +486,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 	@Override
 	public void lazyTick() {
 		super.lazyTick();
-		if (level.isClientSide && !isVirtual())
+		if (level.isClientSide() && !isVirtual())
 			return;
 		if (phase == Phase.IDLE && craftingItemPresent())
 			checkCompletedRecipe(false);
@@ -507,7 +507,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 	public void checkCompletedRecipe(boolean poweredStart) {
 		if (getSpeed() == 0)
 			return;
-		if (level.isClientSide && !isVirtual())
+		if (level.isClientSide() && !isVirtual())
 			return;
 		List<MechanicalCrafterBlockEntity> chain = RecipeGridHandler.getAllCraftersOfChainIf(this,
 			poweredStart ? MechanicalCrafterBlockEntity::craftingItemPresent

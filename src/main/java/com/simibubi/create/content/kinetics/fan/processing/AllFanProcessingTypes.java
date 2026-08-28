@@ -168,7 +168,7 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public void spawnProcessingParticles(Level level, Vec3 pos) {
-			if (level.random.nextInt(8) != 0)
+			if (level.getRandom().nextInt(8) != 0)
 				return;
 			level.addParticle(ParticleTypes.LARGE_SMOKE, pos.x, pos.y + .25f, pos.z, 0, 1 / 16f, 0);
 		}
@@ -185,7 +185,7 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public void affectEntity(Entity entity, Level level) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return;
 
 			if (!entity.fireImmune()) {
@@ -234,14 +234,14 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public void spawnProcessingParticles(Level level, Vec3 pos) {
-			if (level.random.nextInt(8) != 0)
+			if (level.getRandom().nextInt(8) != 0)
 				return;
-			pos = pos.add(VecHelper.offsetRandomly(Vec3.ZERO, level.random, 1)
+			pos = pos.add(VecHelper.offsetRandomly(Vec3.ZERO, level.getRandom(), 1)
 				.multiply(1, 0.05f, 1)
 				.normalize()
 				.scale(0.15f));
 			level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, pos.x, pos.y + .45f, pos.z, 0, 0, 0);
-			if (level.random.nextInt(2) == 0)
+			if (level.getRandom().nextInt(2) == 0)
 				level.addParticle(ParticleTypes.SMOKE, pos.x, pos.y + .25f, pos.z, 0, 0, 0);
 		}
 
@@ -257,18 +257,18 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public void affectEntity(Entity entity, Level level) {
-			if (level.isClientSide) {
+			if (level.isClientSide()) {
 				if (entity instanceof Horse) {
 					Vec3 p = entity.getPosition(0);
 					Vec3 v = p.add(0, 0.5f, 0)
-						.add(VecHelper.offsetRandomly(Vec3.ZERO, level.random, 1)
+						.add(VecHelper.offsetRandomly(Vec3.ZERO, level.getRandom(), 1)
 							.multiply(1, 0.2f, 1)
 							.normalize()
 							.scale(1f));
 					level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, v.x, v.y, v.z, 0, 0.1f, 0);
-					if (level.random.nextInt(3) == 0)
+					if (level.getRandom().nextInt(3) == 0)
 						level.addParticle(ParticleTypes.LARGE_SMOKE, p.x, p.y + .5f, p.z,
-							(level.random.nextFloat() - .5f) * .5f, 0.1f, (level.random.nextFloat() - .5f) * .5f);
+							(level.getRandom().nextFloat() - .5f) * .5f, 0.1f, (level.getRandom().nextFloat() - .5f) * .5f);
 				}
 				return;
 			}
@@ -354,7 +354,7 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public void spawnProcessingParticles(Level level, Vec3 pos) {
-			if (level.random.nextInt(8) != 0)
+			if (level.getRandom().nextInt(8) != 0)
 				return;
 			level.addParticle(ParticleTypes.POOF, pos.x, pos.y + .25f, pos.z, 0, 1 / 16f, 0);
 		}
@@ -371,7 +371,7 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public void affectEntity(Entity entity, Level level) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return;
 
 			if (!entity.fireImmune()) {
@@ -415,13 +415,13 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public void spawnProcessingParticles(Level level, Vec3 pos) {
-			if (level.random.nextInt(8) != 0)
+			if (level.getRandom().nextInt(8) != 0)
 				return;
 			Vector3f color = new Color(0x0055FF).asVectorF();
-			level.addParticle(new DustParticleOptions(color, 1), pos.x + (level.random.nextFloat() - .5f) * .5f,
-				pos.y + .5f, pos.z + (level.random.nextFloat() - .5f) * .5f, 0, 1 / 8f, 0);
-			level.addParticle(ParticleTypes.SPIT, pos.x + (level.random.nextFloat() - .5f) * .5f, pos.y + .5f,
-				pos.z + (level.random.nextFloat() - .5f) * .5f, 0, 1 / 8f, 0);
+			level.addParticle(new DustParticleOptions(color, 1), pos.x + (level.getRandom().nextFloat() - .5f) * .5f,
+				pos.y + .5f, pos.z + (level.getRandom().nextFloat() - .5f) * .5f, 0, 1 / 8f, 0);
+			level.addParticle(ParticleTypes.SPIT, pos.x + (level.getRandom().nextFloat() - .5f) * .5f, pos.y + .5f,
+				pos.z + (level.getRandom().nextFloat() - .5f) * .5f, 0, 1 / 8f, 0);
 		}
 
 		@Override
@@ -436,7 +436,7 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public void affectEntity(Entity entity, Level level) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return;
 
 			if (entity instanceof EnderMan || entity.getType() == EntityType.SNOW_GOLEM
@@ -446,7 +446,7 @@ public class AllFanProcessingTypes {
 			if (entity.isOnFire()) {
 				entity.clearFire();
 				level.playSound(null, entity.blockPosition(), SoundEvents.GENERIC_EXTINGUISH_FIRE,
-					SoundSource.NEUTRAL, 0.7F, 1.6F + (level.random.nextFloat() - level.random.nextFloat()) * 0.4F);
+					SoundSource.NEUTRAL, 0.7F, 1.6F + (level.getRandom().nextFloat() - level.getRandom().nextFloat()) * 0.4F);
 			}
 		}
 	}

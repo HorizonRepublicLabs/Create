@@ -141,7 +141,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 			}
 			return;
 		}
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		if (phase == Phase.MOVE_TO_INPUT)
@@ -159,7 +159,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 	public void lazyTick() {
 		super.lazyTick();
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (chasedPointProgress < .5f)
 			return;
@@ -200,7 +200,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 		chasedPointProgress += Math.min(256, Math.abs(getSpeed())) / 1024f;
 		if (chasedPointProgress > 1)
 			chasedPointProgress = 1;
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			return !targetReachedPreviously && chasedPointProgress >= 1;
 
 		ArmInteractionPoint targetedInteractionPoint = getTargetedInteractionPoint();
@@ -378,7 +378,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 		sendData();
 		setChanged();
 
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			award(AllAdvancements.MECHANICAL_ARM);
 	}
 
@@ -412,7 +412,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 	}
 
 	public void redstoneUpdate() {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		boolean blockPowered = level.hasNeighborSignal(worldPosition);
 		if (blockPowered == redstoneLocked)
@@ -441,7 +441,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 		if (!level.isAreaLoaded(center, range)) {
 			return false;
 		}
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			int minY = center.getY() - range;
 			int maxY = center.getY() + range;
 			if (maxY < level.getMinBuildHeight() || minY >= level.getMaxBuildHeight()) {
@@ -490,7 +490,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 			hasBlazeBurner |= point instanceof AllArmInteractionPointTypes.BlazeBurnerPoint;
 		}
 
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			if (outputs.size() >= 10)
 				award(AllAdvancements.ARM_MANY_TARGETS);
 			if (hasBlazeBurner)

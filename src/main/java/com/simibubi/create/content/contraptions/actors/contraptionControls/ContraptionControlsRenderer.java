@@ -79,7 +79,7 @@ public class ContraptionControlsRenderer extends SmartBlockEntityRenderer<Contra
 		float playerDistance = (float) (ctx.position == null || cameraEntity == null ? 0
 			: ctx.position.distanceToSqr(cameraEntity.getEyePosition()));
 
-		float flicker = renderWorld.random.nextFloat();
+		float flicker = renderWorld.getRandom().nextFloat();
 		Couple<Integer> couple = DyeHelper.getDyeColors(efs.targetYEqualsSelection ? DyeColor.WHITE : DyeColor.ORANGE);
 		int brightColor = couple.getFirst();
 		int darkColor = couple.getSecond();

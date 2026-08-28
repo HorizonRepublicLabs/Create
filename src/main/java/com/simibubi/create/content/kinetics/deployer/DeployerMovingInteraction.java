@@ -42,7 +42,7 @@ public class DeployerMovingInteraction extends MovingInteractionBehaviour {
 				mode == DeployerBlockEntity.Mode.PUNCH ? DeployerBlockEntity.Mode.USE : DeployerBlockEntity.Mode.PUNCH);
 
 		} else {
-			if (ctx.world.isClientSide)
+			if (ctx.world.isClientSide())
 				return true; // we'll try again on the server side
 			DeployerFakePlayer fake = null;
 

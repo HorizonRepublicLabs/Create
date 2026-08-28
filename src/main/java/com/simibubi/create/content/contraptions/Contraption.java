@@ -286,7 +286,7 @@ public abstract class Contraption {
 	}
 
 	public void onEntityInitialize(Level world, AbstractContraptionEntity contraptionEntity) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 
 		for (OrientedContraptionEntity orientedCE : world.getEntitiesOfClass(OrientedContraptionEntity.class,
@@ -1218,7 +1218,7 @@ public abstract class Contraption {
 		for (AABB box : superglue) {
 			box = new AABB(transform.apply(new Vec3(box.minX, box.minY, box.minZ)),
 				transform.apply(new Vec3(box.maxX, box.maxY, box.maxZ)));
-			if (!world.isClientSide)
+			if (!world.isClientSide())
 				world.addFreshEntity(new SuperGlueEntity(world, box));
 		}
 	}

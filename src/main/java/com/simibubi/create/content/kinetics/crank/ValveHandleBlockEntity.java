@@ -115,7 +115,7 @@ public class ValveHandleBlockEntity extends HandCrankBlockEntity {
 			return false;
 		if (inUse > 0 || cooldown > 0)
 			return false;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return true;
 
 		// Always overshoot, target will stop early
@@ -192,7 +192,7 @@ public class ValveHandleBlockEntity extends HandCrankBlockEntity {
 
 		@Override
 		public void onShortInteract(Player player, InteractionHand hand, Direction side, BlockHitResult hitResult) {
-			if (getWorld().isClientSide)
+			if (getWorld().isClientSide())
 				return;
 			BlockState blockState = blockEntity.getBlockState();
 			if (blockState.getBlock() instanceof ValveHandleBlock vhb)

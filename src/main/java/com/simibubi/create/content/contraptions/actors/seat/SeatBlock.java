@@ -133,7 +133,7 @@ public class SeatBlock extends Block implements ProperWaterloggedBlock {
 
 		DyeColor color = DyeColor.getColor(stack);
 		if (color != null && color != this.color) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			BlockState newState = BlockHelper.copyProperties(state, AllBlocks.SEATS.get(color)
 				.getDefaultState());
@@ -147,14 +147,14 @@ public class SeatBlock extends Block implements ProperWaterloggedBlock {
 			List<Entity> passengers = seatEntity.getPassengers();
 			if (!passengers.isEmpty() && passengers.get(0) instanceof Player)
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				seatEntity.ejectPassengers();
 				player.startRiding(seatEntity);
 			}
 			return InteractionResult.SUCCESS;
 		}
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 		sitDown(level, pos, getLeashed(level, player).or(player));
 		return InteractionResult.SUCCESS;
@@ -189,7 +189,7 @@ public class SeatBlock extends Block implements ProperWaterloggedBlock {
 	}
 
 	public static void sitDown(Level level, BlockPos pos, Entity entity) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		SeatEntity seat = new SeatEntity(level);
 		seat.setPos(pos.getX() + .5, pos.getY(), pos.getZ() + .5);

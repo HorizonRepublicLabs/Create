@@ -110,7 +110,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		this.contraption = contraption;
 		if (contraption == null)
 			return;
-		if (level().isClientSide)
+		if (level().isClientSide())
 			return;
 		contraption.onEntityCreated(this);
 	}
@@ -158,7 +158,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		passenger.startRiding(this, true);
 		if (passenger instanceof TamableAnimal ta)
 			ta.setInSittingPose(true);
-		if (level().isClientSide)
+		if (level().isClientSide())
 			return;
 		contraption.getSeatMapping()
 			.put(passenger.getUUID(), seatIndex);
@@ -172,7 +172,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		super.removePassenger(passenger);
 		if (passenger instanceof TamableAnimal ta)
 			ta.setInSittingPose(false);
-		if (level().isClientSide)
+		if (level().isClientSide())
 			return;
 		if (transformedVector != null)
 			passenger.getPersistentData()
@@ -314,14 +314,14 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 			}
 		}
 
-		if (toDismount != null && !level().isClientSide) {
+		if (toDismount != null && !level().isClientSide()) {
 			Vec3 transformedVector = getPassengerPosition(toDismount, 1);
 			toDismount.stopRiding();
 			if (transformedVector != null)
 				toDismount.teleportTo(transformedVector.x, transformedVector.y, transformedVector.z);
 		}
 
-		if (level().isClientSide)
+		if (level().isClientSide())
 			return true;
 		addSittingPassenger(SeatBlock.getLeashed(level(), player)
 			.or(player), indexOfSeat);
@@ -414,7 +414,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		float prevAngle = living.getYRot();
 		float angle = AngleHelper.deg(-Mth.atan2(motion.x, motion.z));
 		angle = AngleHelper.angleLerp(0.4f, prevAngle, angle);
-		if (level().isClientSide) {
+		if (level().isClientSide()) {
 			living.lerpTo(0, 0, 0, 0, 0, 0);
 			living.lerpHeadTo(0, 0);
 			living.setYRot(angle);
@@ -439,7 +439,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	public void tickActors() {
 		boolean stalledPreviously = contraption.stalled;
 
-		if (!level().isClientSide)
+		if (!level().isClientSide())
 			contraption.stalled = false;
 
 		skipActorStop = true;
@@ -495,7 +495,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 			}
 		}
 
-		if (!level().isClientSide) {
+		if (!level().isClientSide()) {
 			if (!stalledPreviously && contraption.stalled)
 				onContraptionStalled();
 			entityData.set(STALLED, contraption.stalled);
@@ -692,7 +692,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 		for (Entity entity : collidingEntities.keySet()) {
 			Vec3 localVec = toLocalVector(entity.position(), 0);
 			Vec3 transformed = transform.apply(localVec);
-			if (level().isClientSide)
+			if (level().isClientSide())
 				entity.setPos(transformed.x, transformed.y + 1 / 16f, transformed.z);
 			else
 				entity.teleportTo(transformed.x, transformed.y + 1 / 16f, transformed.z);
@@ -701,7 +701,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 
 	@Override
 	public void remove(RemovalReason p_146834_) {
-		if (!level().isClientSide && !isRemoved() && contraption != null && !skipActorStop)
+		if (!level().isClientSide() && !isRemoved() && contraption != null && !skipActorStop)
 			contraption.stop(level());
 		super.remove(p_146834_);
 	}

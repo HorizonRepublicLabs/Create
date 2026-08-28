@@ -80,7 +80,7 @@ public class DisplayLinkBlockEntity extends LinkWithBulbBlockEntity  implements 
 			return;
 		if (activeSource == null)
 			return;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		refreshTicks++;
@@ -94,7 +94,7 @@ public class DisplayLinkBlockEntity extends LinkWithBulbBlockEntity  implements 
 		if (getBlockState().getOptionalValue(DisplayLinkBlock.POWERED)
 			.orElse(true))
 			return;
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			updateGatheredData();
 	}
 

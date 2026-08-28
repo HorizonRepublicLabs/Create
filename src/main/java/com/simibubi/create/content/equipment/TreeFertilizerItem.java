@@ -33,7 +33,7 @@ public class TreeFertilizerItem extends Item {
 				.orElse(false))
 				return InteractionResult.PASS;
 
-			if (context.getLevel().isClientSide) {
+			if (context.getLevel().isClientSide()) {
 				BoneMealItem.addGrowthParticles(context.getLevel(), context.getClickedPos(), 100);
 				return InteractionResult.SUCCESS;
 			}

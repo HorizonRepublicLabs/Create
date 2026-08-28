@@ -84,7 +84,7 @@ public class RedstoneLinkBlockEntity extends SmartBlockEntity {
 
 		receivedSignal = compound.getIntOr("Receive", 0);
 		receivedSignalChanged = compound.getBooleanOr("ReceivedChanged", false);
-		if (level == null || level.isClientSide || !link.newPosition)
+		if (level == null || level.isClientSide() || !link.newPosition)
 			transmittedSignal = compound.getIntOr("Transmit", 0);
 	}
 
@@ -103,7 +103,7 @@ public class RedstoneLinkBlockEntity extends SmartBlockEntity {
 
 		if (transmitter)
 			return;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		BlockState blockState = getBlockState();

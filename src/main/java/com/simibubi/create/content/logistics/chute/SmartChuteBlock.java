@@ -29,7 +29,7 @@ public class SmartChuteBlock extends AbstractChuteBlock {
 	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
 		boolean isMoving) {
 		super.neighborChanged(state, level, pos, block, fromPos, isMoving);
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (!level.getBlockTicks()
 			.willTickThisTick(pos, this))

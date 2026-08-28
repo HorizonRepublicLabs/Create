@@ -102,7 +102,7 @@ public class EncasedCogwheelBlock extends RotatedPillarKineticBlock
 			return super.onWrenched(state, context);
 
 		Level level = context.getLevel();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		BlockPos pos = context.getClickedPos();
@@ -124,7 +124,7 @@ public class EncasedCogwheelBlock extends RotatedPillarKineticBlock
 
 	@Override
 	public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
-		if (context.getLevel().isClientSide)
+		if (context.getLevel().isClientSide())
 			return InteractionResult.SUCCESS;
 		context.getLevel()
 			.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, context.getClickedPos(), Block.getId(state));

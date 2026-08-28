@@ -271,7 +271,7 @@ public class ChassisBlockEntity extends SmartBlockEntity {
 		@Override
 		@OnlyIn(Dist.CLIENT)
 		public void newSettingHovered(ValueSettings valueSetting) {
-			if (!level.isClientSide)
+			if (!level.isClientSide())
 				return;
 			if (!AllKeys.ctrlDown())
 				currentlySelectedRange = valueSetting.value() + 1;

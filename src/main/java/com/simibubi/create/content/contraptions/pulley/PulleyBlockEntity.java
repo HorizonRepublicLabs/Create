@@ -127,7 +127,7 @@ public class PulleyBlockEntity extends LinearActuatorBlockEntity implements Thre
 			return;
 
 		// Collect Construct
-		if (!level.isClientSide && mirrorParent == null) {
+		if (!level.isClientSide() && mirrorParent == null) {
 			needsContraption = false;
 			BlockPos anchor = worldPosition.below(Mth.floor(offset + 1));
 			initialOffset = Mth.floor(offset);
@@ -194,7 +194,7 @@ public class PulleyBlockEntity extends LinearActuatorBlockEntity implements Thre
 		if (movedContraption != null)
 			resetContraptionToOffset();
 
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			if (shouldCreateRopes()) {
 				if (offset > 0) {
 					BlockPos magnetPos = worldPosition.below((int) offset);
@@ -268,7 +268,7 @@ public class PulleyBlockEntity extends LinearActuatorBlockEntity implements Thre
 	@Override
 	protected void visitNewPosition() {
 		super.visitNewPosition();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (movedContraption != null)
 			return;

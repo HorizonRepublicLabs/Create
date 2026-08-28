@@ -74,7 +74,7 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 	@Override
 	public void initialize() {
 		super.initialize();
-		if (!level.isClientSide && hasInteractableConnections())
+		if (!level.isClientSide() && hasInteractableConnections())
 			registerToCurveInteraction();
 	}
 
@@ -318,7 +318,7 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 	@Override
 	public void invalidate() {
 		super.invalidate();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			removeFromCurveInteraction();
 	}
 

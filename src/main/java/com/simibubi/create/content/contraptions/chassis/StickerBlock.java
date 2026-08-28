@@ -56,7 +56,7 @@ public class StickerBlock extends WrenchableDirectionalBlock implements IBE<Stic
 	@Override
 	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
 		boolean isMoving) {
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return;
 
 		boolean previouslyPowered = state.getValue(POWERED);
@@ -144,9 +144,9 @@ public class StickerBlock extends WrenchableDirectionalBlock implements IBE<Stic
 			Vec3 Vector3d = entity.getDeltaMovement();
 			world.addParticle(
 				new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SLIME_BLOCK.defaultBlockState()).setPos(pos),
-				entity.getX() + ((double) world.random.nextFloat() - 0.5D) * (double) entity.getBbWidth(),
+				entity.getX() + ((double) world.getRandom().nextFloat() - 0.5D) * (double) entity.getBbWidth(),
 				entity.getY() + 0.1D,
-				entity.getZ() + ((double) world.random.nextFloat() - 0.5D) * (double) entity.getBbWidth(),
+				entity.getZ() + ((double) world.getRandom().nextFloat() - 0.5D) * (double) entity.getBbWidth(),
 				Vector3d.x * -4.0D, 1.5D, Vector3d.z * -4.0D);
 			return true;
 		}

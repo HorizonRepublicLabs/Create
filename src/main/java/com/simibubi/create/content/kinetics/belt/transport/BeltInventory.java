@@ -94,7 +94,7 @@ public class BeltInventory {
 			.getValue(BeltBlock.SLOPE) == BeltSlope.HORIZONTAL;
 		float spacing = 1;
 		Level world = belt.getLevel();
-		boolean onClient = world.isClientSide && !belt.isVirtual();
+		boolean onClient = world.isClientSide() && !belt.isVirtual();
 
 		// resolve ending only when items will reach it this tick
 		Ending ending = Ending.UNRESOLVED;
@@ -117,7 +117,7 @@ public class BeltInventory {
 				movement *= ServerSpeedProvider.get();
 
 			// Don't move if held by processing (client)
-			if (world.isClientSide && currentItem.locked)
+			if (world.isClientSide() && currentItem.locked)
 				continue;
 
 			// Don't move if held by external components

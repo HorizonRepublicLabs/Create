@@ -61,11 +61,11 @@ public class MinecartCouplingItem extends Item {
 														  AbstractMinecart minecart, Player player, MinecartController controller) {
 		Level world = event.getLevel();
 		if (controller.isFullyCoupled()) {
-			if (!world.isClientSide)
+			if (!world.isClientSide())
 				CouplingHandler.status(player, "two_couplings_max");
 			return true;
 		}
-		if (world != null && world.isClientSide)
+		if (world != null && world.isClientSide())
 			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> cartClicked(player, minecart));
 		return true;
 	}
@@ -75,7 +75,7 @@ public class MinecartCouplingItem extends Item {
 		int couplings = (controller.isConnectedToCoupling() ? 1 : 0) + (controller.isLeadingCoupling() ? 1 : 0);
 		if (couplings == 0)
 			return false;
-		if (event.getLevel().isClientSide)
+		if (event.getLevel().isClientSide())
 			return true;
 
 		for (boolean forward : Iterate.trueAndFalse) {

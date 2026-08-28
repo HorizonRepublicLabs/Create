@@ -78,7 +78,7 @@ public class CogWheelBlock extends AbstractSimpleShaftBlock implements ICogWheel
 	}
 
 	protected void triggerShiftingGearsAdvancement(Level world, BlockPos pos, BlockState state, Player player) {
-		if (world.isClientSide || player == null)
+		if (world.isClientSide() || player == null)
 			return;
 
 		Axis axis = state.getValue(CogWheelBlock.AXIS);

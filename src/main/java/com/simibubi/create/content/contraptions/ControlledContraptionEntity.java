@@ -167,7 +167,7 @@ public class ControlledContraptionEntity extends AbstractContraptionEntity {
 		}
 		if (!controller.isAttachedTo(this)) {
 			controller.attach(this);
-			if (level().isClientSide)
+			if (level().isClientSide())
 				setPos(getX(), getY(), getZ());
 		}
 	}

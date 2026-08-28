@@ -196,7 +196,7 @@ public class ExtendoGripItem extends Item {
 	private static void findAndDamageExtendoGrip(Player player) {
 		if (player == null)
 			return;
-		if (player.level().isClientSide)
+		if (player.level().isClientSide())
 			return;
 		EquipmentSlot equipmentSlot = EquipmentSlot.MAINHAND;
 		ItemStack extendo = player.getMainHandItem();
@@ -264,7 +264,7 @@ public class ExtendoGripItem extends Item {
 		// Server ignores entity interaction further than 6m
 		if (entity.distanceToSqr(target) < 36)
 			return false;
-		if (!entity.level().isClientSide)
+		if (!entity.level().isClientSide())
 			return false;
 		if (!(entity instanceof Player))
 			return false;

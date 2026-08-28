@@ -95,7 +95,7 @@ public class SmartFluidPipeBlock extends FaceAttachedHorizontalDirectionalBlock
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		boolean blockTypeChanged = state.getBlock() != newState.getBlock();
-		if (blockTypeChanged && !world.isClientSide)
+		if (blockTypeChanged && !world.isClientSide())
 			FluidPropagator.propagateChangedPipe(world, pos, state);
 		IBE.onRemove(state, world, pos, newState);
 	}
@@ -107,7 +107,7 @@ public class SmartFluidPipeBlock extends FaceAttachedHorizontalDirectionalBlock
 
 	@Override
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		if (state != oldState)
 			world.scheduleTick(pos, this, 1, TickPriority.HIGH);

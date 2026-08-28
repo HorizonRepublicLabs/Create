@@ -65,7 +65,7 @@ public class HarvesterMovementBehaviour implements MovementBehaviour {
 	@Override
 	public void visitNewPosition(MovementContext context, BlockPos pos) {
 		Level world = context.world;
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 
 		BlockState stateVisited = world.getBlockState(pos);

@@ -387,7 +387,7 @@ public class PackageItem extends Item {
 		float f = getPackageVelocity(i);
 		if (f < 0.1D)
 			return;
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 
 		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW,

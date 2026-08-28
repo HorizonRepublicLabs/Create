@@ -107,7 +107,7 @@ public class LinkBehaviour extends BlockEntityBehaviour implements IRedstoneLink
 	@Override
 	public void initialize() {
 		super.initialize();
-		if (getWorld().isClientSide)
+		if (getWorld().isClientSide())
 			return;
 		getHandler().addToNetwork(getWorld(), this);
 		newPosition = true;
@@ -121,7 +121,7 @@ public class LinkBehaviour extends BlockEntityBehaviour implements IRedstoneLink
 	@Override
 	public void unload() {
 		super.unload();
-		if (getWorld().isClientSide)
+		if (getWorld().isClientSide())
 			return;
 		getHandler().removeFromNetwork(getWorld(), this);
 	}

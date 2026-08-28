@@ -248,7 +248,7 @@ public class FrogportBlockEntity extends PackagePortBlockEntity implements IHave
 					for (int i = 0; i < 5; i++)
 						level.addParticle(
 							new BlockParticleOption(ParticleTypes.BLOCK, AllBlocks.ROPE.getDefaultState()), vec.x,
-							vec.y - level.random.nextFloat() * 0.25, vec.z, 0, 0, 0);
+							vec.y - level.getRandom().nextFloat() * 0.25, vec.z, 0, 0, 0);
 			}
 		}
 

@@ -74,7 +74,7 @@ public class DivingHelmetItem extends BaseArmorItem {
 		LivingEntity entity = event.getEntity();
 		Level level = entity.level();
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			entity.getPersistentData().remove("VisualBacktankAir");
 
 		ItemStack helmet = getWornItem(entity);
@@ -104,7 +104,7 @@ public class DivingHelmetItem extends BaseArmorItem {
 		for (ItemStack stack : backtanks)
 			visualBacktankAir += BacktankUtil.getAir(stack);
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			entity.getPersistentData()
 				.putInt("VisualBacktankAir", Math.round(visualBacktankAir));
 

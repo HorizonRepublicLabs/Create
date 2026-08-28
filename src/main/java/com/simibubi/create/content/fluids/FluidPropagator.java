@@ -136,7 +136,7 @@ public class FluidPropagator {
 
 	public static Direction validateNeighbourChange(BlockState state, Level world, BlockPos pos, Block otherBlock,
 		BlockPos neighborPos, boolean isMoving) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return null;
 		// calling getblockstate() as otherBlock param seems to contain the block which
 		// was replaced

@@ -83,7 +83,7 @@ public class EncasedPipeBlock extends Block
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		boolean blockTypeChanged = state.getBlock() != newState.getBlock();
-		if (blockTypeChanged && !world.isClientSide)
+		if (blockTypeChanged && !world.isClientSide())
 			FluidPropagator.propagateChangedPipe(world, pos, state);
 		if (state.hasBlockEntity() && (blockTypeChanged || !newState.hasBlockEntity()))
 			world.removeBlockEntity(pos);
@@ -91,7 +91,7 @@ public class EncasedPipeBlock extends Block
 
 	@Override
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
-		if (!world.isClientSide && state != oldState)
+		if (!world.isClientSide() && state != oldState)
 			world.scheduleTick(pos, this, 1, TickPriority.HIGH);
 	}
 
@@ -122,7 +122,7 @@ public class EncasedPipeBlock extends Block
 		Level world = context.getLevel();
 		BlockPos pos = context.getClickedPos();
 
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		context.getLevel()

@@ -110,7 +110,7 @@ public class ElevatorContactBlock extends WrenchableDirectionalBlock
 	@Override
 	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos,
 		boolean pIsMoving) {
-		if (pLevel.isClientSide)
+		if (pLevel.isClientSide())
 			return;
 
 		boolean isPowered = pState.getValue(POWERED);

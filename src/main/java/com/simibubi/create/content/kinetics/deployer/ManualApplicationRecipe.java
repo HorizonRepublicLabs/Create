@@ -76,9 +76,9 @@ public class ManualApplicationRecipe extends ItemApplicationRecipe {
 		ManualApplicationRecipe recipe = (ManualApplicationRecipe) foundRecipe.get().value();
 		level.destroyBlock(pos, false);
 
-		BlockState transformedBlock = recipe.transformBlock(blockState, level.random);
+		BlockState transformedBlock = recipe.transformBlock(blockState, level.getRandom());
 		level.setBlock(pos, transformedBlock, Block.UPDATE_ALL);
-		recipe.rollResults(level.random)
+		recipe.rollResults(level.getRandom())
 			.forEach(stack -> Block.popResource(level, pos, stack));
 
 		boolean creative = event.getEntity() != null && event.getEntity()

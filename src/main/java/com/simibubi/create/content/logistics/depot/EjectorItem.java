@@ -38,7 +38,7 @@ public class EjectorItem extends BlockItem {
 	@Override
 	protected boolean updateCustomBlockEntityTag(BlockPos pos, Level world, Player player, ItemStack p_195943_4_,
 		BlockState p_195943_5_) {
-		if (!world.isClientSide && player instanceof ServerPlayer sp)
+		if (!world.isClientSide() && player instanceof ServerPlayer sp)
 			NetworkHelper.INSTANCE.sendToClient(sp, new EjectorPlacementPacket.ClientBoundRequest(pos));
 		return super.updateCustomBlockEntityTag(pos, world, player, p_195943_4_, p_195943_5_);
 	}

@@ -215,7 +215,7 @@ public class TrainRelocator {
 			blockingIndex.increment();
 		});
 
-		if (level.isClientSide && simulate && !recordedVecs.isEmpty()) {
+		if (level.isClientSide() && simulate && !recordedVecs.isEmpty()) {
 			toVisualise = new ArrayList<>();
 			toVisualise.add(recordedVecs.get(0));
 		}
@@ -226,7 +226,7 @@ public class TrainRelocator {
 			boolean blocking = i >= blockingIndex.intValue() - 1;
 			boolean collided =
 				!blocked.booleanValue() && train.findCollidingTrain(level, vec1, vec2, level.dimension()) != null;
-			if (level.isClientSide && simulate)
+			if (level.isClientSide() && simulate)
 				toVisualise.add(vec2);
 			if (collided || blocking)
 				return false;

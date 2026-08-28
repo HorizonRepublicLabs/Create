@@ -62,7 +62,7 @@ public class PostboxBlockEntity extends PackagePortBlockEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (!level.isClientSide && !isVirtual()) {
+		if (!level.isClientSide() && !isVirtual()) {
 			if (sendParticles)
 				sendData();
 			return;
@@ -125,7 +125,7 @@ public class PostboxBlockEntity extends PackagePortBlockEntity {
 	}
 
 	private void saveOfflineBuffer() {
-		if (level == null || level.isClientSide)
+		if (level == null || level.isClientSide())
 			return;
 
 		GlobalStation station = trackedGlobalStation.get();

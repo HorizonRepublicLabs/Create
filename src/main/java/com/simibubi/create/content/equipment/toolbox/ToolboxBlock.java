@@ -71,7 +71,7 @@ public class ToolboxBlock extends HorizontalDirectionalBlock implements SimpleWa
 	@Override
 	public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(worldIn, pos, state, placer, stack);
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return;
 		if (stack == null)
 			return;
@@ -94,7 +94,7 @@ public class ToolboxBlock extends HorizontalDirectionalBlock implements SimpleWa
 	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
 		if (player instanceof FakePlayer)
 			return;
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		withBlockEntityDo(world, pos, ToolboxBlockEntity::unequipTracked);
 		if (world instanceof ServerLevel) {
@@ -143,7 +143,7 @@ public class ToolboxBlock extends HorizontalDirectionalBlock implements SimpleWa
 
 		DyeColor color = DyeColor.getColor(stack);
 		if (color != null && color != this.color) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			BlockState newState = BlockHelper.copyProperties(state, AllBlocks.TOOLBOXES.get(color)
 				.getDefaultState());
@@ -153,7 +153,7 @@ public class ToolboxBlock extends HorizontalDirectionalBlock implements SimpleWa
 
 		if (player instanceof FakePlayer)
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		withBlockEntityDo(level, pos,

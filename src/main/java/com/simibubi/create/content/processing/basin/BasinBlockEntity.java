@@ -253,7 +253,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	public void lazyTick() {
 		super.lazyTick();
 
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			updateSpoutput();
 			if (recipeBackupCheck-- > 0)
 				return;
@@ -345,14 +345,14 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		cachedHeatLevel = null;
 
 		super.tick();
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			createFluidParticles();
 			tickVisualizedOutputs();
 			ingredientRotationSpeed.tickChaser();
 			ingredientRotation.setValue(ingredientRotation.getValue() + ingredientRotationSpeed.getValue());
 		}
 
-		if ((!spoutputBuffer.isEmpty() || !spoutputFluidBuffer.isEmpty()) && !level.isClientSide)
+		if ((!spoutputBuffer.isEmpty() || !spoutputFluidBuffer.isEmpty()) && !level.isClientSide())
 			tryClearingSpoutputOverflow();
 		if (!contentsChanged)
 			return;
@@ -641,7 +641,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	}
 
 	private void createFluidParticles() {
-		RandomSource r = level.random;
+		RandomSource r = level.getRandom();
 
 		if (!visualizedOutputFluids.isEmpty())
 			createOutputFluidParticles(r);

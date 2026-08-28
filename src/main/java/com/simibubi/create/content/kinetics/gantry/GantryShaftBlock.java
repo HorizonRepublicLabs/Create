@@ -188,7 +188,7 @@ public class GantryShaftBlock extends DirectionalKineticBlock implements IBE<Gan
 	@Override
 	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block p_220069_4_, BlockPos p_220069_5_,
 		boolean p_220069_6_) {
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return;
 		boolean previouslyPowered = state.getValue(POWERED);
 		boolean shouldPower = worldIn.hasNeighborSignal(pos); // shouldBePowered(state, worldIn, pos);

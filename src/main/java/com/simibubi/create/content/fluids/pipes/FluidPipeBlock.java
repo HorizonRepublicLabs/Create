@@ -101,7 +101,7 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 
 		if (clickedFace.getAxis() == axis)
 			return InteractionResult.PASS;
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			withBlockEntityDo(world, pos, fpte -> fpte.getBehaviour(FluidTransportBehaviour.TYPE).interfaces.values()
 				.stream()
 				.filter(pc -> pc != null && pc.hasFlow())
@@ -147,7 +147,7 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		boolean blockTypeChanged = state.getBlock() != newState.getBlock();
-		if (blockTypeChanged && !world.isClientSide)
+		if (blockTypeChanged && !world.isClientSide())
 			FluidPropagator.propagateChangedPipe(world, pos, state);
 		if (state != newState && !isMoving)
 			removeBracket(world, pos, true).ifPresent(stack -> Block.popResource(world, pos, stack));
@@ -157,7 +157,7 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 
 	@Override
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		if (state != oldState)
 			world.scheduleTick(pos, this, 1, TickPriority.HIGH);

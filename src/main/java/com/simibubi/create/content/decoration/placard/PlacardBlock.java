@@ -122,7 +122,7 @@ public class PlacardBlock extends FaceAttachedHorizontalDirectionalBlock
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (player.isShiftKeyDown())
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		ItemStack inHand = player.getItemInHand(hand);
@@ -190,7 +190,7 @@ public class PlacardBlock extends FaceAttachedHorizontalDirectionalBlock
 
 	@Override
 	public void attack(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
-		if (pLevel.isClientSide)
+		if (pLevel.isClientSide())
 			return;
 		withBlockEntityDo(pLevel, pPos, pte -> {
 			ItemStack heldItem = pte.getHeldItem();

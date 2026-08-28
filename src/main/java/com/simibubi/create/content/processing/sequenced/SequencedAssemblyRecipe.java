@@ -81,7 +81,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 			ProcessingRecipe<?, ?> recipe = nextRecipe.getRecipe();
 			if (recipe.getType() != type || !recipeClass.isInstance(recipe))
 				continue;
-			recipe.enforceNextResult(() -> sequencedAssemblyRecipe.value().advance(sequencedAssemblyRecipe.id(), item, level.random));
+			recipe.enforceNextResult(() -> sequencedAssemblyRecipe.value().advance(sequencedAssemblyRecipe.id(), item, level.getRandom()));
 			return Optional.of(new RecipeHolder<>(sequencedAssemblyRecipe.id(), recipeClass.cast(recipe)));
 		}
 		return Optional.empty();
@@ -98,7 +98,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 				ProcessingRecipe<?, ?> recipe = holder.value().getNextRecipe(item).getRecipe();
 
 				if (recipe.getType() == type && recipeClass.isInstance(recipe)) {
-					recipe.enforceNextResult(() -> holder.value().advance(holder.id(), item, level.random));
+					recipe.enforceNextResult(() -> holder.value().advance(holder.id(), item, level.getRandom()));
 					R castedRecipe = recipeClass.cast(recipe);
 					RecipeHolder<R> h = new RecipeHolder<>(holder.id(), castedRecipe);
 					if (recipeFilter.test(h))

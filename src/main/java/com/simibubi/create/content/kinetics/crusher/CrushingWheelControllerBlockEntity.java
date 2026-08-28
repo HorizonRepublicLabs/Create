@@ -113,7 +113,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 		if (crushingspeed == 0)
 			return;
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> this.tickAudio());
 
 		float speed = crushingspeed * 4;
@@ -139,7 +139,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 			inventory.remainingTime -= processingSpeed;
 			spawnParticles(inventory.getStackInSlot(0));
 
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return;
 
 			if (inventory.remainingTime < 20 && !inventory.appliedRecipe) {
@@ -224,7 +224,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 				// crushers,
 				, facing.getAxis() == Axis.Z ? movement : zMotion)); // Or they'll only get their feet crushed.
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		if (!(processingEntity instanceof ItemEntity itemEntity)) {
@@ -294,7 +294,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 		else
 			particleData = new ItemParticleOption(ParticleTypes.ITEM, stack);
 
-		RandomSource r = level.random;
+		RandomSource r = level.getRandom();
 		for (int i = 0; i < 4; i++)
 			level.addParticle(particleData, worldPosition.getX() + r.nextFloat(), worldPosition.getY() + r.nextFloat(),
 				worldPosition.getZ() + r.nextFloat(), 0, 0, 0);
@@ -310,7 +310,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 			inventory.clear();
 			for (int roll = 0; roll < rolls; roll++) {
 				List<ItemStack> rolledResults = recipe.get().value()
-					.rollResults(level.random);
+					.rollResults(level.getRandom());
 				for (ItemStack stack : rolledResults) {
 					ItemHelper.addToList(stack, list);
 				}

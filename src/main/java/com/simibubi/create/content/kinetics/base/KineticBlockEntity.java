@@ -85,7 +85,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
 	@Override
 	public void initialize() {
-		if (hasNetwork() && !level.isClientSide) {
+		if (hasNetwork() && !level.isClientSide()) {
 			KineticNetwork network = getOrCreateNetwork();
 			if (!network.initialized)
 				network.initFromTE(capacity, stress, networkSize);
@@ -97,7 +97,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
 	@Override
 	public void tick() {
-		if (!level.isClientSide && needsSpeedUpdate())
+		if (!level.isClientSide() && needsSpeedUpdate())
 			attachKinetics();
 
 		super.tick();
@@ -105,7 +105,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
 		preventSpeedUpdate = 0;
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> this.tickAudio());
 			return;
 		}
@@ -199,7 +199,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
 	@Override
 	public void remove() {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			if (hasNetwork())
 				getOrCreateNetwork().remove(this);
 			detachKinetics();
@@ -307,7 +307,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
 	public void setSource(BlockPos source) {
 		this.source = source;
-		if (level == null || level.isClientSide)
+		if (level == null || level.isClientSide())
 			return;
 
 		BlockEntity blockEntity = level.getBlockEntity(source);
@@ -380,7 +380,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 	}
 
 	public static void switchToBlockState(Level world, BlockPos pos, BlockState state) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 
 		BlockEntity blockEntity = world.getBlockEntity(pos);

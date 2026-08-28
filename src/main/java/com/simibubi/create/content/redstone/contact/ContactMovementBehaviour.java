@@ -28,7 +28,7 @@ public class ContactMovementBehaviour implements MovementBehaviour {
 		BlockState block = context.state;
 		Level world = context.world;
 
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		if (context.firstMovement)
 			return;

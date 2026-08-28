@@ -71,13 +71,13 @@ public class ClockworkBearingBlockEntity extends KineticBlockEntity
 	public void tick() {
 		super.tick();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			prevForcedAngle = hourAngle;
 			clientMinuteAngleDiff /= 2;
 			clientHourAngleDiff /= 2;
 		}
 
-		if (!level.isClientSide && assembleNextTick) {
+		if (!level.isClientSide() && assembleNextTick) {
 			assembleNextTick = false;
 			if (running) {
 				boolean canDisassemble = true;
@@ -140,7 +140,7 @@ public class ClockworkBearingBlockEntity extends KineticBlockEntity
 	@Override
 	public void lazyTick() {
 		super.lazyTick();
-		if (hourHand != null && !level.isClientSide)
+		if (hourHand != null && !level.isClientSide())
 			sendData();
 	}
 
@@ -205,7 +205,7 @@ public class ClockworkBearingBlockEntity extends KineticBlockEntity
 
 	public float getAngularSpeed() {
 		float speed = -Math.abs(getSpeed() * 3 / 10f);
-		if (level.isClientSide)
+		if (level.isClientSide())
 			speed *= ServerSpeedProvider.get();
 		return speed;
 	}
@@ -306,7 +306,7 @@ public class ClockworkBearingBlockEntity extends KineticBlockEntity
 			this.minuteHand = contraption;
 			minuteHand.setPos(anchor.getX(), anchor.getY(), anchor.getZ());
 		}
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			this.running = true;
 			sendData();
 		}
@@ -368,13 +368,13 @@ public class ClockworkBearingBlockEntity extends KineticBlockEntity
 
 	@Override
 	public void onStall() {
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			sendData();
 	}
 
 	@Override
 	public void remove() {
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			disassemble();
 		super.remove();
 	}

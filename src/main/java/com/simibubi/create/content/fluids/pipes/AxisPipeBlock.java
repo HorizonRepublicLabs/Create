@@ -49,7 +49,7 @@ public class AxisPipeBlock extends RotatedPillarBlock implements IWrenchableWith
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		boolean blockTypeChanged = state.getBlock() != newState.getBlock();
-		if (blockTypeChanged && !world.isClientSide)
+		if (blockTypeChanged && !world.isClientSide())
 			FluidPropagator.propagateChangedPipe(world, pos, state);
 		if (state != newState && !isMoving)
 			removeBracket(world, pos, true).ifPresent(stack -> Block.popResource(world, pos, stack));
@@ -61,7 +61,7 @@ public class AxisPipeBlock extends RotatedPillarBlock implements IWrenchableWith
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (!AllBlocks.COPPER_CASING.isIn(stack))
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 		BlockState newState = AllBlocks.ENCASED_FLUID_PIPE.getDefaultState();
 		for (Direction d : Iterate.directionsInAxis(getAxis(state)))
@@ -80,7 +80,7 @@ public class AxisPipeBlock extends RotatedPillarBlock implements IWrenchableWith
 
 	@Override
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		if (state != oldState)
 			world.scheduleTick(pos, this, 1, TickPriority.HIGH);

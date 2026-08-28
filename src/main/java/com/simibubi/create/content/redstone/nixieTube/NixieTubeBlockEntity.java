@@ -111,12 +111,12 @@ public class NixieTubeBlockEntity extends SmartBlockEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			return;
 
 		signalState = null;
 		if (computerBehaviour.hasAttachedComputer()) {
-			if (level.isClientSide && cachedSignalTE.get() != null) {
+			if (level.isClientSide() && cachedSignalTE.get() != null) {
 				cachedSignalTE = new WeakReference<>(null);
 			}
 			return;
@@ -141,7 +141,7 @@ public class NixieTubeBlockEntity extends SmartBlockEntity {
 
 	@Override
 	public void initialize() {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			updateDisplayedStrings();
 	}
 

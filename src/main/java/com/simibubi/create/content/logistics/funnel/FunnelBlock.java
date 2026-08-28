@@ -91,7 +91,7 @@ public abstract class FunnelBlock extends AbstractDirectionalFunnelBlock {
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 
 		if (hitResult.getDirection() == getFunnelFacing(state) && !shouldntInsertItem) {
-			if (!level.isClientSide)
+			if (!level.isClientSide())
 				withBlockEntityDo(level, pos, be -> {
 					ItemStack toInsert = stack.copy();
 					ItemStack remainder = tryInsert(level, pos, toInsert, false);
@@ -107,14 +107,14 @@ public abstract class FunnelBlock extends AbstractDirectionalFunnelBlock {
 	@Override
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
 		Level world = context.getLevel();
-		if (!world.isClientSide)
+		if (!world.isClientSide())
 			world.setBlockAndUpdate(context.getClickedPos(), state.cycle(EXTRACTING));
 		return InteractionResult.SUCCESS;
 	}
 
 	@Override
 	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return;
 		ItemStack stack = ItemHelper.fromItemEntity(entityIn);
 		if (stack.isEmpty())

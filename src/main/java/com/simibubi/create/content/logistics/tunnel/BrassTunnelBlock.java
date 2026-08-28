@@ -31,15 +31,15 @@ public class BrassTunnelBlock extends BeltTunnelBlock {
 		return onBlockEntityUse(level, pos, be -> {
 			if (!(be instanceof BrassTunnelBlockEntity bte))
 				return InteractionResult.PASS;
-			List<ItemStack> stacksOfGroup = bte.grabAllStacksOfGroup(level.isClientSide);
+			List<ItemStack> stacksOfGroup = bte.grabAllStacksOfGroup(level.isClientSide());
 			if (stacksOfGroup.isEmpty())
 				return InteractionResult.PASS;
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			for (ItemStack itemStack : stacksOfGroup)
 				player.getInventory().placeItemBackInInventory(itemStack.copy());
 			level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-				1f + level.random.nextFloat());
+				1f + level.getRandom().nextFloat());
 			return InteractionResult.SUCCESS;
 		});
 	}

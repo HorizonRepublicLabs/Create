@@ -101,7 +101,7 @@ public class SuperGlueHandler {
 			EntityType.updateCustomEntityTag(world, placer, entity, customData);
 
 		if (SuperGlueEntity.isValidFace(world, gluePos, face)) {
-			if (!world.isClientSide) {
+			if (!world.isClientSide()) {
 				world.addFreshEntity(entity);
 				NetworkHelper.INSTANCE.sendToClientsTrackingEntity(entity,
 					new GlueEffectPacket(gluePos, face, true));

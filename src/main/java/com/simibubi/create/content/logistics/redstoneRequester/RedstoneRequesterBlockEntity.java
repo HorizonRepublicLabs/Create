@@ -150,7 +150,7 @@ public class RedstoneRequesterBlockEntity extends StockCheckingBlockEntity imple
 			return InteractionResult.PASS;
 		if (player instanceof FakePlayer)
 			return InteractionResult.PASS;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 		if (!behaviour.mayInteractMessage(player))
 			return InteractionResult.SUCCESS;

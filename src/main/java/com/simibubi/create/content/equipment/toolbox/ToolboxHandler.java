@@ -40,7 +40,7 @@ public class ToolboxHandler {
 	static int validationTimer = 20;
 
 	public static void entityTick(Entity entity, Level world) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		if (!(world instanceof ServerLevel))
 			return;

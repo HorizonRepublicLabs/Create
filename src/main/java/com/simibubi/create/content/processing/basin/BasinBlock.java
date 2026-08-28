@@ -78,7 +78,7 @@ public class BasinBlock extends Block implements IBE<BasinBlockEntity>, IWrencha
 
 	@Override
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
-		if (!context.getLevel().isClientSide)
+		if (!context.getLevel().isClientSide())
 			withBlockEntityDo(context.getLevel(), context.getClickedPos(),
 				bte -> bte.onWrenched(context.getClickedFace()));
 		return InteractionResult.SUCCESS;

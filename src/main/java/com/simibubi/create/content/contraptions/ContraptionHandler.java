@@ -62,7 +62,7 @@ public class ContraptionHandler {
 	}
 
 	public static void entitiesWhoJustDismountedGetSentToTheRightLocation(LivingEntity entityLiving, Level world) {
-		if (!world.isClientSide)
+		if (!world.isClientSide())
 			return;
 
 		CompoundTag data = entityLiving.getPersistentData();

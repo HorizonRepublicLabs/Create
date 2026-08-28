@@ -137,7 +137,7 @@ public class SawBlock extends DirectionalAxisKineticBlock implements IBE<SawBloc
 		return onBlockEntityUseItemOn(level, pos, be -> {
 			for (int i = 0; i < be.inventory.getSlots(); i++) {
 				ItemStack heldItemStack = be.inventory.getStackInSlot(i);
-				if (!level.isClientSide && !heldItemStack.isEmpty())
+				if (!level.isClientSide() && !heldItemStack.isEmpty())
 					player.getInventory()
 						.placeItemBackInInventory(heldItemStack);
 			}
@@ -166,7 +166,7 @@ public class SawBlock extends DirectionalAxisKineticBlock implements IBE<SawBloc
 		super.updateEntityAfterFallOn(worldIn, entityIn);
 		if (!(entityIn instanceof ItemEntity))
 			return;
-		if (entityIn.level().isClientSide)
+		if (entityIn.level().isClientSide())
 			return;
 
 		BlockPos pos = entityIn.blockPosition();

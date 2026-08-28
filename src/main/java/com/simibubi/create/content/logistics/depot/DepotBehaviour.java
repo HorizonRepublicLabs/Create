@@ -98,7 +98,7 @@ public class DepotBehaviour extends BlockEntityBehaviour implements Clearable {
 			TransportedItemStack ts = iterator.next();
 			if (!tick(ts))
 				continue;
-			if (world.isClientSide && !blockEntity.isVirtual())
+			if (world.isClientSide() && !blockEntity.isVirtual())
 				continue;
 			if (heldItem == null) {
 				heldItem = ts;
@@ -121,7 +121,7 @@ public class DepotBehaviour extends BlockEntityBehaviour implements Clearable {
 
 		BlockPos pos = blockEntity.getBlockPos();
 
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		if (handleBeltFunnelOutput())
 			return;

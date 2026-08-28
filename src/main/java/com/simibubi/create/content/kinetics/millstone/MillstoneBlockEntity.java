@@ -97,7 +97,7 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements Clearabl
 		if (timer > 0) {
 			timer -= getProcessingSpeed();
 
-			if (level.isClientSide) {
+			if (level.isClientSide()) {
 				spawnParticles();
 				return;
 			}
@@ -161,7 +161,7 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements Clearabl
 		ItemStack craftingRemainingItem = stackInSlot.getCraftingRemainingItem();
 		stackInSlot.shrink(1);
 		inputInv.setStackInSlot(0, stackInSlot);
-		lastRecipe.rollResults(level.random)
+		lastRecipe.rollResults(level.getRandom())
 			.forEach(stack -> ItemHandlerHelper.insertItemStacked(outputInv, stack, false));
 		if (!craftingRemainingItem.isEmpty()) {
 			ItemHandlerHelper.insertItemStacked(outputInv, craftingRemainingItem, false);
@@ -178,13 +178,13 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements Clearabl
 			return;
 
 		ItemParticleOption data = new ItemParticleOption(ParticleTypes.ITEM, stackInSlot);
-		float angle = level.random.nextFloat() * 360;
+		float angle = level.getRandom().nextFloat() * 360;
 		Vec3 offset = new Vec3(0, 0, 0.5f);
 		offset = VecHelper.rotate(offset, angle, Axis.Y);
 		Vec3 target = VecHelper.rotate(offset, getSpeed() > 0 ? 25 : -25, Axis.Y);
 
 		Vec3 center = offset.add(VecHelper.getCenterOf(worldPosition));
-		target = VecHelper.offsetRandomly(target.subtract(offset), level.random, 1 / 128f);
+		target = VecHelper.offsetRandomly(target.subtract(offset), level.getRandom(), 1 / 128f);
 		level.addParticle(data, center.x, center.y, center.z, target.x, target.y, target.z);
 	}
 

@@ -107,7 +107,7 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 				internalStall.booleanValue() || otherCart == null || !otherCart.isPresent() || otherCart.isStalled(false));
 
 		}));
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			setStalled(internalStall.booleanValue(), true);
 			disassemble(cart);
 		}
@@ -192,7 +192,7 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 	}
 
 	public void removeConnection(boolean main) {
-		if (hasContraptionCoupling(main) && getWorld() != null && !getWorld().isClientSide) {
+		if (hasContraptionCoupling(main) && getWorld() != null && !getWorld().isClientSide()) {
 			List<Entity> passengers = cart().getPassengers();
 			if (!passengers.isEmpty()) {
 				Entity entity = passengers.getFirst();
@@ -317,7 +317,7 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 			needsEntryRefresh = true;
 		}
 
-		if (getWorld() == null || getWorld().isClientSide)
+		if (getWorld() == null || getWorld().isClientSide())
 			return;
 		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(this.cart(), new MinecartControllerUpdatePacket(this, getWorld().registryAccess()));
 	}

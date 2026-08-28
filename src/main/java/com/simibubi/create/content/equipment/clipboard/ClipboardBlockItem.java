@@ -63,7 +63,7 @@ public class ClipboardBlockItem extends BlockItem implements SupportsItemCopying
 
 		player.getCooldowns()
 			.addCooldown(heldItem.getItem(), 10);
-		if (world.isClientSide)
+		if (world.isClientSide())
 			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> openScreen(player, heldItem.getComponents()));
 		ClipboardContent content = heldItem.getOrDefault(AllDataComponents.CLIPBOARD_CONTENT, ClipboardContent.EMPTY);
 		heldItem.set(AllDataComponents.CLIPBOARD_CONTENT, content.setType(ClipboardType.EDITING));

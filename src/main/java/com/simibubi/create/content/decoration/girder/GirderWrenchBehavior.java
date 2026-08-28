@@ -163,7 +163,7 @@ public class GirderWrenchBehavior {
 		Pair<Direction, Action> dirPair = getDirectionAndAction(result, level, pos);
 		if (dirPair == null)
 			return false;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return true;
 		if (!state.getValue(GirderBlock.X) && !state.getValue(GirderBlock.Z))
 			return false;

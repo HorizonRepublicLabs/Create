@@ -243,18 +243,18 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 
 	@Override
 	public void lazyTick() {
-		if (isAssembling() && !level.isClientSide)
+		if (isAssembling() && !level.isClientSide())
 			refreshAssemblyInfo();
 		super.lazyTick();
 	}
 
 	@Override
 	public void tick() {
-		if (isAssembling() && level.isClientSide)
+		if (isAssembling() && level.isClientSide())
 			refreshAssemblyInfo();
 		super.tick();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			float currentTarget = flag.getChaseTarget();
 			if (currentTarget == 0 || flag.settled()) {
 				int target = trainPresent || isAssembling() ? 1 : 0;
@@ -288,7 +288,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 			imminentTrain.runtime.displayLinkUpdateRequested = false;
 		}
 
-		if (!level.isClientSide && computerBehaviour.hasAttachedComputer()) {
+		if (!level.isClientSide() && computerBehaviour.hasAttachedComputer()) {
 			if (this.imminentTrain == null && imminentTrain != null) {
 				computerBehaviour.prepareComputerEvent(
 					new StationTrainPresenceEvent(StationTrainPresenceEvent.Type.IMMINENT, imminentTrain));
@@ -612,7 +612,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 
 		bogeyCount = bogeyIndex;
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (prevLength == assemblyLength)
 			return;
@@ -1007,7 +1007,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 
 	public void attachPackagePort(PackagePortBlockEntity ppbe) {
 		GlobalStation station = getStation();
-		if (station == null || level.isClientSide)
+		if (station == null || level.isClientSide())
 			return;
 
 		if (ppbe instanceof PostboxBlockEntity pbe)

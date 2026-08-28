@@ -140,7 +140,7 @@ public class ControllerRailBlock extends BaseRailBlock implements IWrenchable {
 
 	@Override
 	public void onMinecartPass(BlockState state, Level world, BlockPos pos, AbstractMinecart cart) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		Vec3 accelerationVec = Vec3.atLowerCornerOf(getAccelerationVector(state));
 		double targetSpeed = cart.getMaxSpeedWithRail() * state.getValue(POWER) / 15f;
@@ -212,7 +212,7 @@ public class ControllerRailBlock extends BaseRailBlock implements IWrenchable {
 	@Override
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
 		Level world = context.getLevel();
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return InteractionResult.SUCCESS;
 		BlockPos pos = context.getClickedPos();
 		for (Rotation testRotation : new Rotation[]{Rotation.CLOCKWISE_90, Rotation.CLOCKWISE_180,

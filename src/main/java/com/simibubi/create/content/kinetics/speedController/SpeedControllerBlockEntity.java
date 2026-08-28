@@ -132,7 +132,7 @@ public class SpeedControllerBlockEntity extends KineticBlockEntity {
 	}
 
 	public void updateBracket() {
-		if (level != null && level.isClientSide)
+		if (level != null && level.isClientSide())
 			hasBracket = isCogwheelPresent();
 	}
 

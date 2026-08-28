@@ -72,7 +72,7 @@ public class SymmetryWandItem extends Item {
 
 		// Shift -> open GUI
 		if (player.isShiftKeyDown()) {
-			if (player.level().isClientSide) {
+			if (player.level().isClientSide()) {
 				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 					openWandGUI(wand, context.getHand());
 				});
@@ -82,7 +82,7 @@ public class SymmetryWandItem extends Item {
 			return InteractionResult.SUCCESS;
 		}
 
-		if (context.getLevel().isClientSide || context.getHand() != InteractionHand.MAIN_HAND)
+		if (context.getLevel().isClientSide() || context.getHand() != InteractionHand.MAIN_HAND)
 			return InteractionResult.SUCCESS;
 
 		pos = pos.relative(context.getClickedFace());
@@ -134,7 +134,7 @@ public class SymmetryWandItem extends Item {
 
 		// Shift -> Open GUI
 		if (playerIn.isShiftKeyDown()) {
-			if (worldIn.isClientSide) {
+			if (worldIn.isClientSide()) {
 				PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
 					openWandGUI(playerIn.getItemInHand(handIn), handIn);
 				});

@@ -101,7 +101,7 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 		ItemStack ammoStack = ammo.stack();
 		PotatoCannonProjectileType projectileType = ammo.type();
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			CreateClient.POTATO_CANNON_RENDER_HANDLER.dontAnimateItem(hand);
 			return InteractionResult.SUCCESS.heldItemTransformedTo(heldStack);
 		}

@@ -71,7 +71,7 @@ public class DeskBellBlock extends WrenchableDirectionalBlock
 	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		playSound(player, level, pos);
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 		level.setBlock(pos, state.setValue(POWERED, true), Block.UPDATE_ALL);
 		updateNeighbours(state, level, pos);

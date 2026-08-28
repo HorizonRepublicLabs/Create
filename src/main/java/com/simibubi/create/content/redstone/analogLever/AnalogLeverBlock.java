@@ -46,7 +46,7 @@ public class AnalogLeverBlock extends FaceAttachedHorizontalDirectionalBlock imp
 
 	@Override
 	public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
-		if (worldIn.isClientSide) {
+		if (worldIn.isClientSide()) {
 			addParticles(state, worldIn, pos, 1.0F);
 			return InteractionResult.SUCCESS;
 		}

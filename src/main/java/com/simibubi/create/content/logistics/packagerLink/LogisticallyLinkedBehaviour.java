@@ -90,7 +90,7 @@ public class LogisticallyLinkedBehaviour extends BlockEntityBehaviour {
 	}
 
 	public static void keepAlive(LogisticallyLinkedBehaviour behaviour) {
-		boolean onClient = behaviour.blockEntity.getLevel().isClientSide;
+		boolean onClient = behaviour.blockEntity.getLevel().isClientSide();
 		if (behaviour.redstonePower == 15)
 			return;
 		try {
@@ -133,7 +133,7 @@ public class LogisticallyLinkedBehaviour extends BlockEntityBehaviour {
 	@Override
 	public void initialize() {
 		super.initialize();
-		if (getWorld().isClientSide)
+		if (getWorld().isClientSide())
 			return;
 
 		if (!loadedGlobally && global) {

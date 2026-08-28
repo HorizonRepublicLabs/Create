@@ -57,7 +57,7 @@ public class EjectorTargetHandler {
 			return;
 		BlockPos pos = event.getPos();
 		Level world = event.getLevel();
-		if (!world.isClientSide)
+		if (!world.isClientSide())
 			return;
 		Player player = event.getEntity();
 		if (player == null || player.isSpectator() || !player.isShiftKeyDown())
@@ -77,7 +77,7 @@ public class EjectorTargetHandler {
 	public static void leftClickingBlocksDeselectsThem(PlayerInteractEvent.LeftClickBlock event) {
 		if (currentItem == null)
 			return;
-		if (!event.getLevel().isClientSide)
+		if (!event.getLevel().isClientSide())
 			return;
 		if (!event.getEntity()
 			.isShiftKeyDown())

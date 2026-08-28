@@ -46,14 +46,14 @@ public class SoulParticle extends CustomRotationParticle {
 		this.quadSize = 0.5f;
 		this.setSize(this.quadSize, this.quadSize);
 
-		this.loopLength = loopFrames + (int) (this.random.nextFloat() * 5f - 4f);
-		this.startTicks = startFrames + (int) (this.random.nextFloat() * 5f - 4f);
-		this.endTicks = endFrames + (int) (this.random.nextFloat() * 5f - 4f);
-		this.numLoops = (int) (1f + this.random.nextFloat() * 2f);
+		this.loopLength = loopFrames + (int) (this.getRandom().nextFloat() * 5f - 4f);
+		this.startTicks = startFrames + (int) (this.getRandom().nextFloat() * 5f - 4f);
+		this.endTicks = endFrames + (int) (this.getRandom().nextFloat() * 5f - 4f);
+		this.numLoops = (int) (1f + this.getRandom().nextFloat() * 2f);
 
 		this.setFrame(0);
 		this.stoppedByCollision = true; // disable movement
-		this.mirror = this.random.nextBoolean();
+		this.mirror = this.getRandom().nextBoolean();
 
 		this.isPerimeter = data instanceof PerimeterData;
 		this.isExpandingPerimeter = data instanceof ExpandingPerimeterData;

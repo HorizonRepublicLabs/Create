@@ -142,7 +142,7 @@ public class EjectorBlock extends HorizontalKineticBlock implements IBE<EjectorB
 
 		ejectorBlockEntity.activate();
 		ejectorBlockEntity.notifyUpdate();
-		if (entityIn.level().isClientSide)
+		if (entityIn.level().isClientSide())
 			ClientNetworkHelper.INSTANCE.sendToServer(new EjectorTriggerPacket(ejectorBlockEntity.getBlockPos()));
 	}
 

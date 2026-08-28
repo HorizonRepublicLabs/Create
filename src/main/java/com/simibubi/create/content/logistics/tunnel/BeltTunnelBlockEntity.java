@@ -177,7 +177,7 @@ public class BeltTunnelBlockEntity extends SmartBlockEntity {
 	}
 
 	public void flap(Direction side, boolean inward) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			if (flaps.containsKey(side))
 				flaps.get(side)
 					.setValue(inward ? -1 : 1);
@@ -196,7 +196,7 @@ public class BeltTunnelBlockEntity extends SmartBlockEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			if (!flapsToSend.isEmpty())
 				sendFlaps();
 			return;

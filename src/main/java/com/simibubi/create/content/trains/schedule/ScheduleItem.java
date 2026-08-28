@@ -58,7 +58,7 @@ public class ScheduleItem extends Item implements MenuProvider, SupportsItemCopy
 		ItemStack heldItem = player.getItemInHand(hand);
 
 		if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
-			if (!world.isClientSide && player instanceof ServerPlayer)
+			if (!world.isClientSide() && player instanceof ServerPlayer)
 				player.openMenu(this, buf -> {
 					ItemStack.STREAM_CODEC.encode(buf, heldItem);
 				});
@@ -79,7 +79,7 @@ public class ScheduleItem extends Item implements MenuProvider, SupportsItemCopy
 		Entity rootVehicle = pInteractionTarget.getRootVehicle();
 		if (!(rootVehicle instanceof CarriageContraptionEntity entity))
 			return pass;
-		if (pPlayer.level().isClientSide)
+		if (pPlayer.level().isClientSide())
 			return InteractionResult.SUCCESS;
 
 		Contraption contraption = entity.getContraption();

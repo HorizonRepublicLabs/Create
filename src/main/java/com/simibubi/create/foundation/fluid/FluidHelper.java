@@ -131,7 +131,7 @@ public class FluidHelper {
 
 		if (capability == null || fluidStack.getAmount() != capability.fill(fluidStack, FluidAction.SIMULATE))
 			return false;
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return true;
 
 		ItemStack copyOfHeld = heldItem.copy();
@@ -170,7 +170,7 @@ public class FluidHelper {
 			if (requiredAmountForItem > fluid.getAmount())
 				continue;
 
-			if (world.isClientSide)
+			if (world.isClientSide())
 				return true;
 
 			if (player.isCreative() || be instanceof CreativeFluidTankBlockEntity)

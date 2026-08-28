@@ -293,7 +293,7 @@ public class ThresholdSwitchBlockEntity extends SmartBlockEntity implements Clea
 	@Override
 	public void lazyTick() {
 		super.lazyTick();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		updateCurrentLevel();
 	}

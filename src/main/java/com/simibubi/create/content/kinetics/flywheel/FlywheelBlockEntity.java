@@ -41,7 +41,7 @@ public class FlywheelBlockEntity extends KineticBlockEntity {
 	public void tick() {
 		super.tick();
 
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			return;
 
 		float targetSpeed = getSpeed();

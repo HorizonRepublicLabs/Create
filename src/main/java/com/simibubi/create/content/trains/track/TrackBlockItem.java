@@ -72,14 +72,14 @@ public class TrackBlockItem extends BlockItem {
 		if (!isFoil(stack)) {
 			if (state.getBlock() instanceof TrackBlock track && track.getTrackAxes(level, pos, state)
 				.size() > 1) {
-				if (!level.isClientSide)
+				if (!level.isClientSide())
 					player.displayClientMessage(CreateLang.translateDirect("track.junction_start")
 						.withStyle(ChatFormatting.RED), true);
 				return InteractionResult.SUCCESS;
 			}
 
 			if (level.getBlockEntity(pos) instanceof TrackBlockEntity tbe && tbe.isTilted()) {
-				if (!level.isClientSide)
+				if (!level.isClientSide())
 					player.displayClientMessage(CreateLang.translateDirect("track.turn_start")
 						.withStyle(ChatFormatting.RED), true);
 				return InteractionResult.SUCCESS;
@@ -110,14 +110,14 @@ public class TrackBlockItem extends BlockItem {
 		boolean hasGirder = AllBlocks.METAL_GIRDER.isIn(offhandItem);
 		PlacementInfo info = TrackPlacement.tryConnect(level, player, pos, state, stack, hasGirder, extend);
 
-		if (info.message != null && !level.isClientSide)
+		if (info.message != null && !level.isClientSide())
 			player.displayClientMessage(CreateLang.translateDirect(info.message), true);
 		if (!info.valid) {
 			AllSoundEvents.DENY.playFrom(player, 1, 1);
 			return InteractionResult.FAIL;
 		}
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		stack = player.getMainHandItem();
@@ -136,7 +136,7 @@ public class TrackBlockItem extends BlockItem {
 	}
 
 	public static InteractionResult clearSelection(ItemStack stack, Level level, Player player) {
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			level.playSound(player, player.blockPosition(), SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 0.75f, 1.0f);
 		} else {
 			player.displayClientMessage(CreateLang.translateDirect("track.selection_cleared"), true);
@@ -170,7 +170,7 @@ public class TrackBlockItem extends BlockItem {
 	@OnlyIn(Dist.CLIENT)
 	public static void sendExtenderPacket(PlayerInteractEvent.RightClickBlock event) {
 		ItemStack stack = event.getItemStack();
-		if (!event.getLevel().isClientSide)
+		if (!event.getLevel().isClientSide())
 			return;
 		if (!AllTags.AllBlockTags.TRACKS.matches(stack))
 			return;

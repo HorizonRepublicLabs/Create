@@ -30,7 +30,7 @@ public class BasinFluidParticle extends FluidStackParticle {
 		xd = 0;
 		yd = 0;
 		zd = 0;
-		yOffset = world.random.nextFloat() * 1 / 32f;
+		yOffset = world.getRandom().nextFloat() * 1 / 32f;
 		y += yOffset;
 		quadSize = 0;
 		lifetime = 60;

@@ -17,7 +17,7 @@ public class ClutchBlock extends GearshiftBlock {
 	@Override
 	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
 			boolean isMoving) {
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return;
 
 		boolean previouslyPowered = state.getValue(POWERED);

@@ -99,7 +99,7 @@ public class FunnelBlockEntity extends SmartBlockEntity implements IHaveHovering
 		super.tick();
 		flap.tickChaser();
 		Mode mode = determineCurrentMode();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		// Redstone resets the extraction cooldown
@@ -317,7 +317,7 @@ public class FunnelBlockEntity extends SmartBlockEntity implements IHaveHovering
 	}
 
 	public void flap(boolean inward) {
-		if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+		if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
 			NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new FunnelFlapPacket(this, inward));
 		} else {
 			flap.setValue(inward ? -1 : 1);

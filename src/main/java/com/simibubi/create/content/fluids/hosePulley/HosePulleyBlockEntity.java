@@ -137,7 +137,7 @@ public class HosePulleyBlockEntity extends KineticBlockEntity {
 	@Override
 	public void lazyTick() {
 		super.lazyTick();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (isMoving)
 			return;
@@ -183,7 +183,7 @@ public class HosePulleyBlockEntity extends KineticBlockEntity {
 
 	public float getMovementSpeed() {
 		float movementSpeed = convertToLinear(getSpeed());
-		if (level.isClientSide)
+		if (level.isClientSide())
 			movementSpeed *= ServerSpeedProvider.get();
 		return movementSpeed;
 	}

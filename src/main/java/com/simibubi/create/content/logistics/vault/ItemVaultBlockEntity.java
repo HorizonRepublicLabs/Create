@@ -243,7 +243,7 @@ public class ItemVaultBlockEntity extends SmartBlockEntity implements IMultiBloc
 
 	@Override
 	public void setController(BlockPos controller) {
-		if (level.isClientSide && !isVirtual())
+		if (level.isClientSide() && !isVirtual())
 			return;
 		if (controller.equals(this.controller))
 			return;

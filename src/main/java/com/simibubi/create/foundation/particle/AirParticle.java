@@ -26,7 +26,7 @@ public class AirParticle extends SimpleAnimatedParticle {
 
 	protected AirParticle(ClientLevel world, AirParticleData data, double x, double y, double z, double dx, double dy,
 						  double dz, SpriteSet sprite) {
-		super(world, x, y, z, sprite, world.random.nextFloat() * .5f);
+		super(world, x, y, z, sprite, world.getRandom().nextFloat() * .5f);
 		quadSize *= 0.75F;
 		hasPhysics = false;
 

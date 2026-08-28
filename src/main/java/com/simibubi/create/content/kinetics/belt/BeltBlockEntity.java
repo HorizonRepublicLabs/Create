@@ -167,7 +167,7 @@ public class BeltBlockEntity extends KineticBlockEntity implements Clearable {
 	}
 
 	protected void initializeItemHandler() {
-		if (level.isClientSide || itemHandler != null)
+		if (level.isClientSide() || itemHandler != null)
 			return;
 		if (beltLength == 0 || controller == null)
 			return;
@@ -426,7 +426,7 @@ public class BeltBlockEntity extends KineticBlockEntity implements Clearable {
 		BlockState blockState = getBlockState();
 		boolean shouldBlockHaveCasing = type != CasingType.NONE;
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			casing = type;
 			level.setBlock(worldPosition, blockState.setValue(BeltBlock.CASING, shouldBlockHaveCasing), 0);
 			requestModelDataUpdate();

@@ -99,7 +99,7 @@ public class HandCrankBlock extends DirectionalKineticBlock
 	@Override
 	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
 		boolean isMoving) {
-		if (worldIn.isClientSide)
+		if (worldIn.isClientSide())
 			return;
 
 		Direction blockFacing = state.getValue(FACING);

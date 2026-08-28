@@ -98,7 +98,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 
 	protected void updateConnectivity() {
 		updateConnectivity = false;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (!isController())
 			return;
@@ -155,7 +155,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 	public void initialize() {
 		super.initialize();
 		sendData();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			invalidateRenderBoundingBox();
 	}
 
@@ -193,7 +193,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 			}
 		}
 
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			setChanged();
 			sendData();
 		}
@@ -207,7 +207,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 	}
 
 	protected void setLuminosity(int luminosity) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (this.luminosity == luminosity)
 			return;
@@ -235,7 +235,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 	}
 
 	public void removeController(boolean keepFluids) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		updateConnectivity = true;
 		if (!keepFluids)
@@ -355,7 +355,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 
 	@Override
 	public void setController(BlockPos controller) {
-		if (level.isClientSide && !isVirtual())
+		if (level.isClientSide() && !isVirtual())
 			return;
 		if (controller.equals(this.controller))
 			return;

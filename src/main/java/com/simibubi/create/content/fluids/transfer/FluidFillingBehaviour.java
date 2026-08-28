@@ -152,7 +152,7 @@ public class FluidFillingBehaviour extends FluidManipulationBehaviour {
 				int j = root.getY();
 				int k = root.getZ();
 				world.playSound(null, i, j, k, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F,
-					2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
+					2.6F + (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.8F);
 			} else if (!canPlaceSources)
 				blockEntity.award(AllAdvancements.HOSE_PULLEY);
 			return true;

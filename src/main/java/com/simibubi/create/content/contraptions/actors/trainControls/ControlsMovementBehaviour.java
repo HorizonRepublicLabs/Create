@@ -44,7 +44,7 @@ public class ControlsMovementBehaviour implements MovementBehaviour {
 	@Override
 	public void tick(MovementContext context) {
 		MovementBehaviour.super.tick(context);
-		if (!context.world.isClientSide)
+		if (!context.world.isClientSide())
 			return;
 		if (!(context.temporaryData instanceof LeverAngles))
 			context.temporaryData = new LeverAngles();

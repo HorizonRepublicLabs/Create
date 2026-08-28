@@ -42,7 +42,7 @@ public class RedstoneLinkBlock extends WrenchableDirectionalBlock implements IBE
 	@Override
 	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
 		boolean isMoving) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		Direction blockFacing = state.getValue(FACING);
@@ -86,7 +86,7 @@ public class RedstoneLinkBlock extends WrenchableDirectionalBlock implements IBE
 	}
 
 	public void updateTransmittedSignal(BlockState state, Level level, BlockPos pos) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (state.getValue(RECEIVER))
 			return;
@@ -163,7 +163,7 @@ public class RedstoneLinkBlock extends WrenchableDirectionalBlock implements IBE
 	}
 
 	public InteractionResult toggleMode(BlockState state, Level level, BlockPos pos) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		return onBlockEntityUse(level, pos, be -> {

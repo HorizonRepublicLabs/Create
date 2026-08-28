@@ -62,13 +62,13 @@ public class BlueprintItem extends Item {
 			EntityType.updateCustomEntityTag(world, player, hangingentity, customData);
 		if (!hangingentity.survives())
 			return InteractionResult.CONSUME;
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			hangingentity.playPlacementSound();
 			world.addFreshEntity(hangingentity);
 		}
 
 		stack.shrink(1);
-		return InteractionResult.sidedSuccess(world.isClientSide);
+		return InteractionResult.sidedSuccess(world.isClientSide());
 	}
 
 	public static void assignCompleteRecipe(Level level, ItemStackHandler inv, Recipe<?> recipe) {

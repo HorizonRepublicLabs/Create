@@ -110,9 +110,9 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 	public void tick() {
 		super.tick();
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			tickAudio();
-		if (!level.isClientSide)
+		if (!level.isClientSide())
 			tickPlayers();
 
 		lid.chase(openTracker.openCount > 0 ? 1 : 0, 0.2f, Chaser.LINEAR);
@@ -222,7 +222,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 	}
 
 	public void unequipTracked() {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		Set<ServerPlayer> affected = new HashSet<>();
@@ -268,18 +268,18 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 		if (lid.settled()) {
 			if (openTracker.openCount > 0 && lid.getChaseTarget() == 0) {
 				level.playLocalSound(vec.x, vec.y, vec.z, SoundEvents.IRON_DOOR_OPEN, SoundSource.BLOCKS, 0.25F,
-					level.random.nextFloat() * 0.1F + 1.2F, true);
+					level.getRandom().nextFloat() * 0.1F + 1.2F, true);
 				level.playLocalSound(vec.x, vec.y, vec.z, SoundEvents.CHEST_OPEN, SoundSource.BLOCKS, 0.1F,
-					level.random.nextFloat() * 0.1F + 1.1F, true);
+					level.getRandom().nextFloat() * 0.1F + 1.1F, true);
 			}
 			if (openTracker.openCount == 0 && lid.getChaseTarget() == 1)
 				level.playLocalSound(vec.x, vec.y, vec.z, SoundEvents.CHEST_CLOSE, SoundSource.BLOCKS, 0.1F,
-					level.random.nextFloat() * 0.1F + 1.1F, true);
+					level.getRandom().nextFloat() * 0.1F + 1.1F, true);
 
 		} else if (openTracker.openCount == 0 && lid.getChaseTarget() == 0 && lid.getValue(0) > 1 / 16f
 			&& lid.getValue(1) < 1 / 16f)
 			level.playLocalSound(vec.x, vec.y, vec.z, SoundEvents.IRON_DOOR_CLOSE, SoundSource.BLOCKS, 0.25F,
-				level.random.nextFloat() * 0.1F + 1.2F, true);
+				level.getRandom().nextFloat() * 0.1F + 1.2F, true);
 	}
 
 	@Override
@@ -318,7 +318,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 	}
 
 	public void connectPlayer(int slot, Player player, int hotbarSlot) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		WeakHashMap<Player, Integer> map = connectedPlayers.computeIfAbsent(slot, WeakHashMap::new);
 		Integer previous = map.get(player);

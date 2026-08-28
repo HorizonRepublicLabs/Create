@@ -61,7 +61,7 @@ public class FlapDisplayBlockEntity extends KineticBlockEntity {
 	}
 
 	public void updateControllerStatus() {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		BlockState blockState = getBlockState();
@@ -108,13 +108,13 @@ public class FlapDisplayBlockEntity extends KineticBlockEntity {
 	public void tick() {
 		super.tick();
 		isRunning = super.isSpeedRequirementFulfilled();
-		if ((!level.isClientSide || !isRunning) && !isVirtual())
+		if ((!level.isClientSide() || !isRunning) && !isVirtual())
 			return;
 		int activeFlaps = 0;
 		boolean instant = Math.abs(getSpeed()) > 128;
 		for (FlapDisplayLayout line : lines)
 			for (FlapDisplaySection section : line.getSections())
-				activeFlaps += section.tick(instant, level.random);
+				activeFlaps += section.tick(instant, level.getRandom());
 		if (activeFlaps == 0)
 			return;
 

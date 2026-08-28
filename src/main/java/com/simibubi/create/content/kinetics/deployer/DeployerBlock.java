@@ -73,7 +73,7 @@ public class DeployerBlock extends DirectionalAxisKineticBlock implements IBE<De
 				.subtract(normal.scale(.5)))
 			.multiply(normal);
 		if (location.length() > .75f) {
-			if (!context.getLevel().isClientSide)
+			if (!context.getLevel().isClientSide())
 				withBlockEntityDo(context.getLevel(), context.getClickedPos(), DeployerBlockEntity::changeMode);
 			return InteractionResult.SUCCESS;
 		}
@@ -117,7 +117,7 @@ public class DeployerBlock extends DirectionalAxisKineticBlock implements IBE<De
 			.multiply(normal);
 		if (location.length() < .75f)
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		withBlockEntityDo(level, pos, be -> {

@@ -29,7 +29,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 
 	@Override
 	public void startMoving(MovementContext context) {
-		if (context.world.isClientSide)
+		if (context.world.isClientSide())
 			return;
 		context.data.putInt("BreakerId", -BlockBreakingKineticBlockEntity.NEXT_BREAKER_ID.incrementAndGet());
 	}
@@ -41,7 +41,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 
 		if (!stateVisited.isRedstoneConductor(world, pos))
 			damageEntities(context, pos, world);
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 
 		if (!canBreak(world, pos, stateVisited))
@@ -69,11 +69,11 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 						&& ((AbstractContraptionEntity) passenger).getContraption() == context.contraption)
 						continue Entities;
 
-			if (damageSource != null && !world.isClientSide) {
+			if (damageSource != null && !world.isClientSide()) {
 				float damage = (float) Mth.clamp(6 * Math.pow(context.relativeMotion.length(), 0.4) + 1, 2, 10);
 				entity.hurt(damageSource, damage);
 			}
-			if (throwsEntities(world) && (world.isClientSide == (entity instanceof Player)))
+			if (throwsEntities(world) && (world.isClientSide() == (entity instanceof Player)))
 				throwEntity(context, entity);
 		}
 	}
@@ -101,7 +101,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 	@Override
 	public void cancelStall(MovementContext context) {
 		CompoundTag data = context.data;
-		if (context.world.isClientSide)
+		if (context.world.isClientSide())
 			return;
 		if (!data.contains("BreakingPos"))
 			return;
@@ -147,7 +147,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 
 	public void tickBreaker(MovementContext context) {
 		CompoundTag data = context.data;
-		if (context.world.isClientSide)
+		if (context.world.isClientSide())
 			return;
 		if (!data.contains("BreakingPos")) {
 			context.stall = false;

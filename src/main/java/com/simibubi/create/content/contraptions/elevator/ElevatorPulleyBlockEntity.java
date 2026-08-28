@@ -37,7 +37,7 @@ public class ElevatorPulleyBlockEntity extends PulleyBlockEntity {
 	}
 
 	private int getTargetOffset() {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return clientOffsetTarget;
 		if (movedContraption == null || !(movedContraption.getContraption()instanceof ElevatorContraption ec))
 			return (int) offset;
@@ -54,7 +54,7 @@ public class ElevatorPulleyBlockEntity extends PulleyBlockEntity {
 		super.attach(contraption);
 		if (offset >= 0)
 			resetContraptionToOffset();
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			ClientNetworkHelper.INSTANCE.sendToServer(new ElevatorFloorListPacket.RequestFloorList(contraption));
 			return;
 		}
@@ -258,7 +258,7 @@ public class ElevatorPulleyBlockEntity extends PulleyBlockEntity {
 		forceMove = true;
 
 		// Collect Construct
-		if (!level.isClientSide && mirrorParent == null) {
+		if (!level.isClientSide() && mirrorParent == null) {
 			needsContraption = false;
 			BlockPos anchor = worldPosition.below(Mth.floor(offset + 1));
 			offset = Mth.floor(offset);

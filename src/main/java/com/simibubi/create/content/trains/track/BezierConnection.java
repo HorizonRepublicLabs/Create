@@ -287,7 +287,7 @@ public class BezierConnection implements Iterable<BezierConnection.Segment> {
 		for (Segment segment : this) {
 			if (segment.index % 2 != 0 || segment.index == getSegmentCount())
 				continue;
-			Vec3 v = VecHelper.offsetRandomly(segment.position, level.random, .125f)
+			Vec3 v = VecHelper.offsetRandomly(segment.position, level.getRandom(), .125f)
 				.add(origin);
 			ItemEntity entity = new ItemEntity(level, v.x, v.y, v.z, getMaterial().asStack());
 			entity.setDefaultPickUpDelay();

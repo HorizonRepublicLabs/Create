@@ -52,7 +52,7 @@ public class AnalogLeverBlockEntity extends SmartBlockEntity implements IHaveGog
 			if (lastChange == 0)
 				updateOutput();
 		}
-		if (level.isClientSide)
+		if (level.isClientSide())
 			clientState.tickChaser();
 	}
 

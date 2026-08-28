@@ -142,7 +142,7 @@ public abstract class PackagePortBlockEntity extends SmartBlockEntity implements
 		ItemStack mainHandItem = player.getMainHandItem();
 		boolean clipboard = AllBlocks.CLIPBOARD.isIn(mainHandItem);
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			if (!clipboard)
 				onOpenedManually();
 			return InteractionResult.SUCCESS;

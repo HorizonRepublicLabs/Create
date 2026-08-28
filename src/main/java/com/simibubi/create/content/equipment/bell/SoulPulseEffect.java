@@ -95,7 +95,7 @@ public class SoulPulseEffect {
 	}
 
 	public void spawnParticles(Level world, BlockPos at) {
-		if (world == null || !world.isClientSide)
+		if (world == null || !world.isClientSide())
 			return;
 
 		Vec3 p = Vec3.atLowerCornerOf(at);

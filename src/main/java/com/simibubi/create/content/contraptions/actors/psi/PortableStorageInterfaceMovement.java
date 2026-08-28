@@ -73,14 +73,14 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 
 	@Override
 	public void tick(MovementContext context) {
-		if (context.world.isClientSide)
+		if (context.world.isClientSide())
 			getAnimation(context).tickChaser();
 
 		boolean onCarriage = context.contraption instanceof CarriageContraption;
 		if (onCarriage && context.motion.length() > 1 / 4f)
 			return;
 
-		if (context.world.isClientSide) {
+		if (context.world.isClientSide()) {
 			BlockPos pos = BlockPos.containing(context.position);
 			if (!findInterface(context, pos))
 				reset(context);
@@ -140,7 +140,7 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 			return false;
 
 		context.data.put(_workingPos_, NbtUtils.writeBlockPos(psi.getBlockPos()));
-		if (!context.world.isClientSide) {
+		if (!context.world.isClientSide()) {
 			Vec3 diff = VecHelper.getCenterOf(psi.getBlockPos())
 				.subtract(context.position);
 			diff = VecHelper.project(diff, Vec3.atLowerCornerOf(currentFacing.getUnitVec3i()));

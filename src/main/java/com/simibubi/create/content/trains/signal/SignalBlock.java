@@ -75,7 +75,7 @@ public class SignalBlock extends Block implements IBE<SignalBlockEntity>, IWrenc
 	@Override
 	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos,
 		boolean pIsMoving) {
-		if (pLevel.isClientSide)
+		if (pLevel.isClientSide())
 			return;
 		boolean powered = pState.getValue(POWERED);
 		Optional<SignalBlockEntity> ste = getBlockEntityOptional(pLevel, pPos);
@@ -113,7 +113,7 @@ public class SignalBlock extends Block implements IBE<SignalBlockEntity>, IWrenc
 	public InteractionResult onWrenched(BlockState state, UseOnContext context) {
 		Level level = context.getLevel();
 		BlockPos pos = context.getClickedPos();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 		withBlockEntityDo(level, pos, ste -> {
 			Player player = context.getPlayer();

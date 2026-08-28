@@ -94,7 +94,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 		validForRender = false;
 		firstPositionUpdate = true;
 		arrivalSoundTicks = Integer.MIN_VALUE;
-		derailParticleOffset = VecHelper.offsetRandomly(Vec3.ZERO, world.random, 1.5f)
+		derailParticleOffset = VecHelper.offsetRandomly(Vec3.ZERO, world.getRandom(), 1.5f)
 			.multiply(1, .25f, 1);
 	}
 
@@ -124,7 +124,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 	public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
 		super.onSyncedDataUpdated(key);
 
-		if (!level().isClientSide)
+		if (!level().isClientSide())
 			return;
 
 		bindCarriage();
@@ -219,7 +219,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 			return;
 
 		if (carriage == null) {
-			if (level().isClientSide)
+			if (level().isClientSide())
 				bindCarriage();
 			else
 				discard();
@@ -237,7 +237,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 
 		CarriageSyncData carriageData = getCarriageData();
 
-		if (!level().isClientSide) {
+		if (!level().isClientSide()) {
 
 			entityData.set(SCHEDULED, carriage.train.runtime.getSchedule() != null);
 
@@ -553,7 +553,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 			return false;
 		if (carriage.train.derailed)
 			return false;
-		if (level().isClientSide)
+		if (level().isClientSide())
 			return true;
 		if (player.isSpectator())
 			return false;

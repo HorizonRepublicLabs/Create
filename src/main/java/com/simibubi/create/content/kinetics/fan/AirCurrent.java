@@ -61,12 +61,12 @@ public class AirCurrent {
 		if (direction == null)
 			rebuild();
 		Level world = source.getAirCurrentWorld();
-		if (world != null && world.isClientSide) {
+		if (world != null && world.isClientSide()) {
 			float offset = pushing ? 0.5f : maxDistance + .5f;
 			Vec3 pos = VecHelper.getCenterOf(source.getAirCurrentPos())
 				.add(Vec3.atLowerCornerOf(direction.getUnitVec3i())
 					.scale(offset));
-			if (world.random.nextFloat() < AllConfigs.client().fanParticleDensity.get())
+			if (world.getRandom().nextFloat() < AllConfigs.client().fanParticleDensity.get())
 				world.addParticle(new AirFlowParticleData(source.getAirCurrentPos()), pos.x, pos.y, pos.z, 0, 0, 0);
 		}
 
@@ -113,7 +113,7 @@ public class AirCurrent {
 				continue;
 
 			if (entity instanceof ItemEntity itemEntity) {
-				if (world != null && world.isClientSide) {
+				if (world != null && world.isClientSide()) {
 					processingType.spawnProcessingParticles(world, entity.position());
 					continue;
 				}
@@ -145,7 +145,7 @@ public class AirCurrent {
 				continue;
 
 			handler.handleProcessingOnAllItems(transported -> {
-				if (world.isClientSide) {
+				if (world.isClientSide()) {
 					processingType.spawnProcessingParticles(world, handler.getWorldPositionOf(transported));
 					return TransportedResult.doNothing();
 				}

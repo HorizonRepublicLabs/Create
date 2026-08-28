@@ -86,7 +86,7 @@ public class FunnelMovementBehaviour implements MovementBehaviour {
 		if (extract.isEmpty())
 			return;
 
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 
 		ItemEntity entity = new ItemEntity(world, entityPos.x, entityPos.y, entityPos.z, extract);

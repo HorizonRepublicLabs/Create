@@ -100,7 +100,7 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 				component = entries.getFirst().text;
 		}
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		String tagUsed = Component.Serializer.toJson(component, level.registryAccess());
@@ -311,7 +311,7 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 	@Override
 	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
 		boolean isMoving) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (!level.getBlockTicks()
 			.willTickThisTick(pos, this))
@@ -339,14 +339,14 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 	}
 
 	public static void updateDisplayedRedstoneValue(NixieTubeBlockEntity be, BlockState state, boolean force) {
-		if (be.getLevel() == null || be.getLevel().isClientSide)
+		if (be.getLevel() == null || be.getLevel().isClientSide())
 			return;
 		if (be.reactsToRedstone() || force)
 			be.updateRedstoneStrength(getPower(be.getLevel(), state, be.getBlockPos()));
 	}
 
 	private void updateDisplayedRedstoneValue(BlockState state, Level level, BlockPos pos) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		withBlockEntityDo(level, pos, be -> NixieTubeBlock.updateDisplayedRedstoneValue(be, state, false));
 	}

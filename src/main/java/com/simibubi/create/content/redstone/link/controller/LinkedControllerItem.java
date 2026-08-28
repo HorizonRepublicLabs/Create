@@ -55,14 +55,14 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 		if (player.mayBuild()) {
 			if (player.isShiftKeyDown()) {
 				if (AllBlocks.LECTERN_CONTROLLER.has(hitState)) {
-					if (!world.isClientSide)
+					if (!world.isClientSide())
 						AllBlocks.LECTERN_CONTROLLER.get().withBlockEntityDo(world, pos, be ->
 							be.swapControllers(stack, player, ctx.getHand(), hitState));
 					return InteractionResult.SUCCESS;
 				}
 			} else {
 				if (AllBlocks.REDSTONE_LINK.has(hitState)) {
-					if (world.isClientSide)
+					if (world.isClientSide())
 						PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> this.toggleBindMode(ctx.getClickedPos()));
 					player.getCooldowns()
 						.addCooldown(this, 2);
@@ -70,7 +70,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 				}
 
 				if (hitState.is(Blocks.LECTERN) && !hitState.getValue(LecternBlock.HAS_BOOK)) {
-					if (!world.isClientSide) {
+					if (!world.isClientSide()) {
 						ItemStack lecternStack = player.isCreative() ? stack.copy() : stack.split(1);
 						AllBlocks.LECTERN_CONTROLLER.get().replaceLectern(hitState, world, pos, lecternStack);
 					}
@@ -90,7 +90,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 		ItemStack heldItem = player.getItemInHand(hand);
 
 		if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
-			if (!world.isClientSide && player instanceof ServerPlayer && player.mayBuild())
+			if (!world.isClientSide() && player instanceof ServerPlayer && player.mayBuild())
 				player.openMenu(this, buf -> {
 					ItemStack.STREAM_CODEC.encode(buf, heldItem);
 				});
@@ -98,7 +98,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 		}
 
 		if (!player.isShiftKeyDown()) {
-			if (world.isClientSide)
+			if (world.isClientSide())
 				PlatformHelper.INSTANCE.executeOnClientOnly(() -> this::toggleActive);
 			player.getCooldowns()
 				.addCooldown(this, 2);

@@ -215,7 +215,7 @@ public class BlockHelper {
 		FluidState fluidState = level.getFluidState(pos);
 		BlockState state = level.getBlockState(pos);
 
-		if (level.random.nextFloat() < effectChance)
+		if (level.getRandom().nextFloat() < effectChance)
 			level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
 		BlockEntity blockEntity = state.hasBlockEntity() ? level.getBlockEntity(pos) : null;
 
@@ -349,7 +349,7 @@ public class BlockHelper {
 			int j = target.getY();
 			int k = target.getZ();
 			world.playSound(null, target, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F,
-				2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
+				2.6F + (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.8F);
 
 			for (int l = 0; l < 8; ++l) {
 				world.addParticle(ParticleTypes.LARGE_SMOKE, i + Math.random(), j + Math.random(), k + Math.random(),

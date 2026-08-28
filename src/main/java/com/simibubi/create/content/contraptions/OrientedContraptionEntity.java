@@ -148,7 +148,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 
 	@Override
 	public void stopRiding() {
-		if (!level().isClientSide && isAlive())
+		if (!level().isClientSide() && isAlive())
 			disassemble();
 		super.stopRiding();
 	}
@@ -298,7 +298,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 			}
 		}
 
-		if (level().isClientSide)
+		if (level().isClientSide())
 			return;
 
 		if (!isStalled()) {

@@ -154,7 +154,7 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 	@SuppressWarnings("unchecked")
 	public T createEdgePoint() {
 		Level level = getWorld();
-		boolean isClientSide = level.isClientSide;
+		boolean isClientSide = level.isClientSide();
 		if (migrationData == null || isClientSide)
 			for (TrackGraph trackGraph : Create.RAILWAYS.sided(level).trackNetworks.values()) {
 				T point = trackGraph.getPoint(edgePointType, id);
@@ -244,7 +244,7 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 	@Override
 	public void destroy() {
 		super.destroy();
-		if (edgePoint != null && !getWorld().isClientSide)
+		if (edgePoint != null && !getWorld().isClientSide())
 			edgePoint.blockEntityRemoved(getPos(), getTargetDirection() == AxisDirection.POSITIVE);
 	}
 

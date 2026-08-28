@@ -64,7 +64,7 @@ public class ZapperRenderHandler extends ShootableGadgetRenderHandler {
 	}
 
 	public void addBeam(LaserBeam beam) {
-		RandomSource random = Minecraft.getInstance().level.random;
+		RandomSource random = Minecraft.getInstance().level.getRandom();
 		double x = beam.end.x;
 		double y = beam.end.y;
 		double z = beam.end.z;

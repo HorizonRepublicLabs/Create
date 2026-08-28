@@ -126,7 +126,7 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 			return;
 		}
 
-		boolean onClient = level.isClientSide && !isVirtual();
+		boolean onClient = level.isClientSide() && !isVirtual();
 
 		if (processingTicks > 0) {
 			heldItem.prevBeltPosition = .5f;
@@ -232,7 +232,7 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 	}
 
 	protected boolean continueProcessing() {
-		if (level.isClientSide && !isVirtual())
+		if (level.isClientSide() && !isVirtual())
 			return true;
 		if (processingTicks < 5)
 			return true;

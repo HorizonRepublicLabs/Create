@@ -71,7 +71,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	public PackageEntity(EntityType<?> entityTypeIn, Level worldIn) {
 		super((EntityType<? extends LivingEntity>) entityTypeIn, worldIn);
 		box = ItemStack.EMPTY;
-		setYRot(this.random.nextFloat() * 360.0F);
+		setYRot(this.getRandom().nextFloat() * 360.0F);
 		setYHeadRot(getYRot());
 		yRotO = getYRot();
 		insertionDelay = 30;
@@ -94,7 +94,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 			.scale(1.5f));
 		packageEntity.originalEntity = originalEntity;
 
-		if (world != null && !world.isClientSide)
+		if (world != null && !world.isClientSide())
 			if (ChuteBlock.isChute(world.getBlockState(BlockPos.containing(position.x, position.y + .5f, position.z))))
 				packageEntity.setYRot(((int) packageEntity.getYRot()) / 90 * 90);
 
@@ -131,7 +131,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	public void travel(Vec3 p_213352_1_) {
 		super.travel(p_213352_1_);
 
-		if (!level().isClientSide)
+		if (!level().isClientSide())
 			return;
 		if (getDeltaMovement().length() < 1 / 128f)
 			return;
@@ -253,11 +253,11 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 		if (!pPlayer.getItemInHand(pHand)
 			.isEmpty())
 			return super.interact(pPlayer, pHand);
-		if (pPlayer.level().isClientSide)
+		if (pPlayer.level().isClientSide())
 			return InteractionResult.SUCCESS;
 		pPlayer.setItemInHand(pHand, box);
 		level().playSound(null, blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-			.75f + level().random.nextFloat());
+			.75f + level().getRandom().nextFloat());
 		remove(RemovalReason.DISCARDED);
 		return InteractionResult.SUCCESS;
 	}
@@ -304,7 +304,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 		if (source.getEntity() instanceof Player player && !CommonHooks.onPlayerAttackTarget(player, this))
 			return false;
 
-		if (level().isClientSide || !this.isAlive())
+		if (level().isClientSide() || !this.isAlive())
 			return false;
 
 		if (source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {

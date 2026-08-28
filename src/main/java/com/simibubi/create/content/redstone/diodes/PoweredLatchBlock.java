@@ -100,7 +100,7 @@ public class PoweredLatchBlock extends ToggleLatchBlock {
 	protected InteractionResult activated(Level worldIn, BlockPos pos, BlockState state) {
 		if (state.getValue(POWERED) != state.getValue(POWERED_SIDE))
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (!worldIn.isClientSide) {
+		if (!worldIn.isClientSide()) {
 			float f = !state.getValue(POWERING) ? 0.6F : 0.5F;
 			worldIn.playSound(null, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, f);
 			worldIn.setBlock(pos, state.cycle(POWERING), Block.UPDATE_CLIENTS);

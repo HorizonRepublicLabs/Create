@@ -39,7 +39,7 @@ public class SharedDepotBlockMethods {
 											  InteractionHand hand, BlockHitResult ray) {
 		if (ray.getDirection() != Direction.UP)
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		DepotBehaviour behaviour = get(level, pos);
@@ -82,7 +82,7 @@ public class SharedDepotBlockMethods {
 		ItemStack asItem = ItemHelper.fromItemEntity(entityIn);
 		if (asItem.isEmpty())
 			return;
-		if (entityIn.level().isClientSide)
+		if (entityIn.level().isClientSide())
 			return;
 
 		BlockPos pos = entityIn.blockPosition();

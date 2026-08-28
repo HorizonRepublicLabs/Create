@@ -147,7 +147,7 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 		}
 
 		if (stack.getItem() == Items.GLOW_INK_SAC) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				level.playSound(null, pos, SoundEvents.INK_SAC_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
 				flapBE.setGlowing(lineIndex);
 			}
@@ -162,7 +162,7 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		if (dye == null && !flapBE.isSpeedRequirementFulfilled())
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		Component customName = stack.get(DataComponents.CUSTOM_NAME);

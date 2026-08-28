@@ -76,7 +76,7 @@ public class BeltSlicer {
 
 		// Shorten from End
 		if (hoveringEnd(state, hit)) {
-			if (world.isClientSide)
+			if (world.isClientSide())
 				return InteractionResult.SUCCESS;
 
 			for (BlockPos blockPos : beltChain) {
@@ -176,7 +176,7 @@ public class BeltSlicer {
 					int count = itemstack.getCount();
 
 					if (AllItems.BELT_CONNECTOR.isIn(itemstack) && !beltFound) {
-						if (!world.isClientSide)
+						if (!world.isClientSide())
 							itemstack.shrink(1);
 						beltFound = true;
 						continue;
@@ -184,7 +184,7 @@ public class BeltSlicer {
 
 					if (AllBlocks.SHAFT.isIn(itemstack)) {
 						int taken = Math.min(count, requiredShafts - amountRetrieved);
-						if (!world.isClientSide)
+						if (!world.isClientSide())
 							if (taken == count)
 								player.getInventory().setItem(i, ItemStack.EMPTY);
 							else
@@ -193,7 +193,7 @@ public class BeltSlicer {
 					}
 				}
 
-				if (!world.isClientSide){
+				if (!world.isClientSide()){
 					player.getInventory().placeItemBackInInventory(AllBlocks.SHAFT.asStack(amountRetrieved));
 					if (beltFound) player.getInventory().placeItemBackInInventory(AllItems.BELT_CONNECTOR.asStack());
 				}
@@ -201,7 +201,7 @@ public class BeltSlicer {
 			}
 		}
 
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			for (BlockPos blockPos : beltChain) {
 				BeltBlockEntity belt = BeltHelper.getSegmentBE(world, blockPos);
 				if (belt == null)
@@ -280,7 +280,7 @@ public class BeltSlicer {
 
 			mergedBeltLength = mergedController.beltLength;
 
-			if (!world.isClientSide) {
+			if (!world.isClientSide()) {
 				boolean flipBelt = facing != nextState.getValue(BeltBlock.HORIZONTAL_FACING);
 				Optional<DyeColor> color = controllerBE.color;
 				for (BlockPos blockPos : BeltBlock.getBeltChain(world, mergedController.getBlockPos())) {
@@ -309,7 +309,7 @@ public class BeltSlicer {
 			}
 		}
 
-		if (!world.isClientSide) {
+		if (!world.isClientSide()) {
 			for (BlockPos blockPos : beltChain) {
 				BeltBlockEntity belt = BeltHelper.getSegmentBE(world, blockPos);
 				if (belt == null)

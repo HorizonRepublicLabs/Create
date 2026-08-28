@@ -204,7 +204,7 @@ public class SteamEngineBlock extends FaceAttachedHorizontalDirectionalBlock
 			return PlacementOffset.success(shaftPos,
 				s -> BlockHelper
 					.copyProperties(s,
-						(world.isClientSide ? AllBlocks.SHAFT : AllBlocks.POWERED_SHAFT).getDefaultState())
+						(world.isClientSide() ? AllBlocks.SHAFT : AllBlocks.POWERED_SHAFT).getDefaultState())
 					.setValue(PoweredShaftBlock.AXIS, axis));
 		}
 	}

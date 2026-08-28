@@ -184,13 +184,13 @@ public class SuperGlueEntity extends Entity implements IEntityWithComplexSpawn, 
 
 	@Override
 	public void move(MoverType typeIn, Vec3 pos) {
-		if (!level().isClientSide && isAlive() && pos.lengthSqr() > 0.0D)
+		if (!level().isClientSide() && isAlive() && pos.lengthSqr() > 0.0D)
 			discard();
 	}
 
 	@Override
 	public void push(double x, double y, double z) {
-		if (!level().isClientSide && isAlive() && x * x + y * y + z * z > 0.0D)
+		if (!level().isClientSide() && isAlive() && x * x + y * y + z * z > 0.0D)
 			discard();
 	}
 

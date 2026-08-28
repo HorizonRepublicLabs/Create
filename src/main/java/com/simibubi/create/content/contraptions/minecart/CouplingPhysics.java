@@ -35,7 +35,7 @@ public class CouplingPhysics {
 		float couplingLength = c.getFirst()
 			.getCouplingLength(true);
 		softCollisionStep(world, carts, couplingLength);
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		hardCollisionStep(world, carts, couplingLength);
 	}

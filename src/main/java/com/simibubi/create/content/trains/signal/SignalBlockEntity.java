@@ -114,7 +114,7 @@ public class SignalBlockEntity extends SmartBlockEntity implements Transformable
 	@Override
 	public void tick() {
 		super.tick();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 
 		SignalBoundary boundary = getSignal();

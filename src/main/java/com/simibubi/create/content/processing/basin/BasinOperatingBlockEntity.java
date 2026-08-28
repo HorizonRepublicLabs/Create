@@ -73,7 +73,7 @@ public abstract class BasinOperatingBlockEntity extends KineticBlockEntity {
 			return true;
 		if (isRunning())
 			return true;
-		if (level == null || level.isClientSide)
+		if (level == null || level.isClientSide())
 			return true;
 		Optional<BasinBlockEntity> basin = getBasin();
 		if (!basin.filter(BasinBlockEntity::canContinueProcessing)

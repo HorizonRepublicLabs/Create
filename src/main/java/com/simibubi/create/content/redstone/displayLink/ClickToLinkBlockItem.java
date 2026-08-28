@@ -71,7 +71,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 			return InteractionResult.FAIL;
 
 		if (player.isShiftKeyDown() && stack.has(AllDataComponents.CLICK_TO_LINK_DATA)) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			player.displayClientMessage(CreateLang.translateDirect(msgKey + ".clear"), true);
 			stack.remove(AllDataComponents.CLICK_TO_LINK_DATA);
@@ -86,7 +86,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 			if (!isValidTarget(level, pos)) {
 				if (placeWhenInvalid()) {
 					InteractionResult useOn = super.useOn(pContext);
-					if (level.isClientSide || useOn == InteractionResult.FAIL)
+					if (level.isClientSide() || useOn == InteractionResult.FAIL)
 						return useOn;
 
 					ItemStack itemInHand = player.getItemInHand(pContext.getHand());
@@ -97,13 +97,13 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 					return useOn;
 				}
 
-				if (level.isClientSide)
+				if (level.isClientSide())
 					AllSoundEvents.DENY.playFrom(player);
 				player.displayClientMessage(CreateLang.translateDirect(msgKey + ".invalid"), true);
 				return InteractionResult.FAIL;
 			}
 
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 
 			player.displayClientMessage(CreateLang.translateDirect(msgKey + ".set"), true);
@@ -130,7 +130,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 		stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(beTag));
 
 		InteractionResult useOn = super.useOn(pContext);
-		if (level.isClientSide || useOn == InteractionResult.FAIL)
+		if (level.isClientSide() || useOn == InteractionResult.FAIL)
 			return useOn;
 
 		ItemStack itemInHand = player.getItemInHand(pContext.getHand());

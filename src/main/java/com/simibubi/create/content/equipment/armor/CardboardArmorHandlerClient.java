@@ -90,7 +90,7 @@ public class CardboardArmorHandlerClient {
 
 	private static Integer getCurrentBoxIndex(Player player) throws ExecutionException {
 		return BOXES_PLAYERS_ARE_HIDING_AS.get(player.getUUID(),
-			() -> player.level().random.nextInt(AllPartialModels.PACKAGES_TO_HIDE_AS.size()));
+			() -> player.level().getRandom().nextInt(AllPartialModels.PACKAGES_TO_HIDE_AS.size()));
 	}
 
 }

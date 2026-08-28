@@ -102,7 +102,7 @@ public class ArmBlock extends KineticBlock implements IBE<ArmBlockEntity>, ICogW
 			if (be.heldItem.isEmpty())
 				return;
 			success.setTrue();
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return;
 			player.getInventory().placeItemBackInInventory(be.heldItem);
 			be.heldItem = ItemStack.EMPTY;

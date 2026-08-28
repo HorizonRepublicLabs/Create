@@ -209,7 +209,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		if (this.isOnFire() && !targetIsEnderman)
 			target.igniteForSeconds(5);
 
-		boolean onServer = !level().isClientSide;
+		boolean onServer = !level().isClientSide();
 		DamageSource damageSource = causePotatoDamage();
 		if (onServer && !target.hurt(damageSource, damage)) {
 			target.setRemainingFireTicks(k);
@@ -286,7 +286,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 	protected void onHitBlock(BlockHitResult ray) {
 		Vec3 hit = ray.getLocation();
 		pop(hit);
-		if (!type.onBlockHit(level(), stack, ray) && !level().isClientSide) {
+		if (!type.onBlockHit(level(), stack, ray) && !level().isClientSide()) {
 			if (random.nextDouble() <= recoveryChance) {
 				recoverItem();
 			} else {
@@ -312,12 +312,12 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 	private void pop(Vec3 hit) {
 		if (!stack.isEmpty()) {
 			for (int i = 0; i < 7; i++) {
-				Vec3 m = VecHelper.offsetRandomly(Vec3.ZERO, this.random, .25f);
+				Vec3 m = VecHelper.offsetRandomly(Vec3.ZERO, this.getRandom(), .25f);
 				level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), hit.x, hit.y, hit.z, m.x, m.y,
 					m.z);
 			}
 		}
-		if (!level().isClientSide)
+		if (!level().isClientSide())
 			playHitSound(level(), position());
 	}
 

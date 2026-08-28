@@ -92,7 +92,7 @@ public class SeatEntity extends Entity implements IEntityWithComplexSpawn {
 
 	@Override
 	public void tick() {
-		if (level().isClientSide)
+		if (level().isClientSide())
 			return;
 		boolean blockPresent = level().getBlockState(blockPosition())
 			.getBlock() instanceof SeatBlock;

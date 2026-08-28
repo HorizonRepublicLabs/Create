@@ -125,7 +125,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 		BlockState stateVisited = world.getBlockState(pos);
 		if (!stateVisited.isRedstoneConductor(world, pos))
 			damageEntities(context, pos, world);
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 
 		List<BlockPos> positionsToBreak = getPositionsToBreak(context, pos);
@@ -177,7 +177,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 			|| blockState.is(BlockTags.NEEDS_DIAMOND_TOOL);
 
 		BlockHelper.destroyBlock(context.world, breakingPos, 1f, stack -> {
-			if (noHarvest || context.world.random.nextBoolean())
+			if (noHarvest || context.world.getRandom().nextBoolean())
 				return;
 			this.collectOrDropItem(context, stack);
 		});

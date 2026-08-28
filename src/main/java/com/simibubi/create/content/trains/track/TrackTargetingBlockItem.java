@@ -75,7 +75,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 			return InteractionResult.FAIL;
 
 		if (player.isShiftKeyDown() && stack.has(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS)) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			player.displayClientMessage(CreateLang.translateDirect("track_target.clear"), true);
 			stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS);
@@ -86,7 +86,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 		}
 
 		if (state.getBlock() instanceof ITrackBlock track) {
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 
 			Vec3 lookAngle = player.getLookAngle();
@@ -154,7 +154,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 		InteractionResult useOn = super.useOn(pContext);
 		stack.remove(DataComponents.BLOCK_ENTITY_DATA);
 
-		if (level.isClientSide || useOn == InteractionResult.FAIL)
+		if (level.isClientSide() || useOn == InteractionResult.FAIL)
 			return useOn;
 
 		ItemStack itemInHand = player.getItemInHand(pContext.getHand());

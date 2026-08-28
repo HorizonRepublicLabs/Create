@@ -57,7 +57,7 @@ public class CurvedTrackInteraction {
 				mc.getSoundManager()
 					.play(new SimpleSoundInstance(soundtype.getHitSound(), SoundSource.BLOCKS,
 						(soundtype.getVolume() + 1.0F) / 8.0F, soundtype.getPitch() * 0.5F,
-						level.random, BlockPos.containing(result.vec())));
+						level.getRandom(), BlockPos.containing(result.vec())));
 			}
 
 			boolean creative = player.getAbilities().instabuild;
@@ -66,7 +66,7 @@ public class CurvedTrackInteraction {
 			breakTimeout = 2;
 			breakProgress += creative ? 0.125f : blockState.getDestroyProgress(player, level, breakPos) / 8f;
 
-			Vec3 vec = VecHelper.offsetRandomly(result.vec(), level.random, 0.25f);
+			Vec3 vec = VecHelper.offsetRandomly(result.vec(), level.getRandom(), 0.25f);
 			level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), vec.x, vec.y, vec.z, 0, 0, 0);
 
 			int progress = (int) (breakProgress * 10.0F) - 1;

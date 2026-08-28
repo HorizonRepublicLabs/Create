@@ -89,7 +89,7 @@ public class TableClothBlock extends Block implements IHaveBigOutline, IWrenchab
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (hitResult.getDirection() == Direction.DOWN)
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 
 		ItemStack heldItem = player.getItemInHand(hand);

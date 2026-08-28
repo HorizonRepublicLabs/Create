@@ -214,7 +214,7 @@ public class TrackBlock extends Block
 	public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
 		if (pOldState.getBlock() == this && pState.setValue(HAS_BE, true) == pOldState.setValue(HAS_BE, true))
 			return;
-		if (pLevel.isClientSide)
+		if (pLevel.isClientSide())
 			return;
 		LevelTickAccess<Block> blockTicks = pLevel.getBlockTicks();
 		if (!blockTicks.hasScheduledTick(pPos, this))
@@ -421,7 +421,7 @@ public class TrackBlock extends Block
 		boolean removeBE = false;
 		if (pState.getValue(HAS_BE) && (!pState.is(pNewState.getBlock()) || !pNewState.getValue(HAS_BE))) {
 			BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-			if (blockEntity instanceof TrackBlockEntity tbe && !pLevel.isClientSide) {
+			if (blockEntity instanceof TrackBlockEntity tbe && !pLevel.isClientSide()) {
 				tbe.cancelDrops |= pNewState.getBlock() == this;
 				tbe.removeInboundConnections(true);
 			}
@@ -432,13 +432,13 @@ public class TrackBlock extends Block
 			TrackPropagator.onRailRemoved(pLevel, pPos, pState);
 		if (removeBE)
 			pLevel.removeBlockEntity(pPos);
-		if (!pLevel.isClientSide)
+		if (!pLevel.isClientSide())
 			updateGirders(pState, pLevel, pPos, pLevel.getBlockTicks());
 	}
 
 	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 		for (Entry<BlockPos, BoundingBox> entry : StationBlockEntity.assemblyAreas.get(level)
 			.entrySet()) {
@@ -585,7 +585,7 @@ public class TrackBlock extends Block
 	public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
 		Player player = context.getPlayer();
 		Level level = context.getLevel();
-		if (!level.isClientSide && !player.isCreative() && state.getValue(HAS_BE)) {
+		if (!level.isClientSide() && !player.isCreative() && state.getValue(HAS_BE)) {
 			BlockEntity blockEntity = level.getBlockEntity(context.getClickedPos());
 			if (blockEntity instanceof TrackBlockEntity trackBE) {
 				trackBE.cancelDrops = true;

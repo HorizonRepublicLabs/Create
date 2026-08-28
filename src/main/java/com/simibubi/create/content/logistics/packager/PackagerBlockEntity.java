@@ -181,7 +181,7 @@ public class PackagerBlockEntity extends SmartBlockEntity implements Clearable {
 			return;
 		}
 
-		if (level.isClientSide) {
+		if (level.isClientSide()) {
 			if (animationTicks == CYCLE - (animationInward ? 5 : 1))
 				AllSoundEvents.PACKAGER.playAt(level, worldPosition, 1, 1, true);
 			if (animationTicks == (animationInward ? 1 : 5))

@@ -47,7 +47,7 @@ public class BracketedBlockEntityBehaviour extends BlockEntityBehaviour {
 		reRender = true;
 		blockEntity.notifyUpdate();
 		Level world = getWorld();
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		blockEntity.getBlockState()
 			.updateNeighbourShapes(world, getPos(), 3);
@@ -68,7 +68,7 @@ public class BracketedBlockEntityBehaviour extends BlockEntityBehaviour {
 
 		BlockState removed = this.bracket;
 		Level world = getWorld();
-		if (!world.isClientSide)
+		if (!world.isClientSide())
 			world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, getPos(), Block.getId(bracket));
 		this.bracket = null;
 		reRender = true;
@@ -77,7 +77,7 @@ public class BracketedBlockEntityBehaviour extends BlockEntityBehaviour {
 			return removed;
 		}
 		blockEntity.notifyUpdate();
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return removed;
 		blockEntity.getBlockState()
 			.updateNeighbourShapes(world, getPos(), 3);

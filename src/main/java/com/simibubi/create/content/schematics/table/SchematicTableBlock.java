@@ -64,7 +64,7 @@ public class SchematicTableBlock extends HorizontalDirectionalBlock implements I
 
 	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return InteractionResult.SUCCESS;
 		withBlockEntityDo(level, pos,
 				be -> player.openMenu(be, be::sendToMenu));

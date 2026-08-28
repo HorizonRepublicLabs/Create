@@ -52,13 +52,13 @@ public class LecternControllerBlock extends LecternBlock
 	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		if (!player.isShiftKeyDown() && LecternControllerBlockEntity.playerInRange(player, level, pos)) {
-			if (!level.isClientSide)
+			if (!level.isClientSide())
 				withBlockEntityDo(level, pos, be -> be.tryStartUsing(player));
 			return InteractionResult.SUCCESS;
 		}
 
 		if (player.isShiftKeyDown()) {
-			if (!level.isClientSide)
+			if (!level.isClientSide())
 				replaceWithLectern(state, level, pos);
 			return InteractionResult.SUCCESS;
 		}
@@ -69,7 +69,7 @@ public class LecternControllerBlock extends LecternBlock
 	@Override
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
-			if (!world.isClientSide)
+			if (!world.isClientSide())
 				withBlockEntityDo(world, pos, be -> be.dropController(state));
 
 			super.onRemove(state, world, pos, newState, isMoving);

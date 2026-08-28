@@ -85,7 +85,7 @@ public class SailBlock extends WrenchableDirectionalBlock {
 		}
 
 		if (stack.getItem() instanceof ShearsItem) {
-			if (!level.isClientSide)
+			if (!level.isClientSide())
 				level.playSound(null, pos, SoundEvents.SHEEP_SHEAR, SoundSource.BLOCKS, 1.0f, 1.0f);
 			applyDye(state, level, pos, hitResult.getLocation(), null);
 			return InteractionResult.SUCCESS;
@@ -96,8 +96,8 @@ public class SailBlock extends WrenchableDirectionalBlock {
 
 		DyeColor color = DyeColor.getColor(stack);
 		if (color != null) {
-			if (!level.isClientSide)
-				level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0f, 1.1f - level.random.nextFloat() * .2f);
+			if (!level.isClientSide())
+				level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0f, 1.1f - level.getRandom().nextFloat() * .2f);
 			applyDye(state, level, pos, hitResult.getLocation(), color);
 			return InteractionResult.SUCCESS;
 		}

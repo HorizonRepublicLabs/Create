@@ -53,8 +53,8 @@ public class FluidStackParticle extends TextureSheetParticle {
 		this.zd = vz;
 
 		this.quadSize /= 2.0F;
-		this.uo = this.random.nextFloat() * 3.0F;
-		this.vo = this.random.nextFloat() * 3.0F;
+		this.uo = this.getRandom().nextFloat() * 3.0F;
+		this.vo = this.getRandom().nextFloat() * 3.0F;
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class FluidStackParticle extends TextureSheetParticle {
 			remove();
 		if (!removed)
 			return;
-		if (!onGround && level.random.nextFloat() < 1 / 8f)
+		if (!onGround && level.getRandom().nextFloat() < 1 / 8f)
 			return;
 
 		Color color = new Color(clientFluid.getTintColor(fluid));

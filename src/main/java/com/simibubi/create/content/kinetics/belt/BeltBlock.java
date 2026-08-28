@@ -199,7 +199,7 @@ public class BeltBlock extends HorizontalKineticBlock
 			return;
 		ItemStack asItem = ItemHelper.fromItemEntity(entityIn);
 		if (!asItem.isEmpty()) {
-			if (worldIn.isClientSide)
+			if (worldIn.isClientSide())
 				return;
 			if (entityIn.getDeltaMovement().y > 0)
 				return;
@@ -285,7 +285,7 @@ public class BeltBlock extends HorizontalKineticBlock
 			BeltBlockEntity controllerBelt = belt.getControllerBE();
 			if (controllerBelt == null)
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			MutableBoolean success = new MutableBoolean(false);
 			controllerBelt.getInventory()
@@ -297,13 +297,13 @@ public class BeltBlock extends HorizontalKineticBlock
 				});
 			if (success.isTrue())
 				level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-					1f + level.random.nextFloat());
+					1f + level.getRandom().nextFloat());
 		}
 
 		if (isShaft) {
 			if (state.getValue(PART) != BeltPart.MIDDLE)
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
-			if (level.isClientSide)
+			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 			if (!player.isCreative())
 				stack.shrink(1);
@@ -345,14 +345,14 @@ public class BeltBlock extends HorizontalKineticBlock
 		BlockPos pos = context.getClickedPos();
 
 		if (state.getValue(CASING)) {
-			if (world.isClientSide)
+			if (world.isClientSide())
 				return InteractionResult.SUCCESS;
 			withBlockEntityDo(world, pos, be -> be.setCasingType(CasingType.NONE));
 			return InteractionResult.SUCCESS;
 		}
 
 		if (state.getValue(PART) == BeltPart.PULLEY) {
-			if (world.isClientSide)
+			if (world.isClientSide())
 				return InteractionResult.SUCCESS;
 			KineticBlockEntity.switchToBlockState(world, pos, state.setValue(PART, BeltPart.MIDDLE));
 			if (player != null && !player.isCreative())
@@ -411,7 +411,7 @@ public class BeltBlock extends HorizontalKineticBlock
 	}
 
 	public static void initBelt(Level world, BlockPos pos) {
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		if (world instanceof ServerLevel && ((ServerLevel) world).getChunkSource()
 			.getGenerator() instanceof DebugLevelSource)
@@ -473,7 +473,7 @@ public class BeltBlock extends HorizontalKineticBlock
 	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		super.onRemove(state, world, pos, newState, isMoving);
 
-		if (world.isClientSide)
+		if (world.isClientSide())
 			return;
 		if (state.getBlock() == newState.getBlock())
 			return;

@@ -52,7 +52,7 @@ public class ChainGearshiftBlockEntity extends KineticBlockEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (signalChanged) {
 			signalChanged = false;

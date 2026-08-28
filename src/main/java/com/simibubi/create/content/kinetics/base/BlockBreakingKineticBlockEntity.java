@@ -78,7 +78,7 @@ public abstract class BlockBreakingKineticBlockEntity extends KineticBlockEntity
 	@Override
 	public void invalidate() {
 		super.invalidate();
-		if (!level.isClientSide && destroyProgress != 0)
+		if (!level.isClientSide() && destroyProgress != 0)
 			level.destroyBlockProgress(breakerId, breakingPos, -1);
 	}
 
@@ -86,7 +86,7 @@ public abstract class BlockBreakingKineticBlockEntity extends KineticBlockEntity
 	public void tick() {
 		super.tick();
 
-		if (level.isClientSide)
+		if (level.isClientSide())
 			return;
 		if (!shouldRun())
 			return;
@@ -137,7 +137,7 @@ public abstract class BlockBreakingKineticBlockEntity extends KineticBlockEntity
 	}
 
 	public void onBlockBroken(BlockState stateToBreak) {
-		Vec3 vec = VecHelper.offsetRandomly(VecHelper.getCenterOf(breakingPos), level.random, .125f);
+		Vec3 vec = VecHelper.offsetRandomly(VecHelper.getCenterOf(breakingPos), level.getRandom(), .125f);
 		BlockHelper.destroyBlock(level, breakingPos, 1f, (stack) -> {
 			if (stack.isEmpty())
 				return;

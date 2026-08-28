@@ -257,7 +257,7 @@ public class BlueprintEntity extends HangingEntity
 
 	@Override
 	public boolean skipAttackInteraction(Entity source) {
-		if (!(source instanceof Player player) || level().isClientSide)
+		if (!(source instanceof Player player) || level().isClientSide())
 			return super.skipAttackInteraction(source);
 
 		double attrib = player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE) + (player.isCreative() ? 0 : -0.5F);
@@ -349,7 +349,7 @@ public class BlueprintEntity extends HangingEntity
 		BlueprintSection section = getSectionAt(vec);
 		ItemStackHandler items = section.getItems();
 
-		if (!holdingWrench && !level().isClientSide && !items.getStackInSlot(9)
+		if (!holdingWrench && !level().isClientSide() && !items.getStackInSlot(9)
 			.isEmpty()) {
 
 			IItemHandlerModifiable playerInv = new InvWrapper(player.getInventory());
@@ -433,7 +433,7 @@ public class BlueprintEntity extends HangingEntity
 		}
 
 		int i = section.index;
-		if (!level().isClientSide && player instanceof ServerPlayer) {
+		if (!level().isClientSide() && player instanceof ServerPlayer) {
 			player.openMenu(section, buf -> {
 				buf.writeVarInt(getId());
 				buf.writeVarInt(i);
@@ -529,7 +529,7 @@ public class BlueprintEntity extends HangingEntity
 			list.put(index + "", inventory.serializeNBT(registryAccess()));
 			list.putBoolean("InferredIcon", inferredIcon);
 			cachedDisplayItems = null;
-			if (!level().isClientSide)
+			if (!level().isClientSide())
 				syncPersistentDataWithTracking(BlueprintEntity.this);
 		}
 

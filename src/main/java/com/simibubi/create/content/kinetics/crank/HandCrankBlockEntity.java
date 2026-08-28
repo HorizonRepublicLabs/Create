@@ -44,7 +44,7 @@ public class HandCrankBlockEntity extends GeneratingKineticBlockEntity {
 
 		inUse = 10;
 		this.backwards = back;
-		if (update && !level.isClientSide)
+		if (update && !level.isClientSide())
 			updateGeneratedRotation();
 	}
 
@@ -93,7 +93,7 @@ public class HandCrankBlockEntity extends GeneratingKineticBlockEntity {
 		if (inUse > 0) {
 			inUse--;
 
-			if (inUse == 0 && !level.isClientSide) {
+			if (inUse == 0 && !level.isClientSide()) {
 				sequenceContext = null;
 				updateGeneratedRotation();
 			}

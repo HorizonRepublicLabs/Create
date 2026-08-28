@@ -76,7 +76,7 @@ public abstract class FilterItem extends Item implements MenuProvider, SupportsI
 		ItemStack heldItem = player.getItemInHand(hand);
 
 		if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
-			if (!world.isClientSide && player instanceof ServerPlayer)
+			if (!world.isClientSide() && player instanceof ServerPlayer)
 				player.openMenu(this, buf -> {
 					ItemStack.STREAM_CODEC.encode(buf, heldItem);
 				});

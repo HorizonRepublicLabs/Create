@@ -83,7 +83,7 @@ public class ValveHandleBlock extends HandCrankBlock {
 		DyeColor color = DyeColor.getColor(heldItem);
 
 		if (color != null && color != this.color) {
-			if (!level.isClientSide)
+			if (!level.isClientSide())
 				level.setBlockAndUpdate(pos,
 					BlockHelper.copyProperties(blockState, AllBlocks.DYED_VALVE_HANDLES.get(color)
 						.getDefaultState()));

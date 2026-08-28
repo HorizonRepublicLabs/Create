@@ -48,8 +48,8 @@ public class TimeOfDayDisplaySource extends SingleLineDisplaySource {
 		}
 
 		if (!isNatural) {
-			hours = sLevel.random.nextInt(70) + 24;
-			minutes = sLevel.random.nextInt(40) + 60;
+			hours = sLevel.getRandom().nextInt(70) + 24;
+			minutes = sLevel.getRandom().nextInt(40) + 60;
 		}
 
 		MutableComponent component = Component.literal(

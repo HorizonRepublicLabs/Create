@@ -95,7 +95,7 @@ public interface MovementBehaviour {
 
 		ItemEntity itemEntity = new ItemEntity(context.world, vec.x, vec.y, vec.z, remainder);
 		itemEntity.setDeltaMovement(context.motion.add(0, 0.5f, 0)
-			.scale(context.world.random.nextFloat() * .3f));
+			.scale(context.world.getRandom().nextFloat() * .3f));
 		context.world.addFreshEntity(itemEntity);
 	}
 
