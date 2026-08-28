@@ -1,10 +1,13 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import java.util.UUID;
 
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.CreateClient;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 
 import io.netty.buffer.ByteBuf;
 import net.neoforged.api.distmarker.Dist;
@@ -13,7 +16,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.StreamCodec;
 
-public record RemoveTrainPacket(UUID id) implements ClientboundPacketPayload {
+public record RemoveTrainPacket(UUID id) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, RemoveTrainPacket> STREAM_CODEC = UUIDUtil.STREAM_CODEC.map(RemoveTrainPacket::new, RemoveTrainPacket::id);
 
 	public RemoveTrainPacket(Train train) {

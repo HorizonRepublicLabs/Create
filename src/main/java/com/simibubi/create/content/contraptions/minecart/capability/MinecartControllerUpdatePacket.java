@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.minecart.capability;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -8,7 +12,6 @@ import com.simibubi.create.AllPackets;
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -19,7 +22,7 @@ import net.minecraft.world.entity.Entity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag nbt) implements ClientboundPacketPayload {
+public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag nbt) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, MinecartControllerUpdatePacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, MinecartControllerUpdatePacket::entityId,
 			CatnipStreamCodecBuilders.nullable(ByteBufCodecs.COMPOUND_TAG), MinecartControllerUpdatePacket::nbt,

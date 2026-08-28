@@ -1,14 +1,17 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 
-public record CouplingCreationPacket(int id1, int id2) implements ServerboundPacketPayload {
+public record CouplingCreationPacket(int id1, int id2) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, CouplingCreationPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.VAR_INT, CouplingCreationPacket::id1,
 			ByteBufCodecs.VAR_INT, CouplingCreationPacket::id2,

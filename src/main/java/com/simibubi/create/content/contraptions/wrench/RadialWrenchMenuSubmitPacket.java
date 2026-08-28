@@ -1,12 +1,15 @@
 package com.simibubi.create.content.contraptions.wrench;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecs;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public record RadialWrenchMenuSubmitPacket(BlockPos blockPos, BlockState newState) implements ServerboundPacketPayload {
+public record RadialWrenchMenuSubmitPacket(BlockPos blockPos, BlockState newState) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, RadialWrenchMenuSubmitPacket> STREAM_CODEC = StreamCodec.composite(
 	    BlockPos.STREAM_CODEC, RadialWrenchMenuSubmitPacket::blockPos,
 		CatnipStreamCodecs.BLOCK_STATE, RadialWrenchMenuSubmitPacket::newState,

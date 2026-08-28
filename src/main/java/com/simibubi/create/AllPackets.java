@@ -111,13 +111,14 @@ import com.simibubi.create.foundation.utility.ServerSpeedProvider;
 import com.simibubi.create.infrastructure.command.HighlightPacket;
 import com.simibubi.create.infrastructure.debugInfo.ServerDebugInfoPacket;
 
-import net.createmod.catnip.net.base.BasePacketPayload;
-import net.createmod.catnip.net.base.CatnipPacketRegistry;
+import net.createmod.catnip.api.network.NetworkHelper;
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+import net.createmod.catnip.api.network.registry.CatnipPayloadRegistrar;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-public enum AllPackets implements BasePacketPayload.PacketTypeProvider {
+public enum AllPackets {
 	// Client to Server
 	CONFIGURE_SCHEMATICANNON(ConfigureSchematicannonPacket.class, ConfigureSchematicannonPacket.STREAM_CODEC),
 	CONFIGURE_STOCKSWITCH(ConfigureThresholdSwitchPacket.class, ConfigureThresholdSwitchPacket.STREAM_CODEC),
@@ -236,27 +237,43 @@ public enum AllPackets implements BasePacketPayload.PacketTypeProvider {
 	CLIENTBOUND_CHAIN_CONVEYOR(ClientboundChainConveyorRidingPacket.class, ClientboundChainConveyorRidingPacket.STREAM_CODEC),
 	SHOP_UPDATE(ShopUpdatePacket.class, ShopUpdatePacket.STREAM_CODEC);;
 
-	private final CatnipPacketRegistry.PacketType<?> type;
+	private final Class<? extends CustomPacketPayload> payloadClass;
+	private final StreamCodec<? super RegistryFriendlyByteBuf, ? extends CustomPacketPayload> codec;
+	private CustomPacketPayload.Type<?> type;
 
-	<T extends BasePacketPayload> AllPackets(Class<T> clazz, StreamCodec<? super RegistryFriendlyByteBuf, T> codec) {
-		String name = this.name().toLowerCase(Locale.ROOT);
-		this.type = new CatnipPacketRegistry.PacketType<>(
-			new CustomPacketPayload.Type<>(Create.asResource(name)),
-			clazz, codec
-		);
+	<T extends CustomPacketPayload> AllPackets(Class<T> clazz, StreamCodec<? super RegistryFriendlyByteBuf, T> codec) {
+		this.payloadClass = clazz;
+		this.codec = codec;
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
 	public <T extends CustomPacketPayload> CustomPacketPayload.Type<T> getType() {
-		return (CustomPacketPayload.Type<T>) this.type.type();
+		if (type == null) {
+			throw new IllegalStateException("Packet " + name() + " was used before register() ran");
+		}
+		return (CustomPacketPayload.Type<T>) type;
 	}
 
+	/// Direction is taken from the payload itself: anything self handling is
+	/// serverbound, since a clientbound payload cannot handle itself without
+	/// being loaded on the server too.
+	public boolean isServerbound() {
+		return SelfHandlingPayload.class.isAssignableFrom(payloadClass);
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void register() {
-		CatnipPacketRegistry packetRegistry = new CatnipPacketRegistry(Create.ID, CreateBuildInfo.VERSION);
+		CatnipPayloadRegistrar registrar = new CatnipPayloadRegistrar(Create.ID);
+
 		for (AllPackets packet : AllPackets.values()) {
-			packetRegistry.registerPacket(packet.type);
+			String name = packet.name().toLowerCase(Locale.ROOT);
+			if (packet.isServerbound()) {
+				CustomPacketPayload.Type type =
+					registrar.selfHandlingServerbound(name, (StreamCodec) packet.codec);
+				packet.type = type;
+			} else {
+				packet.type = registrar.clientbound(name, (StreamCodec) packet.codec);
+			}
 		}
-		packetRegistry.registerAllPackets();
 	}
 }

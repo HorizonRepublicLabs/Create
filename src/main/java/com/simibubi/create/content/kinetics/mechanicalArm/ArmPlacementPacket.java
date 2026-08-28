@@ -1,10 +1,14 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import java.util.Collection;
 
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecs;
 import io.netty.buffer.ByteBuf;
@@ -20,7 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements ServerboundPacketPayload {
+public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<FriendlyByteBuf, ArmPlacementPacket> STREAM_CODEC = StreamCodec.composite(
 			CatnipStreamCodecs.COMPOUND_LIST_TAG, ArmPlacementPacket::tag,
 			BlockPos.STREAM_CODEC, ArmPlacementPacket::pos,
@@ -52,7 +56,7 @@ public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements Serverbou
 		arm.interactionPointTag = this.tag;
 	}
 
-	public record ClientBoundRequest(BlockPos pos) implements ClientboundPacketPayload {
+	public record ClientBoundRequest(BlockPos pos) implements CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, ClientBoundRequest> STREAM_CODEC = BlockPos.STREAM_CODEC.map(
 				ClientBoundRequest::new, ClientBoundRequest::pos
 		);

@@ -1,7 +1,10 @@
 package com.simibubi.create.content.equipment.extendoGrip;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecs;
 import io.netty.buffer.ByteBuf;
@@ -13,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.Vec3;
 
-public record ExtendoGripInteractionPacket(InteractionHand hand, int target, Vec3 point) implements ServerboundPacketPayload {
+public record ExtendoGripInteractionPacket(InteractionHand hand, int target, Vec3 point) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ExtendoGripInteractionPacket> STREAM_CODEC = StreamCodec.composite(
 			CatnipStreamCodecBuilders.nullable(CatnipStreamCodecs.HAND), ExtendoGripInteractionPacket::hand,
 			ByteBufCodecs.INT, ExtendoGripInteractionPacket::target,

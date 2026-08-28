@@ -1,10 +1,13 @@
 package com.simibubi.create.content.schematics.packet;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.schematics.SchematicInstances;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecs;
 import io.netty.buffer.ByteBuf;
@@ -17,7 +20,7 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 
-public record SchematicSyncPacket(int slot, boolean deployed, BlockPos anchor, Rotation rotation, Mirror mirror) implements ServerboundPacketPayload {
+public record SchematicSyncPacket(int slot, boolean deployed, BlockPos anchor, Rotation rotation, Mirror mirror) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, SchematicSyncPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.VAR_INT, SchematicSyncPacket::slot,
 			ByteBufCodecs.BOOL, SchematicSyncPacket::deployed,

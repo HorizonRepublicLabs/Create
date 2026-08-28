@@ -1,7 +1,10 @@
 package com.simibubi.create.content.contraptions.glue;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.player.LocalPlayer;
@@ -12,7 +15,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record GlueEffectPacket(BlockPos pos, Direction direction, boolean fullBlock) implements ClientboundPacketPayload {
+public record GlueEffectPacket(BlockPos pos, Direction direction, boolean fullBlock) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, GlueEffectPacket> STREAM_CODEC = StreamCodec.composite(
 			BlockPos.STREAM_CODEC, GlueEffectPacket::pos,
 			Direction.STREAM_CODEC, GlueEffectPacket::direction,

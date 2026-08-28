@@ -1,7 +1,10 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import io.netty.buffer.ByteBuf;
@@ -17,7 +20,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
-public record ToolboxEquipPacket(BlockPos toolboxPos, int slot, int hotbarSlot) implements ServerboundPacketPayload {
+public record ToolboxEquipPacket(BlockPos toolboxPos, int slot, int hotbarSlot) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ToolboxEquipPacket> STREAM_CODEC = StreamCodec.composite(
 			CatnipStreamCodecBuilders.nullable(BlockPos.STREAM_CODEC), ToolboxEquipPacket::toolboxPos,
 			ByteBufCodecs.VAR_INT, ToolboxEquipPacket::slot,

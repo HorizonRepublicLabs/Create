@@ -1,5 +1,9 @@
 package com.simibubi.create.infrastructure.debugInfo;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import java.util.List;
 
 import com.simibubi.create.AllPackets;
@@ -8,7 +12,6 @@ import com.simibubi.create.foundation.utility.DyeHelper;
 import com.simibubi.create.infrastructure.debugInfo.element.DebugInfoSection;
 
 import io.netty.buffer.ByteBuf;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -18,7 +21,7 @@ import net.minecraft.world.item.DyeColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record ServerDebugInfoPacket(String serverInfo) implements ClientboundPacketPayload {
+public record ServerDebugInfoPacket(String serverInfo) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ServerDebugInfoPacket> STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
 			ServerDebugInfoPacket::new, ServerDebugInfoPacket::serverInfo
 	);

@@ -1,11 +1,14 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
 import com.simibubi.create.AllPackets;
 
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
@@ -18,7 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
-public record ToolboxDisposeAllPacket(BlockPos toolboxPos) implements ServerboundPacketPayload {
+public record ToolboxDisposeAllPacket(BlockPos toolboxPos) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ToolboxDisposeAllPacket> STREAM_CODEC = BlockPos.STREAM_CODEC.map(
 			ToolboxDisposeAllPacket::new, ToolboxDisposeAllPacket::toolboxPos
 	);

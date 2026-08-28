@@ -1,5 +1,9 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.util.UUID;
@@ -11,8 +15,6 @@ import com.simibubi.create.content.trains.entity.Train;
 import com.simibubi.create.content.trains.entity.TrainIconType;
 
 import io.netty.buffer.ByteBuf;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.chat.Component;
@@ -26,7 +28,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class TrainEditPacket implements CustomPacketPayload {
+public abstract class TrainEditPacket implements CreatePacketPayload {
 	protected final UUID id;
 	protected final String name;
 	protected final Identifier iconType;
@@ -63,7 +65,7 @@ public abstract class TrainEditPacket implements CustomPacketPayload {
 			NetworkHelper.INSTANCE.sendToAllClients(new TrainEditReturnPacket(id, name, iconType, mapColor));
 	}
 
-	public static class Serverbound extends TrainEditPacket implements ServerboundPacketPayload {
+	public static class Serverbound extends TrainEditPacket implements SelfHandlingPayload, CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(UUID id, String name, Identifier iconType, int mapColor) {
@@ -81,7 +83,7 @@ public abstract class TrainEditPacket implements CustomPacketPayload {
 		}
 	}
 
-	public static class TrainEditReturnPacket extends TrainEditPacket implements ClientboundPacketPayload {
+	public static class TrainEditReturnPacket extends TrainEditPacket implements CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, TrainEditReturnPacket> STREAM_CODEC = codec(TrainEditReturnPacket::new);
 
 		public TrainEditReturnPacket(UUID id, String name, Identifier iconType,  int mapColor) {

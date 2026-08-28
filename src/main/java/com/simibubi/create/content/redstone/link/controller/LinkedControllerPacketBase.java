@@ -1,9 +1,10 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllItems;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 
-public abstract class LinkedControllerPacketBase implements ServerboundPacketPayload {
+public abstract class LinkedControllerPacketBase implements SelfHandlingPayload {
 	@Nullable
 	private final BlockPos lecternPos;
 

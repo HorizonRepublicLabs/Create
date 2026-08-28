@@ -1,12 +1,15 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.logistics.stockTicker.StockTickerBlockEntity;
 
 import io.netty.buffer.ByteBuf;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -18,7 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record WiFiEffectPacket(BlockPos pos) implements ClientboundPacketPayload {
+public record WiFiEffectPacket(BlockPos pos) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, WiFiEffectPacket> STREAM_CODEC = BlockPos.STREAM_CODEC
 		.map(WiFiEffectPacket::new, WiFiEffectPacket::pos);
 

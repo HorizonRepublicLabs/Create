@@ -1,5 +1,9 @@
 package com.simibubi.create.content.trains;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.util.UUID;
@@ -11,8 +15,6 @@ import com.simibubi.create.content.trains.entity.Train;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 
 import io.netty.buffer.ByteBuf;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -24,7 +26,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class HonkPacket implements CustomPacketPayload {
+public abstract class HonkPacket implements CreatePacketPayload {
 	protected final UUID trainId;
 	protected final boolean isHonk;
 
@@ -41,7 +43,7 @@ public abstract class HonkPacket implements CustomPacketPayload {
 		);
 	}
 
-	public static class Clientbound extends HonkPacket implements ClientboundPacketPayload {
+	public static class Clientbound extends HonkPacket implements CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, Clientbound> STREAM_CODEC = codec(Clientbound::new);
 
 		public Clientbound(Train train, boolean isHonk) {
@@ -71,7 +73,7 @@ public abstract class HonkPacket implements CustomPacketPayload {
 		}
 	}
 
-	public static class Serverbound extends HonkPacket implements ServerboundPacketPayload {
+	public static class Serverbound extends HonkPacket implements SelfHandlingPayload, CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(Train train, boolean isHonk) {

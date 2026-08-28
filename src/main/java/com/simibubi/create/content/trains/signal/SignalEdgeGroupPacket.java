@@ -1,5 +1,9 @@
 package com.simibubi.create.content.trains.signal;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -9,7 +13,6 @@ import com.simibubi.create.AllPackets;
 import com.simibubi.create.CreateClient;
 
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,7 +22,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record SignalEdgeGroupPacket(List<UUID> ids, List<EdgeGroupColor> colors, boolean add) implements ClientboundPacketPayload {
+public record SignalEdgeGroupPacket(List<UUID> ids, List<EdgeGroupColor> colors, boolean add) implements CreatePacketPayload {
 	public static final StreamCodec<FriendlyByteBuf, SignalEdgeGroupPacket> STREAM_CODEC = StreamCodec.composite(
 			CatnipStreamCodecBuilders.list(UUIDUtil.STREAM_CODEC), p -> p.ids,
 			CatnipStreamCodecBuilders.list(EdgeGroupColor.STREAM_CODEC), p -> p.colors,

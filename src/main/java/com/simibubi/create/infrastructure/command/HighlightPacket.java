@@ -1,10 +1,13 @@
 package com.simibubi.create.infrastructure.command;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.AllSpecialTextures;
 
 import io.netty.buffer.ByteBuf;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.createmod.catnip.api.client.outliner.Outliner;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -14,7 +17,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record HighlightPacket(BlockPos pos) implements ClientboundPacketPayload {
+public record HighlightPacket(BlockPos pos) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, HighlightPacket> STREAM_CODEC = BlockPos.STREAM_CODEC.map(HighlightPacket::new, p -> p.pos);
 
 	@Override

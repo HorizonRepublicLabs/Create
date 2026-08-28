@@ -1,8 +1,11 @@
 package com.simibubi.create.content.contraptions.sync;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecs;
@@ -17,7 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.AABB;
 
-public record ContraptionInteractionPacket(InteractionHand hand, int target, BlockPos localPos, Direction face) implements ServerboundPacketPayload {
+public record ContraptionInteractionPacket(InteractionHand hand, int target, BlockPos localPos, Direction face) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ContraptionInteractionPacket> STREAM_CODEC = StreamCodec.composite(
 			CatnipStreamCodecBuilders.nullable(CatnipStreamCodecs.HAND), ContraptionInteractionPacket::hand,
 			ByteBufCodecs.INT, ContraptionInteractionPacket::target,

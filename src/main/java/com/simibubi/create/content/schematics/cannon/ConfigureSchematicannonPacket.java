@@ -1,16 +1,19 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.schematics.cannon.SchematicannonBlockEntity.State;
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 
-public record ConfigureSchematicannonPacket(Option option, boolean set) implements ServerboundPacketPayload {
+public record ConfigureSchematicannonPacket(Option option, boolean set) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ConfigureSchematicannonPacket> STREAM_CODEC = StreamCodec.composite(
 			Option.STREAM_CODEC, ConfigureSchematicannonPacket::option,
 			ByteBufCodecs.BOOL, ConfigureSchematicannonPacket::set,

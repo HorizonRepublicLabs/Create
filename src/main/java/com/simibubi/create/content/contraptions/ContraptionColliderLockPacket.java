@@ -1,10 +1,14 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.player.LocalPlayer;
@@ -14,7 +18,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record ContraptionColliderLockPacket(int contraption, double offset, int sender) implements ClientboundPacketPayload {
+public record ContraptionColliderLockPacket(int contraption, double offset, int sender) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ContraptionColliderLockPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.VAR_INT, ContraptionColliderLockPacket::contraption,
 			ByteBufCodecs.DOUBLE, ContraptionColliderLockPacket::offset,
@@ -33,7 +37,7 @@ public record ContraptionColliderLockPacket(int contraption, double offset, int 
 		return AllPackets.CONTRAPTION_COLLIDER_LOCK;
 	}
 
-	public record ContraptionColliderLockPacketRequest(int contraption, double offset) implements ServerboundPacketPayload {
+	public record ContraptionColliderLockPacketRequest(int contraption, double offset) implements SelfHandlingPayload, CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, ContraptionColliderLockPacketRequest> STREAM_CODEC = StreamCodec.composite(
 		        ByteBufCodecs.VAR_INT, ContraptionColliderLockPacketRequest::contraption,
 				ByteBufCodecs.DOUBLE, ContraptionColliderLockPacketRequest::offset,

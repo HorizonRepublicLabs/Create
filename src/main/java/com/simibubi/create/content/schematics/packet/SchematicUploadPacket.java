@@ -1,19 +1,22 @@
 package com.simibubi.create.content.schematics.packet;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.schematics.table.SchematicTableMenu;
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 
 
-public record SchematicUploadPacket(int code, long size, String schematic, byte[] data) implements ServerboundPacketPayload {
+public record SchematicUploadPacket(int code, long size, String schematic, byte[] data) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final int BEGIN = 0;
 	public static final int WRITE = 1;
 	public static final int FINISH = 2;

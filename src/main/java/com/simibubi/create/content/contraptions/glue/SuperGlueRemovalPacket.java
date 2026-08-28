@@ -1,8 +1,11 @@
 package com.simibubi.create.content.contraptions.glue;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.AllSoundEvents;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
@@ -11,7 +14,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 
-public record SuperGlueRemovalPacket(int entityId, BlockPos soundSource) implements ServerboundPacketPayload {
+public record SuperGlueRemovalPacket(int entityId, BlockPos soundSource) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, SuperGlueRemovalPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, SuperGlueRemovalPacket::entityId,
 			BlockPos.STREAM_CODEC, SuperGlueRemovalPacket::soundSource,

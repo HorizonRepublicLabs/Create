@@ -1,9 +1,12 @@
 package com.simibubi.create.foundation.utility;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.createmod.catnip.api.animation.LerpedFloat;
@@ -49,7 +52,7 @@ public class ServerSpeedProvider {
 		return modifier.getValue();
 	}
 
-	public enum Packet implements ClientboundPacketPayload {
+	public enum Packet implements CreatePacketPayload {
 		INSTANCE;
 
 		public static final StreamCodec<ByteBuf, Packet> STREAM_CODEC = StreamCodec.unit(INSTANCE);

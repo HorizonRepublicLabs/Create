@@ -1,13 +1,16 @@
 package com.simibubi.create.compat.trainmap;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 
-public class TrainMapSyncRequestPacket implements ServerboundPacketPayload {
+public class TrainMapSyncRequestPacket implements SelfHandlingPayload, CreatePacketPayload {
 	public static final TrainMapSyncRequestPacket INSTANCE = new TrainMapSyncRequestPacket();
 	public static final StreamCodec<ByteBuf, TrainMapSyncRequestPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 

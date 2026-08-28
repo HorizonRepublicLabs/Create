@@ -1,5 +1,9 @@
 package com.simibubi.create.content.trains;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import java.util.UUID;
 
 import org.jetbrains.annotations.Nullable;
@@ -11,8 +15,6 @@ import com.simibubi.create.content.trains.entity.Train;
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -23,7 +25,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class TrainHUDUpdatePacket implements CustomPacketPayload {
+public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
 	protected final UUID trainId;
 
 	@Nullable
@@ -48,7 +50,7 @@ public abstract class TrainHUDUpdatePacket implements CustomPacketPayload {
 		);
 	}
 
-	public static class Clientbound extends TrainHUDUpdatePacket implements ClientboundPacketPayload {
+	public static class Clientbound extends TrainHUDUpdatePacket implements CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, Clientbound> STREAM_CODEC = codec(Clientbound::new);
 
 		public Clientbound(Train train) {
@@ -84,7 +86,7 @@ public abstract class TrainHUDUpdatePacket implements CustomPacketPayload {
 		}
 	}
 
-	public static class Serverbound extends TrainHUDUpdatePacket implements ServerboundPacketPayload {
+	public static class Serverbound extends TrainHUDUpdatePacket implements SelfHandlingPayload, CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(Train train, Double sendThrottle) {

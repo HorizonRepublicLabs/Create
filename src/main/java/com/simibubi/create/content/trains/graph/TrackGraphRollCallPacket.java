@@ -1,5 +1,9 @@
 package com.simibubi.create.content.trains.graph;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -16,7 +20,6 @@ import com.simibubi.create.content.trains.GlobalRailwayManager;
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -24,7 +27,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record TrackGraphRollCallPacket(List<Entry> entries) implements ClientboundPacketPayload {
+public record TrackGraphRollCallPacket(List<Entry> entries) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, TrackGraphRollCallPacket> STREAM_CODEC = CatnipStreamCodecBuilders.list(Entry.STREAM_CODEC).map(
 					TrackGraphRollCallPacket::new, TrackGraphRollCallPacket::entries
 			);

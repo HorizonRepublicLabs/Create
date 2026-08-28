@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.filter;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllPackets;
@@ -7,14 +11,13 @@ import com.simibubi.create.content.logistics.item.filter.attribute.ItemAttribute
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-public record FilterScreenPacket(Option option, @Nullable CompoundTag data) implements ServerboundPacketPayload {
+public record FilterScreenPacket(Option option, @Nullable CompoundTag data) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, FilterScreenPacket> STREAM_CODEC = StreamCodec.composite(
 			Option.STREAM_CODEC, FilterScreenPacket::option,
 			CatnipStreamCodecBuilders.nullable(ByteBufCodecs.COMPOUND_TAG), FilterScreenPacket::data,

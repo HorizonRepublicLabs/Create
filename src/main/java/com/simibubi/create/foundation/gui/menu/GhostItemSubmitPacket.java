@@ -1,10 +1,13 @@
 package com.simibubi.create.foundation.gui.menu;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.logistics.filter.FilterItem;
 import com.simibubi.create.content.logistics.stockTicker.StockKeeperCategoryMenu;
 
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -12,7 +15,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-public record GhostItemSubmitPacket(ItemStack item, int slot) implements ServerboundPacketPayload {
+public record GhostItemSubmitPacket(ItemStack item, int slot) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, GhostItemSubmitPacket> STREAM_CODEC = StreamCodec.composite(
 	        ItemStack.OPTIONAL_STREAM_CODEC, GhostItemSubmitPacket::item,
 			ByteBufCodecs.INT, GhostItemSubmitPacket::slot,

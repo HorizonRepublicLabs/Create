@@ -1,12 +1,13 @@
 package com.simibubi.create.foundation.networking;
 
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.util.HashSet;
 
 import com.simibubi.create.AllPackets;
 
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -24,7 +25,7 @@ public interface ISyncPersistentData {
 		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(self, new PersistentDataPacket(self));
 	}
 
-	record PersistentDataPacket(int entityId, CompoundTag readData) implements ClientboundPacketPayload {
+	record PersistentDataPacket(int entityId, CompoundTag readData) implements CreatePacketPayload {
 		public static final StreamCodec<FriendlyByteBuf, PersistentDataPacket> STREAM_CODEC = StreamCodec.composite(
 				ByteBufCodecs.VAR_INT, PersistentDataPacket::entityId,
 				ByteBufCodecs.COMPOUND_TAG, PersistentDataPacket::readData,

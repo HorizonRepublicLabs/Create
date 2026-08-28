@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
@@ -10,7 +14,6 @@ import com.simibubi.create.AllPackets;
 
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import net.createmod.catnip.api.nbt.NBTProcessors;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.PatchedDataComponentMap;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -21,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public record ClipboardEditPacket(int hotbarSlot, @Nullable ClipboardContent clipboardContent,
-								  @Nullable BlockPos targetedBlock) implements ServerboundPacketPayload {
+								  @Nullable BlockPos targetedBlock) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, ClipboardEditPacket> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.VAR_INT, ClipboardEditPacket::hotbarSlot,
 		CatnipStreamCodecBuilders.nullable(ClipboardContent.STREAM_CODEC), ClipboardEditPacket::clipboardContent,

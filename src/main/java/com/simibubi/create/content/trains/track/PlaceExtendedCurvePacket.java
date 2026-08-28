@@ -1,9 +1,12 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.AllTags;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -12,7 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
-public record PlaceExtendedCurvePacket(boolean mainHand, boolean ctrlDown) implements ServerboundPacketPayload {
+public record PlaceExtendedCurvePacket(boolean mainHand, boolean ctrlDown) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, PlaceExtendedCurvePacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.BOOL, PlaceExtendedCurvePacket::mainHand,
 			ByteBufCodecs.BOOL, PlaceExtendedCurvePacket::ctrlDown,

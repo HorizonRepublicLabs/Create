@@ -1,11 +1,15 @@
 package com.simibubi.create.content.logistics.packagePort;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import io.netty.buffer.ByteBuf;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -15,7 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
-public record PackagePortPlacementPacket(PackagePortTarget target, BlockPos pos) implements ServerboundPacketPayload {
+public record PackagePortPlacementPacket(PackagePortTarget target, BlockPos pos) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, PackagePortPlacementPacket> STREAM_CODEC = StreamCodec.composite(
 	    PackagePortTarget.STREAM_CODEC, PackagePortPlacementPacket::target,
 	    BlockPos.STREAM_CODEC, PackagePortPlacementPacket::pos,
@@ -51,7 +55,7 @@ public record PackagePortPlacementPacket(PackagePortTarget target, BlockPos pos)
 		ppbe.use(player);
 	}
 
-	public record ClientBoundRequest(BlockPos pos) implements ClientboundPacketPayload {
+	public record ClientBoundRequest(BlockPos pos) implements CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, ClientBoundRequest> STREAM_CODEC = BlockPos.STREAM_CODEC
 			.map(ClientBoundRequest::new, ClientBoundRequest::pos);
 

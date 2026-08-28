@@ -1,13 +1,17 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
+import net.createmod.catnip.api.network.SelfHandlingPayload;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.util.List;
 
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
-import net.createmod.catnip.net.base.ClientboundPacketPayload;
-import net.createmod.catnip.net.base.ServerboundPacketPayload;
 
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
 import io.netty.buffer.ByteBuf;
@@ -22,7 +26,7 @@ import net.minecraft.world.entity.Entity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<String>>> floors) implements ClientboundPacketPayload {
+public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<String>>> floors) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, com.simibubi.create.content.contraptions.elevator.ElevatorFloorListPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, com.simibubi.create.content.contraptions.elevator.ElevatorFloorListPacket::entityId,
 			CatnipStreamCodecBuilders.list(IntAttached.streamCodec(Couple.streamCodec(ByteBufCodecs.STRING_UTF8))), com.simibubi.create.content.contraptions.elevator.ElevatorFloorListPacket::floors,
@@ -51,7 +55,7 @@ public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<Stri
 		return AllPackets.UPDATE_ELEVATOR_FLOORS;
 	}
 
-	public record RequestFloorList(int entityId) implements ServerboundPacketPayload {
+	public record RequestFloorList(int entityId) implements SelfHandlingPayload, CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, RequestFloorList> STREAM_CODEC = ByteBufCodecs.INT.map(
 				RequestFloorList::new, RequestFloorList::entityId
 		);
