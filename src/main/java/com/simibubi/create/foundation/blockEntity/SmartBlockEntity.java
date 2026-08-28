@@ -153,6 +153,15 @@ public abstract class SmartBlockEntity extends CachedRenderBBBlockEntity
 	/**
 	 * Block destroyed or replaced. Requires Block to call IBE::onRemove
 	 */
+	/// 26.x removes the block entity itself and calls this first, so the
+	/// "is the block actually going away" guards that used to live in each
+	/// block's onRemove are the engine's job now.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		destroy();
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	public void destroy() {
 		forEachBehaviour(BlockEntityBehaviour::destroy);
 	}

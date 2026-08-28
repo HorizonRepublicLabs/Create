@@ -140,11 +140,6 @@ public class PackagerLinkBlock extends FaceAttachedHorizontalDirectionalBlock
 	}
 
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-		IBE.onRemove(pState, pLevel, pPos, pNewState);
-	}
-
-	@Override
 	protected MapCodec<? extends FaceAttachedHorizontalDirectionalBlock> codec() {
 		return CODEC;
 	}

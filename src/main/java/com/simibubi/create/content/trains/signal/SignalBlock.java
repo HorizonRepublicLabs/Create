@@ -100,11 +100,6 @@ public class SignalBlock extends Block implements IBE<SignalBlockEntity>, IWrenc
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		IBE.onRemove(state, worldIn, pos, newState);
-	}
-
-	@Override
 	public BlockEntityType<? extends SignalBlockEntity> getBlockEntityType() {
 		return AllBlockEntityTypes.TRACK_SIGNAL.get();
 	}

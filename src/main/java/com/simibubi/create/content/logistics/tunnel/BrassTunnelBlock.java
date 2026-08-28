@@ -62,9 +62,4 @@ public class BrassTunnelBlock extends BeltTunnelBlock {
 		return super.updateShape(state, facing, facingState, worldIn, currentPos, facingPos);
 	}
 
-	@Override
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-		IBE.onRemove(state, level, pos, newState);
-	}
-
 }

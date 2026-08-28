@@ -343,11 +343,6 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 		return getConnectedDirection(state);
 	}
 
-	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		IBE.onRemove(pState, pLevel, pPos, pNewState);
-	}
-
 	public static PanelSlot getTargetedSlot(BlockPos pos, BlockState blockState, Vec3 clickLocation) {
 		double bestDistance = Double.MAX_VALUE;
 		PanelSlot bestSlot = PanelSlot.BOTTOM_LEFT;

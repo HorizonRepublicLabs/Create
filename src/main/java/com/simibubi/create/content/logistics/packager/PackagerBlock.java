@@ -172,11 +172,6 @@ public class PackagerBlock extends WrenchableDirectionalBlock implements IBE<Pac
 	}
 
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		IBE.onRemove(pState, pLevel, pPos, pNewState);
-	}
-
-	@Override
 	public boolean shouldCheckWeakPower(BlockState state, SignalGetter level, BlockPos pos, Direction side) {
 		return false;
 	}

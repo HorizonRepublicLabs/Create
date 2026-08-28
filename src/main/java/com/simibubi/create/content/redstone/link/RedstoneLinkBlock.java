@@ -80,11 +80,6 @@ public class RedstoneLinkBlock extends WrenchableDirectionalBlock implements IBE
 		updateTransmittedSignal(state, worldIn, pos);
 	}
 
-	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-		IBE.onRemove(pState, pLevel, pPos, pNewState);
-	}
-
 	public void updateTransmittedSignal(BlockState state, Level level, BlockPos pos) {
 		if (level.isClientSide())
 			return;
