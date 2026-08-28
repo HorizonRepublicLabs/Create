@@ -101,7 +101,7 @@ public class ArmInteractionPoint {
 			if (be == null)
 				return null;
 			cachedHandler = BlockCapabilityCache.create(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				serverLevel,
 				pos,
 				Direction.UP,

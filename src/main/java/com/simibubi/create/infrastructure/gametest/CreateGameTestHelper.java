@@ -250,7 +250,7 @@ public class CreateGameTestHelper extends GameTestHelper {
 		BlockEntity be = getBlockEntity(pos);
 		if (be == null)
 			fail("BlockEntity not present");
-		IFluidHandler handler = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+		IFluidHandler handler = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 		if (handler == null)
 			fail("handler not present");
 		return handler;
@@ -318,7 +318,7 @@ public class CreateGameTestHelper extends GameTestHelper {
 		BlockEntity be = getBlockEntity(pos);
 		if (be == null)
 			fail("BlockEntity not present");
-		IItemHandler handler = be.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, be.getBlockPos(), null);
+		IItemHandler handler = be.getLevel().getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), null);
 		if (handler == null)
 			fail("handler not present");
 		return handler;

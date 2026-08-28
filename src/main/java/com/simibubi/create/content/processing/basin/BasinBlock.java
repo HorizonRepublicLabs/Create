@@ -97,7 +97,7 @@ public class BasinBlock extends Block implements IBE<BasinBlockEntity>, IWrencha
 					|| GenericItemFilling.canItemBeFilled(level, stack))
 					return InteractionResult.SUCCESS;
 				if (stack.getItem().equals(Items.SPONGE)) {
-					IFluidHandler fluidHandler = level.getCapability(Capabilities.FluidHandler.BLOCK, pos, null);
+					IFluidHandler fluidHandler = level.getCapability(Capabilities.Fluid.BLOCK, pos, null);
 					if (fluidHandler != null) {
 					FluidStack drained = fluidHandler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
 					if (!drained.isEmpty()) {

@@ -27,7 +27,7 @@ public class CreativeFluidTankBlockEntity extends FluidTankBlockEntity {
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.FluidHandler.BLOCK,
+				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.CREATIVE_FLUID_TANK.get(),
 				(be, context) -> {
 					if (be.fluidCapability == null)

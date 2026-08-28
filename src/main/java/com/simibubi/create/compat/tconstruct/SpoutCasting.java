@@ -27,7 +27,7 @@ public enum SpoutCasting implements BlockSpoutingBehaviour {
 		if (blockEntity == null)
 			return 0;
 
-		IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, blockEntity.getBlockPos(), Direction.UP);
+		IFluidHandler handler = level.getCapability(Capabilities.Fluid.BLOCK, blockEntity.getBlockPos(), Direction.UP);
 		if (handler == null)
 			return 0;
 		if (handler.getTanks() != 1)

@@ -47,7 +47,7 @@ public class PostboxBlockEntity extends PackagePortBlockEntity {
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-			Capabilities.ItemHandler.BLOCK,
+			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.PACKAGE_POSTBOX.get(),
 			(be, context) -> be.itemHandler
 		);

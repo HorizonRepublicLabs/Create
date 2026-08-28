@@ -126,7 +126,7 @@ public class HosePulleyScenes {
 		}
 
 		scene.world().modifyBlockEntity(util.grid().at(1, 5, 1), HosePulleyBlockEntity.class, be -> {
-			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 			if (ifh != null)
 				ifh.fill(new FluidStack(Fluids.WATER, 100), FluidAction.EXECUTE);
 		});
@@ -230,7 +230,7 @@ public class HosePulleyScenes {
 		scene.world().showSectionAndMerge(cogs, Direction.NORTH, hoselink);
 		scene.world().showSectionAndMerge(pipes, Direction.WEST, hoselink);
 		scene.world().modifyBlockEntity(util.grid().at(1, 6, 1), HosePulleyBlockEntity.class, be -> {
-			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 			if (ifh != null)
 				ifh.fill(new FluidStack(Fluids.WATER, 100), FluidAction.EXECUTE);
 		});
@@ -346,7 +346,7 @@ public class HosePulleyScenes {
 
 		scene.idle(40);
 		scene.world().modifyBlockEntity(util.grid().at(1, 3, 2), HosePulleyBlockEntity.class, be -> {
-			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 			if (ifh != null)
 				ifh.fill(new FluidStack(Fluids.WATER, 1000), FluidAction.EXECUTE);
 		});

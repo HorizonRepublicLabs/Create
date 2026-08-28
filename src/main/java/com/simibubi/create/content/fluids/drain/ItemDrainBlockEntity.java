@@ -55,7 +55,7 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.ITEM_DRAIN.get(),
 				(be, context) -> {
 					if (context != null && context.getAxis().isHorizontal())
@@ -65,7 +65,7 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 		);
 
 		event.registerBlockEntity(
-				Capabilities.FluidHandler.BLOCK,
+				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.ITEM_DRAIN.get(),
 				(be, context) -> {
 					if (context != Direction.UP)
@@ -310,7 +310,7 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 
 	@Override
 	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-		return containedFluidTooltip(tooltip, isPlayerSneaking, level.getCapability(Capabilities.FluidHandler.BLOCK, worldPosition, null));
+		return containedFluidTooltip(tooltip, isPlayerSneaking, level.getCapability(Capabilities.Fluid.BLOCK, worldPosition, null));
 	}
 
 }

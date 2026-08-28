@@ -169,7 +169,7 @@ public class FluidTankScenes {
 		scene.idle(80);
 		scene.world().modifyBlockEntity(util.grid().at(4, 3, 0), SpoutBlockEntity.class,
 			be -> {
-				IFluidHandler handler = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+				IFluidHandler handler = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 				if (handler != null)
 					handler.fill(content, FluidAction.EXECUTE);
 			});

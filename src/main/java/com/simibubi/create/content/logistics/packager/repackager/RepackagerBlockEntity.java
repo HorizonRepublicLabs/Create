@@ -143,7 +143,7 @@ public class RepackagerBlockEntity extends PackagerBlockEntity {
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-			Capabilities.ItemHandler.BLOCK,
+			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.REPACKAGER.get(),
 			(be, context) -> be.inventory
 		);

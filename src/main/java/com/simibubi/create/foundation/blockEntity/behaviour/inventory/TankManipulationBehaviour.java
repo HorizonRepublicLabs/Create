@@ -58,7 +58,7 @@ public class TankManipulationBehaviour extends CapManipulationBehaviourBase<IFlu
 
 	@Override
 	protected BlockCapability<IFluidHandler, Direction> capability() {
-		return Capabilities.FluidHandler.BLOCK;
+		return Capabilities.Fluid.BLOCK;
 	}
 
 	@Override

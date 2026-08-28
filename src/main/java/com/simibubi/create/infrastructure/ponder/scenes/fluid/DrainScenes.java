@@ -57,7 +57,7 @@ public class DrainScenes {
 		scene.world().modifyBlockEntity(drainPos, ItemDrainBlockEntity.class, be -> {
 			be.getBehaviour(SmartFluidTankBehaviour.TYPE)
 				.allowInsertion();
-			IFluidHandler fh = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+			IFluidHandler fh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 			if (fh != null)
 				fh.fill(new FluidStack(Fluids.LAVA, 1000), FluidAction.EXECUTE);
 		});
@@ -72,7 +72,7 @@ public class DrainScenes {
 
 		scene.world().modifyBlockEntity(drainPos, ItemDrainBlockEntity.class,
 			be -> {
-				IFluidHandler fh = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+				IFluidHandler fh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 				if (fh != null)
 					fh.drain(500, FluidAction.EXECUTE);
 			});

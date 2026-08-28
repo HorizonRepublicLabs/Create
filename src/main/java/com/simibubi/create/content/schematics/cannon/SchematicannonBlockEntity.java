@@ -146,7 +146,7 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 			BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(facing));
 			if (blockEntity != null) {
 				IItemHandler capability =
-					level.getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), facing.getOpposite());
+					level.getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), facing.getOpposite());
 				if (capability != null) {
 					attachedInventories.add(capability);
 				}

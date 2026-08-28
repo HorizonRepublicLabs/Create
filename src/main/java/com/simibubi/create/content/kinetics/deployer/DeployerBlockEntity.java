@@ -112,7 +112,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.DEPLOYER.get(),
 				(be, context) ->  {
 					if (be.invHandler == null)

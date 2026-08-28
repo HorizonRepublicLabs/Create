@@ -86,7 +86,7 @@ public class StockTickerBlockEntity extends StockCheckingBlockEntity implements 
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-			Capabilities.ItemHandler.BLOCK,
+			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.STOCK_TICKER.get(),
 			(be, context) -> be.receivedPayments
 		);

@@ -55,7 +55,7 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements Clearabl
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.MILLSTONE.get(),
 				(be, context) -> be.capability
 		);

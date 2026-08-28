@@ -288,7 +288,7 @@ public class PumpBlockEntity extends KineticBlockEntity {
 
 		// fluid handler endpoint
 		if (blockEntity != null) {
-			IFluidHandler capability = blockEntity.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, blockEntity.getBlockPos(), face.getOpposite());
+			IFluidHandler capability = blockEntity.getLevel().getCapability(Capabilities.Fluid.BLOCK, blockEntity.getBlockPos(), face.getOpposite());
 			if (capability != null)
 				return true;
 		}

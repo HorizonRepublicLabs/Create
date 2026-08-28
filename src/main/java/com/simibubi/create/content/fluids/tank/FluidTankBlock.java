@@ -165,7 +165,7 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 		if (be == null)
 			return InteractionResult.FAIL;
 
-		IFluidHandler tankCapability = level.getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+		IFluidHandler tankCapability = level.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 		if (tankCapability == null)
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		FluidStack prevFluidInTank = tankCapability.getFluidInTank(0)

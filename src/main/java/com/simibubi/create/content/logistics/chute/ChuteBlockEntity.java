@@ -103,7 +103,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.CHUTE.get(),
 				(be, context) -> be.itemHandler
 		);
@@ -509,7 +509,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		if (capCaches.get(side) == null) {
 			if (level instanceof ServerLevel serverLevel) {
 				BlockCapabilityCache<IItemHandler, @Nullable Direction> cache = BlockCapabilityCache.create(
-						Capabilities.ItemHandler.BLOCK,
+						Capabilities.Item.BLOCK,
 						serverLevel,
 						pos,
 						side.getOpposite()
@@ -517,7 +517,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 				capCaches.put(side, cache);
 				return cache.getCapability();
 			} else {
-				return level.getCapability(Capabilities.ItemHandler.BLOCK, pos, side.getOpposite());
+				return level.getCapability(Capabilities.Item.BLOCK, pos, side.getOpposite());
 			}
 		} else {
 			return capCaches.get(side).getCapability();

@@ -35,7 +35,7 @@ public record FluidContentsAttribute(@Nullable Fluid fluid) implements ItemAttri
 	private static List<Fluid> extractFluids(ItemStack stack) {
 		List<Fluid> fluids = new ArrayList<>();
 
-		IFluidHandlerItem capability = stack.getCapability(Capabilities.FluidHandler.ITEM);
+		IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
 
 		if (capability != null) {
 			for (int i = 0; i < capability.getTanks(); i++) {

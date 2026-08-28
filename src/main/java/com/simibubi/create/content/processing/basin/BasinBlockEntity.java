@@ -133,12 +133,12 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.BASIN.get(),
 				(be, context) -> be.itemCapability
 		);
 		event.registerBlockEntity(
-				Capabilities.FluidHandler.BLOCK,
+				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.BASIN.get(),
 				(be, context) -> be.fluidCapability
 		);
@@ -392,11 +392,11 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			filter = null; // Do not test spout outputs against the recipe filter
 
 		IItemHandler targetInv = be == null ? null
-			: Optional.ofNullable(level.getCapability(Capabilities.ItemHandler.BLOCK, be.getBlockPos(), direction.getOpposite()))
+			: Optional.ofNullable(level.getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), direction.getOpposite()))
 			.orElse(inserter == null ? null : inserter.getInventory());
 
 		IFluidHandler targetTank = be == null ? null
-			: level.getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), direction.getOpposite());
+			: level.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), direction.getOpposite());
 
 		boolean update = false;
 
@@ -543,10 +543,10 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			InvManipulationBehaviour inserter =
 				be == null ? null : BlockEntityBehaviour.get(level, be.getBlockPos(), InvManipulationBehaviour.TYPE);
 			IItemHandler targetInv = be == null ? null
-				: Optional.ofNullable(level.getCapability(Capabilities.ItemHandler.BLOCK, be.getBlockPos(), direction.getOpposite()))
+				: Optional.ofNullable(level.getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), direction.getOpposite()))
 				.orElse(inserter == null ? null : inserter.getInventory());
 			IFluidHandler targetTank = be == null ? null
-				: level.getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), direction.getOpposite());
+				: level.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), direction.getOpposite());
 			boolean externalTankNotPresent = targetTank == null;
 
 			if (!outputItems.isEmpty() && targetInv == null)

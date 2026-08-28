@@ -82,7 +82,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.FluidHandler.BLOCK,
+				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.FLUID_TANK.get(),
 				(be, context) -> {
 					if (be.fluidCapability == null)
@@ -404,7 +404,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 		if (controllerBE.boiler.addToGoggleTooltip(tooltip, isPlayerSneaking, controllerBE.getTotalTankSize()))
 			return true;
 		return containedFluidTooltip(tooltip, isPlayerSneaking,
-			level.getCapability(Capabilities.FluidHandler.BLOCK, controllerBE.getBlockPos(), null));
+			level.getCapability(Capabilities.Fluid.BLOCK, controllerBE.getBlockPos(), null));
 	}
 
 	@Override

@@ -189,7 +189,7 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 					return InteractionResult.SUCCESS;
 				}
 
-				IItemHandler capability = level.getCapability(Capabilities.ItemHandler.BLOCK, crafter.getBlockPos(), null);
+				IItemHandler capability = level.getCapability(Capabilities.Item.BLOCK, crafter.getBlockPos(), null);
 				if (capability == null)
 					return InteractionResult.TRY_WITH_EMPTY_HAND;
 				ItemStack remainder =

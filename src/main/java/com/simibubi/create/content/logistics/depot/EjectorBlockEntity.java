@@ -105,7 +105,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.WEIGHTED_EJECTOR.get(),
 				(be, context) -> be.depotBehaviour.itemHandler
 		);

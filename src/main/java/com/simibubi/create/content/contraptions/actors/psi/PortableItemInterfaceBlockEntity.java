@@ -24,7 +24,7 @@ public class PortableItemInterfaceBlockEntity extends PortableStorageInterfaceBl
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.PORTABLE_STORAGE_INTERFACE.get(),
 				(be, context) -> be.capability
 		);

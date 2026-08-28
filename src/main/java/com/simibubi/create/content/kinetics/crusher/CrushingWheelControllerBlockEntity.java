@@ -76,7 +76,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-			Capabilities.ItemHandler.BLOCK,
+			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.CRUSHING_WHEEL_CONTROLLER.get(),
 			(be, context) -> be.inventory
 		);

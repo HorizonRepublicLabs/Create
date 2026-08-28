@@ -238,7 +238,7 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 		if (basin.isEmpty())
 			return matchingRecipes;
 
-		IItemHandler availableItems = level.getCapability(Capabilities.ItemHandler.BLOCK, basinBlockEntity.getBlockPos(), null);
+		IItemHandler availableItems = level.getCapability(Capabilities.Item.BLOCK, basinBlockEntity.getBlockPos(), null);
 		if (availableItems == null)
 			return matchingRecipes;
 

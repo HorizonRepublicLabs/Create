@@ -117,7 +117,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.MECHANICAL_CRAFTER.get(),
 				(be, context) -> be.getInvCapability()
 		);

@@ -79,7 +79,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.TOOLBOX.get(),
 				(be, context) -> be.inventory
 		);

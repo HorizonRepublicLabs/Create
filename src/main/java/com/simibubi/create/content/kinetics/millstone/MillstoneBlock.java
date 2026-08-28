@@ -102,7 +102,7 @@ public class MillstoneBlock extends KineticBlock implements IBE<MillstoneBlockEn
 		if (millstone == null)
 			return;
 
-		IItemHandler capability = millstone.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, millstone.getBlockPos(), null);
+		IItemHandler capability = millstone.getLevel().getCapability(Capabilities.Item.BLOCK, millstone.getBlockPos(), null);
 		if (capability == null)
 			return;
 

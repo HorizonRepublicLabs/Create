@@ -70,7 +70,7 @@ public class DirectBeltInputBehaviour extends BlockEntityBehaviour {
 	}
 
 	private ItemStack defaultInsertionCallback(TransportedItemStack inserted, Direction side, boolean simulate) {
-		IItemHandler lazy = blockEntity.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), side);
+		IItemHandler lazy = blockEntity.getLevel().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), side);
 		if (lazy == null)
 			return inserted.stack;
 		return ItemHandlerHelper.insertItemStacked(lazy, inserted.stack.copy(), simulate);

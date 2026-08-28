@@ -56,7 +56,7 @@ public class GenericItemFilling {
 		if (stack.getItem() == Items.MILK_BUCKET)
 			return false;
 
-		IFluidHandlerItem capability = stack.getCapability(Capabilities.FluidHandler.ITEM);
+		IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
 		if (capability == null)
 			return false;
 		if (!isFluidHandlerValid(stack, capability))
@@ -75,7 +75,7 @@ public class GenericItemFilling {
 		if (stack.getItem() == Items.BUCKET && canFillBucketInternally(availableFluid))
 			return 1000;
 
-		IFluidHandlerItem capability = stack.getCapability(Capabilities.FluidHandler.ITEM);
+		IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
 		if (capability == null)
 			return -1;
 		if (capability instanceof FluidBucketWrapper) {
@@ -128,7 +128,7 @@ public class GenericItemFilling {
 
 		ItemStack split = stack.copy();
 		split.setCount(1);
-		IFluidHandlerItem capability = split.getCapability(Capabilities.FluidHandler.ITEM);
+		IFluidHandlerItem capability = split.getCapability(Capabilities.Fluid.ITEM);
 		if (capability == null)
 			return ItemStack.EMPTY;
 		capability.fill(toFill, FluidAction.EXECUTE);

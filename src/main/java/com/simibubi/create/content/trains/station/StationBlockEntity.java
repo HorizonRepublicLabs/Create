@@ -138,7 +138,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-			Capabilities.ItemHandler.BLOCK,
+			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.TRACK_STATION.get(),
 			(be, context) -> be.depotBehaviour.itemHandler
 		);

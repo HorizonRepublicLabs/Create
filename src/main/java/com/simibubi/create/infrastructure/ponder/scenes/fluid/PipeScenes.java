@@ -495,7 +495,7 @@ public class PipeScenes {
 		BlockPos smartPos = util.grid().at(3, 1, 1);
 
 		scene.world().modifyBlockEntity(basinPos, BasinBlockEntity.class, be -> {
-			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 			if (ifh != null)
 				ifh.fill(new FluidStack(NeoForgeMod.MILK.get(), 1000), FluidAction.EXECUTE);
 		});
@@ -579,7 +579,7 @@ public class PipeScenes {
 		}
 		scene.idle(15);
 		scene.world().modifyBlockEntity(basinPos, BasinBlockEntity.class, be -> {
-			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 			if (ifh != null)
 				ifh.fill(chocolate, FluidAction.EXECUTE);
 		});

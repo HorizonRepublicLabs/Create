@@ -98,7 +98,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.BRASS_TUNNEL.get(),
 				(be, context) -> be.tunnelCapability
 		);
@@ -753,7 +753,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 		if (beltCapability == null) {
 			BlockEntity blockEntity = level.getBlockEntity(worldPosition.below());
 			if (blockEntity != null)
-				beltCapability = level.getCapability(Capabilities.ItemHandler.BLOCK, blockEntity.getBlockPos(), null);
+				beltCapability = level.getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), null);
 		}
 		return beltCapability;
 	}

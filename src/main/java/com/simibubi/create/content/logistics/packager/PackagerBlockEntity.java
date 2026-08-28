@@ -116,7 +116,7 @@ public class PackagerBlockEntity extends SmartBlockEntity implements Clearable {
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-			Capabilities.ItemHandler.BLOCK,
+			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.PACKAGER.get(),
 			(be, context) -> be.inventory
 		);

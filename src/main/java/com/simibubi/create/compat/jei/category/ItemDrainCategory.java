@@ -59,12 +59,12 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 				continue;
 			}
 
-			IFluidHandlerItem capability = stack.getCapability(Capabilities.FluidHandler.ITEM);
+			IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
 			if (capability == null)
 				continue;
 
 			ItemStack copy = stack.copy();
-			capability = copy.getCapability(Capabilities.FluidHandler.ITEM);
+			capability = copy.getCapability(Capabilities.Fluid.ITEM);
 			FluidStack extracted = capability.drain(1000, FluidAction.EXECUTE);
 			ItemStack result = capability.getContainer();
 			if (extracted.isEmpty())

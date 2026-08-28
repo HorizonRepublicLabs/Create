@@ -86,7 +86,7 @@ public class FrogportBlockEntity extends PackagePortBlockEntity implements IHave
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-			Capabilities.ItemHandler.BLOCK,
+			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.PACKAGE_FROGPORT.get(),
 			(be, context) -> be.itemHandler
 		);

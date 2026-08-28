@@ -23,7 +23,7 @@ public class PortableFluidInterfaceBlockEntity extends PortableStorageInterfaceB
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.FluidHandler.BLOCK,
+				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.PORTABLE_FLUID_INTERFACE.get(),
 				(be, context) -> be.capability
 		);

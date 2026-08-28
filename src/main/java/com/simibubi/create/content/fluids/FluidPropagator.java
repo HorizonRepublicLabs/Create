@@ -204,7 +204,7 @@ public class FluidPropagator {
 		if (blockEntity == null || blockEntity.getLevel() == null)
 			return false;
 		IFluidHandler capability =
-			blockEntity.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, blockEntity.getBlockPos(), side);
+			blockEntity.getLevel().getCapability(Capabilities.Fluid.BLOCK, blockEntity.getBlockPos(), side);
 		return capability != null;
 	}
 

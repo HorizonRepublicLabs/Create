@@ -94,7 +94,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.SAW.get(),
 				(be, context) -> {
 					if (context != Direction.DOWN)

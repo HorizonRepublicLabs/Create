@@ -126,7 +126,7 @@ public class FluidHelper {
 			return false;
 
 		Pair<FluidStack, ItemStack> emptyingResult = GenericItemEmptying.emptyItem(worldIn, heldItem, true);
-		IFluidHandler capability = worldIn.getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+		IFluidHandler capability = worldIn.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 		FluidStack fluidStack = emptyingResult.getFirst();
 
 		if (capability == null || fluidStack.getAmount() != capability.fill(fluidStack, FluidAction.SIMULATE))
@@ -155,7 +155,7 @@ public class FluidHelper {
 		if (!GenericItemFilling.canItemBeFilled(world, heldItem))
 			return false;
 
-		IFluidHandler capability = world.getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
+		IFluidHandler capability = world.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
 
 		if (capability == null)
 			return false;

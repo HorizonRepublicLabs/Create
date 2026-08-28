@@ -59,7 +59,7 @@ public class InvManipulationBehaviour extends CapManipulationBehaviourBase<IItem
 
 	@Override
 	protected BlockCapability<IItemHandler, Direction> capability() {
-		return Capabilities.ItemHandler.BLOCK;
+		return Capabilities.Item.BLOCK;
 	}
 
 	public ItemStack extract() {

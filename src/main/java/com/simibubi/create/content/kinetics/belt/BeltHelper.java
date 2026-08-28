@@ -28,7 +28,7 @@ public class BeltHelper {
 		return uprightCache.computeIfAbsent(
 			stack.getItem(),
 			item -> {
-				boolean isFluidHandler = stack.getCapability(Capabilities.FluidHandler.ITEM) != null;
+				boolean isFluidHandler = stack.getCapability(Capabilities.Fluid.ITEM) != null;
 				boolean useUpright = AllItemTags.UPRIGHT_ON_BELT.matches(stack);
 				boolean forceDisableUpright = !AllItemTags.NOT_UPRIGHT_ON_BELT.matches(stack);
 

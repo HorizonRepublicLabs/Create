@@ -28,7 +28,7 @@ public class GenericItemEmptying {
 			.isPresent())
 			return true;
 
-		IFluidHandlerItem capability = stack.getCapability(Capabilities.FluidHandler.ITEM);
+		IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
 		if (capability == null)
 			return false;
 		for (int i = 0; i < capability.getTanks(); i++) {
@@ -59,7 +59,7 @@ public class GenericItemEmptying {
 
 		ItemStack split = stack.copy();
 		split.setCount(1);
-		IFluidHandlerItem capability = split.getCapability(Capabilities.FluidHandler.ITEM);
+		IFluidHandlerItem capability = split.getCapability(Capabilities.Fluid.ITEM);
 		if (capability == null)
 			return Pair.of(resultingFluid, resultingItem);
 		resultingFluid = capability.drain(1000, simulate ? FluidAction.SIMULATE : FluidAction.EXECUTE);

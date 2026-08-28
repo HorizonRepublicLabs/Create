@@ -62,7 +62,7 @@ public class SpoutBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
-				Capabilities.FluidHandler.BLOCK,
+				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.SPOUT.get(),
 				(be, context) -> {
 					if (context != Direction.DOWN)
@@ -261,6 +261,6 @@ public class SpoutBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	@Override
 	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 		return containedFluidTooltip(tooltip, isPlayerSneaking,
-			level.getCapability(Capabilities.FluidHandler.BLOCK, worldPosition, null));
+			level.getCapability(Capabilities.Fluid.BLOCK, worldPosition, null));
 	}
 }
