@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -144,8 +148,8 @@ public class DeployerBlock extends DirectionalAxisKineticBlock implements IBE<De
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block p_220069_4_, BlockPos p_220069_5_,
-								boolean p_220069_6_) {
+	public void neighborChanged(BlockState state, Level world, BlockPos pos,
+		Block p_220069_4_, @Nullable Orientation orientation, boolean p_220069_6_) {
 		withBlockEntityDo(world, pos, DeployerBlockEntity::redstoneUpdate);
 	}
 

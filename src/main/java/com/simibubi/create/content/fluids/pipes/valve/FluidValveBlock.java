@@ -1,5 +1,9 @@
 package com.simibubi.create.content.fluids.pipes.valve;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import org.jetbrains.annotations.NotNull;
@@ -110,17 +114,16 @@ public class FluidValveBlock extends DirectionalAxisKineticBlock
 		if (state != oldState)
 			world.scheduleTick(pos, this, 1, TickPriority.HIGH);
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block otherBlock, BlockPos neighborPos,
-		boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block otherBlock,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		DebugPackets.sendNeighborsUpdatePacket(world, pos);
-		Direction d = FluidPropagator.validateNeighbourChange(state, world, pos, otherBlock, neighborPos, isMoving);
-		if (d == null)
+		for (Direction d : FluidPropagator.validateNeighbourChange(state, world, pos, movedByPiston)) {
+			if (!isOpenAt(state, d))
+				continue;
+			world.scheduleTick(pos, this, 1, TickPriority.HIGH);
 			return;
-		if (!isOpenAt(state, d))
-			return;
-		world.scheduleTick(pos, this, 1, TickPriority.HIGH);
+		}
 	}
 
 	public static boolean isOpenAt(BlockState state, Direction d) {

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.world.InteractionResult;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;
@@ -63,8 +67,8 @@ public class ArmBlock extends KineticBlock implements IBE<ArmBlockEntity>, ICogW
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block p_220069_4_,
-		BlockPos p_220069_5_, boolean p_220069_6_) {
+	public void neighborChanged(BlockState state, Level world, BlockPos pos,
+		Block p_220069_4_, @Nullable Orientation orientation, boolean p_220069_6_) {
 		withBlockEntityDo(world, pos, ArmBlockEntity::redstoneUpdate);
 	}
 

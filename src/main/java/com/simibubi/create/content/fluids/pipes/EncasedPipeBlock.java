@@ -1,5 +1,9 @@
 package com.simibubi.create.content.fluids.pipes;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.DOWN;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.EAST;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.NORTH;
@@ -95,17 +99,16 @@ public class EncasedPipeBlock extends Block
 	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
 		return AllBlocks.FLUID_PIPE.asStack();
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block otherBlock, BlockPos neighborPos,
-		boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block otherBlock,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		DebugPackets.sendNeighborsUpdatePacket(world, pos);
-		Direction d = FluidPropagator.validateNeighbourChange(state, world, pos, otherBlock, neighborPos, isMoving);
-		if (d == null)
+		for (Direction d : FluidPropagator.validateNeighbourChange(state, world, pos, movedByPiston)) {
+			if (!state.getValue(FACING_TO_PROPERTY_MAP.get(d)))
+				continue;
+			world.scheduleTick(pos, this, 1, TickPriority.HIGH);
 			return;
-		if (!state.getValue(FACING_TO_PROPERTY_MAP.get(d)))
-			return;
-		world.scheduleTick(pos, this, 1, TickPriority.HIGH);
+		}
 	}
 
 	@Override

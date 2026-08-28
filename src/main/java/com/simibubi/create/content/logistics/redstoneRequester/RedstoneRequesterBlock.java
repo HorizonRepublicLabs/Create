@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.redstoneRequester;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.core.UUIDUtil;
 
 import java.util.List;
@@ -150,8 +154,8 @@ public class RedstoneRequesterBlock extends Block implements IBE<RedstoneRequest
 	}
 
 	@Override
-	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pNeighborBlock,
-		BlockPos pNeighborPos, boolean pMovedByPiston) {
+	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos,
+		Block pNeighborBlock, @Nullable Orientation orientation, boolean pMovedByPiston) {
 		if (pLevel.isClientSide())
 			return;
 		pLevel.setBlockAndUpdate(pPos, pState.setValue(POWERED, pLevel.hasNeighborSignal(pPos)));

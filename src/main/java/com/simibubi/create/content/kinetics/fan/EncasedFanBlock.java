@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.content.logistics.chute.AbstractChuteBlock;
@@ -37,8 +41,8 @@ public class EncasedFanBlock extends DirectionalKineticBlock implements IBE<Enca
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos,
+		Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
 		blockUpdate(state, worldIn, pos);
 	}
 

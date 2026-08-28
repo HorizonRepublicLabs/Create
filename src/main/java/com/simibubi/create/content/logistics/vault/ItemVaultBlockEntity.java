@@ -187,7 +187,7 @@ public class ItemVaultBlockEntity extends SmartBlockEntity implements IMultiBloc
 			updatePos.move(direction);
 			blockstate = level.getBlockState(updatePos);
 			if (blockstate.getWeakChanges(level, updatePos)) {
-				level.neighborChanged(blockstate, updatePos, provokingBlock, provokingPos, false);
+				level.neighborChanged(blockstate, updatePos, provokingBlock, null, false);
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import net.minecraft.world.level.redstone.Orientation;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -54,8 +56,8 @@ public class SchematicannonBlock extends Block implements IBE<SchematicannonBloc
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-			boolean isMoving) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos,
+		Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
 		withBlockEntityDo(worldIn, pos, be -> be.neighbourCheckCooldown = 0);
 	}
 

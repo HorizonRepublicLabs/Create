@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.nixieTube;
 
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
@@ -302,8 +304,8 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
-		boolean isMoving) {
+	public void neighborChanged(BlockState state, Level level, BlockPos pos,
+		Block block, @Nullable Orientation orientation, boolean isMoving) {
 		if (level.isClientSide())
 			return;
 		if (!level.getBlockTicks()

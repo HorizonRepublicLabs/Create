@@ -1,5 +1,9 @@
 package com.simibubi.create.content.decoration.steamWhistle;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -195,8 +199,8 @@ public class WhistleBlock extends Block implements IBE<WhistleBlockEntity>, IWre
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos,
+		Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
 		if (worldIn.isClientSide())
 			return;
 		boolean previouslyPowered = state.getValue(POWERED);

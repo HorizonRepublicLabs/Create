@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -41,8 +45,8 @@ public class PortableStorageInterfaceBlock extends WrenchableDirectionalBlock
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block p_220069_4_, BlockPos p_220069_5_,
-		boolean p_220069_6_) {
+	public void neighborChanged(BlockState state, Level world, BlockPos pos,
+		Block p_220069_4_, @Nullable Orientation orientation, boolean p_220069_6_) {
 		withBlockEntityDo(world, pos, PortableStorageInterfaceBlockEntity::neighbourChanged);
 	}
 

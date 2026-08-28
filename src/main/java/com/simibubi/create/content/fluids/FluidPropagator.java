@@ -134,31 +134,26 @@ public class FluidPropagator {
 		}
 	}
 
-	public static Direction validateNeighbourChange(BlockState state, Level world, BlockPos pos, Block otherBlock,
-		BlockPos neighborPos, boolean isMoving) {
+	/// 26.x dropped the changed-neighbour position from neighborChanged, so
+	/// callers can no longer ask about one side. Every side is checked instead
+	/// and the ones worth reacting to are returned.
+	public static List<Direction> validateNeighbourChange(BlockState state, Level world, BlockPos pos,
+		boolean isMoving) {
 		if (world.isClientSide())
-			return null;
-		// calling getblockstate() as otherBlock param seems to contain the block which
-		// was replaced
-		otherBlock = world.getBlockState(neighborPos)
-			.getBlock();
-		if (otherBlock instanceof FluidPipeBlock)
-			return null;
-		if (otherBlock instanceof AxisPipeBlock)
-			return null;
-		if (otherBlock instanceof PumpBlock)
-			return null;
-		if (otherBlock instanceof LiquidBlock)
-			return null;
+			return List.of();
 		if (getStraightPipeAxis(state) == null && !(state.getBlock() instanceof EncasedPipeBlock))
-			return null;
+			return List.of();
+
+		List<Direction> relevant = new ArrayList<>();
 		for (Direction d : Iterate.directions) {
-			if (!pos.relative(d)
-				.equals(neighborPos))
+			Block otherBlock = world.getBlockState(pos.relative(d))
+				.getBlock();
+			if (otherBlock instanceof FluidPipeBlock || otherBlock instanceof AxisPipeBlock
+				|| otherBlock instanceof PumpBlock || otherBlock instanceof LiquidBlock)
 				continue;
-			return d;
+			relevant.add(d);
 		}
-		return null;
+		return relevant;
 	}
 
 	public static FluidTransportBehaviour getPipe(BlockGetter reader, BlockPos pos) {

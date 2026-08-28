@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.slidingDoor;
 
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -172,8 +174,8 @@ public class SlidingDoorBlock extends DoorBlock implements IWrenchable, IBE<Slid
 	}
 
 	@Override
-	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos,
-								boolean pIsMoving) {
+	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos,
+		Block pBlock, @Nullable Orientation orientation, boolean pIsMoving) {
 		boolean lower = pState.getValue(HALF) == DoubleBlockHalf.LOWER;
 		boolean isPowered = isDoorPowered(pLevel, pPos, pState);
 		if (defaultBlockState().is(pBlock))

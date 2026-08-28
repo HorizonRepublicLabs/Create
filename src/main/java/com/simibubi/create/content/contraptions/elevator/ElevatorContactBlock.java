@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import net.createmod.catnip.api.platform.services.PlatformHelper;
@@ -110,8 +112,8 @@ public class ElevatorContactBlock extends WrenchableDirectionalBlock
 	}
 
 	@Override
-	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos,
-		boolean pIsMoving) {
+	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos,
+		Block pBlock, @Nullable Orientation orientation, boolean pIsMoving) {
 		if (pLevel.isClientSide())
 			return;
 

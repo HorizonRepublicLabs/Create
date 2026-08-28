@@ -1,5 +1,9 @@
 package com.simibubi.create.content.redstone;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,8 +63,8 @@ public class RoseQuartzLampBlock extends Block implements IWrenchable {
     }
 
 	@Override
-	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos,
-		boolean pIsMoving) {
+	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos,
+		Block pBlock, @Nullable Orientation orientation, boolean pIsMoving) {
 		if (pLevel.isClientSide())
 			return;
 

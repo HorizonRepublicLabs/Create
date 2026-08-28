@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.bell;
 
+import net.minecraft.world.level.redstone.Orientation;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllShapes;
@@ -40,8 +42,8 @@ public abstract class AbstractBellBlock<BE extends AbstractBellBlockEntity> exte
 	}
 
 	@Override
-	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos,
-		boolean pIsMoving) {
+	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos,
+		Block pBlock, @Nullable Orientation orientation, boolean pIsMoving) {
 		if (pLevel.isClientSide())
 			return;
 		boolean shouldPower = pLevel.hasNeighborSignal(pPos);

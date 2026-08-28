@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.transmission;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.content.kinetics.RotationPropagator;
 import com.simibubi.create.content.kinetics.base.AbstractEncasedShaftBlock;
@@ -42,8 +46,8 @@ public class GearshiftBlock extends AbstractEncasedShaftBlock implements IBE<Spl
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-								boolean isMoving) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos,
+		Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
 		if (worldIn.isClientSide())
 			return;
 

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -82,8 +86,8 @@ public class PackagerLinkBlock extends FaceAttachedHorizontalDirectionalBlock
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos,
+		Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
 		if (worldIn.isClientSide())
 			return;
 

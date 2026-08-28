@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.depot;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -87,8 +91,8 @@ public class EjectorBlock extends HorizontalKineticBlock implements IBE<EjectorB
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block p_220069_4_, BlockPos p_220069_5_,
-		boolean p_220069_6_) {
+	public void neighborChanged(BlockState state, Level world, BlockPos pos,
+		Block p_220069_4_, @Nullable Orientation orientation, boolean p_220069_6_) {
 		withBlockEntityDo(world, pos, EjectorBlockEntity::updateSignal);
 	}
 

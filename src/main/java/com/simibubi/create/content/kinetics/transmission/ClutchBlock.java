@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.transmission;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 
 import net.minecraft.core.BlockPos;
@@ -15,8 +19,8 @@ public class ClutchBlock extends GearshiftBlock {
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-			boolean isMoving) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos,
+		Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
 		if (worldIn.isClientSide())
 			return;
 

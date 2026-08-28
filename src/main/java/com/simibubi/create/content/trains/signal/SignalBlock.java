@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.signal;
 
+import net.minecraft.world.level.redstone.Orientation;
+
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
@@ -73,8 +75,8 @@ public class SignalBlock extends Block implements IBE<SignalBlockEntity>, IWrenc
 	}
 
 	@Override
-	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos,
-		boolean pIsMoving) {
+	public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos,
+		Block pBlock, @Nullable Orientation orientation, boolean pIsMoving) {
 		if (pLevel.isClientSide())
 			return;
 		boolean powered = pState.getValue(POWERED);

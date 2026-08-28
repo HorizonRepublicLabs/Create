@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.gantry;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -171,7 +175,7 @@ public class GantryShaftBlock extends DirectionalKineticBlock implements IBE<Gan
 		if (onWrenched.consumesAction()) {
 			BlockPos pos = context.getClickedPos();
 			Level world = context.getLevel();
-			neighborChanged(world.getBlockState(pos), world, pos, state.getBlock(), pos, false);
+			neighborChanged(world.getBlockState(pos), world, pos, state.getBlock(), null, false);
 		}
 		return onWrenched;
 	}
@@ -191,8 +195,8 @@ public class GantryShaftBlock extends DirectionalKineticBlock implements IBE<Gan
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block p_220069_4_, BlockPos p_220069_5_,
-		boolean p_220069_6_) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos,
+		Block p_220069_4_, @Nullable Orientation orientation, boolean p_220069_6_) {
 		if (worldIn.isClientSide())
 			return;
 		boolean previouslyPowered = state.getValue(POWERED);

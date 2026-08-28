@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -80,8 +84,8 @@ public class DrillBlock extends DirectionalKineticBlock implements IBE<DrillBloc
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos,
+		Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
 		withBlockEntityDo(worldIn, pos, DrillBlockEntity::destroyNextTick);
 	}
 
