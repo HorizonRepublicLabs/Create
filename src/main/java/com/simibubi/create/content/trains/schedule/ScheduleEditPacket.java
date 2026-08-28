@@ -34,7 +34,7 @@ public record ScheduleEditPacket(Schedule schedule) implements SelfHandlingPaylo
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_SCHEDULE;
 	}
 }

@@ -50,7 +50,7 @@ public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.MINECART_CONTROLLER;
 	}
 }

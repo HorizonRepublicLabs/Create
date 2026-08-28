@@ -36,7 +36,7 @@ public class ConfigureSequencedGearshiftPacket extends BlockEntityConfigurationP
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_SEQUENCER;
 	}
 }

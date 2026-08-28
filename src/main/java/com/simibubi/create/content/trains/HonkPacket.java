@@ -68,7 +68,7 @@ public abstract class HonkPacket implements CreatePacketPayload {
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.S_TRAIN_HONK;
 		}
 	}
@@ -100,7 +100,7 @@ public abstract class HonkPacket implements CreatePacketPayload {
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.C_TRAIN_HONK;
 		}
 	}

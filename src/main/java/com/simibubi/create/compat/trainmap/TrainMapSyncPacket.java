@@ -53,7 +53,7 @@ public class TrainMapSyncPacket implements CreatePacketPayload {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TRAIN_MAP_SYNC;
 	}
 }

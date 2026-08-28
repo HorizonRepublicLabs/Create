@@ -30,7 +30,7 @@ public record RemoveTrainPacket(UUID id) implements CreatePacketPayload {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.REMOVE_TRAIN;
 	}
 }

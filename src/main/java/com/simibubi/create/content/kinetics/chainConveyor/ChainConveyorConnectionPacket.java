@@ -35,7 +35,7 @@ public class ChainConveyorConnectionPacket extends BlockEntityConfigurationPacke
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CHAIN_CONVEYOR_CONNECT;
 	}
 

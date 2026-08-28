@@ -31,7 +31,7 @@ public record ContraptionBlockChangedPacket(int entityId, BlockPos localPos, Blo
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTRAPTION_BLOCK_CHANGED;
 	}
 }

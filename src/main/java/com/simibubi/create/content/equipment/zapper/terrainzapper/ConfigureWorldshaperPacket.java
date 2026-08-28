@@ -50,7 +50,7 @@ public class ConfigureWorldshaperPacket extends ConfigureZapperPacket {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_WORLDSHAPER;
 	}
 }

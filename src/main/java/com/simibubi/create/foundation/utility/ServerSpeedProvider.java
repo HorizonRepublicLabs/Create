@@ -74,7 +74,7 @@ public class ServerSpeedProvider {
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.SERVER_SPEED;
 		}
 	}

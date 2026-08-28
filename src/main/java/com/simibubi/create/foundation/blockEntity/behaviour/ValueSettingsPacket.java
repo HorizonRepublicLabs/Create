@@ -71,7 +71,7 @@ public class ValueSettingsPacket extends BlockEntityConfigurationPacket<SmartBlo
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.VALUE_SETTINGS;
 	}
 }

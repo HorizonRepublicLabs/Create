@@ -27,7 +27,7 @@ public record BlueprintAssignCompleteRecipePacket(Identifier recipeId) implement
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.BLUEPRINT_COMPLETE_RECIPE;
 	}
 }

@@ -29,7 +29,7 @@ public record PackageDestroyPacket(Vec3 location, ItemStack box) implements Crea
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.PACKAGE_DESTROYED;
 	}
 

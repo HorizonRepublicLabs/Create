@@ -29,7 +29,7 @@ public record LogisticalStockResponsePacket(boolean lastPacket, BlockPos pos, Li
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LOGISTICS_STOCK_RESPONSE;
 	}
 

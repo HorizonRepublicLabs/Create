@@ -32,7 +32,7 @@ public record GlueEffectPacket(BlockPos pos, Direction direction, boolean fullBl
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.GLUE_EFFECT;
 	}
 }

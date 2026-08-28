@@ -57,7 +57,7 @@ public record ControlsInputPacket(List<Integer> activatedButtons, boolean press,
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTROLS_INPUT;
 	}
 }

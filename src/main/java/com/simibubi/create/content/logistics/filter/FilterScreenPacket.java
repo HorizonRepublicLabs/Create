@@ -29,7 +29,7 @@ public record FilterScreenPacket(Option option, @Nullable CompoundTag data) impl
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_FILTER;
 	}
 

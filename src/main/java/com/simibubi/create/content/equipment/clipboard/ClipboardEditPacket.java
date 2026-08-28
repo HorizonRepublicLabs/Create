@@ -67,7 +67,7 @@ public record ClipboardEditPacket(int hotbarSlot, @Nullable ClipboardContent cli
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CLIPBOARD_EDIT;
 	}
 

@@ -51,7 +51,7 @@ public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<Stri
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.UPDATE_ELEVATOR_FLOORS;
 	}
 
@@ -77,7 +77,7 @@ public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<Stri
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.REQUEST_FLOOR_LIST;
 		}
 	}

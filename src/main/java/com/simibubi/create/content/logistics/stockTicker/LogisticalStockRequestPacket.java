@@ -17,7 +17,7 @@ public class LogisticalStockRequestPacket extends BlockEntityConfigurationPacket
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LOGISTICS_STOCK_REQUEST;
 	}
 

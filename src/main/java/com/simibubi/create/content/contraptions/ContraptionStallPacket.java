@@ -30,7 +30,7 @@ public record ContraptionStallPacket(int entityId, double x, double y, double z,
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTRAPTION_STALL;
 	}
 }

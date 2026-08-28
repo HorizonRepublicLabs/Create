@@ -51,7 +51,7 @@ public class LinkedControllerBindPacket extends LinkedControllerPacketBase {
 	protected void handleLectern(ServerPlayer player, LecternControllerBlockEntity lectern) {}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LINKED_CONTROLLER_BIND;
 	}
 }

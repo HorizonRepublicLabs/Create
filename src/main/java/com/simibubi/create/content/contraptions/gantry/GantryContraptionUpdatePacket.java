@@ -29,7 +29,7 @@ public record GantryContraptionUpdatePacket(int entityID, double coord, double m
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.GANTRY_UPDATE;
 	}
 }

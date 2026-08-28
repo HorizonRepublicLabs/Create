@@ -30,7 +30,7 @@ public record ConfigureSymmetryWandPacket(InteractionHand hand, SymmetryMirror m
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_SYMMETRY_WAND;
 	}
 }

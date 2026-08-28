@@ -40,7 +40,7 @@ public class TunnelFlapPacket extends BlockEntityDataPacket<BeltTunnelBlockEntit
     }
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TUNNEL_FLAP;
 	}
 }

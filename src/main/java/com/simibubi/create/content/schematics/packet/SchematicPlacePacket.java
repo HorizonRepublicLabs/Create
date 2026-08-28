@@ -22,7 +22,7 @@ public record SchematicPlacePacket(ItemStack stack) implements SelfHandlingPaylo
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.PLACE_SCHEMATIC;
 	}
 

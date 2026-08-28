@@ -33,7 +33,7 @@ public class FunnelFlapPacket extends BlockEntityDataPacket<FunnelBlockEntity> {
     }
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.FUNNEL_FLAP;
 	}
 }

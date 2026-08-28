@@ -50,7 +50,7 @@ public class PotatoCannonPacket extends ShootGadgetPacket {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.POTATO_CANNON;
 	}
 }

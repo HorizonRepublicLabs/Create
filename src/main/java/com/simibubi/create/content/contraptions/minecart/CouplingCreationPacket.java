@@ -23,7 +23,7 @@ public record CouplingCreationPacket(int id1, int id2) implements SelfHandlingPa
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.MINECART_COUPLING_CREATION;
 	}
 

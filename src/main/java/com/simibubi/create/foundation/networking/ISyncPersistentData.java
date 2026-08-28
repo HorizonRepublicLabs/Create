@@ -49,7 +49,7 @@ public interface ISyncPersistentData {
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.PERSISTENT_DATA;
 		}
 	}

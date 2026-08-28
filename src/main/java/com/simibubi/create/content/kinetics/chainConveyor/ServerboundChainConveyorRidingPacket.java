@@ -25,7 +25,7 @@ public class ServerboundChainConveyorRidingPacket extends BlockEntityConfigurati
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CHAIN_CONVEYOR_RIDING;
 	}
 

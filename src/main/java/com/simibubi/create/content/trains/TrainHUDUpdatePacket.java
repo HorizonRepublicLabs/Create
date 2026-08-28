@@ -77,7 +77,7 @@ public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.S_TRAIN_HUD;
 		}
 
@@ -108,7 +108,7 @@ public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.C_TRAIN_HUD;
 		}
 	}

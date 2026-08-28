@@ -59,7 +59,7 @@ public class DisplayLinkConfigurationPacket extends BlockEntityConfigurationPack
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_DATA_GATHERER;
 	}
 }

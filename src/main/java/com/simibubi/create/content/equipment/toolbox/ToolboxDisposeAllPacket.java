@@ -27,7 +27,7 @@ public record ToolboxDisposeAllPacket(BlockPos toolboxPos) implements SelfHandli
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TOOLBOX_DISPOSE_ALL;
 	}
 

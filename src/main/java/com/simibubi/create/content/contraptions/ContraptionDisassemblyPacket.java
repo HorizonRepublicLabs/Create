@@ -27,7 +27,7 @@ public record ContraptionDisassemblyPacket(int entityId, StructureTransform tran
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTRAPTION_DISASSEMBLE;
 	}
 }

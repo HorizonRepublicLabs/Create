@@ -24,7 +24,7 @@ public class EjectorTriggerPacket extends BlockEntityConfigurationPacket<Ejector
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TRIGGER_EJECTOR;
 	}
 }

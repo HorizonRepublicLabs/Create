@@ -35,7 +35,7 @@ public record HighlightPacket(BlockPos pos) implements CreatePacketPayload {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.BLOCK_HIGHLIGHT;
 	}
 }

@@ -28,7 +28,7 @@ public record FactoryPanelEffectPacket(FactoryPanelPosition fromPos, FactoryPane
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.FACTORY_PANEL_EFFECT;
 	}
 

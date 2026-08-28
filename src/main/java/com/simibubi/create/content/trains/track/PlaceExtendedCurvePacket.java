@@ -31,7 +31,7 @@ public record PlaceExtendedCurvePacket(boolean mainHand, boolean ctrlDown) imple
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.PLACE_CURVED_TRACK;
 	}
 }

@@ -25,7 +25,7 @@ public class StockKeeperCategoryRefundPacket extends BlockEntityConfigurationPac
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.REFUND_STOCK_KEEPER_CATEGORY;
 	}
 

@@ -32,7 +32,7 @@ public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facin
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.PLACE_EJECTOR;
 	}
 
@@ -55,7 +55,7 @@ public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facin
 		);
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.S_PLACE_EJECTOR;
 		}
 

@@ -54,7 +54,7 @@ public record ElevatorTargetFloorPacket(int entityId, int targetY) implements Se
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.ELEVATOR_SET_FLOOR;
 	}
 }

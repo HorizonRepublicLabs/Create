@@ -35,7 +35,7 @@ public record SuperGlueRemovalPacket(int entityId, BlockPos soundSource) impleme
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.GLUE_REMOVED;
 	}
 }

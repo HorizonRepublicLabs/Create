@@ -28,7 +28,7 @@ public record TrackGraphRequestPacket(int netId) implements SelfHandlingPayload,
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TRACK_GRAPH_REQUEST;
 	}
 }

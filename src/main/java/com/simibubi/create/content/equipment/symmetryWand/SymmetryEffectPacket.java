@@ -25,7 +25,7 @@ public record SymmetryEffectPacket(BlockPos mirror, List<BlockPos> positions) im
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.SYMMETRY_EFFECT;
 	}
 

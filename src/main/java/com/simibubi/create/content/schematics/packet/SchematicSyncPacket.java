@@ -35,7 +35,7 @@ public record SchematicSyncPacket(int slot, boolean deployed, BlockPos anchor, R
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.SYNC_SCHEMATIC;
 	}
 

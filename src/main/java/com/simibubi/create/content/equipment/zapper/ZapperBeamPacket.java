@@ -42,7 +42,7 @@ public class ZapperBeamPacket extends ShootGadgetPacket {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.BEAM_EFFECT;
 	}
 }

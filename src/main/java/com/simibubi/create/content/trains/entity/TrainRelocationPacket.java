@@ -40,7 +40,7 @@ public record TrainRelocationPacket(UUID trainId, BlockPos pos, Vec3 lookAngle, 
 	        TrainRelocationPacket::new
 	);
 
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.RELOCATE_TRAIN;
 	}
 

@@ -276,7 +276,7 @@ public class TrackGraphSyncPacket extends TrackGraphPacket {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.SYNC_RAIL_GRAPH;
 	}
 }

@@ -26,7 +26,7 @@ public record WiFiEffectPacket(BlockPos pos) implements CreatePacketPayload {
 		.map(WiFiEffectPacket::new, WiFiEffectPacket::pos);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.PACKAGER_LINK_EFFECT;
 	}
 

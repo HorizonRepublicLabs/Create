@@ -42,7 +42,7 @@ public record SchematicUploadPacket(int code, long size, String schematic, byte[
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.UPLOAD_SCHEMATIC;
 	}
 

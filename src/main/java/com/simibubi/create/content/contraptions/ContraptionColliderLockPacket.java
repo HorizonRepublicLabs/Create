@@ -33,7 +33,7 @@ public record ContraptionColliderLockPacket(int contraption, double offset, int 
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTRAPTION_COLLIDER_LOCK;
 	}
 
@@ -50,7 +50,7 @@ public record ContraptionColliderLockPacket(int contraption, double offset, int 
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.CONTRAPTION_COLLIDER_LOCK_REQUEST;
 		}
 	}

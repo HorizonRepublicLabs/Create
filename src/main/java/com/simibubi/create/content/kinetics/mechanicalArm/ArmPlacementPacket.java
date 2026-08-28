@@ -40,7 +40,7 @@ public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements SelfHandl
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.PLACE_ARM;
 	}
 
@@ -62,7 +62,7 @@ public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements SelfHandl
 		);
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.S_PLACE_ARM;
 		}
 

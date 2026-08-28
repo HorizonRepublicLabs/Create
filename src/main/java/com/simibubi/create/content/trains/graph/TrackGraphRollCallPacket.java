@@ -70,7 +70,7 @@ public record TrackGraphRollCallPacket(List<Entry> entries) implements CreatePac
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TRACK_GRAPH_ROLL_CALL;
 	}
 

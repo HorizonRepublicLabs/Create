@@ -38,7 +38,7 @@ public record GhostItemSubmitPacket(ItemStack item, int slot) implements SelfHan
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.SUBMIT_GHOST_ITEM;
 	}
 }

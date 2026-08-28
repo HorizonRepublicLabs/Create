@@ -32,7 +32,7 @@ public record FluidSplashPacket(BlockPos pos, FluidStack fluid) implements Creat
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.FLUID_SPLASH;
 	}
 }

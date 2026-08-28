@@ -42,7 +42,7 @@ public class ConfigureThresholdSwitchPacket extends BlockEntityConfigurationPack
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_STOCKSWITCH;
 	}
 }

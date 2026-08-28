@@ -25,7 +25,7 @@ public record ContraptionRelocationPacket(int entityId) implements CreatePacketP
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTRAPTION_RELOCATION;
 	}
 }

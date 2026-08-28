@@ -29,7 +29,7 @@ public class LinkedControllerStopLecternPacket extends LinkedControllerPacketBas
 	protected void handleItem(ServerPlayer player, ItemStack heldItem) { }
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LINKED_CONTROLLER_USE_LECTERN;
 	}
 }

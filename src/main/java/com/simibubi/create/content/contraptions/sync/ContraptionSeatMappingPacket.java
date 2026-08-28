@@ -57,7 +57,7 @@ public record ContraptionSeatMappingPacket(int entityId, Map<UUID, Integer> mapp
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTRAPTION_SEAT_MAPPING;
 	}
 }

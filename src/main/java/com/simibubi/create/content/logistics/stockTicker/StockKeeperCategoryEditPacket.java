@@ -26,7 +26,7 @@ public class StockKeeperCategoryEditPacket extends BlockEntityConfigurationPacke
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_STOCK_KEEPER_CATEGORIES;
 	}
 

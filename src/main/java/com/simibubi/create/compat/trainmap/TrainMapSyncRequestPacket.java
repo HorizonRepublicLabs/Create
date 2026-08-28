@@ -20,7 +20,7 @@ public class TrainMapSyncRequestPacket implements SelfHandlingPayload, CreatePac
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TRAIN_MAP_REQUEST;
 	}
 }

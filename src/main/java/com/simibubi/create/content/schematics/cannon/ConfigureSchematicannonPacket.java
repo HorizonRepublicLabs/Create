@@ -21,7 +21,7 @@ public record ConfigureSchematicannonPacket(Option option, boolean set) implemen
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_SCHEMATICANNON;
 	}
 

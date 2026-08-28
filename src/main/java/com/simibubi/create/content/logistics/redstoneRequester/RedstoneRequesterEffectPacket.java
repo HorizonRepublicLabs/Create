@@ -24,7 +24,7 @@ public record RedstoneRequesterEffectPacket(BlockPos pos, boolean success) imple
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.REDSTONE_REQUESTER_EFFECT;
 	}
 

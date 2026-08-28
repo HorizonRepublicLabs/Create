@@ -78,7 +78,7 @@ public abstract class TrainEditPacket implements CreatePacketPayload {
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.C_CONFIGURE_TRAIN;
 		}
 	}
@@ -97,7 +97,7 @@ public abstract class TrainEditPacket implements CreatePacketPayload {
 		}
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.S_CONFIGURE_TRAIN;
 		}
 	}

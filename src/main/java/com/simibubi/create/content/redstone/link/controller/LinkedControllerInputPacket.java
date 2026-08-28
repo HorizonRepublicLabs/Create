@@ -59,7 +59,7 @@ public class LinkedControllerInputPacket extends LinkedControllerPacketBase {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LINKED_CONTROLLER_INPUT;
 	}
 }

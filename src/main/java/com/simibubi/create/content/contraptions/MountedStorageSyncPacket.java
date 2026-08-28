@@ -28,7 +28,7 @@ public record MountedStorageSyncPacket(int contraptionId, Map<BlockPos, MountedI
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.MOUNTED_STORAGE_SYNC;
 	}
 

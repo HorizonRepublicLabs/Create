@@ -15,7 +15,7 @@ public enum LeftClickPacket implements SelfHandlingPayload, CreatePacketPayload 
 	public static final StreamCodec<ByteBuf, LeftClickPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LEFT_CLICK;
 	}
 

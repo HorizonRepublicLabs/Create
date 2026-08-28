@@ -25,7 +25,7 @@ public record RadialWrenchMenuSubmitPacket(BlockPos blockPos, BlockState newStat
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.RADIAL_WRENCH_MENU_SUBMIT;
 	}
 

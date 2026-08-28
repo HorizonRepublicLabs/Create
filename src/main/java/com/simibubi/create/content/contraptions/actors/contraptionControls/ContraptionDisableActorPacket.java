@@ -52,7 +52,7 @@ public record ContraptionDisableActorPacket(int entityId, ItemStack filter, bool
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTRAPTION_ACTOR_TOGGLE;
 	}
 }

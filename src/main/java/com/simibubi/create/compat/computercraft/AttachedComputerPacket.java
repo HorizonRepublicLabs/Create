@@ -34,7 +34,7 @@ public class AttachedComputerPacket extends BlockEntityDataPacket<SyncedBlockEnt
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.ATTACHED_COMPUTER;
 	}
 }

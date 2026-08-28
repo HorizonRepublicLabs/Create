@@ -23,7 +23,7 @@ public record ClientMotionPacket(Vec3 motion, boolean onGround, float limbSwing)
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CLIENT_MOTION;
 	}
 

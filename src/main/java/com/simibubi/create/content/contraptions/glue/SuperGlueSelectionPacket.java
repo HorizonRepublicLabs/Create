@@ -49,7 +49,7 @@ public record SuperGlueSelectionPacket(BlockPos from, BlockPos to) implements Se
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.GLUE_IN_AREA;
 	}
 }

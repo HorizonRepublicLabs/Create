@@ -37,7 +37,7 @@ public class ChainPackageInteractionPacket extends BlockEntityConfigurationPacke
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CHAIN_PACKAGE_INTERACTION;
 	}
 

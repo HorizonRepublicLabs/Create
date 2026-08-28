@@ -78,7 +78,7 @@ public class CurvedTrackDestroyPacket extends BlockEntityConfigurationPacket<Tra
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.DESTROY_CURVED_TRACK;
 	}
 }

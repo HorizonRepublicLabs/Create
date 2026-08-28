@@ -27,7 +27,7 @@ public record PackagePortPlacementPacket(PackagePortTarget target, BlockPos pos)
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.PLACE_PACKAGE_PORT;
 	}
 
@@ -60,7 +60,7 @@ public record PackagePortPlacementPacket(PackagePortTarget target, BlockPos pos)
 			.map(ClientBoundRequest::new, ClientBoundRequest::pos);
 
 		@Override
-		public PacketTypeProvider getTypeProvider() {
+		public AllPackets getTypeProvider() {
 			return AllPackets.S_PLACE_PACKAGE_PORT;
 		}
 

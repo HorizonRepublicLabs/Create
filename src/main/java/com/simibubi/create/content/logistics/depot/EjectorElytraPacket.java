@@ -19,7 +19,7 @@ public record EjectorElytraPacket(BlockPos pos) implements SelfHandlingPayload, 
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.EJECTOR_ELYTRA;
 	}
 

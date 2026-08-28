@@ -29,7 +29,7 @@ public record ToolboxEquipPacket(BlockPos toolboxPos, int slot, int hotbarSlot) 
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TOOLBOX_EQUIP;
 	}
 

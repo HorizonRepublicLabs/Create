@@ -26,7 +26,7 @@ public class StockKeeperLockPacket extends BlockEntityConfigurationPacket<StockT
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LOCK_STOCK_KEEPER;
 	}
 

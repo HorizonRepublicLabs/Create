@@ -87,7 +87,7 @@ public class CurvedTrackSelectionPacket extends BlockEntityConfigurationPacket<T
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.SELECT_CURVED_TRACK;
 	}
 }

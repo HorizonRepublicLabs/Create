@@ -27,7 +27,7 @@ public record ClientboundChainConveyorRidingPacket(Collection<UUID> uuids) imple
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CLIENTBOUND_CHAIN_CONVEYOR;
 	}
 

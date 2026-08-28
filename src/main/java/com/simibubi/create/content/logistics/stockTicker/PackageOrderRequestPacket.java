@@ -35,7 +35,7 @@ public class PackageOrderRequestPacket extends BlockEntityConfigurationPacket<St
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LOGISTICS_PACKAGE_REQUEST;
 	}
 

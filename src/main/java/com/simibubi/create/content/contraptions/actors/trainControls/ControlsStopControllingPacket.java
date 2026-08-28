@@ -24,7 +24,7 @@ public enum ControlsStopControllingPacket implements CreatePacketPayload {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTROLS_ABORT;
 	}
 }

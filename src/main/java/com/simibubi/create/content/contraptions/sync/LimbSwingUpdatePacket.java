@@ -40,7 +40,7 @@ public record LimbSwingUpdatePacket(int entityId, Vec3 position, float limbSwing
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.LIMBSWING_UPDATE;
 	}
 }

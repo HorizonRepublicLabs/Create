@@ -29,7 +29,7 @@ public class GaugeObservedPacket extends BlockEntityConfigurationPacket<StressGa
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.OBSERVER_STRESSOMETER;
 	}
 }

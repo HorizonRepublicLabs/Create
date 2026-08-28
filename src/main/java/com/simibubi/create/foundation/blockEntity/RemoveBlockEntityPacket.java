@@ -30,7 +30,7 @@ public class RemoveBlockEntityPacket extends BlockEntityDataPacket<SyncedBlockEn
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.REMOVE_TE;
 	}
 }

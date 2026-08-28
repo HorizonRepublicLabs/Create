@@ -27,7 +27,7 @@ public class StockKeeperCategoryHidingPacket extends BlockEntityConfigurationPac
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.STOCK_KEEPER_HIDE_CATEGORY;
 	}
 

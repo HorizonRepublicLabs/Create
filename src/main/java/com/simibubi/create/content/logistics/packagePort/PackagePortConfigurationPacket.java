@@ -27,7 +27,7 @@ public class PackagePortConfigurationPacket extends BlockEntityConfigurationPack
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.PACKAGE_PORT_CONFIGURATION;
 	}
 

@@ -62,7 +62,7 @@ public class FactoryPanelConfigurationPacket extends BlockEntityConfigurationPac
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_FACTORY_PANEL;
 	}
 

@@ -16,7 +16,7 @@ public enum ClearMenuPacket implements SelfHandlingPayload, CreatePacketPayload 
 	public static final StreamCodec<ByteBuf, ClearMenuPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CLEAR_CONTAINER;
 	}
 

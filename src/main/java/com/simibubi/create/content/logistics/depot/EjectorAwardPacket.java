@@ -25,7 +25,7 @@ public class EjectorAwardPacket extends BlockEntityConfigurationPacket<EjectorBl
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.EJECTOR_AWARD;
 	}
 }

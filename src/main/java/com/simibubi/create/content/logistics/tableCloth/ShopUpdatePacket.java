@@ -25,7 +25,7 @@ public class ShopUpdatePacket extends BlockEntityDataPacket<TableClothBlockEntit
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.SHOP_UPDATE;
 	}
 }

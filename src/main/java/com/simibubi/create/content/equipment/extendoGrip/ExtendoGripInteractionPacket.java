@@ -37,7 +37,7 @@ public record ExtendoGripInteractionPacket(InteractionHand hand, int target, Vec
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.EXTENDO_INTERACT;
 	}
 

@@ -23,7 +23,7 @@ public record AddTrainPacket(Train train) implements CreatePacketPayload {
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.ADD_TRAIN;
 	}
 }

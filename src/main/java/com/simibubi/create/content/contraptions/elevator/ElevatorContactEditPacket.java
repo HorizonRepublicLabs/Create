@@ -38,7 +38,7 @@ public class ElevatorContactEditPacket extends BlockEntityConfigurationPacket<El
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_ELEVATOR_CONTACT;
 	}
 }

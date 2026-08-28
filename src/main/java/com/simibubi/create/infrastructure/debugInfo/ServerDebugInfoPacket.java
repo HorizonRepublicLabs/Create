@@ -49,7 +49,7 @@ public record ServerDebugInfoPacket(String serverInfo) implements CreatePacketPa
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.SERVER_DEBUG_INFO;
 	}
 

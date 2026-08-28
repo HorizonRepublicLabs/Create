@@ -37,7 +37,7 @@ public record TrainCollisionPacket(int damage, int contraptionEntityId) implemen
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.TRAIN_COLLISION;
 	}
 }

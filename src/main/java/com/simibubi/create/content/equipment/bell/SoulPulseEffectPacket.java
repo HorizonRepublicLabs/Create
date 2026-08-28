@@ -30,7 +30,7 @@ public record SoulPulseEffectPacket(BlockPos pos, int distance, boolean canOverl
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.SOUL_PULSE;
 	}
 }

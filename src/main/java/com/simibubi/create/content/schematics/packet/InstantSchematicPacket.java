@@ -22,7 +22,7 @@ public record InstantSchematicPacket(String name, BlockPos origin, BlockPos boun
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.INSTANT_SCHEMATIC;
 	}
 

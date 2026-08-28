@@ -32,7 +32,7 @@ public record TrainPromptPacket(Component text, boolean shadow) implements Creat
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.S_TRAIN_PROMPT;
 	}
 }

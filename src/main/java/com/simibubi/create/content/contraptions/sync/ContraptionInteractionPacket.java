@@ -34,7 +34,7 @@ public record ContraptionInteractionPacket(InteractionHand hand, int target, Blo
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONTRAPTION_INTERACT;
 	}
 

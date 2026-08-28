@@ -103,7 +103,7 @@ public class StationEditPacket extends BlockEntityConfigurationPacket<StationBlo
 	}
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.CONFIGURE_STATION;
 	}
 }

@@ -22,7 +22,7 @@ public record KnockbackPacket(float yRot, float strength) implements CreatePacke
 	);
 
 	@Override
-	public PacketTypeProvider getTypeProvider() {
+	public AllPackets getTypeProvider() {
 		return AllPackets.KNOCKBACK;
 	}
 
