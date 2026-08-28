@@ -556,7 +556,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			ms.translate(x + windowWidth + 5, y + windowHeight - 70);
 			ms.scale(3.5f, 3.5f);
 			GuiGameElement.of(itemToProgram)
-				.render(graphics);
+				.submit(graphics);
 			ms.popMatrix();
 		}
 
@@ -888,7 +888,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		ms.translate(-18 / 2.0, -18 / 2.0);
 		if (customCount != 0 || craftable)
 			GuiGameElement.of(stackWithCount)
-				.render(graphics);
+				.submit(graphics);
 		ms.popMatrix();
 
 		ms.pushMatrix();

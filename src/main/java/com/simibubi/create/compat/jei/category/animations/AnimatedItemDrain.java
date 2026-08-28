@@ -33,7 +33,7 @@ public class AnimatedItemDrain extends AnimatedKinetics {
 
 		blockElement(AllBlocks.ITEM_DRAIN.getDefaultState())
 			.scale(scale)
-			.render(graphics);
+			.submit(graphics);
 
 		UIRenderHelper.flipForGuiRender(matrixStack);
 		matrixStack.scale(scale, scale);

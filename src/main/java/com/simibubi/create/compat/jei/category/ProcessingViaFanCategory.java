@@ -7,8 +7,6 @@ import java.util.function.Supplier;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
@@ -61,19 +59,21 @@ public abstract class ProcessingViaFanCategory<T extends Recipe<?>> extends Crea
 
 		matrixStack.pushMatrix();
 		translateFan(matrixStack);
-		matrixStack.mulPose(Axis.XP.rotationDegrees(-12.5f));
-		matrixStack.mulPose(Axis.YP.rotationDegrees(22.5f));
+		// The isometric tilt that used to be applied here needs a 3D rotation on
+		// what is now a 2D GUI stack. catnip has not restored that yet -- see the
+		// TODO in GuiGameElement.transformMatrix -- so rotateBlock below is inert
+		// and these blocks draw untilted until upstream lands it.
 
 		AnimatedKinetics.defaultBlockElement(AllPartialModels.ENCASED_FAN_INNER)
 			.rotateBlock(180, 0, AnimatedKinetics.getCurrentAngle() * 16)
 			.scale(SCALE)
-			.render(graphics);
+			.submit(graphics);
 
 		AnimatedKinetics.defaultBlockElement(AllBlocks.ENCASED_FAN.getDefaultState())
 			.rotateBlock(0, 180, 0)
 			.atLocal(0, 0, 0)
 			.scale(SCALE)
-			.render(graphics);
+			.submit(graphics);
 
 		renderAttachedBlock(graphics);
 		matrixStack.popMatrix();
@@ -89,7 +89,7 @@ public abstract class ProcessingViaFanCategory<T extends Recipe<?>> extends Crea
 		return AllGuiTextures.JEI_SHADOW;
 	}
 
-	protected void translateFan(PoseStack matrixStack) {
+	protected void translateFan(Matrix3x2fStack matrixStack) {
 		matrixStack.translate(56, 33);
 	}
 

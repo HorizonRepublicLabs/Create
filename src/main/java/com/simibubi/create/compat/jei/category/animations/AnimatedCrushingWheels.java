@@ -26,13 +26,13 @@ public class AnimatedCrushingWheels extends AnimatedKinetics {
 		blockElement(wheel)
 				.rotateBlock(0, 90, -getCurrentAngle())
 				.scale(scale)
-				.render(graphics);
+				.submit(graphics);
 
 		blockElement(wheel)
 				.rotateBlock(0, 90, getCurrentAngle())
 				.atLocal(2, 0, 0)
 				.scale(scale)
-				.render(graphics);
+				.submit(graphics);
 
 		matrixStack.popMatrix();
 	}
