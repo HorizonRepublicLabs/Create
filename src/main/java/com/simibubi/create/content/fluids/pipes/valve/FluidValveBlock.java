@@ -90,13 +90,11 @@ public class FluidValveBlock extends DirectionalAxisKineticBlock
 	public Axis getAxis(BlockState state) {
 		return getPipeAxis(state);
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		boolean blockTypeChanged = !state.is(newState.getBlock());
-		if (blockTypeChanged && !world.isClientSide())
-			FluidPropagator.propagateChangedPipe(world, pos, state);
-		super.onRemove(state, world, pos, newState, isMoving);
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos,
+		boolean movedByPiston) {
+		FluidPropagator.propagateChangedPipe(world, pos, state);
+		super.affectNeighborsAfterRemoval(state, world, pos, movedByPiston);
 	}
 
 	@Override

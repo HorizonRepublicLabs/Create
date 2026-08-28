@@ -80,12 +80,12 @@ public class BeltFunnelBlock extends AbstractHorizontalFunnelBlock implements Sp
 	public boolean isOfSameType(FunnelBlock otherFunnel) {
 		return parent.get() == otherFunnel;
 	}
-
+	/// Swapping between the two funnel shapes used to be handled by bailing out
+	/// of onRemove; 26.x asks the incoming state whether to keep the block
+	/// entity instead.
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (newState.getBlock() instanceof FunnelBlock fb && isOfSameType(fb))
-			return;
-		super.onRemove(state, world, pos, newState, isMoving);
+	protected boolean shouldChangedStateKeepBlockEntity(BlockState oldState) {
+		return oldState.getBlock() instanceof FunnelBlock fb && isOfSameType(fb);
 	}
 
 	@Override

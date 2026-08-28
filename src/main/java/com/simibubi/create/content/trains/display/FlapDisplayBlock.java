@@ -320,11 +320,11 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 			state = state.setValue(property, connect);
 		return state;
 	}
-
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
-		if (pIsMoving || pNewState.getBlock() == this)
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
+		super.affectNeighborsAfterRemoval(pState, pLevel, pPos, movedByPiston);
+		if (movedByPiston)
 			return;
 		for (Direction d : Iterate.directionsInAxis(getConnectionAxis(pState))) {
 			BlockPos relative = pPos.relative(d);

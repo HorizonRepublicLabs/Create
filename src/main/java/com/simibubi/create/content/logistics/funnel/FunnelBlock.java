@@ -75,12 +75,12 @@ public abstract class FunnelBlock extends AbstractDirectionalFunnelBlock {
 	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder.add(EXTRACTING));
 	}
-
+	/// Swapping between the two funnel shapes used to be handled by bailing out
+	/// of onRemove; 26.x asks the incoming state whether to keep the block
+	/// entity instead.
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (newState.getBlock() instanceof BeltFunnelBlock bfb && bfb.isOfSameType(this))
-			return;
-		super.onRemove(state, world, pos, newState, isMoving);
+	protected boolean shouldChangedStateKeepBlockEntity(BlockState oldState) {
+		return oldState.getBlock() instanceof BeltFunnelBlock bfb && bfb.isOfSameType(this);
 	}
 
 	@Override

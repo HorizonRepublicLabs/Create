@@ -149,11 +149,10 @@ public class WhistleExtenderBlock extends Block implements IWrenchable {
 		if (pOldState.getBlock() != this || pOldState.getValue(SHAPE) != pState.getValue(SHAPE))
 			WhistleBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
 	}
-
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		if (pNewState.getBlock() != this)
-			WhistleBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
+		WhistleBlock.queuePitchUpdate(pLevel, findRoot(pLevel, pPos));
 	}
 
 	@Override

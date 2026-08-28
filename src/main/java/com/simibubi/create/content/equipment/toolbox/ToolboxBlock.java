@@ -87,11 +87,12 @@ public class ToolboxBlock extends HorizontalDirectionalBlock implements SimpleWa
 				be.setCustomName(stack.getHoverName());
 		});
 	}
-
+	/// Swapping between the two funnel shapes used to be handled by bailing out
+	/// of onRemove; 26.x asks the incoming state whether to keep the block
+	/// entity instead.
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moving) {
-		if (state.hasBlockEntity() && (!newState.hasBlockEntity() || !(newState.getBlock() instanceof ToolboxBlock)))
-			world.removeBlockEntity(pos);
+	protected boolean shouldChangedStateKeepBlockEntity(BlockState oldState) {
+		return oldState.getBlock() instanceof ToolboxBlock;
 	}
 
 	@Override

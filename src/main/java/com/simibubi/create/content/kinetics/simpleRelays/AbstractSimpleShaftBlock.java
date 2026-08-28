@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.simpleRelays;
 
+import net.minecraft.server.level.ServerLevel;
+
 import java.util.Optional;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -34,15 +36,14 @@ public abstract class AbstractSimpleShaftBlock extends AbstractShaftBlock implem
 	public PushReaction getPistonPushReaction(BlockState state) {
 		return PushReaction.NORMAL;
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		boolean wasWaterLogged = state.hasProperty(WATERLOGGED) &&
-				newState.hasProperty(WATERLOGGED) &&
-				(state.getValue(WATERLOGGED) != newState.getValue(WATERLOGGED));
-		if (state != newState && !isMoving && !wasWaterLogged)
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos,
+		boolean movedByPiston) {
+		// The old waterlogged check guarded against this running on a same-block
+		// state change, which this hook is never called for.
+		if (!movedByPiston)
 			removeBracket(world, pos, true).ifPresent(stack -> Block.popResource(world, pos, stack));
-		super.onRemove(state, world, pos, newState, isMoving);
+		super.affectNeighborsAfterRemoval(state, world, pos, movedByPiston);
 	}
 
 	@Override

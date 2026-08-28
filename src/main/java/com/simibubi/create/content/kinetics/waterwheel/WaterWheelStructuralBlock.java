@@ -101,9 +101,9 @@ public class WaterWheelStructuralBlock extends DirectionalBlock implements IWren
 			return InteractionResult.FAIL;
 		return wwt.applyMaterialIfValid(stack);
 	}
-
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
 		if (stillValid(pLevel, pPos, pState, false))
 			pLevel.destroyBlock(getMaster(pLevel, pPos, pState), true);
 	}

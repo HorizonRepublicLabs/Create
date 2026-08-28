@@ -71,11 +71,12 @@ public class ValveHandleBlock extends HandCrankBlock {
 			event.setCancellationResult(InteractionResult.SUCCESS);
 		}
 	}
-
+	/// Swapping between the two funnel shapes used to be handled by bailing out
+	/// of onRemove; 26.x asks the incoming state whether to keep the block
+	/// entity instead.
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		if (!(pNewState.getBlock() instanceof ValveHandleBlock))
-			super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+	protected boolean shouldChangedStateKeepBlockEntity(BlockState oldState) {
+		return oldState.getBlock() instanceof ValveHandleBlock;
 	}
 
 	public boolean clicked(Level level, BlockPos pos, BlockState blockState, Player player, InteractionHand hand) {

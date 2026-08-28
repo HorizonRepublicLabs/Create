@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crusher;
 
+import net.minecraft.server.level.ServerLevel;
+
 import static com.simibubi.create.content.kinetics.crusher.CrushingWheelControllerBlock.VALID;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -44,17 +46,17 @@ public class CrushingWheelBlock extends RotatedPillarKineticBlock implements IBE
 	public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return AllShapes.CRUSHING_WHEEL_COLLISION_SHAPE;
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos,
+		boolean movedByPiston) {
 		for (Direction d : Iterate.directions) {
 			if (d.getAxis() == state.getValue(AXIS))
 				continue;
 			if (AllBlocks.CRUSHING_WHEEL_CONTROLLER.has(worldIn.getBlockState(pos.relative(d))))
-				worldIn.removeBlock(pos.relative(d), isMoving);
+				worldIn.removeBlock(pos.relative(d), movedByPiston);
 		}
 
-		super.onRemove(state, worldIn, pos, newState, isMoving);
+		super.affectNeighborsAfterRemoval(state, worldIn, pos, movedByPiston);
 	}
 
 	public void updateControllers(BlockState state, Level world, BlockPos pos, Direction side) {

@@ -133,11 +133,12 @@ public abstract class AbstractFunnelBlock extends Block
 	}
 
 	protected abstract Direction getFacing(BlockState state);
-
+	/// Swapping between the two funnel shapes used to be handled by bailing out
+	/// of onRemove; 26.x asks the incoming state whether to keep the block
+	/// entity instead.
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock() && !isFunnel(newState) || !newState.hasBlockEntity())
-			IBE.onRemove(state, world, pos, newState);
+	protected boolean shouldChangedStateKeepBlockEntity(BlockState oldState) {
+		return isFunnel(oldState);
 	}
 
 	@Override
