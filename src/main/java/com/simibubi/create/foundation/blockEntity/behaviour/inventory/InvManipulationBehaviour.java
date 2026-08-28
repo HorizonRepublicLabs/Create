@@ -16,11 +16,13 @@ import com.simibubi.create.foundation.item.ItemHelper.ExtractionCountMode;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
-public class InvManipulationBehaviour extends CapManipulationBehaviourBase<IItemHandler, InvManipulationBehaviour> {
+public class InvManipulationBehaviour extends CapManipulationBehaviourBase<ResourceHandler<ItemResource>, IItemHandler, InvManipulationBehaviour> {
 
 	// Extra types available for multibehaviour
 	public static final BehaviourType<InvManipulationBehaviour>
@@ -58,7 +60,12 @@ public class InvManipulationBehaviour extends CapManipulationBehaviourBase<IItem
 	}
 
 	@Override
-	protected BlockCapability<IItemHandler, Direction> capability() {
+	protected IItemHandler adapt(ResourceHandler<ItemResource> rawCapability) {
+		return IItemHandler.of(rawCapability);
+	}
+
+	@Override
+	protected BlockCapability<ResourceHandler<ItemResource>, Direction> capability() {
 		return Capabilities.Item.BLOCK;
 	}
 

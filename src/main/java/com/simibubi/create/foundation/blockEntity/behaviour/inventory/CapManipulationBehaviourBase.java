@@ -18,7 +18,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 
-public abstract class CapManipulationBehaviourBase<T, S extends CapManipulationBehaviourBase<?, ?>>
+/// @param <C> the type the capability actually resolves to, which since the
+///            26.x resource-handler rework is a ResourceHandler rather than
+///            the IItemHandler/IFluidHandler the rest of Create expects
+/// @param <T> the adapted type handed to callers
+public abstract class CapManipulationBehaviourBase<C, T, S extends CapManipulationBehaviourBase<?, ?, ?>>
 	extends BlockEntityBehaviour {
 
 	protected InterfaceProvider target;
@@ -38,7 +42,10 @@ public abstract class CapManipulationBehaviourBase<T, S extends CapManipulationB
 		filter = Predicates.alwaysTrue();
 	}
 
-	protected abstract BlockCapability<T, Direction> capability();
+	protected abstract BlockCapability<C, Direction> capability();
+
+	/// Bridges the resolved capability to the handler interface Create uses.
+	protected abstract T adapt(C rawCapability);
 
 	@Override
 	public void initialize() {
@@ -143,8 +150,9 @@ public abstract class CapManipulationBehaviourBase<T, S extends CapManipulationB
 		BlockEntity invBE = world.getBlockEntity(pos);
 		if (!filter.test(invBE))
 			return;
-		BlockCapability<T, Direction> capability = capability();
-		targetCapability = world.getCapability(capability, pos, bypassSided ? null : targetBlockFace.getFace());
+		BlockCapability<C, Direction> capability = capability();
+		C raw = world.getCapability(capability, pos, bypassSided ? null : targetBlockFace.getFace());
+		targetCapability = raw == null ? null : adapt(raw);
 	}
 
 	@FunctionalInterface

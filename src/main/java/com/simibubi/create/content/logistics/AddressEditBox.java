@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics;
 
+import org.joml.Matrix3x2fStack;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -103,11 +105,11 @@ public class AddressEditBox extends EditBox {
 	@Override
 	public void renderWidget(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
 		super.renderWidget(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
-		PoseStack matrixStack = pGuiGraphics.pose();
-		matrixStack.pushPose();
-		matrixStack.translate(0, 0, 500);
+		Matrix3x2fStack matrixStack = pGuiGraphics.pose();
+		matrixStack.pushMatrix();
+		matrixStack.translate(0, 0);
 		destinationSuggestions.render(pGuiGraphics, pMouseX, pMouseY);
-		matrixStack.popPose();
+		matrixStack.popMatrix();
 
 		if (!destinationSuggestions.isEmpty())
 			return;

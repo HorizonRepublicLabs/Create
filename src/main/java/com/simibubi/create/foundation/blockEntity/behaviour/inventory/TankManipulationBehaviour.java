@@ -4,6 +4,8 @@ import java.util.function.Predicate;
 
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -13,7 +15,7 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BehaviourType;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
 
-public class TankManipulationBehaviour extends CapManipulationBehaviourBase<IFluidHandler, TankManipulationBehaviour> {
+public class TankManipulationBehaviour extends CapManipulationBehaviourBase<ResourceHandler<FluidResource>, IFluidHandler, TankManipulationBehaviour> {
 
 	public static final BehaviourType<TankManipulationBehaviour> OBSERVE = new BehaviourType<>();
 	private BehaviourType<TankManipulationBehaviour> behaviourType;
@@ -57,7 +59,12 @@ public class TankManipulationBehaviour extends CapManipulationBehaviourBase<IFlu
 	}
 
 	@Override
-	protected BlockCapability<IFluidHandler, Direction> capability() {
+	protected IFluidHandler adapt(ResourceHandler<FluidResource> rawCapability) {
+		return IFluidHandler.of(rawCapability);
+	}
+
+	@Override
+	protected BlockCapability<ResourceHandler<FluidResource>, Direction> capability() {
 		return Capabilities.Fluid.BLOCK;
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.gui;
 
+import org.joml.Matrix3x2fStack;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class RemovedGuiUtils {
 		if (NeoForge.EVENT_BUS.post(event).isCanceled())
 			return;
 
-		PoseStack pStack = graphics.pose();
+		Matrix3x2fStack pStack = graphics.pose();
 
 		mouseX = event.getX();
 		mouseY = event.getY();
@@ -157,7 +159,7 @@ public class RemovedGuiUtils {
 		borderColorStart = colorEvent.getBorderStart();
 		borderColorEnd = colorEvent.getBorderEnd();
 
-		pStack.pushPose();
+		pStack.pushMatrix();
 		Matrix4f mat = pStack.last()
 			.pose();
 		graphics.fillGradient(tooltipX - 3, tooltipY - 4, tooltipX + tooltipTextWidth + 3,
@@ -180,7 +182,7 @@ public class RemovedGuiUtils {
 			tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, zLevel, borderColorEnd, borderColorEnd);
 
 		SuperRenderTypeBuffer renderType = graphics.bufferSource();
-		pStack.translate(0.0D, 0.0D, zLevel);
+		pStack.translate(0.0D, 0.0D);
 
 		for (int lineNumber = 0; lineNumber < list.size(); ++lineNumber) {
 			ClientTooltipComponent line = list.get(lineNumber);
@@ -195,7 +197,7 @@ public class RemovedGuiUtils {
 		}
 
 		renderType.endBatch();
-		pStack.popPose();
+		pStack.popMatrix();
 
 		RenderSystem.enableDepthTest();
 	}

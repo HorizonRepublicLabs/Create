@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category;
 
+import org.joml.Matrix3x2fStack;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
@@ -79,9 +81,9 @@ public class ItemApplicationCategory extends CreateRecipeCategory<ItemApplicatio
 		BlockState state = blockItem.getBlock()
 			.defaultBlockState();
 
-		PoseStack matrixStack = graphics.pose();
-		matrixStack.pushPose();
-		matrixStack.translate(74, 51, 100);
+		Matrix3x2fStack matrixStack = graphics.pose();
+		matrixStack.pushMatrix();
+		matrixStack.translate(74, 51);
 		matrixStack.mulPose(Axis.XP.rotationDegrees(-15.5f));
 		matrixStack.mulPose(Axis.YP.rotationDegrees(22.5f));
 		int scale = 20;
@@ -91,7 +93,7 @@ public class ItemApplicationCategory extends CreateRecipeCategory<ItemApplicatio
 			.scale(scale)
 			.render(graphics);
 
-		matrixStack.popPose();
+		matrixStack.popMatrix();
 	}
 
 }
