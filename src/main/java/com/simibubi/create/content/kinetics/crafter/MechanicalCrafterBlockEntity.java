@@ -1,5 +1,11 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import net.createmod.catnip.api.data.Iterate;
+
+import net.minecraft.world.level.block.Block;
+
+import com.simibubi.create.AllItems;
+
 import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 
 import java.util.ArrayList;
@@ -88,6 +94,37 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 	}
 
 	protected Inventory inventory;
+
+	/// Covers, the grid contents and the neighbour connections all need this
+	/// block entity to still exist. LevelChunk drops it before it calls
+	/// affectNeighborsAfterRemoval, so this is the last point that can see them.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			if (covered)
+				Block.popResource(level, pos, AllItems.CRAFTER_SLOT_COVER.asStack());
+			ejectWholeGrid();
+
+			for (Direction direction : Iterate.directions) {
+				if (direction.getAxis() == state.getValue(MechanicalCrafterBlock.HORIZONTAL_FACING)
+					.getAxis())
+					continue;
+
+				BlockPos otherPos = pos.relative(direction);
+				ConnectedInput thisInput = CrafterHelper.getInput(level, pos);
+				ConnectedInput otherInput = CrafterHelper.getInput(level, otherPos);
+
+				if (thisInput == null || otherInput == null)
+					continue;
+				if (!pos.offset(thisInput.data.get(0))
+					.equals(otherPos.offset(otherInput.data.get(0))))
+					continue;
+
+				ConnectedInputHandler.toggleConnection(level, pos, otherPos);
+			}
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
 	protected GroupedItems groupedItems = new GroupedItems();
 	protected ConnectedInput input = new ConnectedInput();
 	@Nullable

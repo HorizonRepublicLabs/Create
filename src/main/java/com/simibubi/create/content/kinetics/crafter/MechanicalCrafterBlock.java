@@ -84,47 +84,20 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 		return defaultBlockState().setValue(HORIZONTAL_FACING, otherFacing)
 			.setValue(POINTING, pointing);
 	}
-
+	/// The target-direction reaction used to ride on onRemove's same-block
+	/// branch. affectNeighborsAfterRemoval only fires when the block actually
+	/// changes, so that branch would never run; onPlace sees the same
+	/// transition from the other side.
 	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() == newState.getBlock()) {
-			if (getTargetDirection(state) != getTargetDirection(newState)) {
-				MechanicalCrafterBlockEntity crafter = CrafterHelper.getCrafter(worldIn, pos);
-				if (crafter != null)
-					crafter.blockChanged();
-			}
+	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+		if (oldState.is(this) && getTargetDirection(state) != getTargetDirection(oldState)) {
+			MechanicalCrafterBlockEntity crafter = CrafterHelper.getCrafter(level, pos);
+			if (crafter != null)
+				crafter.blockChanged();
 		}
-
-		if (state.hasBlockEntity() && !state.is(newState.getBlock())) {
-			MechanicalCrafterBlockEntity crafter = CrafterHelper.getCrafter(worldIn, pos);
-			if (crafter != null) {
-				if (crafter.covered)
-					Block.popResource(worldIn, pos, AllItems.CRAFTER_SLOT_COVER.asStack());
-				if (!isMoving)
-					crafter.ejectWholeGrid();
-			}
-
-			for (Direction direction : Iterate.directions) {
-				if (direction.getAxis() == state.getValue(HORIZONTAL_FACING)
-					.getAxis())
-					continue;
-
-				BlockPos otherPos = pos.relative(direction);
-				ConnectedInput thisInput = CrafterHelper.getInput(worldIn, pos);
-				ConnectedInput otherInput = CrafterHelper.getInput(worldIn, otherPos);
-
-				if (thisInput == null || otherInput == null)
-					continue;
-				if (!pos.offset(thisInput.data.get(0))
-					.equals(otherPos.offset(otherInput.data.get(0))))
-					continue;
-
-				ConnectedInputHandler.toggleConnection(worldIn, pos, otherPos);
-			}
-		}
-
-		super.onRemove(state, worldIn, pos, newState, isMoving);
+		super.onPlace(state, level, pos, oldState, movedByPiston);
 	}
+
 
 	public static Pointing pointingFromFacing(Direction pointingFace, Direction blockFacing) {
 		boolean positive = blockFacing.getAxisDirection() == AxisDirection.POSITIVE;

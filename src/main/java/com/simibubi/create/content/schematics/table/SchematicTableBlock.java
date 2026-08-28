@@ -72,15 +72,6 @@ public class SchematicTableBlock extends HorizontalDirectionalBlock implements I
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!state.hasBlockEntity() || state.getBlock() == newState.getBlock())
-			return;
-
-		withBlockEntityDo(worldIn, pos, be -> ItemHelper.dropContents(worldIn, pos, be.inventory));
-		worldIn.removeBlockEntity(pos);
-	}
-
-	@Override
 	public Class<SchematicTableBlockEntity> getBlockEntityClass() {
 		return SchematicTableBlockEntity.class;
 	}

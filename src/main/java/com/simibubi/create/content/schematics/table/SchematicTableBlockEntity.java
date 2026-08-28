@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.table;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.List;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -25,6 +27,15 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class SchematicTableBlockEntity extends SmartBlockEntity implements MenuProvider, Clearable {
 	public SchematicTableInventory inventory;
+
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		// Runs while the block entity is still attached; affectNeighborsAfterRemoval
+		// would be too late, the engine has dropped it by then.
+		if (level != null)
+			ItemHelper.dropContents(level, pos, inventory);
+		super.preRemoveSideEffects(pos, state);
+	}
 	public boolean isUploading;
 	public String uploadingSchematic;
 	public float uploadingProgress;

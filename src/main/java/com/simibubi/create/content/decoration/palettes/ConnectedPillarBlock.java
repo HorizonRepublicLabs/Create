@@ -118,18 +118,6 @@ public class ConnectedPillarBlock extends LayeredBlock {
 		return other.getBlock() == this && state.getValue(AXIS) == other.getValue(AXIS);
 	}
 
-	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		if (pIsMoving || pNewState.getBlock() == this)
-			return;
-		for (Direction d : Iterate.directionsInAxis(pState.getValue(AXIS))) {
-			BlockPos relative = pPos.relative(d);
-			BlockState adjacent = pLevel.getBlockState(relative);
-			if (canConnect(pState, adjacent))
-				pLevel.setBlock(relative, updateColumn(pLevel, relative, adjacent, false), Block.UPDATE_ALL);
-		}
-	}
-
 	public static boolean getConnection(BlockState state, Direction side) {
 		BooleanProperty property = connection(state.getValue(AXIS), side);
 		return property != null && state.getValue(property);
@@ -194,4 +182,16 @@ public class ConnectedPillarBlock extends LayeredBlock {
 		return null;
 	}
 
+	@Override
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
+		if (movedByPiston)
+			return;
+		for (Direction d : Iterate.directionsInAxis(pState.getValue(AXIS))) {
+			BlockPos relative = pPos.relative(d);
+			BlockState adjacent = pLevel.getBlockState(relative);
+			if (canConnect(pState, adjacent))
+				pLevel.setBlock(relative, updateColumn(pLevel, relative, adjacent, false), Block.UPDATE_ALL);
+		}
+	}
 }
