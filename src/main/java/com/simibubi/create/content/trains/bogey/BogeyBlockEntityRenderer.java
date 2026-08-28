@@ -1,12 +1,13 @@
 package com.simibubi.create.content.trains.bogey;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,7 +17,7 @@ public class BogeyBlockEntityRenderer<T extends AbstractBogeyBlockEntity> extend
 	}
 
 	@Override
-	protected void renderSafe(T be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
+	protected void renderSafe(T be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		BlockState blockState = be.getBlockState();
 		if (!(blockState.getBlock() instanceof AbstractBogeyBlock<?> bogey)) {

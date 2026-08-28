@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.press;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -9,7 +11,6 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,7 +27,7 @@ public class MechanicalPressRenderer extends KineticBlockEntityRenderer<Mechanic
 	}
 
 	@Override
-	protected void renderSafe(MechanicalPressBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(MechanicalPressBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 

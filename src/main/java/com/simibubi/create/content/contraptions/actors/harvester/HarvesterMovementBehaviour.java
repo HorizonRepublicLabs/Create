@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.harvester;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.simibubi.create.compat.Mods;
 
 import com.simibubi.create.compat.farmersdelight.FarmersDelightCompat;
@@ -24,7 +26,6 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.api.math.VecHelper;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
@@ -226,7 +227,7 @@ public class HarvesterMovementBehaviour implements MovementBehaviour {
 
 	@Override
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-									ContraptionMatrices matrices, MultiBufferSource buffers) {
+									ContraptionMatrices matrices, SuperRenderTypeBuffer buffers) {
 		if (!VisualizationManager.supportsVisualization(context.world))
 			HarvesterRenderer.renderInContraption(context, renderWorld, matrices, buffers);
 	}

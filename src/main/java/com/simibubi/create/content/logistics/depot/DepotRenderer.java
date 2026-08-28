@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.Random;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,7 +15,6 @@ import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRender
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
@@ -28,12 +29,12 @@ public class DepotRenderer extends SafeBlockEntityRenderer<DepotBlockEntity> {
 	public DepotRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(DepotBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(DepotBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		renderItemsOf(be, partialTicks, ms, buffer, light, overlay, be.depotBehaviour);
 	}
 
-	public static void renderItemsOf(SmartBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	public static void renderItemsOf(SmartBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay, DepotBehaviour depotBehaviour) {
 
 		TransportedItemStack transported = depotBehaviour.heldItem;
@@ -99,7 +100,7 @@ public class DepotRenderer extends SafeBlockEntityRenderer<DepotBlockEntity> {
 		ms.popPose();
 	}
 
-	public static void renderItem(PoseStack ms, MultiBufferSource buffer, int light, int overlay,
+	public static void renderItem(PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay,
 								  ItemStack itemStack, int angle, Random r, Vec3 itemPosition, boolean alwaysUpright) {
 		ItemRenderer itemRenderer = Minecraft.getInstance()
 			.getItemRenderer();

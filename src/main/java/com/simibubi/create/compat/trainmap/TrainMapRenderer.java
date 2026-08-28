@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.trainmap;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,8 +19,6 @@ import net.createmod.catnip.api.data.Couple;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.DynamicTexture;
@@ -207,7 +207,7 @@ public class TrainMapRenderer implements AutoCloseable {
 			return texture.getPixels();
 		}
 
-		public void draw(PoseStack pPoseStack, MultiBufferSource pBufferSource, boolean linearFiltering) {
+		public void draw(PoseStack pPoseStack, SuperRenderTypeBuffer pBufferSource, boolean linearFiltering) {
 			if (texture.getPixels() == null)
 				return;
 

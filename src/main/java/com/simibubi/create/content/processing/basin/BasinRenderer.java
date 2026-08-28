@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour.TankSegment;
@@ -12,7 +14,6 @@ import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.platform.NeoForgeCatnipServices;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,7 +36,7 @@ public class BasinRenderer extends SmartBlockEntityRenderer<BasinBlockEntity> {
 	}
 
 	@Override
-	protected void renderSafe(BasinBlockEntity basin, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(BasinBlockEntity basin, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		super.renderSafe(basin, partialTicks, ms, buffer, light, overlay);
 
@@ -136,13 +137,13 @@ public class BasinRenderer extends SmartBlockEntityRenderer<BasinBlockEntity> {
 		}
 	}
 
-	protected void renderItem(PoseStack ms, MultiBufferSource buffer, int light, int overlay, ItemStack stack) {
+	protected void renderItem(PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		mc.getItemRenderer()
 			.renderStatic(stack, ItemDisplayContext.GROUND, light, overlay, ms, buffer, mc.level, 0);
 	}
 
-	protected float renderFluids(BasinBlockEntity basin, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected float renderFluids(BasinBlockEntity basin, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		SmartFluidTankBehaviour inputFluids = basin.getBehaviour(SmartFluidTankBehaviour.INPUT);
 		SmartFluidTankBehaviour outputFluids = basin.getBehaviour(SmartFluidTankBehaviour.OUTPUT);

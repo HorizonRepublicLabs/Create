@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.fluid;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.function.Function;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -9,7 +11,6 @@ import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.client.render.FluidRenderHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -26,7 +27,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 @OnlyIn(Dist.CLIENT)
 public class FluidRenderer {
 	public static void renderFluidStream(FluidStack fluidStack, Direction direction, float radius, float progress,
-		boolean inbound, MultiBufferSource buffer, PoseStack ms, int light) {
+		boolean inbound, SuperRenderTypeBuffer buffer, PoseStack ms, int light) {
 		renderFluidStream(fluidStack, direction, radius, progress, inbound, FluidRenderHelper.getFluidBuilder(buffer), ms, light);
 	}
 

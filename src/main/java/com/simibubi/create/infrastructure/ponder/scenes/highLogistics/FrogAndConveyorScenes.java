@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.ponder.scenes.highLogistics;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.Iterator;
 import java.util.function.Supplier;
 
@@ -31,7 +33,6 @@ import net.createmod.ponder.impl.client.element.ParrotElementImpl;
 import net.createmod.ponder.impl.client.instruction.CreateParrotInstruction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
@@ -321,7 +322,7 @@ public class FrogAndConveyorScenes {
 		}
 
 		@Override
-		protected void renderLast(PonderLevel world, MultiBufferSource buffer, GuiGraphicsExtractor graphics, float fade,
+		protected void renderLast(PonderLevel world, SuperRenderTypeBuffer buffer, GuiGraphicsExtractor graphics, float fade,
 								  float pt) {
 			PoseStack poseStack = graphics.pose();
 			EntityRenderDispatcher entityrenderermanager = Minecraft.getInstance()

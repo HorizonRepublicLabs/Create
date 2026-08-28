@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort.frogport;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
@@ -7,7 +9,6 @@ import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRende
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -24,7 +25,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 
 	@Override
 	protected void renderSafe(FrogportBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		SuperByteBuffer body = CachedBuffers.partial(AllPartialModels.FROGPORT_BODY, blockEntity.getBlockState());
 
 		float yaw = blockEntity.getYaw();
@@ -146,7 +147,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 
 	}
 
-	private void renderPackage(FrogportBlockEntity blockEntity, PoseStack ms, MultiBufferSource buffer, int light,
+	private void renderPackage(FrogportBlockEntity blockEntity, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay, Vec3 diff, float scale, float itemDistance) {
 		if (blockEntity.animatedPackage == null)
 			return;

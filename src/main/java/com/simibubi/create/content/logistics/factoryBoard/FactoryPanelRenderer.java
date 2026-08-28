@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -15,7 +17,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.core.Direction;
@@ -29,7 +30,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 	}
 
 	@Override
-	protected void renderSafe(FactoryPanelBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(FactoryPanelBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 		for (FactoryPanelBehaviour behaviour : be.panels.values()) {
@@ -45,7 +46,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 	}
 
 	public static void renderBulb(FactoryPanelBehaviour behaviour, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		BlockState blockState = behaviour.blockEntity.getBlockState();
 
 		float xRot = FactoryPanelBlock.getXRot(blockState) + Mth.PI / 2;
@@ -84,7 +85,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 	}
 
 	public static void renderPath(FactoryPanelBehaviour behaviour, FactoryPanelConnection connection,
-		float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+		float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay) {
 		BlockState blockState = behaviour.blockEntity.getBlockState();
 		List<Direction> path = connection.getPath(behaviour.getWorld(), blockState, behaviour.getPanelPosition());
 

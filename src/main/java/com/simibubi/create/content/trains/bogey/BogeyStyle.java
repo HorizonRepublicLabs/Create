@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.bogey;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.HashMap;
@@ -17,7 +19,6 @@ import com.simibubi.create.content.trains.bogey.BogeySizes.BogeySize;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -83,7 +84,7 @@ public class BogeyStyle {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void render(BogeySize size, float partialTick, PoseStack poseStack, MultiBufferSource buffers, int light, int overlay, float wheelAngle, @Nullable CompoundTag bogeyData, boolean inContraption) {
+	public void render(BogeySize size, float partialTick, PoseStack poseStack, SuperRenderTypeBuffer buffers, int light, int overlay, float wheelAngle, @Nullable CompoundTag bogeyData, boolean inContraption) {
 		if (bogeyData == null)
 			bogeyData = new CompoundTag();
 

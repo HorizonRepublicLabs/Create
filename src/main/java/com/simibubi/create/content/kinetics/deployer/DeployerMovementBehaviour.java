@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import net.minecraft.core.UUIDUtil;
 
 import java.util.Arrays;
@@ -38,7 +40,6 @@ import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.api.level.wrapper.SchematicLevel;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -302,7 +303,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 
 	@Override
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffers) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffers) {
 		if (!VisualizationManager.supportsVisualization(context.world))
 			DeployerRenderer.renderInContraption(context, renderWorld, matrices, buffers);
 	}

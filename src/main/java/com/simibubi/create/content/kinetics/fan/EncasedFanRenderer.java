@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,7 +14,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -25,7 +26,7 @@ public class EncasedFanRenderer extends KineticBlockEntityRenderer<EncasedFanBlo
 	}
 
 	@Override
-	protected void renderSafe(EncasedFanBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(EncasedFanBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 

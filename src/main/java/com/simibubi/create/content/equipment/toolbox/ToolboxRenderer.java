@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
@@ -8,7 +10,6 @@ import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRende
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.data.Iterate;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -22,7 +23,7 @@ public class ToolboxRenderer extends SmartBlockEntityRenderer<ToolboxBlockEntity
 
 	@Override
 	protected void renderSafe(ToolboxBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 
 		BlockState blockState = blockEntity.getBlockState();
 		Direction facing = blockState.getValue(ToolboxBlock.FACING)

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
@@ -10,7 +12,6 @@ import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.platform.NeoForgeCatnipServices;
 import net.createmod.catnip.api.client.render.CachedBuffers;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -25,7 +26,7 @@ public class FluidTankRenderer extends SafeBlockEntityRenderer<FluidTankBlockEnt
 	public FluidTankRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(FluidTankBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(FluidTankBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		if (!be.isController())
 			return;
@@ -79,7 +80,7 @@ public class FluidTankRenderer extends SafeBlockEntityRenderer<FluidTankBlockEnt
 		ms.popPose();
 	}
 
-	protected void renderAsBoiler(FluidTankBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderAsBoiler(FluidTankBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		BlockState blockState = be.getBlockState();
 		VertexConsumer vb = buffer.getBuffer(RenderType.cutout());

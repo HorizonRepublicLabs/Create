@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.chainConveyor;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.List;
@@ -20,7 +22,6 @@ import net.createmod.catnip.api.data.WorldAttached;
 import net.createmod.catnip.api.client.outliner.Outliner;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -156,7 +157,7 @@ public class ChainConveyorInteractionHandler {
 		return true;
 	}
 
-	public static void drawCustomBlockSelection(PoseStack ms, MultiBufferSource buffer, Vec3 camera) {
+	public static void drawCustomBlockSelection(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera) {
 		if (selectedLift == null || selectedShape == null)
 			return;
 

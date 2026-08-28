@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllTags;
@@ -13,7 +15,6 @@ import com.simibubi.create.foundation.virtualWorld.VirtualRenderWorld;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.api.math.VecHelper;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.Level;
@@ -45,7 +46,7 @@ public class DrillMovementBehaviour extends BlockBreakingMovementBehaviour {
 	@Override
 	@OnlyIn(value = Dist.CLIENT)
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
         if (!VisualizationManager.supportsVisualization(context.world))
 			DrillRenderer.renderInContraption(context, renderWorld, matrices, buffer);
 	}

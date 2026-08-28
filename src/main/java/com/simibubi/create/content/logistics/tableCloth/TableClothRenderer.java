@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tableCloth;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,7 +13,6 @@ import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRende
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -29,7 +30,7 @@ public class TableClothRenderer extends SmartBlockEntityRenderer<TableClothBlock
 
 	@Override
 	protected void renderSafe(TableClothBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		super.renderSafe(blockEntity, partialTicks, ms, buffer, light, overlay);
 		List<ItemStack> stacks = blockEntity.getItemsForRender();
 		float rotationInRadians = Mth.DEG_TO_RAD * (180 - blockEntity.facing.toYRot());

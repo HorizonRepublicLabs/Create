@@ -1,9 +1,10 @@
 package com.simibubi.create.content.logistics.chute;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 public class SmartChuteRenderer extends SmartBlockEntityRenderer<SmartChuteBlockEntity> {
@@ -14,7 +15,7 @@ public class SmartChuteRenderer extends SmartBlockEntityRenderer<SmartChuteBlock
 
 	@Override
 	protected void renderSafe(SmartChuteBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		super.renderSafe(blockEntity, partialTicks, ms, buffer, light, overlay);
 		if (blockEntity.item.isEmpty())
 			return;

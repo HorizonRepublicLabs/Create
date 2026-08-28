@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
@@ -14,7 +16,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -32,7 +33,7 @@ public class ArmRenderer extends KineticBlockEntityRenderer<ArmBlockEntity> {
 	}
 
 	@Override
-	protected void renderSafe(ArmBlockEntity be, float pt, PoseStack ms, MultiBufferSource buffer, int light,
+	protected void renderSafe(ArmBlockEntity be, float pt, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		super.renderSafe(be, pt, ms, buffer, light, overlay);
 

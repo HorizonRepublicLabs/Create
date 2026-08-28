@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -19,7 +21,6 @@ import net.createmod.catnip.api.data.WorldAttached;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -140,7 +141,7 @@ public class TrackBlockOutline {
 		}
 	}
 
-	public static void drawCurveSelection(PoseStack ms, MultiBufferSource buffer, Vec3 camera) {
+	public static void drawCurveSelection(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera) {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;

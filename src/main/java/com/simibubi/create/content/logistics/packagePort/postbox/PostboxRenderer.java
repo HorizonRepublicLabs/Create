@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort.postbox;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.AllPartialModels;
@@ -8,7 +10,6 @@ import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRende
 import dev.engine_room.flywheel.lib.transform.Transform;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.network.chat.Component;
@@ -22,7 +23,7 @@ public class PostboxRenderer extends SmartBlockEntityRenderer<PostboxBlockEntity
 
 	@Override
 	protected void renderSafe(PostboxBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 
 		if (blockEntity.addressFilter != null && !blockEntity.addressFilter.isBlank()) {
             renderNameplateOnHover(blockEntity, Component.literal(blockEntity.addressFilter), 1, ms, buffer, light);

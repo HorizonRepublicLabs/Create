@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.spout;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
@@ -9,7 +11,6 @@ import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRender
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.platform.NeoForgeCatnipServices;
 import net.createmod.catnip.api.client.render.CachedBuffers;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.Mth;
@@ -26,7 +27,7 @@ public class SpoutRenderer extends SafeBlockEntityRenderer<SpoutBlockEntity> {
 		{ AllPartialModels.SPOUT_TOP, AllPartialModels.SPOUT_MIDDLE, AllPartialModels.SPOUT_BOTTOM };
 
 	@Override
-	protected void renderSafe(SpoutBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(SpoutBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 
 		SmartFluidTankBehaviour tank = be.tank;

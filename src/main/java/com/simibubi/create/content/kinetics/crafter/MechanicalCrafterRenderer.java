@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 import static com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer.standardKineticRotationTransform;
 
@@ -21,7 +23,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.math.Pointing;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 
 	@Override
 	protected void renderSafe(MechanicalCrafterBlockEntity be, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		ms.pushPose();
 		Direction facing = be.getBlockState()
 			.getValue(HORIZONTAL_FACING);
@@ -66,7 +67,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 	}
 
 	public void renderItems(MechanicalCrafterBlockEntity be, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		if (be.phase == Phase.IDLE) {
 			ItemStack stack = be.getInventory()
 				.getItem(0);
@@ -164,7 +165,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 		}
 	}
 
-	public void renderFast(MechanicalCrafterBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	public void renderFast(MechanicalCrafterBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light) {
 		BlockState blockState = be.getBlockState();
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());

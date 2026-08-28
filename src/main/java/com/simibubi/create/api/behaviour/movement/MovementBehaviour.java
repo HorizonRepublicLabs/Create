@@ -1,5 +1,7 @@
 package com.simibubi.create.api.behaviour.movement;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,7 +14,6 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -114,7 +115,7 @@ public interface MovementBehaviour {
 
 	@OnlyIn(Dist.CLIENT)
 	default void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {}
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {}
 
 	@OnlyIn(Dist.CLIENT)
 	@Nullable

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.renderer;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.joml.Matrix4f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -9,7 +11,6 @@ import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringR
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.phys.BlockHitResult;
@@ -23,14 +24,14 @@ public class SmartBlockEntityRenderer<T extends SmartBlockEntity> extends SafeBl
 	}
 
 	@Override
-	protected void renderSafe(T blockEntity, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
+	protected void renderSafe(T blockEntity, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 			int overlay) {
 		FilteringRenderer.renderOnBlockEntity(blockEntity, partialTicks, ms, buffer, light, overlay);
 		LinkRenderer.renderOnBlockEntity(blockEntity, partialTicks, ms, buffer, light, overlay);
 	}
 
 	protected void renderNameplateOnHover(T blockEntity, Component tag, float yOffset, PoseStack ms,
-		MultiBufferSource buffer, int light) {
+		SuperRenderTypeBuffer buffer, int light) {
 		Minecraft mc = Minecraft.getInstance();
 		if (blockEntity.isVirtual())
 			return;

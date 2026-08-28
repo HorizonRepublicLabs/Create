@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -13,7 +15,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -26,7 +27,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class CarriageCouplingRenderer {
 
-	public static void renderAll(PoseStack ms, MultiBufferSource buffer, Vec3 camera) {
+	public static void renderAll(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera) {
 		Collection<Train> trains = CreateClient.RAILWAYS.trains.values();
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 		BlockState air = Blocks.AIR.defaultBlockState();

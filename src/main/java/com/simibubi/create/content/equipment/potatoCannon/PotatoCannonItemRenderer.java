@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.AllItems;
@@ -14,7 +16,6 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -47,7 +48,7 @@ public class PotatoCannonItemRenderer extends CustomRenderedItemModelRenderer {
 
 	@Override
 	protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer,
-						  ItemDisplayContext transformType, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+						  ItemDisplayContext transformType, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay) {
 		renderer.render(model.getOriginalModel(), light);
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.roller;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,7 +18,6 @@ import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.core.Direction;
@@ -30,7 +31,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 	}
 
 	@Override
-	protected void renderSafe(RollerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(RollerBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 
@@ -57,7 +58,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffers) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffers) {
 		BlockState blockState = context.state;
 		Direction facing = blockState.getValue(HORIZONTAL_FACING);
 		VertexConsumer vc = buffers.getBuffer(RenderType.cutoutMipped());

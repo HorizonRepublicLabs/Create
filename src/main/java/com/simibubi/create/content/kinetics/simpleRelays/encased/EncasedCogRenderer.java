@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.simpleRelays.encased;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.IRotate;
@@ -11,7 +13,6 @@ import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -39,7 +40,7 @@ public class EncasedCogRenderer extends KineticBlockEntityRenderer<SimpleKinetic
 	}
 
 	@Override
-	protected void renderSafe(SimpleKineticBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(SimpleKineticBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 							  int light, int overlay) {
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 		if (VisualizationManager.supportsVisualization(be.getLevel()))

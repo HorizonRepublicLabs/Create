@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.contraptionControls;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllBlocks;
@@ -22,7 +24,6 @@ import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.core.Direction;
@@ -39,7 +40,7 @@ public class ContraptionControlsRenderer extends SmartBlockEntityRenderer<Contra
 
 	@Override
 	protected void renderSafe(ContraptionControlsBlockEntity blockEntity, float pt, PoseStack ms,
-							  MultiBufferSource buffer, int light, int overlay) {
+							  SuperRenderTypeBuffer buffer, int light, int overlay) {
 		BlockState blockState = blockEntity.getBlockState();
 		Direction facing = blockState.getValue(ContraptionControlsBlock.FACING)
 			.getOpposite();
@@ -66,7 +67,7 @@ public class ContraptionControlsRenderer extends SmartBlockEntityRenderer<Contra
 	}
 
 	public static void renderInContraption(MovementContext ctx, VirtualRenderWorld renderWorld,
-										   ContraptionMatrices matrices, MultiBufferSource buffer) {
+										   ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 
 		if (!(ctx.temporaryData instanceof ElevatorFloorSelection efs))
 			return;

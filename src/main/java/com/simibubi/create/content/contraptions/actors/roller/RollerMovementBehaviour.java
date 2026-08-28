@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.roller;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -40,7 +42,6 @@ import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.data.Pair;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -84,7 +85,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 
 	@Override
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffers) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffers) {
 		if (!VisualizationManager.supportsVisualization(context.world))
 			RollerRenderer.renderInContraption(context, renderWorld, matrices, buffers);
 	}

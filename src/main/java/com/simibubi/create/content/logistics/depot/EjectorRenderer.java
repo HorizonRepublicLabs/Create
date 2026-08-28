@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
@@ -16,7 +18,6 @@ import net.createmod.catnip.api.data.IntAttached;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -37,7 +38,7 @@ public class EjectorRenderer extends ShaftRenderer<EjectorBlockEntity> {
 	}
 
 	@Override
-	protected void renderSafe(EjectorBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(EjectorBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 

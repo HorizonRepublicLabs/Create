@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.box;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllPartialModels;
@@ -9,7 +11,6 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
@@ -28,7 +29,7 @@ public class PackageRenderer extends EntityRenderer<PackageEntity> {
 	}
 
 	@Override
-	public void render(PackageEntity entity, float yaw, float pt, PoseStack ms, MultiBufferSource buffer, int light) {
+	public void render(PackageEntity entity, float yaw, float pt, PoseStack ms, SuperRenderTypeBuffer buffer, int light) {
 		if (!VisualizationManager.supportsVisualization(entity.level())) {
 			ItemStack box = entity.box;
 			if (box.isEmpty() || !PackageItem.isPackage(box))
@@ -39,7 +40,7 @@ public class PackageRenderer extends EntityRenderer<PackageEntity> {
 		super.render(entity, yaw, pt, ms, buffer, light);
 	}
 
-	public static void renderBox(Entity entity, float yaw, PoseStack ms, MultiBufferSource buffer, int light,
+	public static void renderBox(Entity entity, float yaw, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		PartialModel model) {
 		if (model == null)
 			return;

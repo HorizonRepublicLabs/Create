@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.renderer;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,7 +12,6 @@ import com.simibubi.create.foundation.mixin.accessor.LevelRendererAccessor;
 
 import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.world.level.Level;
@@ -21,14 +22,14 @@ import net.minecraft.world.phys.Vec3;
 
 public abstract class SafeBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
 	@Override
-	public final void render(T be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light,
+	public final void render(T be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer bufferSource, int light,
 		int overlay) {
 		if (isInvalid(be))
 			return;
 		renderSafe(be, partialTicks, ms, bufferSource, light, overlay);
 	}
 
-	protected abstract void renderSafe(T be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light,
+	protected abstract void renderSafe(T be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer bufferSource, int light,
 		int overlay);
 
 	public boolean isInvalid(T be) {

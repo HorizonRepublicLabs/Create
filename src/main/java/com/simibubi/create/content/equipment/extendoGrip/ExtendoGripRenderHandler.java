@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.extendoGrip;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllItems;

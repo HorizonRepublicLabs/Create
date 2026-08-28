@@ -1,12 +1,13 @@
 package com.simibubi.create.content.redstone.deskBell;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.math.AngleHelper;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.core.Direction;
@@ -21,7 +22,7 @@ public class DeskBellRenderer extends SmartBlockEntityRenderer<DeskBellBlockEnti
 
 	@Override
 	protected void renderSafe(DeskBellBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		BlockState blockState = blockEntity.getBlockState();
 		float p = blockEntity.animation.getValue(partialTicks);
 		if (p < 0.004 && !blockState.getOptionalValue(DeskBellBlock.POWERED)

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.bearing;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.jetbrains.annotations.Nullable;
 
 import org.joml.Quaternionf;
@@ -22,7 +24,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -46,7 +47,7 @@ public class StabilizedBearingMovementBehaviour implements MovementBehaviour {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-									ContraptionMatrices matrices, MultiBufferSource buffer) {
+									ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		if (VisualizationManager.supportsVisualization(context.world))
 			return;
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.drain;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.Random;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -15,7 +17,6 @@ import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.platform.NeoForgeCatnipServices;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
@@ -35,14 +36,14 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 	}
 
 	@Override
-	protected void renderSafe(ItemDrainBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(ItemDrainBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 		renderFluid(be, partialTicks, ms, buffer, light);
 		renderItem(be, partialTicks, ms, buffer, light, overlay);
 	}
 
-	protected void renderItem(ItemDrainBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderItem(ItemDrainBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		TransportedItemStack transported = be.heldItem;
 		if (transported == null)
@@ -128,7 +129,7 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 		ms.popPose();
 	}
 
-	protected void renderFluid(ItemDrainBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderFluid(ItemDrainBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light) {
 		SmartFluidTankBehaviour tank = be.internalTank;
 		if (tank == null)

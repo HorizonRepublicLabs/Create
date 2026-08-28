@@ -1,9 +1,10 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -18,7 +19,7 @@ public class PotatoProjectileRenderer extends EntityRenderer<PotatoProjectileEnt
 	}
 
 	@Override
-	public void render(PotatoProjectileEntity entity, float yaw, float pt, PoseStack ms, MultiBufferSource buffer,
+	public void render(PotatoProjectileEntity entity, float yaw, float pt, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light) {
 		ItemStack item = entity.getItem();
 		if (item.isEmpty())

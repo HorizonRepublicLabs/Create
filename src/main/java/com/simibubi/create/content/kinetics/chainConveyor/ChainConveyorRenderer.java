@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.chainConveyor;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -23,7 +25,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -47,7 +48,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 	}
 
 	@Override
-	protected void renderSafe(ChainConveyorBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(ChainConveyorBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 		BlockPos pos = be.getBlockPos();
@@ -69,7 +70,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 				renderBox(be, ms, buffer, overlay, pos, box, partialTicks);
 	}
 
-	private void renderBox(ChainConveyorBlockEntity be, PoseStack ms, MultiBufferSource buffer, int overlay,
+	private void renderBox(ChainConveyorBlockEntity be, PoseStack ms, SuperRenderTypeBuffer buffer, int overlay,
 		BlockPos pos, ChainConveyorPackage box, float partialTicks) {
 		if (box.worldPosition == null)
 			return;
@@ -131,7 +132,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 		}
 	}
 
-	private void renderChains(ChainConveyorBlockEntity be, PoseStack ms, MultiBufferSource buffer, int light,
+	private void renderChains(ChainConveyorBlockEntity be, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		float time = AnimationTickHolder.getRenderTime(be.getLevel()) / (360f / Math.abs(be.getSpeed()));
 		time %= 1;
@@ -194,7 +195,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 		}
 	}
 
-	public static void renderChain(PoseStack ms, MultiBufferSource buffer, float animation, float length, int light1,
+	public static void renderChain(PoseStack ms, SuperRenderTypeBuffer buffer, float animation, float length, int light1,
 		int light2, boolean far) {
 		float radius = far ? 1f / 16f : 1.5f / 16f;
 		float minV = far ? 0 : animation;

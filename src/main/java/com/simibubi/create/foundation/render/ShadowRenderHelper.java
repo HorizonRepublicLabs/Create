@@ -1,10 +1,11 @@
 package com.simibubi.create.foundation.render;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
@@ -25,7 +26,7 @@ public class ShadowRenderHelper {
 	private static final RenderType SHADOW_LAYER =
 		RenderType.entityNoOutline(Identifier.withDefaultNamespace("textures/misc/shadow.png"));
 
-	public static void renderShadow(PoseStack matrixStack, MultiBufferSource buffer, float opacity, float radius) {
+	public static void renderShadow(PoseStack matrixStack, SuperRenderTypeBuffer buffer, float opacity, float radius) {
 		PoseStack.Pose entry = matrixStack.last();
 		VertexConsumer builder = buffer.getBuffer(SHADOW_LAYER);
 
@@ -36,7 +37,7 @@ public class ShadowRenderHelper {
 		shadowVertex(entry, builder, opacity, 1 * radius, 0, -1 * radius, 1, 0);
 	}
 
-	public static void renderShadow(PoseStack matrixStack, MultiBufferSource buffer, LevelReader world,
+	public static void renderShadow(PoseStack matrixStack, SuperRenderTypeBuffer buffer, LevelReader world,
 		Vec3 pos, float opacity, float radius) {
 		float f = radius;
 

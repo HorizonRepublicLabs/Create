@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
@@ -15,7 +17,6 @@ import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,7 @@ public class StationRenderer extends SafeBlockEntityRenderer<StationBlockEntity>
 	}
 
 	@Override
-	protected void renderSafe(StationBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(StationBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 							  int light, int overlay) {
 
 		BlockPos pos = be.getBlockPos();
@@ -112,7 +113,7 @@ public class StationRenderer extends SafeBlockEntityRenderer<StationBlockEntity>
 	}
 
 	public static void renderFlag(PartialModel flag, StationBlockEntity be, float partialTicks, PoseStack ms,
-								  MultiBufferSource buffer, int light, int overlay) {
+								  SuperRenderTypeBuffer buffer, int light, int overlay) {
 		if (!be.resolveFlagAngle())
 			return;
 		SuperByteBuffer flagBB = CachedBuffers.partial(flag, be.getBlockState());

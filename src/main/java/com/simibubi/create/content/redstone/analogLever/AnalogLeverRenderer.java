@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.analogLever;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
@@ -10,7 +12,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.theme.Color;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -23,7 +24,7 @@ public class AnalogLeverRenderer extends SafeBlockEntityRenderer<AnalogLeverBloc
 	}
 
 	@Override
-	protected void renderSafe(AnalogLeverBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(AnalogLeverBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 
 		if (VisualizationManager.supportsVisualization(be.getLevel())) return;

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
@@ -14,7 +16,6 @@ import com.simibubi.create.foundation.virtualWorld.VirtualRenderWorld;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import net.createmod.catnip.api.math.VecHelper;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -107,7 +108,7 @@ public class SawMovementBehaviour extends BlockBreakingMovementBehaviour {
 	@Override
 	@OnlyIn(value = Dist.CLIENT)
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		SawRenderer.renderInContraption(context, renderWorld, matrices, buffer);
 	}
 

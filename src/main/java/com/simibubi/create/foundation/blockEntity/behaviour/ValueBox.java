@@ -13,7 +13,6 @@ import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
@@ -105,7 +104,7 @@ public class ValueBox extends ChasingAABBOutline {
 		return outline;
 	}
 
-	public void renderContents(PoseStack ms, MultiBufferSource buffer) {
+	public void renderContents(PoseStack ms, SuperRenderTypeBuffer buffer) {
 	}
 
 	public static class ItemValueBox extends ValueBox {
@@ -126,7 +125,7 @@ public class ValueBox extends ChasingAABBOutline {
 		}
 
 		@Override
-		public void renderContents(PoseStack ms, MultiBufferSource buffer) {
+		public void renderContents(PoseStack ms, SuperRenderTypeBuffer buffer) {
 			super.renderContents(ms, buffer);
 			if (count == null)
 				return;
@@ -177,7 +176,7 @@ public class ValueBox extends ChasingAABBOutline {
 		}
 
 		@Override
-		public void renderContents(PoseStack ms, MultiBufferSource buffer) {
+		public void renderContents(PoseStack ms, SuperRenderTypeBuffer buffer) {
 			super.renderContents(ms, buffer);
 			Font font = Minecraft.getInstance().font;
 			float scale = 3;
@@ -212,7 +211,7 @@ public class ValueBox extends ChasingAABBOutline {
 		}
 
 		@Override
-		public void renderContents(PoseStack ms, MultiBufferSource buffer) {
+		public void renderContents(PoseStack ms, SuperRenderTypeBuffer buffer) {
 			super.renderContents(ms, buffer);
 			float scale = 2 * 16;
 			ms.scale(scale, scale, scale);
@@ -224,13 +223,13 @@ public class ValueBox extends ChasingAABBOutline {
 
 	}
 
-	private static void drawString(PoseStack ms, MultiBufferSource buffer, Component text, float x, float y,
+	private static void drawString(PoseStack ms, SuperRenderTypeBuffer buffer, Component text, float x, float y,
 								   int color) {
 		Minecraft.getInstance().font.drawInBatch(text, x, y, color, false, ms.last()
 			.pose(), buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
 	}
 
-	private static void drawString8x(PoseStack ms, MultiBufferSource buffer, Component text, float x, float y,
+	private static void drawString8x(PoseStack ms, SuperRenderTypeBuffer buffer, Component text, float x, float y,
 									 int color) {
 		Minecraft.getInstance().font.drawInBatch8xOutline(text.getVisualOrderText(), x, y, color, 0xff333333, ms.last()
 			.pose(), buffer, LightTexture.FULL_BRIGHT);

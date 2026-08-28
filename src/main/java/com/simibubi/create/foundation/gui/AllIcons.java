@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.gui;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.joml.Matrix4f;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -12,7 +14,6 @@ import net.createmod.catnip.api.client.gui.element.ScreenElement;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
@@ -195,7 +196,7 @@ public class AllIcons implements ScreenElement {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void render(PoseStack ms, MultiBufferSource buffer, int color) {
+	public void render(PoseStack ms, SuperRenderTypeBuffer buffer, int color) {
 		VertexConsumer builder = buffer.getBuffer(RenderType.text(ICON_ATLAS));
 		Matrix4f matrix = ms.last().pose();
 		Color rgb = new Color(color);

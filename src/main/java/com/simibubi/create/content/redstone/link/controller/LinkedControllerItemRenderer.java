@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
@@ -68,7 +69,7 @@ public class LinkedControllerItemRenderer extends CustomRenderedItemModelRendere
 
 	@Override
 	protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer,
-						  ItemDisplayContext transformType, PoseStack ms, MultiBufferSource buffer, int light,
+						  ItemDisplayContext transformType, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 						  int overlay) {
 		renderNormal(stack, model, renderer, transformType, ms, light);
 	}

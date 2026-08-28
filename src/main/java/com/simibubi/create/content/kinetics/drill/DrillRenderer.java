@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import com.simibubi.create.content.contraptions.render.ContraptionMatrices;
@@ -12,7 +14,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -30,7 +31,7 @@ public class DrillRenderer extends KineticBlockEntityRenderer<DrillBlockEntity> 
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		BlockState state = context.state;
 		SuperByteBuffer superBuffer = CachedBuffers.partial(AllPartialModels.DRILL_HEAD, state);
 		Direction facing = state.getValue(DrillBlock.FACING);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.hats;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,6 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.ModelPart.Cube;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -36,7 +37,7 @@ public class CreateHatArmorLayer<T extends LivingEntity, M extends EntityModel<T
 		super(renderer);
 	}
 
-	public void render(PoseStack ms, MultiBufferSource buffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount,
+	public void render(PoseStack ms, SuperRenderTypeBuffer buffer, int light, LivingEntity entity, float limbSwing, float limbSwingAmount,
 					   float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		PartialModel hat = EntityHats.getHatFor(entity);
 		if (hat == null)

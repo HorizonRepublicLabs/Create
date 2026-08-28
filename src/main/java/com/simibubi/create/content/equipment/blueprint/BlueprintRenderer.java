@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.joml.Matrix3f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,7 +14,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.data.Couple;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -30,7 +31,7 @@ public class BlueprintRenderer extends EntityRenderer<BlueprintEntity> {
 	}
 
 	@Override
-	public void render(BlueprintEntity entity, float yaw, float pt, PoseStack ms, MultiBufferSource buffer,
+	public void render(BlueprintEntity entity, float yaw, float pt, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light) {
 		PartialModel partialModel = entity.size == 3 ? AllPartialModels.CRAFTING_BLUEPRINT_3x3
 			: entity.size == 2 ? AllPartialModels.CRAFTING_BLUEPRINT_2x2 : AllPartialModels.CRAFTING_BLUEPRINT_1x1;

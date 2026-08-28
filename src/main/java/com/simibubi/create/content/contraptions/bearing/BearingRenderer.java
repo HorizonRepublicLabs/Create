@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.bearing;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
@@ -10,7 +12,6 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -24,7 +25,7 @@ public class BearingRenderer<T extends KineticBlockEntity & IBearingBlockEntity>
 	}
 
 	@Override
-	protected void renderSafe(T be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(T be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 
 		if (VisualizationManager.supportsVisualization(be.getLevel())) return;

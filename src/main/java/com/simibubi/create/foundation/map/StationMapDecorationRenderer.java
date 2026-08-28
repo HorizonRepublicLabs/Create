@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.map;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
@@ -8,7 +10,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.MapDecorationTextureManager;
@@ -19,7 +20,7 @@ import net.neoforged.neoforge.client.gui.map.IMapDecorationRenderer;
 
 public class StationMapDecorationRenderer implements IMapDecorationRenderer {
 	@Override
-	public boolean render(MapDecoration decoration, PoseStack poseStack, MultiBufferSource bufferSource, @NotNull MapItemSavedData mapData, MapDecorationTextureManager decorationTextures, boolean inItemFrame, int packedLight, int index) {
+	public boolean render(MapDecoration decoration, PoseStack poseStack, SuperRenderTypeBuffer bufferSource, @NotNull MapItemSavedData mapData, MapDecorationTextureManager decorationTextures, boolean inItemFrame, int packedLight, int index) {
 		poseStack.pushPose();
 
 		poseStack.translate(decoration.x() / 2D + 64.0, decoration.y() / 2D + 64.0, -0.02D);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.display;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.List;
 
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
@@ -21,8 +23,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.FontSet;
 import net.minecraft.client.gui.font.glyphs.BakedGlyph;
 import net.minecraft.client.gui.font.glyphs.EmptyGlyph;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Vec3i;
@@ -43,7 +43,7 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 	}
 
 	@Override
-	protected void renderSafe(FlapDisplayBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(FlapDisplayBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 
@@ -110,7 +110,7 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 	@OnlyIn(Dist.CLIENT)
 	static class FlapDisplayRenderOutput implements FormattedCharSink {
 
-		final MultiBufferSource bufferSource;
+		final SuperRenderTypeBuffer bufferSource;
 		final float r, g, b, a;
 		final Matrix4f pose;
 		final int light;
@@ -121,7 +121,7 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 		private int lineIndex;
 		private Level level;
 
-		public FlapDisplayRenderOutput(MultiBufferSource buffer, int color, Matrix4f pose, int light, int lineIndex,
+		public FlapDisplayRenderOutput(SuperRenderTypeBuffer buffer, int color, Matrix4f pose, int light, int lineIndex,
 			boolean paused, Level level, boolean glowing) {
 			this.bufferSource = buffer;
 			this.lineIndex = lineIndex;

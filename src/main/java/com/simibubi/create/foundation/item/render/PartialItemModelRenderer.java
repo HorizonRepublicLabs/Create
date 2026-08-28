@@ -1,12 +1,13 @@
 package com.simibubi.create.foundation.item.render;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.foundation.render.RenderTypes;
 
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -27,11 +28,11 @@ public class PartialItemModelRenderer {
 	private ItemStack stack;
 	private ItemDisplayContext transformType;
 	private PoseStack ms;
-	private MultiBufferSource buffer;
+	private SuperRenderTypeBuffer buffer;
 	private int overlay;
 
 	public static PartialItemModelRenderer of(ItemStack stack, ItemDisplayContext transformType,
-		PoseStack ms, MultiBufferSource buffer, int overlay) {
+		PoseStack ms, SuperRenderTypeBuffer buffer, int overlay) {
 		PartialItemModelRenderer instance = INSTANCE;
 		instance.stack = stack;
 		instance.transformType = transformType;

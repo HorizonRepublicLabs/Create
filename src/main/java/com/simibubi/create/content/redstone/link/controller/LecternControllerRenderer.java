@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
@@ -9,7 +11,6 @@ import com.simibubi.create.foundation.item.render.PartialItemModelRenderer;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -22,7 +23,7 @@ public class LecternControllerRenderer extends SafeBlockEntityRenderer<LecternCo
 
 	@Override
 	protected void renderSafe(LecternControllerBlockEntity be, float partialTicks, PoseStack ms,
-  		MultiBufferSource buffer, int light, int overlay) {
+  		SuperRenderTypeBuffer buffer, int light, int overlay) {
 
 		ItemStack stack = AllItems.LINKED_CONTROLLER.asStack();
 		ItemDisplayContext transformType = ItemDisplayContext.NONE;

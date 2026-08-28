@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.steamWhistle;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock.WhistleSize;
@@ -9,7 +11,6 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -21,7 +22,7 @@ public class WhistleRenderer extends SafeBlockEntityRenderer<WhistleBlockEntity>
 	public WhistleRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(WhistleBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(WhistleBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		BlockState blockState = be.getBlockState();
 		if (!(blockState.getBlock() instanceof WhistleBlock))

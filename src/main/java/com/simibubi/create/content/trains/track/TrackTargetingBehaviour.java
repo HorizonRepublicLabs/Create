@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import net.minecraft.core.UUIDUtil;
 
 import java.util.List;
@@ -35,7 +37,6 @@ import net.createmod.catnip.api.nbt.NBTHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.Axis;
@@ -318,7 +319,7 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 
 	@OnlyIn(Dist.CLIENT)
 	public static void render(LevelAccessor level, BlockPos pos, AxisDirection direction,
-							  BezierTrackPointLocation bezier, PoseStack ms, MultiBufferSource buffer, int light, int overlay,
+							  BezierTrackPointLocation bezier, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay,
 							  RenderedTrackOverlayType type, float scale) {
 		if (level instanceof SchematicLevel && !(level instanceof PonderLevel))
 			return;

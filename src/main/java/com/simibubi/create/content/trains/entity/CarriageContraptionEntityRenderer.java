@@ -1,12 +1,13 @@
 package com.simibubi.create.content.trains.entity;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.contraptions.render.ContraptionEntityRenderer;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,7 @@ public class CarriageContraptionEntityRenderer extends ContraptionEntityRenderer
 
 	@Override
 	public void render(CarriageContraptionEntity entity, float yaw, float partialTicks, PoseStack ms,
-		MultiBufferSource buffers, int overlay) {
+		SuperRenderTypeBuffer buffers, int overlay) {
 		if (!entity.validForRender || entity.firstPositionUpdate)
 			return;
 

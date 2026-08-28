@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.ArrayList;
 import java.util.List;
 

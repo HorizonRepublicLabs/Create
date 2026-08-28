@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -23,7 +25,6 @@ import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -42,7 +43,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 	public SawRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(SawBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
+	protected void renderSafe(SawBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		renderBlade(be, ms, buffer, light);
 		renderItems(be, partialTicks, ms, buffer, light, overlay);
@@ -54,7 +55,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 		renderShaft(be, ms, buffer, light, overlay);
 	}
 
-	protected void renderBlade(SawBlockEntity be, PoseStack ms, MultiBufferSource buffer, int light) {
+	protected void renderBlade(SawBlockEntity be, PoseStack ms, SuperRenderTypeBuffer buffer, int light) {
 		BlockState blockState = be.getBlockState();
 		PartialModel partial;
 		float speed = be.getSpeed();
@@ -90,12 +91,12 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 			.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
 	}
 
-	protected void renderShaft(SawBlockEntity be, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+	protected void renderShaft(SawBlockEntity be, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay) {
 		KineticBlockEntityRenderer.renderRotatingBuffer(be, getRotatedModel(be), ms,
 			buffer.getBuffer(RenderType.solid()), light);
 	}
 
-	protected void renderItems(SawBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
+	protected void renderItems(SawBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		if (be.getBlockState()
 			.getValue(SawBlock.FACING) != Direction.UP)
@@ -188,7 +189,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		BlockState state = context.state;
 		Direction facing = state.getValue(SawBlock.FACING);
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static com.simibubi.create.AllPartialModels.GIRDER_SEGMENT_BOTTOM;
 import static com.simibubi.create.AllPartialModels.GIRDER_SEGMENT_MIDDLE;
 import static com.simibubi.create.AllPartialModels.GIRDER_SEGMENT_TOP;
@@ -17,7 +19,6 @@ import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -33,7 +34,7 @@ public class TrackRenderer extends SafeBlockEntityRenderer<TrackBlockEntity> {
 	public TrackRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(TrackBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
+	protected void renderSafe(TrackBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		Level level = be.getLevel();
 		if (VisualizationManager.supportsVisualization(level))

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.speedController;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllPartialModels;
@@ -10,7 +12,6 @@ import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -27,7 +28,7 @@ public class SpeedControllerRenderer extends SmartBlockEntityRenderer<SpeedContr
 
 	@Override
 	protected void renderSafe(SpeedControllerBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		super.renderSafe(blockEntity, partialTicks, ms, buffer, light, overlay);
 
 		VertexConsumer builder = buffer.getBuffer(Sheets.solidBlockSheet());

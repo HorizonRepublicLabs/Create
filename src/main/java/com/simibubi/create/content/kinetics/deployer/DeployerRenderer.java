@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static com.simibubi.create.content.kinetics.base.DirectionalAxisKineticBlock.AXIS_ALONG_FIRST_COORDINATE;
 import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING;
 
@@ -29,7 +31,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -49,7 +50,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 	}
 
 	@Override
-	protected void renderSafe(DeployerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(DeployerBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 							  int light, int overlay) {
 		renderItem(be, partialTicks, ms, buffer, light, overlay);
 		FilteringRenderer.renderOnBlockEntity(be, partialTicks, ms, buffer, light, overlay);
@@ -59,7 +60,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 		renderComponents(be, partialTicks, ms, buffer, light, overlay);
 	}
 
-	protected void renderItem(DeployerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderItem(DeployerBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 							  int light, int overlay) {
 
 		if (be.heldItem.isEmpty()) return;
@@ -109,7 +110,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 		ms.popPose();
 	}
 
-	protected void renderComponents(DeployerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderComponents(DeployerBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 									int light, int overlay) {
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 		if (!VisualizationManager.supportsVisualization(be.getLevel())) {
@@ -155,7 +156,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-										   ContraptionMatrices matrices, MultiBufferSource buffer) {
+										   ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		VertexConsumer builder = buffer.getBuffer(RenderType.solid());
 		BlockState blockState = context.state;
 		Mode mode = NBTHelper.readEnum(context.blockEntityData, "Mode", Mode.class);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.bogey;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllBlocks;
@@ -11,7 +13,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.math.AngleHelper;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 
 public class StandardBogeyRenderer implements BogeyRenderer {
 	@Override
-	public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, boolean inContraption) {
+	public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, SuperRenderTypeBuffer bufferSource, int light, int overlay, boolean inContraption) {
 		VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutoutMipped());
 
 		SuperByteBuffer shaft = CachedBuffers.block(AllBlocks.SHAFT.getDefaultState()
@@ -38,7 +39,7 @@ public class StandardBogeyRenderer implements BogeyRenderer {
 
 	public static class Small extends StandardBogeyRenderer {
 		@Override
-		public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, boolean inContraption) {
+		public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, SuperRenderTypeBuffer bufferSource, int light, int overlay, boolean inContraption) {
 			super.render(bogeyData, wheelAngle, partialTick, poseStack, bufferSource, light, overlay, inContraption);
 
 			VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutoutMipped());
@@ -65,7 +66,7 @@ public class StandardBogeyRenderer implements BogeyRenderer {
 		public static final float BELT_RADIUS_IN_UV_SPACE = BELT_RADIUS_PX / 16f;
 
 		@Override
-		public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, boolean inContraption) {
+		public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, SuperRenderTypeBuffer bufferSource, int light, int overlay, boolean inContraption) {
 			super.render(bogeyData, wheelAngle, partialTick, poseStack, bufferSource, light, overlay, inContraption);
 
 			VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutoutMipped());

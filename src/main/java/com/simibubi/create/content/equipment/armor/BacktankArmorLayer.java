@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.foundation.mixin.accessor.EntityRenderDispatcherAccessor;
@@ -10,7 +12,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -31,7 +32,7 @@ public class BacktankArmorLayer<T extends LivingEntity, M extends EntityModel<T>
 	}
 
 	@Override
-	public void render(PoseStack ms, MultiBufferSource buffer, int light, T entity,
+	public void render(PoseStack ms, SuperRenderTypeBuffer buffer, int light, T entity,
 					   float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks,
 					   float netHeadYaw, float headPitch) {
 		if (entity.getPose() == Pose.SLEEPING)

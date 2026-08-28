@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,7 +22,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SpriteShiftEntry;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -33,7 +34,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 	public BlazeBurnerRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(BlazeBurnerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource,
+	protected void renderSafe(BlazeBurnerBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer bufferSource,
 		int light, int overlay) {
 		HeatLevel heatLevel = be.getHeatLevelFromBlock();
 		if (heatLevel == HeatLevel.NONE)
@@ -54,7 +55,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-										   ContraptionMatrices matrices, MultiBufferSource bufferSource, LerpedFloat headAngle, boolean conductor) {
+										   ContraptionMatrices matrices, SuperRenderTypeBuffer bufferSource, LerpedFloat headAngle, boolean conductor) {
 		BlockState state = context.state;
 		HeatLevel heatLevel = BlazeBurnerBlock.getHeatLevelOf(state);
 		if (heatLevel == HeatLevel.NONE)
@@ -74,7 +75,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 				false, drawGoggles, drawHat ? AllPartialModels.TRAIN_HAT : null, hashCode);
 	}
 
-	public static void renderShared(PoseStack ms, @Nullable PoseStack modelTransform, MultiBufferSource bufferSource,
+	public static void renderShared(PoseStack ms, @Nullable PoseStack modelTransform, SuperRenderTypeBuffer bufferSource,
 									 Level level, BlockState blockState, HeatLevel heatLevel, float animation, float horizontalAngle,
 									 boolean canDrawFlame, boolean drawGoggles, PartialModel drawHat, int hashCode) {
 

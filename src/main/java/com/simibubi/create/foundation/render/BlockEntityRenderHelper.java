@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.render;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.BitSet;
 import java.util.List;
 
@@ -18,7 +20,6 @@ import dev.engine_room.flywheel.lib.visualization.VisualizationHelper;
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
@@ -34,7 +35,7 @@ public class BlockEntityRenderHelper {
 	 * @param shouldRenderBEs A BitSet marking which BlockEntities in the list should be rendered. This will not be modified.
 	 * @param erroredBEsOut   A BitSet to mark BlockEntities that error during rendering. This will be modified.
 	 */
-	public static void renderBlockEntities(List<BlockEntity> blockEntities, BitSet shouldRenderBEs, BitSet erroredBEsOut, @javax.annotation.Nullable VirtualRenderWorld renderLevel, Level realLevel, PoseStack ms, @javax.annotation.Nullable Matrix4f lightTransform, MultiBufferSource buffer,
+	public static void renderBlockEntities(List<BlockEntity> blockEntities, BitSet shouldRenderBEs, BitSet erroredBEsOut, @javax.annotation.Nullable VirtualRenderWorld renderLevel, Level realLevel, PoseStack ms, @javax.annotation.Nullable Matrix4f lightTransform, SuperRenderTypeBuffer buffer,
 										   float pt) {
 		for (int i = shouldRenderBEs.nextSetBit(0); i >= 0 && i < blockEntities.size(); i = shouldRenderBEs.nextSetBit(i + 1)) {
 			BlockEntity blockEntity = blockEntities.get(i);

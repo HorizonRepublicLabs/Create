@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.gui;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
@@ -178,7 +179,7 @@ public class RemovedGuiUtils {
 		graphics.fillGradient(tooltipX - 3, tooltipY + tooltipHeight + 2,
 			tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, zLevel, borderColorEnd, borderColorEnd);
 
-		MultiBufferSource.BufferSource renderType = graphics.bufferSource();
+		SuperRenderTypeBuffer renderType = graphics.bufferSource();
 		pStack.translate(0.0D, 0.0D, zLevel);
 
 		for (int lineNumber = 0; lineNumber < list.size(); ++lineNumber) {

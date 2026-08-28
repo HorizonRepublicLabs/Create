@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.pipes;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.fluids.FluidTransportBehaviour;
 import com.simibubi.create.content.fluids.PipeConnection.Flow;
@@ -9,7 +11,6 @@ import com.simibubi.create.foundation.fluid.FluidRenderer;
 
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.animation.LerpedFloat;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -20,7 +21,7 @@ public class TransparentStraightPipeRenderer extends SafeBlockEntityRenderer<Str
 	}
 
 	@Override
-	protected void renderSafe(StraightPipeBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(StraightPipeBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		FluidTransportBehaviour pipe = be.getBehaviour(FluidTransportBehaviour.TYPE);
 		if (pipe == null)

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 

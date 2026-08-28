@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
 
@@ -9,7 +11,6 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -43,7 +44,7 @@ public class NetheriteBacktankFirstPersonRenderer {
 
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
-		MultiBufferSource buffer = event.getMultiBufferSource();
+		SuperRenderTypeBuffer buffer = event.getMultiBufferSource();
 		if (!(mc.getEntityRenderDispatcher()
 			.getRenderer(player) instanceof PlayerRenderer pr))
 			return;

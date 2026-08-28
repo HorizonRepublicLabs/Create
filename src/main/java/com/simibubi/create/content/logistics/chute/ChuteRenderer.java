@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.chute;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.logistics.box.PackageItem;
 import com.simibubi.create.content.logistics.chute.ChuteBlock.Shape;
@@ -7,7 +9,6 @@ import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRender
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.Direction;
@@ -19,7 +20,7 @@ public class ChuteRenderer extends SafeBlockEntityRenderer<ChuteBlockEntity> {
 	public ChuteRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(ChuteBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
+	protected void renderSafe(ChuteBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		if (be.item.isEmpty())
 			return;
@@ -33,7 +34,7 @@ public class ChuteRenderer extends SafeBlockEntityRenderer<ChuteBlockEntity> {
 		renderItem(be, partialTicks, ms, buffer, light, overlay);
 	}
 
-	public static void renderItem(ChuteBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	public static void renderItem(ChuteBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		ItemRenderer itemRenderer = Minecraft.getInstance()
 			.getItemRenderer();

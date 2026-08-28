@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.function.Consumer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,7 +22,6 @@ import net.createmod.catnip.api.nbt.NBTHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -35,7 +36,7 @@ public class PortableStorageInterfaceRenderer extends SafeBlockEntityRenderer<Po
 
 	@Override
 	protected void renderSafe(PortableStorageInterfaceBlockEntity be, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		if (VisualizationManager.supportsVisualization(be.getLevel()))
 			return;
 
@@ -47,7 +48,7 @@ public class PortableStorageInterfaceRenderer extends SafeBlockEntityRenderer<Po
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		BlockState blockState = context.state;
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 		float renderPartialTicks = AnimationTickHolder.getPartialTicks();

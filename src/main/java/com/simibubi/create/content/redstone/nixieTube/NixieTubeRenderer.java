@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.nixieTube;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.redstone.nixieTube.DoubleFaceAttachedBlock.DoubleAttachFace;
@@ -18,8 +20,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.glyphs.BakedGlyph;
 import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.MultiBufferSource.BufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -35,7 +35,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 	public NixieTubeRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(NixieTubeBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(NixieTubeBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		ms.pushPose();
 		BlockState blockState = be.getBlockState();
@@ -80,7 +80,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 		ms.popPose();
 	}
 
-	public static void drawTube(PoseStack ms, MultiBufferSource buffer, String c, float height, DyeColor color, RandomSource random) {
+	public static void drawTube(PoseStack ms, SuperRenderTypeBuffer buffer, String c, float height, DyeColor color, RandomSource random) {
 		Font fontRenderer = Minecraft.getInstance().font;
 		float charWidth = fontRenderer.width(c);
 		float shadowOffset = .5f;
@@ -110,7 +110,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 		ms.popPose();
 	}
 
-	public static void drawInWorldString(PoseStack ms, MultiBufferSource buffer, String c, int color) {
+	public static void drawInWorldString(PoseStack ms, SuperRenderTypeBuffer buffer, String c, int color) {
 		Font fontRenderer = Minecraft.getInstance().font;
 		fontRenderer.drawInBatch(c, 0, 0, color, false, ms.last()
 			.pose(), buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
@@ -121,7 +121,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 		}
 	}
 
-	private void renderAsSignal(NixieTubeBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	private void renderAsSignal(NixieTubeBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		BlockState blockState = be.getBlockState();
 		Direction facing = NixieTubeBlock.getFacing(blockState);

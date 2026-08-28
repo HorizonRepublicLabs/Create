@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.harvester;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -15,7 +17,6 @@ import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -30,7 +31,7 @@ public class HarvesterRenderer extends SafeBlockEntityRenderer<HarvesterBlockEnt
 	public HarvesterRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(HarvesterBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(HarvesterBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		BlockState blockState = be.getBlockState();
 		SuperByteBuffer superBuffer = CachedBuffers.partial(AllPartialModels.HARVESTER_BLADE, blockState);
@@ -40,7 +41,7 @@ public class HarvesterRenderer extends SafeBlockEntityRenderer<HarvesterBlockEnt
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffers) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffers) {
 		BlockState blockState = context.state;
 		Direction facing = blockState.getValue(HORIZONTAL_FACING);
 		SuperByteBuffer superBuffer = CachedBuffers.partial(AllPartialModels.HARVESTER_BLADE, blockState);

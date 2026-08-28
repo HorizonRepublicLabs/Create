@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour.filtering;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,6 @@ import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.client.outliner.Outliner;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -107,7 +108,7 @@ public class FilteringRenderer {
 	}
 
 	public static void renderOnBlockEntity(SmartBlockEntity be, float partialTicks, PoseStack ms,
-										   MultiBufferSource buffer, int light, int overlay) {
+										   SuperRenderTypeBuffer buffer, int light, int overlay) {
 
 		if (be == null || be.isRemoved())
 			return;

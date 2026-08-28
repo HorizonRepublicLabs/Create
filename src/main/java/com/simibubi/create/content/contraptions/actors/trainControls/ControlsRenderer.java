@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.trainControls;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
@@ -12,7 +14,6 @@ import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -21,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ControlsRenderer {
 
 	public static void render(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices,
-		MultiBufferSource buffer, float equipAnimation, float firstLever, float secondLever) {
+		SuperRenderTypeBuffer buffer, float equipAnimation, float firstLever, float secondLever) {
 		BlockState state = context.state;
 		Direction facing = state.getValue(ControlsBlock.FACING);
 

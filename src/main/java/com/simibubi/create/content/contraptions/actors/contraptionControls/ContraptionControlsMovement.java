@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.contraptionControls;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
 import com.simibubi.create.content.contraptions.Contraption;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
@@ -12,7 +14,6 @@ import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.createmod.catnip.api.data.Couple;
 import net.createmod.catnip.api.data.IntAttached;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -143,7 +144,7 @@ public class ContraptionControlsMovement implements MovementBehaviour {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void renderInContraption(MovementContext ctx, VirtualRenderWorld renderWorld, ContraptionMatrices matrices,
-		MultiBufferSource buffer) {
+		SuperRenderTypeBuffer buffer) {
 		ContraptionControlsRenderer.renderInContraption(ctx, renderWorld, matrices, buffer);
 	}
 

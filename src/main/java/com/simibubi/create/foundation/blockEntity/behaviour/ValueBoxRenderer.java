@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.joml.Matrix3f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -7,7 +9,6 @@ import com.simibubi.create.content.kinetics.simpleRelays.AbstractSimpleShaftBloc
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.block.FenceBlock;
 
 public class ValueBoxRenderer {
 
-	public static void renderItemIntoValueBox(ItemStack filter, PoseStack ms, MultiBufferSource buffer, int light,
+	public static void renderItemIntoValueBox(ItemStack filter, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		Minecraft mc = Minecraft.getInstance();
 		ItemRenderer itemRenderer = mc.getItemRenderer();
@@ -36,7 +37,7 @@ public class ValueBoxRenderer {
 		itemRenderer.render(filter, ItemDisplayContext.FIXED, false, ms, buffer, light, overlay, modelWithOverrides);
 	}
 
-	public static void renderFlatItemIntoValueBox(ItemStack filter, PoseStack ms, MultiBufferSource buffer, int light,
+	public static void renderFlatItemIntoValueBox(ItemStack filter, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		if (filter.isEmpty())
 			return;

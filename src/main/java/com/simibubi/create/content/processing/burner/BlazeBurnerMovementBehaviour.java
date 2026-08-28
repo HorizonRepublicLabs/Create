@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
 import com.simibubi.create.content.contraptions.Contraption;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
@@ -15,7 +17,6 @@ import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
@@ -121,7 +122,7 @@ public class BlazeBurnerMovementBehaviour implements MovementBehaviour {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		if (!shouldRender(context))
 			return;
 		BlazeBurnerRenderer.renderInContraption(context, renderWorld, matrices, buffer, getHeadAngle(context),

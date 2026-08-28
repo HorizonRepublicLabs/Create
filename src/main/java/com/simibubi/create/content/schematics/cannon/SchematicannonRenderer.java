@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -15,7 +17,6 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.impl.neoforge.render.VirtualRenderHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
@@ -33,7 +34,7 @@ public class SchematicannonRenderer extends SafeBlockEntityRenderer<Schematicann
 
 	@Override
 	protected void renderSafe(SchematicannonBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 
 		boolean blocksLaunching = !blockEntity.flyingBlocks.isEmpty();
 		if (blocksLaunching)
@@ -125,7 +126,7 @@ public class SchematicannonRenderer extends SafeBlockEntityRenderer<Schematicann
 	}
 
 	private static void renderLaunchedBlocks(SchematicannonBlockEntity blockEntity, float partialTicks, PoseStack ms,
-		MultiBufferSource buffer, int light, int overlay) {
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		for (LaunchedItem launched : blockEntity.flyingBlocks) {
 
 			if (launched.ticksRemaining == 0)

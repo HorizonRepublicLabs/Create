@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -8,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -81,7 +82,7 @@ public abstract class ShootableGadgetRenderHandler {
 		ItemInHandRenderer firstPersonRenderer = mc.getEntityRenderDispatcher().getItemInHandRenderer();
 
 		PoseStack ms = event.getPoseStack();
-		MultiBufferSource buffer = event.getMultiBufferSource();
+		SuperRenderTypeBuffer buffer = event.getMultiBufferSource();
 		int light = event.getPackedLight();
 		float pt = event.getPartialTick();
 

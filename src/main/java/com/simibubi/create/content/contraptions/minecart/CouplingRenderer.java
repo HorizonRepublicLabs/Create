@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import static net.minecraft.util.Mth.lerp;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,7 +21,6 @@ import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,7 +32,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class CouplingRenderer {
 
-	public static void renderAll(PoseStack ms, MultiBufferSource buffer, Vec3 camera) {
+	public static void renderAll(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera) {
 		CouplingHandler.forEachLoadedCoupling(Minecraft.getInstance().level, c -> {
 			if (c.getFirst()
 				.hasContraptionCoupling(true))
@@ -45,7 +46,7 @@ public class CouplingRenderer {
 			CouplingHandler.forEachLoadedCoupling(Minecraft.getInstance().level, CouplingRenderer::doDebugRender);
 	}
 
-	public static void renderCoupling(PoseStack ms, MultiBufferSource buffer, Vec3 camera, Couple<AbstractMinecart> carts) {
+	public static void renderCoupling(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera, Couple<AbstractMinecart> carts) {
 		ClientLevel world = Minecraft.getInstance().level;
 
 		if (carts.getFirst() == null || carts.getSecond() == null)

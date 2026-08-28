@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.render;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,7 +21,6 @@ import net.createmod.catnip.api.client.render.ShadedBlockSbbBuilder;
 import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.client.render.SuperByteBufferCache;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
@@ -104,7 +105,7 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 	}
 
 	@Override
-	public void render(C entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffers,
+	public void render(C entity, float yaw, float partialTicks, PoseStack poseStack, SuperRenderTypeBuffer buffers,
 		int overlay) {
 		super.render(entity, yaw, partialTicks, poseStack, buffers, overlay);
 
@@ -144,7 +145,7 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 	}
 
 	private static void renderActors(Level level, VirtualRenderWorld renderWorld, Contraption c,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		PoseStack m = matrices.getModel();
 
 		for (Pair<StructureTemplate.StructureBlockInfo, MovementContext> actor : c.getActors()) {

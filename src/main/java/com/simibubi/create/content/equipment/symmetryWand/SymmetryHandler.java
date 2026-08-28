@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.symmetryWand;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.joml.Vector3f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,7 +15,6 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
@@ -99,7 +100,7 @@ public class SymmetryHandler {
 			double speed = 1 / 16d;
 			yShift = Mth.sin((float) (AnimationTickHolder.getRenderTime() * speed)) / 5f;
 
-			MultiBufferSource.BufferSource buffer = mc.renderBuffers()
+			SuperRenderTypeBuffer buffer = mc.renderBuffers()
 				.bufferSource();
 			Camera info = mc.gameRenderer.getMainCamera();
 			Vec3 view = info.getPosition();

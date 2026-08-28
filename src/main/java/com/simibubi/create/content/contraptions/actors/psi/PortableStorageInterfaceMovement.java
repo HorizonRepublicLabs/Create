@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +19,6 @@ import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.catnip.api.nbt.NBTHelper;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.NbtUtils;
@@ -56,7 +57,7 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
-		ContraptionMatrices matrices, MultiBufferSource buffer) {
+		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		if (!VisualizationManager.supportsVisualization(context.world))
 			PortableStorageInterfaceRenderer.renderInContraption(context, renderWorld, matrices, buffer);
 	}

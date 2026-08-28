@@ -1,12 +1,13 @@
 package com.simibubi.create.content.decoration.placard;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
@@ -22,7 +23,7 @@ public class PlacardRenderer extends SafeBlockEntityRenderer<PlacardBlockEntity>
 	public PlacardRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(PlacardBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(PlacardBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		ItemStack heldItem = be.getHeldItem();
 		if (heldItem.isEmpty())

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.base;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -15,7 +17,6 @@ import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.client.render.SuperByteBufferCache;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
@@ -45,7 +46,7 @@ public class KineticBlockEntityRenderer<T extends KineticBlockEntity> extends Sa
 	}
 
 	@Override
-	protected void renderSafe(T be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderSafe(T be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 							  int light, int overlay) {
 		if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 

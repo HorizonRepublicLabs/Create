@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -29,7 +31,6 @@ import net.createmod.catnip.api.math.AngleHelper;
 import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -54,7 +55,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 	}
 
 	@Override
-	protected void renderSafe(BeltBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
+	protected void renderSafe(BeltBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 
 		if (!VisualizationManager.supportsVisualization(be.getLevel())) {
@@ -192,7 +193,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 		}
 	}
 
-	protected void renderItems(BeltBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+	protected void renderItems(BeltBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		if (!be.isController())
 			return;
@@ -224,7 +225,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 		ms.popPose();
 	}
 
-	private void renderItem(BeltBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
+	private void renderItem(BeltBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay, Direction beltFacing, Vec3i directionVec, BeltSlope slope, int verticality, boolean slopeAlongX,
 		boolean onContraption, TransportedItemStack transported, Vec3 beltStartOffset) {
 		Minecraft mc = Minecraft.getInstance();
