@@ -1,5 +1,9 @@
 package com.simibubi.create.content.redstone.smartObserver;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.fluids.FluidTransportBehaviour;
@@ -112,13 +116,12 @@ public class SmartObserverBlock extends DirectedDirectionalBlock implements IBE<
 		return side != state.getValue(FACING)
 			.getOpposite();
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		InvManipulationBehaviour behaviour = BlockEntityBehaviour.get(worldIn, pos, InvManipulationBehaviour.TYPE);
 		if (behaviour != null)
-			behaviour.onNeighborChanged(fromPos);
+			behaviour.onNeighborChanged();
 	}
 
 	public void onFunnelTransfer(Level world, BlockPos funnelPos, ItemStack transferred) {

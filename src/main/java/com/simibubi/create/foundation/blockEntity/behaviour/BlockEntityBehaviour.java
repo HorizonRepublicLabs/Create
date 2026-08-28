@@ -65,7 +65,9 @@ public abstract class BlockEntityBehaviour {
 
 	}
 
-	public void onNeighborChanged(BlockPos neighborPos) {
+	/// 26.x no longer tells a block which neighbour changed, so behaviours are
+	/// not told either.
+	public void onNeighborChanged() {
 
 	}
 

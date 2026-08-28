@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
@@ -201,13 +205,12 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		InvManipulationBehaviour behaviour = BlockEntityBehaviour.get(worldIn, pos, InvManipulationBehaviour.TYPE);
 		if (behaviour != null)
-			behaviour.onNeighborChanged(fromPos);
+			behaviour.onNeighborChanged();
 	}
 
 	@Override

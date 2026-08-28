@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.packager;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
@@ -152,23 +156,12 @@ public class PackagerBlock extends WrenchableDirectionalBlock implements IBE<Pac
 			.equals(pos))
 			withBlockEntityDo(level, pos, PackagerBlockEntity::triggerStockCheck);
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-								boolean isMoving) {
-		if (worldIn.isClientSide())
-			return;
-
-		InvManipulationBehaviour behaviour = BlockEntityBehaviour.get(worldIn, pos, InvManipulationBehaviour.TYPE);
+	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block,
+		@Nullable Orientation orientation, boolean movedByPiston) {
+		InvManipulationBehaviour behaviour = BlockEntityBehaviour.get(level, pos, InvManipulationBehaviour.TYPE);
 		if (behaviour != null)
-			behaviour.onNeighborChanged(fromPos);
-
-		boolean previouslyPowered = state.getValue(POWERED);
-		if (previouslyPowered == worldIn.hasNeighborSignal(pos))
-			return;
-		worldIn.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
-		if (!previouslyPowered)
-			withBlockEntityDo(worldIn, pos, PackagerBlockEntity::activate);
+			behaviour.onNeighborChanged();
 	}
 
 	@Override

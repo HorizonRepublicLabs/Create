@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.crank;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -99,19 +103,14 @@ public class HandCrankBlock extends DirectionalKineticBlock
 		return !neighbour.getCollisionShape(worldIn, neighbourPos)
 			.isEmpty();
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		if (worldIn.isClientSide())
 			return;
 
-		Direction blockFacing = state.getValue(FACING);
-		if (fromPos.equals(pos.relative(blockFacing.getOpposite()))) {
-			if (!canSurvive(state, worldIn, pos)) {
-				worldIn.destroyBlock(pos, true);
-			}
-		}
+		if (!canSurvive(state, worldIn, pos))
+			worldIn.destroyBlock(pos, true);
 	}
 
 	@Override

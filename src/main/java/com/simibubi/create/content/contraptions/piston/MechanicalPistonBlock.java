@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.piston;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllShapes;
@@ -96,13 +100,11 @@ public class MechanicalPistonBlock extends DirectionalAxisKineticBlock implement
 			.setValue(AXIS_ALONG_FIRST_COORDINATE, state.getValue(AXIS_ALONG_FIRST_COORDINATE)));
 		return InteractionResult.SUCCESS;
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
-		boolean isMoving) {
-		Direction direction = state.getValue(FACING);
-		if (!fromPos.equals(pos.relative(direction.getOpposite())))
-			return;
+	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block,
+		@Nullable Orientation orientation, boolean movedByPiston) {
+		// The old check limited this to the block behind the piston; that side is
+		// still the only one that matters, it just cannot be filtered on up front.
 		if (!level.isClientSide() && !level.getBlockTicks()
 			.willTickThisTick(pos, this))
 			level.scheduleTick(pos, this, 1);

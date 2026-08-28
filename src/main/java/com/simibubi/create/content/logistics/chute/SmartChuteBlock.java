@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.chute;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 
 import net.minecraft.core.BlockPos;
@@ -24,11 +28,10 @@ public class SmartChuteBlock extends AbstractChuteBlock {
 	}
 
 	public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-
 	@Override
-	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
-		boolean isMoving) {
-		super.neighborChanged(state, level, pos, block, fromPos, isMoving);
+	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block,
+		@Nullable Orientation orientation, boolean movedByPiston) {
+		super.neighborChanged(state, level, pos, block, orientation, movedByPiston);
 		if (level.isClientSide())
 			return;
 		if (!level.getBlockTicks()

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.redstone.displayLink;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.function.BiConsumer;
@@ -103,16 +107,15 @@ public class DisplayLinkBlock extends WrenchableDirectionalBlock implements IBE<
 			callback.accept(dlbe);
 		}
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		if (worldIn.isClientSide())
 			return;
 
-		if (fromPos.equals(pos.relative(state.getValue(FACING)
-			.getOpposite())))
-			sendToGatherers(worldIn, fromPos, (dlte, p) -> dlte.tickSource(), RedstonePowerDisplaySource.class);
+		BlockPos sourcePos = pos.relative(state.getValue(FACING)
+			.getOpposite());
+		sendToGatherers(worldIn, sourcePos, (dlte, p) -> dlte.tickSource(), RedstonePowerDisplaySource.class);
 
 		boolean powered = shouldBePowered(state, worldIn, pos);
 		boolean previouslyPowered = state.getValue(POWERED);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.funnel;
 
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import org.jetbrains.annotations.Nullable;
@@ -70,18 +72,12 @@ public abstract class AbstractFunnelBlock extends Block
 	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder.add(POWERED, WATERLOGGED));
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
-								boolean isMoving) {
-		if (level.isClientSide())
-			return;
-		InvManipulationBehaviour behaviour = BlockEntityBehaviour.get(level, pos, InvManipulationBehaviour.TYPE);
+	protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block block,
+		@Nullable Orientation orientation, boolean movedByPiston) {
+		InvManipulationBehaviour behaviour = BlockEntityBehaviour.get(world, pos, InvManipulationBehaviour.TYPE);
 		if (behaviour != null)
-			behaviour.onNeighborChanged(fromPos);
-		if (!level.getBlockTicks()
-			.willTickThisTick(pos, this))
-			level.scheduleTick(pos, this, 1);
+			behaviour.onNeighborChanged();
 	}
 
 	@Override

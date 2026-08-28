@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -44,18 +48,14 @@ public class NozzleBlock extends WrenchableDirectionalBlock implements IBE<Nozzl
 	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return AllShapes.NOZZLE.get(state.getValue(FACING));
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-			boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		if (worldIn.isClientSide())
 			return;
 
-		if (fromPos.equals(pos.relative(state.getValue(FACING).getOpposite())))
-			if (!canSurvive(state, worldIn, pos)) {
-				worldIn.destroyBlock(pos, true);
-				return;
-			}
+		if (!canSurvive(state, worldIn, pos))
+			worldIn.destroyBlock(pos, true);
 	}
 
 	@Override

@@ -54,9 +54,10 @@ public abstract class CapManipulationBehaviourBase<C, T, S extends CapManipulati
 	}
 
 	@Override
-	public void onNeighborChanged(BlockPos neighborPos) {
-		if (this.getTarget().getConnectedPos().equals(neighborPos))
-			onHandlerInvalidated();
+	public void onNeighborChanged() {
+		// Without the changed neighbour's position this can no longer be narrowed
+		// to "was it my target"; invalidating re-resolves lazily.
+		onHandlerInvalidated();
 	}
 
 	@SuppressWarnings("unchecked")

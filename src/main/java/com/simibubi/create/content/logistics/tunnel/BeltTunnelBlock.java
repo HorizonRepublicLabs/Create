@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.tunnel;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -215,19 +219,14 @@ public class BeltTunnelBlock extends Block implements IBE<BeltTunnelBlockEntity>
 
 		return state.setValue(HORIZONTAL_AXIS, rotated.getAxis());
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
-		boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		if (worldIn.isClientSide())
 			return;
 
-		if (fromPos.equals(pos.below())) {
-			if (!canSurvive(state, worldIn, pos)) {
-				worldIn.destroyBlock(pos, true);
-				return;
-			}
-		}
+		if (!canSurvive(state, worldIn, pos))
+			worldIn.destroyBlock(pos, true);
 	}
 
 	@Override

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.redstone.link;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.foundation.block.IBE;
@@ -38,19 +42,15 @@ public class RedstoneLinkBlock extends WrenchableDirectionalBlock implements IBE
 		registerDefaultState(defaultBlockState().setValue(POWERED, false)
 			.setValue(RECEIVER, false));
 	}
-
 	@Override
-	public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
-		boolean isMoving) {
+	protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block,
+		@Nullable Orientation orientation, boolean movedByPiston) {
 		if (level.isClientSide())
 			return;
 
-		Direction blockFacing = state.getValue(FACING);
-		if (fromPos.equals(pos.relative(blockFacing.getOpposite()))) {
-			if (!canSurvive(state, level, pos)) {
-				level.destroyBlock(pos, true);
-				return;
-			}
+		if (!canSurvive(state, level, pos)) {
+			level.destroyBlock(pos, true);
+			return;
 		}
 
 		if (!level.getBlockTicks()
