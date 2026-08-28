@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import net.minecraft.core.UUIDUtil;
 
 import static com.simibubi.create.content.kinetics.base.DirectionalKineticBlock.FACING;
@@ -74,6 +76,16 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 public class DeployerBlockEntity extends KineticBlockEntity implements Clearable {
+	/// LevelChunk drops the block entity before it calls the block's removal
+	/// hook, so anything that needs this object alive has to run here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			discardPlayer();
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	protected State state;
 	protected Mode mode;
 	protected ItemStack heldItem;

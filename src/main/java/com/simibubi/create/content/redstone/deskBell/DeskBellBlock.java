@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.deskBell;
 
+import net.minecraft.server.level.ServerLevel;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -90,13 +92,11 @@ public class DeskBellBlock extends WrenchableDirectionalBlock
 		if (pLevel instanceof Level level)
 			AllSoundEvents.DESK_BELL_USE.play(level, pPlayer, pPos);
 	}
-
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		if (!pIsMoving && !pState.is(pNewState.getBlock()))
-			if (pState.getValue(POWERED))
-				updateNeighbours(pState, pLevel, pPos);
-		IBE.onRemove(pState, pLevel, pPos, pNewState);
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
+		if (!movedByPiston && pState.getValue(POWERED))
+			updateNeighbours(pState, pLevel, pPos);
 	}
 
 	@Override

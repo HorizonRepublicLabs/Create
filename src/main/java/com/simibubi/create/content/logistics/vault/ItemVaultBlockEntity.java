@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.vault;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -40,6 +42,17 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class ItemVaultBlockEntity extends SmartBlockEntity implements IMultiBlockEntityContainer.Inventory, Clearable {
+	/// LevelChunk drops the block entity before it calls the block's removal
+	/// hook, so anything that needs this object alive has to run here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			ItemHelper.dropContents(level, pos, inventory);
+			ConnectivityHandler.splitMulti(this);
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	protected ICapabilityProvider<IItemHandler> itemCapability = null;
 	protected InventoryIdentifier invId;
 

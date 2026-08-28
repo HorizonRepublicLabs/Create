@@ -79,14 +79,10 @@ public class EncasedPipeBlock extends Block
 		super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
 		AdvancementBehaviour.setPlacedBy(pLevel, pPos, pPlacer);
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		boolean blockTypeChanged = state.getBlock() != newState.getBlock();
-		if (blockTypeChanged && !world.isClientSide())
-			FluidPropagator.propagateChangedPipe(world, pos, state);
-		if (state.hasBlockEntity() && (blockTypeChanged || !newState.hasBlockEntity()))
-			world.removeBlockEntity(pos);
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos,
+		boolean movedByPiston) {
+		FluidPropagator.propagateChangedPipe(world, pos, state);
 	}
 
 	@Override

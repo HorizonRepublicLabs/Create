@@ -188,10 +188,9 @@ public class WhistleBlock extends Block implements IBE<WhistleBlockEntity>, IWre
 		if (pOldState.getBlock() != this || pOldState.getValue(SIZE) != pState.getValue(SIZE))
 			queuePitchUpdate(pLevel, pPos);
 	}
-
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		IBE.onRemove(pState, pLevel, pPos, pNewState);
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
 		FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getAttachedDirection(pState)));
 	}
 

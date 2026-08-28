@@ -219,15 +219,6 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 	}
 
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		if (!pState.hasBlockEntity() || pState.getBlock() == pNewState.getBlock())
-			return;
-		if (!pIsMoving)
-			withBlockEntityDo(pLevel, pPos, ufte -> Block.popResource(pLevel, pPos, ufte.getConsumedItem()));
-		pLevel.removeBlockEntity(pPos);
-	}
-
-	@Override
 	public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
 		super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
 		if (pPlayer.isCreative())

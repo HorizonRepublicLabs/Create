@@ -107,18 +107,6 @@ public class ItemDrainBlock extends Block implements IWrenchable, IBE<ItemDrainB
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!state.hasBlockEntity() || state.getBlock() == newState.getBlock())
-			return;
-		withBlockEntityDo(worldIn, pos, be -> {
-			ItemStack heldItemStack = be.getHeldItemStack();
-			if (!heldItemStack.isEmpty())
-				Containers.dropItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), heldItemStack);
-		});
-		worldIn.removeBlockEntity(pos);
-	}
-
-	@Override
 	public Class<ItemDrainBlockEntity> getBlockEntityClass() {
 		return ItemDrainBlockEntity.class;
 	}

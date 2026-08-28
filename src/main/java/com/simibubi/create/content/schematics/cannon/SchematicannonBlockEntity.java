@@ -76,6 +76,16 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.EmptyItemHandler;
 
 public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuProvider, Clearable {
+	/// LevelChunk drops the block entity before it calls the block's removal
+	/// hook, so anything that needs this object alive has to run here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			ItemHelper.dropContents(level, pos, inventory);
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	public static final int NEIGHBOUR_CHECKING = 100;
 	public static final int MAX_ANCHOR_DISTANCE = 256;
 

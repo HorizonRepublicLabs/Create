@@ -53,6 +53,16 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 public class CrushingWheelControllerBlockEntity extends SmartBlockEntity implements Clearable {
+	/// LevelChunk drops the block entity before it calls the block's removal
+	/// hook, so anything that needs this object alive has to run here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			ItemHelper.dropContents(level, pos, inventory);
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	public Entity processingEntity;
 	private UUID entityUUID;
 	protected boolean searchForEntity;

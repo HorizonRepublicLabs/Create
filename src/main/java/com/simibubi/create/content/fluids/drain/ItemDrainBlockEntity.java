@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.drain;
 
+import net.minecraft.world.Containers;
+
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,18 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, Clearable {
+
+	/// LevelChunk drops the block entity before it calls the block's removal
+	/// hook, so anything that needs this object alive has to run here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			ItemStack heldItemStack = getHeldItemStack();
+			if (!heldItemStack.isEmpty())
+				Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), heldItemStack);
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
 
 	public static final int FILLING_TIME = 20;
 

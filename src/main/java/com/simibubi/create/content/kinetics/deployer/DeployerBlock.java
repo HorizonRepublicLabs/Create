@@ -88,13 +88,6 @@ public class DeployerBlock extends DirectionalAxisKineticBlock implements IBE<De
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!isMoving && !state.is(newState.getBlock()))
-			withBlockEntityDo(worldIn, pos, DeployerBlockEntity::discardPlayer);
-		super.onRemove(state, worldIn, pos, newState, isMoving);
-	}
-
-	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
 		ItemStack heldByPlayer = stack.copy();
 

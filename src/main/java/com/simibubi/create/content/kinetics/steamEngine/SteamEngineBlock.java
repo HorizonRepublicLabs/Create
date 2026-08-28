@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.steamEngine;
 
+import net.minecraft.server.level.ServerLevel;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -118,11 +120,9 @@ public class SteamEngineBlock extends FaceAttachedHorizontalDirectionalBlock
 		if (isShaftValid(pState, shaftState))
 			pLevel.setBlock(shaftPos, PoweredShaftBlock.getEquivalent(shaftState), Block.UPDATE_ALL);
 	}
-
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		if (pState.hasBlockEntity() && (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity()))
-			pLevel.removeBlockEntity(pPos);
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
 		FluidTankBlock.updateBoilerState(pState, pLevel, pPos.relative(getFacing(pState).getOpposite()));
 		BlockPos shaftPos = getShaftPos(pState, pPos);
 		BlockState shaftState = pLevel.getBlockState(shaftPos);

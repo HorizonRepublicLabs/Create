@@ -67,16 +67,6 @@ public class LecternControllerBlock extends LecternBlock
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (!state.is(newState.getBlock())) {
-			if (!world.isClientSide())
-				withBlockEntityDo(world, pos, be -> be.dropController(state));
-
-			super.onRemove(state, world, pos, newState, isMoving);
-		}
-	}
-
-	@Override
 	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return 15;
 	}

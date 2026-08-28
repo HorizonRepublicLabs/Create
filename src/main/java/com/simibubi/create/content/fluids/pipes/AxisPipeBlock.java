@@ -45,16 +45,12 @@ public class AxisPipeBlock extends RotatedPillarBlock implements IWrenchableWith
 	public AxisPipeBlock(Properties p_i48339_1_) {
 		super(p_i48339_1_);
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		boolean blockTypeChanged = state.getBlock() != newState.getBlock();
-		if (blockTypeChanged && !world.isClientSide())
-			FluidPropagator.propagateChangedPipe(world, pos, state);
-		if (state != newState && !isMoving)
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos,
+		boolean movedByPiston) {
+		FluidPropagator.propagateChangedPipe(world, pos, state);
+		if (!movedByPiston)
 			removeBracket(world, pos, true).ifPresent(stack -> Block.popResource(world, pos, stack));
-		if (state.hasBlockEntity() && (blockTypeChanged || !newState.hasBlockEntity()))
-			world.removeBlockEntity(pos);
 	}
 
 	@Override

@@ -147,16 +147,12 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 	private Axis getAxis(BlockGetter world, BlockPos pos, BlockState state) {
 		return FluidPropagator.getStraightPipeAxis(state);
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		boolean blockTypeChanged = state.getBlock() != newState.getBlock();
-		if (blockTypeChanged && !world.isClientSide())
-			FluidPropagator.propagateChangedPipe(world, pos, state);
-		if (state != newState && !isMoving)
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos,
+		boolean movedByPiston) {
+		FluidPropagator.propagateChangedPipe(world, pos, state);
+		if (!movedByPiston)
 			removeBracket(world, pos, true).ifPresent(stack -> Block.popResource(world, pos, stack));
-		if (state.hasBlockEntity() && (blockTypeChanged || !newState.hasBlockEntity()))
-			world.removeBlockEntity(pos);
 	}
 
 	@Override

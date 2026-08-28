@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import net.minecraft.core.UUIDUtil;
 
 import net.createmod.catnip.api.platform.services.PlatformHelper;
@@ -36,6 +38,16 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 public class LecternControllerBlockEntity extends SmartBlockEntity {
+	/// LevelChunk drops the block entity before it calls the block's removal
+	/// hook, so anything that needs this object alive has to run here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			dropController(state);
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	private ItemContainerContents controllerData = ItemContainerContents.EMPTY;
 	private UUID user;
 	private UUID prevUser;    // used only on client

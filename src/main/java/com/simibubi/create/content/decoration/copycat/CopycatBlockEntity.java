@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.world.level.block.Block;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlocks;
@@ -33,6 +35,16 @@ import net.neoforged.neoforge.common.world.AuxiliaryLightManager;
 
 public class CopycatBlockEntity extends SmartBlockEntity
 	implements SpecialBlockEntityItemRequirement, TransformableBlockEntity, PartialSafeNBT, Clearable {
+
+	/// LevelChunk drops the block entity before it calls the block's removal
+	/// hook, so anything that needs this object alive has to run here.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			Block.popResource(level, pos, getConsumedItem());
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
 
 	private BlockState material = AllBlocks.COPYCAT_BASE.getDefaultState();
 	private ItemStack consumedItem = ItemStack.EMPTY;
