@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.model;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +14,6 @@ import com.simibubi.create.foundation.item.render.CustomRenderedItems;
 
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.client.renderer.block.BlockModelShaper;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -35,7 +36,7 @@ public class ModelSwapper {
 	}
 
 	public void onModelBake(ModelEvent.ModifyBakingResult event) {
-		Map<ModelResourceLocation, BakedModel> modelRegistry = event.getModels();
+		Map<ModelResourceLocation, BlockStateModel> modelRegistry = event.getModels();
 		customBlockModels.forEach((block, modelFunc) -> swapModels(modelRegistry, getAllBlockStateModelLocations(block), modelFunc));
 		customItemModels.forEach((item, modelFunc) -> swapModels(modelRegistry, getItemModelLocation(item), modelFunc));
 		CustomRenderedItems.forEach(item -> swapModels(modelRegistry, getItemModelLocation(item), CustomRenderedItemModel::new));
@@ -45,15 +46,15 @@ public class ModelSwapper {
 		modEventBus.addListener(this::onModelBake);
 	}
 
-	public static <T extends BakedModel> void swapModels(Map<ModelResourceLocation, BakedModel> modelRegistry,
-		List<ModelResourceLocation> locations, Function<BakedModel, T> factory) {
+	public static <T extends BlockStateModel> void swapModels(Map<ModelResourceLocation, BlockStateModel> modelRegistry,
+		List<ModelResourceLocation> locations, Function<BlockStateModel, T> factory) {
 		locations.forEach(location -> {
 			swapModels(modelRegistry, location, factory);
 		});
 	}
 
-	public static <T extends BakedModel> void swapModels(Map<ModelResourceLocation, BakedModel> modelRegistry,
-		ModelResourceLocation location, Function<BakedModel, T> factory) {
+	public static <T extends BlockStateModel> void swapModels(Map<ModelResourceLocation, BlockStateModel> modelRegistry,
+		ModelResourceLocation location, Function<BlockStateModel, T> factory) {
 		modelRegistry.put(location, factory.apply(modelRegistry.get(location)));
 	}
 

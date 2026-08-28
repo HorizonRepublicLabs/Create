@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.model;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import static net.createmod.catnip.api.client.render.SpriteShiftEntry.getUnInterpolatedU;
 import static net.createmod.catnip.api.client.render.SpriteShiftEntry.getUnInterpolatedV;
 
@@ -16,7 +18,6 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -95,7 +96,7 @@ public class BakedModelHelper {
 		return vertexData;
 	}
 
-	public static BakedModel generateModel(BakedModel template, UnaryOperator<TextureAtlasSprite> spriteSwapper) {
+	public static BlockStateModel generateModel(BlockStateModel template, UnaryOperator<TextureAtlasSprite> spriteSwapper) {
 		RandomSource random = RandomSource.create();
 
 		Map<Direction, List<BakedQuad>> culledFaces = new EnumMap<>(Direction.class);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,6 @@ import com.simibubi.create.foundation.model.BakedQuadHelper;
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -27,7 +28,7 @@ public class CopycatStepModel extends CopycatModel {
 	protected static final Vec3 VEC_Y_N2 = new Vec3(0, -.5, 0);
 	protected static final AABB CUBE_AABB = new AABB(BlockPos.ZERO);
 
-	public CopycatStepModel(BakedModel originalModel) {
+	public CopycatStepModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 
@@ -39,7 +40,7 @@ public class CopycatStepModel extends CopycatModel {
 		boolean upperHalf = state.getOptionalValue(CopycatStepBlock.HALF)
 			.orElse(Half.BOTTOM) == Half.TOP;
 
-		BakedModel model = getModelOf(material);
+		BlockStateModel model = getModelOf(material);
 		List<BakedQuad> templateQuads = model.getQuads(material, side, rand, wrappedData, renderType);
 		int size = templateQuads.size();
 

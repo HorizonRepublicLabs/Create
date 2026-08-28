@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -28,7 +30,6 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -143,7 +144,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 
 			ItemRenderer itemRenderer = Minecraft.getInstance()
 				.getItemRenderer();
-			BakedModel modelWithOverrides = itemRenderer.getModel(stack, be.getLevel(), null, 0);
+			BlockStateModel modelWithOverrides = itemRenderer.getModel(stack, be.getLevel(), null, 0);
 			boolean blockItem = modelWithOverrides.isGui3d();
 
 			ms.pushPose();

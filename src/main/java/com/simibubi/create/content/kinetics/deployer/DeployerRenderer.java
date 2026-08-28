@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static com.simibubi.create.content.kinetics.base.DirectionalAxisKineticBlock.AXIS_ALONG_FIRST_COORDINATE;
@@ -34,7 +36,6 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.AxisDirection;
@@ -90,7 +91,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 			.getItemRenderer();
 
 		ItemDisplayContext transform = ItemDisplayContext.NONE;
-		BakedModel bakedModel = itemRenderer.getModel(be.heldItem, be.getLevel(), null, 0);
+		BlockStateModel bakedModel = itemRenderer.getModel(be.heldItem, be.getLevel(), null, 0);
 		boolean isBlockItem = (be.heldItem.getItem() instanceof BlockItem) && bakedModel.isGui3d();
 
 		if (displayMode) {

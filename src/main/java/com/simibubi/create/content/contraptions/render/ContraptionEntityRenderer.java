@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.render;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -28,7 +30,6 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
@@ -68,7 +69,7 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 		for (BlockPos pos : blocks.positions()) {
 			BlockState state = blocks.lookup().apply(pos);
 			if (state.getRenderShape() == RenderShape.MODEL) {
-				BakedModel model = dispatcher.getBlockModel(state);
+				BlockStateModel model = dispatcher.getBlockModel(state);
 				ModelData modelData = renderWorld.getModelData(pos);
 				modelData = model.getModelData(renderWorld, pos, state, modelData);
 				long randomSeed = state.getSeed(pos);

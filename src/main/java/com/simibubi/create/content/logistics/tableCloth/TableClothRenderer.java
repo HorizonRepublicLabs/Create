@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tableCloth;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.List;
@@ -16,7 +18,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -59,7 +60,7 @@ public class TableClothRenderer extends SmartBlockEntityRenderer<TableClothBlock
 				ms.mulPose(Axis.YP.rotationDegrees(-i * (360f / stacks.size()) - 45f));
 			}
 
-			BakedModel bakedModel = Minecraft.getInstance()
+			BlockStateModel bakedModel = Minecraft.getInstance()
 				.getItemRenderer()
 				.getModel(entry, null, null, 0);
 			boolean blockItem = bakedModel.isGui3d();

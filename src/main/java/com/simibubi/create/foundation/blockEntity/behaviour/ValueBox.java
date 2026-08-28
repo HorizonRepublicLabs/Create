@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import java.lang.ref.WeakReference;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -14,7 +16,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -138,7 +139,7 @@ public class ValueBox extends ChasingAABBOutline {
 
 			ItemRenderer itemRenderer = Minecraft.getInstance()
 				.getItemRenderer();
-			BakedModel modelWithOverrides = itemRenderer.getModel(stack, null, null, 0);
+			BlockStateModel modelWithOverrides = itemRenderer.getModel(stack, null, null, 0);
 			boolean blockItem = modelWithOverrides.isGui3d();
 
 			float scale = 1.5f;

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.girder;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +12,6 @@ import com.simibubi.create.foundation.block.connected.CTModel;
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -25,7 +26,7 @@ public class ConnectedGirderModel extends CTModel {
 
 	protected static final ModelProperty<ConnectionData> CONNECTION_PROPERTY = new ModelProperty<>();
 
-	public ConnectedGirderModel(BakedModel originalModel) {
+	public ConnectedGirderModel(BlockStateModel originalModel) {
 		super(originalModel, new GirderCTBehaviour());
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.LinkedList;
@@ -12,7 +14,6 @@ import java.util.function.Predicate;
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
 
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -92,7 +93,7 @@ public class AllCreativeModeTabs {
 				isItem3d.setValue(item -> {
 					ItemRenderer itemRenderer = Minecraft.getInstance()
 						.getItemRenderer();
-					BakedModel model = itemRenderer.getModel(new ItemStack(item), null, null, 0);
+					BlockStateModel model = itemRenderer.getModel(new ItemStack(item), null, null, 0);
 					return model.isGui3d();
 				});
 			IS_ITEM_3D_PREDICATE = isItem3d.getValue();

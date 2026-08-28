@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.base;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -19,7 +21,6 @@ import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -61,7 +62,7 @@ public class KineticBlockEntityRenderer<T extends KineticBlockEntity> extends Sa
 
 	protected RenderType getRenderType(T be, BlockState state) {
 		// TODO: this is not very clean
-		BakedModel model = Minecraft.getInstance()
+		BlockStateModel model = Minecraft.getInstance()
 			.getBlockRenderer().getBlockModel(state);
 		ChunkRenderTypeSet typeSet = model.getRenderTypes(state, RandomSource.create(42L), ModelData.EMPTY);
 		for (RenderType type : REVERSED_CHUNK_BUFFER_LAYERS)

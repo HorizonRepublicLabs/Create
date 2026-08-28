@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.ArrayList;
@@ -19,7 +21,6 @@ import net.createmod.catnip.api.client.animation.AnimationTickHolder;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.animation.LerpedFloat.Chaser;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -133,7 +134,7 @@ public class LinkedControllerItemRenderer extends CustomRenderedItemModelRendere
 			return;
 		}
 
-		BakedModel button = BUTTON.get();
+		BlockStateModel button = BUTTON.get();
 		float s = 1 / 16f;
 		float b = s * -.75f;
 		int index = 0;
@@ -164,7 +165,7 @@ public class LinkedControllerItemRenderer extends CustomRenderedItemModelRendere
 		ms.popPose();
 	}
 
-	protected static void renderButton(PartialItemModelRenderer renderer, PoseStack ms, int light, float pt, BakedModel button,
+	protected static void renderButton(PartialItemModelRenderer renderer, PoseStack ms, int light, float pt, BlockStateModel button,
 									   float b, int index, boolean renderDepression) {
 		ms.pushPose();
 		if (renderDepression) {

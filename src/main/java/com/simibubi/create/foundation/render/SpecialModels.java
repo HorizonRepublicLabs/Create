@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.render;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import dev.engine_room.flywheel.api.material.CardinalLightingMode;
 import dev.engine_room.flywheel.api.material.LightShader;
 import dev.engine_room.flywheel.api.model.Model;

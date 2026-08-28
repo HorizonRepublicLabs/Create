@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.Random;
@@ -34,7 +36,6 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.AxisDirection;
@@ -284,7 +285,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 		}
 
 		boolean renderUpright = BeltHelper.isItemUpright(transported.stack);
-		BakedModel bakedModel = itemRenderer.getModel(transported.stack, be.getLevel(), null, 0);
+		BlockStateModel bakedModel = itemRenderer.getModel(transported.stack, be.getLevel(), null, 0);
 		boolean blockItem = bakedModel.isGui3d();
 
 		int count = 0;

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +11,6 @@ import net.createmod.catnip.api.client.render.SpriteShiftEntry;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.util.RandomSource;
@@ -19,7 +20,7 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 
 public class CopycatBarsModel extends CopycatModel {
 
-	public CopycatBarsModel(BakedModel originalModel) {
+	public CopycatBarsModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 
@@ -31,7 +32,7 @@ public class CopycatBarsModel extends CopycatModel {
 	@Override
 	protected List<BakedQuad> getCroppedQuads(BlockState state, Direction side, RandomSource rand, BlockState material,
 											  ModelData wrappedData, RenderType renderType) {
-		BakedModel model = getModelOf(material);
+		BlockStateModel model = getModelOf(material);
 		List<BakedQuad> superQuads = originalModel.getQuads(state, side, rand, wrappedData, renderType);
 		TextureAtlasSprite targetSprite = model.getParticleIcon(wrappedData);
 

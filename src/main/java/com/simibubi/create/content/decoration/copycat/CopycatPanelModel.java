@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -27,7 +28,7 @@ public class CopycatPanelModel extends CopycatModel {
 
 	protected static final AABB CUBE_AABB = new AABB(BlockPos.ZERO);
 
-	public CopycatPanelModel(BakedModel originalModel) {
+	public CopycatPanelModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 
@@ -47,13 +48,13 @@ public class CopycatPanelModel extends CopycatModel {
 				.getQuads(material, side, rand, wrappedData, renderType);
 
 		if (specialCopycatModelState != null) {
-			BakedModel blockModel =
+			BlockStateModel blockModel =
 				blockRenderer.getBlockModel(specialCopycatModelState.setValue(DirectionalBlock.FACING, facing));
 			if (blockModel instanceof CopycatModel cm)
 				return cm.getCroppedQuads(state, side, rand, material, wrappedData, renderType);
 		}
 
-		BakedModel model = getModelOf(material);
+		BlockStateModel model = getModelOf(material);
 		List<BakedQuad> templateQuads = model.getQuads(material, side, rand, wrappedData, renderType);
 		int size = templateQuads.size();
 

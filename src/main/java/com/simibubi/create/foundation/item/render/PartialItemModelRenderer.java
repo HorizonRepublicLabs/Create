@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.item.render;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -42,23 +43,23 @@ public class PartialItemModelRenderer {
 		return instance;
 	}
 
-	public void render(BakedModel model, int light) {
+	public void render(BlockStateModel model, int light) {
 		render(model, Sheets.translucentCullBlockSheet(), light);
 	}
 
-	public void renderSolid(BakedModel model, int light) {
+	public void renderSolid(BlockStateModel model, int light) {
 		render(model, Sheets.solidBlockSheet(), light);
 	}
 
-	public void renderGlowing(BakedModel model, int light) {
+	public void renderGlowing(BlockStateModel model, int light) {
 		render(model, RenderTypes.itemGlowingTranslucent(), light);
 	}
 
-	public void renderSolidGlowing(BakedModel model, int light) {
+	public void renderSolidGlowing(BlockStateModel model, int light) {
 		render(model, RenderTypes.itemGlowingSolid(), light);
 	}
 
-	public void render(BakedModel model, RenderType type, int light) {
+	public void render(BlockStateModel model, RenderType type, int light) {
 		if (stack.isEmpty())
 			return;
 
@@ -67,7 +68,7 @@ public class PartialItemModelRenderer {
 
 		if (!model.isCustomRenderer()) {
 			VertexConsumer vc = ItemRenderer.getFoilBufferDirect(buffer, type, true, stack.hasFoil());
-			for (BakedModel pass : model.getRenderPasses(stack, false)) {
+			for (BlockStateModel pass : model.getRenderPasses(stack, false)) {
 				renderBakedItemModel(pass, light, ms, vc);
 			}
 		} else
@@ -78,7 +79,7 @@ public class PartialItemModelRenderer {
 		ms.popPose();
 	}
 
-	private void renderBakedItemModel(BakedModel model, int light, PoseStack ms, VertexConsumer buffer) {
+	private void renderBakedItemModel(BlockStateModel model, int light, PoseStack ms, VertexConsumer buffer) {
 		ItemRenderer ir = Minecraft.getInstance()
 			.getItemRenderer();
 		ModelData data = ModelData.EMPTY;

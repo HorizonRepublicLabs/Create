@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.placard;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,7 +12,6 @@ import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -35,7 +36,7 @@ public class PlacardRenderer extends SafeBlockEntityRenderer<PlacardBlockEntity>
 
 		ItemRenderer itemRenderer = Minecraft.getInstance()
 			.getItemRenderer();
-		BakedModel bakedModel = itemRenderer.getModel(heldItem, null, null, 0);
+		BlockStateModel bakedModel = itemRenderer.getModel(heldItem, null, null, 0);
 		boolean blockItem = bakedModel.isGui3d();
 
 		ms.pushPose();
