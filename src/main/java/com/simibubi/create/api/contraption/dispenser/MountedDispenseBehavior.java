@@ -44,7 +44,7 @@ public interface MountedDispenseBehavior {
 
 	static Vec3 getDispenserNormal(MovementContext ctx) {
 		Direction facing = ctx.state.getValue(DispenserBlock.FACING);
-		Vec3 normal = Vec3.atLowerCornerOf(facing.getNormal());
+		Vec3 normal = Vec3.atLowerCornerOf(facing.getUnitVec3i());
 		return ctx.rotation.apply(normal).normalize();
 	}
 

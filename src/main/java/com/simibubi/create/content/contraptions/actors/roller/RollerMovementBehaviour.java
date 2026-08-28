@@ -92,7 +92,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 	@Override
 	public Vec3 getActiveAreaOffset(MovementContext context) {
 		return Vec3.atLowerCornerOf(context.state.getValue(RollerBlock.FACING)
-			.getNormal())
+			.getUnitVec3i())
 			.scale(.45)
 			.subtract(0, 2, 0);
 	}
@@ -313,7 +313,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 
 		Vec3 directionVec = Vec3.atLowerCornerOf(context.state.getValue(RollerBlock.FACING)
 			.getClockWise()
-			.getNormal());
+			.getUnitVec3i());
 		directionVec = context.rotation.apply(directionVec);
 		PaveResult paveResult = PaveResult.PASS;
 		int yOffset = 0;

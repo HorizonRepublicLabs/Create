@@ -192,14 +192,14 @@ public class SlidingDoorMovementBehaviour implements MovementBehaviour {
 		Direction originalFacing = Direction.get(AxisDirection.POSITIVE, stateFacing.getAxis());
 		Vec3 centerOfContraption = context.contraption.bounds.getCenter();
 		Vec3 diff = Vec3.atCenterOf(context.localPos)
-			.add(Vec3.atLowerCornerOf(stateFacing.getNormal())
+			.add(Vec3.atLowerCornerOf(stateFacing.getUnitVec3i())
 				.scale(-.45f))
 			.subtract(centerOfContraption);
 		if (originalFacing.getAxis()
 			.choose(diff.x, diff.y, diff.z) < 0)
 			originalFacing = originalFacing.getOpposite();
 
-		Vec3 directionVec = Vec3.atLowerCornerOf(originalFacing.getNormal());
+		Vec3 directionVec = Vec3.atLowerCornerOf(originalFacing.getUnitVec3i());
 		directionVec = context.rotation.apply(directionVec);
 		return Direction.getNearest(directionVec.x, directionVec.y, directionVec.z);
 	}

@@ -73,7 +73,7 @@ public abstract class AbstractFilterScreen<F extends AbstractFilterMenu> extends
 		int y = topPos;
 
 		background.render(graphics, x, y);
-		graphics.drawString(font, title, x + (background.getWidth() - 8) / 2 - font.width(title) / 2, y + 4,
+		graphics.text(font, title, x + (background.getWidth() - 8) / 2 - font.width(title) / 2, y + 4,
 			getTitleColor(), false);
 
 		GuiGameElement.of(menu.contentHolder).<GuiGameElement

@@ -40,7 +40,7 @@ public class FunnelMovementBehaviour implements MovementBehaviour {
 	@Override
 	public Vec3 getActiveAreaOffset(MovementContext context) {
 		Direction facing = FunnelBlock.getFunnelFacing(context.state);
-		Vec3 vec = Vec3.atLowerCornerOf(facing.getNormal());
+		Vec3 vec = Vec3.atLowerCornerOf(facing.getUnitVec3i());
 		if (facing != Direction.UP)
 			return vec.scale(context.state.getValue(FunnelBlock.EXTRACTING) ? .15 : .65);
 

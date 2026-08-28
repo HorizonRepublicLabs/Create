@@ -80,7 +80,7 @@ public class Label extends AbstractSimiWidget {
 		if (suffix != null && !suffix.isEmpty())
 			copy.append(suffix);
 
-		graphics.drawString(font, copy, getX(), getY(), color, hasShadow);
+		graphics.text(font, copy, getX(), getY(), color, hasShadow);
 	}
 
 }

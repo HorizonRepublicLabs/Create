@@ -695,7 +695,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		Direction direction = blockState.getValue(BasinBlock.FACING);
 		if (direction == Direction.DOWN)
 			return;
-		Vec3 directionVec = Vec3.atLowerCornerOf(direction.getNormal());
+		Vec3 directionVec = Vec3.atLowerCornerOf(direction.getUnitVec3i());
 		Vec3 outVec = VecHelper.getCenterOf(worldPosition)
 			.add(directionVec.scale(.65)
 				.subtract(0, 1 / 4f, 0));

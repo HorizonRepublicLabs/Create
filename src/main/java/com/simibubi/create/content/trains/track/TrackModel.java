@@ -11,7 +11,7 @@ import com.simibubi.create.foundation.model.BakedQuadHelper;
 
 import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;

@@ -169,7 +169,7 @@ public class FunnelBlockEntity extends SmartBlockEntity implements IHaveHovering
 			.isVertical();
 		boolean up = facing == Direction.UP;
 
-		outputPos = outputPos.add(Vec3.atLowerCornerOf(facing.getNormal())
+		outputPos = outputPos.add(Vec3.atLowerCornerOf(facing.getUnitVec3i())
 			.scale(vertical ? up ? .15f : .5f : .25f));
 		if (!vertical)
 			outputPos = outputPos.subtract(0, .45f, 0);

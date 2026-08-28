@@ -148,14 +148,14 @@ public class MechanicalPistonBlockEntity extends LinearActuatorBlockEntity {
 	@Override
 	protected Vec3 toMotionVector(float speed) {
 		Direction pistonDirection = getBlockState().getValue(BlockStateProperties.FACING);
-		return Vec3.atLowerCornerOf(pistonDirection.getNormal())
+		return Vec3.atLowerCornerOf(pistonDirection.getUnitVec3i())
 			.scale(speed);
 	}
 
 	@Override
 	protected Vec3 toPosition(float offset) {
 		Vec3 position = Vec3.atLowerCornerOf(getBlockState().getValue(BlockStateProperties.FACING)
-				.getNormal())
+				.getUnitVec3i())
 			.scale(offset);
 		return position.add(Vec3.atLowerCornerOf(movedContraption.getContraption().anchor));
 	}

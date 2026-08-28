@@ -64,7 +64,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 	@Override
 	public Vec3 getActiveAreaOffset(MovementContext context) {
 		return Vec3.atLowerCornerOf(context.state.getValue(DeployerBlock.FACING)
-			.getNormal())
+			.getUnitVec3i())
 			.scale(2);
 	}
 
@@ -97,7 +97,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 		}
 
 		Vec3 facingVec = Vec3.atLowerCornerOf(context.state.getValue(DeployerBlock.FACING)
-			.getNormal());
+			.getUnitVec3i());
 		facingVec = context.rotation.apply(facingVec);
 		Vec3 vec = context.position.subtract(facingVec.scale(2));
 

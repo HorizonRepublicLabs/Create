@@ -122,7 +122,7 @@ public class WaterWheelBlockEntity extends GeneratingKineticBlockEntity {
 	public void determineAndApplyFlowScore() {
 		Vec3 wheelPlane =
 			Vec3.atLowerCornerOf(new Vec3i(1, 1, 1).subtract(Direction.get(AxisDirection.POSITIVE, getAxis())
-				.getNormal()));
+				.getUnitVec3i()));
 
 		int flowScore = 0;
 		boolean lava = false;

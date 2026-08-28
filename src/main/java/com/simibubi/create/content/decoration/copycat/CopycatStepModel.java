@@ -8,7 +8,7 @@ import com.simibubi.create.foundation.model.BakedQuadHelper;
 
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -45,7 +45,7 @@ public class CopycatStepModel extends CopycatModel {
 
 		List<BakedQuad> quads = new ArrayList<>();
 
-		Vec3 normal = Vec3.atLowerCornerOf(facing.getNormal());
+		Vec3 normal = Vec3.atLowerCornerOf(facing.getUnitVec3i());
 		Vec3 normalScaled2 = normal.scale(.5);
 		Vec3 normalScaledN3 = normal.scale(-.75);
 		AABB bb = CUBE_AABB.contract(-normal.x * .75, .75, -normal.z * .75);

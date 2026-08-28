@@ -57,7 +57,7 @@ public class ControllerRailBlock extends BaseRailBlock implements IWrenchable {
 
 	public static Vec3i getAccelerationVector(BlockState state) {
 		Direction pointingTo = getPointingTowards(state);
-		return (isStateBackwards(state) ? pointingTo.getOpposite() : pointingTo).getNormal();
+		return (isStateBackwards(state) ? pointingTo.getOpposite() : pointingTo).getUnitVec3i();
 	}
 
 	private static Direction getPointingTowards(BlockState state) {

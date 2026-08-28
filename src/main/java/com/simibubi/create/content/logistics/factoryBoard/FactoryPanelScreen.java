@@ -329,7 +329,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		Component title = CreateLang
 			.translate(restocker ? "gui.factory_panel.title_as_restocker" : "gui.factory_panel.title_as_recipe")
 			.component();
-		graphics.drawString(font, title, x + 97 - font.width(title) / 2, y + (restocker ? -12 : 4), 0x3D3C48, false);
+		graphics.text(font, title, x + 97 - font.width(title) / 2, y + (restocker ? -12 : 4), 0x3D3C48, false);
 
 		// ITEM PREVIEW
 		int previewY = restocker ? 0 : 60;
@@ -372,7 +372,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 
 		// PROMISES
 		int state = promiseExpiration.getState();
-		graphics.drawString(font, CreateLang.text(state == -1 ? " /" : state == 0 ? "30s" : state + "m")
+		graphics.text(font, CreateLang.text(state == -1 ? " /" : state == 0 ? "30s" : state + "m")
 			.component(), promiseExpiration.getX() + 3, promiseExpiration.getY() + 4, 0xffeeeeee, true);
 
 		ItemStack asStack = PackageStyles.getDefaultBox();

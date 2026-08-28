@@ -57,7 +57,7 @@ public class HarvesterMovementBehaviour implements MovementBehaviour {
 	@Override
 	public Vec3 getActiveAreaOffset(MovementContext context) {
 		return Vec3.atLowerCornerOf(context.state.getValue(HarvesterBlock.FACING)
-				.getNormal())
+				.getUnitVec3i())
 			.scale(.45);
 	}
 

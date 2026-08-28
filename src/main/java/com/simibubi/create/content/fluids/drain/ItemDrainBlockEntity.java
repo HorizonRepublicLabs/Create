@@ -178,10 +178,10 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 					side.getOpposite())) {
 					ItemStack ejected = heldItem.stack;
 					Vec3 outPos = VecHelper.getCenterOf(worldPosition)
-						.add(Vec3.atLowerCornerOf(side.getNormal())
+						.add(Vec3.atLowerCornerOf(side.getUnitVec3i())
 							.scale(.75));
 					float movementSpeed = itemMovementPerTick();
-					Vec3 outMotion = Vec3.atLowerCornerOf(side.getNormal())
+					Vec3 outMotion = Vec3.atLowerCornerOf(side.getUnitVec3i())
 						.scale(movementSpeed)
 						.add(0, 1 / 8f, 0);
 					outPos.add(outMotion.normalize());

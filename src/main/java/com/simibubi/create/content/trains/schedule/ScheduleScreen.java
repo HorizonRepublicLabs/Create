@@ -637,7 +637,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		}
 
 		if (text != null)
-			graphics.drawString(font, font.substrByWidth(text, 120)
+			graphics.text(font, font.substrByWidth(text, 120)
 				.getString(), hasItem ? 28 : 8, 4, 0xff_f2f2ee);
 
 		matrixStack.popPose();
@@ -1023,7 +1023,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		AllGuiTextures.SCHEDULE.render(graphics, leftPos, topPos);
 		FormattedCharSequence formattedcharsequence = title.getVisualOrderText();
 		int center = leftPos + (AllGuiTextures.SCHEDULE.getWidth() - 8) / 2;
-		graphics.drawString(font, formattedcharsequence, (float) (center - font.width(formattedcharsequence) / 2),
+		graphics.text(font, formattedcharsequence, (float) (center - font.width(formattedcharsequence) / 2),
 			(float) topPos + 4, 0x505050, false);
 		renderSchedule(graphics, pMouseX, pMouseY, pPartialTick);
 
@@ -1037,13 +1037,13 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		graphics.fillGradient(0, 0, this.width, this.height, -1072689136, -804253680);
 		AllGuiTextures.SCHEDULE_EDITOR.render(graphics, leftPos - 2, topPos + 40);
 		AllGuiTextures.PLAYER_INVENTORY.render(graphics, leftPos + 38, topPos + 122);
-		graphics.drawString(font, playerInventoryTitle, leftPos + 46, topPos + 128, 0x505050, false);
+		graphics.text(font, playerInventoryTitle, leftPos + 46, topPos + 128, 0x505050, false);
 
 		formattedcharsequence = editingCondition == null ? CreateLang.translateDirect("schedule.instruction.editor")
 			.getVisualOrderText()
 			: CreateLang.translateDirect("schedule.condition.editor")
 			.getVisualOrderText();
-		graphics.drawString(font, formattedcharsequence, (float) (center - font.width(formattedcharsequence) / 2),
+		graphics.text(font, formattedcharsequence, (float) (center - font.width(formattedcharsequence) / 2),
 			(float) topPos + 44, 0x505050, false);
 
 		IScheduleInput rendered = editingCondition == null ? editingDestination : editingCondition;

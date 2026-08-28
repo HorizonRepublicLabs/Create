@@ -19,7 +19,7 @@ public class ContactMovementBehaviour implements MovementBehaviour {
 	@Override
 	public Vec3 getActiveAreaOffset(MovementContext context) {
 		return Vec3.atLowerCornerOf(context.state.getValue(RedstoneContactBlock.FACING)
-			.getNormal())
+			.getUnitVec3i())
 			.scale(.65f);
 	}
 
@@ -39,7 +39,7 @@ public class ContactMovementBehaviour implements MovementBehaviour {
 			return;
 
 		Vec3 contact = Vec3.atLowerCornerOf(block.getValue(RedstoneContactBlock.FACING)
-			.getNormal());
+			.getUnitVec3i());
 		contact = context.rotation.apply(contact);
 		Direction direction = Direction.getNearest(contact.x, contact.y, contact.z);
 

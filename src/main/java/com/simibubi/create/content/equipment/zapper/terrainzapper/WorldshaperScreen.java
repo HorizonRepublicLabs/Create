@@ -242,9 +242,9 @@ public class WorldshaperScreen extends ZapperScreen {
 		for (int index = 2; index >= currentBrush.amtParams; index--)
 			AllGuiTextures.TERRAINZAPPER_INACTIVE_PARAM.render(graphics, x + 56 + 20 * index, y + 40);
 
-		graphics.drawString(font, toolSection, x + 7, y + 69, fontColor, false);
+		graphics.text(font, toolSection, x + 7, y + 69, fontColor, false);
 		if (currentBrush.hasPlacementOptions())
-			graphics.drawString(font, placementSection, x + 136, y + 69, fontColor, false);
+			graphics.text(font, placementSection, x + 136, y + 69, fontColor, false);
 	}
 
 	@Override

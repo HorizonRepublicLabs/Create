@@ -419,7 +419,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 					float movementSpeed = Math.max(Math.abs(beltMovementSpeed), 1 / 8f);
 					int additionalOffset = beltMovementSpeed > 0 ? 1 : 0;
 					Vec3 outPos = BeltHelper.getVectorForOffset(controllerBE, below.index + additionalOffset);
-					Vec3 outMotion = Vec3.atLowerCornerOf(side.getNormal())
+					Vec3 outMotion = Vec3.atLowerCornerOf(side.getUnitVec3i())
 						.scale(movementSpeed)
 						.add(0, 1 / 8f, 0);
 					outPos.add(outMotion.normalize());

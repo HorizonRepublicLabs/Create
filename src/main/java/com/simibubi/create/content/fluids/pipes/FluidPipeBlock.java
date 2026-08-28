@@ -89,7 +89,7 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 			for (Direction direction : Iterate.directions) {
 				if (clickedFace.getAxis() == direction.getAxis())
 					continue;
-				Vec3 centerOf = Vec3.atCenterOf(direction.getNormal());
+				Vec3 centerOf = Vec3.atCenterOf(direction.getUnitVec3i());
 				double distance = centerOf.distanceToSqr(clickLocation);
 				if (distance < closest) {
 					closest = distance;

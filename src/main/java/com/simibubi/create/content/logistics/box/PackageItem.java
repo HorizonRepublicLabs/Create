@@ -349,7 +349,7 @@ public class PackageItem extends Item {
 			.getAxis()
 			.isHorizontal())
 			point = point.add(Vec3.atLowerCornerOf(context.getClickedFace()
-					.getNormal())
+					.getUnitVec3i())
 				.scale(r));
 
 		AABB scanBB = new AABB(point, point).inflate(r, 0, r)

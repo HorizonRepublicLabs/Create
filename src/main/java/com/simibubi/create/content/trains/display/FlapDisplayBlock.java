@@ -134,7 +134,7 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 		double yCoord = hitResult.getLocation()
 			.add(Vec3.atLowerCornerOf(hitResult.getDirection()
 					.getOpposite()
-					.getNormal())
+					.getUnitVec3i())
 				.scale(.125f)).y;
 
 		int lineIndex = flapBE.getLineIndexAt(yCoord);

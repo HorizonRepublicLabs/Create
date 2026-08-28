@@ -113,8 +113,8 @@ public class PumpBlock extends DirectionalKineticBlock
 			BlockState adjState = level.getBlockState(adjPos);
 			if (!FluidPipeBlock.canConnectTo(level, adjPos, adjState, d))
 				continue;
-			double distance = Vec3.atLowerCornerOf(d.getNormal())
-				.distanceTo(Vec3.atLowerCornerOf(targetDirection.getNormal()));
+			double distance = Vec3.atLowerCornerOf(d.getUnitVec3i())
+				.distanceTo(Vec3.atLowerCornerOf(targetDirection.getUnitVec3i()));
 			if (distance > bestDistance)
 				continue;
 			bestDistance = distance;

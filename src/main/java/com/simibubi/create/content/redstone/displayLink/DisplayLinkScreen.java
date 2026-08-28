@@ -262,12 +262,12 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 
 		background.render(graphics, x, y);
 		MutableComponent header = CreateLang.translateDirect("display_link.title");
-		graphics.drawString(font, header, x + background.getWidth() / 2 - font.width(header) / 2, y + 4, 0x592424, false);
+		graphics.text(font, header, x + background.getWidth() / 2 - font.width(header) / 2, y + 4, 0x592424, false);
 
 		if (sources.isEmpty())
-			graphics.drawString(font, CreateLang.translateDirect("display_link.no_source"), x + 65, y + 30, 0xD3D3D3);
+			graphics.text(font, CreateLang.translateDirect("display_link.no_source"), x + 65, y + 30, 0xD3D3D3);
 		if (target == null)
-			graphics.drawString(font, CreateLang.translateDirect("display_link.no_target"), x + 65, y + 109, 0xD3D3D3);
+			graphics.text(font, CreateLang.translateDirect("display_link.no_target"), x + 65, y + 109, 0xD3D3D3);
 
 		PoseStack ms = graphics.pose();
 		ms.pushPose();

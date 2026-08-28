@@ -143,7 +143,7 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 		int y = guiTop;
 
 		background.render(graphics, x, y);
-		graphics.drawString(font, title, x + background.getWidth() / 2 - font.width(title) / 2, y + 4, 0x592424, false);
+		graphics.text(font, title, x + background.getWidth() / 2 - font.width(title) / 2, y + 4, 0x592424, false);
 
 		ThresholdType typeOfCurrentTarget = blockEntity.getTypeOfCurrentTarget();
 		boolean forItems = typeOfCurrentTarget == ThresholdType.ITEM;
@@ -163,18 +163,18 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 				inStacks.getState() == 0 ? CreateLang.translateDirect("schedule.condition.threshold.items")
 					: CreateLang.translateDirect("schedule.condition.threshold.stacks");
 			valueStep = inStacks.getState() == 0 ? 1 : 64;
-			graphics.drawString(font, suffix, x + 105, y + 28, 0xFFFFFFFF, true);
-			graphics.drawString(font, suffix, x + 105, y + 28 + 24, 0xFFFFFFFF, true);
+			graphics.text(font, suffix, x + 105, y + 28, 0xFFFFFFFF, true);
+			graphics.text(font, suffix, x + 105, y + 28 + 24, 0xFFFFFFFF, true);
 
 		}
 
-		graphics.drawString(font,
+		graphics.text(font,
 			Component.literal("\u2265 " + (typeOfCurrentTarget == ThresholdType.UNSUPPORTED ? ""
 				: forItems ? onAbove.getState() / valueStep
 				: blockEntity.format(onAbove.getState() / valueStep, stacks)
 				.getString())),
 			x + 53, y + 28, 0xFFFFFFFF, true);
-		graphics.drawString(font,
+		graphics.text(font,
 			Component.literal("\u2264 " + (typeOfCurrentTarget == ThresholdType.UNSUPPORTED ? ""
 				: forItems ? offBelow.getState() / valueStep
 				: blockEntity.format(offBelow.getState() / valueStep, stacks)

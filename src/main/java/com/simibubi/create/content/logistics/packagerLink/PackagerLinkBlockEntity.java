@@ -71,7 +71,7 @@ public class PackagerLinkBlockEntity extends LinkWithBulbBlockEntity {
 
 		vec3 = vec3.add(Vec3.atLowerCornerOf(state.getOptionalValue(PackagerLinkBlock.FACING)
 				.orElse(Direction.SOUTH)
-				.getNormal())
+				.getUnitVec3i())
 			.scale(f * 0.125));
 
 		pulse();

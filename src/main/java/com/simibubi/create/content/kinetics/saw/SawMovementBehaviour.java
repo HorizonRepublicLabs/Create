@@ -41,7 +41,7 @@ public class SawMovementBehaviour extends BlockBreakingMovementBehaviour {
 	@Override
 	public Vec3 getActiveAreaOffset(MovementContext context) {
 		return Vec3.atLowerCornerOf(context.state.getValue(SawBlock.FACING)
-			.getNormal())
+			.getUnitVec3i())
 			.scale(.65f);
 	}
 
@@ -49,7 +49,7 @@ public class SawMovementBehaviour extends BlockBreakingMovementBehaviour {
 	public void visitNewPosition(MovementContext context, BlockPos pos) {
 		super.visitNewPosition(context, pos);
 		Vec3 facingVec = Vec3.atLowerCornerOf(context.state.getValue(SawBlock.FACING)
-			.getNormal());
+			.getUnitVec3i());
 		facingVec = context.rotation.apply(facingVec);
 
 		Direction closestToFacing = Direction.getNearest(facingVec.x, facingVec.y, facingVec.z);

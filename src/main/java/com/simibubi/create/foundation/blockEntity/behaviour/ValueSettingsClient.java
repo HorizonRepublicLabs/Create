@@ -135,7 +135,7 @@ public class ValueSettingsClient implements LayeredDraw.Layer {
 
 		for (int i = 0; i < lastHoverTip.size(); i++) {
 			MutableComponent mutableComponent = lastHoverTip.get(i);
-			guiGraphics.drawString(mc.font, mutableComponent, x - mc.font.width(mutableComponent) / 2, y,
+			guiGraphics.text(mc.font, mutableComponent, x - mc.font.width(mutableComponent) / 2, y,
 				(i == 0 ? titleColor : color).getRGB());
 			y += 12;
 		}

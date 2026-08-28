@@ -282,7 +282,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		int y = guiTop - 8;
 
 		AllGuiTextures.CLIPBOARD.render(graphics, x, y);
-		graphics.drawString(font, Component.translatable("book.pageIndicator", currentPage + 1, getNumPages()),
+		graphics.text(font, Component.translatable("book.pageIndicator", currentPage + 1, getNumPages()),
 			x + 150, y + 9, 0x43ffffff, false);
 
 		for (int i = 0; i < currentEntries.size(); i++) {
@@ -302,9 +302,9 @@ public class ClipboardScreen extends AbstractSimiScreen {
 				text = Component.literal(string.substring(1)
 					.stripLeading());
 			} else {
-				graphics.drawString(font, "\u25A1", x + 45, y + 51, checked ? 0x668D7F6B : 0xff8D7F6B, false);
+				graphics.text(font, "\u25A1", x + 45, y + 51, checked ? 0x668D7F6B : 0xff8D7F6B, false);
 				if (checked)
-					graphics.drawString(font, "\u2714", x + 45, y + 50, 0x31B25D, false);
+					graphics.text(font, "\u2714", x + 45, y + 50, 0x31B25D, false);
 			}
 
 			List<FormattedCharSequence> split = font.split(text, 150 - iconOffset);
@@ -318,7 +318,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 
 			for (FormattedCharSequence sequence : split) {
 				if (i != editingIndex)
-					graphics.drawString(font, sequence, x + 58 + iconOffset, y + 50,
+					graphics.text(font, sequence, x + 58 + iconOffset, y + 50,
 						checked ? isAddress ? 0x668D7F6B : 0x31B25D : 0x311A00, false);
 				y += 9;
 			}
@@ -332,7 +332,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		DisplayCache cache = getDisplayCache();
 
 		for (LineInfo line : cache.lines)
-			graphics.drawString(font, line.asComponent, line.x, line.y, 0x311A00, false);
+			graphics.text(font, line.asComponent, line.x, line.y, 0x311A00, false);
 
 		renderHighlight(cache.selection);
 		renderCursor(graphics, cache.cursor, cache.cursorAtEnd);
@@ -540,7 +540,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		if (!pIsEndOfText) {
 			graphics.fill(pCursorPos.x, pCursorPos.y - 1, pCursorPos.x + 1, pCursorPos.y + 9, -16777216);
 		} else {
-			graphics.drawString(font, "_", (float) pCursorPos.x, (float) pCursorPos.y, 0, false);
+			graphics.text(font, "_", (float) pCursorPos.x, (float) pCursorPos.y, 0, false);
 		}
 	}
 

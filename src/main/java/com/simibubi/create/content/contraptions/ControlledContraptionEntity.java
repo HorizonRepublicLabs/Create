@@ -183,12 +183,12 @@ public class ControlledContraptionEntity extends AbstractContraptionEntity {
 			return false;
 		Direction facing = bc.getFacing();
 		Vec3 activeAreaOffset = actor.getActiveAreaOffset(context);
-		if (!activeAreaOffset.multiply(VecHelper.axisAlingedPlaneOf(Vec3.atLowerCornerOf(facing.getNormal())))
+		if (!activeAreaOffset.multiply(VecHelper.axisAlingedPlaneOf(Vec3.atLowerCornerOf(facing.getUnitVec3i())))
 			.equals(Vec3.ZERO))
 			return false;
 		if (!VecHelper.onSameAxis(blockInfo.pos(), BlockPos.ZERO, facing.getAxis()))
 			return false;
-		context.motion = Vec3.atLowerCornerOf(facing.getNormal())
+		context.motion = Vec3.atLowerCornerOf(facing.getUnitVec3i())
 			.scale(angleDelta / 360.0);
 		context.relativeMotion = context.motion;
 		int timer = context.data.getIntOr("StationaryTimer", 0);

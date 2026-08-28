@@ -168,7 +168,7 @@ public class WhistleBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 		Vec3 v = offset.scale(.45f)
 			.add(sizeOffset)
 			.add(Vec3.atCenterOf(worldPosition));
-		Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getNormal())
+		Vec3 m = offset.subtract(Vec3.atLowerCornerOf(facing.getUnitVec3i())
 			.scale(.75f));
 		level.addParticle(new SteamJetParticleData(1), v.x, v.y, v.z, m.x, m.y, m.z);
 	}

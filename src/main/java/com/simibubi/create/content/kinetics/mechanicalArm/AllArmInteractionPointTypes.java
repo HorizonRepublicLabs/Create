@@ -388,7 +388,7 @@ public class AllArmInteractionPointTypes {
 
 		@Override
 		protected Vec3 getInteractionPositionVector() {
-			return super.getInteractionPositionVector().add(Vec3.atLowerCornerOf(getInteractionDirection().getNormal())
+			return super.getInteractionPositionVector().add(Vec3.atLowerCornerOf(getInteractionDirection().getUnitVec3i())
 				.scale(.5f));
 		}
 
@@ -427,7 +427,7 @@ public class AllArmInteractionPointTypes {
 
 		@Override
 		protected Vec3 getInteractionPositionVector() {
-			return super.getInteractionPositionVector().add(Vec3.atLowerCornerOf(getInteractionDirection().getNormal())
+			return super.getInteractionPositionVector().add(Vec3.atLowerCornerOf(getInteractionDirection().getUnitVec3i())
 				.scale(.65f));
 		}
 
@@ -460,7 +460,7 @@ public class AllArmInteractionPointTypes {
 		@Override
 		protected Vec3 getInteractionPositionVector() {
 			Direction funnelFacing = FunnelBlock.getFunnelFacing(cachedState);
-			Vec3i normal = funnelFacing != null ? funnelFacing.getNormal() : Vec3i.ZERO;
+			Vec3i normal = funnelFacing != null ? funnelFacing.getUnitVec3i() : Vec3i.ZERO;
 			return VecHelper.getCenterOf(pos)
 				.add(Vec3.atLowerCornerOf(normal)
 					.scale(-.15f));

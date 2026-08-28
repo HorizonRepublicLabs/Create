@@ -229,11 +229,11 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 			if (before.onlyEmptyItems())
 				return;
 			Direction facing = getBlockState().getValue(MechanicalCrafterBlock.HORIZONTAL_FACING);
-			Vec3 vec = Vec3.atLowerCornerOf(facing.getNormal())
+			Vec3 vec = Vec3.atLowerCornerOf(facing.getUnitVec3i())
 				.scale(.75)
 				.add(VecHelper.getCenterOf(worldPosition));
 			Direction targetDirection = MechanicalCrafterBlock.getTargetDirection(getBlockState());
-			vec = vec.add(Vec3.atLowerCornerOf(targetDirection.getNormal())
+			vec = vec.add(Vec3.atLowerCornerOf(targetDirection.getUnitVec3i())
 				.scale(1));
 			level.addParticle(ParticleTypes.CRIT, vec.x, vec.y, vec.z, 0, 0, 0);
 		}
@@ -354,7 +354,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 			if (onClient) {
 				Direction facing = getBlockState().getValue(MechanicalCrafterBlock.HORIZONTAL_FACING);
 				float progress = countDown / 2000f;
-				Vec3 facingVec = Vec3.atLowerCornerOf(facing.getNormal());
+				Vec3 facingVec = Vec3.atLowerCornerOf(facing.getUnitVec3i());
 				Vec3 vec = facingVec.scale(.65)
 					.add(VecHelper.getCenterOf(worldPosition));
 				Vec3 offset = VecHelper.offsetRandomly(Vec3.ZERO, level.random, .125f)
@@ -463,7 +463,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 		BlockState blockState = getBlockState();
 		boolean present = AllBlocks.MECHANICAL_CRAFTER.has(blockState);
 		Vec3 vec = present ? Vec3.atLowerCornerOf(blockState.getValue(HORIZONTAL_FACING)
-			.getNormal())
+			.getUnitVec3i())
 			.scale(.75f) : Vec3.ZERO;
 		Vec3 ejectPos = VecHelper.getCenterOf(worldPosition)
 			.add(vec);

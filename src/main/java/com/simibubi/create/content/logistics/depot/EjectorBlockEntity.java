@@ -393,7 +393,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 
 		Vec3 vec = rayTraceBlocks.getLocation();
 		earlyTarget = Pair.of(vec.add(Vec3.atLowerCornerOf(rayTraceBlocks.getDirection()
-			.getNormal())
+			.getUnitVec3i())
 			.scale(.25f)), rayTraceBlocks.getBlockPos());
 		earlyTargetTime = (float) (time + (source.distanceTo(vec) / source.distanceTo(target)));
 		sendData();

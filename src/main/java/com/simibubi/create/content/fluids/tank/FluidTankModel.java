@@ -12,7 +12,7 @@ import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
 
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

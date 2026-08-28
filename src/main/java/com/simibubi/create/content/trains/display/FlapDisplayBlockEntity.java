@@ -302,7 +302,7 @@ public class FlapDisplayBlockEntity extends KineticBlockEntity {
 		if (!isController)
 			return aabb;
 		Vec3i normal = getDirection().getClockWise()
-			.getNormal();
+			.getUnitVec3i();
 		return aabb.expandTowards(normal.getX() * xSize, -ySize, normal.getZ() * xSize);
 	}
 

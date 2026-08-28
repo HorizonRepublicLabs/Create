@@ -153,7 +153,7 @@ public class BlueprintEntity extends HangingEntity
 	protected AABB calculateBoundingBox(BlockPos blockPos, Direction direction) {
 		Vec3 pos = Vec3.atLowerCornerOf(getPos())
 				.add(.5, .5, .5)
-				.subtract(Vec3.atLowerCornerOf(direction.getNormal())
+				.subtract(Vec3.atLowerCornerOf(direction.getUnitVec3i())
 						.scale(0.46875));
 		double d1 = pos.x;
 		double d2 = pos.y;
@@ -163,15 +163,15 @@ public class BlueprintEntity extends HangingEntity
 		Axis axis = direction.getAxis();
 		if (size == 2)
 			pos = pos.add(Vec3.atLowerCornerOf(axis.isHorizontal() ? direction.getCounterClockWise()
-									.getNormal()
+									.getUnitVec3i()
 									: verticalOrientation.getClockWise()
-									.getNormal())
+									.getUnitVec3i())
 							.scale(0.5))
 					.add(Vec3
-							.atLowerCornerOf(axis.isHorizontal() ? Direction.UP.getNormal()
-									: direction == Direction.UP ? verticalOrientation.getNormal()
+							.atLowerCornerOf(axis.isHorizontal() ? Direction.UP.getUnitVec3i()
+									: direction == Direction.UP ? verticalOrientation.getUnitVec3i()
 									: verticalOrientation.getOpposite()
-									.getNormal())
+									.getUnitVec3i())
 							.scale(0.5));
 
 		d1 = pos.x;

@@ -61,7 +61,7 @@ public class RemainingAirOverlay implements LayeredDraw.Layer {
 		if (timeLeft < 60 && timeLeft % 2 == 0) {
 			color = Color.mixColors(0xFF_FF0000, color, Math.max(timeLeft / 60f, .25f));
 		}
-		guiGraphics.drawString(mc.font, text, 16, 5, color);
+		guiGraphics.text(mc.font, text, 16, 5, color);
 
 		poseStack.popPose();
 	}

@@ -37,7 +37,7 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 	@Override
 	public Vec3 getActiveAreaOffset(MovementContext context) {
 		return Vec3.atLowerCornerOf(context.state.getValue(PortableStorageInterfaceBlock.FACING)
-			.getNormal())
+			.getUnitVec3i())
 			.scale(1.85f);
 	}
 
@@ -142,7 +142,7 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 		if (!context.world.isClientSide) {
 			Vec3 diff = VecHelper.getCenterOf(psi.getBlockPos())
 				.subtract(context.position);
-			diff = VecHelper.project(diff, Vec3.atLowerCornerOf(currentFacing.getNormal()));
+			diff = VecHelper.project(diff, Vec3.atLowerCornerOf(currentFacing.getUnitVec3i()));
 			float distance = (float) (diff.length() + 1.85f - 1);
 			psi.startTransferringTo(context.contraption, distance);
 		} else {
@@ -201,10 +201,10 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 
 	private Optional<Direction> getCurrentFacingIfValid(MovementContext context) {
 		Vec3 directionVec = Vec3.atLowerCornerOf(context.state.getValue(PortableStorageInterfaceBlock.FACING)
-			.getNormal());
+			.getUnitVec3i());
 		directionVec = context.rotation.apply(directionVec);
 		Direction facingFromVector = Direction.getNearest(directionVec.x, directionVec.y, directionVec.z);
-		if (directionVec.distanceTo(Vec3.atLowerCornerOf(facingFromVector.getNormal())) > 1 / 2f)
+		if (directionVec.distanceTo(Vec3.atLowerCornerOf(facingFromVector.getUnitVec3i())) > 1 / 2f)
 			return Optional.empty();
 		return Optional.of(facingFromVector);
 	}

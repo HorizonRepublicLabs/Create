@@ -41,7 +41,7 @@ public class TrackPlacementOverlay implements LayeredDraw.Layer {
 		int x = (window.getGuiScaledWidth() - mc.font.width(text)) / 2;
 		int y = window.getGuiScaledHeight() - 61;
 		Color color = new Color(0x4ADB4A).setAlpha(Mth.clamp((TrackPlacement.extraTipWarmup - 4) / 3f, 0.1f, 1));
-		guiGraphics.drawString(mc.font, text, x, y, color.getRGB(), false);
+		guiGraphics.text(mc.font, text, x, y, color.getRGB(), false);
 
 	}
 

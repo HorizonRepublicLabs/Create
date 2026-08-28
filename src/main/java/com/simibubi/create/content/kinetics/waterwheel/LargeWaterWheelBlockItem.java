@@ -47,7 +47,7 @@ public class LargeWaterWheelBlockItem extends BlockItem {
 		BlockPos pos = context.getClickedPos();
 		Axis axis = ((LargeWaterWheelBlock) getBlock()).getAxisForPlacement(context);
 		Vec3 contract = Vec3.atLowerCornerOf(Direction.get(AxisDirection.POSITIVE, axis)
-			.getNormal());
+			.getUnitVec3i());
 		if (!(context.getPlayer()instanceof LocalPlayer localPlayer))
 			return;
 		Outliner.getInstance().showAABB(Pair.of("waterwheel", pos), new AABB(pos).inflate(1)

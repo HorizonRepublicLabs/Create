@@ -369,7 +369,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 		if (!AllBlocks.DEPLOYER.has(getBlockState()))
 			return Vec3.ZERO;
 		return Vec3.atLowerCornerOf(getBlockState().getValue(FACING)
-			.getNormal());
+			.getUnitVec3i());
 	}
 
 	@Override

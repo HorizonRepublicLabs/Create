@@ -353,7 +353,7 @@ public class TrackBlock extends Block
 					ITrackBlock.addToListIfConnected(connectedTo, list,
 						(d, b) -> axis.scale(b ? 0 : fromCenter ? -d : d)
 							.add(center),
-						b -> shape.getNormal(), b -> world instanceof Level l ? l.dimension() : Level.OVERWORLD, v -> 0,
+						b -> shape.getUnitVec3i(), b -> world instanceof Level l ? l.dimension() : Level.OVERWORLD, v -> 0,
 						axis, null, (b, v) -> ITrackBlock.getMaterialSimple(world, v));
 		} else
 			list = ITrackBlock.super.getConnected(world, pos, state, linear, connectedTo);
@@ -396,7 +396,7 @@ public class TrackBlock extends Block
 
 		getTrackAxes(world, pos, state).forEach(axis -> {
 			ITrackBlock.addToListIfConnected(connectedTo, list, (d, b) -> (b ? axis : boundAxis).scale(d)
-					.add(b ? center : boundCenter), b -> (b ? shape : boundShape).getNormal(),
+					.add(b ? center : boundCenter), b -> (b ? shape : boundShape).getUnitVec3i(),
 				b -> b ? level.dimension() : otherLevel.dimension(), v -> 0, axis, null,
 				(b, v) -> ITrackBlock.getMaterialSimple(b ? level : otherLevel, v));
 		});
@@ -559,7 +559,7 @@ public class TrackBlock extends Block
 	@Override
 	public Vec3 getUpNormal(BlockGetter world, BlockPos pos, BlockState state) {
 		return state.getValue(SHAPE)
-			.getNormal();
+			.getUnitVec3i();
 	}
 
 	@Override

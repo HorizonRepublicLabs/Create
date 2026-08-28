@@ -403,7 +403,7 @@ public class PipeConnection {
 	@OnlyIn(Dist.CLIENT)
 	private void spawnPouringLiquid(Level world, BlockPos pos, FluidStack fluid, int amount) {
 		ParticleOptions particle = FluidFX.getFluidParticle(fluid);
-		Vec3 directionVec = Vec3.atLowerCornerOf(side.getNormal());
+		Vec3 directionVec = Vec3.atLowerCornerOf(side.getUnitVec3i());
 		if (!hasFlow())
 			return;
 		Flow flow = this.flow.get();

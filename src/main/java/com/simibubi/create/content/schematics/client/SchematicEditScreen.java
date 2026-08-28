@@ -158,7 +158,7 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 
 		background.render(graphics, x, y);
 		String title = handler.getCurrentSchematicName();
-		graphics.drawString(font, title, x + (background.getWidth() - 8 - font.width(title)) / 2, y + 4, 0x505050, false);
+		graphics.text(font, title, x + (background.getWidth() - 8 - font.width(title)) / 2, y + 4, 0x505050, false);
 
 		GuiGameElement.of(AllItems.SCHEMATIC.asStack())
 			.<GuiGameElement.GuiRenderBuilder>at(x + background.getWidth() + 6, y + background.getHeight() - 40, -200)

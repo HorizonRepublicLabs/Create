@@ -368,7 +368,7 @@ public class BeltBlockEntity extends KineticBlockEntity implements Clearable {
 		boolean notHorizontal = blockState.getValue(BeltBlock.SLOPE) != HORIZONTAL;
 		if (getSpeed() < 0)
 			movementFacing = movementFacing.getOpposite();
-		Vec3i movement = movementFacing.getNormal();
+		Vec3i movement = movementFacing.getUnitVec3i();
 
 		boolean slopeBeforeHalf = (part == BeltPart.END) == (beltFacing.getAxisDirection() == POSITIVE);
 		boolean onSlope = notHorizontal && (part == MIDDLE || slopeBeforeHalf == firstHalf || ignoreHalves);

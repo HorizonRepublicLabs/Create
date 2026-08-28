@@ -692,7 +692,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 		Vec3 center = Vec3.atBottomCenterOf(trackPosition)
 			.add(0, track.getElevationAtCenter(level, trackPosition, trackState), 0);
 		Collection<DiscoveredLocation> ends = track.getConnected(level, trackPosition, trackState, true, null);
-		Vec3 targetOffset = Vec3.atLowerCornerOf(assemblyDirection.getNormal());
+		Vec3 targetOffset = Vec3.atLowerCornerOf(assemblyDirection.getUnitVec3i());
 		for (DiscoveredLocation end : ends)
 			if (Mth.equal(0, targetOffset.distanceToSqr(end.getLocation()
 				.subtract(center)
@@ -721,7 +721,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 		}
 
 		List<TravellingPoint> points = new ArrayList<>();
-		Vec3 directionVec = Vec3.atLowerCornerOf(assemblyDirection.getNormal());
+		Vec3 directionVec = Vec3.atLowerCornerOf(assemblyDirection.getUnitVec3i());
 		TrackGraph graph = null;
 		TrackNode secondNode = null;
 
@@ -993,7 +993,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 			return true;
 
 		flagFlipped = diff.dot(Vec3.atLowerCornerOf(nearest.getClockWise()
-			.getNormal())) > 0;
+			.getUnitVec3i())) > 0;
 
 		return true;
 	}

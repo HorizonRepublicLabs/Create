@@ -17,7 +17,7 @@ import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -85,7 +85,7 @@ public class FactoryPanelModel extends BakedModelWrapperWithData {
 			int[] transformedVertices = Arrays.copyOf(vertices, vertices.length);
 
 			Vec3 quadNormal = Vec3.atLowerCornerOf(bakedQuad.getDirection()
-				.getNormal());
+				.getUnitVec3i());
 			quadNormal = VecHelper.rotate(quadNormal, 180, Axis.Y);
 			quadNormal = VecHelper.rotate(quadNormal, xRot + 90, Axis.X);
 			quadNormal = VecHelper.rotate(quadNormal, yRot, Axis.Y);
