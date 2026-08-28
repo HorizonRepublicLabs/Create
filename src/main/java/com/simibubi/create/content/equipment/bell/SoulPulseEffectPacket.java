@@ -23,7 +23,6 @@ public record SoulPulseEffectPacket(BlockPos pos, int distance, boolean canOverl
 	        SoulPulseEffectPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		CreateClient.SOUL_PULSE_EFFECT_HANDLER.addPulse(new SoulPulseEffect(pos, distance, canOverlap));

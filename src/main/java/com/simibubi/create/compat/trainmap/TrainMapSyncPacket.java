@@ -46,7 +46,6 @@ public class TrainMapSyncPacket implements CreatePacketPayload {
 		entries.add(Pair.of(trainId, data));
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		TrainMapSyncClient.receive(this);

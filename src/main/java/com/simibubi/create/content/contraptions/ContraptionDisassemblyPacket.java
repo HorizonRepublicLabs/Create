@@ -20,7 +20,6 @@ public record ContraptionDisassemblyPacket(int entityId, StructureTransform tran
 			ContraptionDisassemblyPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		AbstractContraptionEntity.handleDisassemblyPacket(this);

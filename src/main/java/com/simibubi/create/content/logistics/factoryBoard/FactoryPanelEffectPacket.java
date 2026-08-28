@@ -32,7 +32,6 @@ public record FactoryPanelEffectPacket(FactoryPanelPosition fromPos, FactoryPane
 		return AllPackets.FACTORY_PANEL_EFFECT;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		ClientLevel level = Minecraft.getInstance().level;

@@ -33,7 +33,6 @@ public record PackageDestroyPacket(Vec3 location, ItemStack box) implements Crea
 		return AllPackets.PACKAGE_DESTROYED;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		ClientLevel level = Minecraft.getInstance().level;

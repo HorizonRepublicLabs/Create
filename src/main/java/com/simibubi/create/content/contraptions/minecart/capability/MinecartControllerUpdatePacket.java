@@ -33,7 +33,6 @@ public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag
 		this(controller.cart().getId(), controller.isEmpty() ? null : controller.serializeNBT(registries));
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		Entity entityByID = player.clientLevel.getEntity(entityId);

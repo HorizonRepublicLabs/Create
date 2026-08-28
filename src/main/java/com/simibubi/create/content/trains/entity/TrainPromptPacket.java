@@ -23,7 +23,6 @@ public record TrainPromptPacket(Component text, boolean shadow) implements Creat
 	        TrainPromptPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		TrainHUD.currentPrompt = text;

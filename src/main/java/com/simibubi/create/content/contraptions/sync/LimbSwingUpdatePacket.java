@@ -26,7 +26,6 @@ public record LimbSwingUpdatePacket(int entityId, Vec3 position, float limbSwing
 	        LimbSwingUpdatePacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		Entity entity = player.clientLevel.getEntity(entityId);

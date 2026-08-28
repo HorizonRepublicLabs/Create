@@ -32,7 +32,6 @@ public record MountedStorageSyncPacket(int contraptionId, Map<BlockPos, MountedI
 		return AllPackets.MOUNTED_STORAGE_SYNC;
 	}
 
-	@Override
 	public void handle(LocalPlayer player) {
 		Entity entity = Minecraft.getInstance().level.getEntity(this.contraptionId);
 		if (!(entity instanceof AbstractContraptionEntity contraption))

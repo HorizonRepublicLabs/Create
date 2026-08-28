@@ -28,7 +28,6 @@ public record RedstoneRequesterEffectPacket(BlockPos pos, boolean success) imple
 		return AllPackets.REDSTONE_REQUESTER_EFFECT;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		if (Minecraft.getInstance().level.getBlockEntity(pos) instanceof RedstoneRequesterBlockEntity plbe)

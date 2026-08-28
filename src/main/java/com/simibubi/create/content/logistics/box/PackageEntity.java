@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.box;
 
+import net.minecraft.world.level.storage.ValueInput;
+
+import net.minecraft.world.level.storage.ValueOutput;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.lang.ref.WeakReference;
@@ -391,14 +395,14 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compound) {
+	public void readAdditionalSaveData(ValueInput compound) {
 		super.readAdditionalSaveData(compound);
 		box = ItemStack.parseOptional(level().registryAccess(), compound.getCompoundOrEmpty("Box"));
 		refreshDimensions();
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag compound) {
+	public void addAdditionalSaveData(ValueOutput compound) {
 		super.addAdditionalSaveData(compound);
 		compound.put("Box", box.saveOptional(level().registryAccess()));
 	}

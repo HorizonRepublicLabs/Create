@@ -23,7 +23,6 @@ public record GlueEffectPacket(BlockPos pos, Direction direction, boolean fullBl
 			GlueEffectPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		if (!player.blockPosition().closerThan(pos, 100))

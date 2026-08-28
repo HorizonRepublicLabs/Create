@@ -30,7 +30,6 @@ public record WiFiEffectPacket(BlockPos pos) implements CreatePacketPayload {
 		return AllPackets.PACKAGER_LINK_EFFECT;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);

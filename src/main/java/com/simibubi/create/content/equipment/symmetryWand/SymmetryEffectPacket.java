@@ -29,7 +29,6 @@ public record SymmetryEffectPacket(BlockPos mirror, List<BlockPos> positions) im
 		return AllPackets.SYMMETRY_EFFECT;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		if (player.position().distanceTo(Vec3.atLowerCornerOf(mirror)) > 100)

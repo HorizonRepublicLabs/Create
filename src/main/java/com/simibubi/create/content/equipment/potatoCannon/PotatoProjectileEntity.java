@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import net.minecraft.world.level.storage.ValueInput;
+
+import net.minecraft.world.level.storage.ValueOutput;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -90,7 +94,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag nbt) {
+	public void readAdditionalSaveData(ValueInput nbt) {
 		setItem(ItemStack.parseOptional(this.registryAccess(), nbt.getCompoundOrEmpty("Item")));
 		additionalDamageMult = nbt.getFloatOr("AdditionalDamage", 0.0F);
 		additionalKnockback = nbt.getFloatOr("AdditionalKnockback", 0.0F);
@@ -99,7 +103,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag nbt) {
+	public void addAdditionalSaveData(ValueOutput nbt) {
 		nbt.put("Item", stack.saveOptional(this.registryAccess()));
 		nbt.putFloat("AdditionalDamage", additionalDamageMult);
 		nbt.putFloat("AdditionalKnockback", additionalKnockback);

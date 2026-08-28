@@ -17,7 +17,6 @@ public enum ControlsStopControllingPacket implements CreatePacketPayload {
 
 	public static final StreamCodec<ByteBuf, ControlsStopControllingPacket> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		ControlsHandler.stopControlling();

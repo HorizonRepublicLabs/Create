@@ -31,7 +31,6 @@ public record ClientboundChainConveyorRidingPacket(Collection<UUID> uuids) imple
 		return AllPackets.CLIENTBOUND_CHAIN_CONVEYOR;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		PlayerSkyhookRenderer.updatePlayerList(this.uuids);

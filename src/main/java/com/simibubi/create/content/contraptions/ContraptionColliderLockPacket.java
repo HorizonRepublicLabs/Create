@@ -26,7 +26,6 @@ public record ContraptionColliderLockPacket(int contraption, double offset, int 
 	        ContraptionColliderLockPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		ContraptionCollider.lockPacketReceived(contraption, sender, offset);

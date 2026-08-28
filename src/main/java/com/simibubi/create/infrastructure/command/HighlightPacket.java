@@ -20,7 +20,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 public record HighlightPacket(BlockPos pos) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, HighlightPacket> STREAM_CODEC = BlockPos.STREAM_CODEC.map(HighlightPacket::new, p -> p.pos);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		if (!player.clientLevel.isLoaded(pos)) {

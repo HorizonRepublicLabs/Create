@@ -34,7 +34,6 @@ public record SignalEdgeGroupPacket(List<UUID> ids, List<EdgeGroupColor> colors,
 		this(ImmutableList.of(id), ImmutableList.of(color), true);
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		Map<UUID, SignalEdgeGroup> signalEdgeGroups = CreateClient.RAILWAYS.signalEdgeGroups;

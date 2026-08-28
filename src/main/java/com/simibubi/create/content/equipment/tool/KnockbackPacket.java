@@ -26,7 +26,6 @@ public record KnockbackPacket(float yRot, float strength) implements CreatePacke
 		return AllPackets.KNOCKBACK;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		if (player != null)

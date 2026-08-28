@@ -23,7 +23,6 @@ public record RemoveTrainPacket(UUID id) implements CreatePacketPayload {
 		this(train.id);
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		CreateClient.RAILWAYS.trains.remove(this.id);

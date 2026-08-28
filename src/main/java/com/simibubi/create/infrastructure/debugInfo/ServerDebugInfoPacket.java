@@ -30,7 +30,6 @@ public record ServerDebugInfoPacket(String serverInfo) implements CreatePacketPa
 		this(printServerInfo(target));
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		StringBuilder output = new StringBuilder();

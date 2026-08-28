@@ -23,7 +23,6 @@ public record FluidSplashPacket(BlockPos pos, FluidStack fluid) implements Creat
 	        FluidSplashPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		if (player.position().distanceTo(new Vec3(pos.getX(), pos.getY(), pos.getZ())) > 100)

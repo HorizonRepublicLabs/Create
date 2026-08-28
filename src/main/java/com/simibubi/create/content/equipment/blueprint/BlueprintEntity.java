@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import net.minecraft.world.level.storage.ValueInput;
+
+import net.minecraft.world.level.storage.ValueOutput;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -102,7 +106,7 @@ public class BlueprintEntity extends HangingEntity
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag p_213281_1_) {
+	public void addAdditionalSaveData(ValueOutput p_213281_1_) {
 		p_213281_1_.putByte("Facing", (byte) this.direction.get3DDataValue());
 		p_213281_1_.putByte("Orientation", (byte) this.verticalOrientation.get3DDataValue());
 		p_213281_1_.putInt("Size", size);
@@ -110,8 +114,8 @@ public class BlueprintEntity extends HangingEntity
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag p_70037_1_) {
-		if (p_70037_1_.contains("Facing", Tag.TAG_ANY_NUMERIC)) {
+	public void readAdditionalSaveData(ValueInput p_70037_1_) {
+		if (p_70037_1_.getInt("Facing").isPresent()) {
 			this.direction = Direction.from3DDataValue(p_70037_1_.getByteOr("Facing", (byte) 0));
 			this.verticalOrientation = Direction.from3DDataValue(p_70037_1_.getByteOr("Orientation", (byte) 0));
 			this.size = p_70037_1_.getIntOr("Size", 0);

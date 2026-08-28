@@ -1,5 +1,11 @@
 package com.simibubi.create.content.contraptions;
 
+
+
+import net.minecraft.world.level.storage.ValueInput;
+
+import net.minecraft.world.level.storage.ValueOutput;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.util.Collection;
@@ -610,8 +616,12 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	}
 
 	@Override
-	protected final void addAdditionalSaveData(CompoundTag compound) {
-		writeAdditional(compound, registryAccess(), false);
+	protected final void addAdditionalSaveData(ValueOutput output) {
+		// writeAdditional still speaks CompoundTag because the spawn packet path
+		// below needs one; bridge the save path through it.
+		CompoundTag tag = new CompoundTag();
+		writeAdditional(tag, registryAccess(), false);
+		output.store("ContraptionData", CompoundTag.CODEC, tag);
 	}
 
 	protected void writeAdditional(CompoundTag compound, HolderLookup.Provider registries, boolean spawnPacket) {
@@ -630,8 +640,9 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	}
 
 	@Override
-	protected final void readAdditionalSaveData(CompoundTag compound) {
-		readAdditional(compound, false);
+	protected final void readAdditionalSaveData(ValueInput input) {
+		input.read("ContraptionData", CompoundTag.CODEC)
+			.ifPresent(tag -> readAdditional(tag, false));
 	}
 
 	@Nullable

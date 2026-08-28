@@ -33,7 +33,6 @@ public record LogisticalStockResponsePacket(boolean lastPacket, BlockPos pos, Li
 		return AllPackets.LOGISTICS_STOCK_RESPONSE;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		if (Minecraft.getInstance().level.getBlockEntity(pos) instanceof StockTickerBlockEntity stbe)

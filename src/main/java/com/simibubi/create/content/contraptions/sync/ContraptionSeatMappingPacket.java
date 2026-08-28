@@ -39,7 +39,6 @@ public record ContraptionSeatMappingPacket(int entityId, Map<UUID, Integer> mapp
 		this(entityID, mapping, -1);
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		Entity entityByID = player.clientLevel.getEntity(entityId);

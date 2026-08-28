@@ -16,7 +16,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 public record AddTrainPacket(Train train) implements CreatePacketPayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, AddTrainPacket> STREAM_CODEC = Train.STREAM_CODEC.map(AddTrainPacket::new, AddTrainPacket::train);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		CreateClient.RAILWAYS.trains.put(train.id, train);

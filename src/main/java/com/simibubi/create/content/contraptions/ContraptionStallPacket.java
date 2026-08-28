@@ -23,7 +23,6 @@ public record ContraptionStallPacket(int entityId, double x, double y, double z,
 			ContraptionStallPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		AbstractContraptionEntity.handleStallPacket(this);

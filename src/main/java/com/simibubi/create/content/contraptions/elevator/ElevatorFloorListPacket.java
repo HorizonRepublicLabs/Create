@@ -37,7 +37,6 @@ public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<Stri
 		this(entity.getId(), floors);
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		Entity entityByID = player.clientLevel.getEntity(entityId);

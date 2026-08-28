@@ -40,7 +40,6 @@ public record TrackGraphRollCallPacket(List<Entry> entries) implements CreatePac
 		return new TrackGraphRollCallPacket(entries);
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		GlobalRailwayManager manager = Create.RAILWAYS.sided(null);

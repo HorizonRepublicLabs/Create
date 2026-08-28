@@ -24,7 +24,6 @@ public record ContraptionBlockChangedPacket(int entityId, BlockPos localPos, Blo
 			ContraptionBlockChangedPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		AbstractContraptionEntity.handleBlockChangedPacket(this);

@@ -13,14 +13,13 @@ import net.neoforged.api.distmarker.OnlyIn;
 /**
  * A server to client version of {@link BlockEntityConfigurationPacket}
  */
-public abstract class BlockEntityDataPacket<BE extends SyncedBlockEntity> implements CustomPacketPayload {
+public abstract class BlockEntityDataPacket<BE extends SyncedBlockEntity> implements CreatePacketPayload {
 	protected final BlockPos pos;
 
 	public BlockEntityDataPacket(BlockPos pos) {
 		this.pos = pos;
 	}
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		BlockEntity blockEntity = player.clientLevel.getBlockEntity(pos);

@@ -18,7 +18,6 @@ public record ContraptionRelocationPacket(int entityId) implements CreatePacketP
 			ContraptionRelocationPacket::new, ContraptionRelocationPacket::entityId
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		OrientedContraptionEntity.handleRelocationPacket(this);

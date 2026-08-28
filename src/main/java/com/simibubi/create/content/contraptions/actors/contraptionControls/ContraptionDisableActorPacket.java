@@ -28,7 +28,6 @@ public record ContraptionDisableActorPacket(int entityId, ItemStack filter, bool
 	        ContraptionDisableActorPacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		Entity entityByID = player.clientLevel.getEntity(entityId);

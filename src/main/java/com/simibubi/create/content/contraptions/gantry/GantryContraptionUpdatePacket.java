@@ -22,7 +22,6 @@ public record GantryContraptionUpdatePacket(int entityID, double coord, double m
 			GantryContraptionUpdatePacket::new
 	);
 
-	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
 		GantryContraptionEntity.handlePacket(this);
