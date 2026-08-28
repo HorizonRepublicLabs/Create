@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import static com.simibubi.create.AllShapes.TRACK_ASC;
 import static com.simibubi.create.AllShapes.TRACK_CROSS;
 import static com.simibubi.create.AllShapes.TRACK_CROSS_DIAG;
@@ -308,8 +310,9 @@ public class TrackBlock extends Block
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction pDirection, BlockState pNeighborState,
-								  LevelAccessor level, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+	public BlockState updateShape(BlockState state, LevelReader level,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pDirection,
+		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
 		updateWater(level, state, pCurrentPos);
 		TrackShape shape = state.getValue(SHAPE);
 		if (!shape.isPortal())

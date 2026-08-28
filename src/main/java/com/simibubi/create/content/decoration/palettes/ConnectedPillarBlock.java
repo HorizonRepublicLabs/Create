@@ -1,5 +1,9 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
@@ -99,8 +103,9 @@ public class ConnectedPillarBlock extends LayeredBlock {
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction pDirection, BlockState pNeighborState,
-		LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+	public BlockState updateShape(BlockState state, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pDirection,
+		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
 		if (!canConnect(state, pNeighborState))
 			return setConnection(state, pDirection, false);
 		if (pDirection.getAxis() == state.getValue(AXIS))

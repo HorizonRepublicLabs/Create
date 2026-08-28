@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.pipes.valve;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -153,8 +155,9 @@ public class FluidValveBlock extends DirectionalAxisKineticBlock
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState neighbourState, LevelAccessor world,
-		BlockPos pos, BlockPos neighbourPos) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
+		BlockPos neighbourPos, BlockState neighbourState, RandomSource randomSource) {
 		updateWater(world, state, pos);
 		return state;
 	}

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -509,8 +513,9 @@ public class BeltBlock extends HorizontalKineticBlock
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction side, BlockState p_196271_3_, LevelAccessor world,
-								  BlockPos pos, BlockPos p_196271_6_) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos pos, Direction side,
+		BlockPos p_196271_6_, BlockState p_196271_3_, RandomSource randomSource) {
 		updateWater(world, state, pos);
 		if (side.getAxis()
 			.isHorizontal())

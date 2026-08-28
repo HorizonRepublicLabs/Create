@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.pulley;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllShapes;
@@ -137,10 +141,11 @@ public class PulleyBlock extends HorizontalAxisKineticBlock implements IBE<Pulle
 		}
 
 		@Override
-		public BlockState updateShape(BlockState state, Direction direction, BlockState neighbourState,
-									  LevelAccessor world, BlockPos pos, BlockPos neighbourPos) {
+		public BlockState updateShape(BlockState state, LevelReader world,
+			ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
+			BlockPos neighbourPos, BlockState neighbourState, RandomSource randomSource) {
 			if (state.getValue(BlockStateProperties.WATERLOGGED))
-				world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+				tickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 			return state;
 		}
 

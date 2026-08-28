@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.crusher;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.MapCodec;
@@ -128,8 +132,9 @@ public class CrushingWheelControllerBlock extends DirectionalBlock implements IB
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn,
-		BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState stateIn, LevelReader worldIn,
+		ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing,
+		BlockPos facingPos, BlockState facingState, RandomSource randomSource) {
 		updateSpeed(stateIn, worldIn, currentPos);
 		return stateIn;
 	}

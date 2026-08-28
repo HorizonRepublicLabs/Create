@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -115,10 +119,11 @@ public class DrillBlock extends DirectionalKineticBlock implements IBE<DrillBloc
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState neighbourState,
-								  LevelAccessor world, BlockPos pos, BlockPos neighbourPos) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
+		BlockPos neighbourPos, BlockState neighbourState, RandomSource randomSource) {
 		if (state.getValue(BlockStateProperties.WATERLOGGED))
-			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+			tickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 		return state;
 	}
 

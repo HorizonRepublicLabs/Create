@@ -1,5 +1,11 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 
 import net.minecraft.core.BlockPos;
@@ -34,8 +40,9 @@ public abstract class WaterloggedCopycatBlock extends CopycatBlock implements Pr
 	}
 	
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState,
-		LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pDirection,
+		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
 		updateWater(pLevel, pState, pCurrentPos);
 		return pState;
 	}

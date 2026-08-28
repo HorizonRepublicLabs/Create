@@ -1,5 +1,11 @@
 package com.simibubi.create.content.contraptions.chassis;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllBlocks;
@@ -57,8 +63,9 @@ public class LinearChassisBlock extends AbstractChassisBlock {
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction side, BlockState other, LevelAccessor p_196271_4_,
-		BlockPos p_196271_5_, BlockPos p_196271_6_) {
+	public BlockState updateShape(BlockState state, LevelReader p_196271_4_,
+		ScheduledTickAccess tickAccess, BlockPos p_196271_5_, Direction side,
+		BlockPos p_196271_6_, BlockState other, RandomSource randomSource) {
 		BooleanProperty property = getGlueableSide(state, side);
 		if (property == null || !sameKind(state, other) || state.getValue(AXIS) != other.getValue(AXIS))
 			return state;

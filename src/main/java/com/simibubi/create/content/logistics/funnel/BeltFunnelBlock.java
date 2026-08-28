@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.funnel;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.api.schematic.requirement.SpecialBlockItemRequirement;
@@ -131,8 +135,9 @@ public class BeltFunnelBlock extends AbstractHorizontalFunnelBlock implements Sp
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState neighbour, LevelAccessor world,
-								  BlockPos pos, BlockPos p_196271_6_) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
+		BlockPos p_196271_6_, BlockState neighbour, RandomSource randomSource) {
 		updateWater(world, state, pos);
 		if (!isOnValidBelt(state, world, pos)) {
 			BlockState parentState = ProperWaterloggedBlock.withWater(world, parent.getDefaultState(), pos);

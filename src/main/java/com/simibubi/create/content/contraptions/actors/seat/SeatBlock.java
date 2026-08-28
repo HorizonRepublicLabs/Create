@@ -1,5 +1,11 @@
 package com.simibubi.create.content.contraptions.actors.seat;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -67,8 +73,9 @@ public class SeatBlock extends Block implements ProperWaterloggedBlock {
 	}
 
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState,
-								  LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pDirection,
+		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
 		updateWater(pLevel, pState, pCurrentPos);
 		return pState;
 	}

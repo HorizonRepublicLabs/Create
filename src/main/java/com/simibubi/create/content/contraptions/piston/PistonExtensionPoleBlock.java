@@ -1,5 +1,11 @@
 package com.simibubi.create.content.contraptions.piston;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import static com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock.isExtensionPole;
 import static com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock.isPiston;
 import static com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock.isPistonHead;
@@ -145,9 +151,11 @@ public class PistonExtensionPoleBlock extends WrenchableDirectionalBlock impleme
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState neighbourState, LevelAccessor world, BlockPos pos, BlockPos neighbourPos) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
+		BlockPos neighbourPos, BlockState neighbourState, RandomSource randomSource) {
 		if (state.getValue(BlockStateProperties.WATERLOGGED))
-			world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+			tickAccess.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 		return state;
 	}
 

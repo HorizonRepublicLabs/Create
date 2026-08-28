@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import com.mojang.serialization.MapCodec;
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllShapes;
@@ -70,8 +74,9 @@ public class PackagerLinkBlock extends FaceAttachedHorizontalDirectionalBlock
 	}
 
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState,
-		LevelAccessor pLevel, BlockPos pPos, BlockPos pNeighborPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pPos, Direction pDirection,
+		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
 		updateWater(pLevel, pState, pPos);
 		return pState;
 	}

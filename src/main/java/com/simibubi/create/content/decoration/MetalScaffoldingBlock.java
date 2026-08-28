@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 
@@ -61,8 +63,9 @@ public class MetalScaffoldingBlock extends ScaffoldingBlock implements IWrenchab
 	}
 
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
-		BlockPos pCurrentPos, BlockPos pFacingPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
+		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
 		super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
 		BlockState stateBelow = pLevel.getBlockState(pCurrentPos.below());
 		return pFacing == Direction.DOWN ? pState.setValue(BOTTOM,

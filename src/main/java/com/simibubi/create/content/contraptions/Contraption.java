@@ -1125,8 +1125,8 @@ public abstract class Contraption {
 
 				if (nonBrittles)
 					for (Direction face : Iterate.directions)
-						state = state.updateShape(face, world.getBlockState(targetPos.relative(face)), world, targetPos,
-							targetPos.relative(face));
+						state = state.updateShape(world, world, targetPos, face, targetPos.relative(face),
+							world.getBlockState(targetPos.relative(face)), world.getRandom());
 
 				BlockState blockState = world.getBlockState(targetPos);
 				if (blockState.getDestroySpeed(world, targetPos) == -1 || (state.getCollisionShape(world, targetPos)

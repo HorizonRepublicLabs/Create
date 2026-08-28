@@ -1,5 +1,11 @@
 package com.simibubi.create.content.logistics.tunnel;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -50,8 +56,9 @@ public class BrassTunnelBlock extends BeltTunnelBlock {
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor worldIn,
-								  BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState state, LevelReader worldIn,
+		ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing,
+		BlockPos facingPos, BlockState facingState, RandomSource randomSource) {
 		return super.updateShape(state, facing, facingState, worldIn, currentPos, facingPos);
 	}
 

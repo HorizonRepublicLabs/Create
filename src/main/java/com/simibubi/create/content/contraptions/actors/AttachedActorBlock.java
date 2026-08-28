@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.actors;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.simibubi.create.AllShapes;
@@ -79,8 +83,9 @@ public abstract class AttachedActorBlock extends HorizontalDirectionalBlock
 	}
 
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pDirection, BlockState pNeighborState,
-		LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pNeighborPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pDirection,
+		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
 		updateWater(pLevel, pState, pCurrentPos);
 		return pState;
 	}

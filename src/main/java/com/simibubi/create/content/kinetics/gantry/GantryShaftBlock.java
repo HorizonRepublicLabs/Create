@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.gantry;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -92,8 +96,9 @@ public class GantryShaftBlock extends DirectionalKineticBlock implements IBE<Gan
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState neighbour, LevelAccessor world,
-		BlockPos pos, BlockPos neighbourPos) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
+		BlockPos neighbourPos, BlockState neighbour, RandomSource randomSource) {
 		Direction facing = state.getValue(FACING);
 		Axis axis = facing.getAxis();
 		if (direction.getAxis() != axis)

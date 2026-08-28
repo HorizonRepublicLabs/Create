@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.waterwheel;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
@@ -55,15 +57,16 @@ public class WaterWheelBlock extends DirectionalKineticBlock implements IBE<Wate
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn,
-		BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState stateIn, LevelReader worldIn,
+		ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing,
+		BlockPos facingPos, BlockState facingState, RandomSource randomSource) {
 		if (worldIn instanceof WrappedLevel)
 			return stateIn;
 		if (worldIn.isClientSide())
 			return stateIn;
-		if (!worldIn.getBlockTicks()
+		if (!tickAccess.getBlockTicks()
 			.hasScheduledTick(currentPos, this))
-			worldIn.scheduleTick(currentPos, this, 1);
+			tickAccess.scheduleTick(currentPos, this, 1);
 		return stateIn;
 	}
 

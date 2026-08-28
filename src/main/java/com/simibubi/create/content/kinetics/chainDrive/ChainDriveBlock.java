@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.chainDrive;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.api.contraption.transformable.TransformableBlock;
 import com.simibubi.create.content.contraptions.StructureTransform;
@@ -81,8 +85,9 @@ public class ChainDriveBlock extends RotatedPillarKineticBlock
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction face, BlockState neighbour, LevelAccessor worldIn,
-		BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState stateIn, LevelReader worldIn,
+		ScheduledTickAccess tickAccess, BlockPos currentPos, Direction face,
+		BlockPos facingPos, BlockState neighbour, RandomSource randomSource) {
 		Part part = stateIn.getValue(PART);
 		Axis axis = stateIn.getValue(AXIS);
 		boolean connectionAlongFirst = stateIn.getValue(CONNECTED_ALONG_FIRST_COORDINATE);

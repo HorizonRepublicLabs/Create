@@ -1,5 +1,9 @@
 package com.simibubi.create.content.decoration.slidingDoor;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import java.util.function.Supplier;
 
 import org.jetbrains.annotations.Nullable;
@@ -128,8 +132,9 @@ public class SlidingDoorBlock extends DoorBlock implements IWrenchable, IBE<Slid
 	}
 
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
-								  BlockPos pCurrentPos, BlockPos pFacingPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
+		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
 		BlockState blockState = super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
 		if (blockState.isAir())
 			return blockState;

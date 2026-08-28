@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.chute;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -132,8 +136,9 @@ public class ChuteBlock extends AbstractChuteBlock implements ProperWaterloggedB
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState above, LevelAccessor world,
-		BlockPos pos, BlockPos p_196271_6_) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
+		BlockPos p_196271_6_, BlockState above, RandomSource randomSource) {
 		updateWater(world, state, pos);
 		return super.updateShape(state, direction, above, world, pos, p_196271_6_);
 	}

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.decoration;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import java.util.function.Predicate;
 
 import com.simibubi.create.AllShapes;
@@ -63,8 +67,9 @@ public class MetalLadderBlock extends LadderBlock implements IWrenchable {
 	}
 
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
-								  BlockPos pCurrentPos, BlockPos pFacingPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
+		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
 		if (!pState.canSurvive(pLevel, pCurrentPos))
 			return Blocks.AIR.defaultBlockState();
 		return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);

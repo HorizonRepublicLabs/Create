@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.Optional;
@@ -179,8 +181,9 @@ public class ElevatorContactBlock extends WrenchableDirectionalBlock
 	}
 
 	@Override
-	public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn,
-		BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState stateIn, LevelReader worldIn,
+		ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing,
+		BlockPos facingPos, BlockState facingState, RandomSource randomSource) {
 		if (facing != stateIn.getValue(FACING))
 			return stateIn;
 		boolean hasValidContact = RedstoneContactBlock.hasValidContact(worldIn, currentPos, facing);

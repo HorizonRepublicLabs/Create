@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.bell;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllSoundEvents;
@@ -50,8 +54,9 @@ public class PeculiarBellBlock extends AbstractBellBlock<PeculiarBellBlockEntity
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world,
-										  BlockPos currentPos, BlockPos facingPos) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing,
+		BlockPos facingPos, BlockState facingState, RandomSource randomSource) {
 		BlockState newState = super.updateShape(state, facing, facingState, world, currentPos, facingPos);
 		if (facing != Direction.DOWN)
 			return newState;

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.decoration.steamWhistle;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.content.decoration.steamWhistle.WhistleBlock.WhistleSize;
@@ -118,8 +122,9 @@ public class WhistleExtenderBlock extends Block implements IWrenchable {
 			|| AllBlocks.STEAM_WHISTLE.has(below);
 	}
 
-	public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
-		BlockPos pCurrentPos, BlockPos pFacingPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
+		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
 		if (pFacing.getAxis() != Axis.Y)
 			return pState;
 

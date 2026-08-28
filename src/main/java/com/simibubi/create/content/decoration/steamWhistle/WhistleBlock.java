@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.steamWhistle;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllShapes;
@@ -203,8 +205,9 @@ public class WhistleBlock extends Block implements IBE<WhistleBlockEntity>, IWre
 			worldIn.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
 	}
 
-	public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
-		BlockPos pCurrentPos, BlockPos pFacingPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
+		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
 		return getAttachedDirection(pState) == pFacing && !pState.canSurvive(pLevel, pCurrentPos)
 			? Blocks.AIR.defaultBlockState()
 			: pState;

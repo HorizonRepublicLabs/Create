@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.chute;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
+import net.minecraft.world.level.LevelReader;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -155,8 +159,9 @@ public abstract class AbstractChuteBlock extends Block implements IWrenchable, I
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction direction, BlockState above, LevelAccessor world,
-		BlockPos pos, BlockPos p_196271_6_) {
+	public BlockState updateShape(BlockState state, LevelReader world,
+		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
+		BlockPos p_196271_6_, BlockState above, RandomSource randomSource) {
 		if (direction != Direction.UP)
 			return state;
 		return updateChuteState(state, above, world, pos);

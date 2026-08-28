@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.waterwheel;
 
+import net.minecraft.world.level.ScheduledTickAccess;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -117,13 +119,14 @@ public class WaterWheelStructuralBlock extends DirectionalBlock implements IWren
 	}
 
 	@Override
-	public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel,
-								  BlockPos pCurrentPos, BlockPos pFacingPos) {
+	public BlockState updateShape(BlockState pState, LevelReader pLevel,
+		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
+		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
 		if (stillValid(pLevel, pCurrentPos, pState, false)) {
 			BlockPos masterPos = getMaster(pLevel, pCurrentPos, pState);
-			if (!pLevel.getBlockTicks()
+			if (!tickAccess.getBlockTicks()
 				.hasScheduledTick(masterPos, AllBlocks.LARGE_WATER_WHEEL.get()))
-				pLevel.scheduleTick(masterPos, AllBlocks.LARGE_WATER_WHEEL.get(), 1);
+				tickAccess.scheduleTick(masterPos, AllBlocks.LARGE_WATER_WHEEL.get(), 1);
 			return pState;
 		}
 		if (!(pLevel instanceof Level level) || level.isClientSide())
