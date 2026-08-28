@@ -49,7 +49,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.model.data.ModelData;
+import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.common.world.AuxiliaryLightManager;
 
 public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEntity>, IWrenchable {

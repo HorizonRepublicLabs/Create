@@ -50,7 +50,7 @@ import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.model.data.ModelData;
+import net.neoforged.neoforge.model.data.ModelData;
 
 public class TrackBlockEntity extends SmartBlockEntity implements TransformableBlockEntity, IMergeableBE {
 

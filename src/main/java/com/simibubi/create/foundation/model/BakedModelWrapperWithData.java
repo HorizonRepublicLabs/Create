@@ -5,8 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.BakedModelWrapper;
-import net.neoforged.neoforge.client.model.data.ModelData;
-import net.neoforged.neoforge.client.model.data.ModelData.Builder;
+import net.neoforged.neoforge.model.data.ModelData;
+import net.neoforged.neoforge.model.data.ModelData.Builder;
 
 public abstract class BakedModelWrapperWithData extends BakedModelWrapper<BakedModel> {
 
