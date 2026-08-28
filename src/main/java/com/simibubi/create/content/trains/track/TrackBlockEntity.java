@@ -57,6 +57,15 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 	Map<BlockPos, BezierConnection> connections;
 	boolean cancelDrops;
 
+	/// Runs while this block entity is still attached.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null && !level.isClientSide()) {
+			removeInboundConnections(true);
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	public Pair<ResourceKey<Level>, BlockPos> boundLocation;
 	public TrackBlockEntityTilt tilt;
 

@@ -472,16 +472,12 @@ public class BeltBlock extends HorizontalKineticBlock
 		}
 
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		super.onRemove(state, world, pos, newState, isMoving);
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos,
+		boolean movedByPiston) {
+		super.affectNeighborsAfterRemoval(state, world, pos, movedByPiston);
 
-		if (world.isClientSide())
-			return;
-		if (state.getBlock() == newState.getBlock())
-			return;
-		if (isMoving)
+		if (movedByPiston)
 			return;
 
 		// Destroy chain

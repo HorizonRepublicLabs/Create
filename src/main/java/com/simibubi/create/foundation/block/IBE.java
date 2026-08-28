@@ -44,16 +44,6 @@ public interface IBE<T extends BlockEntity> extends EntityBlock {
 	 * if the IBE is bound to a SmartBlockEntity, which implements destroy(),<br>
 	 * call this method in BlockBehaviour::onRemove (replace super call)
 	 */
-	static void onRemove(BlockState blockState, Level level, BlockPos pos, BlockState newBlockState) {
-		if (!blockState.hasBlockEntity())
-			return;
-		if (blockState.is(newBlockState.getBlock()) && newBlockState.hasBlockEntity())
-			return;
-		BlockEntity blockEntity = level.getBlockEntity(pos);
-		if (blockEntity instanceof SmartBlockEntity sbe)
-			sbe.destroy();
-		level.removeBlockEntity(pos);
-	}
 
 	default Optional<T> getBlockEntityOptional(BlockGetter world, BlockPos pos) {
 		return Optional.ofNullable(getBlockEntity(world, pos));

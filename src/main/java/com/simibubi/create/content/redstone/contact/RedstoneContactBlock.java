@@ -98,14 +98,11 @@ public class RedstoneContactBlock extends WrenchableDirectionalBlock {
 			return stateIn.setValue(POWERED, hasValidContact);
 		return stateIn;
 	}
-
-	@SuppressWarnings("deprecation")
 	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() == this && newState.getBlock() == this)
-			if (state == newState.cycle(POWERED))
-				worldIn.updateNeighborsAt(pos, this);
-		super.onRemove(state, worldIn, pos, newState, isMoving);
+	protected void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+		if (oldState.getBlock() == this && oldState == state.cycle(POWERED))
+			worldIn.updateNeighborsAt(pos, this);
+		super.onPlace(state, worldIn, pos, oldState, movedByPiston);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.placard;
 
+import net.minecraft.server.level.ServerLevel;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -173,19 +175,11 @@ public class PlacardBlock extends FaceAttachedHorizontalDirectionalBlock
 	public static Direction connectedDirection(BlockState state) {
 		return getConnectedDirection(state);
 	}
-
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		boolean blockChanged = !pState.is(pNewState.getBlock());
-		if (!pIsMoving && blockChanged)
-			if (pState.getValue(POWERED))
-				updateNeighbours(pState, pLevel, pPos);
-
-		if (pState.hasBlockEntity() && (blockChanged || !pNewState.hasBlockEntity())) {
-			if (!pIsMoving)
-				withBlockEntityDo(pLevel, pPos, be -> Block.popResource(pLevel, pPos, be.getHeldItem()));
-			pLevel.removeBlockEntity(pPos);
-		}
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
+		if (!movedByPiston && pState.getValue(POWERED))
+			updateNeighbours(pState, pLevel, pPos);
 	}
 
 	public static void updateNeighbours(BlockState pState, Level pLevel, BlockPos pPos) {

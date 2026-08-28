@@ -44,6 +44,15 @@ import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, IMultiBlockEntityContainer.Fluid {
 
+	/// The block entity is gone by the time the block's removal hook runs.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			ConnectivityHandler.splitMulti(this);
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	private static final int MAX_SIZE = 3;
 
 	protected IFluidHandler fluidCapability;

@@ -23,6 +23,16 @@ public class AnalogLeverBlockEntity extends SmartBlockEntity implements IHaveGog
 	int lastChange;
 	LerpedFloat clientState;
 
+	/// The block entity is gone by the time the block's removal hook runs.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			if (this.state != 0)
+				level.updateNeighborsAt(pos, state.getBlock());
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	public AnalogLeverBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		clientState = LerpedFloat.linear();

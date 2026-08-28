@@ -418,25 +418,11 @@ public class TrackBlock extends Block
 		pLevel.addParticle(data, v.x + pRand.nextFloat() * 1.5f, v.y + .25f, v.z + pRand.nextFloat() * 1.5f, 0.0D,
 			0.04D, 0.0D);
 	}
-
 	@Override
-	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-		boolean removeBE = false;
-		if (pState.getValue(HAS_BE) && (!pState.is(pNewState.getBlock()) || !pNewState.getValue(HAS_BE))) {
-			BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-			if (blockEntity instanceof TrackBlockEntity tbe && !pLevel.isClientSide()) {
-				tbe.cancelDrops |= pNewState.getBlock() == this;
-				tbe.removeInboundConnections(true);
-			}
-			removeBE = true;
-		}
-
-		if (pNewState.getBlock() != this || pState.setValue(HAS_BE, true) != pNewState.setValue(HAS_BE, true))
-			TrackPropagator.onRailRemoved(pLevel, pPos, pState);
-		if (removeBE)
-			pLevel.removeBlockEntity(pPos);
-		if (!pLevel.isClientSide())
-			updateGirders(pState, pLevel, pPos, pLevel.getBlockTicks());
+	protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos,
+		boolean movedByPiston) {
+		TrackPropagator.onRailRemoved(pLevel, pPos, pState);
+		updateGirders(pState, pLevel, pPos, pLevel.getBlockTicks());
 	}
 
 	@Override

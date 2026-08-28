@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.pulley;
 
+import net.minecraft.server.level.ServerLevel;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -51,14 +53,10 @@ public class PulleyBlock extends HorizontalAxisKineticBlock implements IBE<Pulle
 			pulley.onLengthBroken();
 		}
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		super.onRemove(state, worldIn, pos, newState, isMoving);
-		if (state.is(newState.getBlock()))
-			return;
-		if (worldIn.isClientSide())
-			return;
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos,
+		boolean movedByPiston) {
+		super.affectNeighborsAfterRemoval(state, worldIn, pos, movedByPiston);
 		BlockState below = worldIn.getBlockState(pos.below());
 		if (below.getBlock() instanceof RopeBlockBase)
 			worldIn.destroyBlock(pos.below(), true);
@@ -109,23 +107,20 @@ public class PulleyBlock extends HorizontalAxisKineticBlock implements IBE<Pulle
 										   Player player) {
 			return AllBlocks.ROPE_PULLEY.asStack();
 		}
-
+		/// The old waterlogged comparison only served to skip same-block changes,
+		/// which this hook is never called for.
 		@Override
-		public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-			if (!isMoving && (!state.hasProperty(BlockStateProperties.WATERLOGGED) || !newState.hasProperty(BlockStateProperties.WATERLOGGED) || state.getValue(BlockStateProperties.WATERLOGGED) == newState.getValue(BlockStateProperties.WATERLOGGED))) {
-				onRopeBroken(worldIn, pos.above());
-				if (!worldIn.isClientSide()) {
-					BlockState above = worldIn.getBlockState(pos.above());
-					BlockState below = worldIn.getBlockState(pos.below());
-					if (above.getBlock() instanceof RopeBlockBase)
-						worldIn.destroyBlock(pos.above(), true);
-					if (below.getBlock() instanceof RopeBlockBase)
-						worldIn.destroyBlock(pos.below(), true);
-				}
-			}
-			if (state.hasBlockEntity() && state.getBlock() != newState.getBlock()) {
-				worldIn.removeBlockEntity(pos);
-			}
+		protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel worldIn, BlockPos pos,
+			boolean movedByPiston) {
+			if (movedByPiston)
+				return;
+			onRopeBroken(worldIn, pos.above());
+			BlockState above = worldIn.getBlockState(pos.above());
+			BlockState below = worldIn.getBlockState(pos.below());
+			if (above.getBlock() instanceof RopeBlockBase)
+				worldIn.destroyBlock(pos.above(), true);
+			if (below.getBlock() instanceof RopeBlockBase)
+				worldIn.destroyBlock(pos.below(), true);
 		}
 
 

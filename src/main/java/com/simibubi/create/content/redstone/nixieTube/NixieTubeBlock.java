@@ -215,42 +215,32 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder.add(FACE, FACING, WATERLOGGED));
 	}
+	@Override
+	protected boolean shouldChangedStateKeepBlockEntity(BlockState oldState) {
+		return oldState.getBlock() instanceof NixieTubeBlock;
+	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (newState.getBlock() instanceof NixieTubeBlock)
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos,
+		boolean movedByPiston) {
+		if (!Mods.COMPUTERCRAFT.isLoaded())
 			return;
-		world.removeBlockEntity(pos);
-		if (Mods.COMPUTERCRAFT.isLoaded()) {
-			// A computer-controlled nixie tube row may have been broken in the middle.
-			Direction left = getLeftNixieDirection(state);
-			BlockPos leftPos = pos.relative(left);
-			if (areNixieBlocksEqual(world.getBlockState(leftPos), state)) {
-				boolean leftRowComputerControlled = isInComputerControlledRow(world, leftPos);
-				walkNixies(world, leftPos, true, leftRowComputerControlled ?
-						(currentPos, rowPosition) -> {
-							if (world.getBlockEntity(currentPos) instanceof NixieTubeBlockEntity ntbe)
-								ntbe.displayEmptyText(rowPosition);
-						} :
-						(currentPos, rowPosition) -> {
-							if (world.getBlockEntity(currentPos) instanceof NixieTubeBlockEntity ntbe)
-								NixieTubeBlock.updateDisplayedRedstoneValue(ntbe, state, true);
-						});
-			}
-			Direction right = left.getOpposite();
-			BlockPos rightPos = pos.relative(right);
-			if (areNixieBlocksEqual(world.getBlockState(rightPos), state)) {
-				boolean rightRowComputerControlled = isInComputerControlledRow(world, rightPos);
-				walkNixies(world, rightPos, true, rightRowComputerControlled ?
-						(currentPos, rowPosition) -> {
-							if (world.getBlockEntity(currentPos) instanceof NixieTubeBlockEntity ntbe)
-								ntbe.displayEmptyText(rowPosition);
-						} :
-						(currentPos, rowPosition) -> {
-							if (world.getBlockEntity(currentPos) instanceof NixieTubeBlockEntity ntbe)
-								NixieTubeBlock.updateDisplayedRedstoneValue(ntbe, state, true);
-						});
-			}
+		// A computer-controlled nixie tube row may have been broken in the middle.
+		for (Direction side : new Direction[] { getLeftNixieDirection(state),
+			getLeftNixieDirection(state).getOpposite() }) {
+			BlockPos sidePos = pos.relative(side);
+			if (!areNixieBlocksEqual(world.getBlockState(sidePos), state))
+				continue;
+			boolean computerControlled = isInComputerControlledRow(world, sidePos);
+			walkNixies(world, sidePos, true, computerControlled ?
+				(currentPos, rowPosition) -> {
+					if (world.getBlockEntity(currentPos) instanceof NixieTubeBlockEntity ntbe)
+						ntbe.displayEmptyText(rowPosition);
+				} :
+				(currentPos, rowPosition) -> {
+					if (world.getBlockEntity(currentPos) instanceof NixieTubeBlockEntity ntbe)
+						NixieTubeBlock.updateDisplayedRedstoneValue(ntbe, state, true);
+				});
 		}
 	}
 

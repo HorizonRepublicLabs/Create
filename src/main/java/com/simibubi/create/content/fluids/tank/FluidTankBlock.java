@@ -262,17 +262,6 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 	}
 
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.hasBlockEntity() && (state.getBlock() != newState.getBlock() || !newState.hasBlockEntity())) {
-			BlockEntity be = world.getBlockEntity(pos);
-			if (!(be instanceof FluidTankBlockEntity tankBE))
-				return;
-			world.removeBlockEntity(pos);
-			ConnectivityHandler.splitMulti(tankBE);
-		}
-	}
-
-	@Override
 	public Class<FluidTankBlockEntity> getBlockEntityClass() {
 		return FluidTankBlockEntity.class;
 	}

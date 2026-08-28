@@ -131,14 +131,9 @@ public abstract class AbstractChuteBlock extends Block implements IWrenchable, I
 			.hasScheduledTick(toUpdate, stateToUpdate.getBlock()))
 			world.scheduleTick(toUpdate, stateToUpdate.getBlock(), 1);
 	}
-
 	@Override
-	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
-		IBE.onRemove(state, world, pos, newState);
-
-		if (state.is(newState.getBlock()))
-			return;
-
+	protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos,
+		boolean movedByPiston) {
 		updateDiagonalNeighbour(state, world, pos);
 
 		for (Direction direction : Iterate.horizontalDirections) {

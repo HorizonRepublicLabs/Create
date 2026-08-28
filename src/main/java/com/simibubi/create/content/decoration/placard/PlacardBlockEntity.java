@@ -24,6 +24,15 @@ public class PlacardBlockEntity extends SmartBlockEntity {
 	ItemStack heldItem;
 	int poweredTicks;
 
+	/// The block entity is gone by the time the block's removal hook runs.
+	@Override
+	public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+		if (level != null) {
+			Block.popResource(level, pos, getHeldItem());
+		}
+		super.preRemoveSideEffects(pos, state);
+	}
+
 	public PlacardBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		heldItem = ItemStack.EMPTY;

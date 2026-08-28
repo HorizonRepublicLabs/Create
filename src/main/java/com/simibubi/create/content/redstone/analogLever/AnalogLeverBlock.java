@@ -85,17 +85,6 @@ public class AnalogLeverBlock extends FaceAttachedHorizontalDirectionalBlock imp
 		});
 	}
 
-	@Override
-	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (isMoving || state.getBlock() == newState.getBlock())
-			return;
-		withBlockEntityDo(worldIn, pos, be -> {
-			if (be.state != 0)
-				updateNeighbors(state, worldIn, pos);
-			worldIn.removeBlockEntity(pos);
-		});
-	}
-
 	private static void addParticles(BlockState state, LevelAccessor worldIn, BlockPos pos, float alpha) {
 		Direction direction = state.getValue(FACING)
 			.getOpposite();
