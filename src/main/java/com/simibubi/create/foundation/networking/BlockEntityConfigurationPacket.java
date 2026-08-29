@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 
-public abstract class BlockEntityConfigurationPacket<BE extends SyncedBlockEntity> implements SelfHandlingPayload {
+public abstract class BlockEntityConfigurationPacket<BE extends SyncedBlockEntity> implements SelfHandlingPayload, CreatePacketPayload {
 	protected final BlockPos pos;
 
 	public BlockEntityConfigurationPacket(BlockPos pos) {

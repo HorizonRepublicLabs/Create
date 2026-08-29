@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import com.simibubi.create.foundation.networking.CreatePacketPayload;
+
 import net.createmod.catnip.api.network.SelfHandlingPayload;
 
 
@@ -8,7 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
-public abstract class ConfigureZapperPacket implements SelfHandlingPayload {
+public abstract class ConfigureZapperPacket implements SelfHandlingPayload, CreatePacketPayload {
 	protected final InteractionHand hand;
 	protected final PlacementPatterns pattern;
 
