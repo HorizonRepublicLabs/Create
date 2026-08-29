@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import net.minecraft.core.Direction;
+
 import java.util.ArrayList;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -67,7 +69,7 @@ public class LecternControllerBlock extends LecternBlock
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos, Direction direction) {
 		return 15;
 	}
 
@@ -85,8 +87,9 @@ public class LecternControllerBlock extends LecternBlock
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
-		return Blocks.LECTERN.getCloneItemStack(state, target, level, pos, player);
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData,
+		Player player) {
+		return Blocks.LECTERN.getCloneItemStack(level, pos, state, includeData, player);
 	}
 
 	@Override

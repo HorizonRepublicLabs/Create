@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import com.mojang.blaze3d.platform.Window;
 import com.simibubi.create.foundation.mixin.accessor.GuiAccessor;
 import com.simibubi.create.foundation.utility.CreateLang;
@@ -21,7 +23,7 @@ public class TrackPlacementOverlay implements LayeredDraw.Layer {
 	@Override
 	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
+		if (HudState.isHidden(mc) || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;
 		if (TrackPlacement.hoveringPos == null)
 			return;

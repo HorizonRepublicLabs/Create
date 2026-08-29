@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -217,7 +219,7 @@ public class LinkedControllerClientHandler {
 		int width1 = guiGraphics.guiWidth();
 									 int height1 = guiGraphics.guiHeight();
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui)
+		if (HudState.isHidden(mc))
 			return;
 
 		if (MODE != Mode.BIND)

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import net.minecraft.core.Direction;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
@@ -83,8 +85,8 @@ public class LitBlazeBurnerBlock extends Block implements IWrenchable {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos,
-									   Player player) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData,
+		Player player) {
 		return AllItems.EMPTY_BLAZE_BURNER.asStack();
 	}
 
@@ -129,7 +131,7 @@ public class LitBlazeBurnerBlock extends Block implements IWrenchable {
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level p_180641_2_, BlockPos p_180641_3_) {
+	public int getAnalogOutputSignal(BlockState state, Level p_180641_2_, BlockPos p_180641_3_, Direction direction) {
 		return state.getValue(FLAME_TYPE) == FlameType.REGULAR ? 1 : 2;
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.client;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.List;
@@ -256,7 +258,7 @@ public class SchematicHandler implements LayeredDraw.Layer {
 	@Override
 	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui || !active)
+		if (HudState.isHidden(mc) || !active)
 			return;
 		if (activeSchematicItem != null)
 			this.overlay.renderOn(guiGraphics, activeHotbarSlot);

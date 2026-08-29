@@ -313,12 +313,12 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos,
-									   Player player) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData,
+		Player player) {
 		BlockState material = getMaterial(level, pos);
 		if (AllBlocks.COPYCAT_BASE.has(material) || player != null && player.isShiftKeyDown())
 			return new ItemStack(this);
-		return material.getCloneItemStack(target, level, pos, player);
+		return material.getCloneItemStack(level, pos, includeData);
 	}
 
 	@Override

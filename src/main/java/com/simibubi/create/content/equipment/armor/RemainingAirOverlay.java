@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -27,7 +29,7 @@ public class RemainingAirOverlay implements LayeredDraw.Layer {
 	@Override
 	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
+		if (HudState.isHidden(mc) || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;
 
 		LocalPlayer player = mc.player;

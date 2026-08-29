@@ -341,7 +341,7 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos, Direction direction) {
 		return getBlockEntityOptional(worldIn, pos).map(FluidTankBlockEntity::getControllerBE)
 			.map(be -> ComparatorUtil.fractionToRedstoneLevel(be.getFillState()))
 			.orElse(0);

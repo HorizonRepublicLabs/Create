@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.goggles;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +64,7 @@ public class GoggleOverlayRenderer {
 
 	public static void renderOverlay(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
+		if (HudState.isHidden(mc) || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;
 
 		HitResult objectMouseOver = mc.hitResult;

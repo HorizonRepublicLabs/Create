@@ -76,7 +76,7 @@ public class PortableStorageInterfaceBlock extends WrenchableDirectionalBlock
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos, Direction direction) {
 		return getBlockEntityOptional(worldIn, pos).map(be -> be.isConnected() ? 15 : 0)
 			.orElse(0);
 	}

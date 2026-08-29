@@ -174,7 +174,7 @@ public class BasinBlock extends Block implements IBE<BasinBlockEntity>, IWrencha
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos, Direction direction) {
 		return getBlockEntityOptional(worldIn, pos).map(BasinBlockEntity::getInputInventory)
 			.map(ItemHelper::calcRedstoneFromInventory)
 			.orElse(0);

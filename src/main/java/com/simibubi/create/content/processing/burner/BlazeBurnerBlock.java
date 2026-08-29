@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import net.minecraft.core.Direction;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.jetbrains.annotations.Nullable;
@@ -93,7 +95,8 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData,
+		Player player) {
 		return getLitOrUnlitStack(state);
 	}
 
@@ -236,7 +239,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState state, Level p_180641_2_, BlockPos p_180641_3_) {
+	public int getAnalogOutputSignal(BlockState state, Level p_180641_2_, BlockPos p_180641_3_, Direction direction) {
 		return Math.max(0, state.getValue(HEAT_LEVEL)
 			.ordinal() - 1);
 	}

@@ -137,7 +137,7 @@ public class SignalBlock extends Block implements IBE<SignalBlockEntity>, IWrenc
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState pState, Level blockAccess, BlockPos pPos) {
+	public int getAnalogOutputSignal(BlockState pState, Level blockAccess, BlockPos pPos, Direction direction) {
 		return getBlockEntityOptional(blockAccess, pPos).filter(SignalBlockEntity::isPowered)
 			.map($ -> 15)
 			.orElse(0);

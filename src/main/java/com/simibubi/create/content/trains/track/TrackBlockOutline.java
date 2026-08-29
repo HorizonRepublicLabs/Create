@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.HashMap;
@@ -143,7 +145,7 @@ public class TrackBlockOutline {
 
 	public static void drawCurveSelection(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
+		if (HudState.isHidden(mc) || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;
 
 		BezierPointSelection result = TrackBlockOutline.result;

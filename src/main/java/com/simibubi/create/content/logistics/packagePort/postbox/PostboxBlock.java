@@ -117,7 +117,7 @@ public class PostboxBlock extends HorizontalDirectionalBlock
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+	public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos, Direction direction) {
 		return getBlockEntityOptional(pLevel, pPos).map(pbe -> pbe.getComparatorOutput())
 			.orElse(0);
 	}

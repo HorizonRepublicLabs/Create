@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.spout;
 
+import net.minecraft.core.Direction;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
@@ -43,7 +45,7 @@ public class SpoutBlock extends Block implements IWrenchable, IBE<SpoutBlockEnti
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos, Direction direction) {
 		return ComparatorUtil.levelOfSmartFluidTank(worldIn, pos);
 	}
 

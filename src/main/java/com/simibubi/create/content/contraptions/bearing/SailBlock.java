@@ -181,12 +181,12 @@ public class SailBlock extends WrenchableDirectionalBlock {
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos,
-									   Player player) {
-		ItemStack pickBlock = super.getCloneItemStack(state, target, level, pos, player);
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData,
+		Player player) {
+		ItemStack pickBlock = super.getCloneItemStack(level, pos, state, includeData, player);
 		if (pickBlock.isEmpty())
 			return AllBlocks.SAIL.get()
-				.getCloneItemStack(state, target, level, pos, player);
+				.getCloneItemStack(level, pos, state, includeData, player);
 		return pickBlock;
 	}
 

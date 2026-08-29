@@ -166,7 +166,7 @@ public class GaugeBlock extends DirectionalAxisKineticBlock implements IBE<Gauge
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos, Direction direction) {
 		BlockEntity be = worldIn.getBlockEntity(pos);
 		if (be instanceof GaugeBlockEntity gaugeBlockEntity) {
 			return Mth.ceil(Mth.clamp(gaugeBlockEntity.dialTarget * 14, 0, 15));

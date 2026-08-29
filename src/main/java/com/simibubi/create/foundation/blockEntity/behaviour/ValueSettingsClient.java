@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.List;
@@ -119,7 +121,7 @@ public class ValueSettingsClient implements LayeredDraw.Layer {
 	@Override
 	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui || !ValueSettingsInputHandler.canInteract(mc.player))
+		if (HudState.isHidden(mc) || !ValueSettingsInputHandler.canInteract(mc.player))
 			return;
 		if (hoverTicks == 0 || lastHoverTip == null)
 			return;

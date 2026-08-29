@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import static com.simibubi.create.foundation.gui.AllGuiTextures.TOOLBELT_HOTBAR_OFF;
@@ -70,7 +72,7 @@ public class ToolboxHandlerClient {
 			BlockState state = level.getBlockState(pos);
 			if (state.isAir())
 				return false;
-			result = state.getCloneItemStack(hitResult, level, pos, player);
+			result = state.getCloneItemStack(level, pos, false);
 
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
 			Entity entity = ((EntityHitResult) hitResult).getEntity();
@@ -158,7 +160,7 @@ public class ToolboxHandlerClient {
 		int width = guiGraphics.guiWidth();
 		int height = guiGraphics.guiHeight();
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
+		if (HudState.isHidden(mc) || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;
 
 		int x = width / 2 - 90;

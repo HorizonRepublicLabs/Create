@@ -129,7 +129,7 @@ public class ItemDrainBlock extends Block implements IWrenchable, IBE<ItemDrainB
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos, Direction direction) {
 		return ComparatorUtil.levelOfSmartFluidTank(worldIn, pos);
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.gui.HudState;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.ArrayList;
@@ -320,7 +322,7 @@ public class BlueprintOverlayRenderer {
 
 	public static void renderOverlay(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
-		if (mc.options.hideGui || mc.gui.screen() != null)
+		if (HudState.isHidden(mc) || mc.gui.screen() != null)
 			return;
 
 		if (!active || empty)

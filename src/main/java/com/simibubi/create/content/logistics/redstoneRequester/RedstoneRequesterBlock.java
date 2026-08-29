@@ -86,7 +86,7 @@ public class RedstoneRequesterBlock extends Block implements IBE<RedstoneRequest
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos) {
+	public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos, Direction direction) {
 		RedstoneRequesterBlockEntity req = getBlockEntity(pLevel, pPos);
 		return req != null && req.lastRequestSucceeded ? 15 : 0;
 	}

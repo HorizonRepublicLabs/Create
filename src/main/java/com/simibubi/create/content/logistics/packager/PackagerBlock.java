@@ -190,7 +190,7 @@ public class PackagerBlock extends WrenchableDirectionalBlock implements IBE<Pac
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+	public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos, Direction direction) {
 		return getBlockEntityOptional(pLevel, pPos).map(pbe -> {
 				boolean empty = pbe.inventory.getStackInSlot(0)
 					.isEmpty();

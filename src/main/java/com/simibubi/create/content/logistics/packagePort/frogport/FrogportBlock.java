@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort.frogport;
 
+import net.minecraft.core.Direction;
+
 import net.minecraft.world.InteractionResult;
 
 import org.jetbrains.annotations.Nullable;
@@ -87,7 +89,7 @@ public class FrogportBlock extends Block implements IBE<FrogportBlockEntity>, IW
 	}
 
 	@Override
-	public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos) {
+	public int getAnalogOutputSignal(BlockState pState, Level pLevel, BlockPos pPos, Direction direction) {
 		return getBlockEntityOptional(pLevel, pPos).map(pbe -> pbe.getComparatorOutput())
 			.orElse(0);
 	}
