@@ -22,7 +22,7 @@ public record HighlightPacket(BlockPos pos) implements CreatePacketPayload {
 
 	@OnlyIn(Dist.CLIENT)
 	public void handle(LocalPlayer player) {
-		if (!player.clientLevel.isLoaded(pos)) {
+		if (!player.level().isLoaded(pos)) {
 			return;
 		}
 
