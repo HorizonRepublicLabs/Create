@@ -34,14 +34,14 @@ public class CopycatStepModel extends CopycatModel {
 
 	@Override
 	protected List<BakedQuad> getCroppedQuads(BlockState state, Direction side, RandomSource rand, BlockState material,
-		ModelData wrappedData, RenderType renderType) {
+		ModelData wrappedData) {
 		Direction facing = state.getOptionalValue(CopycatStepBlock.FACING)
 			.orElse(Direction.SOUTH);
 		boolean upperHalf = state.getOptionalValue(CopycatStepBlock.HALF)
 			.orElse(Half.BOTTOM) == Half.TOP;
 
 		BlockStateModel model = getModelOf(material);
-		List<BakedQuad> templateQuads = model.getQuads(material, side, rand, wrappedData, renderType);
+		List<BakedQuad> templateQuads = collectQuads(model, rand, side);
 		int size = templateQuads.size();
 
 		List<BakedQuad> quads = new ArrayList<>();

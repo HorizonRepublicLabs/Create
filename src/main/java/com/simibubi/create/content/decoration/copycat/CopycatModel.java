@@ -182,6 +182,16 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 		return material == null ? AllBlocks.COPYCAT_BASE.getDefaultState() : material;
 	}
 
+	/// Geometry comes from parts; this flattens a model's quads for one side.
+	public static List<BakedQuad> collectQuads(BlockStateModel model, RandomSource rand, Direction side) {
+		List<BlockStateModelPart> parts = new ArrayList<>();
+		model.collectParts(rand, parts);
+		List<BakedQuad> quads = new ArrayList<>();
+		for (BlockStateModelPart part : parts)
+			quads.addAll(part.getQuads(side));
+		return quads;
+	}
+
 	public static BlockStateModel getModelOf(BlockState state) {
 		return Minecraft.getInstance()
 			.getModelManager()

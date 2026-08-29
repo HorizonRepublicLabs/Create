@@ -25,24 +25,19 @@ public class CopycatBarsModel extends CopycatModel {
 	}
 
 	@Override
-	public boolean useAmbientOcclusion() {
-		return false;
-	}
-
-	@Override
 	protected List<BakedQuad> getCroppedQuads(BlockState state, Direction side, RandomSource rand, BlockState material,
-											  ModelData wrappedData, RenderType renderType) {
+											  ModelData wrappedData) {
 		BlockStateModel model = getModelOf(material);
-		List<BakedQuad> superQuads = originalModel.getQuads(state, side, rand, wrappedData, renderType);
-		TextureAtlasSprite targetSprite = model.getParticleIcon(wrappedData);
+		List<BakedQuad> superQuads = collectQuads(delegate, rand, side);
+		TextureAtlasSprite targetSprite = model.particleMaterial().sprite();
 
 		boolean vertical = state.getValue(CopycatPanelBlock.FACING)
 			.getAxis() == Axis.Y;
 
 		if (side != null && (vertical || side.getAxis() == Axis.Y)) {
-			List<BakedQuad> templateQuads = model.getQuads(material, null, rand, wrappedData, renderType);
+			List<BakedQuad> templateQuads = collectQuads(model, rand, null);
 			for (BakedQuad quad : templateQuads) {
-				if (quad.getDirection() != Direction.UP)
+				if (quad.direction() != Direction.UP)
 					continue;
 				targetSprite = quad.materialInfo().sprite();
 				break;
@@ -56,15 +51,14 @@ public class CopycatBarsModel extends CopycatModel {
 
 		for (BakedQuad quad : superQuads) {
 			TextureAtlasSprite original = quad.materialInfo().sprite();
-			BakedQuad newQuad = BakedQuadHelper.clone(quad);
-			int[] vertexData = newQuad.getVertices();
+			BakedQuadHelper.Editor edit = BakedQuadHelper.edit(quad);
 			for (int vertex = 0; vertex < 4; vertex++) {
-				BakedQuadHelper.setU(vertexData, vertex, targetSprite
-					.getU(SpriteShiftEntry.getUnInterpolatedU(original, BakedQuadHelper.getU(vertexData, vertex))));
-				BakedQuadHelper.setV(vertexData, vertex, targetSprite
-					.getV(SpriteShiftEntry.getUnInterpolatedV(original, BakedQuadHelper.getV(vertexData, vertex))));
+				edit.setU(vertex, targetSprite
+					.getU(SpriteShiftEntry.getUnInterpolatedU(original, edit.getU(vertex))));
+				edit.setV(vertex, targetSprite
+					.getV(SpriteShiftEntry.getUnInterpolatedV(original, edit.getV(vertex))));
 			}
-			quads.add(newQuad);
+			quads.add(edit.build());
 		}
 
 		return quads;

@@ -12,7 +12,6 @@ import com.simibubi.create.foundation.model.BakedQuadHelper;
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,28 +33,26 @@ public class CopycatPanelModel extends CopycatModel {
 
 	@Override
 	protected List<BakedQuad> getCroppedQuads(BlockState state, Direction side, RandomSource rand, BlockState material,
-		ModelData wrappedData, RenderType renderType) {
+		ModelData wrappedData) {
 		Direction facing = state.getOptionalValue(CopycatPanelBlock.FACING)
 			.orElse(Direction.UP);
-		BlockRenderDispatcher blockRenderer = Minecraft.getInstance()
-			.getBlockRenderer();
-
+		
 		BlockState specialCopycatModelState = null;
 		if (CopycatSpecialCases.isBarsMaterial(material))
 			specialCopycatModelState = AllBlocks.COPYCAT_BARS.getDefaultState();
 		if (CopycatSpecialCases.isTrapdoorMaterial(material))
-			return blockRenderer.getBlockModel(material)
+			return getModelOf(material)
 				.getQuads(material, side, rand, wrappedData, renderType);
 
 		if (specialCopycatModelState != null) {
 			BlockStateModel blockModel =
 				blockRenderer.getBlockModel(specialCopycatModelState.setValue(DirectionalBlock.FACING, facing));
 			if (blockModel instanceof CopycatModel cm)
-				return cm.getCroppedQuads(state, side, rand, material, wrappedData, renderType);
+				return cm.getCroppedQuads(state, side, rand, material, wrappedData);
 		}
 
 		BlockStateModel model = getModelOf(material);
-		List<BakedQuad> templateQuads = model.getQuads(material, side, rand, wrappedData, renderType);
+		List<BakedQuad> templateQuads = collectQuads(model, rand, side);
 		int size = templateQuads.size();
 
 		List<BakedQuad> quads = new ArrayList<>();
