@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.diodes;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +22,11 @@ public class ToggleLatchGenerator extends AbstractDiodeGenerator {
 		Identifier off = existing("latch_off");
 		Identifier on = existing("latch_on");
 
-		models.add(prov.getExistingFile(off));
-		models.add(prov.withExistingParent(name + "_off_powered", off)
+		models.add(VariantModels.models(prov).getExistingFile(off));
+		models.add(VariantModels.models(prov).withExistingParent(name + "_off_powered", off)
 			.texture("top", texture(ctx, "powered")));
-		models.add(prov.getExistingFile(on));
-		models.add(prov.withExistingParent(name + "_on_powered", on)
+		models.add(VariantModels.models(prov).getExistingFile(on));
+		models.add(VariantModels.models(prov).withExistingParent(name + "_on_powered", on)
 			.texture("top", texture(ctx, "powered_powering")));
 
 		return models;

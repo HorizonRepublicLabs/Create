@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import static com.simibubi.create.AllTags.AllItemTags.CREATE_INGOTS;
 import static com.simibubi.create.AllTags.AllItemTags.CRUSHED_RAW_MATERIALS;
 import static com.simibubi.create.AllTags.AllItemTags.PLATES;
@@ -281,7 +283,7 @@ public class AllItems {
 	public static final ItemEntry<BacktankBlockItem> COPPER_BACKTANK_PLACEABLE = REGISTRATE
 		.item("copper_backtank_placeable",
 			p -> new BacktankBlockItem(AllBlocks.COPPER_BACKTANK.get(), AllItems.COPPER_BACKTANK::get, p))
-		.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.mcLoc("item/barrier")))
+		.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.mcLoc("item/barrier")))
 		.register();
 
 	// wrapped by NETHERITE_BACKTANK for block placement uses.
@@ -289,7 +291,7 @@ public class AllItems {
 	public static final ItemEntry<BacktankBlockItem> NETHERITE_BACKTANK_PLACEABLE = REGISTRATE
 		.item("netherite_backtank_placeable",
 			p -> new BacktankBlockItem(AllBlocks.NETHERITE_BACKTANK.get(), AllItems.NETHERITE_BACKTANK::get, p))
-		.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.mcLoc("item/barrier")))
+		.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.mcLoc("item/barrier")))
 		.register();
 
 	public static final ItemEntry<? extends BacktankItem>

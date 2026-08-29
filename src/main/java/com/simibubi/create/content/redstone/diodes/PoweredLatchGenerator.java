@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.diodes;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,9 @@ public class PoweredLatchGenerator extends AbstractDiodeGenerator {
 		Identifier off = existing("latch_off");
 		Identifier on = existing("latch_on");
 
-		models.add(prov.withExistingParent(name, off)
+		models.add(VariantModels.models(prov).withExistingParent(name, off)
 			.texture("top", texture(ctx, "idle")));
-		models.add(prov.withExistingParent(name + "_powered", on)
+		models.add(VariantModels.models(prov).withExistingParent(name + "_powered", on)
 			.texture("top", texture(ctx, "powering")));
 
 		return models;

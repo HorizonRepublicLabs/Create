@@ -27,7 +27,7 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 	public static <I extends BlockItem> void diodeItemModel(DataGenContext<Item, I> c, RegistrateItemModelGenerator p) {
 		String name = c.getName();
 		String path = "block/diodes/";
-		ItemModelBuilder builder = p.withExistingParent(name, p.modLoc(path + name));
+		ItemModelBuilder builder = VariantModels.models(p).withExistingParent(name, p.modLoc(path + name));
 		builder.texture("top", path + name + "/item");
 	}
 
@@ -55,7 +55,7 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 	}
 
 	protected ExistingModelFile existingModel(BlockModelProvider prov, String name) {
-		return prov.getExistingFile(existing(name));
+		return VariantModels.models(prov).getExistingFile(existing(name));
 	}
 
 	protected Identifier existing(String name) {

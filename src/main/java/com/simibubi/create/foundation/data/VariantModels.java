@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import com.mojang.math.Quadrant;
 import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
+import com.tterrag.registrate.providers.generators.RegistrateItemModelGenerator;
 
 import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModelDispatcher;
@@ -181,6 +182,12 @@ public class VariantModels {
 	/// generator now, so this hands back the shim that keeps the old shape.
 	public static ModelGenShim models(RegistrateBlockModelGenerator generator) {
 		return new ModelGenShim(generator);
+	}
+
+	/// Same entry point for the item side; the overload picks the shim that
+	/// matches whichever generator the datagen callback was handed.
+	public static ItemModelGenShim models(RegistrateItemModelGenerator generator) {
+		return new ItemModelGenShim(generator);
 	}
 
 	public static void accept(RegistrateBlockModelGenerator generator, Block block,

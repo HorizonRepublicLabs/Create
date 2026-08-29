@@ -64,7 +64,7 @@ public class AssetLookup {
 			String path = "block";
 			for (String string : folders)
 				path += "/" + ("_".equals(string) ? c.getName() : string);
-			p.withExistingParent(c.getName(), p.modLoc(path));
+			VariantModels.models(p).withExistingParent(c.getName(), p.modLoc(path));
 		};
 	}
 
@@ -74,7 +74,7 @@ public class AssetLookup {
 			String path = "block";
 			for (String string : folders)
 				path += "/" + ("_".equals(string) ? c.getName() : string);
-			p.withExistingParent(c.getName(), p.modLoc(path));
+			VariantModels.models(p).withExistingParent(c.getName(), p.modLoc(path));
 		};
 	}
 
@@ -104,15 +104,15 @@ public class AssetLookup {
 	}
 
 	public static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelGenerator> existingItemModel() {
-		return (c, p) -> p.getExistingFile(p.modLoc("item/" + c.getName()));
+		return (c, p) -> VariantModels.models(p).getExistingFile(p.modLoc("item/" + c.getName()));
 	}
 
 	public static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelGenerator> itemModel(String name) {
-		return (c, p) -> p.getExistingFile(p.modLoc("item/" + name));
+		return (c, p) -> VariantModels.models(p).getExistingFile(p.modLoc("item/" + name));
 	}
 
 	public static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelGenerator> itemModelWithPartials() {
-		return (c, p) -> p.withExistingParent("item/" + c.getName(), p.modLoc("item/" + c.getName() + "/item"));
+		return (c, p) -> VariantModels.models(p).withExistingParent("item/" + c.getName(), p.modLoc("item/" + c.getName() + "/item"));
 	}
 
 }

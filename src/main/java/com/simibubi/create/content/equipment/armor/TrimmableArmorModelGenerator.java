@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.util.Map;
@@ -45,7 +47,7 @@ public class TrimmableArmorModelGenerator {
 			if (item.getMaterial() == AllArmorMaterials.CARDBOARD) {
 				trimLoc = Create.asResource("trims/items/card_" + item.getType().getName() + "_trim_" + trimId);
 			}
-			ItemModelBuilder itemModel = p.withExistingParent(trimModelLoc.getPath(), parent)
+			ItemModelBuilder itemModel = VariantModels.models(p).withExistingParent(trimModelLoc.getPath(), parent)
 				.texture("layer0", textureLoc);
 			Map<String, String> textures = (Map<String, String>) TEXTURES_HANDLE.get(itemModel);
 			textures.put("layer1", trimLoc.toString());

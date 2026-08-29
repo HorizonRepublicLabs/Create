@@ -71,7 +71,7 @@ public class FunnelGenerator extends SpecialBlockStateGen {
 		String prefix = "block/funnel/";
 		Identifier blockTexture = Create.asResource("block/" + type + "_block");
 		return (c, p) -> {
-			p.withExistingParent("item/" + type + "_funnel", p.modLoc("block/funnel/item"))
+			VariantModels.models(p).withExistingParent("item/" + type + "_funnel", p.modLoc("block/funnel/item"))
 				.texture("particle", blockTexture)
 				.texture("block", blockTexture)
 				.texture("base", p.modLoc(prefix + type + "_funnel"))

@@ -523,7 +523,7 @@ public class AllBlocks {
 					.texture("side", p.modLoc("block/" + c.getName() + powered));
 			}).generate(c, p))
 			.item()
-			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/encased_chain_drive/item"))
+			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("block/encased_chain_drive/item"))
 				.texture("side", p.modLoc("block/" + c.getName())))
 			.build()
 			.register();
@@ -991,7 +991,7 @@ public class AllBlocks {
 			.transform(mountedFluidStorage(AllMountedStorageTypes.CREATIVE_FLUID_TANK))
 			.item(FluidTankItem::new)
 			.properties(p -> p.rarity(Rarity.EPIC))
-			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/fluid_tank/block_single_window"))
+			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("block/fluid_tank/block_single_window"))
 				.texture("5", p.modLoc("block/creative_fluid_tank_window_single"))
 				.texture("1", p.modLoc("block/creative_fluid_tank"))
 				.texture("particle", p.modLoc("block/creative_fluid_tank"))
@@ -1874,7 +1874,7 @@ public class AllBlocks {
 					.unlockedBy("has_postbox", RegistrateRecipeProvider.has(AllItemTags.POSTBOXES.tag))
 					.save(p, Create.asResource("crafting/logistics/" + c.getName() + "_from_other_postbox"));
 			})
-			.model(() -> (c, p) -> p.withExistingParent(colourName + "_postbox", p.modLoc("block/package_postbox/item"))
+			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(colourName + "_postbox", p.modLoc("block/package_postbox/item"))
 				.texture("0", p.modLoc("block/post_box/post_box_" + colourName))
 				.texture("1", p.modLoc("block/post_box/post_box_" + colourName + "_closed")))
 			.tag(AllItemTags.POSTBOXES.tag)
@@ -2197,7 +2197,7 @@ public class AllBlocks {
 			.transform(mountedItemStorage(AllMountedStorageTypes.TOOLBOX))
 			.tag(AllBlockTags.TOOLBOXES.tag)
 			.item(UncontainableBlockItem::new)
-			.model(() -> (c, p) -> p.withExistingParent(colourName + "_toolbox", p.modLoc("block/toolbox/item"))
+			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(colourName + "_toolbox", p.modLoc("block/toolbox/item"))
 				.texture("0", p.modLoc("block/toolbox/" + colourName)))
 			.tag(AllItemTags.TOOLBOXES.tag)
 			.build()

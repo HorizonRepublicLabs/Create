@@ -209,7 +209,7 @@ public class BuilderTransformers {
 					.texture("side", Create.asResource("block/" + casing + encasedSuffix));
 			}, false))
 			.item()
-			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + blockFolder + "/item"))
+			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("block/" + blockFolder + "/item"))
 				.texture("casing", Create.asResource("block/" + casing + "_casing"))
 				.texture("particle", Create.asResource("block/" + casing + "_casing"))
 				.texture("1", Identifier.withDefaultNamespace("block/stripped_" + wood + "_log_top"))
@@ -276,7 +276,7 @@ public class BuilderTransformers {
 			.tag(BlockTags.CLIMBABLE)
 			.item(MetalScaffoldingBlockItem::new)
 			.recipe((c, p) -> p.stonecutting(ingredient.get(), RecipeCategory.DECORATIONS, c::get, 2))
-			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
+			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
 			.build();
 	}
 
@@ -354,7 +354,7 @@ public class BuilderTransformers {
 				}))
 			.item(BeltTunnelItem::new)
 			.model(() -> (c, p) -> {
-				p.withExistingParent("item/" + type + "_tunnel", p.modLoc("block/belt_tunnel/item"))
+				VariantModels.models(p).withExistingParent("item/" + type + "_tunnel", p.modLoc("block/belt_tunnel/item"))
 					.texture("top", p.modLoc(prefix + "_top"))
 					.texture("tunnel", p.modLoc(prefix))
 					.texture("direction", p.modLoc(funnel_prefix + "_neutral"))
@@ -387,7 +387,7 @@ public class BuilderTransformers {
 				.texture("side", sideTextureLocation)
 				.texture("back", backTextureLocation)))
 			.item()
-			.model(() -> (c, p) -> p.withExistingParent(c.getName(), baseItemModelLocation)
+			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), baseItemModelLocation)
 				.texture("top", topTextureLocation)
 				.texture("side", sideTextureLocation)
 				.texture("back", backTextureLocation))
@@ -453,7 +453,7 @@ public class BuilderTransformers {
 					.withExistingParent(c.getName() + "_" + variant, p.modLoc("block/bell_base/block_" + variant));
 			}))
 			.item()
-			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
+			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
 			.build();
 	}
@@ -466,10 +466,10 @@ public class BuilderTransformers {
 			.tag(AllItemTags.PACKAGES.tag)
 			.model(() -> (c, p) -> {
 				if (style.rare())
-					p.withExistingParent(c.getName(), p.modLoc("item/package/custom" + size))
+					VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("item/package/custom" + size))
 						.texture("2", p.modLoc("item/package/" + style.type()));
 				else
-					p.withExistingParent(c.getName(), p.modLoc("item/package/" + style.type() + size));
+					VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("item/package/" + style.type() + size));
 			})
 			.lang((style.rare() ? "Rare"
 				: style.type()
@@ -497,7 +497,7 @@ public class BuilderTransformers {
 			if (dyed)
 				item.tag(AllItemTags.DYED_TABLE_CLOTHS.tag);
 
-			return item.model(() -> (c, p) -> p.withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/item"))
+			return item.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/item"))
 					.texture("0", p.modLoc("block/table_cloth/" + name)))
 				.tag(AllItemTags.TABLE_CLOTHS.tag)
 				.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get())
