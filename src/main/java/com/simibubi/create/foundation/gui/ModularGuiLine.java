@@ -91,7 +91,7 @@ public class ModularGuiLine {
 			if (w instanceof EditBox eb)
 				eb.setValue(data.getStringOr(key, ""));
 			if (w instanceof ScrollInput si)
-				si.setState(data.getIntOr(key, 0));
+				si.setState(data.getOrDefault(key, 0));
 
 			if (w instanceof TooltipArea)
 				addRenderableOnly.accept((T) w);

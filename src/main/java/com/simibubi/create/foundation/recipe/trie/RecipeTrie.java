@@ -89,7 +89,7 @@ public class RecipeTrie<R extends Recipe<?>> {
 				ingredients.add(universalIngredientId);
 
 				for (AbstractVariant variant : pool) {
-					int id = variantToId.getIntOr(variant, 0);
+					int id = variantToId.getOrDefault(variant, 0);
 					if (id >= 0) {
 						var ingredientIds = variantToIngredients.get(id);
 						if (ingredientIds != null) {

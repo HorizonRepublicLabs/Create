@@ -106,7 +106,7 @@ public class TestItems {
 		BlockPos end = new BlockPos(11, 2, 2);
 		Holder<Enchantment> PROTECTION_ENCHANT = helper.getLevel().registryAccess()
 				.lookupOrThrow(Registries.ENCHANTMENT)
-				.getHolderOrThrow(Enchantments.PROTECTION);
+				.getOrThrow(Enchantments.PROTECTION);
 		Map<BlockPos, ItemStack> outputs = Map.of(
 				new BlockPos(3, 2, 1), new ItemStack(AllBlocks.BRASS_BLOCK.get()),
 				new BlockPos(4, 2, 1), new ItemStack(Items.APPLE),

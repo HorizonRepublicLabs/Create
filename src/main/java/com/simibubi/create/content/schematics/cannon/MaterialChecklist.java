@@ -71,7 +71,7 @@ public class MaterialChecklist {
 		Item item = stack.getItem();
 		if (required.containsKey(item) || damageRequired.containsKey(item))
 			if (gathered.containsKey(item))
-				gathered.put(item, gathered.getIntOr(item, 0) + stack.getCount());
+				gathered.put(item, gathered.getOrDefault(item, 0) + stack.getCount());
 			else
 				gathered.put(item, stack.getCount());
 	}
@@ -107,7 +107,7 @@ public class MaterialChecklist {
 		for (Item item : keys) {
 			int amount = getRequiredAmount(item);
 			if (gathered.containsKey(item))
-				amount -= gathered.getIntOr(item, 0);
+				amount -= gathered.getOrDefault(item, 0);
 
 			if (amount <= 0) {
 				completed.add(item);
@@ -184,7 +184,7 @@ public class MaterialChecklist {
 		for (Item item : keys) {
 			int amount = getRequiredAmount(item);
 			if (gathered.containsKey(item))
-				amount -= gathered.getIntOr(item, 0);
+				amount -= gathered.getOrDefault(item, 0);
 
 			if (amount <= 0) {
 				completed.add(item);
@@ -230,7 +230,7 @@ public class MaterialChecklist {
 	public int getRequiredAmount(Item item) {
 		int amount = required.getOrDefault(item, 0);
 		if (damageRequired.containsKey(item))
-			amount += (int) Math.ceil(damageRequired.getIntOr(item, 0) / (float) new ItemStack(item).getMaxDamage());
+			amount += (int) Math.ceil(damageRequired.getOrDefault(item, 0) / (float) new ItemStack(item).getMaxDamage());
 		return amount;
 	}
 
