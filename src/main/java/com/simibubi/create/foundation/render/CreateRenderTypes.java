@@ -15,7 +15,7 @@ import net.minecraft.resources.Identifier;
 /// 26.x replaced the RenderStateShard composite-state system with
 /// RenderSetup built on top of a RenderPipeline, so the shader, blend and cull
 /// state that used to be assembled here now comes from the pipeline.
-public class RenderTypes {
+public class CreateRenderTypes {
 
 	private static final RenderType ENTITY_SOLID_BLOCK_MIPPED =
 		RenderType.create(createLayerName("entity_solid_block_mipped"),
@@ -84,7 +84,7 @@ public class RenderTypes {
 				.useOverlay()
 				.createRenderSetup()));
 
-	public static final BiFunction<Identifier, Boolean, RenderType> TRAIN_MAP = Util.memoize(RenderTypes::getTrainMap);
+	public static final BiFunction<Identifier, Boolean, RenderType> TRAIN_MAP = Util.memoize(CreateRenderTypes::getTrainMap);
 
 	private static RenderType getTrainMap(Identifier location, boolean linearFiltering) {
 		return RenderType.create("create_train_map",
@@ -126,5 +126,5 @@ public class RenderTypes {
 		return Create.ID + ":" + name;
 	}
 
-	private RenderTypes() {}
+	private CreateRenderTypes() {}
 }

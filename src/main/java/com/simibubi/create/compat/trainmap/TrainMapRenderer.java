@@ -12,7 +12,7 @@ import org.joml.Matrix4f;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.simibubi.create.foundation.render.RenderTypes;
+import com.simibubi.create.foundation.render.CreateRenderTypes;
 import com.simibubi.create.infrastructure.config.CClient;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectMap;
@@ -192,7 +192,7 @@ public class TrainMapRenderer implements AutoCloseable {
 			linearFiltering = false;
 			location = textureManager
 				.register("create_trainmap/" + sectionKey.getFirst() + "_" + sectionKey.getSecond(), texture);
-			renderType = RenderTypes.TRAIN_MAP.apply(location, linearFiltering);
+			renderType = CreateRenderTypes.TRAIN_MAP.apply(location, linearFiltering);
 			bounds = new Rect2i(sectionKey.getFirst() * WIDTH, sectionKey.getSecond() * HEIGHT, WIDTH, HEIGHT);
 		}
 
@@ -223,7 +223,7 @@ public class TrainMapRenderer implements AutoCloseable {
 
 			if (linearFiltering != this.linearFiltering) {
 				this.linearFiltering = linearFiltering;
-				renderType = RenderTypes.TRAIN_MAP.apply(location, linearFiltering);
+				renderType = CreateRenderTypes.TRAIN_MAP.apply(location, linearFiltering);
 			}
 
 			int pPackedLight = LightCoordsUtil.FULL_BRIGHT;

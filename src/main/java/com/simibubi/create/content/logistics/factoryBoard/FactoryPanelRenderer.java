@@ -14,7 +14,7 @@ import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity;
 import com.simibubi.create.content.redstone.link.RedstoneLinkBlockEntity;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
-import com.simibubi.create.foundation.render.RenderTypes;
+import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.createmod.catnip.api.client.render.CachedBuffers;
@@ -68,7 +68,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 			.translate(behaviour.slot.xOffset * .5, 0, behaviour.slot.yOffset * .5)
 			.light(glow > 0.125f ? LightCoordsUtil.FULL_BRIGHT : light)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.translucentMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.translucentMovingBlock()));
 
 		if (glow < .125f)
 			return;
@@ -85,7 +85,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 			.light(LightCoordsUtil.FULL_BRIGHT)
 			.color(color, color, color, 255)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 	}
 
 	public static void renderPath(FactoryPanelBehaviour behaviour, FactoryPanelConnection connection,
@@ -162,7 +162,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 			connectionSprite.color(color)
 				.light(light)
 				.overlay(overlay)
-				.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+				.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 
 			if (pathReversed) {
 				currentX += direction.getStepX() * .5;

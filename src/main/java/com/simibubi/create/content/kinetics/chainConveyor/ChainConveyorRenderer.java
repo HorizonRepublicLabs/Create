@@ -18,7 +18,7 @@ import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.chainConveyor.ChainConveyorBlockEntity.ConnectionStats;
 import com.simibubi.create.content.kinetics.chainConveyor.ChainConveyorPackage.ChainConveyorPackagePhysicsData;
 import com.simibubi.create.content.logistics.box.PackageItem;
-import com.simibubi.create.foundation.render.RenderTypes;
+import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
@@ -65,7 +65,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 		CreateCachedBuffers.partial(AllPartialModels.CHAIN_CONVEYOR_WHEEL, be.getBlockState())
 			.light(light)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 
 		for (ChainConveyorPackage box : be.loopingPackages)
 			renderBox(be, ms, buffer, overlay, pos, box, partialTicks);
@@ -132,7 +132,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 
 			buf.light(light)
 				.overlay(overlay)
-				.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+				.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 		}
 	}
 
@@ -170,7 +170,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 				guard.uncenter();
 				guard.light(light)
 					.overlay(overlay)
-					.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+					.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 			}
 
 			ms.pushPose();
@@ -210,7 +210,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 		ms.pushPose();
 		ms.translate(0.5D, 0.0D, 0.5D);
 
-		VertexConsumer vc = buffer.getBuffer(RenderTypes.chain(CHAIN_LOCATION));
+		VertexConsumer vc = buffer.getBuffer(CreateRenderTypes.chain(CHAIN_LOCATION));
 		renderPart(ms, vc, length, 0.0F, radius, radius, 0.0F, -radius, 0.0F, 0.0F, -radius, minU, maxU, minV, maxV,
 			light1, light2, far);
 
@@ -270,7 +270,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 
 	@Override
 	protected RenderType getRenderType(ChainConveyorBlockEntity be, BlockState state) {
-		return RenderTypes.cutoutMovingBlock();
+		return CreateRenderTypes.cutoutMovingBlock();
 	}
 
 }

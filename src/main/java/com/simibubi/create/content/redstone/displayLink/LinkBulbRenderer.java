@@ -9,7 +9,7 @@ import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.RenderTypes;
+import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.client.render.CachedBuffers;
@@ -52,14 +52,14 @@ public class LinkBulbRenderer extends SafeBlockEntityRenderer<LinkWithBulbBlockE
 		CreateCachedBuffers.partial(AllPartialModels.DISPLAY_LINK_TUBE, blockState)
 			.translate(be.getBulbOffset(blockState))
 			.light(LightCoordsUtil.FULL_BRIGHT)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.translucentMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.translucentMovingBlock()));
 
 		CreateCachedBuffers.partial(AllPartialModels.DISPLAY_LINK_GLOW, blockState)
 			.translate(be.getBulbOffset(blockState))
 			.light(LightCoordsUtil.FULL_BRIGHT)
 			.color(color, color, color, 255)
 			.disableDiffuse()
-			.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 
 		ms.popPose();
 	}

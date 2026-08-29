@@ -8,7 +8,7 @@ import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.simibubi.create.foundation.render.RenderTypes;
+import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.Minecraft;
@@ -53,11 +53,11 @@ public class PartialItemModelRenderer {
 	}
 
 	public void renderGlowing(BlockStateModel model, int light) {
-		render(model, RenderTypes.itemGlowingTranslucent(), light);
+		render(model, CreateRenderTypes.itemGlowingTranslucent(), light);
 	}
 
 	public void renderSolidGlowing(BlockStateModel model, int light) {
-		render(model, RenderTypes.itemGlowingSolid(), light);
+		render(model, CreateRenderTypes.itemGlowingSolid(), light);
 	}
 
 	public void render(BlockStateModel model, RenderType type, int light) {

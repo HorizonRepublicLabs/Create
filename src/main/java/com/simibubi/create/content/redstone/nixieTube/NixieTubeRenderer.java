@@ -10,7 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.redstone.nixieTube.DoubleFaceAttachedBlock.DoubleAttachFace;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import com.simibubi.create.foundation.render.RenderTypes;
+import com.simibubi.create.foundation.render.CreateRenderTypes;
 import com.simibubi.create.foundation.utility.DyeHelper;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
@@ -142,7 +142,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 
 		CreateCachedBuffers.partial(AllPartialModels.SIGNAL_PANEL, blockState)
 			.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 
 		ms.pushPose();
 		ms.translate(1 / 2f, 7.5f / 16f, 1 / 2f);
@@ -173,7 +173,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.light(0xf000f0)
 						.disableDiffuse()
 						.scale(vert ? longSide : 1, vert ? 1 : longSide, 1)
-						.renderInto(ms, buffer.getBuffer(RenderTypes.translucentMovingBlock()));
+						.renderInto(ms, buffer.getBuffer(CreateRenderTypes.translucentMovingBlock()));
 
 					CachedBuffers
 						.partial(
@@ -183,7 +183,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.light(0xf000f0)
 						.disableDiffuse()
 						.scale(vert ? longSideGlow : 2, vert ? 2 : longSideGlow, 2)
-						.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
+						.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 				}
 
 				CachedBuffers
@@ -192,7 +192,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 					.light(0xF000F0)
 					.disableDiffuse()
 					.scale(1 + 1 / 16f)
-					.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
+					.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 
 				ms.popPose();
 			}
@@ -217,7 +217,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.light(0xf000f0)
 						.disableDiffuse()
 						.scale(width, height,  1)
-						.renderInto(ms, buffer.getBuffer(RenderTypes.translucentMovingBlock()));
+						.renderInto(ms, buffer.getBuffer(CreateRenderTypes.translucentMovingBlock()));
 
 					CachedBuffers
 						.partial(AllPartialModels.SIGNAL_COMPUTER_WHITE_GLOW, blockState)
@@ -229,7 +229,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 							255)
 						.disableDiffuse()
 						.scale(width + 1.125f, height + 1.125f, 2)
-						.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
+						.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 				}
 
 				CachedBuffers
@@ -238,7 +238,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 					.color(12, 12, 12, 255)
 					.disableDiffuse()
 					.scale(1 + 1.25f / 16f)
-					.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
+					.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 
 				CachedBuffers
 					.partial(AllPartialModels.SIGNAL_COMPUTER_WHITE, blockState)
@@ -246,7 +246,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 					.color(tubeDisplay.r, tubeDisplay.g, tubeDisplay.b, 255)
 					.disableDiffuse()
 					.scale(1 + 1 / 16f)
-					.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
+					.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 
 				ms.popPose();
 			}
