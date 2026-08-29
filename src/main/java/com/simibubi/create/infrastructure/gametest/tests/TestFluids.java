@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.gametest.tests;
 
+import net.minecraft.world.entity.EntityTypes;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -318,8 +320,8 @@ public class TestFluids {
 		BlockPos firstSeat = new BlockPos(4, 2, 1);
 		BlockPos secondSeat = firstSeat.south(2);
 
-		Zombie firstZombie = helper.spawn(EntityType.ZOMBIE, firstSeat);
-		Zombie secondZombie = helper.spawn(EntityType.ZOMBIE, secondSeat);
+		Zombie firstZombie = helper.spawn(EntityTypes.ZOMBIE, firstSeat);
+		Zombie secondZombie = helper.spawn(EntityTypes.ZOMBIE, secondSeat);
 
 		helper.pullLever(effects);
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import net.minecraft.world.entity.EntityTypes;
+
 import net.minecraft.world.level.storage.ValueInput;
 
 import net.minecraft.world.level.storage.ValueOutput;
@@ -217,7 +219,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		if (type.preEntityHit(stack, ray))
 			return;
 
-		boolean targetIsEnderman = target.getType() == EntityType.ENDERMAN;
+		boolean targetIsEnderman = target.getType() == EntityTypes.ENDERMAN;
 		int k = target.getRemainingFireTicks();
 		if (this.isOnFire() && !targetIsEnderman)
 			target.igniteForSeconds(5);

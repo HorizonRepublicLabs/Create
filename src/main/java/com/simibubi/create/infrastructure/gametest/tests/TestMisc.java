@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.gametest.tests;
 
+import net.minecraft.world.entity.EntityTypes;
+
 import static com.simibubi.create.infrastructure.gametest.CreateGameTestHelper.FIFTEEN_SECONDS;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -64,7 +66,7 @@ public class TestMisc {
 	@GameTest(template = "shearing")
 	public static void shearing(CreateGameTestHelper helper) {
 		BlockPos sheepPos = new BlockPos(2, 1, 2);
-		Sheep sheep = helper.getFirstEntity(EntityType.SHEEP, sheepPos);
+		Sheep sheep = helper.getFirstEntity(EntityTypes.SHEEP, sheepPos);
 		sheep.shear(SoundSource.NEUTRAL);
 		helper.succeedWhen(() -> {
 			helper.assertItemEntityPresent(Items.WOOL.white(), sheepPos, 2);
@@ -104,15 +106,15 @@ public class TestMisc {
 		BlockPos zombieSpawn = lava.above(2);
 		BlockPos armorStandPos = new BlockPos(2, 2, 1);
 		helper.runAtTickTime(5, () -> {
-			Zombie zombie = helper.spawn(EntityType.ZOMBIE, zombieSpawn);
-			ArmorStand armorStand = helper.getFirstEntity(EntityType.ARMOR_STAND, armorStandPos);
+			Zombie zombie = helper.spawn(EntityTypes.ZOMBIE, zombieSpawn);
+			ArmorStand armorStand = helper.getFirstEntity(EntityTypes.ARMOR_STAND, armorStandPos);
 			for (EquipmentSlot slot : EquipmentSlot.values()) {
 				zombie.setItemSlot(slot, armorStand.getItemBySlot(slot).copy());
 			}
 		});
 		helper.succeedWhen(() -> {
 			helper.assertSecondsPassed(9);
-			helper.assertEntityPresent(EntityType.ZOMBIE, lava);
+			helper.assertEntityPresent(EntityTypes.ZOMBIE, lava);
 		});
 	}
 }

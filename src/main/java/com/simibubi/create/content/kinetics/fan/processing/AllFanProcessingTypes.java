@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan.processing;
 
+import net.minecraft.world.entity.EntityTypes;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -293,7 +295,7 @@ public class AllFanProcessingTypes {
 				level.playSound(null, entity.blockPosition(), SoundEvents.GENERIC_EXTINGUISH_FIRE,
 					SoundSource.NEUTRAL, 1.25f, 0.65f);
 
-				SkeletonHorse skeletonHorse = EntityType.SKELETON_HORSE.create(level);
+				SkeletonHorse skeletonHorse = EntityTypes.SKELETON_HORSE.create(level);
 				CompoundTag serializeNBT = horse.saveWithoutId(new CompoundTag());
 				serializeNBT.remove("UUID");
 				if (!horse.getBodyArmorItem()
@@ -439,8 +441,8 @@ public class AllFanProcessingTypes {
 			if (level.isClientSide())
 				return;
 
-			if (entity instanceof EnderMan || entity.getType() == EntityType.SNOW_GOLEM
-				|| entity.getType() == EntityType.BLAZE) {
+			if (entity instanceof EnderMan || entity.getType() == EntityTypes.SNOW_GOLEM
+				|| entity.getType() == EntityTypes.BLAZE) {
 				entity.hurt(entity.damageSources().drown(), 2);
 			}
 			if (entity.isOnFire()) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.bell;
 
+import net.minecraft.world.entity.EntityTypes;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,7 +83,7 @@ public class SoulPulseEffect {
 	}
 
 	public static boolean canSpawnSoulAt(Level world, BlockPos at, boolean ignoreLight) {
-		EntityType<?> dummy = EntityType.ZOMBIE;
+		EntityType<?> dummy = EntityTypes.ZOMBIE;
 		double dummyWidth = 0.2, dummyHeight = 0.75;
 		double w2 = dummyWidth / 2;
 
