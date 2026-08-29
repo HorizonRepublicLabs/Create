@@ -98,7 +98,7 @@ public class LinkedControllerScreen extends AbstractSimiContainerScreen<LinkedCo
 		if (hoveredSlot.hasItem())
 			list = getTooltipFromContainerItem(hoveredSlot.getItem());
 
-		graphics.renderComponentTooltip(font, addToTooltip(list, hoveredSlot.getSlotIndex()), x, y);
+		graphics.setTooltipForNextFrame(font, addToTooltip(list, hoveredSlot.getSlotIndex()), java.util.Optional.empty(), x, y);
 	}
 
 	private List<Component> addToTooltip(List<Component> list, int slot) {

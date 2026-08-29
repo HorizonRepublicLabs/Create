@@ -146,30 +146,9 @@ public class RedstoneRequesterScreen extends AbstractSimiContainerScreen<Redston
 		if (addressBox.isHovered() && !addressBox.isFocused()) {
 			if (addressBox.getValue()
 				.isBlank())
-				graphics.renderComponentTooltip(font,
-					List.of(CreateLang.translate("gui.redstone_requester.requester_address")
-						.color(ScrollInput.HEADER_RGB)
-						.component(),
-						CreateLang.translate("gui.redstone_requester.requester_address_tip")
-							.style(ChatFormatting.GRAY)
-							.component(),
-						CreateLang.translate("gui.redstone_requester.requester_address_tip_1")
-							.style(ChatFormatting.GRAY)
-							.component(),
-						CreateLang.translate("gui.schedule.lmb_edit")
-							.style(ChatFormatting.DARK_GRAY)
-							.style(ChatFormatting.ITALIC)
-							.component()),
-					mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.redstone_requester.requester_address") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.redstone_requester.requester_address_tip") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.redstone_requester.requester_address_tip_1") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.schedule.lmb_edit") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component()), java.util.Optional.empty(), mouseX, mouseY);
 			else
-				graphics.renderComponentTooltip(font,
-					List.of(CreateLang.translate("gui.redstone_requester.requester_address_given")
-						.color(ScrollInput.HEADER_RGB)
-						.component(),
-						CreateLang.text("'" + addressBox.getValue() + "'")
-							.style(ChatFormatting.GRAY)
-							.component()),
-					mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.redstone_requester.requester_address_given") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.text("'" + addressBox.getValue() + "'") .style(ChatFormatting.GRAY) .component()), java.util.Optional.empty(), mouseX, mouseY);
 		}
 	}
 

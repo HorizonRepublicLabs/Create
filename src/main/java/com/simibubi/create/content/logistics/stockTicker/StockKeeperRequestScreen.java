@@ -811,51 +811,19 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			if (Mods.JEI.isLoaded() && mouseX > jeiSyncX && mouseX <= jeiSyncX + 15) {
 				SearchSyncMode mode = AllConfigs.client().syncRecipeViewerSearch.get();
 				String langKey = "gui.stock_keeper.jei_sync." + mode.getSerializedName();
-				graphics.renderComponentTooltip(font,
-					List.of(
-						CreateLang.translate(langKey)
-							.component(),
-						CreateLang.translate(langKey + ".description")
-							.style(ChatFormatting.GRAY)
-							.component(),
-						CreateLang.translate("gui.stock_keeper.click_to_cycle")
-							.style(ChatFormatting.DARK_GRAY)
-							.style(ChatFormatting.ITALIC)
-							.component()),
-					mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, List.of( CreateLang.translate(langKey) .component(), CreateLang.translate(langKey + ".description") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.stock_keeper.click_to_cycle") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component()), java.util.Optional.empty(), mouseX, mouseY);
 			}
 
 			// Render tooltip of lock option
 			if (isAdmin && mouseX > lockX && mouseX <= lockX + 15) {
-				graphics.renderComponentTooltip(font,
-					List.of(
-						CreateLang.translate(isLocked ? "gui.stock_keeper.network_locked" : "gui.stock_keeper.network_open")
-							.component(),
-						CreateLang.translate("gui.stock_keeper.network_lock_tip")
-							.style(ChatFormatting.GRAY)
-							.component(),
-						CreateLang.translate("gui.stock_keeper.network_lock_tip_1")
-							.style(ChatFormatting.GRAY)
-							.component(),
-						CreateLang.translate("gui.stock_keeper.network_lock_tip_2")
-							.style(ChatFormatting.DARK_GRAY)
-							.style(ChatFormatting.ITALIC)
-							.component()),
-					mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, List.of( CreateLang.translate(isLocked ? "gui.stock_keeper.network_locked" : "gui.stock_keeper.network_open") .component(), CreateLang.translate("gui.stock_keeper.network_lock_tip") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.stock_keeper.network_lock_tip_1") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.stock_keeper.network_lock_tip_2") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component()), java.util.Optional.empty(), mouseX, mouseY);
 			}
 		}
 
 		// Render tooltip of address input
 		if (addressBox.getValue()
 			.isBlank() && !addressBox.isFocused() && addressBox.isHovered()) {
-			graphics.renderComponentTooltip(font, List.of(CreateLang.translate("gui.factory_panel.restocker_address")
-						.color(ScrollInput.HEADER_RGB)
-						.component(),
-					CreateLang.translate("gui.schedule.lmb_edit")
-						.style(ChatFormatting.DARK_GRAY)
-						.style(ChatFormatting.ITALIC)
-						.component()),
-				mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.factory_panel.restocker_address") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.schedule.lmb_edit") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component()), java.util.Optional.empty(), mouseX, mouseY);
 		}
 	}
 

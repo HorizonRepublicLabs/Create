@@ -360,17 +360,11 @@ public class SchematicannonScreen extends AbstractSimiContainerScreen<Schematica
 
 		if (hoveredSlot != null && !hoveredSlot.hasItem()) {
 			if (hoveredSlot.index == 0)
-				graphics.renderComponentTooltip(font,
-					TooltipHelper.cutTextComponent(CreateLang.translateDirect(_slotSchematic), Palette.GRAY_AND_BLUE), mouseX,
-					mouseY);
+				graphics.setTooltipForNextFrame(font, TooltipHelper.cutTextComponent(CreateLang.translateDirect(_slotSchematic), Palette.GRAY_AND_BLUE), java.util.Optional.empty(), mouseX, mouseY);
 			if (hoveredSlot.index == 2)
-				graphics.renderComponentTooltip(font,
-					TooltipHelper.cutTextComponent(CreateLang.translateDirect(_slotListPrinter), Palette.GRAY_AND_BLUE),
-					mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, TooltipHelper.cutTextComponent(CreateLang.translateDirect(_slotListPrinter), Palette.GRAY_AND_BLUE), java.util.Optional.empty(), mouseX, mouseY);
 			if (hoveredSlot.index == 4)
-				graphics.renderComponentTooltip(font,
-					TooltipHelper.cutTextComponent(CreateLang.translateDirect(_slotGunpowder), Palette.GRAY_AND_BLUE), mouseX,
-					mouseY);
+				graphics.setTooltipForNextFrame(font, TooltipHelper.cutTextComponent(CreateLang.translateDirect(_slotGunpowder), Palette.GRAY_AND_BLUE), java.util.Optional.empty(), mouseX, mouseY);
 		}
 
 		if (be.missingItem != null) {

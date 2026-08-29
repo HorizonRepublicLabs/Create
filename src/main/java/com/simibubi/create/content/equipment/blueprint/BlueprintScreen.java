@@ -96,7 +96,7 @@ public class BlueprintScreen extends AbstractSimiContainerScreen<BlueprintMenu> 
 		if (hoveredSlot.hasItem())
 			list = getTooltipFromContainerItem(hoveredSlot.getItem());
 
-		graphics.renderComponentTooltip(font, addToTooltip(list, hoveredSlot.getSlotIndex(), true), x, y);
+		graphics.setTooltipForNextFrame(font, addToTooltip(list, hoveredSlot.getSlotIndex(), true), java.util.Optional.empty(), x, y);
 	}
 
 	private List<Component> addToTooltip(List<Component> list, int slot, boolean isEmptySlot) {

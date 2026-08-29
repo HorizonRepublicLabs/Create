@@ -274,17 +274,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 				int inputX = guiLeft + (restocker ? 88 : 68 + (slot % 3 * 20));
 				int inputY = guiTop + (restocker ? 12 : 28) + (slot / 3 * 20);
 				if (!restocker && mouseY > inputY && mouseY < inputY + 60 && mouseX > inputX && mouseX < inputX + 60)
-					graphics.renderComponentTooltip(font,
-						List.of(CreateLang.translate("gui.factory_panel.unconfigured_input")
-							.color(ScrollInput.HEADER_RGB)
-							.component(),
-							CreateLang.translate("gui.factory_panel.unconfigured_input_tip")
-								.style(ChatFormatting.GRAY)
-								.component(),
-							CreateLang.translate("gui.factory_panel.unconfigured_input_tip_1")
-								.style(ChatFormatting.GRAY)
-								.component()),
-						mouseX, mouseY);
+					graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.factory_panel.unconfigured_input") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.factory_panel.unconfigured_input_tip") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.factory_panel.unconfigured_input_tip_1") .style(ChatFormatting.GRAY) .component()), java.util.Optional.empty(), mouseX, mouseY);
 			}
 		}
 
@@ -315,8 +305,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 					.style(ChatFormatting.DARK_GRAY)
 					.style(ChatFormatting.ITALIC)
 					.component();
-				graphics.renderComponentTooltip(font, craftingActive ? List.of(c1, c2, c3) : List.of(c1, c2, c3, c4),
-					mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, craftingActive ? List.of(c1, c2, c3) : List.of(c1, c2, c3, c4), java.util.Optional.empty(), mouseX, mouseY);
 			}
 		}
 
@@ -439,112 +428,34 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 			return;
 
 		if (craftingActive) {
-			graphics.renderComponentTooltip(font, List.of(CreateLang.translate("gui.factory_panel.crafting_input")
-				.color(ScrollInput.HEADER_RGB)
-				.component(),
-				CreateLang.translate("gui.factory_panel.crafting_input_tip")
-					.style(ChatFormatting.GRAY)
-					.component(),
-				CreateLang.translate("gui.factory_panel.crafting_input_tip_1")
-					.style(ChatFormatting.GRAY)
-					.component()),
-				mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.factory_panel.crafting_input") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.factory_panel.crafting_input_tip") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.factory_panel.crafting_input_tip_1") .style(ChatFormatting.GRAY) .component()), java.util.Optional.empty(), mouseX, mouseY);
 			return;
 		}
 
 		if (itemStack.stack.isEmpty()) {
-			graphics.renderComponentTooltip(font, List.of(CreateLang.translate("gui.factory_panel.empty_panel")
-				.color(ScrollInput.HEADER_RGB)
-				.component(),
-				CreateLang.translate("gui.factory_panel.left_click_disconnect")
-					.style(ChatFormatting.DARK_GRAY)
-					.style(ChatFormatting.ITALIC)
-					.component()),
-				mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.factory_panel.empty_panel") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.factory_panel.left_click_disconnect") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component()), java.util.Optional.empty(), mouseX, mouseY);
 			return;
 		}
 
 		if (restocker) {
-			graphics.renderComponentTooltip(font,
-				List.of(CreateLang.translate("gui.factory_panel.sending_item", CreateLang.itemName(itemStack.stack)
-					.string())
-					.color(ScrollInput.HEADER_RGB)
-					.component(),
-					CreateLang.translate("gui.factory_panel.sending_item_tip")
-						.style(ChatFormatting.GRAY)
-						.component(),
-					CreateLang.translate("gui.factory_panel.sending_item_tip_1")
-						.style(ChatFormatting.GRAY)
-						.component()),
-				mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.factory_panel.sending_item", CreateLang.itemName(itemStack.stack) .string()) .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.factory_panel.sending_item_tip") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.factory_panel.sending_item_tip_1") .style(ChatFormatting.GRAY) .component()), java.util.Optional.empty(), mouseX, mouseY);
 			return;
 		}
 
-		graphics.renderComponentTooltip(font,
-			List.of(CreateLang.translate("gui.factory_panel.sending_item", CreateLang.itemName(itemStack.stack)
-				.add(CreateLang.text(" x" + itemStack.count))
-				.string())
-				.color(ScrollInput.HEADER_RGB)
-				.component(),
-				CreateLang.translate("gui.factory_panel.scroll_to_change_amount")
-					.style(ChatFormatting.DARK_GRAY)
-					.style(ChatFormatting.ITALIC)
-					.component(),
-				CreateLang.translate("gui.factory_panel.left_click_disconnect")
-					.style(ChatFormatting.DARK_GRAY)
-					.style(ChatFormatting.ITALIC)
-					.component()),
-			mouseX, mouseY);
+		graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.factory_panel.sending_item", CreateLang.itemName(itemStack.stack) .add(CreateLang.text(" x" + itemStack.count)) .string()) .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.factory_panel.scroll_to_change_amount") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component(), CreateLang.translate("gui.factory_panel.left_click_disconnect") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component()), java.util.Optional.empty(), mouseX, mouseY);
 	}
 
 	private void showAddressBoxTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		if (addressBox.getValue()
 			.isBlank()) {
 			if (restocker) {
-				graphics.renderComponentTooltip(font,
-					List.of(CreateLang.translate("gui.factory_panel.restocker_address")
-						.color(ScrollInput.HEADER_RGB)
-						.component(),
-						CreateLang.translate("gui.factory_panel.restocker_address_tip")
-							.style(ChatFormatting.GRAY)
-							.component(),
-						CreateLang.translate("gui.factory_panel.restocker_address_tip_1")
-							.style(ChatFormatting.GRAY)
-							.component(),
-						CreateLang.translate("gui.schedule.lmb_edit")
-							.style(ChatFormatting.DARK_GRAY)
-							.style(ChatFormatting.ITALIC)
-							.component()),
-					mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.factory_panel.restocker_address") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.factory_panel.restocker_address_tip") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.factory_panel.restocker_address_tip_1") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.schedule.lmb_edit") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component()), java.util.Optional.empty(), mouseX, mouseY);
 
 			} else {
-				graphics.renderComponentTooltip(font, List.of(CreateLang.translate("gui.factory_panel.recipe_address")
-					.color(ScrollInput.HEADER_RGB)
-					.component(),
-					CreateLang.translate("gui.factory_panel.recipe_address_tip")
-						.style(ChatFormatting.GRAY)
-						.component(),
-					CreateLang.translate("gui.factory_panel.recipe_address_tip_1")
-						.style(ChatFormatting.GRAY)
-						.component(),
-					CreateLang.translate("gui.schedule.lmb_edit")
-						.style(ChatFormatting.DARK_GRAY)
-						.style(ChatFormatting.ITALIC)
-						.component()),
-					mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.factory_panel.recipe_address") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.translate("gui.factory_panel.recipe_address_tip") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.factory_panel.recipe_address_tip_1") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.schedule.lmb_edit") .style(ChatFormatting.DARK_GRAY) .style(ChatFormatting.ITALIC) .component()), java.util.Optional.empty(), mouseX, mouseY);
 			}
 		} else
-			graphics.renderComponentTooltip(font,
-				List.of(
-					CreateLang
-						.translate(restocker ? "gui.factory_panel.restocker_address_given"
-							: "gui.factory_panel.recipe_address_given")
-						.color(ScrollInput.HEADER_RGB)
-						.component(),
-					CreateLang.text("'" + addressBox.getValue() + "'")
-						.style(ChatFormatting.GRAY)
-						.component()),
-				mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, List.of( CreateLang .translate(restocker ? "gui.factory_panel.restocker_address_given" : "gui.factory_panel.recipe_address_given") .color(ScrollInput.HEADER_RGB) .component(), CreateLang.text("'" + addressBox.getValue() + "'") .style(ChatFormatting.GRAY) .component()), java.util.Optional.empty(), mouseX, mouseY);
 	}
 
 	//
