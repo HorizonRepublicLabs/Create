@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.goggles;
 
+import net.minecraft.client.input.MouseButtonEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +70,10 @@ public class GoggleConfigScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean mouseClicked(double x, double y, int button) {
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		double x = event.x();
+		double y = event.y();
+		int button = event.button();
 		updateOffset(x, y);
 
 		return true;

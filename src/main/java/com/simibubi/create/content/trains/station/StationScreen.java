@@ -1,5 +1,9 @@
 package com.simibubi.create.content.trains.station;
 
+import net.minecraft.client.input.KeyEvent;
+
+import net.minecraft.client.input.MouseButtonEvent;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.lang.ref.WeakReference;
@@ -79,7 +83,7 @@ public class StationScreen extends AbstractStationScreen {
 		nameBox.setTextColor(0x592424);
 		nameBox.setValue(station.name);
 		nameBox.setFocused(false);
-		nameBox.mouseClicked(0, 0, 0);
+		nameBox.mouseClicked(event, doubleClick);
 		nameBox.setResponder(onTextChanged);
 		nameBox.setX(nameBoxX(nameBox.getValue(), nameBox));
 		addRenderableWidget(nameBox);
@@ -126,7 +130,7 @@ public class StationScreen extends AbstractStationScreen {
 		trainNameBox.setMaxLength(35);
 		trainNameBox.setTextColor(0xC6C6C6);
 		trainNameBox.setFocused(false);
-		trainNameBox.mouseClicked(0, 0, 0);
+		trainNameBox.mouseClicked(event, doubleClick);
 		trainNameBox.setResponder(onTextChanged);
 		trainNameBox.active = false;
 
@@ -360,7 +364,10 @@ public class StationScreen extends AbstractStationScreen {
 	}
 
 	@Override
-	public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
 		if (!nameBox.isFocused() && pMouseY > guiTop && pMouseY < guiTop + 14 && pMouseX > guiLeft
 			&& pMouseX < guiLeft + background.getWidth()) {
 			nameBox.setFocused(true);
@@ -375,11 +382,14 @@ public class StationScreen extends AbstractStationScreen {
 			setFocused(trainNameBox);
 			return true;
 		}
-		return super.mouseClicked(pMouseX, pMouseY, pButton);
+		return super.mouseClicked(event, doubleClick);
 	}
 
 	@Override
-	public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
+	public boolean keyPressed(KeyEvent event) {
+		int pKeyCode = event.key();
+		int pScanCode = event.scancode();
+		int pModifiers = event.modifiers();
 		boolean hitEnter = getFocused() instanceof EditBox
 			&& (pKeyCode == InputConstants.KEY_RETURN || pKeyCode == InputConstants.KEY_NUMPADENTER);
 
@@ -395,7 +405,7 @@ public class StationScreen extends AbstractStationScreen {
 			return true;
 		}
 
-		return super.keyPressed(pKeyCode, pScanCode, pModifiers);
+		return super.keyPressed(event);
 	}
 
 	private void syncTrainNameAndColor() {

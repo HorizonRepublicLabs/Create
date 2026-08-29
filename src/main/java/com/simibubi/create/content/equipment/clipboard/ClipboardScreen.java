@@ -1,5 +1,11 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import net.minecraft.client.input.CharacterEvent;
+
+import net.minecraft.client.input.KeyEvent;
+
+import net.minecraft.client.input.MouseButtonEvent;
+
 import com.simibubi.create.foundation.gui.Modifiers;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -382,7 +388,10 @@ public class ClipboardScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
+	public boolean keyPressed(KeyEvent event) {
+		int pKeyCode = event.key();
+		int pScanCode = event.scancode();
+		int pModifiers = event.modifiers();
 		if (pKeyCode == 266) {
 			backward.onPress();
 			return true;
@@ -396,13 +405,15 @@ public class ClipboardScreen extends AbstractSimiScreen {
 			clearDisplayCache();
 			return true;
 		}
-		super.keyPressed(pKeyCode, pScanCode, pModifiers);
+		super.keyPressed(event);
 		return true;
 	}
 
 	@Override
-	public boolean charTyped(char pCodePoint, int pModifiers) {
-		if (super.charTyped(pCodePoint, pModifiers))
+	public boolean charTyped(CharacterEvent event) {
+		char pCodePoint = (char) event.codepoint();
+		int pModifiers = 0;
+		if (super.charTyped(event))
 			return true;
 		if (!StringUtil.isAllowedChatCharacter(pCodePoint))
 			return false;
@@ -580,8 +591,11 @@ public class ClipboardScreen extends AbstractSimiScreen {
 			pLocalScreenPos.y + 32 + 24 + yOffsetOfEditingEntry() + guiTop - 14);
 	}
 
-	public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
-		if (super.mouseClicked(pMouseX, pMouseY, pButton))
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
+		if (super.mouseClicked(event, doubleClick))
 			return true;
 		if (pButton != 0)
 			return true;

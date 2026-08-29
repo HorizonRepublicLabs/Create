@@ -1,5 +1,11 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import net.minecraft.client.input.CharacterEvent;
+
+import net.minecraft.client.input.KeyEvent;
+
+import net.minecraft.client.input.MouseButtonEvent;
+
 import com.simibubi.create.foundation.gui.Modifiers;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -1069,7 +1075,10 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 	}
 
 	@Override
-	public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
 		boolean lmb = pButton == GLFW.GLFW_MOUSE_BUTTON_LEFT;
 		boolean rmb = pButton == GLFW.GLFW_MOUSE_BUTTON_RIGHT;
 
@@ -1084,14 +1093,14 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		}
 
 		if (addressBox.isFocused()) {
-			boolean result = addressBox.mouseClicked(pMouseX, pMouseY, pButton);
+			boolean result = addressBox.mouseClicked(event, doubleClick);
 			if (addressBox.isHovered() || result)
 				return result;
 			addressBox.setFocused(false);
 		}
 		if (searchBox.isFocused()) {
 			if (searchBox.isHovered())
-				return searchBox.mouseClicked(pMouseX, pMouseY, pButton);
+				return searchBox.mouseClicked(event, doubleClick);
 			searchBox.setFocused(false);
 		}
 
@@ -1168,7 +1177,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		}
 
 		if (hoveredSlot == noneHovered || !lmb && !rmb)
-			return super.mouseClicked(pMouseX, pMouseY, pButton);
+			return super.mouseClicked(event, doubleClick);
 
 		// Items
 		boolean orderClicked = hoveredSlot.getFirst() == -1;
@@ -1216,14 +1225,17 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 	}
 
 	@Override
-	public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
+	public boolean mouseReleased(MouseButtonEvent event) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
 		if (pButton == GLFW.GLFW_MOUSE_BUTTON_LEFT && scrollHandleActive) {
 			scrollHandleActive = false;
 			if (minecraft.isWindowActive())
 				GLFW.glfwSetInputMode(minecraft.getWindow()
 					.getWindow(), 208897, GLFW.GLFW_CURSOR_NORMAL);
 		}
-		return super.mouseReleased(pMouseX, pMouseY, pButton);
+		return super.mouseReleased(event);
 	}
 
 	@Override
@@ -1345,13 +1357,15 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 	}
 
 	@Override
-	public boolean charTyped(char pCodePoint, int pModifiers) {
+	public boolean charTyped(CharacterEvent event) {
+		char pCodePoint = (char) event.codepoint();
+		int pModifiers = 0;
 		if (ignoreTextInput)
 			return false;
-		if (addressBox.isFocused() && addressBox.charTyped(pCodePoint, pModifiers))
+		if (addressBox.isFocused() && addressBox.charTyped(event))
 			return true;
 		String s = searchBox.getValue();
-		if (!searchBox.charTyped(pCodePoint, pModifiers))
+		if (!searchBox.charTyped(event))
 			return false;
 		if (!Objects.equals(s, searchBox.getValue())) {
 			refreshSearchNextTick = true;
@@ -1362,7 +1376,10 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 	}
 
 	@Override
-	public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
+	public boolean keyPressed(KeyEvent event) {
+		int pKeyCode = event.key();
+		int pScanCode = event.scancode();
+		int pModifiers = event.modifiers();
 		ignoreTextInput = false;
 		if (!addressBox.isFocused() && !searchBox.isFocused() && minecraft.options.keyChat.matches(pKeyCode, pScanCode)) {
 			ignoreTextInput = true;
@@ -1380,13 +1397,13 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			return true;
 		}
 
-		if (addressBox.isFocused() && addressBox.keyPressed(pKeyCode, pScanCode, pModifiers))
+		if (addressBox.isFocused() && addressBox.keyPressed(event))
 			return true;
 
 		String s = searchBox.getValue();
-		if (!searchBox.keyPressed(pKeyCode, pScanCode, pModifiers)) {
+		if (!searchBox.keyPressed(event)) {
 			return searchBox.isFocused() && searchBox.isVisible() && pKeyCode != 256
-				|| super.keyPressed(pKeyCode, pScanCode, pModifiers);
+				|| super.keyPressed(event);
 		}
 		if (!Objects.equals(s, searchBox.getValue())) {
 			refreshSearchNextTick = true;

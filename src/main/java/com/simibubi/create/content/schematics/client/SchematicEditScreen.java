@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.client;
 
+import net.minecraft.client.input.KeyEvent;
+
 import java.util.List;
 
 import com.simibubi.create.AllDataComponents;
@@ -82,7 +84,7 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 			widget.setBordered(false);
 			widget.setTextColor(0xFFFFFF);
 			widget.setFocused(false);
-			widget.mouseClicked(0, 0, 0);
+			widget.mouseClicked(event, doubleClick);
 			widget.setFilter(s -> {
 				if (s.isEmpty() || s.equals("-"))
 					return true;
@@ -123,7 +125,10 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean keyPressed(int code, int p_keyPressed_2_, int p_keyPressed_3_) {
+	public boolean keyPressed(KeyEvent event) {
+		int code = event.key();
+		int p_keyPressed_2_ = event.scancode();
+		int p_keyPressed_3_ = event.modifiers();
 		if (isPaste(code)) {
 			String coords = minecraft.keyboardHandler.getClipboard();
 			if (coords != null && !coords.isEmpty()) {
@@ -148,7 +153,7 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 			}
 		}
 
-		return super.keyPressed(code, p_keyPressed_2_, p_keyPressed_3_);
+		return super.keyPressed(event);
 	}
 
 	@Override

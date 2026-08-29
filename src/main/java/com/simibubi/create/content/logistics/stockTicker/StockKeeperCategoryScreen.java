@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import net.minecraft.client.input.KeyEvent;
+
+import net.minecraft.client.input.MouseButtonEvent;
+
 import com.simibubi.create.foundation.gui.Modifiers;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -96,7 +100,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		editorEditBox.setTextColor(0xffeeeeee);
 		editorEditBox.setBordered(false);
 		editorEditBox.setFocused(false);
-		editorEditBox.mouseClicked(0, 0, 0);
+		editorEditBox.mouseClicked(event, doubleClick);
 		editorEditBox.setMaxLength(28);
 		editorEditBox.setValue(index == -1 || schedule.get(index)
 			.isEmpty() ? CreateLang.translate("gui.stock_ticker.new_category")
@@ -361,7 +365,10 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	}
 
 	@Override
-	public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
 		if (editorConfirm != null && editorConfirm.isMouseOver(pMouseX, pMouseY)) {
 			stopEditing();
 			return true;
@@ -372,7 +379,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		}
 
 		boolean wasNotFocused = editorEditBox != null && !editorEditBox.isFocused();
-		boolean mouseClicked = super.mouseClicked(pMouseX, pMouseY, pButton);
+		boolean mouseClicked = super.mouseClicked(event, doubleClick);
 
 		if (editorEditBox != null && editorEditBox.isMouseOver(pMouseX, pMouseY) && wasNotFocused) {
 			editorEditBox.moveCursorToEnd(false);
@@ -383,9 +390,12 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	}
 
 	@Override
-	public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
+	public boolean keyPressed(KeyEvent event) {
+		int pKeyCode = event.key();
+		int pScanCode = event.scancode();
+		int pModifiers = event.modifiers();
 		if (editingItem == null)
-			return super.keyPressed(pKeyCode, pScanCode, pModifiers);
+			return super.keyPressed(event);
 
 		InputConstants.Key mouseKey = InputConstants.getKey(pKeyCode, pScanCode);
 		boolean hitEscape = pKeyCode == GLFW.GLFW_KEY_ESCAPE;
@@ -396,7 +406,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 			return true;
 		}
 
-		return super.keyPressed(pKeyCode, pScanCode, pModifiers);
+		return super.keyPressed(event);
 	}
 
 	@Override

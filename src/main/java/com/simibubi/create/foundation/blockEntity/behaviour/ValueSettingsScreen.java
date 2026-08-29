@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import net.minecraft.client.input.MouseButtonEvent;
+
 import com.simibubi.create.foundation.gui.Modifiers;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -309,12 +311,15 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
+	public boolean mouseReleased(MouseButtonEvent event) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
 		if (minecraft.options.keyUse.matchesMouse(pButton)) {
 			saveAndClose(pMouseX, pMouseY);
 			return true;
 		}
-		return super.mouseReleased(pMouseX, pMouseY, pButton);
+		return super.mouseReleased(event);
 	}
 
 	protected void saveAndClose(double pMouseX, double pMouseY) {

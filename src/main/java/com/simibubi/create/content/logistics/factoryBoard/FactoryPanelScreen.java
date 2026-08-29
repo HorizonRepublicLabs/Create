@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.client.input.MouseButtonEvent;
+
 import com.simibubi.create.foundation.gui.Modifiers;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -461,7 +463,10 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 	//
 
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int pButton) {
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		double mouseX = event.x();
+		double mouseY = event.y();
+		int pButton = event.button();
 		if (getFocused() != null && !getFocused().isMouseOver(mouseX, mouseY))
 			setFocused(null);
 
@@ -499,7 +504,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 			return true;
 		}
 
-		return super.mouseClicked(mouseX, mouseY, pButton);
+		return super.mouseClicked(event, doubleClick);
 	}
 
 	public void playButtonSound() {

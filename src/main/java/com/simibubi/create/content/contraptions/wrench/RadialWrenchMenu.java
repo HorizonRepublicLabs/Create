@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.wrench;
 
+import net.minecraft.client.input.MouseButtonEvent;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -394,7 +396,10 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+	public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
 		if (pButton == InputConstants.MOUSE_BUTTON_LEFT) {
 			submitChange();
 			return true;
@@ -403,7 +408,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 			return true;
 		}
 
-		return super.mouseClicked(pMouseX, pMouseY, pButton);
+		return super.mouseClicked(event, doubleClick);
 	}
 
 	@Override
