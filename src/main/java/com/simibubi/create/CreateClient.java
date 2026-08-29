@@ -31,8 +31,6 @@ import com.simibubi.create.foundation.render.AllInstanceTypes;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.gui.CreateMainMenuScreen;
 
-import net.createmod.catnip.api.client.config.BaseConfigScreen;
-import net.createmod.catnip.api.client.config.ConfigScreen;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBufferCache;
 import net.createmod.ponder.api.client.PonderIndex;
@@ -118,23 +116,10 @@ public class CreateClient {
 		setupConfigUIBackground();
 	}
 
-	private static void setupConfigUIBackground() {
-		ConfigScreen.backgrounds.put(Create.ID, (screen, graphics, partialTicks) -> {
-			CreateMainMenuScreen.PANORAMA.render(graphics, screen.width, screen.height, 1, partialTicks);
-
-			//RenderSystem.setShaderTexture(0, CreateMainMenuScreen.PANORAMA_OVERLAY_TEXTURES);
-			graphics.blit(CreateMainMenuScreen.PANORAMA_OVERLAY_TEXTURES, 0, 0, screen.width, screen.height, 0.0F, 0.0F, 16, 128, 16, 128);
-
-			graphics.fill(0, 0, screen.width, screen.height, 0x90_282c34);
-		});
-
-		ConfigScreen.shadowState = AllBlocks.LARGE_COGWHEEL.getDefaultState().setValue(CogWheelBlock.AXIS, Direction.Axis.Y);
-
-		BaseConfigScreen.setDefaultActionFor(Create.ID, base -> base
-				.withButtonLabels("Client Settings", "World Generation Settings", "Gameplay Settings")
-				.withSpecs(AllConfigs.client().specification, AllConfigs.common().specification, AllConfigs.server().specification)
-		);
-	}
+	/// catnip's config gui is excluded from the 26.2 build -- it still needs
+	/// NeoForge's ModConfigSpec, which the common module cannot see -- so
+	/// Create's styling of it has nothing to attach to yet.
+	private static void setupConfigUIBackground() {}
 
 	public static void invalidateRenderers() {
 		SCHEMATIC_HANDLER.updateRenderers();

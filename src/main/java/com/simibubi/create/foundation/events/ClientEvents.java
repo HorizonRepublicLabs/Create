@@ -78,7 +78,6 @@ import com.simibubi.create.infrastructure.command.AllCommands;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
 import net.createmod.catnip.api.client.animation.AnimationTickHolder;
-import net.createmod.catnip.api.client.config.BaseConfigScreen;
 import net.createmod.catnip.api.client.level.wrapper.WrappedClientLevel;
 import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -411,7 +410,6 @@ public class ClientEvents {
 		ModContainer createContainer = ModList.get()
 			.getModContainerById(Create.ID)
 			.orElseThrow(() -> new IllegalStateException("Create mod container missing on LoadComplete"));
-		Supplier<IConfigScreenFactory> configScreen = () -> (mc, previousScreen) -> new BaseConfigScreen(previousScreen, Create.ID);
-		createContainer.registerExtensionPoint(IConfigScreenFactory.class, configScreen);
+		// no config screen to register while catnip's config gui is excluded
 	}
 }
