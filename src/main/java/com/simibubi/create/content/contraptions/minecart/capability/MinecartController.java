@@ -57,7 +57,7 @@ import net.neoforged.neoforge.common.util.ValueIOSerializable;
 public class MinecartController implements ValueIOSerializable {
 	public static final MinecartController EMPTY = new MinecartController.Empty();
 
-	public static final IAttachmentSerializer<CompoundTag, MinecartController> SERIALIZER = Type.SERIALIZER;
+	public static final IAttachmentSerializer<MinecartController> SERIALIZER = Type.SERIALIZER;
 
 	private boolean needsEntryRefresh;
 	private WeakReference<AbstractMinecart> weakRef;
@@ -594,34 +594,36 @@ public class MinecartController implements ValueIOSerializable {
 	protected enum Type implements StringRepresentable {
 		EMPTY(new IAttachmentSerializer<>() {
 			@Override
-			public @NotNull MinecartController read(@NotNull IAttachmentHolder holder, @NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
+			public @NotNull MinecartController read(@NotNull IAttachmentHolder holder, @NotNull ValueInput input) {
 				return MinecartController.EMPTY;
 			}
 
 			@Override
-			public CompoundTag write(@NotNull MinecartController attachment, @NotNull HolderLookup.Provider provider) {
-				return attachment.serializeNBT(provider);
+			public boolean write(@NotNull MinecartController attachment, @NotNull ValueOutput output) {
+				attachment.serialize(output);
+				return true;
 			}
 		}),
 		NORMAL(new IAttachmentSerializer<>() {
 			@Override
-			public @NotNull MinecartController read(@NotNull IAttachmentHolder holder, @NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
+			public @NotNull MinecartController read(@NotNull IAttachmentHolder holder, @NotNull ValueInput input) {
 				MinecartController controller = new MinecartController(null);
-				controller.deserializeNBT(provider, tag);
+				controller.deserialize(input);
 				return controller;
 			}
 
 			@Override
-			public @Nullable CompoundTag write(@NotNull MinecartController attachment, @NotNull HolderLookup.Provider provider) {
-				return attachment.serializeNBT(provider);
+			public boolean write(@NotNull MinecartController attachment, @NotNull ValueOutput output) {
+				attachment.serialize(output);
+				return true;
 			}
 		});
 
 		public static final Codec<Type> CODEC = StringRepresentable.fromValues(Type::values);
 
-		private final IAttachmentSerializer<CompoundTag, MinecartController> serializer;
+		private final IAttachmentSerializer<MinecartController> serializer;
 
-		private static final IAttachmentSerializer<CompoundTag, MinecartController> SERIALIZER = new IAttachmentSerializer<>() {
+		private static final IAttachmentSerializer<MinecartController> SERIALIZER = new IAttachmentSerializer<>() {
 			@Override
 			public @NotNull MinecartController read(@NotNull IAttachmentHolder holder, @NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
 				return Type.valueOf(tag.getStringOr("Type", "")).getSerializer().read(holder, tag, provider);
@@ -637,11 +639,11 @@ public class MinecartController implements ValueIOSerializable {
 			}
 		};
 
-		Type(IAttachmentSerializer<CompoundTag, MinecartController> serializer) {
+		Type(IAttachmentSerializer<MinecartController> serializer) {
 			this.serializer = serializer;
 		}
 
-		public IAttachmentSerializer<CompoundTag, MinecartController> getSerializer() {
+		public IAttachmentSerializer<MinecartController> getSerializer() {
 			return serializer;
 		}
 
