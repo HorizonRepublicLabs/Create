@@ -299,7 +299,7 @@ public class ExtendoGripItem extends Item {
 
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
-	public static void notifyServerOfLongRangeSpecificInteractions(PlayerInteractEvent.EntityInteractSpecific event) {
+	public static void notifyServerOfLongRangeSpecificInteractions(PlayerInteractEvent.EntityInteract event) {
 		Player entity = event.getEntity();
 		Entity target = event.getTarget();
 		if (!isUncaughtClientInteraction(entity, target))

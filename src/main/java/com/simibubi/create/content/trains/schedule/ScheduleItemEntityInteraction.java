@@ -19,13 +19,13 @@ import net.minecraft.world.item.ItemStack;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteractSpecific;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 
 @EventBusSubscriber
 public class ScheduleItemEntityInteraction {
 
 	@SubscribeEvent
-	public static void interactWithConductor(EntityInteractSpecific event) {
+	public static void interactWithConductor(EntityInteract event) {
 		Entity entity = event.getTarget();
 		Player player = event.getEntity();
 		if (player == null || entity == null)

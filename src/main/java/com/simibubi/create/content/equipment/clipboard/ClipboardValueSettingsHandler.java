@@ -40,7 +40,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent.Block;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteractSpecific;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem;
@@ -176,7 +176,7 @@ public class ClipboardValueSettingsHandler {
 				cancellableEvent.setCanceled(true);
 
 				switch (event) {
-					case EntityInteractSpecific e -> e.setCancellationResult(InteractionResult.SUCCESS);
+					case EntityInteract e -> e.setCancellationResult(InteractionResult.SUCCESS);
 					case EntityInteract e -> e.setCancellationResult(InteractionResult.SUCCESS);
 					case RightClickBlock e -> e.setCancellationResult(InteractionResult.SUCCESS);
 					case RightClickItem e -> e.setCancellationResult(InteractionResult.SUCCESS);
