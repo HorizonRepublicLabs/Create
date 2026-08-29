@@ -151,7 +151,6 @@ public class RemovedGuiUtils {
 		else if (tooltipY + tooltipHeight + 4 > screenHeight)
 			tooltipY = screenHeight - tooltipHeight - 4;
 
-		final int zLevel = 400;
 		RenderTooltipEvent.Color colorEvent = new RenderTooltipEvent.Color(stack, graphics, tooltipX, tooltipY,
 			font, backgroundColor, borderColorStart, borderColorEnd, list);
 		NeoForge.EVENT_BUS.post(colorEvent);
@@ -163,23 +162,23 @@ public class RemovedGuiUtils {
 		Matrix4f mat = pStack.last()
 			.pose();
 		graphics.fillGradient(tooltipX - 3, tooltipY - 4, tooltipX + tooltipTextWidth + 3,
-			tooltipY - 3, zLevel, backgroundColor, backgroundColor);
+			tooltipY - 3, backgroundColor, backgroundColor);
 		graphics.fillGradient(tooltipX - 3, tooltipY + tooltipHeight + 3,
-			tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 4, zLevel, backgroundColor, backgroundColor);
+			tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 4, backgroundColor, backgroundColor);
 		graphics.fillGradient(tooltipX - 3, tooltipY - 3, tooltipX + tooltipTextWidth + 3,
-			tooltipY + tooltipHeight + 3, zLevel, backgroundColor, backgroundColor);
+			tooltipY + tooltipHeight + 3, backgroundColor, backgroundColor);
 		graphics.fillGradient(tooltipX - 4, tooltipY - 3, tooltipX - 3, tooltipY + tooltipHeight + 3,
-			zLevel, backgroundColor, backgroundColor);
+			backgroundColor, backgroundColor);
 		graphics.fillGradient(tooltipX + tooltipTextWidth + 3, tooltipY - 3,
-			tooltipX + tooltipTextWidth + 4, tooltipY + tooltipHeight + 3, zLevel, backgroundColor, backgroundColor);
+			tooltipX + tooltipTextWidth + 4, tooltipY + tooltipHeight + 3, backgroundColor, backgroundColor);
 		graphics.fillGradient(tooltipX - 3, tooltipY - 3 + 1, tooltipX - 3 + 1,
-			tooltipY + tooltipHeight + 3 - 1, zLevel, borderColorStart, borderColorEnd);
+			tooltipY + tooltipHeight + 3 - 1, borderColorStart, borderColorEnd);
 		graphics.fillGradient(tooltipX + tooltipTextWidth + 2, tooltipY - 3 + 1,
-			tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3 - 1, zLevel, borderColorStart, borderColorEnd);
+			tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3 - 1, borderColorStart, borderColorEnd);
 		graphics.fillGradient(tooltipX - 3, tooltipY - 3, tooltipX + tooltipTextWidth + 3,
-			tooltipY - 3 + 1, zLevel, borderColorStart, borderColorStart);
+			tooltipY - 3 + 1, borderColorStart, borderColorStart);
 		graphics.fillGradient(tooltipX - 3, tooltipY + tooltipHeight + 2,
-			tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, zLevel, borderColorEnd, borderColorEnd);
+			tooltipX + tooltipTextWidth + 3, tooltipY + tooltipHeight + 3, borderColorEnd, borderColorEnd);
 
 		SuperRenderTypeBuffer renderType = graphics.bufferSource();
 		pStack.translate(0.0D, 0.0D);

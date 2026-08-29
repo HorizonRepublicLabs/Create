@@ -155,12 +155,11 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		int fadeInStart = (bgWidth - fadeInWidth) / 2 - fatTipOffset;
 		int additionalHeight = iconMode ? 46 : 33;
 
-		int zLevel = 0;
 		UIRenderHelper.drawStretched(graphics, x - 11 + fadeInStart, y - 17, fadeInWidth,
-			windowHeight + additionalHeight, zLevel, AllGuiTextures.VALUE_SETTINGS_OUTER_BG);
-		UIRenderHelper.drawStretched(graphics, x - 10 + fadeInStart, y - 18, fadeInWidth - 2, 1, zLevel,
+			windowHeight + additionalHeight, AllGuiTextures.VALUE_SETTINGS_OUTER_BG);
+		UIRenderHelper.drawStretched(graphics, x - 10 + fadeInStart, y - 18, fadeInWidth - 2, 1,
 			AllGuiTextures.VALUE_SETTINGS_OUTER_BG);
-		UIRenderHelper.drawStretched(graphics, x - 10 + fadeInStart, y - 17 + windowHeight + additionalHeight, zLevel,
+		UIRenderHelper.drawStretched(graphics, x - 10 + fadeInStart, y - 17 + windowHeight + additionalHeight,
 			fadeInWidth - 2, 1, AllGuiTextures.VALUE_SETTINGS_OUTER_BG);
 
 		if (fadeInWidth > fattestLabel) {
@@ -173,18 +172,18 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		renderBrassFrame(graphics, x + maxLabelWidth + 14, y - 3, valueBarWidth + 8, board.rows()
 			.size() * 11 + 5);
 		UIRenderHelper.drawStretched(graphics, x + maxLabelWidth + 17, y, valueBarWidth + 2, board.rows()
-			.size() * 11 - 1, zLevel, AllGuiTextures.VALUE_SETTINGS_BAR_BG);
+			.size() * 11 - 1, AllGuiTextures.VALUE_SETTINGS_BAR_BG);
 
 		int originalY = y;
 		for (Component component : board.rows()) {
 			int valueBarX = x + maxLabelWidth + 14 + 4;
 
 			if (!iconMode) {
-				UIRenderHelper.drawCropped(graphics, x - 4, y, maxLabelWidth + 8, 11, zLevel,
+				UIRenderHelper.drawCropped(graphics, x - 4, y, maxLabelWidth + 8, 11,
 					AllGuiTextures.VALUE_SETTINGS_LABEL_BG);
 				for (int w = 0; w < valueBarWidth; w += AllGuiTextures.VALUE_SETTINGS_BAR.getWidth() - 1)
 					UIRenderHelper.drawCropped(graphics, valueBarX + w, y + 1,
-						Math.min(AllGuiTextures.VALUE_SETTINGS_BAR.getWidth() - 1, valueBarWidth - w), 8, zLevel,
+						Math.min(AllGuiTextures.VALUE_SETTINGS_BAR.getWidth() - 1, valueBarWidth - w), 8,
 						AllGuiTextures.VALUE_SETTINGS_BAR);
 				graphics.text(font, component, x, y + 1, 0x442000, false);
 			}
@@ -247,7 +246,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		}
 
 		AllGuiTextures.VALUE_SETTINGS_CURSOR_LEFT.render(graphics, cursorX - 3, cursorY);
-		UIRenderHelper.drawCropped(graphics, cursorX, cursorY, cursorWidth, 14, zLevel,
+		UIRenderHelper.drawCropped(graphics, cursorX, cursorY, cursorWidth, 14,
 			AllGuiTextures.VALUE_SETTINGS_CURSOR);
 		AllGuiTextures.VALUE_SETTINGS_CURSOR_RIGHT.render(graphics, cursorX + cursorWidth, cursorY);
 
@@ -259,17 +258,16 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		AllGuiTextures.BRASS_FRAME_TR.render(graphics, x + w - 4, y);
 		AllGuiTextures.BRASS_FRAME_BL.render(graphics, x, y + h - 4);
 		AllGuiTextures.BRASS_FRAME_BR.render(graphics, x + w - 4, y + h - 4);
-		int zLevel = 0;
 
 		if (h > 8) {
-			UIRenderHelper.drawStretched(graphics, x, y + 4, 3, h - 8, zLevel, AllGuiTextures.BRASS_FRAME_LEFT);
-			UIRenderHelper.drawStretched(graphics, x + w - 3, y + 4, 3, h - 8, zLevel,
+			UIRenderHelper.drawStretched(graphics, x, y + 4, 3, h - 8, AllGuiTextures.BRASS_FRAME_LEFT);
+			UIRenderHelper.drawStretched(graphics, x + w - 3, y + 4, 3, h - 8,
 				AllGuiTextures.BRASS_FRAME_RIGHT);
 		}
 
 		if (w > 8) {
-			UIRenderHelper.drawCropped(graphics, x + 4, y, w - 8, 3, zLevel, AllGuiTextures.BRASS_FRAME_TOP);
-			UIRenderHelper.drawCropped(graphics, x + 4, y + h - 3, w - 8, 3, zLevel, AllGuiTextures.BRASS_FRAME_BOTTOM);
+			UIRenderHelper.drawCropped(graphics, x + 4, y, w - 8, 3, AllGuiTextures.BRASS_FRAME_TOP);
+			UIRenderHelper.drawCropped(graphics, x + 4, y + h - 3, w - 8, 3, AllGuiTextures.BRASS_FRAME_BOTTOM);
 		}
 
 	}

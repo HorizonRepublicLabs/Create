@@ -478,16 +478,14 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 
 		graphics.disableScissor();
 
-		int zLevel = 200;
-		graphics.fillGradient(leftPos + 16, topPos + 16, leftPos + 16 + 220, topPos + 16 + 10, zLevel, 0x77000000,
+		graphics.fillGradient(leftPos + 16, topPos + 16, leftPos + 16 + 220, topPos + 16 + 10, 0x77000000,
 			0x00000000);
-		graphics.fillGradient(leftPos + 16, topPos + 179, leftPos + 16 + 220, topPos + 179 + 10, zLevel, 0x00000000,
+		graphics.fillGradient(leftPos + 16, topPos + 179, leftPos + 16 + 220, topPos + 179 + 10, 0x00000000,
 			0x77000000);
 	}
 
 	public int renderScheduleEntry(GuiGraphicsExtractor graphics, ScheduleEntry entry, int yOffset, int mouseX, int mouseY,
 								   float partialTicks) {
-		int zLevel = 0;
 
 		AllGuiTextures light = AllGuiTextures.SCHEDULE_CARD_LIGHT;
 		AllGuiTextures medium = AllGuiTextures.SCHEDULE_CARD_MEDIUM;
@@ -505,11 +503,11 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		matrixStack.pushPose();
 		matrixStack.translate(leftPos + 25, topPos + yOffset, 0);
 
-		UIRenderHelper.drawStretched(graphics, 0, 1, cardWidth, cardHeight - 2, zLevel, light);
-		UIRenderHelper.drawStretched(graphics, 1, 0, cardWidth - 2, cardHeight, zLevel, light);
-		UIRenderHelper.drawStretched(graphics, 1, 1, cardWidth - 2, cardHeight - 2, zLevel, dark);
-		UIRenderHelper.drawStretched(graphics, 2, 2, cardWidth - 4, cardHeight - 4, zLevel, medium);
-		UIRenderHelper.drawStretched(graphics, 2, 2, cardWidth - 4, cardHeader, zLevel,
+		UIRenderHelper.drawStretched(graphics, 0, 1, cardWidth, cardHeight - 2, light);
+		UIRenderHelper.drawStretched(graphics, 1, 0, cardWidth - 2, cardHeight, light);
+		UIRenderHelper.drawStretched(graphics, 1, 1, cardWidth - 2, cardHeight - 2, dark);
+		UIRenderHelper.drawStretched(graphics, 2, 2, cardWidth - 4, cardHeight - 4, medium);
+		UIRenderHelper.drawStretched(graphics, 2, 2, cardWidth - 4, cardHeader,
 			supportsConditions ? light : medium);
 
 		AllGuiTextures.SCHEDULE_CARD_REMOVE.render(graphics, cardWidth - 14, 2);
@@ -521,7 +519,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		if (i < schedule.entries.size() - 1)
 			AllGuiTextures.SCHEDULE_CARD_MOVE_DOWN.render(graphics, cardWidth, cardHeader);
 
-		UIRenderHelper.drawStretched(graphics, 8, 0, 3, cardHeight + 10, zLevel, AllGuiTextures.SCHEDULE_STRIP_LIGHT);
+		UIRenderHelper.drawStretched(graphics, 8, 0, 3, cardHeight + 10, AllGuiTextures.SCHEDULE_STRIP_LIGHT);
 		(supportsConditions ? AllGuiTextures.SCHEDULE_STRIP_TRAVEL : AllGuiTextures.SCHEDULE_STRIP_ACTION)
 			.render(graphics, 4, 6);
 
@@ -571,9 +569,8 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		if (xOffset + 16 > cardWidth - 26) {
 			TransformStack.of(matrixStack)
 				.rotateZDegrees(-90);
-			int zLevel = 200;
-			graphics.fillGradient(-cardHeight + 2, 18, -2 - cardHeader, 28, zLevel, 0x44000000, 0x00000000);
-			graphics.fillGradient(-cardHeight + 2, cardWidth - 26, -2 - cardHeader, cardWidth - 16, zLevel, 0x00000000,
+			graphics.fillGradient(-cardHeight + 2, 18, -2 - cardHeader, 28, 0x44000000, 0x00000000);
+			graphics.fillGradient(-cardHeight + 2, cardWidth - 26, -2 - cardHeader, cardWidth - 16, 0x00000000,
 				0x44000000);
 		}
 
