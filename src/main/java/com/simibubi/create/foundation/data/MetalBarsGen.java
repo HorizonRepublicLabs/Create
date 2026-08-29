@@ -131,7 +131,7 @@ public class MetalBarsGen {
 			.tag(AllBlockTags.WRENCH_PICKUP.tag)
 			.tag(AllBlockTags.FAN_TRANSPARENT.tag)
 			.transform(TagGen.pickaxeOnly())
-			.blockstate(barsBlockState(name, specialEdge))
+			.blockstate(() -> barsBlockState(name, specialEdge))
 			.item()
 			.model((c, p) -> {
 				Identifier barsTexture = p.modLoc("block/bars/" + name + "_bars");

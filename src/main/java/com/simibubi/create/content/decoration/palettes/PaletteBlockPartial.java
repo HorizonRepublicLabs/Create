@@ -57,7 +57,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 
 		BlockBuilder<B, CreateRegistrate> blockBuilder = Create.registrate()
 			.block(blockName, p -> createBlock(block))
-			.blockstate((c, p) -> generateBlockState(c, p, variantName, pattern, block))
+			.blockstate(() -> (c, p) -> generateBlockState(c, p, variantName, pattern, block))
 			.recipe((c, p) -> createRecipes(variant, block, c, p))
 			.transform(b -> transformBlock(b, variantName, pattern));
 

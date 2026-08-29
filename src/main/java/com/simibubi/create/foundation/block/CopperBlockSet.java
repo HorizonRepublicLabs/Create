@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.block;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Locale;
@@ -129,7 +131,7 @@ public class CopperBlockSet {
 		BlockBuilder<T, ?> builder = registrate.block(name, variant.getFactory(this, state, waxed))
 			.initialProperties(() -> baseBlock.get())
 			.loot((lt, block) -> variant.generateLootTable(lt, block, this, state, waxed))
-			.blockstate((ctx, prov) -> variant.generateBlockState(ctx, prov, this, state, waxed))
+			.blockstate(() -> (ctx, prov) -> variant.generateBlockState(ctx, prov, this, state, waxed))
 			.transform(TagGen.pickaxeOnly())
 			.onRegister(block -> onRegister.accept(state, block))
 			.tag(BlockTags.NEEDS_STONE_TOOL)
@@ -249,11 +251,11 @@ public class CopperBlockSet {
 			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
 			if (Objects.equals(blocks.getName(), blocks.getEndTextureName())) {
 				// End texture and base texture are equal, so we should use cube_all.
-				prov.simpleBlock(block, prov.models().cubeAll(path, texture));
+				VariantModels.simpleBlock(prov, block, prov.models().cubeAll(path, texture));
 			} else {
 				// End texture and base texture aren't equal, so we should use cube_column.
 				Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
-				prov.simpleBlock(block, prov.models()
+				VariantModels.simpleBlock(prov, block, prov.models()
 					.cubeColumn(path, texture, endTexture));
 			}
 

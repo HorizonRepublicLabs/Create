@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySource;
 import static com.simibubi.create.api.behaviour.display.DisplayTarget.displayTarget;
 import static com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour.interactionBehaviour;
@@ -338,7 +340,7 @@ public class AllBlocks {
 			.initialProperties(() -> Blocks.DISPENSER)
 			.properties(p -> p.mapColor(MapColor.COLOR_GRAY))
 			.transform(pickaxeOnly())
-			.blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+			.blockstate(() -> (ctx, prov) -> VariantModels.simpleBlock(prov, ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
 			.loot((lt, block) -> {
 				Builder builder = LootTable.lootTable();
 				LootItemCondition.Builder survivesExplosion = ExplosionCondition.survivesExplosion();
@@ -360,7 +362,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.PODZOL)
 				.forceSolidOn())
 			.transform(axeOrPickaxe())
-			.blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
+			.blockstate(() -> (ctx, prov) -> VariantModels.horizontalBlock(prov, ctx.getEntry(), prov.models()
 				.getExistingFile(ctx.getId()), 0))
 			.simpleItem()
 			.register();
@@ -372,7 +374,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.METAL).forceSolidOff())
 		.transform(CStress.setNoImpact())
 		.transform(pickaxeOnly())
-		.blockstate(BlockStateGen.axisBlockProvider(false))
+		.blockstate(() -> BlockStateGen.axisBlockProvider(false))
 		.onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
 		.simpleItem()
 		.register();
@@ -383,7 +385,7 @@ public class AllBlocks {
 			.mapColor(MapColor.DIRT))
 		.transform(CStress.setNoImpact())
 		.transform(axeOrPickaxe())
-		.blockstate(BlockStateGen.axisBlockProvider(false))
+		.blockstate(() -> BlockStateGen.axisBlockProvider(false))
 		.onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
 		.item(CogwheelBlockItem::new)
 		.build()
@@ -396,7 +398,7 @@ public class AllBlocks {
 				.mapColor(MapColor.DIRT))
 			.transform(axeOrPickaxe())
 			.transform(CStress.setNoImpact())
-			.blockstate(BlockStateGen.axisBlockProvider(false))
+			.blockstate(() -> BlockStateGen.axisBlockProvider(false))
 			.onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
 			.item(CogwheelBlockItem::new)
 			.build()
@@ -466,7 +468,7 @@ public class AllBlocks {
 		.onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(AllSpriteShifts.ANDESITE_CASING)))
 		.onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, AllSpriteShifts.ANDESITE_CASING,
 			(s, f) -> f.getAxis() == s.getValue(GearboxBlock.AXIS))))
-		.blockstate((c, p) -> axisBlock(c, p, $ -> AssetLookup.partialBaseModel(c, p), true))
+		.blockstate(() -> (c, p) -> axisBlock(c, p, $ -> AssetLookup.partialBaseModel(c, p), true))
 		.item()
 		.transform(customItemModel())
 		.register();
@@ -477,7 +479,7 @@ public class AllBlocks {
 			.mapColor(MapColor.PODZOL))
 		.transform(CStress.setNoImpact())
 		.transform(axeOrPickaxe())
-		.blockstate((c, p) -> BlockStateGen.axisBlock(c, p, AssetLookup.forPowered(c, p)))
+		.blockstate(() -> (c, p) -> BlockStateGen.axisBlock(c, p, AssetLookup.forPowered(c, p)))
 		.item()
 		.transform(customItemModel())
 		.register();
@@ -488,7 +490,7 @@ public class AllBlocks {
 			.mapColor(MapColor.PODZOL))
 		.transform(CStress.setNoImpact())
 		.transform(axeOrPickaxe())
-		.blockstate((c, p) -> BlockStateGen.axisBlock(c, p, AssetLookup.forPowered(c, p)))
+		.blockstate(() -> (c, p) -> BlockStateGen.axisBlock(c, p, AssetLookup.forPowered(c, p)))
 		.item()
 		.transform(customItemModel())
 		.register();
@@ -500,7 +502,7 @@ public class AllBlocks {
 				.mapColor(MapColor.PODZOL))
 			.transform(CStress.setNoImpact())
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> new ChainDriveGenerator((state, suffix) -> p.models()
+			.blockstate(() -> (c, p) -> new ChainDriveGenerator((state, suffix) -> p.models()
 				.getExistingFile(p.modLoc("block/" + c.getName() + "/" + suffix))).generate(c, p))
 			.item()
 			.transform(customItemModel())
@@ -513,7 +515,7 @@ public class AllBlocks {
 				.mapColor(MapColor.NETHER))
 			.transform(CStress.setNoImpact())
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> new ChainDriveGenerator((state, suffix) -> {
+			.blockstate(() -> (c, p) -> new ChainDriveGenerator((state, suffix) -> {
 				String powered = state.getValue(ChainGearshiftBlock.POWERED) ? "_powered" : "";
 				return p.models()
 					.withExistingParent(c.getName() + "_" + suffix + powered,
@@ -531,7 +533,7 @@ public class AllBlocks {
 			.strength(0.8f)
 			.mapColor(MapColor.COLOR_GRAY))
 		.transform(axeOrPickaxe())
-		.blockstate(new BeltGenerator()::generate)
+		.blockstate(() -> new BeltGenerator()::generate)
 		.transform(CStress.setNoImpact())
 		.transform(displaySource(AllDisplaySources.ITEM_NAMES))
 		.onRegister(CreateRegistrate.blockModel(() -> BeltModel::new))
@@ -546,7 +548,7 @@ public class AllBlocks {
 			.transform(axeOrPickaxe())
 			.transform(CStress.setImpact(1))
 			.transform(CStress.setImpact(1))
-			.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 			.item()
 			.transform(customItemModel())
 			.register();
@@ -558,7 +560,7 @@ public class AllBlocks {
 				.forceSolidOn())
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.transform(pickaxeOnly())
-			.blockstate(new CreativeMotorGenerator()::generate)
+			.blockstate(() -> new CreativeMotorGenerator()::generate)
 			.transform(CStress.setCapacity(16384.0))
 			.onRegister(BlockStressValues.setGeneratorSpeed(256, true))
 			.item()
@@ -571,7 +573,7 @@ public class AllBlocks {
 		.properties(p -> p.noOcclusion()
 			.mapColor(MapColor.DIRT))
 		.transform(axeOrPickaxe())
-		.blockstate(
+		.blockstate(() -> 
 			(c, p) -> BlockStateGen.directionalBlockIgnoresWaterlogged(c, p, s -> AssetLookup.partialBaseModel(c, p)))
 		.transform(CStress.setCapacity(32))
 		.onRegister(BlockStressValues.setGeneratorSpeed(8))
@@ -585,7 +587,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.DIRT))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> axisBlock(c, p,
+			.blockstate(() -> (c, p) -> axisBlock(c, p,
 				s -> s.getValue(LargeWaterWheelBlock.EXTENSION) ? AssetLookup.partialBaseModel(c, p, "extension")
 					: AssetLookup.partialBaseModel(c, p)))
 			.transform(CStress.setCapacity(128.0))
@@ -598,7 +600,7 @@ public class AllBlocks {
 		REGISTRATE.block("water_wheel_structure", WaterWheelStructuralBlock::new)
 			.initialProperties(SharedProperties::wooden)
 			.clientExtension(() -> () -> new WaterWheelStructuralBlock.RenderProperties())
-			.blockstate((c, p) -> p.getVariantBuilder(c.get())
+			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
 				.forAllStatesExcept(BlockStateGen.mapToAir(p), WaterWheelStructuralBlock.FACING))
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.DIRT))
@@ -609,7 +611,7 @@ public class AllBlocks {
 	public static final BlockEntry<EncasedFanBlock> ENCASED_FAN = REGISTRATE.block("encased_fan", EncasedFanBlock::new)
 		.initialProperties(SharedProperties::stone)
 		.properties(p -> p.mapColor(MapColor.PODZOL))
-		.blockstate(BlockStateGen.directionalBlockProvider(true))
+		.blockstate(() -> BlockStateGen.directionalBlockProvider(true))
 		.transform(axeOrPickaxe())
 		.transform(CStress.setImpact(2.0))
 		.item()
@@ -621,7 +623,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.COLOR_LIGHT_GRAY))
 		.tag(AllBlockTags.BRITTLE.tag)
 		.transform(axeOrPickaxe())
-		.blockstate(BlockStateGen.directionalBlockProvider(true))
+		.blockstate(() -> BlockStateGen.directionalBlockProvider(true))
 		.item()
 		.transform(customItemModel())
 		.register();
@@ -630,7 +632,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::wooden)
 		.properties(p -> p.mapColor(MapColor.PODZOL))
 		.transform(axeOrPickaxe())
-		.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.standardModel(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.getEntry(), AssetLookup.standardModel(c, p)))
 		.transform(CStress.setImpact(4.0))
 		.simpleItem()
 		.register();
@@ -639,7 +641,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::wooden)
 		.properties(p -> p.mapColor(MapColor.PODZOL))
 		.transform(axeOrPickaxe())
-		.blockstate(BlockStateGen.directionalBlockProvider(true))
+		.blockstate(() -> BlockStateGen.directionalBlockProvider(true))
 		.transform(CStress.setCapacity(8.0))
 		.onRegister(BlockStressValues.setGeneratorSpeed(32))
 		.tag(AllBlockTags.BRITTLE.tag)
@@ -670,7 +672,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::stone)
 		.properties(p -> p.mapColor(MapColor.METAL))
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 		.transform(CStress.setImpact(4.0))
 		.item()
 		.transform(customItemModel())
@@ -682,7 +684,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::stone)
 			.properties(BlockBehaviour.Properties::noOcclusion)
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> BlockStateGen.axisBlock(c, p, s -> AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> BlockStateGen.axisBlock(c, p, s -> AssetLookup.partialBaseModel(c, p)))
 			.transform(CStress.setImpact(8.0))
 			.item()
 			.transform(customItemModel())
@@ -696,7 +698,7 @@ public class AllBlocks {
 				.air()
 				.noCollission()
 				.pushReaction(PushReaction.BLOCK))
-			.blockstate((c, p) -> p.getVariantBuilder(c.get())
+			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
 				.forAllStatesExcept(BlockStateGen.mapToAir(p), CrushingWheelControllerBlock.FACING))
 			.register();
 
@@ -706,7 +708,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.PODZOL))
 			.transform(axeOrPickaxe())
-			.blockstate(BlockStateGen.horizontalBlockProvider(true))
+			.blockstate(() -> BlockStateGen.horizontalBlockProvider(true))
 			.transform(CStress.setImpact(8.0))
 			.item(AssemblyOperatorBlockItem::new)
 			.transform(customItemModel())
@@ -718,7 +720,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.STONE))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 			.transform(CStress.setImpact(4.0))
 			.item(AssemblyOperatorBlockItem::new)
 			.transform(customItemModel())
@@ -729,7 +731,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.COLOR_GRAY)
 			.sound(SoundType.NETHERITE_BLOCK))
 		.transform(pickaxeOnly())
-		.blockstate(new BasinGenerator()::generate)
+		.blockstate(() -> new BasinGenerator()::generate)
 		.onRegister(movementBehaviour(new BasinMovementBehaviour()))
 		.item()
 		.transform(customItemModel("_", "block"))
@@ -744,7 +746,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.FAN_PROCESSING_CATALYSTS_BLASTING.tag, AllBlockTags.FAN_PROCESSING_CATALYSTS_SMOKING.tag,
 				AllBlockTags.FAN_TRANSPARENT.tag, AllBlockTags.PASSIVE_BOILER_HEATERS.tag)
 			.loot((lt, block) -> lt.add(block, BlazeBurnerBlock.buildLootTable()))
-			.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 			.onRegister(movementBehaviour(new BlazeBurnerMovementBehaviour()))
 			.onRegister(interactionBehaviour(new ConductorBlockInteractionBehavior.BlazeBurner()))
 			.item(BlazeBurnerBlockItem::withBlaze)
@@ -761,7 +763,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.FAN_PROCESSING_CATALYSTS_HAUNTING.tag, AllBlockTags.FAN_PROCESSING_CATALYSTS_SMOKING.tag,
 				AllBlockTags.FAN_TRANSPARENT.tag, AllBlockTags.PASSIVE_BOILER_HEATERS.tag)
 			.loot((lt, block) -> lt.dropOther(block, AllItems.EMPTY_BLAZE_BURNER.get()))
-			.blockstate((c, p) -> p.getVariantBuilder(c.get())
+			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
 				.forAllStates(state -> ConfiguredModel.builder()
 					.modelFile(p.models()
 						.getExistingFile(p.modLoc("block/blaze_burner/"
@@ -775,7 +777,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::stone)
 		.properties(p -> p.mapColor(MapColor.COLOR_GRAY))
 		.transform(axeOrPickaxe())
-		.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 		.transform(displaySource(AllDisplaySources.ITEM_NAMES))
 		.onRegister(interactionBehaviour(new MountedDepotInteractionBehaviour()))
 		.transform(mountedItemStorage(AllMountedStorageTypes.DEPOT))
@@ -789,7 +791,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.COLOR_GRAY))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.horizontalBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p), 180))
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p), 180))
 			.transform(CStress.setImpact(2.0))
 			.transform(displaySource(AllDisplaySources.ITEM_NAMES))
 			.item(EjectorItem::new)
@@ -804,7 +806,7 @@ public class AllBlocks {
 			.isSuffocating((state, level, pos) -> false))
 		.transform(pickaxeOnly())
 		.clientExtension(() -> () -> new ReducedDestroyEffects())
-		.blockstate(new ChuteGenerator()::generate)
+		.blockstate(() -> new ChuteGenerator()::generate)
 		.item(ChuteItem::new)
 		.transform(customItemModel("_", "block"))
 		.register();
@@ -818,7 +820,7 @@ public class AllBlocks {
 			.isRedstoneConductor((state, level, pos) -> false))
 		.clientExtension(() -> () -> new ReducedDestroyEffects())
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> BlockStateGen.simpleBlock(c, p, AssetLookup.forPowered(c, p)))
+		.blockstate(() -> (c, p) -> BlockStateGen.simpleBlock(c, p, AssetLookup.forPowered(c, p)))
 		.item()
 		.transform(customItemModel("_", "block"))
 		.register();
@@ -828,7 +830,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.PODZOL))
 		.transform(axeOrPickaxe())
 		.transform(CStress.setNoImpact())
-		.blockstate(new GaugeGenerator()::generate)
+		.blockstate(() -> new GaugeGenerator()::generate)
 		.transform(displaySource(AllDisplaySources.KINETIC_SPEED))
 		.item()
 		.transform(ModelGen.customItemModel("gauge", "_", "item"))
@@ -839,14 +841,14 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.PODZOL))
 		.transform(axeOrPickaxe())
 		.transform(CStress.setNoImpact())
-		.blockstate(new GaugeGenerator()::generate)
+		.blockstate(() -> new GaugeGenerator()::generate)
 		.transform(displaySource(AllDisplaySources.KINETIC_STRESS))
 		.item()
 		.transform(ModelGen.customItemModel("gauge", "_", "item"))
 		.register();
 
 	public static final BlockEntry<BracketBlock> WOODEN_BRACKET = REGISTRATE.block("wooden_bracket", BracketBlock::new)
-		.blockstate(new BracketGenerator("wooden")::generate)
+		.blockstate(() -> new BracketGenerator("wooden")::generate)
 		.properties(p -> p.sound(SoundType.SCAFFOLDING))
 		.transform(axeOrPickaxe())
 		.item(BracketBlockItem::new)
@@ -855,7 +857,7 @@ public class AllBlocks {
 		.register();
 
 	public static final BlockEntry<BracketBlock> METAL_BRACKET = REGISTRATE.block("metal_bracket", BracketBlock::new)
-		.blockstate(new BracketGenerator("metal")::generate)
+		.blockstate(() -> new BracketGenerator("metal")::generate)
 		.properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
 		.transform(pickaxeOnly())
 		.item(BracketBlockItem::new)
@@ -869,7 +871,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::copperMetal)
 		.properties(p -> p.forceSolidOff())
 		.transform(pickaxeOnly())
-		.blockstate(BlockStateGen.pipe())
+		.blockstate(() -> BlockStateGen.pipe())
 		.onRegister(CreateRegistrate.blockModel(() -> PipeAttachmentModel::withAO))
 		.item()
 		.transform(customItemModel())
@@ -881,7 +883,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY))
 			.transform(axeOrPickaxe())
-			.blockstate(BlockStateGen.encasedPipe())
+			.blockstate(() -> BlockStateGen.encasedPipe())
 			.onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(AllSpriteShifts.COPPER_CASING)))
 			.onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, AllSpriteShifts.COPPER_CASING,
 				(s, f) -> !s.getValue(EncasedPipeBlock.FACING_TO_PROPERTY_MAP.get(f)))))
@@ -895,7 +897,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::copperMetal)
 			.properties(p -> p.noOcclusion())
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> {
+			.blockstate(() -> (c, p) -> {
 				p.getVariantBuilder(c.getEntry())
 					.forAllStatesExcept(state -> {
 						Axis axis = state.getValue(BlockStateProperties.AXIS);
@@ -916,7 +918,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::copperMetal)
 		.properties(p -> p.mapColor(MapColor.STONE))
 		.transform(pickaxeOnly())
-		.blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(true))
+		.blockstate(() -> BlockStateGen.directionalBlockProviderIgnoresWaterlogged(true))
 		.onRegister(CreateRegistrate.blockModel(() -> PipeAttachmentModel::withAO))
 		.transform(CStress.setImpact(4.0))
 		.item()
@@ -928,7 +930,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::copperMetal)
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW))
 			.transform(pickaxeOnly())
-			.blockstate(new SmartFluidPipeGenerator()::generate)
+			.blockstate(() -> new SmartFluidPipeGenerator()::generate)
 			.onRegister(CreateRegistrate.blockModel(() -> PipeAttachmentModel::withAO))
 			.item()
 			.transform(customItemModel())
@@ -937,7 +939,7 @@ public class AllBlocks {
 	public static final BlockEntry<FluidValveBlock> FLUID_VALVE = REGISTRATE.block("fluid_valve", FluidValveBlock::new)
 		.initialProperties(SharedProperties::copperMetal)
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> BlockStateGen.directionalAxisBlock(c, p,
+		.blockstate(() -> (c, p) -> BlockStateGen.directionalAxisBlock(c, p,
 			(state, vertical) -> AssetLookup.partialBaseModel(c, p, vertical ? "vertical" : "horizontal",
 				state.getValue(FluidValveBlock.ENABLED) ? "open" : "closed")))
 		.onRegister(CreateRegistrate.blockModel(() -> PipeAttachmentModel::withAO))
@@ -971,7 +973,7 @@ public class AllBlocks {
 		.properties(p -> p.noOcclusion()
 			.isRedstoneConductor((p1, p2, p3) -> true))
 		.transform(pickaxeOnly())
-		.blockstate(new FluidTankGenerator()::generate)
+		.blockstate(() -> new FluidTankGenerator()::generate)
 		.onRegister(CreateRegistrate.blockModel(() -> FluidTankModel::standard))
 		.transform(displaySource(AllDisplaySources.BOILER))
 		.transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
@@ -988,7 +990,7 @@ public class AllBlocks {
 				.mapColor(MapColor.COLOR_PURPLE))
 			.transform(pickaxeOnly())
 			.tag(AllBlockTags.SAFE_NBT.tag)
-			.blockstate(new FluidTankGenerator("creative_")::generate)
+			.blockstate(() -> new FluidTankGenerator("creative_")::generate)
 			.onRegister(CreateRegistrate.blockModel(() -> FluidTankModel::creative))
 			.transform(mountedFluidStorage(AllMountedStorageTypes.CREATIVE_FLUID_TANK))
 			.item(FluidTankItem::new)
@@ -1006,7 +1008,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::copperMetal)
 		.properties(BlockBehaviour.Properties::noOcclusion)
 		.transform(pickaxeOnly())
-		.blockstate(BlockStateGen.horizontalBlockProvider(true))
+		.blockstate(() -> BlockStateGen.horizontalBlockProvider(true))
 		.transform(CStress.setImpact(4.0))
 		.item()
 		.transform(customItemModel())
@@ -1015,14 +1017,14 @@ public class AllBlocks {
 	public static final BlockEntry<ItemDrainBlock> ITEM_DRAIN = REGISTRATE.block("item_drain", ItemDrainBlock::new)
 		.initialProperties(SharedProperties::copperMetal)
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), AssetLookup.standardModel(c, p)))
 		.simpleItem()
 		.register();
 
 	public static final BlockEntry<SpoutBlock> SPOUT = REGISTRATE.block("spout", SpoutBlock::new)
 		.initialProperties(SharedProperties::copperMetal)
 		.transform(pickaxeOnly())
-		.blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
+		.blockstate(() -> (ctx, prov) -> VariantModels.simpleBlock(prov, ctx.getEntry(), AssetLookup.partialBaseModel(ctx, prov)))
 		.item(AssemblyOperatorBlockItem::new)
 		.transform(customItemModel())
 		.register();
@@ -1032,7 +1034,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::copperMetal)
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.directionalBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), AssetLookup.partialBaseModel(c, p)))
 			.onRegister(movementBehaviour(new PortableStorageInterfaceMovement()))
 			.item()
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
@@ -1043,7 +1045,7 @@ public class AllBlocks {
 		REGISTRATE.block("steam_engine", SteamEngineBlock::new)
 			.initialProperties(SharedProperties::copperMetal)
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.horizontalFaceBlock(p, c.get(), AssetLookup.partialBaseModel(c, p)))
 			.transform(CStress.setCapacity(1024.0))
 			.onRegister(BlockStressValues.setGeneratorSpeed(64, true))
 			.item()
@@ -1054,7 +1056,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::copperMetal)
 		.properties(p -> p.mapColor(MapColor.GOLD))
 		.transform(pickaxeOnly())
-		.blockstate(new WhistleGenerator()::generate)
+		.blockstate(() -> new WhistleGenerator()::generate)
 		.item()
 		.transform(customItemModel())
 		.register();
@@ -1065,7 +1067,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.GOLD)
 				.forceSolidOn())
 			.transform(pickaxeOnly())
-			.blockstate(BlockStateGen.whistleExtender())
+			.blockstate(() -> BlockStateGen.whistleExtender())
 			.register();
 
 	public static final BlockEntry<PoweredShaftBlock> POWERED_SHAFT =
@@ -1074,7 +1076,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.METAL)
 				.forceSolidOn())
 			.transform(pickaxeOnly())
-			.blockstate(BlockStateGen.axisBlockProvider(false))
+			.blockstate(() -> BlockStateGen.axisBlockProvider(false))
 			.loot((lt, block) -> lt.dropOther(block, AllBlocks.SHAFT.get()))
 			.register();
 
@@ -1103,7 +1105,7 @@ public class AllBlocks {
 				.mapColor(MapColor.DIRT)
 				.forceSolidOn())
 			.transform(axeOrPickaxe())
-			.blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
+			.blockstate(() -> BlockStateGen.directionalBlockProviderIgnoresWaterlogged(false))
 			.simpleItem()
 			.register();
 
@@ -1113,7 +1115,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.DIRT))
 			.transform(axeOrPickaxe())
 			.loot((p, b) -> p.dropOther(b, PISTON_EXTENSION_POLE.get()))
-			.blockstate((c, p) -> BlockStateGen.directionalBlockIgnoresWaterlogged(c, p, state -> p.models()
+			.blockstate(() -> (c, p) -> BlockStateGen.directionalBlockIgnoresWaterlogged(c, p, state -> p.models()
 				.getExistingFile(p.modLoc("block/mechanical_piston/" + state.getValue(MechanicalPistonHeadBlock.TYPE)
 					.getSerializedName() + "/head"))))
 			.register();
@@ -1124,7 +1126,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.PODZOL))
 			.transform(axeOrPickaxe())
-			.blockstate(BlockStateGen.directionalAxisBlockProvider())
+			.blockstate(() -> BlockStateGen.directionalAxisBlockProvider())
 			.item()
 			.transform(customItemModel())
 			.register();
@@ -1135,7 +1137,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.NETHER)
 				.forceSolidOn())
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.directionalBlock(c.get(), s -> {
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), s -> {
 				boolean isPowered = s.getValue(GantryShaftBlock.POWERED);
 				boolean isFlipped = s.getValue(GantryShaftBlock.FACING)
 					.getAxisDirection() == AxisDirection.NEGATIVE;
@@ -1191,7 +1193,7 @@ public class AllBlocks {
 		.properties(p -> p.noOcclusion())
 		.transform(axeOrPickaxe())
 		.tag(AllBlockTags.SAFE_NBT.tag)
-		.blockstate(BlockStateGen.horizontalAxisBlockProvider(true))
+		.blockstate(() -> BlockStateGen.horizontalAxisBlockProvider(true))
 		.transform(CStress.setImpact(4.0))
 		.item()
 		.transform(customItemModel())
@@ -1202,7 +1204,7 @@ public class AllBlocks {
 			.mapColor(MapColor.COLOR_BROWN))
 		.tag(AllBlockTags.BRITTLE.tag)
 		.tag(BlockTags.CLIMBABLE)
-		.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 			.getExistingFile(p.modLoc("block/rope_pulley/" + c.getName()))))
 		.register();
 
@@ -1211,7 +1213,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::stone)
 			.tag(AllBlockTags.BRITTLE.tag)
 			.tag(BlockTags.CLIMBABLE)
-			.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 				.getExistingFile(p.modLoc("block/rope_pulley/" + c.getName()))))
 			.register();
 
@@ -1220,7 +1222,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::softMetal)
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_BROWN))
 			.transform(axeOrPickaxe())
-			.blockstate(BlockStateGen.horizontalBlockProvider(true))
+			.blockstate(() -> BlockStateGen.horizontalBlockProvider(true))
 			.transform(CStress.setImpact(4.0))
 			.item()
 			.transform(customItemModel())
@@ -1232,7 +1234,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.COLOR_GRAY))
 			.transform(axeOrPickaxe())
-			.blockstate(BlockStateGen.cartAssembler())
+			.blockstate(() -> BlockStateGen.cartAssembler())
 			.tag(BlockTags.RAILS, AllBlockTags.SAFE_NBT.tag)
 			.item(CartAssemblerBlockItem::new)
 			.transform(customItemModel())
@@ -1242,7 +1244,7 @@ public class AllBlocks {
 		REGISTRATE.block("controller_rail", ControllerRailBlock::new)
 			.initialProperties(() -> Blocks.POWERED_RAIL)
 			.transform(pickaxeOnly())
-			.blockstate(new ControllerRailGenerator()::generate)
+			.blockstate(() -> new ControllerRailGenerator()::generate)
 			.color(() -> () -> (state, world, pos, layer) -> RedStoneWireBlock
 				.getColorForPower(pos != null && world != null ? state.getValue(BlockStateProperties.POWER) : 0))
 			.tag(BlockTags.RAILS)
@@ -1254,7 +1256,7 @@ public class AllBlocks {
 	public static final BlockEntry<MinecartAnchorBlock> MINECART_ANCHOR =
 		REGISTRATE.block("minecart_anchor", MinecartAnchorBlock::new)
 			.initialProperties(SharedProperties::stone)
-			.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 				.getExistingFile(p.modLoc("block/cart_assembler/" + c.getName()))))
 			.register();
 
@@ -1264,7 +1266,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_BROWN))
 			.transform(axeOrPickaxe())
 			.tag(AllBlockTags.SAFE_NBT.tag)
-			.blockstate(BlockStateGen.linearChassis())
+			.blockstate(() -> BlockStateGen.linearChassis())
 			.onRegister(connectedTextures(ChassisCTBehaviour::new))
 			.lang("Linear Chassis")
 			.simpleItem()
@@ -1276,7 +1278,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.PODZOL))
 			.transform(axeOrPickaxe())
 			.tag(AllBlockTags.SAFE_NBT.tag)
-			.blockstate(BlockStateGen.linearChassis())
+			.blockstate(() -> BlockStateGen.linearChassis())
 			.onRegister(connectedTextures(ChassisCTBehaviour::new))
 			.simpleItem()
 			.register();
@@ -1287,7 +1289,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.DIRT))
 			.transform(axeOrPickaxe())
 			.tag(AllBlockTags.SAFE_NBT.tag)
-			.blockstate(BlockStateGen.radialChassis())
+			.blockstate(() -> BlockStateGen.radialChassis())
 			.item()
 			.model((c, p) -> {
 				String path = "block/" + c.getName();
@@ -1300,7 +1302,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::stone)
 		.transform(pickaxeOnly())
 		.properties(BlockBehaviour.Properties::noOcclusion)
-		.blockstate((c, p) -> p.directionalBlock(c.get(), AssetLookup.forPowered(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), AssetLookup.forPowered(c, p)))
 		.item()
 		.transform(customItemModel())
 		.register();
@@ -1310,7 +1312,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::stone)
 			.properties(p -> p.mapColor(MapColor.PODZOL))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.horizontalBlock(c.get(), s -> AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(), s -> AssetLookup.partialBaseModel(c, p)))
 			.onRegister(movementBehaviour(new ContraptionControlsMovement()))
 			.onRegister(interactionBehaviour(new ContraptionControlsMovingInteraction()))
 			.item()
@@ -1321,7 +1323,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::stone)
 		.properties(p -> p.mapColor(MapColor.PODZOL))
 		.transform(axeOrPickaxe())
-		.blockstate(BlockStateGen.directionalBlockProvider(true))
+		.blockstate(() -> BlockStateGen.directionalBlockProvider(true))
 		.transform(CStress.setImpact(4.0))
 		.onRegister(movementBehaviour(new DrillMovementBehaviour()))
 		.item()
@@ -1333,7 +1335,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::stone)
 		.properties(p -> p.mapColor(MapColor.PODZOL))
 		.transform(axeOrPickaxe())
-		.blockstate(new SawGenerator()::generate)
+		.blockstate(() -> new SawGenerator()::generate)
 		.transform(CStress.setImpact(4.0))
 		.onRegister(movementBehaviour(new SawMovementBehaviour()))
 		.item()
@@ -1345,7 +1347,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::stone)
 		.properties(p -> p.mapColor(MapColor.PODZOL))
 		.transform(axeOrPickaxe())
-		.blockstate(BlockStateGen.directionalAxisBlockProvider())
+		.blockstate(() -> BlockStateGen.directionalAxisBlockProvider())
 		.transform(CStress.setImpact(4.0))
 		.onRegister(movementBehaviour(new DeployerMovementBehaviour()))
 		.onRegister(interactionBehaviour(new DeployerMovingInteraction()))
@@ -1359,7 +1361,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::stone)
 			.properties(p -> p.mapColor(MapColor.PODZOL))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.directionalBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), AssetLookup.partialBaseModel(c, p)))
 			.onRegister(movementBehaviour(new PortableStorageInterfaceMovement()))
 			.item()
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
@@ -1372,7 +1374,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.COLOR_GRAY))
 			.transform(axeOrPickaxe())
 			.onRegister(movementBehaviour(new ContactMovementBehaviour()))
-			.blockstate((c, p) -> p.directionalBlock(c.get(), AssetLookup.forPowered(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), AssetLookup.forPowered(c, p)))
 			.item(RedstoneContactItem::new)
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
 			.transform(customItemModel("_", "block"))
@@ -1384,7 +1386,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW)
 				.lightLevel(ElevatorContactBlock::getLight))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.directionalBlock(c.get(), state -> {
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), state -> {
 				Boolean calling = state.getValue(ElevatorContactBlock.CALLING);
 				Boolean powering = state.getValue(ElevatorContactBlock.POWERING);
 				return powering ? AssetLookup.partialBaseModel(c, p, "powered")
@@ -1403,7 +1405,7 @@ public class AllBlocks {
 				.forceSolidOn())
 			.transform(axeOrPickaxe())
 			.onRegister(movementBehaviour(new HarvesterMovementBehaviour()))
-			.blockstate(BlockStateGen.horizontalBlockProvider(true))
+			.blockstate(() -> BlockStateGen.horizontalBlockProvider(true))
 			.item()
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
 			.transform(customItemModel())
@@ -1416,7 +1418,7 @@ public class AllBlocks {
 				.forceSolidOn())
 			.transform(axeOrPickaxe())
 			.onRegister(movementBehaviour(new PloughMovementBehaviour()))
-			.blockstate(BlockStateGen.horizontalBlockProvider(false))
+			.blockstate(() -> BlockStateGen.horizontalBlockProvider(false))
 			.item()
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
 			.build()
@@ -1429,7 +1431,7 @@ public class AllBlocks {
 				.noOcclusion())
 			.transform(axeOrPickaxe())
 			.onRegister(movementBehaviour(new RollerMovementBehaviour()))
-			.blockstate(BlockStateGen.horizontalBlockProvider(true))
+			.blockstate(() -> BlockStateGen.horizontalBlockProvider(true))
 			.item(RollerBlockItem::new)
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
 			.transform(customItemModel())
@@ -1441,7 +1443,7 @@ public class AllBlocks {
 			.sound(SoundType.SCAFFOLDING)
 			.noOcclusion())
 		.transform(axeOnly())
-		.blockstate(BlockStateGen.directionalBlockProvider(false))
+		.blockstate(() -> BlockStateGen.directionalBlockProvider(false))
 		.lang("Windmill Sail Frame")
 		.tag(AllBlockTags.WINDMILL_SAILS.tag)
 		.tag(AllBlockTags.FAN_TRANSPARENT.tag)
@@ -1455,7 +1457,7 @@ public class AllBlocks {
 				.sound(SoundType.SCAFFOLDING)
 				.noOcclusion())
 			.transform(axeOnly())
-			.blockstate(BlockStateGen.directionalBlockProvider(false))
+			.blockstate(() -> BlockStateGen.directionalBlockProvider(false))
 			.lang("Windmill Sail")
 			.tag(AllBlockTags.WINDMILL_SAILS.tag)
 			.item(BlankSailBlockItem::new)
@@ -1473,7 +1475,7 @@ public class AllBlocks {
 				.sound(SoundType.SCAFFOLDING)
 				.noOcclusion())
 			.transform(axeOnly())
-			.blockstate((c, p) -> p.directionalBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), p.models()
 				.withExistingParent(colourName + "_sail", p.modLoc("block/white_sail"))
 				.texture("0", p.modLoc("block/sail/canvas_" + colourName))))
 			.tag(AllBlockTags.WINDMILL_SAILS.tag)
@@ -1518,7 +1520,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.TERRACOTTA_YELLOW))
 			.transform(axeOrPickaxe())
-			.blockstate(BlockStateGen.horizontalBlockProvider(true))
+			.blockstate(() -> BlockStateGen.horizontalBlockProvider(true))
 			.transform(CStress.setImpact(2.0))
 			.onRegister(CreateRegistrate.connectedTextures(CrafterCTBehaviour::new))
 			.item()
@@ -1533,7 +1535,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.properties(BlockBehaviour.Properties::noOcclusion)
 			.transform(CStress.setNoImpact())
-			.blockstate(new SequencedGearshiftGenerator()::generate)
+			.blockstate(() -> new SequencedGearshiftGenerator()::generate)
 			.item()
 			.transform(customItemModel())
 			.register();
@@ -1544,7 +1546,7 @@ public class AllBlocks {
 			.mapColor(MapColor.TERRACOTTA_YELLOW))
 		.transform(axeOrPickaxe())
 		.transform(CStress.setNoImpact())
-		.blockstate(BlockStateGen.axisBlockProvider(true))
+		.blockstate(() -> BlockStateGen.axisBlockProvider(true))
 		.item()
 		.transform(customItemModel())
 		.register();
@@ -1556,7 +1558,7 @@ public class AllBlocks {
 			.transform(axeOrPickaxe())
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.transform(CStress.setNoImpact())
-			.blockstate(BlockStateGen.horizontalAxisBlockProvider(true))
+			.blockstate(() -> BlockStateGen.horizontalAxisBlockProvider(true))
 			.item()
 			.transform(customItemModel())
 			.register();
@@ -1567,7 +1569,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::softMetal)
 		.properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW))
 		.transform(axeOrPickaxe())
-		.blockstate((c, p) -> p.getVariantBuilder(c.get())
+		.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
 			.forAllStates(s -> ConfiguredModel.builder()
 				.modelFile(AssetLookup.partialBaseModel(c, p))
 				.rotationX(s.getValue(ArmBlock.CEILING) ? 180 : 0)
@@ -1587,7 +1589,7 @@ public class AllBlocks {
 		.transform(pickaxeOnly())
 		.clientExtension(() -> () -> new TrackBlock.RenderProperties())
 		.onRegister(CreateRegistrate.blockModel(() -> TrackModel::new))
-		.blockstate(new TrackBlockStateGenerator()::generate)
+		.blockstate(() -> new TrackBlockStateGenerator()::generate)
 		.tag(Tags.Blocks.RELOCATION_NOT_SUPPORTED)
 		.tag(AllBlockTags.TRACKS.tag)
 		.tag(AllBlockTags.GIRDABLE_TRACKS.tag)
@@ -1603,7 +1605,7 @@ public class AllBlocks {
 			.noCollission()
 			.noOcclusion()
 			.replaceable())
-		.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 			.withExistingParent(c.getName(), p.mcLoc("block/air"))))
 		.lang("Track Marker for Maps")
 		.register();
@@ -1621,7 +1623,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.PODZOL)
 			.sound(SoundType.NETHERITE_BLOCK))
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), AssetLookup.partialBaseModel(c, p)))
 		.transform(displaySource(AllDisplaySources.STATION_SUMMARY))
 		.transform(displaySource(AllDisplaySources.TRAIN_STATUS))
 		.lang("Train Station")
@@ -1635,7 +1637,7 @@ public class AllBlocks {
 			.noOcclusion()
 			.sound(SoundType.NETHERITE_BLOCK))
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> p.getVariantBuilder(c.get())
+		.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
 			.forAllStates(state -> ConfiguredModel.builder()
 				.modelFile(AssetLookup.partialBaseModel(c, p, state.getValue(SignalBlock.TYPE)
 					.getSerializedName()))
@@ -1651,7 +1653,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.PODZOL)
 				.noOcclusion()
 				.sound(SoundType.NETHERITE_BLOCK))
-			.blockstate((c, p) -> BlockStateGen.simpleBlock(c, p, AssetLookup.forPowered(c, p)))
+			.blockstate(() -> (c, p) -> BlockStateGen.simpleBlock(c, p, AssetLookup.forPowered(c, p)))
 			.transform(pickaxeOnly())
 			.transform(displaySource(AllDisplaySources.OBSERVED_TRAIN_NAME))
 			.lang("Train Observer")
@@ -1676,7 +1678,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.TERRACOTTA_BROWN)
 			.sound(SoundType.NETHERITE_BLOCK))
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> p.horizontalBlock(c.get(),
+		.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(),
 			s -> AssetLookup.partialBaseModel(c, p,
 				s.getValue(ControlsBlock.VIRTUAL) ? "virtual" : s.getValue(ControlsBlock.OPEN) ? "open" : "closed")))
 		.onRegister(movementBehaviour(new ControlsMovementBehaviour()))
@@ -1694,7 +1696,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.clientExtension(() -> () -> new ReducedDestroyEffects())
 			.onRegister(movementBehaviour(FunnelMovementBehaviour.andesite()))
-			.blockstate(new FunnelGenerator("andesite", false)::generate)
+			.blockstate(() -> new FunnelGenerator("andesite", false)::generate)
 			.item(FunnelItem::new)
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
 			.model(FunnelGenerator.itemModel("andesite"))
@@ -1708,7 +1710,7 @@ public class AllBlocks {
 			.transform(pickaxeOnly())
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.clientExtension(() -> () -> new ReducedDestroyEffects())
-			.blockstate(new BeltFunnelGenerator("andesite")::generate)
+			.blockstate(() -> new BeltFunnelGenerator("andesite")::generate)
 			.loot((p, b) -> p.dropOther(b, ANDESITE_FUNNEL.get()))
 			.register();
 
@@ -1720,7 +1722,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.clientExtension(() -> () -> new ReducedDestroyEffects())
 			.onRegister(movementBehaviour(FunnelMovementBehaviour.brass()))
-			.blockstate(new FunnelGenerator("brass", true)::generate)
+			.blockstate(() -> new FunnelGenerator("brass", true)::generate)
 			.item(FunnelItem::new)
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
 			.model(FunnelGenerator.itemModel("brass"))
@@ -1734,7 +1736,7 @@ public class AllBlocks {
 			.transform(pickaxeOnly())
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.clientExtension(() -> () -> new ReducedDestroyEffects())
-			.blockstate(new BeltFunnelGenerator("brass")::generate)
+			.blockstate(() -> new BeltFunnelGenerator("brass")::generate)
 			.loot((p, b) -> p.dropOther(b, BRASS_FUNNEL.get()))
 			.register();
 
@@ -1762,7 +1764,7 @@ public class AllBlocks {
 				.noOcclusion())
 			.properties(p -> p.isRedstoneConductor(($1, $2, $3) -> false))
 			.transform(axeOrPickaxe())
-			.blockstate(new SmartObserverGenerator()::generate)
+			.blockstate(() -> new SmartObserverGenerator()::generate)
 			.transform(displaySource(AllDisplaySources.COUNT_ITEMS))
 			.transform(displaySource(AllDisplaySources.LIST_ITEMS))
 			.transform(displaySource(AllDisplaySources.COUNT_FLUIDS))
@@ -1780,7 +1782,7 @@ public class AllBlocks {
 				.noOcclusion())
 			.properties(p -> p.isRedstoneConductor(($1, $2, $3) -> false))
 			.transform(axeOrPickaxe())
-			.blockstate(new ThresholdSwitchGenerator()::generate)
+			.blockstate(() -> new ThresholdSwitchGenerator()::generate)
 			.transform(displaySource(AllDisplaySources.FILL_LEVEL))
 			.lang("Threshold Switch")
 			.item()
@@ -1800,7 +1802,7 @@ public class AllBlocks {
 			.sound(SoundType.NETHERITE_BLOCK)
 			.explosionResistance(1200))
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> p.getVariantBuilder(c.get())
+		.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
 			.forAllStates(s -> ConfiguredModel.builder()
 				.modelFile(AssetLookup.standardModel(c, p))
 				.rotationY(s.getValue(ItemVaultBlock.HORIZONTAL_AXIS) == Axis.X ? 90 : 0)
@@ -1816,7 +1818,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.TERRACOTTA_BLUE)
 			.sound(SoundType.NETHERITE_BLOCK))
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> p.horizontalBlock(c.get(),
+		.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(),
 			s -> AssetLookup.partialBaseModel(c, p, s.getValue(ItemHatchBlock.OPEN) ? "open" : "closed")))
 		.item()
 		.transform(customItemModel("_", "block_closed"))
@@ -1838,7 +1840,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_BLUE)
 				.sound(SoundType.NETHERITE_BLOCK))
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 			.item(PackagePortItem::new)
 			.model(AssetLookup::customItemModel)
 			.build()
@@ -1850,8 +1852,8 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::wooden)
 			.properties(p -> p.mapColor(colour))
 			.transform(axeOnly())
-			.blockstate((c, p) -> {
-				p.horizontalBlock(c.get(), s -> {
+			.blockstate(() -> (c, p) -> {
+				VariantModels.horizontalBlock(p, c.get(), s -> {
 					String suffix = s.getValue(PostboxBlock.OPEN) ? "open" : "closed";
 					return p.models()
 						.withExistingParent(colourName + "_postbox_" + suffix,
@@ -1893,7 +1895,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_BLUE)
 				.sound(SoundType.NETHERITE_BLOCK))
 			.transform(pickaxeOnly())
-			.blockstate(new PackagerLinkGenerator()::generate)
+			.blockstate(() -> new PackagerLinkGenerator()::generate)
 			.item(LogisticallyLinkedBlockItem::new)
 			.transform(customItemModel("_", "block_vertical"))
 			.register();
@@ -1903,7 +1905,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::softMetal)
 			.properties(p -> p.sound(SoundType.GLASS))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.standardModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(), AssetLookup.standardModel(c, p)))
 			.item(LogisticallyLinkedBlockItem::new)
 			.build()
 			.register();
@@ -1914,7 +1916,7 @@ public class AllBlocks {
 			.properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
 			.properties(p -> p.noOcclusion())
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, AssetLookup.forPowered(c, p)))
+			.blockstate(() -> (c, p) -> BlockStateGen.horizontalAxisBlock(c, p, AssetLookup.forPowered(c, p)))
 			.item(RedstoneRequesterBlockItem::new)
 			.transform(customItemModel("_", "block"))
 			.register();
@@ -1925,7 +1927,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion())
 			.properties(p -> p.forceSolidOn())
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.horizontalFaceBlock(p, c.get(), AssetLookup.partialBaseModel(c, p)))
 			.onRegister(CreateRegistrate.blockModel(() -> FactoryPanelModel::new))
 			.transform(displaySource(AllDisplaySources.GAUGE_STATUS))
 			.item(FactoryPanelBlockItem::new)
@@ -1990,7 +1992,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::softMetal)
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_BROWN))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.directionalBlock(c.get(), AssetLookup.forPowered(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), AssetLookup.forPowered(c, p)))
 			.item(DisplayLinkBlockItem::new)
 			.transform(customItemModel("_", "block"))
 			.register();
@@ -2001,7 +2003,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.COLOR_GRAY))
 			.transform(pickaxeOnly())
 			.transform(CStress.setNoImpact())
-			.blockstate((c, p) -> p.horizontalBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(), AssetLookup.partialBaseModel(c, p)))
 			.transform(displayTarget(AllDisplayTargets.DISPLAY_BOARD))
 			.lang("Display Board")
 			.item()
@@ -2015,7 +2017,7 @@ public class AllBlocks {
 				.mapColor(DyeColor.ORANGE)
 				.forceSolidOn())
 			.transform(pickaxeOnly())
-			.blockstate(new NixieTubeGenerator()::generate)
+			.blockstate(() -> new NixieTubeGenerator()::generate)
 			.item()
 			.transform(customItemModel())
 			.register();
@@ -2030,7 +2032,7 @@ public class AllBlocks {
 				.mapColor(colour)
 				.forceSolidOn())
 			.transform(pickaxeOnly())
-			.blockstate(new NixieTubeGenerator()::generate)
+			.blockstate(() -> new NixieTubeGenerator()::generate)
 			.loot((p, b) -> p.dropOther(b, ORANGE_NIXIE_TUBE.get()))
 			.register();
 	});
@@ -2040,7 +2042,7 @@ public class AllBlocks {
 			.initialProperties(() -> Blocks.REDSTONE_LAMP)
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_PINK)
 				.lightLevel(s -> s.getValue(RoseQuartzLampBlock.POWERING) ? 15 : 0))
-			.blockstate((c, p) -> BlockStateGen.simpleBlock(c, p, s -> {
+			.blockstate(() -> (c, p) -> BlockStateGen.simpleBlock(c, p, s -> {
 				boolean powered = s.getValue(RoseQuartzLampBlock.POWERING);
 				String name = c.getName() + (powered ? "_powered" : "");
 				return p.models()
@@ -2057,7 +2059,7 @@ public class AllBlocks {
 				.forceSolidOn())
 			.transform(axeOrPickaxe())
 			.tag(AllBlockTags.BRITTLE.tag, AllBlockTags.SAFE_NBT.tag)
-			.blockstate(new RedstoneLinkGenerator()::generate)
+			.blockstate(() -> new RedstoneLinkGenerator()::generate)
 			.item()
 			.transform(customItemModel("_", "transmitter"))
 			.register();
@@ -2067,7 +2069,7 @@ public class AllBlocks {
 			.initialProperties(() -> Blocks.LEVER)
 			.transform(axeOrPickaxe())
 			.tag(AllBlockTags.SAFE_NBT.tag)
-			.blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.horizontalFaceBlock(p, c.get(), AssetLookup.partialBaseModel(c, p)))
 			.onRegister(ItemUseOverrides::addBlock)
 			.item()
 			.transform(customItemModel())
@@ -2078,7 +2080,7 @@ public class AllBlocks {
 		.properties(p -> p.forceSolidOn())
 		.transform(pickaxeOnly())
 		.tag(AllBlockTags.SAFE_NBT.tag)
-		.blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.standardModel(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.horizontalFaceBlock(p, c.get(), AssetLookup.standardModel(c, p)))
 		.simpleItem()
 		.register();
 
@@ -2086,7 +2088,7 @@ public class AllBlocks {
 		REGISTRATE.block("pulse_repeater", BrassDiodeBlock::new)
 			.initialProperties(() -> Blocks.REPEATER)
 			.tag(AllBlockTags.SAFE_NBT.tag)
-			.blockstate(new BrassDiodeGenerator()::generate)
+			.blockstate(() -> new BrassDiodeGenerator()::generate)
 			.item()
 			.model(AbstractDiodeGenerator::diodeItemModel)
 			.build()
@@ -2096,7 +2098,7 @@ public class AllBlocks {
 		REGISTRATE.block("pulse_extender", BrassDiodeBlock::new)
 			.initialProperties(() -> Blocks.REPEATER)
 			.tag(AllBlockTags.SAFE_NBT.tag)
-			.blockstate(new BrassDiodeGenerator()::generate)
+			.blockstate(() -> new BrassDiodeGenerator()::generate)
 			.item()
 			.model(AbstractDiodeGenerator::diodeItemModel)
 			.build()
@@ -2105,7 +2107,7 @@ public class AllBlocks {
 	public static final BlockEntry<BrassDiodeBlock> PULSE_TIMER = REGISTRATE.block("pulse_timer", BrassDiodeBlock::new)
 		.initialProperties(() -> Blocks.REPEATER)
 		.tag(AllBlockTags.SAFE_NBT.tag)
-		.blockstate(new BrassDiodeGenerator()::generate)
+		.blockstate(() -> new BrassDiodeGenerator()::generate)
 		.item()
 		.model(AbstractDiodeGenerator::diodeItemModel)
 		.build()
@@ -2114,14 +2116,14 @@ public class AllBlocks {
 	public static final BlockEntry<PoweredLatchBlock> POWERED_LATCH =
 		REGISTRATE.block("powered_latch", PoweredLatchBlock::new)
 			.initialProperties(() -> Blocks.REPEATER)
-			.blockstate(new PoweredLatchGenerator()::generate)
+			.blockstate(() -> new PoweredLatchGenerator()::generate)
 			.simpleItem()
 			.register();
 
 	public static final BlockEntry<ToggleLatchBlock> POWERED_TOGGLE_LATCH =
 		REGISTRATE.block("powered_toggle_latch", ToggleLatchBlock::new)
 			.initialProperties(() -> Blocks.REPEATER)
-			.blockstate(new ToggleLatchGenerator()::generate)
+			.blockstate(() -> new ToggleLatchGenerator()::generate)
 			.item()
 			.transform(customItemModel("diodes", "latch_off"))
 			.register();
@@ -2130,7 +2132,7 @@ public class AllBlocks {
 		REGISTRATE.block("lectern_controller", LecternControllerBlock::new)
 			.initialProperties(() -> Blocks.LECTERN)
 			.transform(axeOnly())
-			.blockstate((c, p) -> p.horizontalBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(), p.models()
 				.getExistingFile(p.mcLoc("block/lectern"))))
 			.loot((lt, block) -> lt.dropOther(block, Blocks.LECTERN))
 			.register();
@@ -2167,7 +2169,7 @@ public class AllBlocks {
 
 	public static final BlockEntry<DeskBellBlock> DESK_BELL = REGISTRATE.block("desk_bell", DeskBellBlock::new)
 		.properties(p -> p.mapColor(MapColor.SAND))
-		.blockstate((c, p) -> p.directionalBlock(c.get(), AssetLookup.forPowered(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), AssetLookup.forPowered(c, p)))
 		.item()
 		.transform(customItemModel("_", "block"))
 		.onRegister(movementBehaviour(new BellMovementBehaviour()))
@@ -2193,8 +2195,8 @@ public class AllBlocks {
 						)
 				));
 			})
-			.blockstate((c, p) -> {
-				p.horizontalBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> {
+				VariantModels.horizontalBlock(p, c.get(), p.models()
 					.withExistingParent(colourName + "_toolbox", p.modLoc("block/toolbox/block"))
 					.texture("0", p.modLoc("block/toolbox/" + colourName)));
 			})
@@ -2214,7 +2216,7 @@ public class AllBlocks {
 		.properties(p -> p.forceSolidOn())
 		.transform(axeOrPickaxe())
 		.tag(AllBlockTags.SAFE_NBT.tag)
-		.blockstate((c, p) -> p.horizontalFaceBlock(c.get(),
+		.blockstate(() -> (c, p) -> VariantModels.horizontalFaceBlock(p, c.get(),
 			s -> AssetLookup.partialBaseModel(c, p, s.getValue(ClipboardBlock.WRITTEN) ? "written" : "empty")))
 		.loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
 		.item(ClipboardBlockItem::new)
@@ -2280,7 +2282,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.COLOR_GRAY)
 			.sound(SoundType.NETHERITE_BLOCK))
 		.transform(pickaxeOnly())
-		.blockstate(GirderBlockStateGenerator::blockState)
+		.blockstate(() -> GirderBlockStateGenerator::blockState)
 		.onRegister(CreateRegistrate.blockModel(() -> ConnectedGirderModel::new))
 		.item()
 		.transform(customItemModel())
@@ -2292,7 +2294,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.COLOR_GRAY)
 				.sound(SoundType.NETHERITE_BLOCK))
 			.transform(pickaxeOnly())
-			.blockstate(GirderBlockStateGenerator::blockStateWithShaft)
+			.blockstate(() -> GirderBlockStateGenerator::blockStateWithShaft)
 			.loot((p, b) -> p.add(b, p.createSingleItemTable(METAL_GIRDER.get())
 				.withPool(p.applyExplosionCondition(SHAFT.get(), LootPool.lootPool()
 					.setRolls(ConstantValue.exactly(1.0F))
@@ -2305,7 +2307,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.GLOW_LICHEN))
 		.tag(AllBlockTags.FAN_TRANSPARENT.tag)
 		.transform(pickaxeOnly())
-		.blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), AssetLookup.partialBaseModel(c, p)))
 		.register();
 
 	public static final BlockEntry<CopycatStepBlock> COPYCAT_STEP =
@@ -2331,7 +2333,7 @@ public class AllBlocks {
 
 	public static final BlockEntry<WrenchableDirectionalBlock> COPYCAT_BARS =
 		REGISTRATE.block("copycat_bars", WrenchableDirectionalBlock::new)
-			.blockstate(new SpecialCopycatPanelBlockState("bars")::generate)
+			.blockstate(() -> new SpecialCopycatPanelBlockState("bars")::generate)
 			.onRegister(CreateRegistrate.blockModel(() -> CopycatBarsModel::new))
 			.register();
 
@@ -2346,8 +2348,8 @@ public class AllBlocks {
 			.onRegister(movementBehaviour(movementBehaviour))
 			.onRegister(interactionBehaviour(interactionBehaviour))
 			.transform(displaySource(AllDisplaySources.ENTITY_NAME))
-			.blockstate((c, p) -> {
-				p.simpleBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> {
+				VariantModels.simpleBlock(p, c.get(), p.models()
 					.withExistingParent(colourName + "_seat", p.modLoc("block/seat"))
 					.texture("1", p.modLoc("block/seat/top_" + colourName))
 					.texture("2", p.modLoc("block/seat/side_" + colourName)));
@@ -2503,7 +2505,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.STONE)
 			.requiresCorrectToolForDrops())
 		.transform(pickaxeOnly())
-		.blockstate(simpleCubeAll("andesite_block"))
+		.blockstate(() -> simpleCubeAll("andesite_block"))
 		.tag(Tags.Blocks.STORAGE_BLOCKS)
 		.transform(tagBlockAndItem(AllBlockTags.ANDESITE_ALLOY_STORAGE_BLOCKS.tag, AllItemTags.ANDESITE_ALLOY_STORAGE_BLOCKS.tag))
 		.tag(Tags.Items.STORAGE_BLOCKS)
@@ -2526,7 +2528,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW)
 			.requiresCorrectToolForDrops())
 		.transform(pickaxeOnly())
-		.blockstate(simpleCubeAll("brass_block"))
+		.blockstate(() -> simpleCubeAll("brass_block"))
 		.tag(BlockTags.NEEDS_IRON_TOOL)
 		.tag(Tags.Blocks.STORAGE_BLOCKS)
 		.tag(BlockTags.BEACON_BASE_BLOCKS)
@@ -2543,7 +2545,7 @@ public class AllBlocks {
 				.sound(SoundType.CHISELED_BOOKSHELF)
 				.ignitedByLava())
 			.transform(axeOnly())
-			.blockstate(BlockStateGen.horizontalAxisBlockProvider(false))
+			.blockstate(() -> BlockStateGen.horizontalAxisBlockProvider(false))
 			.tag(Tags.Blocks.STORAGE_BLOCKS)
 			.tag(AllBlockTags.CARDBOARD_STORAGE_BLOCKS.tag)
 			.item()
@@ -2561,7 +2563,7 @@ public class AllBlocks {
 				.sound(SoundType.CHISELED_BOOKSHELF)
 				.ignitedByLava())
 			.transform(axeOnly())
-			.blockstate(BlockStateGen.horizontalAxisBlockProvider(false))
+			.blockstate(() -> BlockStateGen.horizontalAxisBlockProvider(false))
 			.loot((r, b) -> r.add(b, LootTable.lootTable()
 				.withPool(LootPool.lootPool()
 					.setRolls(ConstantValue.exactly(1.0F))
@@ -2587,7 +2589,7 @@ public class AllBlocks {
 					() -> SoundEvents.AMETHYST_BLOCK_HIT, () -> SoundEvents.AMETHYST_BLOCK_FALL))
 				.requiresCorrectToolForDrops()
 				.lightLevel(s -> 15))
-			.blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), AssetLookup.standardModel(c, p)))
 			.transform(pickaxeOnly())
 			.lang("Block of Experience")
 			.tag(Tags.Blocks.STORAGE_BLOCKS)
@@ -2605,7 +2607,7 @@ public class AllBlocks {
 				.requiresCorrectToolForDrops()
 				.sound(SoundType.DEEPSLATE))
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> p.axisBlock(c.get(), p.modLoc("block/palettes/rose_quartz_side"),
+			.blockstate(() -> (c, p) -> p.axisBlock(c.get(), p.modLoc("block/palettes/rose_quartz_side"),
 				p.modLoc("block/palettes/rose_quartz_top")))
 			.recipe((c, p) -> p.stonecutting(DataIngredient.items(AllItems.ROSE_QUARTZ.get()),
 				RecipeCategory.BUILDING_BLOCKS, c::get, 2))
@@ -2618,7 +2620,7 @@ public class AllBlocks {
 		.properties(p -> p.mapColor(MapColor.TERRACOTTA_PINK)
 			.requiresCorrectToolForDrops())
 		.transform(pickaxeOnly())
-		.blockstate(simpleCubeAll("palettes/rose_quartz_tiles"))
+		.blockstate(() -> simpleCubeAll("palettes/rose_quartz_tiles"))
 		.recipe((c, p) -> p.stonecutting(DataIngredient.items(AllItems.POLISHED_ROSE_QUARTZ.get()),
 			RecipeCategory.BUILDING_BLOCKS, c::get, 2))
 		.simpleItem()
@@ -2630,7 +2632,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_PINK)
 				.requiresCorrectToolForDrops())
 			.transform(pickaxeOnly())
-			.blockstate(simpleCubeAll("palettes/small_rose_quartz_tiles"))
+			.blockstate(() -> simpleCubeAll("palettes/small_rose_quartz_tiles"))
 			.recipe((c, p) -> p.stonecutting(DataIngredient.items(AllItems.POLISHED_ROSE_QUARTZ.get()),
 				RecipeCategory.BUILDING_BLOCKS, c::get, 2))
 			.simpleItem()

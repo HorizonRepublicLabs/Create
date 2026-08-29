@@ -36,7 +36,7 @@ public class PalettesVariantEntry {
 				REGISTRATE.block(pattern.createName(name), pattern.getBlockFactory())
 					.initialProperties(baseBlock)
 					.transform(pickaxeOnly())
-					.blockstate(pattern.getBlockStateGenerator()
+					.blockstate(() -> pattern.getBlockStateGenerator()
 						.apply(pattern)
 						.apply(name)::accept);
 

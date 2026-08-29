@@ -77,7 +77,7 @@ public class WindowGen {
 		Identifier side_texture = Create.asResource(palettesDir() + name);
 		Function<Integer, Identifier> ends = i -> Create.asResource(palettesDir() + name + "_" + i + "_end");
 		return windowBlock(name, ingredient, null, renderType, translucent, n -> end_texture, n -> side_texture, color)
-			.blockstate((c, p) -> p.simpleBlock(c.get(), ConfiguredModel.builder()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), ConfiguredModel.builder()
 				.modelFile(p.models()
 					.cubeColumn(c.getName() + "_1", side_texture, ends.apply(1)))
 				.nextModel()
@@ -133,7 +133,7 @@ public class WindowGen {
 			.properties(WindowGen::glassProperties)
 			.properties(p -> p.mapColor(color.get()))
 			.loot((t, g) -> t.dropWhenSilkTouch(g))
-			.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 				.cubeColumn(c.getName(), sideTexture.apply(c.getName()), endTexture.apply(c.getName()))))
 			.tag(BlockTags.IMPERMEABLE)
 			.simpleItem();
@@ -148,7 +148,7 @@ public class WindowGen {
 			.loot((t, g) -> t.dropWhenSilkTouch(g))
 				.recipe((c, p) -> p.stonecutting(DataIngredient.tag(Tags.Items.GLASS_BLOCKS_COLORLESS),
 				RecipeCategory.BUILDING_BLOCKS, c::get))
-			.blockstate((c, p) -> BlockStateGen.cubeAll(c, p, "palettes/", "framed_glass"))
+			.blockstate(() -> (c, p) -> BlockStateGen.cubeAll(c, p, "palettes/", "framed_glass"))
 				.tag(Tags.Blocks.GLASS_BLOCKS_COLORLESS, BlockTags.IMPERMEABLE)
 			.item()
 				.tag(Tags.Items.GLASS_BLOCKS_COLORLESS)
@@ -243,7 +243,7 @@ public class WindowGen {
 			.initialProperties(() -> Blocks.GLASS_PANE)
 			.properties(p -> p.mapColor(parent.get()
 				.defaultMapColor()))
-			.blockstate(stateProvider)
+			.blockstate(() -> stateProvider)
 			.recipe((c, p) -> {
 				ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
 					.pattern("###")

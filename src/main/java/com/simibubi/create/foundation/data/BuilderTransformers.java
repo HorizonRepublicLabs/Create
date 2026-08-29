@@ -101,7 +101,7 @@ public class BuilderTransformers {
 			.onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(casingShift.get())))
 			.onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, casingShift.get(),
 				(s, f) -> f.getAxis() != s.getValue(EncasedShaftBlock.AXIS))))
-			.blockstate((c, p) -> axisBlock(c, p, blockState -> p.models()
+			.blockstate(() -> (c, p) -> axisBlock(c, p, blockState -> p.models()
 				.getExistingFile(p.modLoc("block/encased_shaft/block_" + casing)), true))
 			.item()
 			.model(AssetLookup.customBlockItemModel("encased_shaft", "item_" + casing))
@@ -113,7 +113,7 @@ public class BuilderTransformers {
 			.properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
 			.properties(p -> p.noOcclusion())
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
+			.blockstate(() -> (c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
 				.getExistingFile(p.modLoc("block/track/bogey/top"))))
 			.loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
 			.onRegister(
@@ -122,7 +122,7 @@ public class BuilderTransformers {
 
 	public static <B extends CopycatBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> copycat() {
 		return b -> b.initialProperties(SharedProperties::softMetal)
-			.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 				.getExistingFile(p.mcLoc("air"))))
 			.initialProperties(SharedProperties::softMetal)
 			.properties(p -> p.noOcclusion()
@@ -133,7 +133,7 @@ public class BuilderTransformers {
 	}
 
 	public static <B extends TrapDoorBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> trapdoor(boolean orientable) {
-		return b -> b.blockstate((c, p) -> {
+		return b -> b.blockstate(() -> (c, p) -> {
 				Identifier bottom = AssetLookup.partialBaseModel(c, p, "bottom");
 				Identifier top = AssetLookup.partialBaseModel(c, p, "top");
 				Identifier open = AssetLookup.partialBaseModel(c, p, "open");
@@ -155,7 +155,7 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(() -> Blocks.IRON_DOOR)
 			.properties(p -> p.requiresCorrectToolForDrops()
 				.strength(3.0F, 6.0F))
-			.blockstate((c, p) -> {
+			.blockstate(() -> (c, p) -> {
 				Identifier bottom = AssetLookup.partialBaseModel(c, p, "bottom");
 				Identifier top = AssetLookup.partialBaseModel(c, p, "top");
 				p.doorBlock(c.get(), bottom, bottom, bottom, bottom, top, top, top, top);
@@ -196,7 +196,7 @@ public class BuilderTransformers {
 				(s, f) -> f.getAxis() == s.getValue(EncasedCogwheelBlock.AXIS)
 					&& !s.getValue(f.getAxisDirection() == AxisDirection.POSITIVE ? EncasedCogwheelBlock.TOP_SHAFT
 					: EncasedCogwheelBlock.BOTTOM_SHAFT))))
-			.blockstate((c, p) -> axisBlock(c, p, blockState -> {
+			.blockstate(() -> (c, p) -> axisBlock(c, p, blockState -> {
 				String suffix = (blockState.getValue(EncasedCogwheelBlock.TOP_SHAFT) ? "_top" : "")
 					+ (blockState.getValue(EncasedCogwheelBlock.BOTTOM_SHAFT) ? "_bottom" : "");
 				String modelName = c.getName() + suffix;
@@ -227,7 +227,7 @@ public class BuilderTransformers {
 
 	public static <B extends Block, P> NonNullUnaryOperator<BlockBuilder<B, P>> cuckooClock() {
 		return b -> b.initialProperties(SharedProperties::wooden)
-			.blockstate((c, p) -> p.horizontalBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(), p.models()
 				.getExistingFile(p.modLoc("block/cuckoo_clock/block"))))
 			.transform(CStress.setImpact(1))
 			.item()
@@ -238,7 +238,7 @@ public class BuilderTransformers {
 																					   Supplier<DataIngredient> ingredient, MapColor color) {
 		return b -> b.initialProperties(() -> Blocks.LADDER)
 			.properties(p -> p.mapColor(color))
-			.blockstate((c, p) -> p.horizontalBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(), p.models()
 				.withExistingParent(c.getName(), p.modLoc("block/ladder"))
 				.texture("0", p.modLoc("block/ladder_" + name + "_hoop"))
 				.texture("1", p.modLoc("block/ladder_" + name))
@@ -258,7 +258,7 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(() -> Blocks.SCAFFOLDING)
 			.properties(p -> p.sound(SoundType.COPPER)
 				.mapColor(color))
-			.blockstate((c, p) -> p.getVariantBuilder(c.get())
+			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
 				.forAllStatesExcept(s -> {
 					String suffix = s.getValue(MetalScaffoldingBlock.BOTTOM) ? "_horizontal" : "";
 					return ConfiguredModel.builder()
@@ -284,9 +284,9 @@ public class BuilderTransformers {
 	public static <B extends ValveHandleBlock> NonNullUnaryOperator<BlockBuilder<B, CreateRegistrate>> valveHandle(
 		@Nullable DyeColor color) {
 		return b -> b.initialProperties(SharedProperties::copperMetal)
-			.blockstate((c, p) -> {
+			.blockstate(() -> (c, p) -> {
 				String variant = color == null ? "copper" : color.getSerializedName();
-				p.directionalBlock(c.get(), p.models()
+				VariantModels.directionalBlock(p, c.get(), p.models()
 					.withExistingParent(variant + "_valve_handle", p.modLoc("block/valve_handle"))
 					.texture("3", p.modLoc("block/valve_handle/valve_handle_" + variant)));
 			})
@@ -303,7 +303,7 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(SharedProperties::stone)
 			.properties(p -> p.sound(SoundType.WOOD))
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.simpleBlock(c.get()))
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get()))
 			.onRegister(connectedTextures(() -> new EncasedCTBehaviour(ct.get())))
 			.onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, ct.get())))
 			.tag(AllBlockTags.CASING.tag)
@@ -316,7 +316,7 @@ public class BuilderTransformers {
 		Supplier<CTSpriteShiftEntry> ct, Supplier<CTSpriteShiftEntry> ct2) {
 		return b -> b.initialProperties(SharedProperties::stone)
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 				.cubeColumn(c.getName(), ct.get()
 						.getOriginalResourceLocation(),
 					ct2.get()
@@ -336,7 +336,7 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(SharedProperties::stone)
 			.properties(BlockBehaviour.Properties::noOcclusion)
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> p.getVariantBuilder(c.get())
+			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
 				.forAllStates(state -> {
 					Shape shape = state.getValue(BeltTunnelBlock.SHAPE);
 					String window = shape == Shape.WINDOW ? "_window" : "";
@@ -369,7 +369,7 @@ public class BuilderTransformers {
 	public static <B extends Block, P> NonNullUnaryOperator<BlockBuilder<B, P>> mechanicalPiston(PistonType type) {
 		return b -> b.initialProperties(SharedProperties::stone)
 			.properties(p -> p.noOcclusion())
-			.blockstate(new MechanicalPistonGenerator(type)::generate)
+			.blockstate(() -> new MechanicalPistonGenerator(type)::generate)
 			.transform(CStress.setImpact(4.0))
 			.item()
 			.transform(ModelGen.customItemModel("mechanical_piston", type.getSerializedName(), "item"));
@@ -384,7 +384,7 @@ public class BuilderTransformers {
 		Identifier backTextureLocation = Create.asResource("block/" + backTexture);
 		return b -> b.initialProperties(SharedProperties::stone)
 			.properties(p -> p.noOcclusion())
-			.blockstate((c, p) -> p.directionalBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), p.models()
 				.withExistingParent(c.getName(), baseBlockModelLocation)
 				.texture("side", sideTextureLocation)
 				.texture("back", backTextureLocation)))
@@ -399,7 +399,7 @@ public class BuilderTransformers {
 	public static <B extends Block, P> NonNullUnaryOperator<BlockBuilder<B, P>> crate(String type) {
 		return b -> b.initialProperties(SharedProperties::stone)
 			.transform(axeOrPickaxe())
-			.blockstate((c, p) -> {
+			.blockstate(() -> (c, p) -> {
 				String[] variants = {"single", "top", "bottom", "left", "right"};
 				Map<String, Identifier> models = new HashMap<>();
 
@@ -428,7 +428,7 @@ public class BuilderTransformers {
 	}
 
 	public static <B extends Block, P> NonNullUnaryOperator<BlockBuilder<B, P>> backtank(Supplier<ItemLike> drop) {
-		return b -> b.blockstate((c, p) -> p.horizontalBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+		return b -> b.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 			.transform(pickaxeOnly())
 			.transform(CStress.setImpact(4.0))
 			.loot((lt, block) -> {
@@ -449,7 +449,7 @@ public class BuilderTransformers {
 				.sound(SoundType.ANVIL))
 			.transform(pickaxeOnly())
 			.tag(AllBlockTags.BRITTLE.tag)
-			.blockstate((c, p) -> p.horizontalBlock(c.getEntry(), state -> {
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.getEntry(), state -> {
 				String variant = state.getValue(BlockStateProperties.BELL_ATTACHMENT)
 					.getSerializedName();
 				return p.models()
@@ -489,7 +489,7 @@ public class BuilderTransformers {
 			TagKey<Block> soundTag = dyed ? BlockTags.COMBINATION_STEP_SOUND_BLOCKS : BlockTags.INSIDE_STEP_SOUND_BLOCKS;
 
 			ItemBuilder<TableClothBlockItem, BlockBuilder<B, P>> item = b.initialProperties(initialProps)
-				.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+				.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 					.withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/block"))
 					.texture("0", p.modLoc("block/table_cloth/" + name))))
 				.onRegister(CreateRegistrate.blockModel(() -> TableClothModel::new))
@@ -518,7 +518,7 @@ public class BuilderTransformers {
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_BLUE)
 				.sound(SoundType.NETHERITE_BLOCK))
 			.transform(pickaxeOnly())
-			.blockstate(new PackagerGenerator()::generate)
+			.blockstate(() -> new PackagerGenerator()::generate)
 			.item()
 			.model(AssetLookup::customItemModel)
 			.build();
@@ -530,7 +530,7 @@ public class BuilderTransformers {
 				.sound(SoundType.NETHERITE_BLOCK)
 				.requiresCorrectToolForDrops())
 			.transform(pickaxeOnly())
-			.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
 				.cubeColumn(c.getName(), p.modLoc("block/" + c.getName()), p.modLoc("block/" + c.getName() + "_top"))))
 			.tag(AllBlockTags.WRENCH_PICKUP.tag)
 			.recipe((c, p) -> p.stonecutting(DataIngredient.tag(Tags.Items.INGOTS_IRON), RecipeCategory.BUILDING_BLOCKS,

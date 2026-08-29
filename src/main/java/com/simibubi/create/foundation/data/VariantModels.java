@@ -24,6 +24,9 @@ import net.minecraft.util.random.Weighted;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.properties.AttachFace;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 
 /// 26.x replaced Forge's blockstate provider with vanilla's model generators,
@@ -42,6 +45,10 @@ public class VariantModels {
 
 		public static ConfiguredModel of(Identifier model) {
 			return new ConfiguredModel(model, 0, 0, false, 1);
+		}
+
+		public ConfiguredModel[] toArray() {
+			return new ConfiguredModel[] { this };
 		}
 
 		public static class Builder {
@@ -104,6 +111,44 @@ public class VariantModels {
 		}
 
 		accept(generator, block, variants);
+	}
+
+	/// The old provider had simpleBlock/directionalBlock/horizontalBlock and
+	/// friends taking a model file. Registrate's generator renamed and reshaped
+	/// them, so these keep the original call shape on top of forAllStatesExcept.
+	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block, Identifier model) {
+		forAllStatesExcept(generator, block, state -> ConfiguredModel.of(model).toArray(),
+			BlockStateProperties.WATERLOGGED);
+	}
+
+	public static void directionalBlock(RegistrateBlockModelGenerator generator, Block block, Identifier model) {
+		forAllStatesExcept(generator, block, state -> {
+			Direction dir = state.getValue(BlockStateProperties.FACING);
+			return ConfiguredModel.builder()
+				.modelFile(model)
+				.rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+				.rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + 180) % 360)
+				.build();
+		}, BlockStateProperties.WATERLOGGED);
+	}
+
+	public static void horizontalBlock(RegistrateBlockModelGenerator generator, Block block, Identifier model) {
+		forAllStatesExcept(generator, block, state -> ConfiguredModel.builder()
+			.modelFile(model)
+			.rotationY((((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot()) + 180) % 360)
+			.build(), BlockStateProperties.WATERLOGGED);
+	}
+
+	public static void horizontalFaceBlock(RegistrateBlockModelGenerator generator, Block block, Identifier model) {
+		forAllStatesExcept(generator, block, state -> {
+			AttachFace face = state.getValue(BlockStateProperties.ATTACH_FACE);
+			return ConfiguredModel.builder()
+				.modelFile(model)
+				.rotationX(face == AttachFace.FLOOR ? 0 : face == AttachFace.WALL ? 90 : 180)
+				.rotationY((((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot())
+					+ (face == AttachFace.CEILING ? 0 : 180)) % 360)
+				.build();
+		}, BlockStateProperties.WATERLOGGED);
 	}
 
 	public static void accept(RegistrateBlockModelGenerator generator, Block block,
