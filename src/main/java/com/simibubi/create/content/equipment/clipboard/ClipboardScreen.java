@@ -488,17 +488,17 @@ public class ClipboardScreen extends AbstractSimiScreen {
 				return true;
 			case 262:
 				if (Modifiers.hasControlDown()) {
-					editContext.moveByWords(1, Screen.hasShiftDown());
+					editContext.moveByWords(1, Modifiers.hasShiftDown());
 					return true;
 				}
-				editContext.moveByChars(1, Screen.hasShiftDown());
+				editContext.moveByChars(1, Modifiers.hasShiftDown());
 				return true;
 			case 263:
 				if (Modifiers.hasControlDown()) {
-					editContext.moveByWords(-1, Screen.hasShiftDown());
+					editContext.moveByWords(-1, Modifiers.hasShiftDown());
 					return true;
 				}
-				editContext.moveByChars(-1, Screen.hasShiftDown());
+				editContext.moveByChars(-1, Modifiers.hasShiftDown());
 				return true;
 			case 264:
 				keyDown();
@@ -529,20 +529,20 @@ public class ClipboardScreen extends AbstractSimiScreen {
 	private void changeLine(int pYChange) {
 		int i = editContext.getCursorPos();
 		int j = getDisplayCache().changeLine(i, pYChange);
-		editContext.setCursorPos(j, Screen.hasShiftDown());
+		editContext.setCursorPos(j, Modifiers.hasShiftDown());
 	}
 
 	private void keyHome() {
 		int i = editContext.getCursorPos();
 		int j = getDisplayCache().findLineStart(i);
-		editContext.setCursorPos(j, Screen.hasShiftDown());
+		editContext.setCursorPos(j, Modifiers.hasShiftDown());
 	}
 
 	private void keyEnd() {
 		DisplayCache cache = getDisplayCache();
 		int i = editContext.getCursorPos();
 		int j = cache.findLineEnd(i);
-		editContext.setCursorPos(j, Screen.hasShiftDown());
+		editContext.setCursorPos(j, Modifiers.hasShiftDown());
 	}
 
 	private void renderCursor(GuiGraphicsExtractor graphics, Pos2i pCursorPos, boolean pIsEndOfText) {
@@ -655,7 +655,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 					editContext.selectAll();
 				}
 			} else {
-				editContext.setCursorPos(j, Screen.hasShiftDown());
+				editContext.setCursorPos(j, Modifiers.hasShiftDown());
 			}
 
 			clearDisplayCache();

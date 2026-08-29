@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.item;
 
+import com.simibubi.create.foundation.gui.Modifiers;
+
 import static net.minecraft.ChatFormatting.DARK_GRAY;
 import static net.minecraft.ChatFormatting.GRAY;
 import static net.minecraft.ChatFormatting.WHITE;
@@ -101,9 +103,9 @@ public record ItemDescription(ImmutableList<Component> lines, ImmutableList<Comp
 	}
 
 	public ImmutableList<Component> getCurrentLines() {
-		if (Screen.hasShiftDown()) {
+		if (Modifiers.hasShiftDown()) {
 			return linesOnShift;
-		} else if (Screen.hasControlDown()) {
+		} else if (Modifiers.hasControlDown()) {
 			return linesOnCtrl;
 		} else {
 			return lines;
