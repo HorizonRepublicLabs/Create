@@ -16,10 +16,10 @@ import com.simibubi.create.content.equipment.armor.AllArmorMaterials;
 import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.armortrim.ArmorTrim;
-import net.minecraft.world.item.armortrim.TrimMaterial;
-import net.minecraft.world.item.armortrim.TrimPattern;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.trim.ArmorTrim;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
+import net.minecraft.world.item.equipment.trim.TrimPattern;
 
 @Mixin(ArmorTrim.class)
 public abstract class ArmorTrimMixin {

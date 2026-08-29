@@ -5,7 +5,7 @@ import java.util.List;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators.TrimModelData;
 
 @Mixin(ItemModelGenerators.class)

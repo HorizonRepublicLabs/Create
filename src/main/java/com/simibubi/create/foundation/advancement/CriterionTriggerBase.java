@@ -14,8 +14,8 @@ import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Maps;
 import com.simibubi.create.Create;
 
-import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.triggers.CriterionTrigger;
+import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerPlayer;
