@@ -101,7 +101,7 @@ public class CarriageContraptionEntityRenderer extends ContraptionEntityRenderer
 
 		var lightPos = BlockPos.containing(anchorPosition == null ? entity.getLightProbePosition(partialTicks) : anchorPosition);
 
-		return LightTexture.pack(entity.level().getBrightness(LightLayer.BLOCK, lightPos),
+		return LightCoordsUtil.pack(entity.level().getBrightness(LightLayer.BLOCK, lightPos),
 			entity.level().getBrightness(LightLayer.SKY, lightPos));
 	}
 

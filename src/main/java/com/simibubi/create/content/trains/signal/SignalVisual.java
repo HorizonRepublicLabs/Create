@@ -86,7 +86,7 @@ public class SignalVisual extends AbstractBlockEntityVisual<SignalBlockEntity> i
 				.translate(getVisualPosition());
 
 			if (isRedLight)
-				signalLight.light(LightTexture.FULL_BLOCK);
+				signalLight.light(LightCoordsUtil.pack(15, 0));
 
 			signalLight.setChanged();
 

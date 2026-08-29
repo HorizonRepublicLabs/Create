@@ -126,7 +126,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 			hatBuffer
 					.rotateCentered(horizontalAngle + Mth.PI, Direction.UP)
 					.translate(0.5f, 0, 0.5f)
-					.light(LightTexture.FULL_BRIGHT)
+					.light(LightCoordsUtil.FULL_BRIGHT)
 					.renderInto(ms, cutout);
 		}
 
@@ -140,14 +140,14 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 			if (modelTransform != null)
 				rodsBuffer.transform(modelTransform);
 			rodsBuffer.translate(0, offset1 + animation + .125f, 0)
-					.light(LightTexture.FULL_BRIGHT)
+					.light(LightCoordsUtil.FULL_BRIGHT)
 					.renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 
 			SuperByteBuffer rodsBuffer2 = CachedBuffers.partial(rodsModel2, blockState);
 			if (modelTransform != null)
 				rodsBuffer2.transform(modelTransform);
 			rodsBuffer2.translate(0, offset2 + animation - 3 / 16f, 0)
-					.light(LightTexture.FULL_BRIGHT)
+					.light(LightCoordsUtil.FULL_BRIGHT)
 					.renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 		}
 
@@ -200,7 +200,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 
 	private static void draw(SuperByteBuffer buffer, float horizontalAngle, PoseStack ms, VertexConsumer vc) {
 		buffer.rotateCentered(horizontalAngle, Direction.UP)
-				.light(LightTexture.FULL_BRIGHT)
+				.light(LightCoordsUtil.FULL_BRIGHT)
 				.renderInto(ms, vc);
 	}
 }

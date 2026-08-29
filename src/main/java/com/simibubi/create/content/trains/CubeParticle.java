@@ -125,7 +125,7 @@ public class CubeParticle extends Particle {
 		float lerpedZ = (float) (Mth.lerp(p_225606_3_, this.zo, this.z) - projectedView.z());
 
 		// int light = getBrightnessForRender(p_225606_3_);
-		int light = LightTexture.FULL_BRIGHT;
+		int light = LightCoordsUtil.FULL_BRIGHT;
 		double ageMultiplier = 1 - Math.pow(Mth.clamp(age + p_225606_3_, 0, lifetime), 3) / Math.pow(lifetime, 3);
 
 		for (int i = 0; i < 6; i++) {

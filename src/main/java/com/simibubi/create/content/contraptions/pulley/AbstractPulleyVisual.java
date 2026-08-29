@@ -234,7 +234,7 @@ public abstract class AbstractPulleyVisual<T extends KineticBlockEntity> extends
 			int light = Byte.toUnsignedInt(data.getByteOr(offset, (byte) 0));
 			int blockLight = light & 0xF;
 			int skyLight = (light >>> 4) & 0xF;
-			return LightTexture.pack(blockLight, skyLight);
+			return LightCoordsUtil.pack(blockLight, skyLight);
 		}
 	}
 }

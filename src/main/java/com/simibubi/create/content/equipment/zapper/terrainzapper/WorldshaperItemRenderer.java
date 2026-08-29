@@ -51,7 +51,7 @@ public class WorldshaperItemRenderer extends ZapperItemRenderer {
 			multiplier = Mth.sin(worldTime * 5);
 
 		int lightItensity = (int) (15 * Mth.clamp(multiplier, 0, 1));
-		int glowLight = LightTexture.pack(lightItensity, max(lightItensity, 4));
+		int glowLight = LightCoordsUtil.pack(lightItensity, max(lightItensity, 4));
 		renderer.renderSolidGlowing(CORE.get(), glowLight);
 		renderer.renderGlowing(CORE_GLOW.get(), glowLight);
 

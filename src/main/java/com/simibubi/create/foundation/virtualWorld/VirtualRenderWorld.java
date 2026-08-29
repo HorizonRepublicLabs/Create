@@ -127,9 +127,9 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 		var selfBrightness = super.getBrightness(lightType, blockPos);
 
 		if (lightType == LightLayer.SKY) {
-			return Math.max(selfBrightness, LightTexture.sky(externalPackedLight));
+			return Math.max(selfBrightness, LightCoordsUtil.sky(externalPackedLight));
 		} else {
-			return Math.max(selfBrightness, LightTexture.block(externalPackedLight));
+			return Math.max(selfBrightness, LightCoordsUtil.block(externalPackedLight));
 		}
 	}
 

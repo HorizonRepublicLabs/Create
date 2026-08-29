@@ -90,7 +90,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 		BlockPos containingPos = BlockPos.containing(position);
 		Level level = be.getLevel();
 		BlockState blockState = be.getBlockState();
-		int light = LightTexture.pack(level.getBrightness(LightLayer.BLOCK, containingPos),
+		int light = LightCoordsUtil.pack(level.getBrightness(LightLayer.BLOCK, containingPos),
 			level.getBrightness(LightLayer.SKY, containingPos));
 
 		if (physicsData.modelKey == null) {
@@ -179,9 +179,9 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 			chain.translate(0, 8 / 16f, 0);
 			chain.uncenter();
 
-			int light1 = LightTexture.pack(level.getBrightness(LightLayer.BLOCK, tilePos),
+			int light1 = LightCoordsUtil.pack(level.getBrightness(LightLayer.BLOCK, tilePos),
 				level.getBrightness(LightLayer.SKY, tilePos));
-			int light2 = LightTexture.pack(level.getBrightness(LightLayer.BLOCK, tilePos.offset(blockPos)),
+			int light2 = LightCoordsUtil.pack(level.getBrightness(LightLayer.BLOCK, tilePos.offset(blockPos)),
 				level.getBrightness(LightLayer.SKY, tilePos.offset(blockPos)));
 
 			boolean far = Minecraft.getInstance().level == be.getLevel() && !Minecraft.getInstance()

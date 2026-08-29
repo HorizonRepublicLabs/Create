@@ -86,7 +86,7 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 
 		CachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
 		.shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll)
-		.light(LightTexture.FULL_BRIGHT)
+		.light(LightCoordsUtil.FULL_BRIGHT)
 			.renderInto(matrixStack, graphics.bufferSource().getBuffer(RenderType.cutoutMipped()));
 		matrixStack.popMatrix();
 	}

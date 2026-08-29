@@ -57,7 +57,7 @@ public class NetheriteBacktankFirstPersonRenderer {
 		ModelPart armPart = event.getArm() == HumanoidArm.LEFT ? model.leftSleeve : model.rightSleeve;
 		armPart.xRot = 0.0F;
 		armPart.render(event.getPoseStack(), buffer.getBuffer(RenderType.entitySolid(BACKTANK_ARMOR_LOCATION)),
-			LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY);
+			LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY);
 		event.setCanceled(true);
 	}
 

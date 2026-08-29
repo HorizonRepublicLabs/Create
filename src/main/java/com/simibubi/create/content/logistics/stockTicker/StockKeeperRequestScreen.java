@@ -539,7 +539,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			VertexConsumer cutout = graphics.bufferSource().getBuffer(RenderType.cutoutMipped());
 			CachedBuffers.partial(AllPartialModels.BLAZE_CAGE, keeperBE.getBlockState())
 				.rotateCentered(horizontalAngle + Mth.PI, Direction.UP)
-				.light(LightTexture.FULL_BRIGHT)
+				.light(LightCoordsUtil.FULL_BRIGHT)
 				.renderInto(ms, cutout);
 
 			BlazeBurnerRenderer.renderShared(ms, null, graphics.bufferSource(), minecraft.level,

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.render;
 
+import net.minecraft.world.level.dimension.DimensionType;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,6 +24,13 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * Taken from EntityRendererManager
  */
 public class ShadowRenderHelper {
+
+	/// LightTexture.getBrightness went with the class; this is the ramp it used.
+	private static float lightBrightness(DimensionType dimensionType, int lightLevel) {
+		float f = lightLevel / 15.0F;
+		float f1 = f / (4.0F - 3.0F * f);
+		return Mth.lerp(dimensionType.ambientLight(), f1, 1.0F);
+	}
 
 	private static final RenderType SHADOW_LAYER =
 		RenderType.entityNoOutline(Identifier.withDefaultNamespace("textures/misc/shadow.png"));
@@ -68,7 +77,7 @@ public class ShadowRenderHelper {
 			if (blockstate.isCollisionShapeFullBlock(world, blockpos)) {
 				VoxelShape voxelshape = blockstate.getShape(world, pos.below());
 				if (!voxelshape.isEmpty()) {
-					float brightness = LightTexture.getBrightness(world.dimensionType(), world.getMaxLocalRawBrightness(pos));
+					float brightness = lightBrightness(world.dimensionType(), world.getMaxLocalRawBrightness(pos));
 					float f = (float) ((opacity - (y - pos.getY()) / 2.0D) * 0.5D * brightness);
 					if (f >= 0.0F) {
 						if (f > 1.0F) {
@@ -106,7 +115,7 @@ public class ShadowRenderHelper {
 			.setColor(1.0F, 1.0F, 1.0F, alpha)
 			.setUv(u, v)
 			.setOverlay(OverlayTexture.NO_OVERLAY)
-			.setLight(LightTexture.FULL_BRIGHT)
+			.setLight(LightCoordsUtil.FULL_BRIGHT)
 			.setNormal(entry.copy(), 0.0F, 1.0F, 0.0F);
 	}
 

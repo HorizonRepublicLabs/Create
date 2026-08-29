@@ -26,7 +26,7 @@ public class SymmetryWandItemRenderer extends CustomRenderedItemModelRenderer {
 	protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer, ItemDisplayContext transformType,
 		PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay) {
 		float worldTime = AnimationTickHolder.getRenderTime() / 20;
-		int maxLight = LightTexture.FULL_BRIGHT;
+		int maxLight = LightCoordsUtil.FULL_BRIGHT;
 
 		renderer.render(model.getOriginalModel(), light);
 		renderer.renderSolidGlowing(CORE.get(), maxLight);

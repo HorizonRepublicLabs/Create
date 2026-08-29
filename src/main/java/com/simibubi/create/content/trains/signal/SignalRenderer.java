@@ -41,7 +41,7 @@ public class SignalRenderer extends SafeBlockEntityRenderer<SignalBlockEntity> {
 		float renderTime = AnimationTickHolder.getRenderTime(be.getLevel());
 		if (signalState.isRedLight(renderTime))
 			CachedBuffers.partial(AllPartialModels.SIGNAL_ON, blockState)
-				.light(LightTexture.FULL_BLOCK)
+				.light(LightCoordsUtil.pack(15, 0))
 				.renderInto(ms, buffer.getBuffer(RenderType.solid()));
 		else
 			CachedBuffers.partial(AllPartialModels.SIGNAL_OFF, blockState)

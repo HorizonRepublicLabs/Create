@@ -227,13 +227,13 @@ public class ValueBox extends ChasingAABBOutline {
 	private static void drawString(PoseStack ms, SuperRenderTypeBuffer buffer, Component text, float x, float y,
 								   int color) {
 		Minecraft.getInstance().font.drawInBatch(text, x, y, color, false, ms.last()
-			.pose(), buffer, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
+			.pose(), buffer, Font.DisplayMode.NORMAL, 0, LightCoordsUtil.FULL_BRIGHT);
 	}
 
 	private static void drawString8x(PoseStack ms, SuperRenderTypeBuffer buffer, Component text, float x, float y,
 									 int color) {
 		Minecraft.getInstance().font.drawInBatch8xOutline(text.getVisualOrderText(), x, y, color, 0xff333333, ms.last()
-			.pose(), buffer, LightTexture.FULL_BRIGHT);
+			.pose(), buffer, LightCoordsUtil.FULL_BRIGHT);
 	}
 
 }

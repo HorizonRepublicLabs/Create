@@ -118,7 +118,7 @@ public class CarriageCouplingRenderer {
 
 	public static int getPackedLightCoords(Entity pEntity, float pPartialTicks) {
 		BlockPos blockpos = BlockPos.containing(pEntity.getLightProbePosition(pPartialTicks));
-		return LightTexture.pack(getBlockLightLevel(pEntity, blockpos), getSkyLightLevel(pEntity, blockpos));
+		return LightCoordsUtil.pack(getBlockLightLevel(pEntity, blockpos), getSkyLightLevel(pEntity, blockpos));
 	}
 
 	protected static int getSkyLightLevel(Entity pEntity, BlockPos pPos) {

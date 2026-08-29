@@ -47,12 +47,12 @@ public class LinkBulbRenderer extends SafeBlockEntityRenderer<LinkWithBulbBlockE
 
 		CachedBuffers.partial(AllPartialModels.DISPLAY_LINK_TUBE, blockState)
 			.translate(be.getBulbOffset(blockState))
-			.light(LightTexture.FULL_BRIGHT)
+			.light(LightCoordsUtil.FULL_BRIGHT)
 			.renderInto(ms, buffer.getBuffer(RenderType.translucent()));
 
 		CachedBuffers.partial(AllPartialModels.DISPLAY_LINK_GLOW, blockState)
 			.translate(be.getBulbOffset(blockState))
-			.light(LightTexture.FULL_BRIGHT)
+			.light(LightCoordsUtil.FULL_BRIGHT)
 			.color(color, color, color, 255)
 			.disableDiffuse()
 			.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));

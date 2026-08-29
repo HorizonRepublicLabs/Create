@@ -226,7 +226,7 @@ public class TrainMapRenderer implements AutoCloseable {
 				renderType = RenderTypes.TRAIN_MAP.apply(location, linearFiltering);
 			}
 
-			int pPackedLight = LightTexture.FULL_BRIGHT;
+			int pPackedLight = LightCoordsUtil.FULL_BRIGHT;
 
 			Matrix4f matrix4f = pPoseStack.last()
 				.pose();

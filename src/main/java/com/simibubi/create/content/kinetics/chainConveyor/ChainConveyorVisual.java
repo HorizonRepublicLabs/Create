@@ -95,7 +95,7 @@ public class ChainConveyorVisual extends SingleAxisRotatingVisual<ChainConveyorB
 
 		BlockPos containingPos = BlockPos.containing(position);
 		Level level = be.getLevel();
-		int light = LightTexture.pack(level.getBrightness(LightLayer.BLOCK, containingPos),
+		int light = LightCoordsUtil.pack(level.getBrightness(LightLayer.BLOCK, containingPos),
 			level.getBrightness(LightLayer.SKY, containingPos));
 
 		if (physicsData.modelKey == null) {

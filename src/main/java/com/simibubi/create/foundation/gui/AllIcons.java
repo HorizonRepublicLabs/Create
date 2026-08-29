@@ -200,7 +200,7 @@ public class AllIcons implements ScreenElement {
 		VertexConsumer builder = buffer.getBuffer(RenderType.text(ICON_ATLAS));
 		Matrix4f matrix = ms.last().pose();
 		Color rgb = new Color(color);
-		int light = LightTexture.FULL_BRIGHT;
+		int light = LightCoordsUtil.FULL_BRIGHT;
 
 		Vec3 vec1 = new Vec3(0, 0, 0);
 		Vec3 vec2 = new Vec3(0, 1, 0);

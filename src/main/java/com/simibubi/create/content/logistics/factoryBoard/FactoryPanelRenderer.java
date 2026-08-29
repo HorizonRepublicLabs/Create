@@ -62,7 +62,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 			.rotateCentered(xRot, Direction.EAST)
 			.rotateCentered(Mth.PI, Direction.UP)
 			.translate(behaviour.slot.xOffset * .5, 0, behaviour.slot.yOffset * .5)
-			.light(glow > 0.125f ? LightTexture.FULL_BRIGHT : light)
+			.light(glow > 0.125f ? LightCoordsUtil.FULL_BRIGHT : light)
 			.overlay(overlay)
 			.renderInto(ms, buffer.getBuffer(RenderType.translucent()));
 
@@ -78,7 +78,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 			.rotateCentered(xRot, Direction.EAST)
 			.rotateCentered(Mth.PI, Direction.UP)
 			.translate(behaviour.slot.xOffset * .5, 0, behaviour.slot.yOffset * .5)
-			.light(LightTexture.FULL_BRIGHT)
+			.light(LightCoordsUtil.FULL_BRIGHT)
 			.color(color, color, color, 255)
 			.overlay(overlay)
 			.renderInto(ms, buffer.getBuffer(RenderTypes.additive()));
