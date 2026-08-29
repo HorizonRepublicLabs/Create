@@ -480,7 +480,7 @@ public class CreateJEI implements IModPlugin {
 
 	public static boolean doOutputsMatch(Recipe<?> recipe1, Recipe<?> recipe2) {
 		RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
-		return ItemHelper.sameItem(recipe1.getResultItem(registryAccess), recipe2.getResultItem(registryAccess));
+		return ItemHelper.sameItem(CreateRecipeCategory.getResultItem(recipe1), CreateRecipeCategory.getResultItem(recipe2));
 	}
 
 	@Override
