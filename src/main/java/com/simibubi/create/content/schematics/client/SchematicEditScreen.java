@@ -1,5 +1,9 @@
 package com.simibubi.create.content.schematics.client;
 
+import net.minecraft.client.input.MouseButtonInfo;
+
+import net.minecraft.client.input.MouseButtonEvent;
+
 import net.minecraft.client.input.KeyEvent;
 
 import java.util.List;
@@ -84,7 +88,7 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 			widget.setBordered(false);
 			widget.setTextColor(0xFFFFFF);
 			widget.setFocused(false);
-			widget.mouseClicked(event, doubleClick);
+			widget.mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 			widget.setFilter(s -> {
 				if (s.isEmpty() || s.equals("-"))
 					return true;

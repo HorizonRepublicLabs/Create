@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import net.minecraft.client.input.MouseButtonInfo;
+
 import net.minecraft.client.input.KeyEvent;
 
 import net.minecraft.client.input.MouseButtonEvent;
@@ -118,7 +120,7 @@ public class ElevatorContactScreen extends AbstractSimiScreen {
 		editBox.setBordered(false);
 		editBox.setMaxLength(chars);
 		editBox.setFocused(false);
-		editBox.mouseClicked(event, doubleClick);
+		editBox.mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 		addRenderableWidget(editBox);
 		return editBox;
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import net.minecraft.client.input.MouseButtonInfo;
+
 import org.joml.Matrix3x2fStack;
 
 import net.minecraft.client.input.KeyEvent;
@@ -86,7 +88,7 @@ public class StationScreen extends AbstractStationScreen {
 		nameBox.setTextColor(0x592424);
 		nameBox.setValue(station.name);
 		nameBox.setFocused(false);
-		nameBox.mouseClicked(event, doubleClick);
+		nameBox.mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 		nameBox.setResponder(onTextChanged);
 		nameBox.setX(nameBoxX(nameBox.getValue(), nameBox));
 		addRenderableWidget(nameBox);
@@ -134,7 +136,7 @@ public class StationScreen extends AbstractStationScreen {
 		trainNameBox.setMaxLength(35);
 		trainNameBox.setTextColor(0xC6C6C6);
 		trainNameBox.setFocused(false);
-		trainNameBox.mouseClicked(event, doubleClick);
+		trainNameBox.mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 		trainNameBox.setResponder(onTextChanged);
 		trainNameBox.active = false;
 

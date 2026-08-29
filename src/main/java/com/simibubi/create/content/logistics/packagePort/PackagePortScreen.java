@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.packagePort;
 
+import net.minecraft.client.input.MouseButtonInfo;
+
+import net.minecraft.client.input.MouseButtonEvent;
+
 import net.minecraft.client.input.KeyEvent;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -69,7 +73,7 @@ public class PackagePortScreen extends AbstractSimiContainerScreen<PackagePortMe
 		addressBox.setTextColor(0x3D3C48);
 		addressBox.setValue(menu.contentHolder.addressFilter);
 		addressBox.setFocused(false);
-		addressBox.mouseClicked(event, doubleClick);
+		addressBox.mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 		addressBox.setResponder(onTextChanged);
 		addressBox.setX(nameBoxX(addressBox.getValue(), addressBox));
 		addRenderableWidget(addressBox);
