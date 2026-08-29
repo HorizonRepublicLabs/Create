@@ -121,9 +121,10 @@ public class CardboardSwordItem extends SwordItem {
 		target.knockback(knockbackStrength * 0.5F, Mth.sin(yRot * Mth.DEG_TO_RAD), -Mth.cos(yRot * Mth.DEG_TO_RAD));
 	}
 
-	@Override
+	/// Client extensions are registered through an event now rather than
+	/// handed to a consumer; see ClientEvents.
 	@OnlyIn(Dist.CLIENT)
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(SimpleCustomRenderer.create(this, new CardboardSwordItemRenderer()));
+	public IClientItemExtensions clientExtensions() {
+		return SimpleCustomRenderer.create(this, new CardboardSwordItemRenderer());
 	}
 }

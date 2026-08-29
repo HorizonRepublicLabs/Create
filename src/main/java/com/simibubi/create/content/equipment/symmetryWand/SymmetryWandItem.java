@@ -314,10 +314,11 @@ public class SymmetryWandItem extends Item {
 		return false;
 	}
 
-	@Override
+	/// Client extensions are registered through an event now rather than
+	/// handed to a consumer; see ClientEvents.
 	@OnlyIn(Dist.CLIENT)
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(SimpleCustomRenderer.create(this, new SymmetryWandItemRenderer()));
+	public IClientItemExtensions clientExtensions() {
+		return SimpleCustomRenderer.create(this, new SymmetryWandItemRenderer());
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.events;
 
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.function.Supplier;
@@ -352,6 +354,22 @@ public class ClientEvents {
 	@SubscribeEvent
 	public static void registerClientCommands(RegisterClientCommandsEvent event) {
 		AllCommands.registerClient(event.getDispatcher());
+	}
+
+
+	/// Item client extensions are registered here rather than being declared
+	/// on the item, which is what initializeClient used to do.
+	@SubscribeEvent
+	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
+		event.registerItem(AllItems.WRENCH.get().clientExtensions(), AllItems.WRENCH.get());
+		event.registerItem(AllItems.LINKED_CONTROLLER.get().clientExtensions(), AllItems.LINKED_CONTROLLER.get());
+		event.registerItem(AllItems.EXTENDO_GRIP.get().clientExtensions(), AllItems.EXTENDO_GRIP.get());
+		event.registerItem(AllItems.WAND_OF_SYMMETRY.get().clientExtensions(), AllItems.WAND_OF_SYMMETRY.get());
+		event.registerItem(AllItems.POTATO_CANNON.get().clientExtensions(), AllItems.POTATO_CANNON.get());
+		event.registerItem(AllItems.WORLDSHAPER.get().clientExtensions(), AllItems.WORLDSHAPER.get());
+		event.registerItem(AllItems.SAND_PAPER.get().clientExtensions(), AllItems.SAND_PAPER.get());
+		event.registerItem(AllItems.RED_SAND_PAPER.get().clientExtensions(), AllItems.RED_SAND_PAPER.get());
+		event.registerItem(AllItems.CARDBOARD_SWORD.get().clientExtensions(), AllItems.CARDBOARD_SWORD.get());
 	}
 
 	@SubscribeEvent

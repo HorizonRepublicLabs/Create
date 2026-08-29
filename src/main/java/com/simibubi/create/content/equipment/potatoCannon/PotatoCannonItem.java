@@ -295,10 +295,11 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 		return null;
 	}
 
-	@Override
+	/// Client extensions are registered through an event now rather than
+	/// handed to a consumer; see ClientEvents.
 	@OnlyIn(Dist.CLIENT)
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		consumer.accept(SimpleCustomRenderer.create(this, new PotatoCannonItemRenderer()));
+	public IClientItemExtensions clientExtensions() {
+		return SimpleCustomRenderer.create(this, new PotatoCannonItemRenderer());
 	}
 
 	public record Ammo(ItemStack stack, PotatoCannonProjectileType type) {
