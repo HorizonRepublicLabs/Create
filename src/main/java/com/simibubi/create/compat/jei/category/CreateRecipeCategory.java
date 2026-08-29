@@ -1,5 +1,9 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
+
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
+
 import static mezz.jei.api.recipe.RecipeType.createRecipeHolderType;
 
 import java.util.ArrayList;
@@ -148,11 +152,18 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 		return CHANCE_SLOT;
 	}
 
+	/// Recipe.getResultItem went away in 26.x -- a recipe describes its output
+	/// through display entries now. Create's own recipes still expose one
+	/// directly, and those are the only ones these categories show.
 	public static ItemStack getResultItem(Recipe<?> recipe) {
 		ClientLevel level = Minecraft.getInstance().level;
 		if (level == null)
 			return ItemStack.EMPTY;
-		return recipe.getResultItem(level.registryAccess());
+		if (recipe instanceof ProcessingRecipe<?, ?> processing)
+			return processing.getResultItem(level.registryAccess());
+		if (recipe instanceof SequencedAssemblyRecipe sequenced)
+			return sequenced.getResultItem(level.registryAccess());
+		return ItemStack.EMPTY;
 	}
 
 	public static IRecipeSlotRichTooltipCallback addStochasticTooltip(ProcessingOutput output) {
