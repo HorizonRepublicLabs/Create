@@ -111,7 +111,7 @@ public class ControllerRailBlock extends BaseRailBlock implements IWrenchable {
 		cart.setDeltaMovement(diff.x / 16f, 0, diff.z / 16f);
 
 		if (cart instanceof MinecartFurnace fme) {
-			fme.xPush = fme.zPush = 0;
+			fme.push = Vec3.ZERO;
 		}
 	}
 
@@ -146,8 +146,7 @@ public class ControllerRailBlock extends BaseRailBlock implements IWrenchable {
 		double targetSpeed = cart.getMaxSpeedWithRail() * state.getValue(POWER) / 15f;
 
 		if (cart instanceof MinecartFurnace fme) {
-			fme.xPush = accelerationVec.x;
-			fme.zPush = accelerationVec.z;
+			fme.push = new Vec3(accelerationVec.x, 0, accelerationVec.z);
 		}
 
 		Vec3 motion = cart.getDeltaMovement();

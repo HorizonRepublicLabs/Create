@@ -51,8 +51,8 @@ public class MinecartSim2020 {
 
 	public static boolean canAddMotion(AbstractMinecart c) {
 		if (c instanceof MinecartFurnace furnace)
-			return Mth.equal(furnace.xPush, 0)
-				&& Mth.equal(furnace.zPush, 0);
+			return Mth.equal(furnace.push.x, 0)
+				&& Mth.equal(furnace.push.z, 0);
 
 		MinecartController controller = c.getData(AllAttachmentTypes.MINECART_CONTROLLER);
 		if (controller.isPresent())

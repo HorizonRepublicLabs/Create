@@ -408,8 +408,9 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 
 		int fuel = furnaceCartAccessor.create$getFuel();
 		int fuelBefore = fuel;
-		double pushX = furnaceCart.xPush;
-		double pushZ = furnaceCart.zPush;
+		// the furnace cart carries a single push vector now
+		double pushX = furnaceCart.push.x;
+		double pushZ = furnaceCart.push.z;
 
 		int i = Mth.floor(furnaceCart.getX());
 		int j = Mth.floor(furnaceCart.getY());
@@ -435,8 +436,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		}
 
 		if (fuel != fuelBefore || pushX != 0 || pushZ != 0) {
-			furnaceCart.xPush = pushX;
-			furnaceCart.zPush = pushZ;
+			furnaceCart.push = new Vec3(pushX, 0, pushZ);
 			furnaceCartAccessor.create$setFuel(fuel);
 		}
 	}
