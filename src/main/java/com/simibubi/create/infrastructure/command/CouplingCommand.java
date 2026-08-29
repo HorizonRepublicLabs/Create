@@ -46,7 +46,7 @@ public class CouplingCommand {
 	public static ArgumentBuilder<CommandSourceStack, ?> register() {
 
 		return Commands.literal("coupling")
-			.requires(cs -> cs.hasPermission(2))
+			.requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
 			.then(Commands.literal("add")
 				.then(Commands.argument("cart1", EntityArgument.entity())
 					.then(Commands.argument("cart2", EntityArgument.entity())
