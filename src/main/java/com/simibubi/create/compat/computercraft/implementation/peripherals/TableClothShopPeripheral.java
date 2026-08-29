@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.computercraft.implementation.peripherals;
 
+import com.simibubi.create.compat.computercraft.implementation.ComputerUtil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +56,7 @@ public class TableClothShopPeripheral extends SyncedPeripheral<TableClothBlockEn
 	@LuaFunction(mainThread = true)
 	public final Map<String, ?> getPriceTagItem() throws LuaException {
 		assertShop();
-		return VanillaDetailRegistries.ITEM_STACK.getDetails(blockEntity.priceTag.getFilter());
+		return VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), blockEntity.priceTag.getFilter());
 	}
 
 	@LuaFunction(mainThread = true)
@@ -91,7 +93,7 @@ public class TableClothShopPeripheral extends SyncedPeripheral<TableClothBlockEn
 		for (int i = 0; i < wares.size(); i++) {
 			ItemStack stack = wares.get(i).stack;
 			Map<String, Object> details = new HashMap<>(
-				VanillaDetailRegistries.ITEM_STACK.getDetails(stack));
+				VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), stack));
 			details.put("count", wares.get(i).count);
 			result.put(i + 1, details); // +1 because lua
 		}

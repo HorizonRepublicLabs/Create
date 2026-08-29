@@ -34,8 +34,8 @@ public class StockTickerPeripheral extends SyncedPeripheral<StockTickerBlockEnti
 			i++;
 			Map<String, Object> details = new HashMap<>(
 				detailed.isPresent() && detailed.get()
-					? VanillaDetailRegistries.ITEM_STACK.getDetails(entry.stack)
-					: VanillaDetailRegistries.ITEM_STACK.getBasicDetails(entry.stack));
+					? VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), entry.stack)
+					: VanillaDetailRegistries.ITEM_STACK.getBasicDetails(ComputerUtil.registries(), entry.stack));
 			details.put("count", entry.count);
 			result.put(i, details);
 		}

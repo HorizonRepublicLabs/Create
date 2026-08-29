@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.computercraft.implementation.peripherals;
 
+import com.simibubi.create.compat.computercraft.implementation.ComputerUtil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +66,7 @@ public class RedstoneRequesterPeripheral extends SyncedPeripheral<RedstoneReques
 		for (int i = 0; i < stacks.size(); i++) {
 			ItemStack stack = stacks.get(i).stack;
 			Map<String, Object> details = new HashMap<>(
-				VanillaDetailRegistries.ITEM_STACK.getDetails(stack));
+				VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), stack));
 			if (!details.get("name").equals("minecraft:air")) {
 				details.put("count", stacks.get(i).count);
 				result.put(i + 1, details); // +1 because lua

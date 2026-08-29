@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.computercraft.implementation.luaObjects;
 
+import com.simibubi.create.compat.computercraft.implementation.ComputerUtil;
+
 import java.util.Map;
 
 import dan200.computercraft.api.detail.VanillaDetailRegistries;
@@ -14,6 +16,6 @@ public class LuaItemStack implements LuaComparable {
 
 	@Override
 	public Map<?, ?> getTableRepresentation() {
-		return VanillaDetailRegistries.ITEM_STACK.getDetails(stack);
+		return VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), stack);
 	}
 }

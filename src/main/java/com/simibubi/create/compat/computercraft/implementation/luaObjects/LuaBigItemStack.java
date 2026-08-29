@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.computercraft.implementation.luaObjects;
 
+import com.simibubi.create.compat.computercraft.implementation.ComputerUtil;
+
 import java.util.Map;
 
 import com.simibubi.create.content.logistics.BigItemStack;
@@ -15,7 +17,7 @@ public class LuaBigItemStack implements LuaComparable {
 
 	@Override
 	public Map<?, ?> getTableRepresentation() {
-		Map<String, Object> details = VanillaDetailRegistries.ITEM_STACK.getDetails(stack.stack);
+		Map<String, Object> details = VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), stack.stack);
 		// Add count to the details
 		details.put("count", stack.count);
 		return details;

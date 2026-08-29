@@ -1,5 +1,13 @@
 package com.simibubi.create.compat.computercraft.implementation;
 
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
+
+import net.minecraft.server.MinecraftServer;
+
+import net.minecraft.core.RegistryAccess;
+
+import net.minecraft.core.HolderLookup;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,8 +28,16 @@ import net.neoforged.neoforge.items.IItemHandler;
 
 public class ComputerUtil {
 
+	/// The detail registries need a registry lookup now. Peripherals only run
+	/// server side, so the running server supplies it.
+	public static HolderLookup.Provider registries() {
+		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+		return server != null ? server.registryAccess() : RegistryAccess.EMPTY;
+	}
+
+
 	public static int bigItemStackToLuaTableFilter(BigItemStack entry, Map<?, ?> filter) throws LuaException {
-		Map<String, Object> details = VanillaDetailRegistries.ITEM_STACK.getDetails(entry.stack);
+		Map<String, Object> details = VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), entry.stack);
 
 		// Count needs to be replaced because BigItemStack can have a different count than the stack
 		details.put("count", entry.count);
@@ -292,7 +308,7 @@ public class ComputerUtil {
 		var size = inventory.getSlots();
 		for (var i = 0; i < size; i++) {
 			var stack = inventory.getStackInSlot(i);
-			if (!stack.isEmpty()) result.put(i + 1, VanillaDetailRegistries.ITEM_STACK.getBasicDetails(stack));
+			if (!stack.isEmpty()) result.put(i + 1, VanillaDetailRegistries.ITEM_STACK.getBasicDetails(ComputerUtil.registries(), stack));
 		}
 
 		return result;
@@ -304,7 +320,7 @@ public class ComputerUtil {
 		if (slot < 1 || slot > maxSlots)
 			throw new LuaException(String.format("Slot " + slot + " out of range, available slots between " + 1 + " and " + maxSlots));
 		var stack = inventory.getStackInSlot(slot - 1);
-		return stack.isEmpty() ? null : VanillaDetailRegistries.ITEM_STACK.getDetails(stack);
+		return stack.isEmpty() ? null : VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), stack);
 	}
 
 	public static Map<String, ?> getItemDetail(InventorySummary inventorySummary, int slot) throws LuaException {
@@ -313,7 +329,7 @@ public class ComputerUtil {
 		if (slot < 1 || slot > maxSlots)
 			throw new LuaException(String.format("Slot " + slot + " out of range, available slots between " + 1 + " and " + maxSlots));
 		BigItemStack entry = stacks.get(slot - 1);
-		Map<String, Object> details = new HashMap<>(VanillaDetailRegistries.ITEM_STACK.getDetails(entry.stack));
+		Map<String, Object> details = new HashMap<>(VanillaDetailRegistries.ITEM_STACK.getDetails(ComputerUtil.registries(), entry.stack));
 		details.put("count", entry.count);
 
 		return
