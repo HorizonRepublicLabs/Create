@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mixer;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -195,7 +197,7 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 				ItemStack stackInSlot = inv.getItem(slot);
 				if (stackInSlot.isEmpty())
 					continue;
-				ItemParticleOption data = new ItemParticleOption(ParticleTypes.ITEM, stackInSlot);
+				ItemParticleOption data = new ItemParticleOption(ParticleTypes.ITEM, ItemHelper.asTemplate(stackInSlot));
 				spillParticle(data);
 			}
 		}

@@ -416,7 +416,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 								.scale(.25f);
 							Vec3 offset2 = randVec.add(vec);
 							randVec = randVec.scale(.35f);
-							level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, stack), offset2.x, offset2.y,
+							level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, ItemHelper.asTemplate(stack)), offset2.x, offset2.y,
 								offset2.z, randVec.x, randVec.y, randVec.z);
 						}
 					}

@@ -294,7 +294,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 			particleData = new BlockParticleOption(ParticleTypes.BLOCK, ((BlockItem) stack.getItem()).getBlock()
 				.defaultBlockState());
 		else
-			particleData = new ItemParticleOption(ParticleTypes.ITEM, stack);
+			particleData = new ItemParticleOption(ParticleTypes.ITEM, ItemHelper.asTemplate(stack));
 
 		RandomSource r = level.getRandom();
 		Vec3 v = VecHelper.getCenterOf(this.worldPosition)
@@ -315,7 +315,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 			particleData = new BlockParticleOption(ParticleTypes.BLOCK, ((BlockItem) stack.getItem()).getBlock()
 				.defaultBlockState());
 		else {
-			particleData = new ItemParticleOption(ParticleTypes.ITEM, stack);
+			particleData = new ItemParticleOption(ParticleTypes.ITEM, ItemHelper.asTemplate(stack));
 			speed = .125f;
 		}
 

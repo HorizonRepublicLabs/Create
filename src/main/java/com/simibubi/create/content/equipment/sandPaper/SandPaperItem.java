@@ -146,7 +146,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 	public static void spawnParticles(Vec3 location, ItemStack polishedStack, Level world) {
 		for (int i = 0; i < 20; i++) {
 			Vec3 motion = VecHelper.offsetRandomly(Vec3.ZERO, world.getRandom(), 1 / 8f);
-			world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, polishedStack), location.x, location.y,
+			world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, ItemHelper.asTemplate(polishedStack)), location.x, location.y,
 				location.z, motion.x, motion.y, motion.z);
 		}
 	}

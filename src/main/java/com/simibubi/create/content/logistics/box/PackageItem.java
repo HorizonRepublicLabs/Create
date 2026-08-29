@@ -332,7 +332,7 @@ public class PackageItem extends Item {
 					.add(playerIn.getLookAngle()
 						.scale(.5))
 					.add(motion.scale(4));
-				worldIn.addParticle(new ItemParticleOption(ParticleTypes.ITEM, particle), pos.x, pos.y, pos.z, motion.x,
+				worldIn.addParticle(new ItemParticleOption(ParticleTypes.ITEM, ItemHelper.asTemplate(particle)), pos.x, pos.y, pos.z, motion.x,
 					motion.y, motion.z);
 			}
 		}

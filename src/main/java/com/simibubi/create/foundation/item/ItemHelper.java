@@ -42,6 +42,13 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class ItemHelper {
 
+	/// Particle options take an ItemStackTemplate rather than a stack now, and
+	/// there is no conversion on ItemStack itself.
+	public static ItemStackTemplate asTemplate(ItemStack stack) {
+		return new ItemStackTemplate(stack.getItemHolder(), stack.getCount(), stack.getComponentsPatch());
+	}
+
+
 	/// ItemStack lost its crafting remainder accessors; the remainder is a
 	/// template on the item now, which has to be materialised into a stack.
 	public static ItemStack craftingRemainder(ItemStack stack) {

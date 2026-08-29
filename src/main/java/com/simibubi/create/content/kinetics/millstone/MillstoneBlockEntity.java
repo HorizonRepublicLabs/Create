@@ -179,7 +179,7 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements Clearabl
 		if (stackInSlot.isEmpty())
 			return;
 
-		ItemParticleOption data = new ItemParticleOption(ParticleTypes.ITEM, stackInSlot);
+		ItemParticleOption data = new ItemParticleOption(ParticleTypes.ITEM, ItemHelper.asTemplate(stackInSlot));
 		float angle = level.getRandom().nextFloat() * 360;
 		Vec3 offset = new Vec3(0, 0, 0.5f);
 		offset = VecHelper.rotate(offset, angle, Axis.Y);

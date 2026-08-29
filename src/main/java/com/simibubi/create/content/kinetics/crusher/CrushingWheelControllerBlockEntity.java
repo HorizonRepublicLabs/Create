@@ -304,7 +304,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 			particleData = new BlockParticleOption(ParticleTypes.BLOCK, ((BlockItem) stack.getItem()).getBlock()
 				.defaultBlockState());
 		else
-			particleData = new ItemParticleOption(ParticleTypes.ITEM, stack);
+			particleData = new ItemParticleOption(ParticleTypes.ITEM, ItemHelper.asTemplate(stack));
 
 		RandomSource r = level.getRandom();
 		for (int i = 0; i < 4; i++)
