@@ -36,7 +36,7 @@ public class FTBChunksTrainMap {
 		if (cancelTooltips > 0)
 			cancelTooltips--;
 
-		LargeMapScreen mapScreen = getAsLargeMapScreen(Minecraft.getInstance().screen);
+		LargeMapScreen mapScreen = getAsLargeMapScreen(Minecraft.getInstance().gui.screen());
 
 		if (!AllConfigs.client().showTrainMapOverlay.get() || mapScreen == null) {
 			if (requesting)
@@ -51,7 +51,7 @@ public class FTBChunksTrainMap {
 	}
 
 	public static void cancelTooltips(RenderTooltipEvent.Pre event) {
-		if (getAsLargeMapScreen(Minecraft.getInstance().screen) == null)
+		if (getAsLargeMapScreen(Minecraft.getInstance().gui.screen()) == null)
 			return;
 		if (renderingTooltip || cancelTooltips == 0)
 			return;
@@ -59,7 +59,7 @@ public class FTBChunksTrainMap {
 	}
 
 	public static void mouseClick(InputEvent.MouseButton.Pre event) {
-		LargeMapScreen screen = getAsLargeMapScreen(Minecraft.getInstance().screen);
+		LargeMapScreen screen = getAsLargeMapScreen(Minecraft.getInstance().gui.screen());
 		if (screen == null)
 			return;
 		if (TrainMapManager.handleToggleWidgetClick(screen.getMouseX(), screen.getMouseY(), 20, 2))

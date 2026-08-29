@@ -138,7 +138,7 @@ public class LinkedControllerClientHandler {
 			return;
 		}
 
-		if (mc.screen != null) {
+		if (mc.gui.screen() != null) {
 			MODE = Mode.IDLE;
 			onReset();
 			return;

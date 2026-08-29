@@ -101,7 +101,7 @@ public class ClipboardBlockEntity extends SmartBlockEntity {
 	@OnlyIn(Dist.CLIENT)
 	private void readClientSide(CompoundTag tag) {
 		Minecraft mc = Minecraft.getInstance();
-		if (!(mc.screen instanceof ClipboardScreen cs))
+		if (!(mc.gui.screen() instanceof ClipboardScreen cs))
 			return;
 		if (tag.contains("LastEdit") && tag.read("LastEdit", UUIDUtil.CODEC).orElseThrow()
 			.equals(mc.player.getUUID()))

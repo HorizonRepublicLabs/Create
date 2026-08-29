@@ -31,7 +31,7 @@ public class XaeroTrainMap {
 	private static boolean encounteredException = false;
 
 	public static void tick() {
-		if (!AllConfigs.client().showTrainMapOverlay.get() || !isMapOpen(Minecraft.getInstance().screen)) {
+		if (!AllConfigs.client().showTrainMapOverlay.get() || !isMapOpen(Minecraft.getInstance().gui.screen())) {
 			if (requesting)
 				TrainMapSyncClient.stopRequesting();
 			requesting = false;
@@ -48,7 +48,7 @@ public class XaeroTrainMap {
 
 		Minecraft mc = Minecraft.getInstance();
 		try {
-			if (!(mc.screen instanceof GuiMap))
+			if (!(mc.gui.screen() instanceof GuiMap))
 				return;
 		} catch (Throwable e) {
 			Create.LOGGER.error("Failed to handle mouseClick for Xaero's World Map train map integration:", e);

@@ -121,7 +121,7 @@ public class FilteringRenderer {
 				continue;
 
 			if (!be.isVirtual()) {
-				Entity cameraEntity = Minecraft.getInstance().cameraEntity;
+				Entity cameraEntity = Minecraft.getInstance().getCameraEntity();
 				if (cameraEntity != null && level == cameraEntity.level()) {
 					float max = behaviour.getRenderDistance();
 					if (cameraEntity.position()

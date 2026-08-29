@@ -129,7 +129,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 		int light, int overlay) {
 		BlockState blockState = be.getBlockState();
 		Direction facing = NixieTubeBlock.getFacing(blockState);
-		Vec3 observerVec = Minecraft.getInstance().cameraEntity.getEyePosition(partialTicks);
+		Vec3 observerVec = Minecraft.getInstance().getCameraEntity().getEyePosition(partialTicks);
 		var msr = TransformStack.of(ms);
 
 		if (facing == Direction.DOWN)

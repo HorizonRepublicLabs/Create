@@ -105,7 +105,7 @@ public class ValueSettingsClient implements LayeredDraw.Layer {
 	}
 
 	public void showHoverTip(List<MutableComponent> tip) {
-		if (mc.screen != null)
+		if (mc.gui.screen() != null)
 			return;
 		if (hoverWarmup < 6) {
 			hoverWarmup += 2;

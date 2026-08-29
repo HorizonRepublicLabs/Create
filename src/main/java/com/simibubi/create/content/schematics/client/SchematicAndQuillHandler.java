@@ -202,7 +202,7 @@ public class SchematicAndQuillHandler {
 
 	private boolean isPresent() {
 		return Minecraft.getInstance() != null && Minecraft.getInstance().level != null
-			&& Minecraft.getInstance().screen == null;
+			&& Minecraft.getInstance().gui.screen() == null;
 	}
 
 	public void saveSchematic(String string, boolean convertImmediately) {
