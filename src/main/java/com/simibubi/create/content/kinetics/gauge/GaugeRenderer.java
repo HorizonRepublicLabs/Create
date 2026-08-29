@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.gauge;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -62,7 +64,7 @@ public class GaugeRenderer extends ShaftRenderer<GaugeBlockEntity> {
 					facing))
 				continue;
 
-			VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+			VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 			rotateBufferTowards(dialBuffer, facing).translate(0, dialPivot, dialPivot)
 				.rotate((float) (Math.PI / 2 * -progress), Direction.EAST)
 				.translate(0, -dialPivot, -dialPivot)

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.flywheel;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -35,7 +37,7 @@ public class FlywheelRenderer extends KineticBlockEntityRenderer<FlywheelBlockEn
 		float speed = be.visualSpeed.getValue(partialTicks) * 3 / 10f;
 		float angle = be.angle + speed * partialTicks;
 
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		renderFlywheel(be, ms, light, blockState, angle, vb);
 	}
 

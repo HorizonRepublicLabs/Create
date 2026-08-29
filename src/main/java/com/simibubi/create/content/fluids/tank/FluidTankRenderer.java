@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -87,7 +89,7 @@ public class FluidTankRenderer extends SafeBlockEntityRenderer<FluidTankBlockEnt
 	protected void renderAsBoiler(FluidTankBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
 		BlockState blockState = be.getBlockState();
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock());
 		ms.pushPose();
 		var msr = TransformStack.of(ms);
 		msr.translate(be.width / 2f, 0.5, be.width / 2f);

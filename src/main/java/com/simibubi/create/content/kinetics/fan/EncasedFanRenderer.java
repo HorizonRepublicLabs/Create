@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -38,7 +40,7 @@ public class EncasedFanRenderer extends KineticBlockEntityRenderer<EncasedFanBlo
 
 		Direction direction = be.getBlockState()
 				.getValue(FACING);
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock());
 
 		int lightBehind = BlockEntityRenderHelper.lightColorAt(be.getLevel(), be.getBlockPos().relative(direction.getOpposite()));
 		int lightInFront = BlockEntityRenderHelper.lightColorAt(be.getLevel(), be.getBlockPos().relative(direction));

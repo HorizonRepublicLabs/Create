@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.base;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -70,7 +72,7 @@ public class KineticBlockEntityRenderer<T extends KineticBlockEntity> extends Sa
 		for (RenderType type : REVERSED_CHUNK_BUFFER_LAYERS)
 			if (typeSet.contains(type))
 				return type;
-		return RenderTypes.cutoutMovingBlock();
+		return CreateRenderTypes.cutoutMovingBlock();
 	}
 
 	protected SuperByteBuffer getRotatedModel(T be, BlockState state) {

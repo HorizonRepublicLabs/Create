@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -41,7 +43,7 @@ public class ElevatorPulleyRenderer extends KineticBlockEntityRenderer<ElevatorP
 
 		SpriteShiftEntry beltShift = AllSpriteShifts.ELEVATOR_BELT;
 		SpriteShiftEntry coilShift = AllSpriteShifts.ELEVATOR_COIL;
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		Level world = be.getLevel();
 		BlockState blockState = be.getBlockState();
 		BlockPos pos = be.getBlockPos();

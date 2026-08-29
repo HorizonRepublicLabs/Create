@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.pulley;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -58,7 +60,7 @@ public abstract class AbstractPulleyRenderer<T extends KineticBlockEntity> exten
 		float offset = getOffset(be, partialTicks);
 		boolean running = isRunning(be);
 
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		scrollCoil(getRotatedCoil(be), getCoilShift(), offset, 1)
 			.light(light)
 			.renderInto(ms, vb);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.spout;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -88,7 +90,7 @@ public class SpoutRenderer extends SafeBlockEntityRenderer<SpoutBlockEntity> {
 		for (PartialModel bit : BITS) {
 			CreateCachedBuffers.partial(bit, be.getBlockState())
 					.light(light)
-					.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+					.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 			ms.translate(0, -3 * squeeze / 32f, 0);
 		}
 		ms.popPose();

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import com.simibubi.create.foundation.render.CreateItemRenderer;
@@ -117,7 +119,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 
 	protected void renderComponents(DeployerBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 									int light, int overlay) {
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		if (!VisualizationManager.supportsVisualization(be.getLevel())) {
 			KineticBlockEntityRenderer.renderRotatingKineticBlock(be, getRenderedBlockState(be), ms, vb, light);
 		}
@@ -162,7 +164,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 										   ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
-		VertexConsumer builder = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer builder = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		BlockState blockState = context.state;
 		Mode mode = NBTHelper.readEnum(context.blockEntityData, "Mode", Mode.class);
 		PartialModel handPose = getHandPose(mode);

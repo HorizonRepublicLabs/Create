@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.chassis;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -48,7 +50,7 @@ public class StickerRenderer extends SafeBlockEntityRenderer<StickerBlockEntity>
 			.translate(0, (offset * offset) * 4 / 16f, 0);
 
 		head.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 	}
 
 }

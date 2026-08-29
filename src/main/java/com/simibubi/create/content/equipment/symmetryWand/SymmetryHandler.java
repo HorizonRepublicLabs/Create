@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.symmetryWand;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -117,12 +119,12 @@ public class SymmetryHandler {
 			mirror.applyModelTransform(ms);
 			BlockStateModel model = mirror.getModel()
 				.get();
-			VertexConsumer builder = buffer.getBuffer(RenderTypes.solidMovingBlock());
+			VertexConsumer builder = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 
 			mc.getBlockRenderer()
 				.getModelRenderer()
 				.tesselateBlock(player.level(), model, Blocks.AIR.defaultBlockState(), pos, ms, builder, true,
-					random, Mth.getSeed(pos), OverlayTexture.NO_OVERLAY, ModelData.EMPTY, RenderTypes.solidMovingBlock());
+					random, Mth.getSeed(pos), OverlayTexture.NO_OVERLAY, ModelData.EMPTY, CreateRenderTypes.solidMovingBlock());
 
 			ms.popPose();
 			buffer.endBatch();

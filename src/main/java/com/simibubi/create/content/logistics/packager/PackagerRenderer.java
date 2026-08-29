@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packager;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -54,14 +56,14 @@ public class PackagerRenderer extends SmartBlockEntityRenderer<PackagerBlockEnti
 				.rotateYCenteredDegrees(AngleHelper.horizontalAngle(facing))
 				.rotateXCenteredDegrees(AngleHelper.verticalAngle(facing))
 				.light(light)
-				.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+				.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 
 			sbb = CreateCachedBuffers.partial(getTrayModel(blockState), blockState);
 			sbb.translate(Vec3.atLowerCornerOf(facing.getUnitVec3i())
 					.scale(trayOffset))
 				.rotateYCenteredDegrees(facing.toYRot())
 				.light(light)
-				.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+				.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 		}
 
 		if (!renderedBox.isEmpty()) {

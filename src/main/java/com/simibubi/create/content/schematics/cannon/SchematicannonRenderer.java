@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -61,7 +63,7 @@ public class SchematicannonRenderer extends SafeBlockEntityRenderer<Schematicann
 
 		ms.pushPose();
 
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 
 		SuperByteBuffer connector = CreateCachedBuffers.partial(AllPartialModels.SCHEMATICANNON_CONNECTOR, state);
 		connector.translate(.5f, 0, .5f);

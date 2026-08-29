@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.simpleRelays;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -45,7 +47,7 @@ public class BracketedKineticBlockEntityRenderer extends KineticBlockEntityRende
 		// Large cogs sometimes have to offset their teeth by 11.25 degrees in order to
 		// mesh properly
 
-		VertexConsumer vc = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vc = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		Axis axis = getRotationAxisOf(be);
 		Direction facing = Direction.fromAxisAndDirection(axis, AxisDirection.POSITIVE);
 		renderRotatingBuffer(be,

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.press;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -47,7 +49,7 @@ public class MechanicalPressRenderer extends KineticBlockEntityRenderer<Mechanic
 			blockState.getValue(HORIZONTAL_FACING));
 		headRender.translate(0, -renderedHeadOffset, 0)
 			.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 	}
 
 	@Override

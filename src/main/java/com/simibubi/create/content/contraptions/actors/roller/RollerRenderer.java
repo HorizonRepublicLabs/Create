@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.roller;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -42,7 +44,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 
 		BlockState blockState = be.getBlockState();
-		VertexConsumer vc = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
+		VertexConsumer vc = buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock());
 
 		ms.pushPose();
 		ms.translate(0, -0.25, 0);
@@ -67,7 +69,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffers) {
 		BlockState blockState = context.state;
 		Direction facing = blockState.getValue(HORIZONTAL_FACING);
-		VertexConsumer vc = buffers.getBuffer(RenderTypes.cutoutMovingBlock());
+		VertexConsumer vc = buffers.getBuffer(CreateRenderTypes.cutoutMovingBlock());
 		SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.ROLLER_WHEEL, blockState);
 		float speed = (float) (!VecHelper.isVecPointingTowards(context.relativeMotion, facing.getOpposite())
 			? context.getAnimationSpeed()

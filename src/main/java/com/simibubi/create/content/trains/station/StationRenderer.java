@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -90,7 +92,7 @@ public class StationRenderer extends SafeBlockEntityRenderer<StationBlockEntity>
 		PartialModel assemblyOverlay = track.prepareAssemblyOverlay(level, targetPosition, trackState, direction, ms);
 		int colorWhenValid = 0x96B5FF;
 		int colorWhenCarriage = 0xCAFF96;
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock());
 
 		currentPos.move(direction, 1);
 		ms.translate(0, 0, 1);
@@ -128,7 +130,7 @@ public class StationRenderer extends SafeBlockEntityRenderer<StationBlockEntity>
 			.rotateYDegrees(be.flagFlipped ? 0 : 180)
 			.translate(-0.5f / 16, 0, 0)
 			.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 
 	public static void transformFlag(Transform<?> flag, StationBlockEntity be, float partialTicks, int yRot,

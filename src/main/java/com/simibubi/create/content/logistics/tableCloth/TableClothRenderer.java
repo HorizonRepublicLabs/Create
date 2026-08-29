@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tableCloth;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -45,7 +47,7 @@ public class TableClothRenderer extends SmartBlockEntityRenderer<TableClothBlock
 				.rotateCentered(rotationInRadians, Direction.UP)
 				.light(light)
 				.overlay(overlay)
-				.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+				.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 		}
 
 		ms.pushPose();

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -45,7 +47,7 @@ public class TrackRenderer extends SafeBlockEntityRenderer<TrackBlockEntity> {
 		Level level = be.getLevel();
 		if (VisualizationManager.supportsVisualization(level))
 			return;
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock());
 		be.connections.values()
 			.forEach(bc -> renderBezierTurn(level, bc, ms, vb));
 	}

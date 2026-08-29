@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort.postbox;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -43,7 +45,7 @@ public class PostboxRenderer extends SmartBlockEntityRenderer<PostboxBlockEntity
 
 		transformFlag(sbb, blockEntity, partialTicks);
 
-		sbb.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+		sbb.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 
 	public static void transformFlag(Transform<?> flag, PostboxBlockEntity be, float partialTicks) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -71,7 +73,7 @@ public class CouplingRenderer {
 		Couple<CartEndpoint> transforms = carts.map(c -> getSuitableCartEndpoint(c, center));
 
 		BlockState renderState = Blocks.AIR.defaultBlockState();
-		VertexConsumer builder = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer builder = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		SuperByteBuffer attachment = CreateCachedBuffers.partial(AllPartialModels.COUPLING_ATTACHMENT, renderState);
 		SuperByteBuffer ring = CreateCachedBuffers.partial(AllPartialModels.COUPLING_RING, renderState);
 		SuperByteBuffer connector = CreateCachedBuffers.partial(AllPartialModels.COUPLING_CONNECTOR, renderState);

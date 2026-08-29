@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.simpleRelays.encased;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -65,7 +67,7 @@ public class EncasedCogRenderer extends KineticBlockEntityRenderer<SimpleKinetic
 				continue;
 			SuperByteBuffer shaft = CreateCachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), d);
 			kineticRotationTransform(shaft, be, axis, angle, light);
-			shaft.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+			shaft.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 		}
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mixer;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -39,7 +41,7 @@ public class MechanicalMixerRenderer extends KineticBlockEntityRenderer<Mechanic
 
 		BlockState blockState = be.getBlockState();
 
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 
 		SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.SHAFTLESS_COGWHEEL, blockState);
 		standardKineticRotationTransform(superBuffer, be, light).renderInto(ms, vb);
@@ -54,7 +56,7 @@ public class MechanicalMixerRenderer extends KineticBlockEntityRenderer<Mechanic
 				.light(light)
 				.renderInto(ms, vb);
 
-		VertexConsumer vbCutout = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
+		VertexConsumer vbCutout = buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock());
 		SuperByteBuffer headRender = CreateCachedBuffers.partial(AllPartialModels.MECHANICAL_MIXER_HEAD, blockState);
 		headRender.rotateCentered(angle, Direction.UP)
 				.translate(0, -renderedHeadOffset, 0)

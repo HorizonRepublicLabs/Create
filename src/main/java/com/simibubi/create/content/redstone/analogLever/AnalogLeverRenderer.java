@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.analogLever;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -36,7 +38,7 @@ public class AnalogLeverRenderer extends SafeBlockEntityRenderer<AnalogLeverBloc
 		BlockState leverState = be.getBlockState();
 		float state = be.clientState.getValue(partialTicks);
 
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 
 		// Handle
 		SuperByteBuffer handle = CreateCachedBuffers.partial(AllPartialModels.ANALOG_LEVER_HANDLE, leverState);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -55,7 +57,7 @@ public class EjectorRenderer extends ShaftRenderer<EjectorBlockEntity> {
 			SuperByteBuffer model = CreateCachedBuffers.partial(AllPartialModels.EJECTOR_TOP, be.getBlockState());
 			applyLidAngle(be, angle, model);
 			model.light(light)
-					.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+					.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 		}
 
 		var msr = TransformStack.of(ms);

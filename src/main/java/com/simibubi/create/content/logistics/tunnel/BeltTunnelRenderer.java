@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tunnel;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -35,7 +37,7 @@ public class BeltTunnelRenderer extends SmartBlockEntityRenderer<BeltTunnelBlock
 			return;
 
 		SuperByteBuffer flapBuffer = CreateCachedBuffers.partial(AllPartialModels.BELT_TUNNEL_FLAP, be.getBlockState());
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 
 		for (Direction direction : Iterate.directions) {
 			if (!be.flaps.containsKey(direction))

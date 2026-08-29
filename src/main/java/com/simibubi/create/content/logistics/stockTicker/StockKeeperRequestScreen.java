@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.input.CharacterEvent;
 
 import net.minecraft.client.input.KeyEvent;
@@ -547,7 +549,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			int hashCode = keeperBE.hashCode();
 			Lighting.setupForEntityInInventory();
 
-			VertexConsumer cutout = graphics.bufferSource().getBuffer(RenderTypes.cutoutMovingBlock());
+			VertexConsumer cutout = graphics.bufferSource().getBuffer(CreateRenderTypes.cutoutMovingBlock());
 			CreateCachedBuffers.partial(AllPartialModels.BLAZE_CAGE, keeperBE.getBlockState())
 				.rotateCentered(horizontalAngle + Mth.PI, Direction.UP)
 				.light(LightCoordsUtil.FULL_BRIGHT)

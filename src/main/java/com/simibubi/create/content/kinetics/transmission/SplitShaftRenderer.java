@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.transmission;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -55,7 +57,7 @@ public class SplitShaftRenderer extends KineticBlockEntityRenderer<SplitShaftBlo
 			SuperByteBuffer superByteBuffer =
 					CreateCachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction);
 			kineticRotationTransform(superByteBuffer, be, axis, angle, light);
-			superByteBuffer.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+			superByteBuffer.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 		}
 	}
 

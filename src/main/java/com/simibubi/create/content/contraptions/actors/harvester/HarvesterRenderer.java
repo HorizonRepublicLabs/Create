@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.harvester;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -43,7 +45,7 @@ public class HarvesterRenderer extends SafeBlockEntityRenderer<HarvesterBlockEnt
 		SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.HARVESTER_BLADE, blockState);
 		transform(be.getLevel(), blockState.getValue(HarvesterBlock.FACING), superBuffer, be.getAnimatedSpeed(), PIVOT);
 		superBuffer.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
@@ -62,7 +64,7 @@ public class HarvesterRenderer extends SafeBlockEntityRenderer<HarvesterBlockEnt
 
 		superBuffer.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
 			.useLevelLight(context.world, matrices.getWorld())
-			.renderInto(matrices.getViewProjection(), buffers.getBuffer(RenderTypes.cutoutMovingBlock()));
+			.renderInto(matrices.getViewProjection(), buffers.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 
 	public static void transform(Level world, Direction facing, SuperByteBuffer superBuffer, float speed, Vec3 pivot) {

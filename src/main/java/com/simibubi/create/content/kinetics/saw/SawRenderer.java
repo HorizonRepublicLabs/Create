@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -96,12 +98,12 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 		}
 		superBuffer.color(0xFFFFFF)
 			.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 
 	protected void renderShaft(SawBlockEntity be, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay) {
 		KineticBlockEntityRenderer.renderRotatingBuffer(be, getRotatedModel(be), ms,
-			buffer.getBuffer(RenderTypes.solidMovingBlock()), light);
+			buffer.getBuffer(CreateRenderTypes.solidMovingBlock()), light);
 	}
 
 	protected void renderItems(SawBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
@@ -240,7 +242,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 		superBuffer.uncenter()
 			.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
 			.useLevelLight(context.world, matrices.getWorld())
-			.renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+			.renderInto(matrices.getViewProjection(), buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 
 }

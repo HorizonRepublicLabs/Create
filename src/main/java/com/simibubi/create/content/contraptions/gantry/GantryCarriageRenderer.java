@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.gantry;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -70,7 +72,7 @@ public class GantryCarriageRenderer extends KineticBlockEntityRenderer<GantryCar
 				.uncenter();
 
 		cogs.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 
 	}
 

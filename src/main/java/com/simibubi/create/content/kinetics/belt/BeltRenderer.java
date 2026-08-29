@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import com.simibubi.create.foundation.render.CreateItemRenderer;
@@ -87,7 +89,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 
 			PoseStack localTransforms = new PoseStack();
 			var msr = TransformStack.of(localTransforms);
-			VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+			VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 			float renderTick = AnimationTickHolder.getRenderTime();
 
 			msr.center()

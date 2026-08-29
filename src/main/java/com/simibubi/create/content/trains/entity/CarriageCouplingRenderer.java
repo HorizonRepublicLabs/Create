@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -33,7 +35,7 @@ public class CarriageCouplingRenderer {
 
 	public static void renderAll(PoseStack ms, SuperRenderTypeBuffer buffer, Vec3 camera) {
 		Collection<Train> trains = CreateClient.RAILWAYS.trains.values();
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		BlockState air = Blocks.AIR.defaultBlockState();
 		float partialTicks = AnimationTickHolder.getPartialTicks();
 		Level level = Minecraft.getInstance().level;

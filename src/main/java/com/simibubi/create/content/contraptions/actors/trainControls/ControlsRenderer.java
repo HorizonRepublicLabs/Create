@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.trainControls;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -41,7 +43,7 @@ public class ControlsRenderer {
 			.uncenter()
 			.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
 			.useLevelLight(context.world, matrices.getWorld())
-			.renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+			.renderInto(matrices.getViewProjection(), buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 
 		double yOffset = Mth.lerp(equipAnimation * equipAnimation, -0.15f, 0.05f);
 
@@ -62,7 +64,7 @@ public class ControlsRenderer {
 			lever.transform(ms)
 				.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
 				.useLevelLight(context.world, matrices.getWorld())
-				.renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderTypes.solidMovingBlock()));
+				.renderInto(matrices.getViewProjection(), buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 			ms.popPose();
 		}
 

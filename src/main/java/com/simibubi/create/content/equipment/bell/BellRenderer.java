@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.bell;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -42,7 +44,7 @@ public class BellRenderer<BE extends AbstractBellBlockEntity> extends SafeBlockE
 		bell.rotateCentered(AngleHelper.rad(rY), Direction.UP);
 
 		bell.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
+			.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 
 	public static float getSwingAngle(float time) {

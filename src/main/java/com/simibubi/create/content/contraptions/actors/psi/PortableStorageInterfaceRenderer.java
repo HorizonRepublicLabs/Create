@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -48,7 +50,7 @@ public class PortableStorageInterfaceRenderer extends SafeBlockEntityRenderer<Po
 
 		BlockState blockState = be.getBlockState();
 		float progress = be.getExtensionDistance(partialTicks);
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		render(blockState, be.isConnected(), progress, null, sbb -> sbb.light(light)
 			.renderInto(ms, vb));
 	}
@@ -56,7 +58,7 @@ public class PortableStorageInterfaceRenderer extends SafeBlockEntityRenderer<Po
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		BlockState blockState = context.state;
-		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
+		VertexConsumer vb = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 		float renderPartialTicks = AnimationTickHolder.getPartialTicks();
 
 		LerpedFloat animation = PortableStorageInterfaceMovement.getAnimation(context);

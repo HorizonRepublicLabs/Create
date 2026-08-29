@@ -106,6 +106,20 @@ public class CreateRenderTypes {
 		return ENTITY_TRANSLUCENT_BLOCK_MIPPED;
 	}
 
+	/// Contraptions and other moving blocks draw with the mipped entity
+	/// variants, which is what the old moving-block types resolved to.
+	public static RenderType solidMovingBlock() {
+		return ENTITY_SOLID_BLOCK_MIPPED;
+	}
+
+	public static RenderType cutoutMovingBlock() {
+		return ENTITY_CUTOUT_BLOCK_MIPPED;
+	}
+
+	public static RenderType translucentMovingBlock() {
+		return ENTITY_TRANSLUCENT_BLOCK_MIPPED;
+	}
+
 	public static RenderType additive() {
 		return ADDITIVE;
 	}
