@@ -79,7 +79,7 @@ public class ClientSchematicLoader {
 			if (!isGZIPEncoded(path.toFile())) {
 				LocalPlayer player = Minecraft.getInstance().player;
 				if (player != null)
-					player.displayClientMessage(CreateLang.translateDirect("schematics.wrongFormat"), false);
+					CreateLang.sendStatus(player, CreateLang.translateDirect("schematics.wrongFormat"), false);
 				return;
 			}
 
@@ -98,8 +98,8 @@ public class ClientSchematicLoader {
 		if (size > maxSize * 1000) {
 			LocalPlayer player = Minecraft.getInstance().player;
 			if (player != null) {
-				player.displayClientMessage(CreateLang.translateDirect("schematics.uploadTooLarge").append(" (" + size / 1000 + " KB)."), false);
-				player.displayClientMessage(CreateLang.translateDirect("schematics.maxAllowedSize").append(" " + maxSize + " KB"), false);
+				CreateLang.sendStatus(player, CreateLang.translateDirect("schematics.uploadTooLarge").append(" (" + size / 1000 + " KB)."), false);
+				CreateLang.sendStatus(player, CreateLang.translateDirect("schematics.maxAllowedSize").append(" " + maxSize + " KB"), false);
 			}
 			return false;
 		}

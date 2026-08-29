@@ -57,8 +57,8 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 		setWindowOffset(-6, 0);
 		super.init();
 
-		int x = guiLeft;
-		int y = guiTop + 2;
+		int x = leftPos;
+		int y = topPos + 2;
 
 		xInput = new EditBox(font, x + 50, y + 26, 34, 10, CommonComponents.EMPTY);
 		yInput = new EditBox(font, x + 90, y + 26, 34, 10, CommonComponents.EMPTY);
@@ -153,8 +153,8 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		background.render(graphics, x, y);
 		String title = handler.getCurrentSchematicName();

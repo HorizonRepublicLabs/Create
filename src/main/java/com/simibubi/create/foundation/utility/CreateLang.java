@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.utility;
 
+import net.minecraft.world.entity.player.Player;
+
+import net.minecraft.client.Minecraft;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +19,20 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public class CreateLang extends Lang {
+
+	/// Player.displayClientMessage(text, overlay) is gone. Chat goes through
+	/// sendSystemMessage; the overlay line is a client HUD concern now, so it
+	/// only applies where there is a HUD to put it on.
+	public static void sendStatus(Player player, Component text, boolean overlay) {
+		if (overlay && player.level().isClientSide()) {
+			Minecraft minecraft = Minecraft.getInstance();
+			if (minecraft.gui != null) {
+				minecraft.gui.hud.setOverlayMessage(text, false);
+				return;
+			}
+		}
+		player.sendSystemMessage(text);
+	}
 
 	/**
 	 * legacy-ish. Use CreateLang.translate and other builder methods where possible

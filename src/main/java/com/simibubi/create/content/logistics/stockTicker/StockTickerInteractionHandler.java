@@ -71,7 +71,7 @@ public class StockTickerInteractionHandler {
 			return false;
 
 		if (!stbe.behaviour.mayInteract(player)) {
-			player.displayClientMessage(CreateLang.translate("stock_keeper.locked")
+			CreateLang.sendStatus(player, CreateLang.translate("stock_keeper.locked")
 				.style(ChatFormatting.RED)
 				.component(), true);
 			return true;

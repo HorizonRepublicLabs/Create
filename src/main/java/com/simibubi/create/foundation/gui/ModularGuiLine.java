@@ -30,12 +30,12 @@ public class ModularGuiLine {
 		speechBubble = false;
 	}
 
-	public void renderWidgetBG(int guiLeft, GuiGraphicsExtractor graphics) {
+	public void renderWidgetBG(int leftPos, GuiGraphicsExtractor graphics) {
 		boolean first = true;
 
 		if (!customBoxes.isEmpty()) {
 			for (Couple<Integer> couple : customBoxes) {
-				int x = couple.getFirst() + guiLeft;
+				int x = couple.getFirst() + leftPos;
 				int width = couple.getSecond();
 				box(graphics, x, width, first & speechBubble);
 				first = false;

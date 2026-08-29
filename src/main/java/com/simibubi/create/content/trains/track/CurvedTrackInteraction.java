@@ -118,7 +118,7 @@ public class CurvedTrackInteraction {
 			ItemStack heldItem = player.getMainHandItem();
 			Item item = heldItem.getItem();
 			if (AllTags.AllBlockTags.TRACKS.matches(heldItem)) {
-				player.displayClientMessage(CreateLang.translateDirect("track.turn_start")
+				CreateLang.sendStatus(player, CreateLang.translateDirect("track.turn_start")
 					.withStyle(ChatFormatting.RED), true);
 				player.swing(InteractionHand.MAIN_HAND);
 				return true;

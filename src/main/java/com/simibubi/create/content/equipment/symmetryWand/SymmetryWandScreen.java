@@ -63,8 +63,8 @@ public class SymmetryWandScreen extends AbstractSimiScreen {
 		setWindowOffset(-20, 0);
 		super.init();
 
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		labelType = new Label(x + 51, y + 28, CommonComponents.EMPTY).colored(0xFFFFFFFF)
 			.withShadow();
@@ -123,8 +123,8 @@ public class SymmetryWandScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		background.render(graphics, x, y);
 		graphics.text(font, wand.getHoverName(),

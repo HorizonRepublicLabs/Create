@@ -118,7 +118,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 		Component msg = validateUsage(item);
 		if (msg != null) {
 			AllSoundEvents.DENY.play(world, player, player.blockPosition());
-			player.displayClientMessage(msg.plainCopy()
+			CreateLang.sendStatus(player, msg.plainCopy()
 				.withStyle(ChatFormatting.RED), true);
 			return new InteractionResult(InteractionResult.FAIL, item);
 		}

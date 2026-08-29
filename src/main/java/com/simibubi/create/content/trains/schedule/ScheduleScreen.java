@@ -1119,8 +1119,8 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 			return new ModularGuiLineBuilder(font, this.line, x, y);
 		}
 
-		protected void renderBg(int guiLeft, GuiGraphicsExtractor graphics) {
-			this.line.renderWidgetBG(guiLeft, graphics);
+		protected void renderBg(int leftPos, GuiGraphicsExtractor graphics) {
+			this.line.renderWidgetBG(leftPos, graphics);
 		}
 	}
 }

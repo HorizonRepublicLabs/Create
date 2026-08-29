@@ -76,18 +76,18 @@ public abstract class ConductorBlockInteractionBehavior extends MovingInteractio
 				if (train.runtime.paused && !train.runtime.completed) {
 					train.runtime.paused = false;
 					AllSoundEvents.CONFIRM.playOnServer(player.level(), player.blockPosition(), 1, 1);
-					player.displayClientMessage(CreateLang.translateDirect("schedule.continued"), true);
+					CreateLang.sendStatus(player, CreateLang.translateDirect("schedule.continued"), true);
 					return true;
 				}
 
 				if (!itemInHand.isEmpty()) {
 					AllSoundEvents.DENY.playOnServer(player.level(), player.blockPosition(), 1, 1);
-					player.displayClientMessage(CreateLang.translateDirect("schedule.remove_with_empty_hand"), true);
+					CreateLang.sendStatus(player, CreateLang.translateDirect("schedule.remove_with_empty_hand"), true);
 					return true;
 				}
 
 				AllSoundEvents.playItemPickup(player);
-				player.displayClientMessage(CreateLang.translateDirect(
+				CreateLang.sendStatus(player, CreateLang.translateDirect(
 					train.runtime.isAutoSchedule ? "schedule.auto_removed_from_train" : "schedule.removed_from_train"),
 					true);
 				player.setItemInHand(activeHand, train.runtime.returnSchedule(player.registryAccess()));
@@ -104,21 +104,21 @@ public abstract class ConductorBlockInteractionBehavior extends MovingInteractio
 
 			if (schedule.entries.isEmpty()) {
 				AllSoundEvents.DENY.playOnServer(player.level(), player.blockPosition(), 1, 1);
-				player.displayClientMessage(CreateLang.translateDirect("schedule.no_stops"), true);
+				CreateLang.sendStatus(player, CreateLang.translateDirect("schedule.no_stops"), true);
 				return true;
 			}
 			this.onScheduleUpdate(true, info.state(), newBlockState -> setBlockState(localPos, contraptionEntity, newBlockState));
 			train.runtime.setSchedule(schedule, false);
 			AllAdvancements.CONDUCTOR.awardTo(player);
 			AllSoundEvents.CONFIRM.playOnServer(player.level(), player.blockPosition(), 1, 1);
-			player.displayClientMessage(CreateLang.translateDirect("schedule.applied_to_train")
+			CreateLang.sendStatus(player, CreateLang.translateDirect("schedule.applied_to_train")
 				.withStyle(ChatFormatting.GREEN), true);
 			itemInHand.shrink(1);
 			player.setItemInHand(activeHand, itemInHand.isEmpty() ? ItemStack.EMPTY : itemInHand);
 			return true;
 		}
 
-		player.displayClientMessage(CreateLang.translateDirect("schedule.non_controlling_seat"), true);
+		CreateLang.sendStatus(player, CreateLang.translateDirect("schedule.non_controlling_seat"), true);
 		AllSoundEvents.DENY.playOnServer(player.level(), player.blockPosition(), 1, 1);
 		return true;
 	}

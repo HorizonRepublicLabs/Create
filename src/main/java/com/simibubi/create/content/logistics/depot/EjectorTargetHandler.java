@@ -65,7 +65,7 @@ public class EjectorTargetHandler {
 
 		String key = "weighted_ejector.target_set";
 		ChatFormatting colour = ChatFormatting.GOLD;
-		player.displayClientMessage(CreateLang.translateDirect(key)
+		CreateLang.sendStatus(player, CreateLang.translateDirect(key)
 			.withStyle(colour), true);
 		currentSelection = pos;
 		launcher = null;
@@ -103,7 +103,7 @@ public class EjectorTargetHandler {
 
 		Direction validTargetDirection = getValidTargetDirection(pos);
 		if (validTargetDirection == null) {
-			player.displayClientMessage(CreateLang.translateDirect(key)
+			CreateLang.sendStatus(player, CreateLang.translateDirect(key)
 				.withStyle(colour), true);
 			currentItem = null;
 			currentSelection = null;
@@ -113,7 +113,7 @@ public class EjectorTargetHandler {
 		key = "weighted_ejector.targeting";
 		colour = ChatFormatting.GREEN;
 
-		player.displayClientMessage(
+		CreateLang.sendStatus(player, 
 			CreateLang.translateDirect(key, currentSelection.getX(), currentSelection.getY(), currentSelection.getZ())
 				.withStyle(colour),
 			true);

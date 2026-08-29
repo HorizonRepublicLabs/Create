@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import com.simibubi.create.foundation.utility.CreateLang;
+
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.simibubi.create.compat.Mods;
@@ -157,7 +159,7 @@ public class CreateClient {
                             Component.literal("Click here to disable this warning")));
             });
 
-		mc.player.displayClientMessage(text, false);
+		CreateLang.sendStatus(mc.player, text, false);
 	}
 
 }

@@ -158,7 +158,7 @@ public class SchematicHandler implements LayeredDraw.Layer {
 				blockEntity.setLevel(w);
 			fixControllerBlockEntities(w);
 		} catch (Exception e) {
-			Minecraft.getInstance().player.displayClientMessage(CreateLang.translate("schematic.error")
+			CreateLang.sendStatus(Minecraft.getInstance().player, CreateLang.translate("schematic.error")
 				.component(), false);
 			Create.LOGGER.error("Failed to load Schematic for Previewing", e);
 			return;

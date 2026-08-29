@@ -77,7 +77,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 		if (player.isShiftKeyDown() && stack.has(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS)) {
 			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
-			player.displayClientMessage(CreateLang.translateDirect("track_target.clear"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect("track_target.clear"), true);
 			stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS);
 			stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_DIRECTION);
 			stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_BEZIER);
@@ -98,7 +98,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 			withGraphLocation(level, pos, front, null, type, (overlap, location) -> result.setValue(overlap));
 
 			if (result.getValue().feedback != null) {
-				player.displayClientMessage(CreateLang.translateDirect(result.getValue().feedback)
+				CreateLang.sendStatus(player, CreateLang.translateDirect(result.getValue().feedback)
 					.withStyle(ChatFormatting.RED), true);
 				AllSoundEvents.DENY.play(level, null, pos, .5f, 1);
 				return InteractionResult.FAIL;
@@ -107,13 +107,13 @@ public class TrackTargetingBlockItem extends BlockItem {
 			stack.set(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS, pos);
 			stack.set(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_DIRECTION, front);
 			stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_BEZIER);
-			player.displayClientMessage(CreateLang.translateDirect("track_target.set"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect("track_target.set"), true);
 			AllSoundEvents.CONTROLLER_CLICK.play(level, null, pos, 1, 1);
 			return InteractionResult.SUCCESS;
 		}
 
 		if (!stack.has(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS)) {
-			player.displayClientMessage(CreateLang.translateDirect("track_target.missing")
+			CreateLang.sendStatus(player, CreateLang.translateDirect("track_target.missing")
 				.withStyle(ChatFormatting.RED), true);
 			return InteractionResult.FAIL;
 		}
@@ -127,7 +127,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 		boolean bezier = stack.has(AllDataComponents.TRACK_TARGETING_ITEM_BEZIER);
 
 		if (!selectedPos.closerThan(placedPos, bezier ? AllConfigs.server().trains.maxTrackPlacementLength.get() + 16 : 16)) {
-			player.displayClientMessage(CreateLang.translateDirect("track_target.too_far")
+			CreateLang.sendStatus(player, CreateLang.translateDirect("track_target.too_far")
 				.withStyle(ChatFormatting.RED), true);
 			return InteractionResult.FAIL;
 		}
@@ -163,7 +163,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 			itemInHand.remove(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_DIRECTION);
 			itemInHand.remove(AllDataComponents.TRACK_TARGETING_ITEM_BEZIER);
 		}
-		player.displayClientMessage(CreateLang.translateDirect("track_target.success")
+		CreateLang.sendStatus(player, CreateLang.translateDirect("track_target.success")
 			.withStyle(ChatFormatting.GREEN), true);
 
 		if (type == EdgePointType.SIGNAL)

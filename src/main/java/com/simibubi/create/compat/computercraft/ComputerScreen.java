@@ -53,8 +53,8 @@ public class ComputerScreen extends AbstractSimiScreen {
 		setWindowSize(background.getWidth(), background.getHeight());
 		super.init();
 
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		Mods.COMPUTERCRAFT.executeIfInstalled(() -> () -> {
 			computerWidget = new ElementWidget(x + 33, y + 38)
@@ -72,8 +72,8 @@ public class ComputerScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		background.render(graphics, x, y);
 
@@ -89,7 +89,7 @@ public class ComputerScreen extends AbstractSimiScreen {
 	@FunctionalInterface
 	public interface RenderWindowFunction {
 
-		void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks, int guiLeft, int guiTop, AllGuiTextures background);
+		void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks, int leftPos, int topPos, AllGuiTextures background);
 
 	}
 

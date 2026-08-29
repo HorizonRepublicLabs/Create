@@ -153,7 +153,7 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 				Player pPlayer = pContext.getPlayer();
 
 				if (fpbe.addPanel(targetedSlot, networkFromStack) && pPlayer != null) {
-					pPlayer.displayClientMessage(CreateLang.translateDirect("logistically_linked.connected"), true);
+					CreateLang.sendStatus(pPlayer, CreateLang.translateDirect("logistically_linked.connected"), true);
 
 					if (!pPlayer.isCreative()) {
 						panelItem.shrink(1);
@@ -233,7 +233,7 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 
 		if (!FactoryPanelBlockItem.isTuned(stack)) {
 			AllSoundEvents.DENY.playOnServer(level, pos);
-			player.displayClientMessage(CreateLang.translate("factory_panel.tune_before_placing")
+			CreateLang.sendStatus(player, CreateLang.translate("factory_panel.tune_before_placing")
 				.component(), true);
 			return InteractionResult.FAIL;
 		}
@@ -242,7 +242,7 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 		withBlockEntityDo(level, pos, fpbe -> {
 			if (!fpbe.addPanel(newSlot, LogisticallyLinkedBlockItem.networkFromStack(FactoryPanelBlockItem.fixCtrlCopiedStack(stack))))
 				return;
-			player.displayClientMessage(CreateLang.translateDirect("logistically_linked.connected"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect("logistically_linked.connected"), true);
 			level.playSound(null, pos, soundType.getPlaceSound(), SoundSource.BLOCKS);
 			if (player.isCreative())
 				return;

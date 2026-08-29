@@ -152,7 +152,7 @@ public class TrainStatus {
 		if (owner == null)
 			return;
 		if (owner instanceof Player player) {
-			player.displayClientMessage(CreateLang.translateDirect("train.status", train.name)
+			CreateLang.sendStatus(player, CreateLang.translateDirect("train.status", train.name)
 				.withStyle(ChatFormatting.GOLD), false);
 			queued.forEach(message -> message.displayToPlayer(player));
 		}
@@ -180,7 +180,7 @@ public class TrainStatus {
 
 	public record StatusMessage(Component... messages) {
 		public void displayToPlayer(Player player) {
-			Arrays.stream(messages).forEach(messages -> player.displayClientMessage(messages, false));
+			Arrays.stream(messages).forEach(messages -> CreateLang.sendStatus(player, messages, false));
 		}
 
 	};

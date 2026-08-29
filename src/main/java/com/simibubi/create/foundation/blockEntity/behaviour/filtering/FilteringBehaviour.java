@@ -307,7 +307,7 @@ public class FilteringBehaviour extends BlockEntityBehaviour implements ValueSet
 			toApply.setCount(1);
 
 		if (!setFilter(side, toApply)) {
-			player.displayClientMessage(CreateLang.translateDirect("logistics.filter.invalid_item"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect("logistics.filter.invalid_item"), true);
 			AllSoundEvents.DENY.playOnServer(player.level(), player.blockPosition(), 1, 1);
 			return;
 		}
@@ -402,7 +402,7 @@ public class FilteringBehaviour extends BlockEntityBehaviour implements ValueSet
 				return true;
 			}
 
-			player.displayClientMessage(CreateLang
+			CreateLang.sendStatus(player, CreateLang
 				.translate("logistics.filter.requires_item_in_inventory", copied.getHoverName()
 					.copy()
 					.withStyle(ChatFormatting.WHITE))

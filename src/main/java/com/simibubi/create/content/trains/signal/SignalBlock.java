@@ -116,17 +116,17 @@ public class SignalBlock extends Block implements IBE<SignalBlockEntity>, IWrenc
 			Player player = context.getPlayer();
 			if (ste.computerBehaviour.hasAttachedComputer()) {
 				if (player != null)
-					player.displayClientMessage(CreateLang.translateDirect("track_signal.mode_controlled_by_computer"), true);
+					CreateLang.sendStatus(player, CreateLang.translateDirect("track_signal.mode_controlled_by_computer"), true);
 				return;
 			}
 			SignalBoundary signal = ste.getSignal();
 			if (signal != null) {
 				signal.cycleSignalType(pos);
 				if (player != null)
-					player.displayClientMessage(CreateLang.translateDirect("track_signal.mode_change." + signal.getTypeFor(pos)
+					CreateLang.sendStatus(player, CreateLang.translateDirect("track_signal.mode_change." + signal.getTypeFor(pos)
 						.getSerializedName()), true);
 			} else if (player != null)
-				player.displayClientMessage(CreateLang.translateDirect("track_signal.cannot_change_mode"), true);
+				CreateLang.sendStatus(player, CreateLang.translateDirect("track_signal.cannot_change_mode"), true);
 		});
 		return InteractionResult.SUCCESS;
 	}

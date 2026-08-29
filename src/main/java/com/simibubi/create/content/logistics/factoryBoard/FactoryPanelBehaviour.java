@@ -275,7 +275,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 		}
 
 		// Tell player
-		player.displayClientMessage(CreateLang.translate("factory_panel.relocated")
+		CreateLang.sendStatus(player, CreateLang.translate("factory_panel.relocated")
 			.style(ChatFormatting.GREEN)
 			.component(), true);
 		player.level()
@@ -584,7 +584,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 	public void onShortInteract(Player player, InteractionHand hand, Direction side, BlockHitResult hitResult) {
 		// Network is protected
 		if (!Create.LOGISTICS.mayInteract(network, player)) {
-			player.displayClientMessage(CreateLang.translate("logistically_linked.protected")
+			CreateLang.sendStatus(player, CreateLang.translate("logistically_linked.protected")
 				.style(ChatFormatting.RED)
 				.component(), true);
 			return;
@@ -624,7 +624,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 
 			char[] boxes = "\u25a1\u25a1\u25a1\u25a1".toCharArray();
 			boxes[sharedMode] = '\u25a0';
-			player.displayClientMessage(CreateLang.translate("factory_panel.cycled_arrow_path", new String(boxes))
+			CreateLang.sendStatus(player, CreateLang.translate("factory_panel.cycled_arrow_path", new String(boxes))
 				.component(), true);
 			if (notifySelf)
 				blockEntity.notifyUpdate();

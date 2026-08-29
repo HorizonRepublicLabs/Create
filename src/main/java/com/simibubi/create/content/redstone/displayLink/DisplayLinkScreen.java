@@ -82,8 +82,8 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 		super.init();
 		clearWidgets();
 
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 
 		initGathererOptions();
@@ -110,8 +110,8 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 		targetState = level.getBlockState(blockEntity.getTargetPosition());
 
 		ItemStack asItem;
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		Block sourceBlock = sourceState.getBlock();
 		Block targetBlock = targetState.getBlock();
@@ -232,7 +232,7 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 
 		DisplayLinkContext context = new DisplayLinkContext(minecraft.level, blockEntity);
 		configWidgets.forEachWithContext((s, first) -> source.initConfigurationWidgets(context,
-			new ModularGuiLineBuilder(font, s, guiLeft + 60, guiTop + (first ? 51 : 72)), first));
+			new ModularGuiLineBuilder(font, s, leftPos + 60, topPos + (first ? 51 : 72)), first));
 		configWidgets
 			.forEach(s -> s.loadValues(blockEntity.getSourceConfig(), this::addRenderableWidget, this::addRenderableOnly));
 	}
@@ -257,8 +257,8 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		background.render(graphics, x, y);
 		MutableComponent header = CreateLang.translateDirect("display_link.title");
@@ -271,12 +271,12 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 
 		PoseStack ms = graphics.pose();
 		ms.pushPose();
-		ms.translate(0, guiTop + 46, 0);
+		ms.translate(0, topPos + 46, 0);
 		configWidgets.getFirst()
-			.renderWidgetBG(guiLeft, graphics);
+			.renderWidgetBG(leftPos, graphics);
 		ms.translate(0, 21, 0);
 		configWidgets.getSecond()
-			.renderWidgetBG(guiLeft, graphics);
+			.renderWidgetBG(leftPos, graphics);
 		ms.popPose();
 
 		ms.pushPose();

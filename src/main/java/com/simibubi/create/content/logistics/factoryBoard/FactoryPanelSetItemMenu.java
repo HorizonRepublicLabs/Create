@@ -62,7 +62,7 @@ public class FactoryPanelSetItemMenu extends GhostItemMenu<FactoryPanelBehaviour
 	@Override
 	protected void saveData(FactoryPanelBehaviour contentHolder) {
 		if (!contentHolder.setFilter(ghostInventory.getStackInSlot(0))) {
-			player.displayClientMessage(CreateLang.translateDirect("logistics.filter.invalid_item"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect("logistics.filter.invalid_item"), true);
 			AllSoundEvents.DENY.playOnServer(player.level(), player.blockPosition(), 1, 1);
 			return;
 		}

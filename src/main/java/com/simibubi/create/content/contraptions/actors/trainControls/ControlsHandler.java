@@ -41,7 +41,7 @@ public class ControlsHandler {
 		entityRef = new WeakReference<>(entity);
 		controlsPos = controllerLocalPos;
 
-		Minecraft.getInstance().player.displayClientMessage(
+		CreateLang.sendStatus(Minecraft.getInstance().player, 
 			CreateLang.translateDirect("contraption.controls.start_controlling", entity.getContraptionName()), true);
 	}
 
@@ -59,7 +59,7 @@ public class ControlsHandler {
 		controlsPos = null;
 		currentlyPressed.clear();
 
-		Minecraft.getInstance().player.displayClientMessage(CreateLang.translateDirect("contraption.controls.stop_controlling"),
+		CreateLang.sendStatus(Minecraft.getInstance().player, CreateLang.translateDirect("contraption.controls.stop_controlling"),
 			true);
 	}
 

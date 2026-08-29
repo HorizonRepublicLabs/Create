@@ -158,8 +158,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		super.init();
 		clearWidgets();
 
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		if (addressBox == null) {
 			String frogAddress = behaviour.getFrogAddress();
@@ -248,8 +248,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		// BG
 		AllGuiTextures bg = restocker ? FACTORY_GAUGE_RESTOCK : FACTORY_GAUGE_RECIPE;
@@ -257,7 +257,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 			FACTORY_GAUGE_RECIPE.render(graphics, x, y - 16);
 		bg.render(graphics, x, y);
 		FACTORY_GAUGE_BOTTOM.render(graphics, x, y + bg.getHeight());
-		y = guiTop;
+		y = topPos;
 
 		// RECIPE
 		int slot = 0;
@@ -268,8 +268,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 			for (BigItemStack itemStack : inputConfig)
 				renderInputItem(graphics, slot++, itemStack, mouseX, mouseY);
 			if (inputConfig.isEmpty()) {
-				int inputX = guiLeft + (restocker ? 88 : 68 + (slot % 3 * 20));
-				int inputY = guiTop + (restocker ? 12 : 28) + (slot / 3 * 20);
+				int inputX = leftPos + (restocker ? 88 : 68 + (slot % 3 * 20));
+				int inputY = topPos + (restocker ? 12 : 28) + (slot / 3 * 20);
 				if (!restocker && mouseY > inputY && mouseY < inputY + 60 && mouseX > inputX && mouseX < inputX + 60)
 					graphics.renderComponentTooltip(font,
 						List.of(CreateLang.translate("gui.factory_panel.unconfigured_input")
@@ -425,8 +425,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 	//
 
 	private void renderInputItem(GuiGraphicsExtractor graphics, int slot, BigItemStack itemStack, int mouseX, int mouseY) {
-		int inputX = guiLeft + (restocker ? 88 : 68 + (slot % 3 * 20));
-		int inputY = guiTop + (restocker ? 12 : 28) + (slot / 3 * 20);
+		int inputX = leftPos + (restocker ? 88 : 68 + (slot % 3 * 20));
+		int inputY = topPos + (restocker ? 12 : 28) + (slot / 3 * 20);
 
 		graphics.renderItem(itemStack.stack, inputX, inputY);
 		if (!craftingActive && !restocker && !itemStack.stack.isEmpty())
@@ -551,8 +551,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		if (getFocused() != null && !getFocused().isMouseOver(mouseX, mouseY))
 			setFocused(null);
 
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		// Remove connections
 		if (!craftingActive)
@@ -596,8 +596,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 
 	@Override
 	public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		if (addressBox.mouseScrolled(mouseX, mouseY, scrollX, scrollY))
 			return true;

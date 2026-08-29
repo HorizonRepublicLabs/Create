@@ -61,8 +61,8 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 		setWindowOffset(-20, 0);
 		super.init();
 
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		inStacks = (SelectionScrollInput) new SelectionScrollInput(x + 100, y + 23, 52, 42)
 			.forOptions(List.of(CreateLang.translateDirect("schedule.condition.threshold.items"),
@@ -128,8 +128,8 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int pButton) {
-		int itemX = guiLeft + 13;
-		int itemY = guiTop + 80;
+		int itemX = leftPos + 13;
+		int itemY = topPos + 80;
 		if (mouseX >= itemX && mouseX < itemX + 16 && mouseY >= itemY && mouseY < itemY + 16) {
 			ScreenOpener.open(new PonderTagScreen(AllCreatePonderTags.THRESHOLD_SWITCH_TARGETS));
 			return true;
@@ -139,8 +139,8 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		background.render(graphics, x, y);
 		graphics.text(font, title, x + background.getWidth() / 2 - font.width(title) / 2, y + 4, 0x592424, false);

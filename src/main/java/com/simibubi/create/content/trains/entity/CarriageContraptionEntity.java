@@ -699,7 +699,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 	private void cleanUpApproachStationMessage(Player player) {
 		if (!stationMessage)
 			return;
-		player.displayClientMessage(CommonComponents.EMPTY, true);
+		CreateLang.sendStatus(player, CommonComponents.EMPTY, true);
 		stationMessage = false;
 	}
 

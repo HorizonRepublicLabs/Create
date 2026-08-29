@@ -189,7 +189,7 @@ public abstract class PackagePortBlockEntity extends SmartBlockEntity implements
 		}
 
 		page.add(new ClipboardEntry(false, Component.literal("#" + addressFilter)));
-		player.displayClientMessage(CreateLang.translate("clipboard.address_added", addressFilter)
+		CreateLang.sendStatus(player, CreateLang.translate("clipboard.address_added", addressFilter)
 			.component(), true);
 
 

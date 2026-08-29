@@ -222,7 +222,7 @@ public class ClipboardValueSettingsHandler {
 				itemStack.set(AllDataComponents.CLIPBOARD_CONTENT, clipboardContent);
 			}
 
-			player.displayClientMessage(CreateLang.translate("clipboard.copied_from_clipboard", world.getBlockState(pos)
+			CreateLang.sendStatus(player, CreateLang.translate("clipboard.copied_from_clipboard", world.getBlockState(pos)
 				.getBlock()
 				.getName()
 				.withStyle(ChatFormatting.WHITE))
@@ -283,7 +283,7 @@ public class ClipboardValueSettingsHandler {
 		if (!anySuccess)
 			return;
 
-		player.displayClientMessage(CreateLang
+		CreateLang.sendStatus(player, CreateLang
 			.translate(paste ? "clipboard.pasted_to" : "clipboard.copied_from", world.getBlockState(pos)
 				.getBlock()
 				.getName()

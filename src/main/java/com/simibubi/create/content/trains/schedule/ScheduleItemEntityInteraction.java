@@ -83,7 +83,7 @@ public class ScheduleItemEntityInteraction {
 			if (onServer) {
 				train.runtime.paused = false;
 				AllSoundEvents.CONFIRM.playOnServer(player.level(), player.blockPosition(), 1, 1);
-				player.displayClientMessage(CreateLang.translateDirect("schedule.continued"), true);
+				CreateLang.sendStatus(player, CreateLang.translateDirect("schedule.continued"), true);
 			}
 
 			player.getCooldowns()
@@ -97,7 +97,7 @@ public class ScheduleItemEntityInteraction {
 		if (!itemInHand.isEmpty()) {
 			if (onServer) {
 				AllSoundEvents.DENY.playOnServer(player.level(), player.blockPosition(), 1, 1);
-				player.displayClientMessage(CreateLang.translateDirect("schedule.remove_with_empty_hand"), true);
+				CreateLang.sendStatus(player, CreateLang.translateDirect("schedule.remove_with_empty_hand"), true);
 			}
 			event.setCancellationResult(InteractionResult.SUCCESS);
 			event.setCanceled(true);
@@ -106,7 +106,7 @@ public class ScheduleItemEntityInteraction {
 
 		if (onServer) {
 			AllSoundEvents.playItemPickup(player);
-			player.displayClientMessage(
+			CreateLang.sendStatus(player, 
 				CreateLang.translateDirect(
 					train.runtime.isAutoSchedule ? "schedule.auto_removed_from_train" : "schedule.removed_from_train"),
 				true);

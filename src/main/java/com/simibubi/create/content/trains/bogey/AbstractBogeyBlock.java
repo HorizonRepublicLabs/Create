@@ -214,7 +214,7 @@ public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> ext
 						return InteractionResult.FAIL;
 					bogeyBlockEntity.setBogeyData(oldData);
 				}
-				player.displayClientMessage(CreateLang.translateDirect("bogey.style.updated_style")
+				CreateLang.sendStatus(player, CreateLang.translateDirect("bogey.style.updated_style")
 						.append(": ").append(style.displayName), true);
 			} else {
 				CompoundTag oldData = sbbe.getBogeyData();
@@ -222,7 +222,7 @@ public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> ext
 				if (!(level.getBlockEntity(pos) instanceof AbstractBogeyBlockEntity bogeyBlockEntity))
 					return InteractionResult.FAIL;
 				bogeyBlockEntity.setBogeyData(oldData);
-				player.displayClientMessage(CreateLang.translateDirect("bogey.style.updated_style_and_size")
+				CreateLang.sendStatus(player, CreateLang.translateDirect("bogey.style.updated_style_and_size")
 						.append(": ").append(style.displayName), true);
 			}
 

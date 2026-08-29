@@ -486,10 +486,10 @@ public class BeltSlicer {
 			return;
 
 		if (feedback.langKey != null)
-			mc.player.displayClientMessage(CreateLang.translateDirect(feedback.langKey)
+			CreateLang.sendStatus(mc.player, CreateLang.translateDirect(feedback.langKey)
 				.withStyle(feedback.formatting), true);
 		else
-			mc.player.displayClientMessage(CommonComponents.EMPTY, true);
+			CreateLang.sendStatus(mc.player, CommonComponents.EMPTY, true);
 
 		if (feedback.bb != null)
 			Outliner.getInstance().chaseAABB("BeltSlicer", feedback.bb)

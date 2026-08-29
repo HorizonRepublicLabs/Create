@@ -17,14 +17,14 @@ public class Debug {
 	@Deprecated
 	public static void debugChat(String message) {
 		if (Minecraft.getInstance().player != null) {
-            Minecraft.getInstance().player.displayClientMessage(Component.literal(message), false);
+            CreateLang.sendStatus(Minecraft.getInstance().player, Component.literal(message), false);
         }
 	}
 
 	@Deprecated
 	public static void debugChatAndShowStack(String message, int depth) {
 		if (Minecraft.getInstance().player != null) {
-            Minecraft.getInstance().player.displayClientMessage(Component.literal(message).append("@")
+            CreateLang.sendStatus(Minecraft.getInstance().player, Component.literal(message).append("@")
                 .append(debugStack(depth)), false);
         }
 	}
@@ -32,7 +32,7 @@ public class Debug {
 	@Deprecated
 	public static void debugMessage(String message) {
 		if (Minecraft.getInstance().player != null) {
-            Minecraft.getInstance().player.displayClientMessage(Component.literal(message), true);
+            CreateLang.sendStatus(Minecraft.getInstance().player, Component.literal(message), true);
         }
 	}
 

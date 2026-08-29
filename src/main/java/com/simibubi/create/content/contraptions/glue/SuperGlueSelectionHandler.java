@@ -63,7 +63,7 @@ public class SuperGlueSelectionHandler {
 
 		if (clusterCooldown > 0) {
 			if (clusterCooldown == 25)
-				player.displayClientMessage(CommonComponents.EMPTY, true);
+				CreateLang.sendStatus(player, CommonComponents.EMPTY, true);
 			Outliner.getInstance().keep(clusterOutlineSlot);
 			clusterCooldown--;
 		}

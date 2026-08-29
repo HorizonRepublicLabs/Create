@@ -73,14 +73,14 @@ public class TrackBlockItem extends BlockItem {
 			if (state.getBlock() instanceof TrackBlock track && track.getTrackAxes(level, pos, state)
 				.size() > 1) {
 				if (!level.isClientSide())
-					player.displayClientMessage(CreateLang.translateDirect("track.junction_start")
+					CreateLang.sendStatus(player, CreateLang.translateDirect("track.junction_start")
 						.withStyle(ChatFormatting.RED), true);
 				return InteractionResult.SUCCESS;
 			}
 
 			if (level.getBlockEntity(pos) instanceof TrackBlockEntity tbe && tbe.isTilted()) {
 				if (!level.isClientSide())
-					player.displayClientMessage(CreateLang.translateDirect("track.turn_start")
+					CreateLang.sendStatus(player, CreateLang.translateDirect("track.turn_start")
 						.withStyle(ChatFormatting.RED), true);
 				return InteractionResult.SUCCESS;
 			}
@@ -111,7 +111,7 @@ public class TrackBlockItem extends BlockItem {
 		PlacementInfo info = TrackPlacement.tryConnect(level, player, pos, state, stack, hasGirder, extend);
 
 		if (info.message != null && !level.isClientSide())
-			player.displayClientMessage(CreateLang.translateDirect(info.message), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect(info.message), true);
 		if (!info.valid) {
 			AllSoundEvents.DENY.playFrom(player, 1, 1);
 			return InteractionResult.FAIL;
@@ -139,7 +139,7 @@ public class TrackBlockItem extends BlockItem {
 		if (level.isClientSide()) {
 			level.playSound(player, player.blockPosition(), SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 0.75f, 1.0f);
 		} else {
-			player.displayClientMessage(CreateLang.translateDirect("track.selection_cleared"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect("track.selection_cleared"), true);
 			stack.remove(AllDataComponents.TRACK_CONNECTING_FROM);
 		}
 		return (level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER).heldItemTransformedTo(stack);

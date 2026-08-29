@@ -73,7 +73,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 		if (player.isShiftKeyDown() && stack.has(AllDataComponents.CLICK_TO_LINK_DATA)) {
 			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
-			player.displayClientMessage(CreateLang.translateDirect(msgKey + ".clear"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect(msgKey + ".clear"), true);
 			stack.remove(AllDataComponents.CLICK_TO_LINK_DATA);
 			stack.remove(DataComponents.BLOCK_ENTITY_DATA);
 			return InteractionResult.SUCCESS;
@@ -99,14 +99,14 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 
 				if (level.isClientSide())
 					AllSoundEvents.DENY.playFrom(player);
-				player.displayClientMessage(CreateLang.translateDirect(msgKey + ".invalid"), true);
+				CreateLang.sendStatus(player, CreateLang.translateDirect(msgKey + ".invalid"), true);
 				return InteractionResult.FAIL;
 			}
 
 			if (level.isClientSide())
 				return InteractionResult.SUCCESS;
 
-			player.displayClientMessage(CreateLang.translateDirect(msgKey + ".set"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect(msgKey + ".set"), true);
 			stack.set(AllDataComponents.CLICK_TO_LINK_DATA, new ClickToLinkData(pos, placedDim));
 			return InteractionResult.SUCCESS;
 		}
@@ -118,7 +118,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 		BlockPos placedPos = pos.relative(pContext.getClickedFace(), state.canBeReplaced() ? 0 : 1);
 
 		if (maxDistance != -1 && (!selectedPos.closerThan(placedPos, maxDistance) || !selectedDim.equals(placedDim))) {
-			player.displayClientMessage(CreateLang.translateDirect(msgKey + ".too_far")
+			CreateLang.sendStatus(player, CreateLang.translateDirect(msgKey + ".too_far")
 				.withStyle(ChatFormatting.RED), true);
 			return InteractionResult.FAIL;
 		}
@@ -138,7 +138,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 			stack.remove(AllDataComponents.CLICK_TO_LINK_DATA);
 			stack.remove(DataComponents.BLOCK_ENTITY_DATA);
 		}
-		player.displayClientMessage(CreateLang.translateDirect(msgKey + ".success")
+		CreateLang.sendStatus(player, CreateLang.translateDirect(msgKey + ".success")
 			.withStyle(ChatFormatting.GREEN), true);
 		return useOn;
 	}

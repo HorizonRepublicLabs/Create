@@ -234,7 +234,7 @@ public class MinecartContraptionItem extends Item {
 
 		if (ContraptionMovementSetting.isNoPickup(contraption.getBlocks()
 			.values())) {
-			player.displayClientMessage(CreateLang.translateDirect("contraption.minecart_contraption_illegal_pickup")
+			CreateLang.sendStatus(player, CreateLang.translateDirect("contraption.minecart_contraption_illegal_pickup")
 				.withStyle(ChatFormatting.RED), true);
 			return;
 		}
@@ -257,7 +257,7 @@ public class MinecartContraptionItem extends Item {
 		if (ContraptionPickupLimiting.isTooLargeForPickup(StackNbt.save(event.getLevel().registryAccess(), generatedStack))) {
 			MutableComponent message = CreateLang.translateDirect("contraption.minecart_contraption_too_big")
 				.withStyle(ChatFormatting.RED);
-			player.displayClientMessage(message, true);
+			CreateLang.sendStatus(player, message, true);
 			return;
 		}
 

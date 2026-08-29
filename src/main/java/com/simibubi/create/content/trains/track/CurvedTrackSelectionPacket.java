@@ -52,7 +52,7 @@ public class CurvedTrackSelectionPacket extends BlockEntityConfigurationPacket<T
 		if (!(stack.getItem() instanceof TrackTargetingBlockItem))
 			return;
 		if (player.isShiftKeyDown() && stack.has(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS)) {
-			player.displayClientMessage(CreateLang.translateDirect("track_target.clear"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect("track_target.clear"), true);
 			stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS);
 			stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_DIRECTION);
 			stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_BEZIER);
@@ -67,7 +67,7 @@ public class CurvedTrackSelectionPacket extends BlockEntityConfigurationPacket<T
 				bezierTrackPointLocation, type, (overlap, location) -> result.setValue(overlap));
 
 		if (result.getValue().feedback != null) {
-			player.displayClientMessage(CreateLang.translateDirect(result.getValue().feedback)
+			CreateLang.sendStatus(player, CreateLang.translateDirect(result.getValue().feedback)
 				.withStyle(ChatFormatting.RED), true);
 			AllSoundEvents.DENY.play(player.level(), null, pos, .5f, 1);
 			return;
@@ -77,7 +77,7 @@ public class CurvedTrackSelectionPacket extends BlockEntityConfigurationPacket<T
 		stack.set(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_DIRECTION, front);
 		stack.set(AllDataComponents.TRACK_TARGETING_ITEM_BEZIER, bezierTrackPointLocation);
 
-		player.displayClientMessage(CreateLang.translateDirect("track_target.set"), true);
+		CreateLang.sendStatus(player, CreateLang.translateDirect("track_target.set"), true);
 		AllSoundEvents.CONTROLLER_CLICK.play(player.level(), null, pos, 1, 1);
 	}
 

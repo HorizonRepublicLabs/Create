@@ -46,7 +46,7 @@ public class FactoryPanelConnectionHandler {
 		FactoryPanelBehaviour at = FactoryPanelBehaviour.at(level, connectingFrom);
 		if (panel.getPanelPosition()
 			.equals(connectingFrom) || at == null) {
-			player.displayClientMessage(Component.empty(), true);
+			CreateLang.sendStatus(player, Component.empty(), true);
 			connectingFrom = null;
 			connectingFromBox = null;
 			return true;
@@ -54,7 +54,7 @@ public class FactoryPanelConnectionHandler {
 
 		String checkForIssues = checkForIssues(at, panel);
 		if (checkForIssues != null) {
-			player.displayClientMessage(CreateLang.translate(checkForIssues)
+			CreateLang.sendStatus(player, CreateLang.translate(checkForIssues)
 				.style(ChatFormatting.RED)
 				.component(), true);
 			connectingFrom = null;
@@ -68,7 +68,7 @@ public class FactoryPanelConnectionHandler {
 
 		ClientNetworkHelper.INSTANCE.sendToServer(new FactoryPanelConnectionPacket(panel.getPanelPosition(), connectingFrom, false));
 
-		player.displayClientMessage(CreateLang.translate("factory_panel.panels_connected", filterFrom.getHoverName()
+		CreateLang.sendStatus(player, CreateLang.translate("factory_panel.panels_connected", filterFrom.getHoverName()
 			.getString(),
 			filterTo.getHoverName()
 				.getString())
@@ -159,7 +159,7 @@ public class FactoryPanelConnectionHandler {
 			.closerThan(mc.player.blockPosition(), 16) || at == null) {
 			connectingFrom = null;
 			connectingFromBox = null;
-			mc.player.displayClientMessage(Component.empty(), true);
+			CreateLang.sendStatus(mc.player, Component.empty(), true);
 			return;
 		}
 
@@ -168,7 +168,7 @@ public class FactoryPanelConnectionHandler {
 			.colored(AnimationTickHolder.getTicks() % 16 > 8 ? 0x38b764 : 0xa7f070)
 			.lineWidth(1 / 16f);
 
-		mc.player.displayClientMessage(
+		CreateLang.sendStatus(mc.player, 
 			CreateLang.translate(relocating ? "factory_panel.click_to_relocate" : "factory_panel.click_second_panel")
 				.component(),
 			true);
@@ -225,7 +225,7 @@ public class FactoryPanelConnectionHandler {
 			connectingFromBox = null;
 
 			if (validRelocationTarget == null)
-				mc.player.displayClientMessage(CreateLang.translate("factory_panel.relocation_aborted")
+				CreateLang.sendStatus(mc.player, CreateLang.translate("factory_panel.relocation_aborted")
 					.component(), true);
 
 			relocating = false;
@@ -243,7 +243,7 @@ public class FactoryPanelConnectionHandler {
 				FactoryPanelBehaviour at = FactoryPanelBehaviour.at(mc.level, connectingFrom);
 				String checkForIssues = checkForIssues(at, behaviour);
 				if (checkForIssues != null) {
-					mc.player.displayClientMessage(CreateLang.translate(checkForIssues)
+					CreateLang.sendStatus(mc.player, CreateLang.translate(checkForIssues)
 						.style(ChatFormatting.RED)
 						.component(), true);
 					connectingFrom = null;
@@ -268,7 +268,7 @@ public class FactoryPanelConnectionHandler {
 
 				ClientNetworkHelper.INSTANCE.sendToServer(new FactoryPanelConnectionPacket(bestPosition, connectingFrom, false));
 
-				mc.player.displayClientMessage(CreateLang
+				CreateLang.sendStatus(mc.player, CreateLang
 					.translate("factory_panel.link_connected", blockEntity.getBlockState()
 						.getBlock()
 						.getName())
@@ -291,7 +291,7 @@ public class FactoryPanelConnectionHandler {
 			return false;
 		connectingFrom = null;
 		connectingFromBox = null;
-		mc.player.displayClientMessage(CreateLang.translate("factory_panel.connection_aborted")
+		CreateLang.sendStatus(mc.player, CreateLang.translate("factory_panel.connection_aborted")
 			.component(), true);
 		return true;
 	}

@@ -72,7 +72,7 @@ public record TrainRelocationPacket(UUID trainId, BlockPos pos, Vec3 lookAngle, 
 		}
 
 		if (TrainRelocator.relocate(train, sender.level(), pos, hoveredBezier, direction, lookAngle, false)) {
-			sender.displayClientMessage(CreateLang.translateDirect("train.relocate.success")
+			CreateLang.sendStatus(sender, CreateLang.translateDirect("train.relocate.success")
 					.withStyle(ChatFormatting.GREEN), true);
 			train.carriages.forEach(c -> c.forEachPresentEntity(e -> {
 				e.nonDamageTicks = 10;

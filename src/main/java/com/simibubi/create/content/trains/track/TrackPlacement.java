@@ -641,10 +641,10 @@ public class TrackPlacement {
 			BlueprintOverlayRenderer.displayTrackRequirements(info, player.getOffhandItem());
 
 		if (info.valid)
-			player.displayClientMessage(CreateLang.translateDirect("track.valid_connection")
+			CreateLang.sendStatus(player, CreateLang.translateDirect("track.valid_connection")
 				.withStyle(ChatFormatting.GREEN), true);
 		else if (info.message != null)
-			player.displayClientMessage(CreateLang.translateDirect(info.message)
+			CreateLang.sendStatus(player, CreateLang.translateDirect(info.message)
 					.withStyle(info.message.equals("track.second_point") ? ChatFormatting.WHITE : ChatFormatting.RED),
 				true);
 

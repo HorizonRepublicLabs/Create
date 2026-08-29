@@ -60,8 +60,8 @@ public abstract class ZapperScreen extends AbstractSimiScreen {
 
 		animationProgress = 0;
 
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		confirmButton =
 			new IconButton(x + background.getWidth() - 33, y + background.getHeight() - 24, AllIcons.I_CONFIRM);
@@ -91,8 +91,8 @@ public abstract class ZapperScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		background.render(graphics, x, y);
 		drawOnBackground(graphics, x, y);

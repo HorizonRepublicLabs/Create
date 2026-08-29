@@ -66,8 +66,8 @@ public class StationScreen extends AbstractStationScreen {
 	@Override
 	protected void init() {
 		super.init();
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		Consumer<String> onTextChanged;
 
@@ -255,7 +255,7 @@ public class StationScreen extends AbstractStationScreen {
 	}
 
 	private int nameBoxX(String s, EditBox nameBox) {
-		return guiLeft + background.getWidth() / 2 - (Math.min(font.width(s), nameBox.getWidth()) + 10) / 2;
+		return leftPos + background.getWidth() / 2 - (Math.min(font.width(s), nameBox.getWidth()) + 10) / 2;
 	}
 
 	private void updateAssemblyTooltip(String key) {
@@ -277,8 +277,8 @@ public class StationScreen extends AbstractStationScreen {
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		super.renderWindow(graphics, mouseX, mouseY, partialTicks);
-		int x = guiLeft;
-		int y = guiTop;
+		int x = leftPos;
+		int y = topPos;
 
 		String text = nameBox.getValue();
 
@@ -328,9 +328,9 @@ public class StationScreen extends AbstractStationScreen {
 		text = trainNameBox.getValue();
 		if (!trainNameBox.isFocused()) {
 			int buttonX = nameBoxX(text, trainNameBox) + font.width(text) + 5;
-			AllGuiTextures.STATION_EDIT_TRAIN_NAME.render(graphics, Math.min(buttonX, guiLeft + 156), y + 44);
+			AllGuiTextures.STATION_EDIT_TRAIN_NAME.render(graphics, Math.min(buttonX, leftPos + 156), y + 44);
 			if (font.width(text) > trainNameBox.getWidth())
-				graphics.text(font, "...", guiLeft + 26, guiTop + 47, 0xa6a6a6);
+				graphics.text(font, "...", leftPos + 26, topPos + 47, 0xa6a6a6);
 		}
 
 		if (!mapModsPresent())
@@ -361,15 +361,15 @@ public class StationScreen extends AbstractStationScreen {
 
 	@Override
 	public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
-		if (!nameBox.isFocused() && pMouseY > guiTop && pMouseY < guiTop + 14 && pMouseX > guiLeft
-			&& pMouseX < guiLeft + background.getWidth()) {
+		if (!nameBox.isFocused() && pMouseY > topPos && pMouseY < topPos + 14 && pMouseX > leftPos
+			&& pMouseX < leftPos + background.getWidth()) {
 			nameBox.setFocused(true);
 			nameBox.setHighlightPos(0);
 			setFocused(nameBox);
 			return true;
 		}
-		if (trainNameBox.active && !trainNameBox.isFocused() && pMouseY > guiTop + 45 && pMouseY < guiTop + 58
-			&& pMouseX > guiLeft + 25 && pMouseX < guiLeft + 168) {
+		if (trainNameBox.active && !trainNameBox.isFocused() && pMouseY > topPos + 45 && pMouseY < topPos + 58
+			&& pMouseX > leftPos + 25 && pMouseX < leftPos + 168) {
 			trainNameBox.setFocused(true);
 			trainNameBox.setHighlightPos(0);
 			setFocused(trainNameBox);

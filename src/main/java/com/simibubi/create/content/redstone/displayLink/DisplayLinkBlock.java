@@ -159,7 +159,7 @@ public class DisplayLinkBlock extends WrenchableDirectionalBlock implements IBE<
 		if (!(player instanceof LocalPlayer))
 			return;
 		if (be.targetOffset.equals(BlockPos.ZERO)) {
-			player.displayClientMessage(CreateLang.translateDirect("display_link.invalid"), true);
+			CreateLang.sendStatus(player, CreateLang.translateDirect("display_link.invalid"), true);
 			return;
 		}
 		ScreenOpener.open(new DisplayLinkScreen(be));
