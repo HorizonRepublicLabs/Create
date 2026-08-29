@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.goggles;
 
+import net.neoforged.neoforge.client.gui.GuiLayer;
+
 import org.joml.Matrix3x2fStack;
 
 import com.simibubi.create.foundation.gui.HudState;
@@ -39,7 +41,6 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -57,7 +58,7 @@ import net.minecraft.world.phys.HitResult;
 
 public class GoggleOverlayRenderer {
 
-	public static final LayeredDraw.Layer OVERLAY = GoggleOverlayRenderer::renderOverlay;
+	public static final GuiLayer OVERLAY = GoggleOverlayRenderer::renderOverlay;
 
 	private static final Map<Object, OutlineEntry> outlines = Outliner.getInstance().getOutlines();
 

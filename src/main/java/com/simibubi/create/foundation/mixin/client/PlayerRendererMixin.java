@@ -9,11 +9,11 @@ import com.simibubi.create.foundation.item.CustomArmPoseItem;
 
 import net.minecraft.client.model.HumanoidModel.ArmPose;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
-@Mixin(PlayerRenderer.class)
+@Mixin(AvatarRenderer.class)
 public class PlayerRendererMixin {
 	@Inject(method = "getArmPose(Lnet/minecraft/client/player/AbstractClientPlayer;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/client/model/HumanoidModel$ArmPose;", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getItemInHand(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack;"), cancellable = true)
 	private static void create$onGetArmPose(AbstractClientPlayer player, InteractionHand hand, CallbackInfoReturnable<ArmPose> cir) {

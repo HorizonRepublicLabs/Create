@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
@@ -96,7 +96,7 @@ public class ExtendoGripRenderHandler {
 			msr.rotateYDegrees(flip * 40.0F);
 			ms.translate(flip * 0.05f, -0.3f, -0.3f);
 
-			PlayerRenderer playerrenderer = (PlayerRenderer) mc.getEntityRenderDispatcher()
+			AvatarRenderer playerrenderer = (AvatarRenderer) mc.getEntityRenderDispatcher()
 				.getRenderer(player);
 			if (rightHand)
 				playerrenderer.renderRightHand(event.getPoseStack(), event.getMultiBufferSource(),

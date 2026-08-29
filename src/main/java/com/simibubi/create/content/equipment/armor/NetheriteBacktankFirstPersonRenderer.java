@@ -12,7 +12,7 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -46,7 +46,7 @@ public class NetheriteBacktankFirstPersonRenderer {
 		LocalPlayer player = mc.player;
 		SuperRenderTypeBuffer buffer = event.getMultiBufferSource();
 		if (!(mc.getEntityRenderDispatcher()
-			.getRenderer(player) instanceof PlayerRenderer pr))
+			.getRenderer(player) instanceof AvatarRenderer pr))
 			return;
 
 		PlayerModel<AbstractClientPlayer> model = pr.getModel();

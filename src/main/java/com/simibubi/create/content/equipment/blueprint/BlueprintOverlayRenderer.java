@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import net.neoforged.neoforge.client.gui.GuiLayer;
+
 import com.simibubi.create.foundation.recipe.RecipeLookup;
 
 import com.simibubi.create.foundation.gui.HudState;
@@ -35,7 +37,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -59,7 +60,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 // TODO - Split up into specific overlays
 public class BlueprintOverlayRenderer {
 
-	public static final LayeredDraw.Layer OVERLAY = BlueprintOverlayRenderer::renderOverlay;
+	public static final GuiLayer OVERLAY = BlueprintOverlayRenderer::renderOverlay;
 
 	static boolean active;
 	static boolean empty;

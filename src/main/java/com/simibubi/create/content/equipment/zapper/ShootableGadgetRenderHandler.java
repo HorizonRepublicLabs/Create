@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
@@ -76,7 +76,7 @@ public abstract class ShootableGadgetRenderHandler {
 
 		Minecraft mc = Minecraft.getInstance();
 		AbstractClientPlayer player = mc.player;
-		PlayerRenderer playerrenderer = (PlayerRenderer) mc.getEntityRenderDispatcher()
+		AvatarRenderer playerrenderer = (AvatarRenderer) mc.getEntityRenderDispatcher()
 			.getRenderer(player);
 		ItemInHandRenderer firstPersonRenderer = mc.getEntityRenderDispatcher().getItemInHandRenderer();
 
