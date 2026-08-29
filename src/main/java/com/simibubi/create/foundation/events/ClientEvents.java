@@ -242,7 +242,7 @@ public class ClientEvents {
 		ms.pushPose();
 		SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();
 		Vec3 camera = Minecraft.getInstance().gameRenderer.mainCamera()
-			.getPosition();
+			.position();
 
 		TrackBlockOutline.drawCurveSelection(ms, buffer, camera);
 		TrackTargetingClient.render(ms, buffer, camera);
@@ -318,7 +318,7 @@ public class ClientEvents {
 		Level level = Minecraft.getInstance().level;
 		BlockPos blockPos = camera.getBlockPosition();
 		FluidState fluidState = level.getFluidState(blockPos);
-		if (camera.getPosition().y >= blockPos.getY() + fluidState.getHeight(level, blockPos))
+		if (camera.position().y >= blockPos.getY() + fluidState.getHeight(level, blockPos))
 			return;
 
 		Fluid fluid = fluidState.getType();

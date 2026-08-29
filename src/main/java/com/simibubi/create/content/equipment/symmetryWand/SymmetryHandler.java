@@ -110,7 +110,7 @@ public class SymmetryHandler {
 			SuperRenderTypeBuffer buffer = mc.renderBuffers()
 				.bufferSource();
 			Camera info = mc.gameRenderer.mainCamera();
-			Vec3 view = info.getPosition();
+			Vec3 view = info.position();
 
 			PoseStack ms = event.getPoseStack();
 			ms.pushPose();

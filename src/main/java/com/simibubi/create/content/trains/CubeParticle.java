@@ -115,7 +115,7 @@ public class CubeParticle extends Particle {
 
 	@Override
 	public void render(VertexConsumer builder, Camera renderInfo, float p_225606_3_) {
-		Vec3 projectedView = renderInfo.getPosition();
+		Vec3 projectedView = renderInfo.position();
 		float lerpedX = (float) (Mth.lerp(p_225606_3_, this.xo, this.x) - projectedView.x());
 		float lerpedY = (float) (Mth.lerp(p_225606_3_, this.yo, this.y) - projectedView.y());
 		float lerpedZ = (float) (Mth.lerp(p_225606_3_, this.zo, this.z) - projectedView.z());

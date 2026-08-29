@@ -189,7 +189,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 				level.getBrightness(LightLayer.SKY, tilePos.offset(blockPos)));
 
 			boolean far = Minecraft.getInstance().level == be.getLevel() && !Minecraft.getInstance()
-				.getBlockEntityRenderDispatcher().camera.getPosition()
+				.getBlockEntityRenderDispatcher().camera.position()
 					.closerThan(Vec3.atCenterOf(tilePos)
 						.add(blockPos.getX() / 2f, blockPos.getY() / 2f, blockPos.getZ() / 2f), MIP_DISTANCE);
 

@@ -46,7 +46,7 @@ public class SteamJetParticle extends SimpleAnimatedParticle {
 	}
 
 	public void render(VertexConsumer pBuffer, Camera pRenderInfo, float pPartialTicks) {
-		Vec3 vec3 = pRenderInfo.getPosition();
+		Vec3 vec3 = pRenderInfo.position();
 		float f = (float) (x - vec3.x);
 		float f1 = (float) (y - vec3.y);
 		float f2 = (float) (z - vec3.z);
