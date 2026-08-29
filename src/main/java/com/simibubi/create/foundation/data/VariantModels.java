@@ -140,6 +140,26 @@ public class VariantModels {
 			.build(), BlockStateProperties.WATERLOGGED);
 	}
 
+	/// Forge's provider took an angle offset on these; a few blocks pass one.
+	public static void horizontalBlock(RegistrateBlockModelGenerator generator, Block block, Identifier model,
+		int angleOffset) {
+		forAllStatesExcept(generator, block, state -> ConfiguredModel.builder()
+			.modelFile(model)
+			.rotationY((((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot()) + angleOffset
+				+ 180) % 360)
+			.build(), BlockStateProperties.WATERLOGGED);
+	}
+
+	public static void horizontalBlock(RegistrateBlockModelGenerator generator, Block block,
+		ModelGenShim.Builder model, int angleOffset) {
+		horizontalBlock(generator, block, model.build(), angleOffset);
+	}
+
+	public static void horizontalFaceBlock(RegistrateBlockModelGenerator generator, Block block,
+		ModelGenShim.Builder model, int angleOffset) {
+		horizontalFaceBlock(generator, block, model.build());
+	}
+
 	public static void horizontalFaceBlock(RegistrateBlockModelGenerator generator, Block block, Identifier model) {
 		forAllStatesExcept(generator, block, state -> {
 			AttachFace face = state.getValue(BlockStateProperties.ATTACH_FACE);
