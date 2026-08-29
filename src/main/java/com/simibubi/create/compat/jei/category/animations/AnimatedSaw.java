@@ -19,8 +19,8 @@ public class AnimatedSaw extends AnimatedKinetics {
 		matrixStack.translate(xOffset, yOffset);
 		matrixStack.translate(0, 0);
 		matrixStack.translate(2, 22);
-		matrixStack.mulPose(Axis.XP.rotationDegrees(-15.5f));
-		matrixStack.mulPose(Axis.YP.rotationDegrees(22.5f + 90));
+		// The isometric tilt needs a 3D rotation on what is now a 2D GUI stack.
+		// catnip has not restored that yet, so these draw untilted for now.
 		int scale = 25;
 
 		blockElement(shaft(Direction.Axis.X))

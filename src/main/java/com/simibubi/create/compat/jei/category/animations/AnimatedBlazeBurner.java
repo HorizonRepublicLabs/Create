@@ -37,8 +37,8 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 		Matrix3x2fStack matrixStack = graphics.pose();
 		matrixStack.pushMatrix();
 		matrixStack.translate(xOffset, yOffset);
-		matrixStack.mulPose(Axis.XP.rotationDegrees(-15.5f));
-		matrixStack.mulPose(Axis.YP.rotationDegrees(22.5f));
+		// The isometric tilt needs a 3D rotation on what is now a 2D GUI stack.
+		// catnip has not restored that yet, so these draw untilted for now.
 		int scale = 23;
 
 		float offset = (Mth.sin(AnimationTickHolder.getRenderTime() / 16f) + 0.5f) / 16f;
