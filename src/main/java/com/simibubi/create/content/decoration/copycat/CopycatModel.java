@@ -1,5 +1,9 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import com.simibubi.create.foundation.model.DelegateModelPart;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import java.util.ArrayList;
@@ -25,7 +29,6 @@ import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.neoforge.client.model.QuadTransformers;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelData.Builder;
 import net.neoforged.neoforge.model.data.ModelProperty;
@@ -54,13 +57,10 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 		gatherOcclusionData(world, pos, state, material, occlusionData, copycatBlock);
 		builder.with(OCCLUSION_PROPERTY, occlusionData);
 
-		ModelData wrappedData = getModelOf(material).getModelData(
-			new FilteredBlockAndTintGetter(world,
-				targetPos -> copycatBlock.canConnectTexturesToward(world, pos, targetPos, state)),
-			pos, material, ModelData.EMPTY);
+		ModelData wrappedData = world.getModelData(pos);
 		builder.with(WRAPPED_DATA_PROPERTY, wrappedData);
 
-		boolean isEmissive = material.emissiveRendering(world, pos);
+		boolean isEmissive = material.emissiveRendering();
 		builder.with(IS_EMISSIVE_PROPERTY, isEmissive);
 
 		return builder;
@@ -83,82 +83,97 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 
 			if (!copycatBlock.canFaceBeOccluded(state, face))
 				continue;
-			if (!Block.shouldRenderFace(material, level, pos, face, neighbourPos))
+			if (!Block.shouldRenderFace(level, pos, material, level.getBlockState(neighbourPos), face))
 				occlusionData.occlude(face);
 		}
 	}
 
+	/// Copycats draw the material block's geometry cropped to their own shape.
+	/// Geometry is parts now, so this collects the delegate's and replaces each
+	/// with one that reports the cropped quads instead.
 	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand) {
-		return getCroppedQuads(state, side, rand, getMaterial(ModelData.EMPTY), ModelData.EMPTY,
-			RenderTypes.cutoutMovingBlock());
-	}
-
-	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData data, RenderType renderType) {
-
-		// Rubidium: see below
-		if (side != null && state.getBlock() instanceof CopycatBlock ccb && ccb.shouldFaceAlwaysRender(state, side))
-			return Collections.emptyList();
-
+	public void collectParts(BlockAndTintGetter level, BlockPos pos, BlockState state, RandomSource random,
+		List<BlockStateModelPart> parts) {
+		ModelData data = level.getModelData(pos);
 		BlockState material = getMaterial(data);
-
-		if (material == null)
-			return super.getQuads(state, side, rand, data, renderType);
-
-		OcclusionData occlusionData = data.get(OCCLUSION_PROPERTY);
-		if (occlusionData != null && occlusionData.isOccluded(side))
-			return super.getQuads(state, side, rand, data, renderType);
-
-		ModelData wrappedData = data.get(WRAPPED_DATA_PROPERTY);
-		if (wrappedData == null)
-			wrappedData = ModelData.EMPTY;
-		if (renderType != null && !Minecraft.getInstance()
-			.getBlockRenderer()
-			.getBlockModel(material)
-			.getRenderTypes(material, rand, wrappedData)
-			.contains(renderType))
-			return super.getQuads(state, side, rand, data, renderType);
-
-		List<BakedQuad> croppedQuads = getCroppedQuads(state, side, rand, material, wrappedData, renderType);
-
-		// Rubidium: render side!=null versions of the base material during side==null,
-		// to avoid getting culled away
-		if (side == null && state.getBlock() instanceof CopycatBlock ccb) {
-			boolean immutable = true;
-			for (Direction nonOcclusionSide : Iterate.directions)
-				if (ccb.shouldFaceAlwaysRender(state, nonOcclusionSide)) {
-					if (immutable) {
-						croppedQuads = new ArrayList<>(croppedQuads);
-						immutable = false;
-					}
-					croppedQuads.addAll(getCroppedQuads(state, nonOcclusionSide, rand, material, wrappedData, renderType));
-				}
+		if (material == null) {
+			super.collectParts(level, pos, state, random, parts);
+			return;
 		}
 
-		// Currently, it seems like there's no way to have different levels of emissivity in vanilla, if that changes,
-		// then this will need to aswell
-		if (Boolean.TRUE.equals(data.get(IS_EMISSIVE_PROPERTY)))
-			QuadTransformers.settingMaxEmissivity().processInPlace(croppedQuads);
+		int first = parts.size();
+		super.collectParts(level, pos, state, random, parts);
+		for (int i = first; i < parts.size(); i++)
+			parts.set(i, new CroppedPart(parts.get(i), state, material, data, random));
+	}
 
-		return croppedQuads;
+	private class CroppedPart extends DelegateModelPart {
+
+		private final BlockState state;
+		private final BlockState material;
+		private final ModelData data;
+		private final RandomSource random;
+
+		CroppedPart(BlockStateModelPart wrapped, BlockState state, BlockState material, ModelData data,
+			RandomSource random) {
+			super(wrapped);
+			this.state = state;
+			this.material = material;
+			this.data = data;
+			this.random = random;
+		}
+
+		@Override
+		public List<BakedQuad> getQuads(Direction side) {
+			// Rubidium: see below
+			if (side != null && state.getBlock() instanceof CopycatBlock ccb
+				&& ccb.shouldFaceAlwaysRender(state, side))
+				return List.of();
+
+			OcclusionData occlusionData = data.get(OCCLUSION_PROPERTY);
+			if (occlusionData != null && occlusionData.isOccluded(side))
+				return wrapped.getQuads(side);
+
+			ModelData wrappedData = data.get(WRAPPED_DATA_PROPERTY);
+			if (wrappedData == null)
+				wrappedData = ModelData.EMPTY;
+
+			List<BakedQuad> croppedQuads = getCroppedQuads(state, side, random, material, wrappedData);
+
+			// Rubidium: render the side != null versions during side == null so they
+			// are not culled away
+			if (side == null && state.getBlock() instanceof CopycatBlock ccb) {
+				boolean immutable = true;
+				for (Direction nonOcclusionSide : Iterate.directions)
+					if (ccb.shouldFaceAlwaysRender(state, nonOcclusionSide)) {
+						if (immutable) {
+							croppedQuads = new ArrayList<>(croppedQuads);
+							immutable = false;
+						}
+						croppedQuads.addAll(
+							getCroppedQuads(state, nonOcclusionSide, random, material, wrappedData));
+					}
+			}
+
+			return croppedQuads;
+		}
 	}
 
 	/**
 	 * The returned list must not be mutated.
 	 */
 	protected abstract List<BakedQuad> getCroppedQuads(BlockState state, Direction side, RandomSource rand,
-		BlockState material, ModelData wrappedData, RenderType renderType);
+		BlockState material, ModelData wrappedData);
 
-	@Override
-	public TextureAtlasSprite getParticleIcon(ModelData data) {
+	public TextureAtlasSprite getParticleIconFor(ModelData data) {
 		BlockState material = getMaterial(data);
 
 		ModelData wrappedData = data.get(WRAPPED_DATA_PROPERTY);
 		if (wrappedData == null)
 			wrappedData = ModelData.EMPTY;
 
-		return getModelOf(material).getParticleIcon(wrappedData);
+		return getModelOf(material).particleMaterial()
+			.sprite();
 	}
 
 	@NotNull
@@ -169,8 +184,9 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 
 	public static BlockStateModel getModelOf(BlockState state) {
 		return Minecraft.getInstance()
-			.getBlockRenderer()
-			.getBlockModel(state);
+			.getModelManager()
+			.getBlockStateModelSet()
+			.get(state);
 	}
 
 	private static class OcclusionData {
