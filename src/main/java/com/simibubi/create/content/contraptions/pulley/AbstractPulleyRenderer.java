@@ -43,7 +43,7 @@ public abstract class AbstractPulleyRenderer<T extends KineticBlockEntity> exten
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(T p_188185_1_) {
+	public boolean shouldRenderOffScreen() {
 		return true;
 	}
 

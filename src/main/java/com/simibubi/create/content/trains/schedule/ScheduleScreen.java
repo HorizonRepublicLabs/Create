@@ -383,7 +383,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 			renderBackground(graphics, mouseX, mouseY, partialTicks);
 			renderBg(graphics, partialTicks, mouseX, mouseY);
 			for (Renderable widget : this.renderables)
-				widget.render(graphics, mouseX, mouseY, partialTicks);
+				widget.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 			renderForeground(graphics, mouseX, mouseY, partialTicks);
 		}
 	}
@@ -1018,7 +1018,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 	}
 
 	@Override
-	protected void extractContents(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
+	public void extractContents(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
 		AllGuiTextures.SCHEDULE.render(graphics, leftPos, topPos);
 		FormattedCharSequence formattedcharsequence = title.getVisualOrderText();
 		int center = leftPos + (AllGuiTextures.SCHEDULE.getWidth() - 8) / 2;

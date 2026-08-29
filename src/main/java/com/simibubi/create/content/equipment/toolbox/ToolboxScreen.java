@@ -78,7 +78,7 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 	}
 
 	@Override
-	protected void extractContents(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
+	public void extractContents(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
 		int x = leftPos + imageWidth - BG.getWidth();
 		int y = topPos;
 

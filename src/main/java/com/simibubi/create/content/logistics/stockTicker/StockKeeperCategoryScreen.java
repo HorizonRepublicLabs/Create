@@ -174,7 +174,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 			renderBackground(graphics, mouseX, mouseY, partialTicks);
 			renderBg(graphics, partialTicks, mouseX, mouseY);
 			for (Renderable widget : this.renderables)
-				widget.render(graphics, mouseX, mouseY, partialTicks);
+				widget.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 			renderForeground(graphics, mouseX, mouseY, partialTicks);
 		}
 	}
@@ -444,7 +444,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 	}
 
 	@Override
-	protected void extractContents(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
+	public void extractContents(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
 		int y = topPos;
 		AllGuiTextures.STOCK_KEEPER_CATEGORY_HEADER.render(graphics, leftPos, y);
 		y += AllGuiTextures.STOCK_KEEPER_CATEGORY_HEADER.getHeight();

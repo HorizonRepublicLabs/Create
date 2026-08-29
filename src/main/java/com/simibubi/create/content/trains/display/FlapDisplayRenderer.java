@@ -238,7 +238,7 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(FlapDisplayBlockEntity be) {
+	public boolean shouldRenderOffScreen() {
 		return be.isController;
 	}
 

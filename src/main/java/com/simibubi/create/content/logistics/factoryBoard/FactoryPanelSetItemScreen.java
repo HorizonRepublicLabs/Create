@@ -45,7 +45,7 @@ public class FactoryPanelSetItemScreen extends AbstractSimiContainerScreen<Facto
 	}
 
 	@Override
-	protected void extractContents(GuiGraphicsExtractor pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+	public void extractContents(GuiGraphicsExtractor pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
 		int x = getGuiLeft();
 		int y = getGuiTop();
 		AllGuiTextures.FACTORY_GAUGE_SET_ITEM.render(pGuiGraphics, x - 5, y);

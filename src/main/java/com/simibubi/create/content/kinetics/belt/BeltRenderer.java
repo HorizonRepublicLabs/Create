@@ -58,7 +58,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 	public BeltRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	public boolean shouldRenderOffScreen(BeltBlockEntity be) {
+	public boolean shouldRenderOffScreen() {
 		return be.isController();
 	}
 

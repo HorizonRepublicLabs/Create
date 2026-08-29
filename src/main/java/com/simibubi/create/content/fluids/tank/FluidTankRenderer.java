@@ -123,7 +123,7 @@ public class FluidTankRenderer extends SafeBlockEntityRenderer<FluidTankBlockEnt
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(FluidTankBlockEntity be) {
+	public boolean shouldRenderOffScreen() {
 		return be.isController();
 	}
 

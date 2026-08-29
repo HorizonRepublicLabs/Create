@@ -197,7 +197,7 @@ public class ArmRenderer extends KineticBlockEntityRenderer<ArmBlockEntity> {
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(ArmBlockEntity be) {
+	public boolean shouldRenderOffScreen() {
 		return true;
 	}
 

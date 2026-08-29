@@ -27,7 +27,7 @@ public class MechanicalMixerRenderer extends KineticBlockEntityRenderer<Mechanic
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(MechanicalMixerBlockEntity be) {
+	public boolean shouldRenderOffScreen() {
 		return true;
 	}
 

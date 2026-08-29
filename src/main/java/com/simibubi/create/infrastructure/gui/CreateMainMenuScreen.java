@@ -189,7 +189,7 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 	@Override
 	protected void renderWindowForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		super.renderWindowForeground(graphics, mouseX, mouseY, partialTicks);
-		renderables.forEach(w -> w.render(graphics, mouseX, mouseY, partialTicks));
+		renderables.forEach(w -> w.extractRenderState(graphics, mouseX, mouseY, partialTicks));
 
 		if (parent instanceof TitleScreen) {
 			if (mouseX < gettingStarted.getX() || mouseX > gettingStarted.getX() + 98)

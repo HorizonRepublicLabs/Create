@@ -66,7 +66,7 @@ public abstract class AbstractFilterScreen<F extends AbstractFilterMenu> extends
 	}
 
 	@Override
-	protected void extractContents(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
+	public void extractContents(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
 		int invX = getLeftOfCentered(PLAYER_INVENTORY.getWidth());
 		int invY = topPos + background.getHeight() + 4;
 		renderPlayerInventory(graphics, invX, invY);

@@ -39,7 +39,7 @@ public class EjectorRenderer extends ShaftRenderer<EjectorBlockEntity> {
 	}
 
 	@Override
-	public boolean shouldRenderOffScreen(EjectorBlockEntity p_188185_1_) {
+	public boolean shouldRenderOffScreen() {
 		return true;
 	}
 
