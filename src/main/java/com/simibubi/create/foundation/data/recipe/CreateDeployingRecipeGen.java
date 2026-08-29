@@ -35,40 +35,40 @@ public final class CreateDeployingRecipeGen extends DeployingRecipeGen {
 	GeneratedRecipe
 
 		COPPER_BLOCK = oxidizationChain(
-		List.of(() -> Blocks.COPPER_BLOCK, () -> Blocks.EXPOSED_COPPER, () -> Blocks.WEATHERED_COPPER, () -> Blocks.OXIDIZED_COPPER),
-		List.of(() -> Blocks.WAXED_COPPER_BLOCK, () -> Blocks.WAXED_EXPOSED_COPPER, () -> Blocks.WAXED_WEATHERED_COPPER, () -> Blocks.WAXED_OXIDIZED_COPPER)),
+		List.of(() -> Blocks.COPPER_BLOCK.weathering().unaffected(), () -> Blocks.COPPER_BLOCK.weathering().exposed(), () -> Blocks.COPPER_BLOCK.weathering().weathered(), () -> Blocks.COPPER_BLOCK.weathering().oxidized()),
+		List.of(() -> Blocks.COPPER_BLOCK.waxed().unaffected(), () -> Blocks.COPPER_BLOCK.waxed().exposed(), () -> Blocks.COPPER_BLOCK.waxed().weathered(), () -> Blocks.COPPER_BLOCK.waxed().oxidized())),
 
 	COPPER_BULB = oxidizationChain(
-		List.of(() -> Blocks.COPPER_BULB, () -> Blocks.EXPOSED_COPPER_BULB, () -> Blocks.WEATHERED_COPPER_BULB, () -> Blocks.OXIDIZED_COPPER_BULB),
-		List.of(() -> Blocks.WAXED_COPPER_BULB, () -> Blocks.WAXED_EXPOSED_COPPER_BULB, () -> Blocks.WAXED_WEATHERED_COPPER_BULB, () -> Blocks.WAXED_OXIDIZED_COPPER_BULB)),
+		List.of(() -> Blocks.COPPER_BULB.weathering().unaffected(), () -> Blocks.COPPER_BULB.weathering().exposed(), () -> Blocks.COPPER_BULB.weathering().weathered(), () -> Blocks.COPPER_BULB.weathering().oxidized()),
+		List.of(() -> Blocks.COPPER_BULB.waxed().unaffected(), () -> Blocks.COPPER_BULB.waxed().exposed(), () -> Blocks.COPPER_BULB.waxed().weathered(), () -> Blocks.COPPER_BULB.waxed().oxidized())),
 
 	CHISELED_COPPER = oxidizationChain(
-		List.of(() -> Blocks.CHISELED_COPPER, () -> Blocks.EXPOSED_CHISELED_COPPER, () -> Blocks.WEATHERED_CHISELED_COPPER, () -> Blocks.OXIDIZED_CHISELED_COPPER),
-		List.of(() -> Blocks.WAXED_CHISELED_COPPER, () -> Blocks.WAXED_EXPOSED_CHISELED_COPPER, () -> Blocks.WAXED_WEATHERED_CHISELED_COPPER, () -> Blocks.WAXED_OXIDIZED_CHISELED_COPPER)),
+		List.of(() -> Blocks.CHISELED_COPPER.weathering().unaffected(), () -> Blocks.CHISELED_COPPER.weathering().exposed(), () -> Blocks.CHISELED_COPPER.weathering().weathered(), () -> Blocks.CHISELED_COPPER.weathering().oxidized()),
+		List.of(() -> Blocks.CHISELED_COPPER.waxed().unaffected(), () -> Blocks.CHISELED_COPPER.waxed().exposed(), () -> Blocks.CHISELED_COPPER.waxed().weathered(), () -> Blocks.CHISELED_COPPER.waxed().oxidized())),
 
 	COPPER_GRATE = oxidizationChain(
-		List.of(() -> Blocks.COPPER_GRATE, () -> Blocks.EXPOSED_COPPER_GRATE, () -> Blocks.WEATHERED_COPPER_GRATE, () -> Blocks.OXIDIZED_COPPER_GRATE),
-		List.of(() -> Blocks.WAXED_COPPER_GRATE, () -> Blocks.WAXED_EXPOSED_COPPER_GRATE, () -> Blocks.WAXED_WEATHERED_COPPER_GRATE, () -> Blocks.WAXED_OXIDIZED_COPPER_GRATE)),
+		List.of(() -> Blocks.COPPER_GRATE.weathering().unaffected(), () -> Blocks.COPPER_GRATE.weathering().exposed(), () -> Blocks.COPPER_GRATE.weathering().weathered(), () -> Blocks.COPPER_GRATE.weathering().oxidized()),
+		List.of(() -> Blocks.COPPER_GRATE.waxed().unaffected(), () -> Blocks.COPPER_GRATE.waxed().exposed(), () -> Blocks.COPPER_GRATE.waxed().weathered(), () -> Blocks.COPPER_GRATE.waxed().oxidized())),
 
 	COPPER_DOOR = oxidizationChain(
-		List.of(() -> Blocks.COPPER_DOOR, () -> Blocks.EXPOSED_COPPER_DOOR, () -> Blocks.WEATHERED_COPPER_DOOR, () -> Blocks.OXIDIZED_COPPER_DOOR),
-		List.of(() -> Blocks.WAXED_COPPER_DOOR, () -> Blocks.WAXED_EXPOSED_COPPER_DOOR, () -> Blocks.WAXED_WEATHERED_COPPER_DOOR, () -> Blocks.WAXED_OXIDIZED_COPPER_DOOR)),
+		List.of(() -> Blocks.COPPER_DOOR.weathering().unaffected(), () -> Blocks.COPPER_DOOR.weathering().exposed(), () -> Blocks.COPPER_DOOR.weathering().weathered(), () -> Blocks.COPPER_DOOR.weathering().oxidized()),
+		List.of(() -> Blocks.COPPER_DOOR.waxed().unaffected(), () -> Blocks.COPPER_DOOR.waxed().exposed(), () -> Blocks.COPPER_DOOR.waxed().weathered(), () -> Blocks.COPPER_DOOR.waxed().oxidized())),
 
 	COPPER_TRAPDOOR = oxidizationChain(
-		List.of(() -> Blocks.COPPER_TRAPDOOR, () -> Blocks.EXPOSED_COPPER_TRAPDOOR, () -> Blocks.WEATHERED_COPPER_TRAPDOOR, () -> Blocks.OXIDIZED_COPPER_TRAPDOOR),
-		List.of(() -> Blocks.WAXED_COPPER_TRAPDOOR, () -> Blocks.WAXED_EXPOSED_COPPER_TRAPDOOR, () -> Blocks.WAXED_WEATHERED_COPPER_TRAPDOOR, () -> Blocks.WAXED_OXIDIZED_COPPER_TRAPDOOR)),
+		List.of(() -> Blocks.COPPER_TRAPDOOR.weathering().unaffected(), () -> Blocks.COPPER_TRAPDOOR.weathering().exposed(), () -> Blocks.COPPER_TRAPDOOR.weathering().weathered(), () -> Blocks.COPPER_TRAPDOOR.weathering().oxidized()),
+		List.of(() -> Blocks.COPPER_TRAPDOOR.waxed().unaffected(), () -> Blocks.COPPER_TRAPDOOR.waxed().exposed(), () -> Blocks.COPPER_TRAPDOOR.waxed().weathered(), () -> Blocks.COPPER_TRAPDOOR.waxed().oxidized())),
 
 	CUT_COPPER = oxidizationChain(
-		List.of(() -> Blocks.CUT_COPPER, () -> Blocks.EXPOSED_CUT_COPPER, () -> Blocks.WEATHERED_CUT_COPPER, () -> Blocks.OXIDIZED_CUT_COPPER),
-		List.of(() -> Blocks.WAXED_CUT_COPPER, () -> Blocks.WAXED_EXPOSED_CUT_COPPER, () -> Blocks.WAXED_WEATHERED_CUT_COPPER, () -> Blocks.WAXED_OXIDIZED_CUT_COPPER)),
+		List.of(() -> Blocks.CUT_COPPER.weathering().unaffected(), () -> Blocks.CUT_COPPER.weathering().exposed(), () -> Blocks.CUT_COPPER.weathering().weathered(), () -> Blocks.CUT_COPPER.weathering().oxidized()),
+		List.of(() -> Blocks.CUT_COPPER.waxed().unaffected(), () -> Blocks.CUT_COPPER.waxed().exposed(), () -> Blocks.CUT_COPPER.waxed().weathered(), () -> Blocks.CUT_COPPER.waxed().oxidized())),
 
 	CUT_COPPER_STAIRS = oxidizationChain(
-		List.of(() -> Blocks.CUT_COPPER_STAIRS, () -> Blocks.EXPOSED_CUT_COPPER_STAIRS, () -> Blocks.WEATHERED_CUT_COPPER_STAIRS, () -> Blocks.OXIDIZED_CUT_COPPER_STAIRS),
-		List.of(() -> Blocks.WAXED_CUT_COPPER_STAIRS, () -> Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS, () -> Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS, () -> Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS)),
+		List.of(() -> Blocks.CUT_COPPER_STAIRS.weathering().unaffected(), () -> Blocks.CUT_COPPER_STAIRS.weathering().exposed(), () -> Blocks.CUT_COPPER_STAIRS.weathering().weathered(), () -> Blocks.CUT_COPPER_STAIRS.weathering().oxidized()),
+		List.of(() -> Blocks.CUT_COPPER_STAIRS.waxed().unaffected(), () -> Blocks.CUT_COPPER_STAIRS.waxed().exposed(), () -> Blocks.CUT_COPPER_STAIRS.waxed().weathered(), () -> Blocks.CUT_COPPER_STAIRS.waxed().oxidized())),
 
 	CUT_COPPER_SLAB = oxidizationChain(
-		List.of(() -> Blocks.CUT_COPPER_SLAB, () -> Blocks.EXPOSED_CUT_COPPER_SLAB, () -> Blocks.WEATHERED_CUT_COPPER_SLAB, () -> Blocks.OXIDIZED_CUT_COPPER_SLAB),
-		List.of(() -> Blocks.WAXED_CUT_COPPER_SLAB, () -> Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB, () -> Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB, () -> Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB));
+		List.of(() -> Blocks.CUT_COPPER_SLAB.weathering().unaffected(), () -> Blocks.CUT_COPPER_SLAB.weathering().exposed(), () -> Blocks.CUT_COPPER_SLAB.weathering().weathered(), () -> Blocks.CUT_COPPER_SLAB.weathering().oxidized()),
+		List.of(() -> Blocks.CUT_COPPER_SLAB.waxed().unaffected(), () -> Blocks.CUT_COPPER_SLAB.waxed().exposed(), () -> Blocks.CUT_COPPER_SLAB.waxed().weathered(), () -> Blocks.CUT_COPPER_SLAB.waxed().oxidized()));
 
 	public CreateDeployingRecipeGen(PackOutput output, CompletableFuture<Provider> registries) {
 		super(output, registries, Create.ID);

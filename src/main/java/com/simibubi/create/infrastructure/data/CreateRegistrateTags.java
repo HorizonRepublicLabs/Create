@@ -79,9 +79,9 @@ public class CreateRegistrateTags {
 		prov.tag(AllBlockTags.FAN_TRANSPARENT.tag)
 			.add(Blocks.IRON_BARS)
 			.add(Blocks.MANGROVE_ROOTS)
-			.add(Blocks.COPPER_GRATE, Blocks.EXPOSED_COPPER_GRATE, Blocks.WEATHERED_COPPER_GRATE,
-				Blocks.OXIDIZED_COPPER_GRATE, Blocks.WAXED_COPPER_GRATE, Blocks.WAXED_EXPOSED_COPPER_GRATE,
-				Blocks.WAXED_WEATHERED_COPPER_GRATE, Blocks.WAXED_OXIDIZED_COPPER_GRATE
+			.add(Blocks.COPPER_GRATE.weathering().unaffected(), Blocks.COPPER_GRATE.weathering().exposed(), Blocks.COPPER_GRATE.weathering().weathered(),
+				Blocks.COPPER_GRATE.weathering().oxidized(), Blocks.COPPER_GRATE.waxed().unaffected(), Blocks.COPPER_GRATE.waxed().exposed(),
+				Blocks.COPPER_GRATE.waxed().weathered(), Blocks.COPPER_GRATE.waxed().oxidized()
 			)
 			.addTag(BlockTags.CAMPFIRES)
 			.addTag(BlockTags.FENCES)
