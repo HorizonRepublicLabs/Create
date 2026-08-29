@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.item;
 
+import net.minecraft.world.item.ItemStackTemplate;
+
 import net.minecraft.world.item.Item;
 
 import net.minecraft.tags.TagKey;
@@ -38,6 +40,20 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class ItemHelper {
+
+	/// ItemStack lost its crafting remainder accessors; the remainder is a
+	/// template on the item now, which has to be materialised into a stack.
+	public static ItemStack craftingRemainder(ItemStack stack) {
+		ItemStackTemplate remainder = stack.getItem()
+			.getCraftingRemainder(stack);
+		return remainder == null ? ItemStack.EMPTY : remainder.create();
+	}
+
+	public static boolean hasCraftingRemainder(ItemStack stack) {
+		return stack.getItem()
+			.getCraftingRemainder(stack) != null;
+	}
+
 
 	/// Ingredient.of no longer takes a TagKey; it wants the HolderSet the tag
 	/// resolves to. Items are a static registry, so the built-in lookup is

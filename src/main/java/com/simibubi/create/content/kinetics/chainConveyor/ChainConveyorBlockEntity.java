@@ -531,7 +531,7 @@ public class ChainConveyorBlockEntity extends KineticBlockEntity implements Tran
 			return;
 
 		if (!forPointsAlongChains(target, chainCount,
-			vec -> level.addFreshEntity(new ItemEntity(level, vec.x, vec.y, vec.z, new ItemStack(Items.CHAIN))))) {
+			vec -> level.addFreshEntity(new ItemEntity(level, vec.x, vec.y, vec.z, new ItemStack(Items.IRON_CHAIN))))) {
 			while (chainCount > 0) {
 				Block.popResource(level, worldPosition, new ItemStack(Blocks.CHAIN.asItem(), Math.min(chainCount, 64)));
 				chainCount -= 64;
@@ -787,7 +787,7 @@ public class ChainConveyorBlockEntity extends KineticBlockEntity implements Tran
 //		for (BlockPos pos : connections)
 //			totalCost += getChainCost(pos);
 //		if (totalCost > 0)
-//			return new ItemRequirement(ItemUseType.CONSUME, new ItemStack(Items.CHAIN, Mth.ceil(totalCost / 2.0)));
+//			return new ItemRequirement(ItemUseType.CONSUME, new ItemStack(Items.IRON_CHAIN, Mth.ceil(totalCost / 2.0)));
 		return super.getRequiredItems(state);
 	}
 

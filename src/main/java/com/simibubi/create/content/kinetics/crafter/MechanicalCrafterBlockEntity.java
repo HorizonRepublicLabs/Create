@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import net.createmod.catnip.api.data.Iterate;
 
 import net.minecraft.world.level.block.Block;
@@ -327,8 +329,8 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 					List<ItemStack> containers = new ArrayList<>();
 					groupedItems.grid.values()
 						.forEach(stack -> {
-							if (stack.hasCraftingRemainingItem())
-								containers.add(stack.getCraftingRemainingItem()
+							if (ItemHelper.hasCraftingRemainder(stack))
+								containers.add(ItemHelper.craftingRemainder(stack)
 									.copy());
 						});
 

@@ -412,7 +412,7 @@ public class BeltBlock extends HorizontalKineticBlock
 
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
-		return state.getValue(CASING) ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;
+		return state.getValue(CASING) ? RenderShape.MODEL : RenderShape.INVISIBLE;
 	}
 
 	public static void initBelt(Level world, BlockPos pos) {

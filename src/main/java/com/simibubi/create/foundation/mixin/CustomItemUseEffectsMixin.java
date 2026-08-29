@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.mixin;
 
+import net.minecraft.world.item.ItemUseAnimation;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,7 +40,7 @@ public abstract class CustomItemUseEffectsMixin extends Entity {
 		}
 	}
 
-	@Inject(method = "triggerItemUseEffects(Lnet/minecraft/world/item/ItemStack;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/UseAnim;", ordinal = 0), cancellable = true)
+	@Inject(method = "triggerItemUseEffects(Lnet/minecraft/world/item/ItemStack;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;getUseAnimation()Lnet/minecraft/world/item/ItemUseAnimation;", ordinal = 0), cancellable = true)
 	private void create$onTriggerUseEffects(ItemStack stack, int count, CallbackInfo ci) {
 		Item item = stack.getItem();
 		if (item instanceof CustomUseEffectsItem handler) {

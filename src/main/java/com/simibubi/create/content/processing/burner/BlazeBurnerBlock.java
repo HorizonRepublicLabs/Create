@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import net.minecraft.core.Direction;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -197,7 +199,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 			return InteractionResult.FAIL;
 
 		if (!doNotConsume) {
-			ItemStack container = stack.hasCraftingRemainingItem() ? stack.getCraftingRemainingItem() : ItemStack.EMPTY;
+			ItemStack container = ItemHelper.hasCraftingRemainder(stack) ? ItemHelper.craftingRemainder(stack) : ItemStack.EMPTY;
 			if (!world.isClientSide()) {
 				stack.shrink(1);
 			}

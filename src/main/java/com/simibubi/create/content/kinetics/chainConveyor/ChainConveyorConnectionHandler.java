@@ -114,7 +114,7 @@ public class ChainConveyorConnectionHandler {
 	}
 
 	private static boolean isChain(ItemStack itemStack) {
-		return itemStack.is(Items.CHAIN); // Replace with tag? generic renderer?
+		return itemStack.is(Items.IRON_CHAIN); // Replace with tag? generic renderer?
 	}
 
 	public static void clientTick() {
