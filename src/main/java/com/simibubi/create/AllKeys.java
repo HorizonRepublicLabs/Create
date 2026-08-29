@@ -109,8 +109,10 @@ public enum AllKeys {
 	}
 
 	public static boolean isMouseButtonDown(int button) {
+		// glfw still wants the raw handle; Window exposes it as handle()
 		return GLFW.glfwGetMouseButton(Minecraft.getInstance()
-			.getWindow(), button) == 1;
+			.getWindow()
+			.handle(), button) == 1;
 	}
 
 	public static boolean ctrlDown() {

@@ -1112,7 +1112,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			&& pMouseY < getGuiTop() + windowHeight - 82) {
 			scrollHandleActive = true;
 			if (minecraft.isWindowActive())
-				GLFW.glfwSetInputMode(minecraft.getWindow(), 208897, GLFW.GLFW_CURSOR_HIDDEN);
+				GLFW.glfwSetInputMode(minecraft.getWindow().handle(), 208897, GLFW.GLFW_CURSOR_HIDDEN);
 			return true;
 		}
 
@@ -1233,7 +1233,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		if (pButton == GLFW.GLFW_MOUSE_BUTTON_LEFT && scrollHandleActive) {
 			scrollHandleActive = false;
 			if (minecraft.isWindowActive())
-				GLFW.glfwSetInputMode(minecraft.getWindow(), 208897, GLFW.GLFW_CURSOR_NORMAL);
+				GLFW.glfwSetInputMode(minecraft.getWindow().handle(), 208897, GLFW.GLFW_CURSOR_NORMAL);
 		}
 		return super.mouseReleased(event);
 	}
@@ -1350,7 +1350,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		if (minecraft.isWindowActive()) {
 			double forceX = (barX + 2) / scaleX;
 			double forceY = Mth.clamp(pMouseY, minY, maxY) / scaleY;
-			GLFW.glfwSetCursorPos(window.getWindow(), forceX, forceY);
+			GLFW.glfwSetCursorPos(window.getWindow().handle(), forceX, forceY);
 		}
 
 		return true;

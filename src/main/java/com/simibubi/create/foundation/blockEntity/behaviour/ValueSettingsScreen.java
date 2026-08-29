@@ -85,7 +85,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	private void setCursor(Vec2 coordinateOfValue) {
 		double guiScale = minecraft.getWindow()
 			.getGuiScale();
-		GLFW.glfwSetCursorPos(minecraft.getWindow(), coordinateOfValue.x * guiScale, coordinateOfValue.y * guiScale);
+		GLFW.glfwSetCursorPos(minecraft.getWindow().handle(), coordinateOfValue.x * guiScale, coordinateOfValue.y * guiScale);
 	}
 
 	public ValueSettings getClosestCoordinate(int mouseX, int mouseY) {
