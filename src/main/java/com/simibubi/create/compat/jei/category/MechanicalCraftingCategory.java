@@ -137,7 +137,7 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 		int amount = 0;
 		for (Ingredient ingredient : recipe.placementInfo()
 			.ingredients()) {
-			if (Ingredient.EMPTY == ingredient)
+			if (ingredient == null)
 				continue;
 			amount++;
 		}

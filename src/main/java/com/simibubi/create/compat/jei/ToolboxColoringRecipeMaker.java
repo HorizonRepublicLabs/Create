@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei;
 
+import java.util.List;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.Create;
 import net.minecraft.core.NonNullList;
@@ -38,7 +40,7 @@ public final class ToolboxColoringRecipeMaker {
 				Stream<Ingredient.Value> colorIngredientStream = Stream.of(dyeList, colorList);
 				Ingredient colorIngredient = Ingredient.fromValues(colorIngredientStream);
 				NonNullList<Ingredient> inputs =
-					NonNullList.of(Ingredient.EMPTY, baseShulkerIngredient, colorIngredient);
+					NonNullList.copyOf(List.of(baseShulkerIngredient, colorIngredient));
 				Block coloredShulkerBox = AllBlocks.TOOLBOXES.get(color)
 					.get();
 				ItemStack output = new ItemStack(coloredShulkerBox);

@@ -23,7 +23,7 @@ public class TrackMaterialFactory {
 	private final Identifier id;
 	private String langName;
 	private NonNullSupplier<NonNullSupplier<? extends TrackBlock>> trackBlock;
-	private Ingredient sleeperIngredient = Ingredient.EMPTY;
+	private Ingredient sleeperIngredient = null;
 	private Ingredient railsIngredient = Ingredient.fromValues(Stream.of(new Ingredient.TagValue(Items.NUGGETS_IRON), new Ingredient.TagValue(CommonMetal.ZINC.nuggets)));
 	private Identifier particle;
 	private TrackMaterial.TrackType trackType = TrackMaterial.TrackType.STANDARD;
@@ -84,8 +84,8 @@ public class TrackMaterialFactory {
 	}
 
 	public TrackMaterialFactory noRecipeGen() {
-		this.railsIngredient = Ingredient.EMPTY;
-		this.sleeperIngredient = Ingredient.EMPTY;
+		this.railsIngredient = null;
+		this.sleeperIngredient = null;
 		return this;
 	}
 

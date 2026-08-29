@@ -61,10 +61,13 @@ public class MechanicalCraftingRecipe extends ShapedRecipe {
 			for (int j = 0; j < input.height(); ++j) {
 				int k = i - p_77573_2_;
 				int l = j - p_77573_3_;
-				Ingredient ingredient = Ingredient.EMPTY;
+				// there is no empty ingredient any more; a null cell matches only
+				// an empty stack, which is what Ingredient.EMPTY did
+				Ingredient ingredient = null;
 				if (k >= 0 && l >= 0 && k < width && l < height)
 					ingredient = ingredients.get(k + l * width);
-				if (!ingredient.test(input.getItem(i + j * input.width())))
+				ItemStack atCell = input.getItem(i + j * input.width());
+				if (ingredient == null ? !atCell.isEmpty() : !ingredient.test(atCell))
 					return false;
 			}
 		}

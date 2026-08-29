@@ -50,7 +50,7 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 	public abstract S self();
 
 	public S withItemIngredients(Ingredient... ingredients) {
-		return withItemIngredients(NonNullList.of(Ingredient.EMPTY, ingredients));
+		return withItemIngredients(NonNullList.copyOf(List.of(ingredients)));
 	}
 
 	public S withItemIngredients(NonNullList<Ingredient> ingredients) {
