@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import net.minecraft.core.registries.Registries;
+
 import net.minecraft.tags.BlockItemTags;
 
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -1579,7 +1581,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 					builder.apply(ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.MISC, result.get(), amount));
 				if (unlockedBy != null)
 					b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
-				b.save(consumer, createLocation("crafting"));
+				b.save(consumer, ResourceKey.create(Registries.RECIPE, createLocation("crafting")));
 			});
 		}
 
@@ -1592,7 +1594,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 				RecipeOutput conditionalOutput = recipeOutput.withConditions(recipeConditions.toArray(new ICondition[0]));
 
-				b.save(conditionalOutput, createLocation("crafting"));
+				b.save(conditionalOutput, ResourceKey.create(Registries.RECIPE, createLocation("crafting")));
 			});
 		}
 
@@ -1605,7 +1607,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 				b.unlocks("has_item", inventoryTrigger(ItemPredicate.Builder.item()
 					.of(base.get())
 					.build()));
-				b.save(consumer, createLocation("crafting"));
+				b.save(consumer, ResourceKey.create(Registries.RECIPE, createLocation("crafting")));
 			});
 		}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.resources.ResourceKey;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import com.simibubi.create.foundation.data.VariantModels;
@@ -1869,12 +1871,12 @@ public class AllBlocks {
 					.pattern("B")
 					.pattern("A")
 					.unlockedBy("has_barrel", p.has(Items.BARREL))
-					.save(p, Create.asResource("crafting/logistics/" + c.getName()));
+					.save(p, ResourceKey.create(Registries.RECIPE, Create.asResource("crafting/logistics/" + c.getName())));
 				ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get())
 					.requires(colour.getTag())
 					.requires(AllItemTags.POSTBOXES.tag)
 					.unlockedBy("has_postbox", p.has(AllItemTags.POSTBOXES.tag))
-					.save(p, Create.asResource("crafting/logistics/" + c.getName() + "_from_other_postbox"));
+					.save(p, ResourceKey.create(Registries.RECIPE, Create.asResource("crafting/logistics/" + c.getName() + "_from_other_postbox")));
 			})
 			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(colourName + "_postbox", p.modLoc("block/package_postbox/item"))
 				.texture("0", p.modLoc("block/post_box/post_box_" + colourName))
@@ -1940,12 +1942,12 @@ public class AllBlocks {
 					.requires(DyeHelper.getWoolOfDye(colour))
 					.requires(AllItems.ANDESITE_ALLOY)
 					.unlockedBy("has_wool", p.has(ItemTags.WOOL))
-					.save(p, Create.asResource("crafting/logistics/" + c.getName()));
+					.save(p, ResourceKey.create(Registries.RECIPE, Create.asResource("crafting/logistics/" + c.getName())));
 				ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get())
 					.requires(colour.getTag())
 					.requires(AllItemTags.DYED_TABLE_CLOTHS.tag)
 					.unlockedBy("has_postbox", p.has(AllItemTags.DYED_TABLE_CLOTHS.tag))
-					.save(p, Create.asResource("crafting/logistics/" + c.getName() + "_from_other_table_cloth"));
+					.save(p, ResourceKey.create(Registries.RECIPE, Create.asResource("crafting/logistics/" + c.getName() + "_from_other_table_cloth")));
 			})
 			.register();
 	});
@@ -2354,12 +2356,12 @@ public class AllBlocks {
 					.requires(DyeHelper.getWoolOfDye(colour))
 					.requires(ItemTags.WOODEN_SLABS)
 					.unlockedBy("has_wool", p.has(ItemTags.WOOL))
-					.save(p, Create.asResource("crafting/kinetics/" + c.getName()));
+					.save(p, ResourceKey.create(Registries.RECIPE, Create.asResource("crafting/kinetics/" + c.getName())));
 				ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get())
 					.requires(colour.getTag())
 					.requires(AllItemTags.SEATS.tag)
 					.unlockedBy("has_seat", p.has(AllItemTags.SEATS.tag))
-					.save(p, Create.asResource("crafting/kinetics/" + c.getName() + "_from_other_seat"));
+					.save(p, ResourceKey.create(Registries.RECIPE, Create.asResource("crafting/kinetics/" + c.getName() + "_from_other_seat")));
 			})
 			.onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "block.create.seat"))
 			.tag(AllBlockTags.SEATS.tag)

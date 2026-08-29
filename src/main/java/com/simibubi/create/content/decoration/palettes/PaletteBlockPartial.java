@@ -1,5 +1,9 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import com.simibubi.create.foundation.data.VariantModels;
@@ -266,7 +270,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 				.pattern("XXX")
 				.define('X', ingredient.toVanilla())
 				.unlockedBy("has_" + p.safeName(ingredient), ingredient.getCriterion(p))
-				.save(p, p.safeId(c.get()));
+				.save(p, ResourceKey.create(Registries.RECIPE, p.safeId(c.get())));
 		}
 
 	}
