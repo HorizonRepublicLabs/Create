@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
+import net.neoforged.neoforge.common.crafting.CompoundIngredient;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -57,11 +61,11 @@ public final class CreateSequencedAssemblyRecipeGen extends SequencedAssemblyRec
 		.addOutput(AllBlocks.TRACK.get(), 1)
 		.loops(1)
 		.addStep(DeployerApplicationRecipe::new,
-			rb -> rb.require(Ingredient.fromValues(
-				Stream.of(new Ingredient.TagValue(I.ironNugget()), new Ingredient.TagValue(I.zincNugget())))))
+			rb -> rb.require(CompoundIngredient.of(ItemHelper.ingredientOf(I.ironNugget()),
+				ItemHelper.ingredientOf(I.zincNugget()))))
 		.addStep(DeployerApplicationRecipe::new,
-			rb -> rb.require(Ingredient.fromValues(
-				Stream.of(new Ingredient.TagValue(I.ironNugget()), new Ingredient.TagValue(I.zincNugget())))))
+			rb -> rb.require(CompoundIngredient.of(ItemHelper.ingredientOf(I.ironNugget()),
+				ItemHelper.ingredientOf(I.zincNugget()))))
 		.addStep(PressingRecipe::new, rb -> rb))
 
 		;

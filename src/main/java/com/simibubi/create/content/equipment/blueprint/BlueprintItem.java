@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import net.minecraft.core.HolderSet;
+
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import java.util.ArrayList;
@@ -28,9 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Ingredient.ItemValue;
-import net.minecraft.world.item.crafting.Ingredient.TagValue;
-import net.minecraft.world.item.crafting.Ingredient.Value;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
@@ -110,18 +109,20 @@ public class BlueprintItem extends Item {
 		return result;
 	}
 
-	private static ItemStack convertIItemListToFilter(Value itemList, boolean isCompoundIngredient) {
-		Collection<ItemStack> stacks = ItemHelper.ingredientStacks(itemList);
-		if (itemList instanceof ItemValue) {
-			for (ItemStack itemStack : stacks)
+	/// Ingredients carry a HolderSet now rather than a list of values; a named
+	/// set is what used to be a TagValue, anything else an ItemValue.
+	private static ItemStack convertIItemListToFilter(Ingredient itemList, boolean isCompoundIngredient) {
+		HolderSet<Item> values = itemList.getValues();
+		if (!(values instanceof HolderSet.Named<Item> namedTag)) {
+			for (ItemStack itemStack : ItemHelper.ingredientStacks(itemList))
 				return itemStack;
 		}
 
-		if (itemList instanceof TagValue tagValue) {
+		if (values instanceof HolderSet.Named<Item> tagValue) {
 			ItemStack filterItem = AllItems.ATTRIBUTE_FILTER.asStack();
 			filterItem.set(AllDataComponents.ATTRIBUTE_FILTER_WHITELIST_MODE, AttributeFilterWhitelistMode.WHITELIST_DISJ);
 			List<ItemAttributeEntry> attributes = new ArrayList<>();
-			ItemAttribute at = new InTagAttribute(ItemTags.create(tagValue.tag().location()));
+			ItemAttribute at = new InTagAttribute(ItemTags.create(tagValue.key().location()));
 			attributes.add(new ItemAttribute.ItemAttributeEntry(at, false));
 			filterItem.set(AllDataComponents.ATTRIBUTE_FILTER_MATCHED_ATTRIBUTES, attributes);
 			return filterItem;

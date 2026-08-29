@@ -1,5 +1,9 @@
 package com.simibubi.create.compat.jei;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
+import net.neoforged.neoforge.common.crafting.CompoundIngredient;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlocks;
@@ -35,10 +39,10 @@ public final class ToolboxColoringRecipeMaker {
 				DyeItem dye = DyeItem.byColor(color);
 				ItemStack dyeStack = new ItemStack(dye);
 				TagKey<Item> colorTag = color.getTag();
-				Ingredient.Value dyeList = new Ingredient.ItemValue(dyeStack);
-				Ingredient.Value colorList = new Ingredient.TagValue(colorTag);
-				Stream<Ingredient.Value> colorIngredientStream = Stream.of(dyeList, colorList);
-				Ingredient colorIngredient = Ingredient.fromValues(colorIngredientStream);
+				// ingredients are holder sets now; a compound keeps the tag intact
+				// rather than flattening it into the recipe
+				Ingredient colorIngredient = CompoundIngredient.of(Ingredient.of(dye),
+					ItemHelper.ingredientOf(colorTag));
 				NonNullList<Ingredient> inputs =
 					NonNullList.copyOf(List.of(baseShulkerIngredient, colorIngredient));
 				Block coloredShulkerBox = AllBlocks.TOOLBOXES.get(color)
