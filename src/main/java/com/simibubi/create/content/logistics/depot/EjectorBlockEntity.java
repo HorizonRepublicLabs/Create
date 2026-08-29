@@ -562,7 +562,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 
 		powered = compound.getBooleanOr("Powered", false);
 		state = NBTHelper.readEnum(compound, "State", State.class);
-		lidProgress.readNBT(compound.getCompoundOrEmpty("Lid"), false);
+		LerpedFloatNbt.read(lidProgress, compound.getCompoundOrEmpty("Lid"), false);
 		launchedItems = NBTHelper.readCompoundList(compound.getListOrEmpty("LaunchedItems"),
 			nbt -> IntAttached.read(nbt, t -> StackNbt.parse(registries, t)));
 

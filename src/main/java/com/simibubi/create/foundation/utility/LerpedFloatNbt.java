@@ -15,8 +15,12 @@ public class LerpedFloatNbt {
 		return tag;
 	}
 
-	public static void read(LerpedFloat lerped, CompoundTag tag) {
+	public static void read(LerpedFloat lerped, CompoundTag tag, boolean clientPacket) {
 		lerped.startWithValue(tag.getFloatOr("Value", 0));
 		lerped.chase(tag.getFloatOr("Target", 0), 0, LerpedFloat.Chaser.EXP);
+	}
+
+	public static void read(LerpedFloat lerped, CompoundTag tag) {
+		read(lerped, tag, false);
 	}
 }

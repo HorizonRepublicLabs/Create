@@ -169,7 +169,7 @@ public class HosePulleyBlockEntity extends KineticBlockEntity {
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		offset.readNBT(compound.getCompoundOrEmpty("Offset"), clientPacket);
+		LerpedFloatNbt.read(offset, compound.getCompoundOrEmpty("Offset"), clientPacket);
 
 		internalTank.readFromNBT(registries, compound.getCompoundOrEmpty("Tank"));
 		super.read(compound, registries, clientPacket);

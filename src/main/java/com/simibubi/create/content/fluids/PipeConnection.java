@@ -276,7 +276,7 @@ public class PipeConnection {
 			flow.complete = !flowData.contains("Progress");
 
 			if (!flow.complete)
-				flow.progress.readNBT(flowData.getCompoundOrEmpty("Progress"), clientPacket);
+				LerpedFloatNbt.read(flow.progress, flowData.getCompoundOrEmpty("Progress"), clientPacket);
 			else {
 				if (flow.progress.getValue() == 0)
 					flow.progress.startWithValue(1);

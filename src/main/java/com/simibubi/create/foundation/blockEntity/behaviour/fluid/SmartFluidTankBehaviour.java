@@ -186,7 +186,7 @@ public class SmartFluidTankBehaviour extends BlockEntityBehaviour {
 		NBTHelper.iterateCompoundList(nbt.getList(getType().getName() + "Tanks", Tag.TAG_COMPOUND), c -> {
 			if (index.intValue() >= tanks.length)
 				return;
-			tanks[index.intValue()].readNBT(c, registries, clientPacket);
+			LerpedFloatNbt.read(tanks[index.intValue()], c, registries, clientPacket);
 			index.increment();
 		});
 	}
@@ -272,7 +272,7 @@ public class SmartFluidTankBehaviour extends BlockEntityBehaviour {
 
 		public void readNBT(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 			tank.readFromNBT(registries, compound.getCompoundOrEmpty("TankContent"));
-			fluidLevel.readNBT(compound.getCompoundOrEmpty("Level"), clientPacket);
+			LerpedFloatNbt.read(fluidLevel, compound.getCompoundOrEmpty("Level"), clientPacket);
 			if (!tank.getFluid()
 				.isEmpty())
 				renderedFluid = tank.getFluid();
