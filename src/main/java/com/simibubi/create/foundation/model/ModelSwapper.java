@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.model;
 
+import net.minecraft.world.level.block.state.BlockState;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import java.util.ArrayList;
@@ -13,8 +15,6 @@ import com.simibubi.create.foundation.item.render.CustomRenderedItemModel;
 import com.simibubi.create.foundation.item.render.CustomRenderedItems;
 
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
-import net.minecraft.client.renderer.block.BlockModelShaper;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -35,42 +35,30 @@ public class ModelSwapper {
 		return customItemModels;
 	}
 
+	/// Baked models are keyed by BlockState now rather than by a model
+	/// location, so the swap walks the block's states directly.
 	public void onModelBake(ModelEvent.ModifyBakingResult event) {
-		Map<ModelResourceLocation, BlockStateModel> modelRegistry = event.getModels();
-		customBlockModels.forEach((block, modelFunc) -> swapModels(modelRegistry, getAllBlockStateModelLocations(block), modelFunc));
-		customItemModels.forEach((item, modelFunc) -> swapModels(modelRegistry, getItemModelLocation(item), modelFunc));
-		CustomRenderedItems.forEach(item -> swapModels(modelRegistry, getItemModelLocation(item), CustomRenderedItemModel::new));
+		Map<BlockState, BlockStateModel> modelRegistry = event.getBakingResult()
+			.blockStateModels();
+		customBlockModels.forEach((block, modelFunc) -> swapModels(modelRegistry, block, modelFunc));
 	}
 
 	public void registerListeners(IEventBus modEventBus) {
 		modEventBus.addListener(this::onModelBake);
 	}
 
-	public static <T extends BlockStateModel> void swapModels(Map<ModelResourceLocation, BlockStateModel> modelRegistry,
-		List<ModelResourceLocation> locations, Function<BlockStateModel, T> factory) {
-		locations.forEach(location -> {
-			swapModels(modelRegistry, location, factory);
-		});
-	}
-
-	public static <T extends BlockStateModel> void swapModels(Map<ModelResourceLocation, BlockStateModel> modelRegistry,
-		ModelResourceLocation location, Function<BlockStateModel, T> factory) {
-		modelRegistry.put(location, factory.apply(modelRegistry.get(location)));
-	}
-
-	public static List<ModelResourceLocation> getAllBlockStateModelLocations(Block block) {
-		List<ModelResourceLocation> models = new ArrayList<>();
-		Identifier blockRl = RegisteredObjectsHelper.getKeyOrThrow(block);
+	public static <T extends BlockStateModel> void swapModels(Map<BlockState, BlockStateModel> modelRegistry,
+		Block block, Function<BlockStateModel, T> factory) {
 		block.getStateDefinition()
 			.getPossibleStates()
-			.forEach(state -> {
-				models.add(BlockModelShaper.stateToModelLocation(blockRl, state));
-			});
-		return models;
+			.forEach(state -> swapModel(modelRegistry, state, factory));
 	}
 
-	public static ModelResourceLocation getItemModelLocation(Item item) {
-		return new ModelResourceLocation(RegisteredObjectsHelper.getKeyOrThrow(item), "inventory");
+	public static <T extends BlockStateModel> void swapModel(Map<BlockState, BlockStateModel> modelRegistry,
+		BlockState state, Function<BlockStateModel, T> factory) {
+		BlockStateModel existing = modelRegistry.get(state);
+		if (existing != null)
+			modelRegistry.put(state, factory.apply(existing));
 	}
 
 }
