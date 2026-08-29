@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+
 import static com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour.interactionBehaviour;
 import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movementBehaviour;
 import static com.simibubi.create.foundation.data.BlockStateGen.axisBlock;
@@ -502,7 +504,7 @@ public class BuilderTransformers {
 				.tag(AllItemTags.TABLE_CLOTHS.tag)
 				.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get())
 					.requires(c.get())
-					.unlockedBy("has_" + c.getName(), RegistrateRecipeProvider.has(c.get()))
+					.unlockedBy("has_" + c.getName(), p.has(c.get()))
 					.save(p, Create.asResource("crafting/logistics/" + c.getName() + "_clear")))
 				.build();
 		};
@@ -530,7 +532,7 @@ public class BuilderTransformers {
 			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 				.cubeColumn(c.getName(), p.modLoc("block/" + c.getName()), p.modLoc("block/" + c.getName() + "_top"))))
 			.tag(AllBlockTags.WRENCH_PICKUP.tag)
-			.recipe((c, p) -> p.stonecutting(DataIngredient.tag(Tags.Items.INGOTS_IRON), RecipeCategory.BUILDING_BLOCKS,
+			.recipe((c, p) -> p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.INGOTS_IRON)), RecipeCategory.BUILDING_BLOCKS,
 				c::get, 2))
 			.simpleItem();
 	}

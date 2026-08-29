@@ -146,7 +146,7 @@ public class CopperBlockSet {
 					ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ctx.get())
 						.requires(unwaxed)
 						.requires(Items.HONEYCOMB)
-						.unlockedBy("has_unwaxed", RegistrateRecipeProvider.has(unwaxed))
+						.unlockedBy("has_unwaxed", prov.has(unwaxed))
 						.save(prov, Identifier.fromNamespaceAndPath(ctx.getId()
 							.getNamespace(), "crafting/" + generalDirectory + ctx.getName() + "_from_honeycomb"));
 				}
