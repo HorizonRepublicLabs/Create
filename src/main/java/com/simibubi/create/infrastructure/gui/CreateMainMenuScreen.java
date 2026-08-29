@@ -1,8 +1,9 @@
 package com.simibubi.create.infrastructure.gui;
 
+import net.minecraft.client.renderer.Panorama;
+
 import org.joml.Matrix3x2fStack;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
@@ -30,8 +31,6 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.renderer.CubeMap;
-import net.minecraft.client.renderer.PanoramaRenderer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -39,11 +38,10 @@ import net.minecraft.util.Mth;
 
 public class CreateMainMenuScreen extends AbstractSimiScreen {
 
-	public static final CubeMap PANORAMA_RESOURCES =
-		new CubeMap(Create.asResource("textures/gui/title/background/panorama"));
-	public static final Identifier PANORAMA_OVERLAY_TEXTURES =
-		Identifier.withDefaultNamespace("textures/gui/title/background/panorama_overlay.png");
-	public static final PanoramaRenderer PANORAMA = new PanoramaRenderer(PANORAMA_RESOURCES);
+	/// The panorama no longer takes a cube map from the caller; the texture
+	/// comes from the render state, so Create's own panorama images are not
+	/// reachable through this path and the vanilla one is drawn instead.
+	public static final Panorama PANORAMA = new Panorama();
 
 	private static final Component CURSEFORGE_TOOLTIP;
 
@@ -65,17 +63,14 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 	protected final Screen parent;
 	protected boolean returnOnClose;
 
-	private PanoramaRenderer vanillaPanorama;
+	private Panorama vanillaPanorama;
 	private long firstRenderTime;
 	private Button gettingStarted;
 
 	public CreateMainMenuScreen(Screen parent) {
 		this.parent = parent;
 		returnOnClose = true;
-		if (parent instanceof TitleScreen)
-			vanillaPanorama = Screen.PANORAMA;
-		else
-			vanillaPanorama = new PanoramaRenderer(TitleScreen.CUBE_MAP);
+		vanillaPanorama = PANORAMA;
 	}
 
 	@Override
@@ -91,15 +86,8 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 		float alpha = Mth.clamp(f, 0.0F, 1.0F);
 		float elapsedPartials = minecraft.getTimer().getGameTimeDeltaPartialTick(false);
 
-		if (parent instanceof TitleScreen) {
-			if (alpha < 1)
-				vanillaPanorama.render(graphics, this.width, this.height, 1, elapsedPartials);
-			PANORAMA.render(graphics, this.width, this.height, 1, elapsedPartials);
-
-			RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA,
-				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			graphics.blit(PANORAMA_OVERLAY_TEXTURES, 0, 0, this.width, this.height, 0.0F, 0.0F, 16, 128, 16, 128);
-		}
+		if (parent instanceof TitleScreen)
+			PANORAMA.extractRenderState(graphics, this.width, this.height);
 
 
 		Matrix3x2fStack ms = graphics.pose();
