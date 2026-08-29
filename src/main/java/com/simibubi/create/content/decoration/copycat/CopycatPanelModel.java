@@ -41,12 +41,11 @@ public class CopycatPanelModel extends CopycatModel {
 		if (CopycatSpecialCases.isBarsMaterial(material))
 			specialCopycatModelState = AllBlocks.COPYCAT_BARS.getDefaultState();
 		if (CopycatSpecialCases.isTrapdoorMaterial(material))
-			return getModelOf(material)
-				.getQuads(material, side, rand, wrappedData, renderType);
+			return collectQuads(getModelOf(material), rand, side);
 
 		if (specialCopycatModelState != null) {
 			BlockStateModel blockModel =
-				blockRenderer.getBlockModel(specialCopycatModelState.setValue(DirectionalBlock.FACING, facing));
+				getModelOf(specialCopycatModelState.setValue(DirectionalBlock.FACING, facing));
 			if (blockModel instanceof CopycatModel cm)
 				return cm.getCroppedQuads(state, side, rand, material, wrappedData);
 		}
@@ -77,8 +76,7 @@ public class CopycatPanelModel extends CopycatModel {
 				if (!front && direction == facing.getOpposite())
 					continue;
 
-				quads.add(BakedQuadHelper.cloneWithCustomGeometry(quad,
-					BakedModelHelper.cropAndMove(quad.getVertices(), quad.materialInfo().sprite(), bb, normalScaledN13)));
+				quads.add(BakedModelHelper.cropAndMove(quad, quad.materialInfo().sprite(), bb, normalScaledN13));
 			}
 
 		}
