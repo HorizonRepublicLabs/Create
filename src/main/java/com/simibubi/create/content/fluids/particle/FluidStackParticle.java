@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.particle;
 
+import com.simibubi.create.foundation.fluid.FluidAppearance;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import net.minecraft.core.particles.ColorParticleOption;
@@ -45,7 +47,7 @@ public class FluidStackParticle extends SingleQuadParticle {
 		this.rCol = 0.8F;
 		this.gCol = 0.8F;
 		this.bCol = 0.8F;
-		this.multiplyColor(clientFluid.getTintColor(fluid));
+		this.multiplyColor(FluidAppearance.tintColor(fluid));
 
 		this.xd = vx;
 		this.yd = vy;
@@ -101,7 +103,7 @@ public class FluidStackParticle extends SingleQuadParticle {
 		if (!onGround && level.getRandom().nextFloat() < 1 / 8f)
 			return;
 
-		Color color = new Color(clientFluid.getTintColor(fluid));
+		Color color = new Color(FluidAppearance.tintColor(fluid));
 		level.addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, color.getRedAsFloat(), color.getGreenAsFloat(), color.getBlueAsFloat()), x, y, z, 0, 0, 0);
 	}
 
@@ -116,10 +118,7 @@ public class FluidStackParticle extends SingleQuadParticle {
 	}
 
 	private static TextureAtlasSprite spriteFor(FluidStack fluid) {
-		return Minecraft.getInstance()
-			.getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-			.apply(IClientFluidTypeExtensions.of(fluid.getFluid())
-				.getStillTexture(fluid));
+		return FluidAppearance.stillTexture(fluid);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.fluid;
 
+import com.simibubi.create.foundation.fluid.FluidAppearance;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.function.Function;
@@ -34,14 +36,11 @@ public class FluidRenderer {
 	public static void renderFluidStream(FluidStack fluidStack, Direction direction, float radius, float progress,
 		boolean inbound, VertexConsumer builder, PoseStack ms, int light) {
 		Fluid fluid = fluidStack.getFluid();
-		IClientFluidTypeExtensions clientFluid = IClientFluidTypeExtensions.of(fluid);
 		FluidType fluidAttributes = fluid.getFluidType();
-		Function<Identifier, TextureAtlasSprite> spriteAtlas = Minecraft.getInstance()
-			.getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
-		TextureAtlasSprite flowTexture = spriteAtlas.apply(clientFluid.getFlowingTexture(fluidStack));
-		TextureAtlasSprite stillTexture = spriteAtlas.apply(clientFluid.getStillTexture(fluidStack));
+		TextureAtlasSprite flowTexture = FluidAppearance.flowingTexture(fluidStack);
+		TextureAtlasSprite stillTexture = FluidAppearance.stillTexture(fluidStack);
 
-		int color = clientFluid.getTintColor(fluidStack);
+		int color = FluidAppearance.tintColor(fluidStack);
 		int blockLightIn = (light >> 4) & 0xF;
 		int luminosity = Math.max(blockLightIn, fluidAttributes.getLightLevel(fluidStack));
 		light = (light & 0xF00000) | luminosity << 4;
