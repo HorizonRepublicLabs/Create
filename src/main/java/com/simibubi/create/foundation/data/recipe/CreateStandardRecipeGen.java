@@ -308,7 +308,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 			.pattern(" B ")),
 
 	SUPER_GLUE = create(AllItems.SUPER_GLUE).unlockedByTag(I::ironSheet)
-		.viaShaped(b -> b.define('A', Tags.Items.SLIMEBALLS)
+		.viaShaped(b -> b.define('A', Tags.Items.SLIME_BALLS)
 			.define('S', I.ironSheet())
 			.define('N', Tags.Items.NUGGETS_IRON)
 			.pattern("AS")
@@ -377,7 +377,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 			.pattern("I")),
 
 	STICKY_MECHANICAL_PISTON = create(AllBlocks.STICKY_MECHANICAL_PISTON).unlockedBy(I::andesiteAlloy)
-		.viaShaped(b -> b.define('S', Tags.Items.SLIMEBALLS)
+		.viaShaped(b -> b.define('S', Tags.Items.SLIME_BALLS)
 			.define('P', AllBlocks.MECHANICAL_PISTON.get())
 			.pattern("S")
 			.pattern("P")),
@@ -854,7 +854,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		.viaShaped(b -> b.define('I', I.andesiteAlloy())
 			.define('C', Tags.Items.COBBLESTONES)
 			.define('R', I.redstone())
-			.define('S', Tags.Items.SLIMEBALLS)
+			.define('S', Tags.Items.SLIME_BALLS)
 			.pattern("ISI")
 			.pattern("CRC")),
 
@@ -1106,7 +1106,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 	PACKAGE_FROGPORT = create(AllBlocks.PACKAGE_FROGPORT).unlockedBy(I::cardboard)
 		.viaShaped(b -> b.define('C', I.andesiteAlloy())
-			.define('B', Tags.Items.SLIMEBALLS)
+			.define('B', Tags.Items.SLIME_BALLS)
 			.define('A', I.vault())
 			.pattern("B")
 			.pattern("A")
@@ -1659,7 +1659,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 			}
 
 			GeneratedRecipe inFurnace(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
-				return create(RecipeSerializer.SMELTING_RECIPE, builder, SmeltingRecipe::new, 1);
+				return create(SmeltingRecipe.SERIALIZER, builder, SmeltingRecipe::new, 1);
 			}
 
 			GeneratedRecipe inSmoker() {
@@ -1667,9 +1667,9 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 			}
 
 			GeneratedRecipe inSmoker(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
-				create(RecipeSerializer.SMELTING_RECIPE, builder, SmeltingRecipe::new, 1);
-				create(RecipeSerializer.CAMPFIRE_COOKING_RECIPE, builder, CampfireCookingRecipe::new, 3);
-				return create(RecipeSerializer.SMOKING_RECIPE, builder, SmokingRecipe::new, .5f);
+				create(SmeltingRecipe.SERIALIZER, builder, SmeltingRecipe::new, 1);
+				create(CampfireCookingRecipe.SERIALIZER, builder, CampfireCookingRecipe::new, 3);
+				return create(SmokingRecipe.SERIALIZER, builder, SmokingRecipe::new, .5f);
 			}
 
 			GeneratedRecipe inBlastFurnace() {
@@ -1677,8 +1677,8 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 			}
 
 			GeneratedRecipe inBlastFurnace(UnaryOperator<SimpleCookingRecipeBuilder> builder) {
-				create(RecipeSerializer.SMELTING_RECIPE, builder, SmeltingRecipe::new, 1);
-				return create(RecipeSerializer.BLASTING_RECIPE, builder, BlastingRecipe::new, .5f);
+				create(SmeltingRecipe.SERIALIZER, builder, SmeltingRecipe::new, 1);
+				return create(BlastingRecipe.SERIALIZER, builder, BlastingRecipe::new, .5f);
 			}
 
 			private <T extends AbstractCookingRecipe> GeneratedRecipe create(RecipeSerializer<T> serializer,
