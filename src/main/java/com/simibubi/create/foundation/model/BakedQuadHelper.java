@@ -1,82 +1,48 @@
 package com.simibubi.create.foundation.model;
 
-import java.util.Arrays;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.VertexFormat;
-
+import net.minecraft.client.model.geom.builders.UVPair;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
+/// 26.x turned BakedQuad into a record: positions are Vector3fc components and
+/// UVs are packed into longs, rather than everything living in one int[] laid
+/// out by the vertex format. These keep Create's per-vertex edits working
+/// against that shape.
 public final class BakedQuadHelper {
-
-	public static final VertexFormat FORMAT = DefaultVertexFormat.BLOCK;
-	public static final int VERTEX_STRIDE = FORMAT.getVertexSize() / 4;
-
-	public static final int X_OFFSET = 0;
-	public static final int Y_OFFSET = 1;
-	public static final int Z_OFFSET = 2;
-	public static final int COLOR_OFFSET = 3;
-	public static final int U_OFFSET = 4;
-	public static final int V_OFFSET = 5;
-	public static final int LIGHT_OFFSET = 6;
-	public static final int NORMAL_OFFSET = 7;
 
 	private BakedQuadHelper() {}
 
-	public static BakedQuad clone(BakedQuad quad) {
-		return new BakedQuad(Arrays.copyOf(quad.getVertices(), quad.getVertices().length),
-			quad.getTintIndex(), quad.getDirection(), quad.getSprite(), quad.isShade());
+	public static float getU(BakedQuad quad, int vertex) {
+		return UVPair.unpackU(quad.packedUV(vertex));
 	}
 
-	public static BakedQuad cloneWithCustomGeometry(BakedQuad quad, int[] vertexData) {
-		return new BakedQuad(vertexData, quad.getTintIndex(), quad.getDirection(), quad.getSprite(), quad.isShade());
+	public static float getV(BakedQuad quad, int vertex) {
+		return UVPair.unpackV(quad.packedUV(vertex));
 	}
 
-	public static Vec3 getXYZ(int[] vertexData, int vertex) {
-		float x = Float.intBitsToFloat(vertexData[vertex * VERTEX_STRIDE + X_OFFSET]);
-        float y = Float.intBitsToFloat(vertexData[vertex * VERTEX_STRIDE + Y_OFFSET]);
-        float z = Float.intBitsToFloat(vertexData[vertex * VERTEX_STRIDE + Z_OFFSET]);
-        return new Vec3(x, y, z);
+	public static Vec3 getXYZ(BakedQuad quad, int vertex) {
+		Vector3fc pos = quad.position(vertex);
+		return new Vec3(pos.x(), pos.y(), pos.z());
 	}
 
-	public static void setXYZ(int[] vertexData, int vertex, Vec3 xyz) {
-		vertexData[vertex * VERTEX_STRIDE + X_OFFSET] = Float.floatToRawIntBits((float) xyz.x);
-		vertexData[vertex * VERTEX_STRIDE + Y_OFFSET] = Float.floatToRawIntBits((float) xyz.y);
-		vertexData[vertex * VERTEX_STRIDE + Z_OFFSET] = Float.floatToRawIntBits((float) xyz.z);
+	/// Rebuilds a quad with new UVs; the record is immutable so every edit
+	/// produces a fresh one.
+	public static BakedQuad withUVs(BakedQuad quad, float[] us, float[] vs) {
+		return new BakedQuad(quad.position0(), quad.position1(), quad.position2(), quad.position3(),
+			UVPair.pack(us[0], vs[0]), UVPair.pack(us[1], vs[1]), UVPair.pack(us[2], vs[2]),
+			UVPair.pack(us[3], vs[3]), quad.direction(), quad.materialInfo(), quad.bakedNormals(),
+			quad.bakedColors());
 	}
 
-	public static Vec3 getNormalXYZ(int[] vertexData, int vertex) {
-		int data = vertexData[vertex * VERTEX_STRIDE + NORMAL_OFFSET];
-		float x = (byte) (data >> 24 & 0xFF) / 127f;
-		float y = (byte) (data >> 16 & 0xFF) / 127f;
-		float z = (byte) (data >> 8 & 0xFF) / 127f;
-		return new Vec3(x, y, z);
+	public static BakedQuad withPositions(BakedQuad quad, Vector3fc p0, Vector3fc p1, Vector3fc p2, Vector3fc p3) {
+		return new BakedQuad(p0, p1, p2, p3, quad.packedUV0(), quad.packedUV1(), quad.packedUV2(),
+			quad.packedUV3(), quad.direction(), quad.materialInfo(), quad.bakedNormals(), quad.bakedColors());
 	}
 
-	public static void setNormalXYZ(int[] vertexData, int vertex, Vec3 xyz) {
-		int x = Byte.toUnsignedInt((byte) (Mth.clamp(xyz.x, -1.0f, 1.0f) * 127));
-		int y = Byte.toUnsignedInt((byte) (Mth.clamp(xyz.y, -1.0f, 1.0f) * 127));
-		int z = Byte.toUnsignedInt((byte) (Mth.clamp(xyz.z, -1.0f, 1.0f) * 127));
-		int data = (x << 24) | (y << 16) | (z << 8);
-		vertexData[vertex * VERTEX_STRIDE + NORMAL_OFFSET] = data;
+	public static Vector3f toVector(Vec3 vec) {
+		return new Vector3f((float) vec.x, (float) vec.y, (float) vec.z);
 	}
-
-	public static float getU(int[] vertexData, int vertex) {
-		return Float.intBitsToFloat(vertexData[vertex * VERTEX_STRIDE + U_OFFSET]);
-	}
-
-	public static float getV(int[] vertexData, int vertex) {
-		return Float.intBitsToFloat(vertexData[vertex * VERTEX_STRIDE + V_OFFSET]);
-	}
-
-	public static void setU(int[] vertexData, int vertex, float u) {
-		vertexData[vertex * VERTEX_STRIDE + U_OFFSET] = Float.floatToRawIntBits(u);
-	}
-
-	public static void setV(int[] vertexData, int vertex, float v) {
-		vertexData[vertex * VERTEX_STRIDE + V_OFFSET] = Float.floatToRawIntBits(v);
-	}
-
 }
