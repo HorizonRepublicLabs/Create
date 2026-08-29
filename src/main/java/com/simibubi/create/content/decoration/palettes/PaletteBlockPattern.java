@@ -22,7 +22,7 @@ import com.simibubi.create.foundation.block.connected.HorizontalCTBehaviour;
 import com.simibubi.create.foundation.block.connected.RotatedPillarCTBehaviour;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
+import com.tterrag.registrate.providers.generators.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;

@@ -275,7 +275,7 @@ import com.simibubi.create.foundation.item.UncontainableBlockItem;
 import com.simibubi.create.foundation.mixin.accessor.BlockLootSubProviderAccessor;
 import com.simibubi.create.foundation.utility.DyeHelper;
 import com.simibubi.create.infrastructure.config.CStress;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
+import com.tterrag.registrate.providers.generators.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 

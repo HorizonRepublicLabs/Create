@@ -13,7 +13,7 @@ import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
+import com.tterrag.registrate.providers.generators.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonnullType;

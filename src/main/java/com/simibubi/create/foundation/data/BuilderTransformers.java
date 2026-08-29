@@ -54,7 +54,7 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.infrastructure.config.CStress;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
+import com.tterrag.registrate.providers.generators.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;

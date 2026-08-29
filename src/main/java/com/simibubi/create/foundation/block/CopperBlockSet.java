@@ -16,7 +16,7 @@ import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
+import com.tterrag.registrate.providers.generators.RegistrateRecipeProvider;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
