@@ -41,7 +41,6 @@ public class CreateDatagen {
 		DataGenerator generator = event.getGenerator();
 		PackOutput output = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
 		generator.addProvider(event.includeClient(), AllSoundEvents.provider(generator));
 
