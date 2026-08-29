@@ -1,5 +1,11 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import com.simibubi.create.foundation.item.TooltipLines;
+
+import net.minecraft.world.item.component.TooltipDisplay;
+
+import java.util.function.Consumer;
+
 import net.minecraft.core.UUIDUtil;
 
 import java.util.List;
@@ -57,8 +63,10 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 
 	@Override
 	public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext tooltipContext,
-								@NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
-		super.appendHoverText(stack, tooltipContext, tooltipComponents, tooltipFlag);
+								@NotNull TooltipDisplay display, @NotNull Consumer<Component> builder,
+								@NotNull TooltipFlag tooltipFlag) {
+		List<Component> tooltipComponents = TooltipLines.forwarding(builder);
+		super.appendHoverText(stack, tooltipContext, display, builder, tooltipFlag);
 
 		CompoundTag tag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
 		if (!tag.hasUUID("Freq"))

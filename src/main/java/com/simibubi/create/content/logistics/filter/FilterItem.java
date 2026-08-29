@@ -1,5 +1,11 @@
 package com.simibubi.create.content.logistics.filter;
 
+import com.simibubi.create.foundation.item.TooltipLines;
+
+import net.minecraft.world.item.component.TooltipDisplay;
+
+import java.util.function.Consumer;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -59,7 +65,9 @@ public abstract class FilterItem extends Item implements MenuProvider, SupportsI
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
+		Consumer<Component> builder, TooltipFlag flagIn) {
+		List<Component> tooltip = TooltipLines.forwarding(builder);
 		if (AllKeys.shiftDown())
 			return;
 		List<Component> makeSummary = makeSummary(stack);

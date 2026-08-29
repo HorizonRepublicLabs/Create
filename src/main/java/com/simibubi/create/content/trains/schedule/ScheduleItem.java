@@ -1,5 +1,11 @@
 package com.simibubi.create.content.trains.schedule;
 
+import com.simibubi.create.foundation.item.TooltipLines;
+
+import net.minecraft.world.item.component.TooltipDisplay;
+
+import java.util.function.Consumer;
+
 import java.util.List;
 
 import com.simibubi.create.AllDataComponents;
@@ -128,7 +134,9 @@ public class ScheduleItem extends Item implements MenuProvider, SupportsItemCopy
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
+		Consumer<Component> builder, TooltipFlag flagIn) {
+		List<Component> tooltip = TooltipLines.forwarding(builder);
 		Schedule schedule = getSchedule(context.registries(), stack);
 		if (schedule == null || schedule.entries.isEmpty())
 			return;

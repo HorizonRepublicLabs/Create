@@ -1,5 +1,11 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import com.simibubi.create.foundation.item.TooltipLines;
+
+import net.minecraft.world.item.component.TooltipDisplay;
+
+import java.util.function.Consumer;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.List;
@@ -54,7 +60,9 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
+		Consumer<Component> builder, TooltipFlag flagIn) {
+		List<Component> tooltip = TooltipLines.forwarding(builder);
 		if (stack.has(AllDataComponents.SHAPER_BLOCK_USED)) {
 			MutableComponent usedBlock = stack.get(AllDataComponents.SHAPER_BLOCK_USED).getBlock().getName();
 			tooltip.add(CreateLang.translateDirect("terrainzapper.usingBlock", usedBlock.withStyle(ChatFormatting.GRAY))

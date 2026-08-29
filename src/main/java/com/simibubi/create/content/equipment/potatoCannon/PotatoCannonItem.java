@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import com.simibubi.create.foundation.item.TooltipLines;
+
+import net.minecraft.world.item.component.TooltipDisplay;
+
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -165,16 +169,18 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
+		Consumer<Component> builder, TooltipFlag flag) {
+		List<Component> tooltip = TooltipLines.forwarding(builder);
 		LocalPlayer player = Minecraft.getInstance().player;
 		if (player == null) {
-			super.appendHoverText(stack, context, tooltip, flag);
+			super.appendHoverText(stack, context, display, builder, flag);
 			return;
 		}
 
 		Ammo ammo = getAmmo(player, stack);
 		if (ammo == null) {
-			super.appendHoverText(stack, context, tooltip, flag);
+			super.appendHoverText(stack, context, display, builder, flag);
 			return;
 		}
 		ItemStack ammoStack = ammo.stack();

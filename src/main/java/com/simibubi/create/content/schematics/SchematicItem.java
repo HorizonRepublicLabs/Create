@@ -1,5 +1,11 @@
 package com.simibubi.create.content.schematics;
 
+import com.simibubi.create.foundation.item.TooltipLines;
+
+import net.minecraft.world.item.component.TooltipDisplay;
+
+import java.util.function.Consumer;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.io.BufferedInputStream;
@@ -71,13 +77,15 @@ public class SchematicItem extends Item {
 
 	@Override
 	@OnlyIn(value = Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
+		Consumer<Component> builder, TooltipFlag flagIn) {
+		List<Component> tooltip = TooltipLines.forwarding(builder);
 		if (stack.has(AllDataComponents.SCHEMATIC_FILE)) {
 			tooltip.add(Component.literal(ChatFormatting.GOLD + stack.get(AllDataComponents.SCHEMATIC_FILE)));
 		} else {
 			tooltip.add(CreateLang.translateDirect("schematic.invalid").withStyle(ChatFormatting.RED));
 		}
-		super.appendHoverText(stack, context, tooltip, flagIn);
+		super.appendHoverText(stack, context, display, builder, flagIn);
 	}
 
 	public static void writeSize(Level level, ItemStack blueprint) {

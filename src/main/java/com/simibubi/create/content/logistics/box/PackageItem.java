@@ -1,5 +1,11 @@
 package com.simibubi.create.content.logistics.box;
 
+import com.simibubi.create.foundation.item.TooltipLines;
+
+import net.minecraft.world.item.component.TooltipDisplay;
+
+import java.util.function.Consumer;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Optional;
@@ -222,9 +228,10 @@ public class PackageItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, TooltipContext tooltipContext, List<Component> tooltipComponents,
-								TooltipFlag tooltipFlag) {
-		super.appendHoverText(stack, tooltipContext, tooltipComponents, tooltipFlag);
+	public void appendHoverText(ItemStack stack, TooltipContext tooltipContext, TooltipDisplay display,
+		Consumer<Component> builder, TooltipFlag tooltipFlag) {
+		List<Component> tooltipComponents = TooltipLines.forwarding(builder);
+		super.appendHoverText(stack, tooltipContext, display, builder, tooltipFlag);
 
 		if (stack.has(AllDataComponents.PACKAGE_ADDRESS))
 			tooltipComponents.add(Component.literal("\u2192 " + stack.get(AllDataComponents.PACKAGE_ADDRESS))
