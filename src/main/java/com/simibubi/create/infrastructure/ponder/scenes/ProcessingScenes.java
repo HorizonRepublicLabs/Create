@@ -491,7 +491,7 @@ public class ProcessingScenes {
 		Vec3 basinSide = util.vector().blockSurface(basin, Direction.WEST);
 
 		ItemStack copper = new ItemStack(Items.COPPER_INGOT);
-		ItemStack copperBlock = new ItemStack(Items.COPPER_BLOCK);
+		ItemStack copperBlock = new ItemStack(Items.COPPER_BLOCK.weathering().unaffected);
 
 		scene.overlay().showText(60)
 			.pointAt(basinSide)
@@ -873,7 +873,7 @@ public class ProcessingScenes {
 		scene.world().modifyBlockEntity(pressPos, type, pte -> pte.getPressingBehaviour()
 			.makeCompactingParticleEffect(util.vector().centerOf(basinPos), ingot));
 
-		ItemStack block = new ItemStack(Items.COPPER_BLOCK);
+		ItemStack block = new ItemStack(Items.COPPER_BLOCK.weathering().unaffected);
 		scene.idle(30);
 		scene.overlay().showControls(util.vector().topOf(basinPos), Pointing.RIGHT, 30).withItem(block);
 		scene.overlay().showText(70)

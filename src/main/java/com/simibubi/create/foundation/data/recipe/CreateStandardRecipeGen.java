@@ -215,7 +215,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 	TRANSMITTER = create(AllItems.TRANSMITTER).unlockedByTag(I::copper)
 		.viaShaped(b -> b.define('L', I.copperSheet())
-			.define('N', Items.LIGHTNING_ROD)
+			.define('N', Items.LIGHTNING_ROD.weathering().unaffected)
 			.define('R', I.redstone())
 			.pattern(" N ")
 			.pattern("LLL")
@@ -440,7 +440,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		.viaShapeless(b -> b.requires(ItemTags.WOODEN_DOORS)
 			.requires(I.brassCasing())),
 
-	COPPER_DOOR = create(AllBlocks.COPPER_DOOR.weathering().unaffected()).returns(1)
+	COPPER_DOOR = create(AllBlocks.COPPER_DOOR).returns(1)
 		.unlockedBy(() -> I.copperCasing())
 		.viaShapeless(b -> b.requires(ItemTags.WOODEN_DOORS)
 			.requires(I.copperCasing())),
