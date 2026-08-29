@@ -14,7 +14,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-public class SequencedAssemblyRecipeSerializer implements RecipeSerializer<SequencedAssemblyRecipe> {
+public class SequencedAssemblyRecipeSerializer {
 	private final MapCodec<SequencedAssemblyRecipe> CODEC = RecordCodecBuilder.mapCodec(
 		i -> i.group(
 			Ingredient.CODEC.fieldOf("ingredient").forGetter(SequencedAssemblyRecipe::getIngredient),
@@ -23,7 +23,7 @@ public class SequencedAssemblyRecipeSerializer implements RecipeSerializer<Seque
 			ProcessingOutput.CODEC.listOf().fieldOf("results").forGetter(r -> r.resultPool),
 			ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("loops", 1).forGetter(SequencedAssemblyRecipe::getLoops)
 		).apply(i, (ingredient, transitionalItem, sequence, results, loops) -> {
-			SequencedAssemblyRecipe recipe = new SequencedAssemblyRecipe(this);
+			SequencedAssemblyRecipe recipe = new SequencedAssemblyRecipe();
 			recipe.ingredient = ingredient;
 			recipe.transitionalItem = transitionalItem;
 			recipe.sequence.addAll(sequence);
@@ -44,7 +44,7 @@ public class SequencedAssemblyRecipeSerializer implements RecipeSerializer<Seque
 		ProcessingOutput.STREAM_CODEC, r -> r.transitionalItem,
 		ByteBufCodecs.VAR_INT, r -> r.loops,
 		(ingredient, transitionalItem, sequence, results, loops) -> {
-			SequencedAssemblyRecipe recipe = new SequencedAssemblyRecipe(this);
+			SequencedAssemblyRecipe recipe = new SequencedAssemblyRecipe();
 			recipe.ingredient = ingredient;
 			recipe.getSequence().addAll(transitionalItem);
 			recipe.resultPool.addAll(sequence);
@@ -62,5 +62,9 @@ public class SequencedAssemblyRecipeSerializer implements RecipeSerializer<Seque
 	@Override
 	public @NotNull StreamCodec<RegistryFriendlyByteBuf, SequencedAssemblyRecipe> streamCodec() {
 		return STREAM_CODEC;
+	}
+
+	public RecipeSerializer<SequencedAssemblyRecipe> asSerializer() {
+		return new RecipeSerializer<>(CODEC, STREAM_CODEC);
 	}
 }

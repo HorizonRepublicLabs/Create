@@ -1,5 +1,17 @@
 package com.simibubi.create;
 
+import net.minecraft.world.item.crafting.CustomRecipe;
+
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import net.minecraft.network.codec.StreamCodec;
+
+import com.mojang.serialization.MapCodec;
+
+import net.minecraft.server.level.ServerLevel;
+
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -31,7 +43,6 @@ import com.simibubi.create.content.kinetics.saw.CuttingRecipe;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
-import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe.Serializer;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.recipe.ItemCopyingRecipe;
@@ -47,7 +58,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import net.neoforged.bus.api.IEventBus;
@@ -72,11 +82,23 @@ public enum AllRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
 	EMPTYING(EmptyingRecipe::new),
 	ITEM_APPLICATION(ManualApplicationRecipe::new),
 
-	MECHANICAL_CRAFTING(MechanicalCraftingRecipe.Serializer::new),
-	SEQUENCED_ASSEMBLY(SequencedAssemblyRecipeSerializer::new),
+	MECHANICAL_CRAFTING(MechanicalCraftingRecipe.Serializer::create),
+	SEQUENCED_ASSEMBLY(() -> new SequencedAssemblyRecipeSerializer().asSerializer()),
 
-	TOOLBOX_DYEING(() -> new SimpleCraftingRecipeSerializer<>(ToolboxDyeingRecipe::new), () -> RecipeType.CRAFTING, false),
-	ITEM_COPYING(() -> new SimpleCraftingRecipeSerializer<>(ItemCopyingRecipe::new), () -> RecipeType.CRAFTING, false);
+	TOOLBOX_DYEING(() -> new RecipeSerializer<>(
+		RecordCodecBuilder.mapCodec(i -> i.group(
+			CraftingBookCategory.CODEC.fieldOf("category")
+				.orElse(CraftingBookCategory.MISC)
+				.forGetter(CustomRecipe::category))
+			.apply(i, ToolboxDyeingRecipe::new)),
+		StreamCodec.composite(CraftingBookCategory.STREAM_CODEC, CustomRecipe::category, ToolboxDyeingRecipe::new)), () -> RecipeType.CRAFTING, false),
+	ITEM_COPYING(() -> new RecipeSerializer<>(
+		RecordCodecBuilder.mapCodec(i -> i.group(
+			CraftingBookCategory.CODEC.fieldOf("category")
+				.orElse(CraftingBookCategory.MISC)
+				.forGetter(CustomRecipe::category))
+			.apply(i, ItemCopyingRecipe::new)),
+		StreamCodec.composite(CraftingBookCategory.STREAM_CODEC, CustomRecipe::category, ItemCopyingRecipe::new)), () -> RecipeType.CRAFTING, false);
 
 	public static final Predicate<RecipeHolder<?>> CAN_BE_AUTOMATED = r -> !r.id()
 			.getPath()
@@ -119,12 +141,12 @@ public enum AllRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
 	}
 
 	AllRecipeTypes(StandardProcessingRecipe.Factory<?> processingFactory) {
-		this(() -> new Serializer<>(processingFactory));
+		this(() -> StandardProcessingRecipe.serializer(processingFactory));
 		isProcessingRecipe = true;
 	}
 
 	AllRecipeTypes(ProcessingRecipe.Factory<ItemApplicationRecipeParams, ? extends ItemApplicationRecipe> itemApplicationFactory) {
-		this(() -> new ItemApplicationRecipe.Serializer<>(itemApplicationFactory));
+		this(() -> ItemApplicationRecipe.serializer(itemApplicationFactory));
 		isProcessingRecipe = true;
 	}
 
@@ -152,9 +174,15 @@ public enum AllRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
 		return (RecipeType<R>) type.get();
 	}
 
+	/// Recipe lookup left Level in 26.x: RecipeManager lives on the server, and
+	/// what a Level exposes now (recipeAccess) only covers property sets and
+	/// stonecutting. Clients have no recipe map to consult, so this is empty
+	/// there rather than guessing.
 	public <I extends RecipeInput, R extends Recipe<I>> Optional<RecipeHolder<R>> find(I inv, Level world) {
-		return world.getRecipeManager()
-			.getRecipeFor(getType(), inv, world);
+		if (!(world instanceof ServerLevel serverLevel))
+			return Optional.empty();
+		return serverLevel.recipeAccess()
+			.getRecipeFor(getType(), inv, serverLevel);
 	}
 
 	public static boolean shouldIgnoreInAutomation(RecipeHolder<?> recipe) {

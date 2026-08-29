@@ -82,24 +82,9 @@ public class ItemApplicationRecipe extends ProcessingRecipe<RecipeWrapper, ItemA
 		}
 	}
 
-	public static class Serializer<R extends ItemApplicationRecipe> implements RecipeSerializer<R> {
-		private final MapCodec<R> codec;
-		private final StreamCodec<RegistryFriendlyByteBuf, R> streamCodec;
-
-		public Serializer(ProcessingRecipe.Factory<ItemApplicationRecipeParams, R> factory) {
-			this.codec = ProcessingRecipe.codec(factory, ItemApplicationRecipeParams.CODEC);
-			this.streamCodec = ProcessingRecipe.streamCodec(factory, ItemApplicationRecipeParams.STREAM_CODEC);
-		}
-
-		@Override
-		public MapCodec<R> codec() {
-			return codec;
-		}
-
-		@Override
-		public StreamCodec<RegistryFriendlyByteBuf, R> streamCodec() {
-			return streamCodec;
-		}
-
+	public static <R extends ItemApplicationRecipe> RecipeSerializer<R> serializer(
+		ProcessingRecipe.Factory<ItemApplicationRecipeParams, R> factory) {
+		return new RecipeSerializer<>(ProcessingRecipe.codec(factory, ItemApplicationRecipeParams.CODEC),
+			ProcessingRecipe.streamCodec(factory, ItemApplicationRecipeParams.STREAM_CODEC));
 	}
 }

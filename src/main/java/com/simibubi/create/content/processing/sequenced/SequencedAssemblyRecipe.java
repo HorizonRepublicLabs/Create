@@ -38,7 +38,6 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
-	protected SequencedAssemblyRecipeSerializer serializer;
 
 	protected Ingredient ingredient;
 	protected List<SequencedRecipe<?>> sequence;
@@ -47,8 +46,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 
 	public final List<ProcessingOutput> resultPool;
 
-	public SequencedAssemblyRecipe(SequencedAssemblyRecipeSerializer serializer) {
-		this.serializer = serializer;
+	public SequencedAssemblyRecipe() {
 		sequence = new ArrayList<>();
 		resultPool = new ArrayList<>();
 		loops = 5;
@@ -195,7 +193,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return serializer;
+		return AllRecipeTypes.SEQUENCED_ASSEMBLY.getSerializer();
 	}
 
 	@Override

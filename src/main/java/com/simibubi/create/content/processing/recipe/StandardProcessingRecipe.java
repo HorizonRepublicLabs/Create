@@ -40,29 +40,10 @@ public abstract class StandardProcessingRecipe<T extends RecipeInput> extends Pr
 		}
 	}
 
-	public static class Serializer<R extends StandardProcessingRecipe<?>> implements RecipeSerializer<R> {
-		private final Factory<R> factory;
-		private final MapCodec<R> codec;
-		private final StreamCodec<RegistryFriendlyByteBuf, R> streamCodec;
-
-		public Serializer(Factory<R> factory) {
-			this.factory = factory;
-			this.codec = ProcessingRecipe.codec(factory, ProcessingRecipeParams.CODEC);
-			this.streamCodec = ProcessingRecipe.streamCodec(factory, ProcessingRecipeParams.STREAM_CODEC);
-		}
-
-		@Override
-		public MapCodec<R> codec() {
-			return codec;
-		}
-
-		@Override
-		public StreamCodec<RegistryFriendlyByteBuf, R> streamCodec() {
-			return streamCodec;
-		}
-
-		public Factory<R> factory() {
-			return factory;
-		}
+	/// RecipeSerializer is a record of (codec, streamCodec) in 26.x rather than
+	/// an interface, so serializers are built rather than implemented.
+	public static <R extends StandardProcessingRecipe<?>> RecipeSerializer<R> serializer(Factory<R> factory) {
+		return new RecipeSerializer<>(ProcessingRecipe.codec(factory, ProcessingRecipeParams.CODEC),
+			ProcessingRecipe.streamCodec(factory, ProcessingRecipeParams.STREAM_CODEC));
 	}
 }
