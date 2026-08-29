@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -227,7 +229,7 @@ public final class CreateRecipeProvider extends RecipeProvider {
 		}
 
 		static Ingredient netherite() {
-			return Ingredient.of(Tags.Items.INGOTS_NETHERITE);
+			return ItemHelper.ingredientOf(Tags.Items.INGOTS_NETHERITE);
 		}
 
 	}

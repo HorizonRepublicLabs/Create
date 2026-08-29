@@ -186,7 +186,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 			.dot(selection.getDirection()) < 0;
 
 		ClientNetworkHelper.INSTANCE.sendToServer(new CurvedTrackSelectionPacket(be.getBlockPos(), loc.curveTarget(),
-			front, loc.segment(), player.getInventory().selected));
+			front, loc.segment(), player.getInventory().getSelectedSlot()));
 		return true;
 	}
 

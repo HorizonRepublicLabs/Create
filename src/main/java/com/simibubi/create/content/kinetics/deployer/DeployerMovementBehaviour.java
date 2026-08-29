@@ -261,7 +261,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 				if (itemstack.isEmpty())
 					continue;
 
-				if (list == inv.items && i == inv.selected && filter.test(context.world, itemstack))
+				if (list == inv.items && i == inv.getSelectedSlot() && filter.test(context.world, itemstack))
 					continue;
 
 				collectOrDropItem(context, itemstack);

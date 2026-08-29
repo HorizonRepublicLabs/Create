@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.concurrent.CompletableFuture;
 
 import com.simibubi.create.AllBlocks;
@@ -46,9 +48,9 @@ public final class CreateHauntingRecipeGen extends HauntingRecipeGen {
 		.output(.75f, Items.PRISMARINE_SHARD)
 		.output(.125f, Items.PRISMARINE_CRYSTALS)),
 
-	SOUL_SAND = convert(() -> Ingredient.of(ItemTags.SAND), () -> Blocks.SOUL_SAND),
-	SOUL_DIRT = convert(() -> Ingredient.of(ItemTags.DIRT), () -> Blocks.SOUL_SOIL),
-		BLACK_STONE = convert(() -> Ingredient.of(Tags.Items.COBBLESTONES), () -> Blocks.BLACKSTONE),
+	SOUL_SAND = convert(() -> ItemHelper.ingredientOf(ItemTags.SAND), () -> Blocks.SOUL_SAND),
+	SOUL_DIRT = convert(() -> ItemHelper.ingredientOf(ItemTags.DIRT), () -> Blocks.SOUL_SOIL),
+		BLACK_STONE = convert(() -> ItemHelper.ingredientOf(Tags.Items.COBBLESTONES), () -> Blocks.BLACKSTONE),
 	CRIMSON_FUNGUS = convert(Items.RED_MUSHROOM, Items.CRIMSON_FUNGUS),
 	WARPED_FUNGUS = convert(Items.BROWN_MUSHROOM, Items.WARPED_FUNGUS),
 

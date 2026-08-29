@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import static com.simibubi.create.foundation.data.recipe.CommonMetal.ALUMINUM;
 import static com.simibubi.create.foundation.data.recipe.CommonMetal.LEAD;
 import static com.simibubi.create.foundation.data.recipe.CommonMetal.NICKEL;
@@ -213,7 +215,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 	ROSE_QUARTZ = create(AllItems.ROSE_QUARTZ).unlockedBy(() -> Items.REDSTONE)
 		.viaShapeless(b -> b.requires(Tags.Items.GEMS_QUARTZ)
-			.requires(Ingredient.of(I.redstone()), 8)),
+			.requires(ItemHelper.ingredientOf(I.redstone()), 8)),
 
 	SAND_PAPER = create(AllItems.SAND_PAPER).unlockedBy(() -> Items.PAPER)
 		.viaShapeless(b -> b.requires(Items.PAPER)
@@ -1623,7 +1625,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		}
 
 		GeneratedCookingRecipeBuilder viaCookingTag(Supplier<TagKey<Item>> tag) {
-			return unlockedByTag(tag).viaCookingIngredient(() -> Ingredient.of(tag.get()));
+			return unlockedByTag(tag).viaCookingIngredient(() -> ItemHelper.ingredientOf(tag.get()));
 		}
 
 		GeneratedCookingRecipeBuilder viaCookingIngredient(Supplier<Ingredient> ingredient) {

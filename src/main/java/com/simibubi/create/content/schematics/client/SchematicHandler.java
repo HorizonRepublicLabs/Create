@@ -320,7 +320,7 @@ public class SchematicHandler implements LayeredDraw.Layer {
 			return null;
 
 		activeSchematicItem = stack;
-		activeHotbarSlot = player.getInventory().selected;
+		activeHotbarSlot = player.getInventory().getSelectedSlot();
 		return stack;
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.api.data.recipe;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -33,7 +35,7 @@ public abstract class ItemApplicationRecipeGen extends ProcessingRecipeGen<ItemA
 	}
 
 	protected GeneratedRecipe woodCasingTag(String type, Supplier<TagKey<Item>> ingredient, Supplier<ItemLike> output) {
-		return woodCasingIngredient(type, () -> Ingredient.of(ingredient.get()), output);
+		return woodCasingIngredient(type, () -> ItemHelper.ingredientOf(ingredient.get()), output);
 	}
 
 	protected GeneratedRecipe woodCasingIngredient(String type, Supplier<Ingredient> ingredient,

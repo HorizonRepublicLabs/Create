@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.sequenced;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -68,7 +70,7 @@ public class SequencedAssemblyRecipeBuilder {
 	}
 
 	public SequencedAssemblyRecipeBuilder require(TagKey<Item> tag) {
-		return require(Ingredient.of(tag));
+		return require(ItemHelper.ingredientOf(tag));
 	}
 
 	public SequencedAssemblyRecipeBuilder require(Ingredient ingredient) {

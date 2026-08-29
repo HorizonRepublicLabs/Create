@@ -1,5 +1,11 @@
 package com.simibubi.create.foundation.item;
 
+import net.minecraft.world.item.Item;
+
+import net.minecraft.tags.TagKey;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -32,6 +38,14 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class ItemHelper {
+
+	/// Ingredient.of no longer takes a TagKey; it wants the HolderSet the tag
+	/// resolves to. Items are a static registry, so the built-in lookup is
+	/// enough and callers keep passing tags.
+	public static Ingredient ingredientOf(TagKey<Item> tag) {
+		return Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tag));
+	}
+
 
 	/// Ingredient.getItems returned ItemStacks; items() is a stream of item
 	/// holders now, so this keeps the stack list Create's JEI and tooltips want.

@@ -125,7 +125,7 @@ public class ItemHatchBlock extends HorizontalDirectionalBlock
 		for (int i = 0; i < inventory.items.size(); i++) {
 			if (Inventory.isHotbarSlot(i) != depositItemInHand)
 				continue;
-			if (depositItemInHand && i != inventory.selected)
+			if (depositItemInHand && i != inventory.getSelectedSlot())
 				continue;
 			ItemStack item = inventory.getItem(i);
 			if (item.isEmpty())

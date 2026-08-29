@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.recipe;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,7 +123,7 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 	// Datagen shortcuts
 
 	public S require(TagKey<Item> tag) {
-		return require(Ingredient.of(tag));
+		return require(ItemHelper.ingredientOf(tag));
 	}
 
 	public S require(ItemLike item) {

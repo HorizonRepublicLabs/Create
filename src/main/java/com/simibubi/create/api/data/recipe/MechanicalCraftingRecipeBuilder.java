@@ -1,5 +1,7 @@
 package com.simibubi.create.api.data.recipe;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +65,7 @@ public class MechanicalCraftingRecipeBuilder {
 	 * Adds a new unique key to the recipe key for use in the pattern
 	 */
 	public MechanicalCraftingRecipeBuilder key(Character c, TagKey<Item> tag) {
-		return this.key(c, Ingredient.of(tag));
+		return this.key(c, ItemHelper.ingredientOf(tag));
 	}
 
 	/**
