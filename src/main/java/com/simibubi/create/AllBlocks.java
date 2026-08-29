@@ -750,7 +750,7 @@ public class AllBlocks {
 			.onRegister(movementBehaviour(new BlazeBurnerMovementBehaviour()))
 			.onRegister(interactionBehaviour(new ConductorBlockInteractionBehavior.BlazeBurner()))
 			.item(BlazeBurnerBlockItem::withBlaze)
-			.model(AssetLookup.customBlockItemModel("blaze_burner", "block_with_blaze"))
+			.model(() -> AssetLookup.customBlockItemModel("blaze_burner", "block_with_blaze"))
 			.build()
 			.register();
 
@@ -977,7 +977,7 @@ public class AllBlocks {
 		.transform(mountedFluidStorage(AllMountedStorageTypes.FLUID_TANK))
 		.onRegister(movementBehaviour(new FluidTankMovementBehavior()))
 		.item(FluidTankItem::new)
-		.model(AssetLookup.customBlockItemModel("_", "block_single_window"))
+		.model(() -> AssetLookup.customBlockItemModel("_", "block_single_window"))
 		.build()
 		.register();
 

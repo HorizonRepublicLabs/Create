@@ -106,7 +106,7 @@ public class BuilderTransformers {
 			.blockstate(() -> (c, p) -> axisBlock(c, p, blockState -> VariantModels.models(p)
 				.getExistingFile(p.modLoc("block/encased_shaft/block_" + casing)), true))
 			.item()
-			.model(AssetLookup.customBlockItemModel("encased_shaft", "item_" + casing))
+			.model(() -> AssetLookup.customBlockItemModel("encased_shaft", "item_" + casing))
 			.build();
 	}
 
