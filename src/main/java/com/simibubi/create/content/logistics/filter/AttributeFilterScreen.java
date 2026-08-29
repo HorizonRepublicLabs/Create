@@ -209,9 +209,9 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 				graphics.setTooltipForNextFrame(font, selectedAttributes, java.util.Optional.empty(), mouseX, mouseY);
 				return;
 			}
-			graphics.renderTooltip(font, this.hoveredSlot.getItem(), mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, this.hoveredSlot.getItem(), mouseX, mouseY);
 		}
-		super.renderTooltip(graphics, mouseX, mouseY);
+		super.setTooltipForNextFrame(graphics, mouseX, mouseY);
 	}
 
 	@Override

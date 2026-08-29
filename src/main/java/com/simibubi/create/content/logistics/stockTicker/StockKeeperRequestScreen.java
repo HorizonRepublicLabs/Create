@@ -809,7 +809,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 						.copy()));
 				graphics.setTooltipForNextFrame(font, lines, java.util.Optional.empty(), mouseX, mouseY);
 			} else
-				graphics.renderTooltip(font, entry.stack, mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, entry.stack, mouseX, mouseY);
 		}
 
 		if (currentScroll < 1 && mouseY > besideSearchButtonY && mouseY <= besideSearchButtonY + 15) {

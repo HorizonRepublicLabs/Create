@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import java.util.List;
 
 import com.simibubi.create.content.logistics.BigItemStack;
@@ -24,7 +26,7 @@ public class CraftableBigItemStack extends BigItemStack {
 	}
 
 	public int getOutputCount(Level level) {
-		return recipe.getResultItem(level.registryAccess())
+		return RecipeResult.of(recipe, level.registryAccess())
 			.getCount();
 	}
 

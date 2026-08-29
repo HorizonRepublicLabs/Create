@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.ArrayList;
@@ -124,7 +126,7 @@ public class StockKeeperTransferHandler implements IUniversalRecipeTransferHandl
 		if (!doTransfer)
 			return null;
 
-		ItemStack result = recipe.getResultItem(player.level().registryAccess());
+		ItemStack result = RecipeResult.of(recipe, player.level().registryAccess());
 		if (result.isEmpty())
 			return new RecipeTransferErrorTooltip(CreateLang.translate("gui.stock_keeper.recipe_result_empty").component());
 

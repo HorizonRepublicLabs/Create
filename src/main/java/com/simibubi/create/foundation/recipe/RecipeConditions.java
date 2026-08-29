@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.recipe;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import java.util.function.Predicate;
 
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringBehaviour;
@@ -34,7 +36,7 @@ public class RecipeConditions {
 	}
 
 	public static Predicate<RecipeHolder<? extends Recipe<?>>> outputMatchesFilter(FilteringBehaviour filtering) {
-		return r -> filtering.test(r.value().getResultItem(filtering.getWorld().registryAccess()));
+		return r -> filtering.test(RecipeResult.of(r.value(), filtering.getWorld().registryAccess()));
 
 	}
 

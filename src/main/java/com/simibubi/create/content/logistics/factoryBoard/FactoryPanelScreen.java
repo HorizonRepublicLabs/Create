@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import org.joml.Matrix3x2fStack;
 
 import net.minecraft.client.input.MouseButtonEvent;
@@ -227,7 +229,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 				craftingActive = !craftingActive;
 				init();
 				if (craftingActive) {
-					outputConfig.count = availableCraftingRecipe.getResultItem(minecraft.level.registryAccess())
+					outputConfig.count = RecipeResult.of(availableCraftingRecipe, minecraft.level.registryAccess())
 						.getCount();
 				}
 			});
@@ -602,7 +604,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		availableCraftingRecipe = level.recipeAccess()
 			.getAllRecipesFor(RecipeType.CRAFTING)
 			.parallelStream()
-			.filter(r -> output.getItem() == r.value().getResultItem(level.registryAccess())
+			.filter(r -> output.getItem() == RecipeResult.of(r.value(), level.registryAccess())
 				.getItem())
 			.filter(r -> {
 				if (AllRecipeTypes.shouldIgnoreInAutomation(r))

@@ -371,13 +371,13 @@ public class SchematicannonScreen extends AbstractSimiContainerScreen<Schematica
 			int missingBlockX = x + 128, missingBlockY = y + 49;
 			if (mouseX >= missingBlockX && mouseY >= missingBlockY && mouseX <= missingBlockX + 16
 				&& mouseY <= missingBlockY + 16) {
-				graphics.renderTooltip(font, be.missingItem, mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, be.missingItem, mouseX, mouseY);
 			}
 		}
 
 		int paperX = x + 112, paperY = y + 19;
 		if (mouseX >= paperX && mouseY >= paperY && mouseX <= paperX + 16 && mouseY <= paperY + 16)
-			graphics.renderTooltip(font, listPrinter, mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, listPrinter, mouseX, mouseY);
 
 		super.renderForeground(graphics, mouseX, mouseY, partialTicks);
 	}

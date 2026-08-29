@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -477,7 +479,7 @@ public class CreateJEI implements IModPlugin {
 
 	public static boolean doOutputsMatch(Recipe<?> recipe1, Recipe<?> recipe2) {
 		RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
-		return ItemHelper.sameItem(CreateRecipeCategory.getResultItem(recipe1), CreateRecipeCategory.getResultItem(recipe2));
+		return ItemHelper.sameItem(RecipeResult.of(CreateRecipeCategory, recipe1), RecipeResult.of(CreateRecipeCategory, recipe2));
 	}
 
 	@Override

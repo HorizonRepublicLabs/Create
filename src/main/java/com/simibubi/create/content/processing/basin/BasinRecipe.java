@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,7 +43,7 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 		if (filter == null)
 			return false;
 
-		boolean filterTest = filter.test(recipe.getResultItem(basin.getLevel()
+		boolean filterTest = filter.test(RecipeResult.of(recipe, basin.getLevel()
 			.registryAccess()));
 		if (recipe instanceof BasinRecipe basinRecipe) {
 			if (basinRecipe.getRollableResults()
@@ -159,7 +161,7 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 							recipeOutputItems.add(stack);
 
 				} else {
-					recipeOutputItems.add(recipe.getResultItem(basin.getLevel()
+					recipeOutputItems.add(RecipeResult.of(recipe, basin.getLevel()
 						.registryAccess()));
 
 					if (recipe instanceof CraftingRecipe craftingRecipe) {
@@ -181,7 +183,7 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 		BasinRecipe basinRecipe =
 			new Builder<>(BasinRecipe::new, recipe.id()).withItemIngredients(recipe.value().placementInfo()
 			.ingredients())
-				.withSingleItemOutput(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()))
+				.withSingleItemOutput(RecipeResult.of(recipe.value(), Minecraft.getInstance().level.registryAccess()))
 				.build();
 		return new RecipeHolder<>(recipe.id(), basinRecipe);
 	}

@@ -90,7 +90,7 @@ public class LinkedControllerScreen extends AbstractSimiContainerScreen<LinkedCo
 	protected void renderTooltip(GuiGraphicsExtractor graphics, int x, int y) {
 		if (!menu.getCarried()
 			.isEmpty() || this.hoveredSlot == null || hoveredSlot.container == menu.playerInventory) {
-			super.renderTooltip(graphics, x, y);
+			super.setTooltipForNextFrame(graphics, x, y);
 			return;
 		}
 

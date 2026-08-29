@@ -220,18 +220,18 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 		if (selectedPropertyIndex > 0) {
 			iconScroll.at(-14, -46).submit(graphics);
 			iconUp.at(-1, -46).submit(graphics);
-			graphics.drawCenteredString(font, propertiesForState.get(selectedPropertyIndex - 1).getValue(), 0, -30, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
+			graphics.centeredText(font, propertiesForState.get(selectedPropertyIndex - 1).getValue(), 0, -30, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
 		}
 
 		if (selectedPropertyIndex < propertiesForState.size() - 1) {
 			iconScroll.at(-14, 30).submit(graphics);
 			iconDown.at(-1, 30).submit(graphics);
-			graphics.drawCenteredString(font, propertiesForState.get(selectedPropertyIndex + 1).getValue(), 0, 22, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
+			graphics.centeredText(font, propertiesForState.get(selectedPropertyIndex + 1).getValue(), 0, 22, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
 		}
 
-		graphics.drawCenteredString(font, "Currently", 0, -13, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
-		graphics.drawCenteredString(font, "Changing:", 0, -3, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
-		graphics.drawCenteredString(font, propertyLabel, 0, 7, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
+		graphics.centeredText(font, "Currently", 0, -13, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
+		graphics.centeredText(font, "Changing:", 0, -3, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
+		graphics.centeredText(font, propertyLabel, 0, 7, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
 
 		ms.popMatrix();
 
@@ -295,7 +295,7 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 			poseStack.translate((float) (0), (float) (0));
 
 			if (i == selectedStateIndex) {
-				graphics.drawCenteredString(font, blockState.getValue(property).toString(), 0, 15, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
+				graphics.centeredText(font, blockState.getValue(property).toString(), 0, 15, UIRenderHelper.COLOR_TEXT.getFirst().getRGB());
 			}
 
 			poseStack.popMatrix();

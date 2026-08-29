@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan.processing;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import net.minecraft.world.entity.EntityTypes;
@@ -159,10 +161,8 @@ public class AllFanProcessingTypes {
 
 			if (smeltingRecipe.isPresent()) {
 				RegistryAccess registryAccess = level.registryAccess();
-				if (smokingRecipe.isEmpty() || !ItemStack.isSameItem(smokingRecipe.get().value()
-						.getResultItem(registryAccess),
-					smeltingRecipe.get().value()
-						.getResultItem(registryAccess))) {
+				if (smokingRecipe.isEmpty() || !ItemStack.isSameItem(RecipeResult.of(smokingRecipe.get().value(), registryAccess),
+					RecipeResult.of(smeltingRecipe.get().value(), registryAccess))) {
 					return RecipeApplier.applyRecipeOn(level, stack, smeltingRecipe.get().value(), false);
 				}
 			}

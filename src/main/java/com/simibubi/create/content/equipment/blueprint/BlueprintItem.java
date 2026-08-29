@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -77,7 +79,7 @@ public class BlueprintItem extends Item {
 
 		for (int i = 0; i < 9; i++)
 			inv.setStackInSlot(i, ItemStack.EMPTY);
-		inv.setStackInSlot(9, recipe.getResultItem(level.registryAccess()));
+		inv.setStackInSlot(9, RecipeResult.of(recipe, level.registryAccess()));
 
 		if (recipe instanceof ShapedRecipe shapedRecipe) {
 			for (int row = 0; row < shapedRecipe.getHeight(); row++)

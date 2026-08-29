@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.recipe.RecipeResult;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -367,7 +369,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 			if (recipe instanceof CuttingRecipe)
 				results = ((CuttingRecipe) recipe).rollResults(level.getRandom());
 			else if (recipe instanceof StonecutterRecipe || recipe.getType() == woodcuttingRecipeType.get())
-				results.add(recipe.getResultItem(level.registryAccess())
+				results.add(RecipeResult.of(recipe, level.registryAccess())
 					.copy());
 
 			for (ItemStack stack : results) {
@@ -386,8 +388,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 	private List<RecipeHolder<? extends Recipe<?>>> getRecipes() {
 		Optional<RecipeHolder<CuttingRecipe>> assemblyRecipe = SequencedAssemblyRecipe.getRecipe(level, inventory.getStackInSlot(0),
 			AllRecipeTypes.CUTTING.getType(), CuttingRecipe.class);
-		if (assemblyRecipe.isPresent() && filtering.test(assemblyRecipe.get().value()
-			.getResultItem(level.registryAccess())))
+		if (assemblyRecipe.isPresent() && filtering.test(RecipeResult.of(assemblyRecipe.get().value(), level.registryAccess())))
 			return ImmutableList.of(assemblyRecipe.get());
 
 		Predicate<RecipeHolder<? extends Recipe<?>>> types = RecipeConditions.isOfType(AllRecipeTypes.CUTTING.getType(),
