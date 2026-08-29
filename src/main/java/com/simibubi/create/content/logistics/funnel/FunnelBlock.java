@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.funnel;
 
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -119,7 +121,8 @@ public abstract class FunnelBlock extends AbstractDirectionalFunnelBlock {
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn,
+		InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		if (worldIn.isClientSide())
 			return;
 		ItemStack stack = ItemHelper.fromItemEntity(entityIn);

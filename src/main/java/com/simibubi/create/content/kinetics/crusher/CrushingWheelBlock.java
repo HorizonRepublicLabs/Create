@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crusher;
 
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
 import net.minecraft.server.level.ServerLevel;
 
 import static com.simibubi.create.content.kinetics.crusher.CrushingWheelControllerBlock.VALID;
@@ -129,7 +131,8 @@ public class CrushingWheelBlock extends RotatedPillarKineticBlock implements IBE
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn,
+		InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		if (entityIn.getY() < pos.getY() + 1.25f || !entityIn.onGround())
 			return;
 

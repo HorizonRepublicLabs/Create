@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -186,7 +188,8 @@ public class BeltBlock extends HorizontalKineticBlock
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn,
+		InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		if (!canTransportObjects(state))
 			return;
 		if (entityIn instanceof Player player) {

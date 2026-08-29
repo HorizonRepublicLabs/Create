@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.world.level.redstone.Orientation;
@@ -65,7 +67,8 @@ public class DrillBlock extends DirectionalKineticBlock implements IBE<DrillBloc
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn,
+		InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		if (entityIn instanceof ItemEntity)
 			return;
 		if (!new AABB(pos).deflate(.1f)

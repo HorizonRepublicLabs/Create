@@ -109,7 +109,7 @@ public class RedstoneRequesterScreen extends AbstractSimiContainerScreen<Redston
 	}
 
 	@Override
-	public void extractContents(GuiGraphicsExtractor pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+	public void extractContents(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
 		int x = getGuiLeft();
 		int y = getGuiTop();
 		AllGuiTextures.REDSTONE_REQUESTER.render(pGuiGraphics, x + 3, y);

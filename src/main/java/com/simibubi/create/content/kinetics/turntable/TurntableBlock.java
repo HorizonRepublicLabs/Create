@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.turntable;
 
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
@@ -42,7 +44,8 @@ public class TurntableBlock extends KineticBlock implements IBE<TurntableBlockEn
 	}
 
 	@Override
-	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity e) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity e,
+		InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		if (!e.onGround())
 			return;
 		if (e.getDeltaMovement().y > 0)

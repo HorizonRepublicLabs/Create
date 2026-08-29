@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crusher;
 
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import net.minecraft.world.level.LevelReader;
@@ -72,7 +74,8 @@ public class CrushingWheelControllerBlock extends DirectionalBlock implements IB
 		super.createBlockStateDefinition(builder);
 	}
 
-	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn,
+		InsideBlockEffectApplier effectApplier, boolean isPrecise) {
 		if (!state.getValue(VALID))
 			return;
 
