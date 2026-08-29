@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -117,6 +119,12 @@ public class VariantModels {
 	/// The old provider had simpleBlock/directionalBlock/horizontalBlock and
 	/// friends taking a model file. Registrate's generator renamed and reshaped
 	/// them, so these keep the original call shape on top of forAllStatesExcept.
+	/// Forge's provider had a two-argument form that used the block's own model.
+	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block) {
+		simpleBlock(generator, block, generator.modLoc("block/" + RegisteredObjectsHelper.getKeyOrThrow(block)
+			.getPath()));
+	}
+
 	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block, Identifier model) {
 		forAllStatesExcept(generator, block, state -> ConfiguredModel.of(model).toArray(),
 			BlockStateProperties.WATERLOGGED);
