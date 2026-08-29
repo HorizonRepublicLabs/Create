@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.pipes.valve;
 
+import com.simibubi.create.foundation.utility.LerpedFloatNbt;
+
 import java.util.List;
 
 import com.simibubi.create.content.fluids.FluidPropagator;
@@ -68,7 +70,7 @@ public class FluidValveBlockEntity extends KineticBlockEntity {
 	@Override
 	protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.write(compound, registries, clientPacket);
-		compound.put("Pointer", pointer.writeNBT());
+		compound.put("Pointer", LerpedFloatNbt.write(pointer));
 	}
 
 	@Override

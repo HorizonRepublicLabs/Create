@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.hosePulley;
 
+import com.simibubi.create.foundation.utility.LerpedFloatNbt;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -158,7 +160,7 @@ public class HosePulleyBlockEntity extends KineticBlockEntity {
 	protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		if (clientPacket)
 			offset.forceNextSync();
-		compound.put("Offset", offset.writeNBT());
+		compound.put("Offset", LerpedFloatNbt.write(offset));
 		compound.put("Tank", internalTank.writeToNBT(registries, new CompoundTag()));
 		super.write(compound, registries, clientPacket);
 		if (clientPacket)

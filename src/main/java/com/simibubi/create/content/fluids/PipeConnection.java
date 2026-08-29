@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import com.simibubi.create.foundation.utility.LerpedFloatNbt;
+
 import com.simibubi.create.foundation.utility.StackNbt;
 
 import net.minecraft.world.item.ItemStack;
@@ -234,7 +236,7 @@ public class PipeConnection {
 			flowData.store("Fluid", ItemStack.OPTIONAL_CODEC, flow.fluid);
 			flowData.putBoolean("In", flow.inbound);
 			if (!flow.complete)
-				flowData.put("Progress", flow.progress.writeNBT());
+				flowData.put("Progress", LerpedFloatNbt.write(flow.progress));
 			connectionData.put("Flow", flowData);
 		}
 

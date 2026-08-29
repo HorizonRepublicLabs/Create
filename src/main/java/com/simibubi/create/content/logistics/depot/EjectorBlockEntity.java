@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.utility.LerpedFloatNbt;
+
 import com.simibubi.create.foundation.utility.StackNbt;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -528,7 +530,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 		compound.putInt("VerticalDistance", launcher.getVerticalDistance());
 		compound.putBoolean("Powered", powered);
 		NBTHelper.writeEnum(compound, "State", state);
-		compound.put("Lid", lidProgress.writeNBT());
+		compound.put("Lid", LerpedFloatNbt.write(lidProgress));
 		compound.put("LaunchedItems",
 			NBTHelper.writeCompoundList(launchedItems, ia -> ia.serializeNBT(s -> (CompoundTag) StackNbt.save(registries, s))));
 

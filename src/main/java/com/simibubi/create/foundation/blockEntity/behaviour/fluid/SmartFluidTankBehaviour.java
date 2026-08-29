@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour.fluid;
 
+import com.simibubi.create.foundation.utility.LerpedFloatNbt;
+
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -264,7 +266,7 @@ public class SmartFluidTankBehaviour extends BlockEntityBehaviour {
 		public CompoundTag writeNBT(HolderLookup.Provider registries) {
 			CompoundTag compound = new CompoundTag();
 			compound.put("TankContent", tank.writeToNBT(registries, new CompoundTag()));
-			compound.put("Level", fluidLevel.writeNBT());
+			compound.put("Level", LerpedFloatNbt.write(fluidLevel));
 			return compound;
 		}
 
