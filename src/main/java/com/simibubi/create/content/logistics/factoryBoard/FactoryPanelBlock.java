@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -183,7 +185,7 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 			if (behaviour == null || !behaviour.isActive())
 				return InteractionResult.SUCCESS;
 
-			BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, pos, world.getBlockState(pos), player);
+			BreakBlockEvent event = new BreakBlockEvent(world, pos, world.getBlockState(pos), player);
 			NeoForge.EVENT_BUS.post(event);
 			if (event.isCanceled())
 				return InteractionResult.SUCCESS;

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.symmetryWand;
 
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -41,7 +43,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent.Stage;
 import net.neoforged.neoforge.model.data.ModelData;
-import net.neoforged.neoforge.event.level.BlockEvent.BreakEvent;
+import net.neoforged.neoforge.event.level.BreakBlockEvent;
 import net.neoforged.neoforge.event.level.BlockEvent.EntityPlaceEvent;
 
 @EventBusSubscriber
@@ -64,7 +66,7 @@ public class SymmetryHandler {
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void onBlockDestroyed(BreakEvent event) {
+	public static void onBlockDestroyed(BreakBlockEvent event) {
 		if (event.getLevel()
 			.isClientSide())
 			return;

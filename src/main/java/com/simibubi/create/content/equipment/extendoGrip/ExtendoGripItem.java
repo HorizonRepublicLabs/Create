@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.extendoGrip;
 
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.function.Consumer;
@@ -53,7 +55,7 @@ import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.event.level.BlockEvent.BreakEvent;
+import net.neoforged.neoforge.event.level.BreakBlockEvent;
 import net.neoforged.neoforge.event.level.BlockEvent.EntityPlaceEvent;
 
 @EventBusSubscriber
@@ -177,7 +179,7 @@ public class ExtendoGripItem extends Item {
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void consumeDurabilityOnBlockBreak(BreakEvent event) {
+	public static void consumeDurabilityOnBlockBreak(BreakBlockEvent event) {
 		findAndDamageExtendoGrip(event.getPlayer());
 	}
 
