@@ -23,7 +23,7 @@ public class DivingBootsItem extends BaseArmorItem {
 	public static final EquipmentSlot SLOT = EquipmentSlot.FEET;
 	public static final ArmorType TYPE = ArmorType.BOOTS;
 
-	public DivingBootsItem(Holder<ArmorMaterial> material, Properties properties, Identifier textureLoc) {
+	public DivingBootsItem(ArmorMaterial material, Properties properties, Identifier textureLoc) {
 		super(material, TYPE, properties, textureLoc);
 	}
 

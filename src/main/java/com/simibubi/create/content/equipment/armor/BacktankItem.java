@@ -32,7 +32,7 @@ public class BacktankItem extends BaseArmorItem {
 
 	private final Supplier<BacktankBlockItem> blockItem;
 
-	public BacktankItem(Holder<ArmorMaterial> material, Properties properties, Identifier textureLoc, Supplier<BacktankBlockItem> placeable) {
+	public BacktankItem(ArmorMaterial material, Properties properties, Identifier textureLoc, Supplier<BacktankBlockItem> placeable) {
 		super(material, TYPE, properties, textureLoc);
 		this.blockItem = placeable;
 	}
@@ -108,7 +108,7 @@ public class BacktankItem extends BaseArmorItem {
 	}
 
 	public static class Layered extends BacktankItem implements LayeredArmorItem {
-		public Layered(Holder<ArmorMaterial> material, Properties properties, Identifier textureLoc, Supplier<BacktankBlockItem> placeable) {
+		public Layered(ArmorMaterial material, Properties properties, Identifier textureLoc, Supplier<BacktankBlockItem> placeable) {
 			super(material, properties, textureLoc, placeable);
 		}
 

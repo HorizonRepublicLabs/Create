@@ -29,7 +29,7 @@ public class DivingHelmetItem extends BaseArmorItem {
 	public static final EquipmentSlot SLOT = EquipmentSlot.HEAD;
 	public static final ArmorType TYPE = ArmorType.HELMET;
 
-	public DivingHelmetItem(Holder<ArmorMaterial> material, Properties properties, Identifier textureLoc) {
+	public DivingHelmetItem(ArmorMaterial material, Properties properties, Identifier textureLoc) {
 		super(material, TYPE, properties, textureLoc);
 	}
 
