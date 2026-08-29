@@ -107,7 +107,8 @@ public class DepotRenderer extends SafeBlockEntityRenderer<DepotBlockEntity> {
 		var msr = TransformStack.of(ms);
 		int count = Mth.log2((itemStack.getCount())) / 2;
 		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(itemStack, null);
-		boolean blockItem = bakedModel.isGui3d();
+		boolean blockItem = bakedModelIsBlock;
+		
 		boolean renderUpright = BeltHelper.isItemUpright(itemStack) || alwaysUpright && !blockItem;
 
 		ms.pushPose();
@@ -139,7 +140,7 @@ public class DepotRenderer extends SafeBlockEntityRenderer<DepotBlockEntity> {
 				ms.translate(0, -3 / 16f, 0);
 				msr.rotateXDegrees(90);
 			}
-			itemRenderer.render(itemStack, ItemDisplayContext.FIXED, false, ms, buffer, light, overlay, bakedModel);
+			CreateItemRenderer.render(itemStack, ItemDisplayContext.FIXED, ms, buffer, light, overlay);
 			ms.popPose();
 
 			if (!renderUpright) {

@@ -80,7 +80,8 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 		int count = (int) (Mth.log2((int) (itemStack.getCount()))) / 2;
 		boolean renderUpright = BeltHelper.isItemUpright(itemStack);
 		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(itemStack, null);
-		boolean blockItem = bakedModel.isGui3d();
+		boolean blockItem = bakedModelIsBlock;
+		
 
 		if (renderUpright)
 			ms.translate(0, 3 / 32d, 0);
@@ -115,7 +116,7 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 			ms.scale(.5f, .5f, .5f);
 			if (!blockItem && !renderUpright)
 				msr.rotateXDegrees(90);
-			itemRenderer.render(itemStack, ItemDisplayContext.FIXED, false, ms, buffer, light, overlay, bakedModel);
+			CreateItemRenderer.render(itemStack, ItemDisplayContext.FIXED, ms, buffer, light, overlay);
 			ms.popPose();
 
 			if (!renderUpright) {

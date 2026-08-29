@@ -53,7 +53,7 @@ public class ArmRenderer extends KineticBlockEntityRenderer<ArmBlockEntity> {
 			return;
 
 		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(item, be.getLevel());
-		boolean isBlockItem = hasItem && (item.getItem() instanceof BlockItem) && bakedModel.isGui3d();
+		boolean isBlockItem = hasItem && (item.getItem() instanceof BlockItem) && bakedModelIsBlock;
 
 		VertexConsumer builder = buffer.getBuffer(be.goggles ? CreateRenderTypes.cutoutMovingBlock() : CreateRenderTypes.solidMovingBlock());
 		BlockState blockState = be.getBlockState();
@@ -108,7 +108,7 @@ public class ArmRenderer extends KineticBlockEntityRenderer<ArmBlockEntity> {
 				.mul(msLocal.last()
 					.pose());
 
-			itemRenderer.render(item, ItemDisplayContext.FIXED, false, ms, buffer, light, overlay, bakedModel);
+			CreateItemRenderer.render(item, ItemDisplayContext.FIXED, ms, buffer, light, overlay);
 			ms.popPose();
 		}
 

@@ -98,7 +98,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 
 		ItemDisplayContext transform = ItemDisplayContext.NONE;
 		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(be.heldItem, be.getLevel());
-		boolean isBlockItem = (be.heldItem.getItem() instanceof BlockItem) && bakedModel.isGui3d();
+		boolean isBlockItem = (be.heldItem.getItem() instanceof BlockItem) && bakedModelIsBlock;
 
 		if (displayMode) {
 			float scale = isBlockItem ? 1.25f : 1;
@@ -113,7 +113,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 			transform = punching ? ItemDisplayContext.THIRD_PERSON_RIGHT_HAND : ItemDisplayContext.FIXED;
 		}
 
-		itemRenderer.render(be.heldItem, transform, false, ms, buffer, light, overlay, bakedModel);
+		CreateItemRenderer.render(be.heldItem, transform, ms, buffer, light, overlay);
 		ms.popPose();
 	}
 

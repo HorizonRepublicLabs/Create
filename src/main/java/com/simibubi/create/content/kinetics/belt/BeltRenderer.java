@@ -294,7 +294,8 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 
 		boolean renderUpright = BeltHelper.isItemUpright(transported.stack);
 		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(transported.stack, be.getLevel());
-		boolean blockItem = bakedModel.isGui3d();
+		boolean blockItem = bakedModelIsBlock;
+		
 
 		int count = 0;
 		if (be.getLevel() instanceof PonderLevel || mc.player.getEyePosition(1.0F).distanceTo(itemPos) < 16)
@@ -348,7 +349,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 				ms.scale(.5f, .5f, .5f);
 			}
 
-			itemRenderer.render(transported.stack, ItemDisplayContext.FIXED, false, ms, buffer, stackLight, overlay, bakedModel);
+			CreateItemRenderer.render(transported.stack, ItemDisplayContext.FIXED, ms, buffer, stackLight, overlay);
 			ms.popPose();
 
 			if (!renderUpright) {

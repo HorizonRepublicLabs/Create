@@ -63,11 +63,7 @@ public class TableClothRenderer extends SmartBlockEntityRenderer<TableClothBlock
 				ms.translate(0, i % 2 == 0 ? -0.005 : 0, 5 / 16f);
 				ms.mulPose(Axis.YP.rotationDegrees(-i * (360f / stacks.size()) - 45f));
 			}
-
-			BlockStateModel bakedModel = Minecraft.getInstance()
-				.getItemRenderer()
-				.getModel(entry, null, null, 0);
-			boolean blockItem = bakedModel.isGui3d();
+			
 			if (!blockItem)
 				TransformStack.of(ms)
 					.rotate(-rotationInRadians + Mth.PI, Direction.UP);
