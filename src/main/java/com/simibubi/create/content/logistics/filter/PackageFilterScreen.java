@@ -41,8 +41,8 @@ public class PackageFilterScreen extends AbstractFilterScreen<PackageFilterMenu>
 		setWindowOffset(-11, 7);
 		super.init();
 
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		addressBox = new AddressEditBox(this, this.font, x + 44, y + 28, 129, 9, false);
 		addressBox.setTextColor(0xffffff);
@@ -59,7 +59,7 @@ public class PackageFilterScreen extends AbstractFilterScreen<PackageFilterMenu>
 
 		PoseStack ms = graphics.pose();
 		ms.pushPose();
-		ms.translate(leftPos + 16, topPos + 23, 0);
+		ms.translate(guiLeft + 16, guiTop + 23, 0);
 		GuiGameElement.of(PackageStyles.getDefaultBox())
 			.render(graphics);
 		ms.popPose();

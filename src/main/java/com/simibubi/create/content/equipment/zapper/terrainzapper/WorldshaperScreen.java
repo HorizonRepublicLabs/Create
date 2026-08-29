@@ -75,8 +75,8 @@ public class WorldshaperScreen extends ZapperScreen {
 	protected void init() {
 		super.init();
 
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		brushLabel = new Label(x + 61, y + 25, CommonComponents.EMPTY).withShadow();
 		brushInput = new SelectionScrollInput(x + 56, y + 20, 77, 18).forOptions(brushOptions)

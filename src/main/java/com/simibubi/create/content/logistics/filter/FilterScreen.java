@@ -39,8 +39,8 @@ public class FilterScreen extends AbstractFilterScreen<FilterMenu> {
 		setWindowOffset(-11, 5);
 		super.init();
 
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		blacklist = new IconButton(x + 18, y + 75, AllIcons.I_BLACKLIST);
 		blacklist.withCallback(() -> {

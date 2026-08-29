@@ -39,8 +39,8 @@ public class SchematicPromptScreen extends AbstractSimiScreen {
 		setWindowSize(background.getWidth(), background.getHeight());
 		super.init();
 
-		int x = leftPos;
-		int y = topPos + 2;
+		int x = guiLeft;
+		int y = guiTop + 2;
 
 		nameField = new EditBox(font, x + 49, y + 26, 131, 10, CommonComponents.EMPTY);
 		nameField.setTextColor(-1);
@@ -76,8 +76,8 @@ public class SchematicPromptScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		background.render(graphics, x, y);
 		graphics.text(font, title, x + (background.getWidth() - 8 - font.width(title)) / 2, y + 4, 0x505050, false);

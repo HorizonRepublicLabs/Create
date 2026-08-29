@@ -54,8 +54,8 @@ public class ElevatorContactScreen extends AbstractSimiScreen {
 		setWindowSize(background.getWidth() + 30, background.getHeight());
 		super.init();
 
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		confirm = new IconButton(x + 200, y + 58, AllIcons.I_CONFIRM);
 		confirm.withCallback(this::confirm);
@@ -108,7 +108,7 @@ public class ElevatorContactScreen extends AbstractSimiScreen {
 	}
 
 	private EditBox editBox(int x, int width, int chars) {
-		EditBox editBox = new EditBox(font, leftPos + x, topPos + 30, width, 10, CommonComponents.EMPTY);
+		EditBox editBox = new EditBox(font, guiLeft + x, guiTop + 30, width, 10, CommonComponents.EMPTY);
 		editBox.setTextColor(-1);
 		editBox.setTextColorUneditable(-1);
 		editBox.setBordered(false);
@@ -121,8 +121,8 @@ public class ElevatorContactScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		background.render(graphics, x, y);
 
@@ -152,8 +152,8 @@ public class ElevatorContactScreen extends AbstractSimiScreen {
 		if (shortNameInput.isHoveredOrFocused())
 			longNameInput.mouseClicked(0, 0, 0);
 
-		if (!consumed && pMouseX > leftPos + 22 && pMouseY > topPos + 24 && pMouseX < leftPos + 50
-			&& pMouseY < topPos + 40) {
+		if (!consumed && pMouseX > guiLeft + 22 && pMouseY > guiTop + 24 && pMouseX < guiLeft + 50
+			&& pMouseY < guiTop + 40) {
 			setFocused(shortNameInput);
 			shortNameInput.setFocused(true);
 			return true;

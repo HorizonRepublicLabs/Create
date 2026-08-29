@@ -51,8 +51,8 @@ public abstract class AbstractStationScreen extends AbstractSimiScreen {
 		super.init();
 		clearWidgets();
 
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		confirmButton = new IconButton(x + background.getWidth() - 33, y + background.getHeight() - 24, AllIcons.I_CONFIRM);
 		confirmButton.withCallback(this::onClose);
@@ -91,19 +91,19 @@ public abstract class AbstractStationScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		background.render(graphics, x, y);
 		renderAdditional(graphics, mouseX, mouseY, partialTicks, x, y, background);
 	}
 
-	private void renderAdditional(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks, int leftPos, int topPos, AllGuiTextures background) {
+	private void renderAdditional(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks, int guiLeft, int guiTop, AllGuiTextures background) {
 		PoseStack ms = graphics.pose();
 		ms.pushPose();
 		var msr = TransformStack.of(ms);
 		msr.pushPose()
-			.translate(leftPos + background.getWidth() + 4, topPos + background.getHeight() + 4, 100)
+			.translate(guiLeft + background.getWidth() + 4, guiTop + background.getHeight() + 4, 100)
 			.scale(40)
 			.rotateXDegrees(-22)
 			.rotateYDegrees(63);

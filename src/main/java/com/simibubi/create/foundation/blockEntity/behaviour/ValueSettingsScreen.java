@@ -118,7 +118,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	public Vec2 getCoordinateOfValue(int row, int column) {
 		int scale = board.maxValue() > 128 ? 1 : 2;
 		float xOut =
-			leftPos + ((Math.max(1, column) - 1) / board.milestoneInterval()) * milestoneSize + column * scale + 1.5f;
+			guiLeft + ((Math.max(1, column) - 1) / board.milestoneInterval()) * milestoneSize + column * scale + 1.5f;
 		xOut += maxLabelWidth + 14 + 4;
 
 		if (column % board.milestoneInterval() == 0)
@@ -126,14 +126,14 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		if (column > 0)
 			xOut += milestoneSize;
 
-		float yOut = topPos + (row + .5f) * 11 - .5f;
+		float yOut = guiTop + (row + .5f) * 11 - .5f;
 		return new Vec2(xOut, yOut);
 	}
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 		int milestoneCount = board.maxValue() / board.milestoneInterval() + 1;
 		int scale = board.maxValue() > 128 ? 1 : 2;
 

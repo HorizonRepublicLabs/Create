@@ -70,8 +70,8 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 		setWindowOffset(-11, 7);
 		super.init();
 
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		whitelistDis = new IconButton(x + 38, y + 61, AllIcons.I_WHITELIST_OR);
 		whitelistDis.withCallback(() -> {
@@ -185,7 +185,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 		PoseStack matrixStack = graphics.pose();
 		matrixStack.pushPose();
 		matrixStack.translate(0, 0, 150);
-		graphics.renderItemDecorations(font, stack, leftPos + 16, topPos + 62,
+		graphics.renderItemDecorations(font, stack, guiLeft + 16, guiTop + 62,
 			String.valueOf(selectedAttributes.size() - 1));
 		matrixStack.popPose();
 

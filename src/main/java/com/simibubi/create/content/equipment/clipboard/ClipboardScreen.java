@@ -122,8 +122,8 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		super.init();
 		clearDisplayCache();
 
-		int x = leftPos;
-		int y = topPos - 8;
+		int x = guiLeft;
+		int y = guiTop - 8;
 
 		clearWidgets();
 		clearBtn = new IconButton(x + 234, y + 153, AllIcons.I_CLEAR_CHECKED).withCallback(() -> {
@@ -175,8 +175,8 @@ public class ClipboardScreen extends AbstractSimiScreen {
 			.getGuiScaledHeight() / (double) this.minecraft.getWindow()
 				.getScreenHeight());
 
-		mx -= leftPos + 35;
-		my -= topPos + 41;
+		mx -= guiLeft + 35;
+		my -= guiTop + 41;
 
 		hoveredCheck = false;
 		hoveredEntry = -1;
@@ -278,8 +278,8 @@ public class ClipboardScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = leftPos;
-		int y = topPos - 8;
+		int x = guiLeft;
+		int y = guiTop - 8;
 
 		AllGuiTextures.CLIPBOARD.render(graphics, x, y);
 		graphics.text(font, Component.translatable("book.pageIndicator", currentPage + 1, getNumPages()),
@@ -570,12 +570,12 @@ public class ClipboardScreen extends AbstractSimiScreen {
 
 	private Pos2i convertScreenToLocal(Pos2i pScreenPos) {
 		return new Pos2i(pScreenPos.x - (width - 192) / 2 - 36 + 10,
-			pScreenPos.y - 32 - 24 - yOffsetOfEditingEntry() - topPos + 14);
+			pScreenPos.y - 32 - 24 - yOffsetOfEditingEntry() - guiTop + 14);
 	}
 
 	private Pos2i convertLocalToScreen(Pos2i pLocalScreenPos) {
 		return new Pos2i(pLocalScreenPos.x + (width - 192) / 2 + 36 - 10,
-			pLocalScreenPos.y + 32 + 24 + yOffsetOfEditingEntry() + topPos - 14);
+			pLocalScreenPos.y + 32 + 24 + yOffsetOfEditingEntry() + guiTop - 14);
 	}
 
 	public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
@@ -621,7 +621,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		if (editingIndex == -1)
 			return false;
 
-		if (pMouseX < leftPos + 50 || pMouseX > leftPos + 220 || pMouseY < topPos + 30 || pMouseY > topPos + 230) {
+		if (pMouseX < guiLeft + 50 || pMouseX > guiLeft + 220 || pMouseY < guiTop + 30 || pMouseY > guiTop + 230) {
 			setFocused(null);
 			clearDisplayCache();
 			editingIndex = -1;

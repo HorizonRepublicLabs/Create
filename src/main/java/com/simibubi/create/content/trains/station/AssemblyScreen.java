@@ -38,8 +38,8 @@ public class AssemblyScreen extends AbstractStationScreen {
 	@Override
 	protected void init() {
 		super.init();
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 		int by = y + background.getHeight() - 24;
 
 		Renderable widget = renderables.get(0);
@@ -118,8 +118,8 @@ public class AssemblyScreen extends AbstractStationScreen {
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		super.renderWindow(graphics, mouseX, mouseY, partialTicks);
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		MutableComponent header = CreateLang.translateDirect("station.assembly_title");
 		graphics.text(font, header, x + background.getWidth() / 2 - font.width(header) / 2, y + 4, 0x0E2233, false);

@@ -46,8 +46,8 @@ public class SequencedGearshiftScreen extends AbstractSimiScreen {
 		setWindowOffset(-20, 0);
 		super.init();
 
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		inputs = new Vector<>(5);
 		for (int row = 0; row < inputs.capacity(); row++)
@@ -138,8 +138,8 @@ public class SequencedGearshiftScreen extends AbstractSimiScreen {
 
 	@Override
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		int x = leftPos;
-		int y = topPos;
+		int x = guiLeft;
+		int y = guiTop;
 
 		background.render(graphics, x, y);
 
@@ -176,16 +176,16 @@ public class SequencedGearshiftScreen extends AbstractSimiScreen {
 		renderAdditional(graphics, mouseX, mouseY, partialTicks, x, y, background);
 	}
 
-	private void renderAdditional(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks, int leftPos, int topPos,
+	private void renderAdditional(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks, int guiLeft, int guiTop,
 								  AllGuiTextures background) {
 		GuiGameElement.of(renderedItem).<GuiGameElement
-				.GuiRenderBuilder>at(leftPos + background.getWidth() + 6, topPos + background.getHeight() - 56, 100)
+				.GuiRenderBuilder>at(guiLeft + background.getWidth() + 6, guiTop + background.getHeight() - 56, 100)
 			.scale(5)
 			.render(graphics);
 	}
 
 	private void label(GuiGraphicsExtractor graphics, int x, int y, Component text) {
-		graphics.text(font, text, leftPos + x, topPos + 26 + y, 0xFFFFEE);
+		graphics.text(font, text, guiLeft + x, guiTop + 26 + y, 0xFFFFEE);
 	}
 
 	public void sendPacket() {
@@ -212,7 +212,7 @@ public class SequencedGearshiftScreen extends AbstractSimiScreen {
 		} else {
 			if (index + 1 < instructions.capacity() && index + 1 == instructions.size()) {
 				instructions.add(new Instruction(SequencerInstructions.END));
-				initInputsOfRow(index + 1, leftPos, topPos);
+				initInputsOfRow(index + 1, guiLeft, guiTop);
 			}
 		}
 	}
