@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import com.simibubi.create.foundation.gui.Modifiers;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -428,10 +430,10 @@ public class ClipboardScreen extends AbstractSimiScreen {
 			switch (pKeyCode) {
 			case 257:
 			case 335:
-				if (hasShiftDown()) {
+				if (Modifiers.hasShiftDown()) {
 					editContext.insertText("\n");
 					return true;
-				} else if (!hasControlDown()) {
+				} else if (!Modifiers.hasControlDown()) {
 					if (currentEntries.size() <= editingIndex + 1
 						|| !currentEntries.get(editingIndex + 1).text.getString()
 							.isEmpty())
@@ -454,7 +456,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 					editingIndex = Math.max(0, editingIndex - 1);
 					editContext.setCursorToEnd();
 					return true;
-				} else if (hasControlDown()) {
+				} else if (Modifiers.hasControlDown()) {
 					int prevPos = editContext.getCursorPos();
 					editContext.moveByWords(-1);
 					if (prevPos != editContext.getCursorPos())
@@ -464,7 +466,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 				editContext.removeCharsFromCursor(-1);
 				return true;
 			case 261:
-				if (hasControlDown()) {
+				if (Modifiers.hasControlDown()) {
 					int prevPos = editContext.getCursorPos();
 					editContext.moveByWords(1);
 					if (prevPos != editContext.getCursorPos())
@@ -474,14 +476,14 @@ public class ClipboardScreen extends AbstractSimiScreen {
 				editContext.removeCharsFromCursor(1);
 				return true;
 			case 262:
-				if (hasControlDown()) {
+				if (Modifiers.hasControlDown()) {
 					editContext.moveByWords(1, Screen.hasShiftDown());
 					return true;
 				}
 				editContext.moveByChars(1, Screen.hasShiftDown());
 				return true;
 			case 263:
-				if (hasControlDown()) {
+				if (Modifiers.hasControlDown()) {
 					editContext.moveByWords(-1, Screen.hasShiftDown());
 					return true;
 				}

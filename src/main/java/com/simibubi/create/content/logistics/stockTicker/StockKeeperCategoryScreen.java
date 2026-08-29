@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.gui.Modifiers;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -312,7 +314,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 						mx, my);
 					if (click == 0) {
 						entries.remove(entry);
-						entries.add(hasShiftDown() ? 0 : i - 1, entry);
+						entries.add(Modifiers.hasShiftDown() ? 0 : i - 1, entry);
 						init();
 					}
 					return true;
@@ -327,7 +329,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 						mx, my);
 					if (click == 0) {
 						entries.remove(entry);
-						entries.add(hasShiftDown() ? entries.size() : i + 1, entry);
+						entries.add(Modifiers.hasShiftDown() ? entries.size() : i + 1, entry);
 						init();
 					}
 					return true;

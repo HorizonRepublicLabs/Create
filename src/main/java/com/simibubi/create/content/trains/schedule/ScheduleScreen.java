@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.schedule;
 
+import com.simibubi.create.foundation.gui.Modifiers;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -911,7 +913,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		if (editingCondition != null || editingDestination != null)
 			return super.mouseScrolled(pMouseX, pMouseY, pScrollX, pScrollY);
 
-		if (hasShiftDown()) {
+		if (Modifiers.hasShiftDown()) {
 			List<ScheduleEntry> entries = schedule.entries;
 			int y = (int) (pMouseY - topPos - 25 + scroll.getValue());
 			for (int i = 0; i < entries.size(); i++) {

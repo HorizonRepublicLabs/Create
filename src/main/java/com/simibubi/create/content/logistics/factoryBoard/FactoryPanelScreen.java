@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import com.simibubi.create.foundation.gui.Modifiers;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import static com.simibubi.create.foundation.gui.AllGuiTextures.FACTORY_GAUGE_BOTTOM;
@@ -613,7 +615,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 				if (itemStack.stack.isEmpty())
 					return true;
 				itemStack.count =
-					Mth.clamp((int) (itemStack.count + Math.signum(scrollY) * (hasShiftDown() ? 10 : 1)), 1, 64);
+					Mth.clamp((int) (itemStack.count + Math.signum(scrollY) * (Modifiers.hasShiftDown() ? 10 : 1)), 1, 64);
 				return true;
 			}
 		}
@@ -624,7 +626,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 			if (mouseX >= outputX && mouseX < outputX + 16 && mouseY >= outputY && mouseY < outputY + 16) {
 				BigItemStack itemStack = outputConfig;
 				itemStack.count =
-					Mth.clamp((int) (itemStack.count + Math.signum(scrollY) * (hasShiftDown() ? 10 : 1)), 1, 64);
+					Mth.clamp((int) (itemStack.count + Math.signum(scrollY) * (Modifiers.hasShiftDown() ? 10 : 1)), 1, 64);
 				return true;
 			}
 		}
