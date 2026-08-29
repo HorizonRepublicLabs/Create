@@ -71,7 +71,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class GirderBlock extends Block implements SimpleWaterloggedBlock, IWrenchable {
 
-	private static final int placementHelperId = PlacementHelpers.register(new GirderPlacementHelper());
+	private static final IPlacementHelper placementHelper = PlacementHelpers.register(new GirderPlacementHelper());
 
 	public static final BooleanProperty X = BooleanProperty.create("x");
 	public static final BooleanProperty Z = BooleanProperty.create("z");
@@ -129,7 +129,7 @@ public class GirderBlock extends Block implements SimpleWaterloggedBlock, IWrenc
 			return InteractionResult.FAIL;
 		}
 
-		IPlacementHelper helper = PlacementHelpers.get(placementHelperId);
+		IPlacementHelper helper = placementHelper;
 		if (helper.matchesItem(stack))
 			return helper.getOffset(player, level, state, pos, hitResult)
 				.placeInWorld(level, (BlockItem) stack.getItem(), player, hand, hitResult);

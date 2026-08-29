@@ -50,7 +50,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SawBlock extends DirectionalAxisKineticBlock implements IBE<SawBlockEntity> {
 	public static final BooleanProperty FLIPPED = BooleanProperty.create("flipped");
 
-	private static final int placementHelperId = PlacementHelpers.register(new PlacementHelper());
+	private static final IPlacementHelper placementHelper = PlacementHelpers.register(new PlacementHelper());
 
 	public SawBlock(Properties properties) {
 		super(properties);
@@ -120,7 +120,6 @@ public class SawBlock extends DirectionalAxisKineticBlock implements IBE<SawBloc
 
 	@Override
 	protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-		IPlacementHelper placementHelper = PlacementHelpers.get(placementHelperId);
 		if (!player.isShiftKeyDown() && player.mayBuild()) {
 			if (placementHelper.matchesItem(stack) && placementHelper.getOffset(player, level, state, pos, hitResult)
 				.placeInWorld(level, (BlockItem) stack.getItem(), player, hand, hitResult)
