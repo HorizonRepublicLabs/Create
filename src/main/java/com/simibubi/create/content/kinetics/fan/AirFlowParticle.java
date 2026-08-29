@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import net.minecraft.client.particle.SingleQuadParticle;
+
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
 
 import org.jetbrains.annotations.NotNull;
@@ -11,7 +13,6 @@ import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
-import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -44,8 +45,8 @@ public class AirFlowParticle extends SimpleAnimatedParticle {
 	}
 
 	@NotNull
-	public ParticleRenderType getRenderType() {
-		return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+	public SingleQuadParticle.Layer getLayer() {
+		return SingleQuadParticle.Layer.TRANSLUCENT;
 	}
 
 	@Override
