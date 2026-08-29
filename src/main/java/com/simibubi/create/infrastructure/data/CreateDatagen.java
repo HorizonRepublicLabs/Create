@@ -42,25 +42,25 @@ public class CreateDatagen {
 		PackOutput output = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-		generator.addProvider(event.includeClient(), AllSoundEvents.provider(generator));
+		generator.addProvider(true, AllSoundEvents.provider(generator));
 
 		GeneratedEntriesProvider generatedEntriesProvider = new GeneratedEntriesProvider(output, lookupProvider);
 		lookupProvider = generatedEntriesProvider.getRegistryProvider();
-		generator.addProvider(event.includeServer(), generatedEntriesProvider);
+		generator.addProvider(true, generatedEntriesProvider);
 
-		generator.addProvider(event.includeServer(), new CreateRecipeSerializerTagsProvider(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new CreateContraptionTypeTagsProvider(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new CreateMountedItemStorageTypeTagsProvider(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new DamageTypeTagGen(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new AllAdvancements(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new CreateStandardRecipeGen(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new CreateMechanicalCraftingRecipeGen(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new CreateSequencedAssemblyRecipeGen(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new CreateDatamapProvider(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new VanillaHatOffsetGenerator(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new CuriosDataGenerator(output, lookupProvider));
-		generator.addProvider(event.includeServer(), new CreateEnchantmentTagsProvider(output, lookupProvider));
-		generator.addProvider(event.includeClient(), new CreateWikiBlockInfoProvider(output));
+		generator.addProvider(true, new CreateRecipeSerializerTagsProvider(output, lookupProvider));
+		generator.addProvider(true, new CreateContraptionTypeTagsProvider(output, lookupProvider));
+		generator.addProvider(true, new CreateMountedItemStorageTypeTagsProvider(output, lookupProvider));
+		generator.addProvider(true, new DamageTypeTagGen(output, lookupProvider));
+		generator.addProvider(true, new AllAdvancements(output, lookupProvider));
+		generator.addProvider(true, new CreateStandardRecipeGen(output, lookupProvider));
+		generator.addProvider(true, new CreateMechanicalCraftingRecipeGen(output, lookupProvider));
+		generator.addProvider(true, new CreateSequencedAssemblyRecipeGen(output, lookupProvider));
+		generator.addProvider(true, new CreateDatamapProvider(output, lookupProvider));
+		generator.addProvider(true, new VanillaHatOffsetGenerator(output, lookupProvider));
+		generator.addProvider(true, new CuriosDataGenerator(output, lookupProvider));
+		generator.addProvider(true, new CreateEnchantmentTagsProvider(output, lookupProvider));
+		generator.addProvider(true, new CreateWikiBlockInfoProvider(output));
 
 		if (event.includeServer()) {
 			CreateRecipeProvider.registerAllProcessing(generator, output, lookupProvider);
