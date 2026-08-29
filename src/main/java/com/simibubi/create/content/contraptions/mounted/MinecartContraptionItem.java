@@ -104,7 +104,7 @@ public class MinecartContraptionItem extends Item {
 				: RailShape.NORTH_SOUTH;
 			double d3;
 			if (blockstate.is(BlockTags.RAILS)) {
-				if (railshape.isAscending()) {
+				if (railshape.isSlope()) {
 					d3 = 0.6D;
 				} else {
 					d3 = 0.1D;
@@ -120,7 +120,7 @@ public class MinecartContraptionItem extends Item {
 					? ((BaseRailBlock) blockstate1.getBlock()).getRailDirection(blockstate1, world, blockpos.below(),
 					null)
 					: RailShape.NORTH_SOUTH;
-				if (direction != Direction.DOWN && railshape1.isAscending()) {
+				if (direction != Direction.DOWN && railshape1.isSlope()) {
 					d3 = -0.4D;
 				} else {
 					d3 = -0.9D;
@@ -160,7 +160,7 @@ public class MinecartContraptionItem extends Item {
 					? ((BaseRailBlock) blockstate.getBlock()).getRailDirection(blockstate, world, blockpos, null)
 					: RailShape.NORTH_SOUTH;
 				double d0 = 0.0D;
-				if (railshape.isAscending()) {
+				if (railshape.isSlope()) {
 					d0 = 0.5D;
 				}
 
