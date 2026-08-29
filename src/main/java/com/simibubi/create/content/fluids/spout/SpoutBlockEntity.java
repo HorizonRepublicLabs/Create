@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.spout;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import static com.simibubi.create.content.kinetics.belt.behaviour.BeltProcessingBehaviour.ProcessingResult.HOLD;
 import static com.simibubi.create.content.kinetics.belt.behaviour.BeltProcessingBehaviour.ProcessingResult.PASS;
 
@@ -261,6 +263,6 @@ public class SpoutBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	@Override
 	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 		return containedFluidTooltip(tooltip, isPlayerSneaking,
-			level.getCapability(Capabilities.Fluid.BLOCK, worldPosition, null));
+			FluidCaps.at(level, worldPosition, null));
 	}
 }

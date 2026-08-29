@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.recipe.trie;
 
+import com.simibubi.create.foundation.fluid.FluidHelper;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.Arrays;
@@ -212,7 +214,7 @@ public class RecipeTrie<R extends Recipe<?>> {
 					}
 
 					Set<AbstractVariant> variants = new HashSet<>();
-					for (FluidStack stack : ingredient.getFluids()) {
+					for (FluidStack stack : FluidHelper.ingredientStacks(ingredient)) {
 						variants.add(getOrAssignVariant(stack.getFluid()));
 					}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import java.util.function.Consumer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -59,12 +61,12 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 				continue;
 			}
 
-			IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
+			IFluidHandlerItem capability = FluidCaps.of(stack);
 			if (capability == null)
 				continue;
 
 			ItemStack copy = stack.copy();
-			capability = copy.getCapability(Capabilities.Fluid.ITEM);
+			capability = FluidCaps.of(copy);
 			FluidStack extracted = capability.drain(1000, FluidAction.EXECUTE);
 			ItemStack result = capability.getContainer();
 			if (extracted.isEmpty())

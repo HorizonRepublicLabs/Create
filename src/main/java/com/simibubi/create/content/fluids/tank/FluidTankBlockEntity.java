@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import static java.lang.Math.abs;
 
 import java.util.List;
@@ -413,7 +415,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 		if (controllerBE.boiler.addToGoggleTooltip(tooltip, isPlayerSneaking, controllerBE.getTotalTankSize()))
 			return true;
 		return containedFluidTooltip(tooltip, isPlayerSneaking,
-			level.getCapability(Capabilities.Fluid.BLOCK, controllerBE.getBlockPos(), null));
+			FluidCaps.at(level, controllerBE.getBlockPos(), null));
 	}
 
 	@Override

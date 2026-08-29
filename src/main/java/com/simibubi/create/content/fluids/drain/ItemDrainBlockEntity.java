@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.drain;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import net.minecraft.world.Containers;
 
 import java.util.IdentityHashMap;
@@ -324,7 +326,7 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 
 	@Override
 	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-		return containedFluidTooltip(tooltip, isPlayerSneaking, level.getCapability(Capabilities.Fluid.BLOCK, worldPosition, null));
+		return containedFluidTooltip(tooltip, isPlayerSneaking, FluidCaps.at(level, worldPosition, null));
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.foundation.utility.StackNbt;
 
 import java.util.ArrayList;
@@ -398,7 +400,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			.orElse(inserter == null ? null : inserter.getInventory());
 
 		IFluidHandler targetTank = be == null ? null
-			: level.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), direction.getOpposite());
+			: FluidCaps.at(level, be.getBlockPos(), direction.getOpposite());
 
 		boolean update = false;
 
@@ -548,7 +550,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 				: Optional.ofNullable(level.getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), direction.getOpposite()))
 				.orElse(inserter == null ? null : inserter.getInventory());
 			IFluidHandler targetTank = be == null ? null
-				: level.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), direction.getOpposite());
+				: FluidCaps.at(level, be.getBlockPos(), direction.getOpposite());
 			boolean externalTankNotPresent = targetTank == null;
 
 			if (!outputItems.isEmpty() && targetInv == null)

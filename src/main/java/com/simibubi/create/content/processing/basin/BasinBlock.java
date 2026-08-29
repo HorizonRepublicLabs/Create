@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.Create;
@@ -97,7 +99,7 @@ public class BasinBlock extends Block implements IBE<BasinBlockEntity>, IWrencha
 					|| GenericItemFilling.canItemBeFilled(level, stack))
 					return InteractionResult.SUCCESS;
 				if (stack.getItem().equals(Items.SPONGE)) {
-					IFluidHandler fluidHandler = level.getCapability(Capabilities.Fluid.BLOCK, pos, null);
+					IFluidHandler fluidHandler = FluidCaps.at(level, pos, null);
 					if (fluidHandler != null) {
 					FluidStack drained = fluidHandler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE);
 					if (!drained.isEmpty()) {

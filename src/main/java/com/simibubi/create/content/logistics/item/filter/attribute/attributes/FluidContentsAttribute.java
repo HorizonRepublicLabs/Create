@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.item.filter.attribute.attributes;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public record FluidContentsAttribute(@Nullable Fluid fluid) implements ItemAttri
 	private static List<Fluid> extractFluids(ItemStack stack) {
 		List<Fluid> fluids = new ArrayList<>();
 
-		IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
+		IFluidHandlerItem capability = FluidCaps.of(stack);
 
 		if (capability != null) {
 			for (int i = 0; i < capability.getTanks(); i++) {

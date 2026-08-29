@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -170,7 +172,7 @@ public class FluidTankBlock extends Block implements IWrenchable, IBE<FluidTankB
 		if (be == null)
 			return InteractionResult.FAIL;
 
-		IFluidHandler tankCapability = level.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+		IFluidHandler tankCapability = FluidCaps.at(level, be.getBlockPos(), null);
 		if (tankCapability == null)
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 		FluidStack prevFluidInTank = tankCapability.getFluidInTank(0)

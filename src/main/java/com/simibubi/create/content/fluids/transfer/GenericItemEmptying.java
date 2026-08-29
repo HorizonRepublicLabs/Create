@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.transfer;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +30,7 @@ public class GenericItemEmptying {
 			.isPresent())
 			return true;
 
-		IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
+		IFluidHandlerItem capability = FluidCaps.of(stack);
 		if (capability == null)
 			return false;
 		for (int i = 0; i < capability.getTanks(); i++) {
@@ -59,7 +61,7 @@ public class GenericItemEmptying {
 
 		ItemStack split = stack.copy();
 		split.setCount(1);
-		IFluidHandlerItem capability = split.getCapability(Capabilities.Fluid.ITEM);
+		IFluidHandlerItem capability = FluidCaps.of(split);
 		if (capability == null)
 			return Pair.of(resultingFluid, resultingItem);
 		resultingFluid = capability.drain(1000, simulate ? FluidAction.SIMULATE : FluidAction.EXECUTE);

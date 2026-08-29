@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.fluid.FluidHelper;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import org.joml.Matrix3x2fStack;
@@ -94,7 +96,7 @@ public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAss
 				for (SizedFluidIngredient fluidIngredient : sequencedRecipe.getRecipe()
 					.getFluidIngredients())
 					builder.addInvisibleIngredients(RecipeIngredientRole.INPUT)
-						.addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.asList(fluidIngredient.getFluids()));
+						.addIngredients(NeoForgeTypes.FLUID_STACK, FluidHelper.ingredientStacks(fluidIngredient));
 			}
 		}
 	}

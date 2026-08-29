@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import java.util.Map;
 
 import com.simibubi.create.AllTags.AllItemTags;
@@ -28,7 +30,7 @@ public class BeltHelper {
 		return uprightCache.computeIfAbsent(
 			stack.getItem(),
 			item -> {
-				boolean isFluidHandler = stack.getCapability(Capabilities.Fluid.ITEM) != null;
+				boolean isFluidHandler = FluidCaps.of(stack) != null;
 				boolean useUpright = AllItemTags.UPRIGHT_ON_BELT.matches(stack);
 				boolean forceDisableUpright = !AllItemTags.NOT_UPRIGHT_ON_BELT.matches(stack);
 

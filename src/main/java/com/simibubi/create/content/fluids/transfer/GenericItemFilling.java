@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.transfer;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.AllFluids;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.fluids.potion.PotionFluidHandler;
@@ -56,7 +58,7 @@ public class GenericItemFilling {
 		if (stack.getItem() == Items.MILK_BUCKET)
 			return false;
 
-		IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
+		IFluidHandlerItem capability = FluidCaps.of(stack);
 		if (capability == null)
 			return false;
 		if (!isFluidHandlerValid(stack, capability))
@@ -75,7 +77,7 @@ public class GenericItemFilling {
 		if (stack.getItem() == Items.BUCKET && canFillBucketInternally(availableFluid))
 			return 1000;
 
-		IFluidHandlerItem capability = stack.getCapability(Capabilities.Fluid.ITEM);
+		IFluidHandlerItem capability = FluidCaps.of(stack);
 		if (capability == null)
 			return -1;
 		if (capability instanceof FluidBucketWrapper) {
@@ -128,7 +130,7 @@ public class GenericItemFilling {
 
 		ItemStack split = stack.copy();
 		split.setCount(1);
-		IFluidHandlerItem capability = split.getCapability(Capabilities.Fluid.ITEM);
+		IFluidHandlerItem capability = FluidCaps.of(split);
 		if (capability == null)
 			return ItemStack.EMPTY;
 		capability.fill(toFill, FluidAction.EXECUTE);

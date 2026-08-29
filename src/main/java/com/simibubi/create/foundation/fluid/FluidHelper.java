@@ -1,5 +1,13 @@
 package com.simibubi.create.foundation.fluid;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+
+import net.neoforged.neoforge.fluids.FluidType;
+
+import java.util.List;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.content.fluids.tank.CreativeFluidTankBlockEntity;
@@ -30,6 +38,21 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 
 public class FluidHelper {
+
+	/// FluidIngredient.getFluids returned stacks; fluids() is a list of fluid
+	/// holders now, so this rebuilds the stacks callers display, at the amount
+	/// the recipe asks for.
+	public static List<FluidStack> ingredientStacks(FluidIngredient ingredient, int amount) {
+		return ingredient.fluids()
+			.stream()
+			.map(fluid -> new FluidStack(fluid, amount))
+			.toList();
+	}
+
+	public static List<FluidStack> ingredientStacks(FluidIngredient ingredient) {
+		return ingredientStacks(ingredient, FluidType.BUCKET_VOLUME);
+	}
+
 
 	public static enum FluidExchange {
 		ITEM_TO_TANK, TANK_TO_ITEM;
@@ -126,7 +149,7 @@ public class FluidHelper {
 			return false;
 
 		Pair<FluidStack, ItemStack> emptyingResult = GenericItemEmptying.emptyItem(worldIn, heldItem, true);
-		IFluidHandler capability = worldIn.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+		IFluidHandler capability = FluidCaps.at(worldIn, be.getBlockPos(), null);
 		FluidStack fluidStack = emptyingResult.getFirst();
 
 		if (capability == null || fluidStack.getAmount() != capability.fill(fluidStack, FluidAction.SIMULATE))
@@ -155,7 +178,7 @@ public class FluidHelper {
 		if (!GenericItemFilling.canItemBeFilled(world, heldItem))
 			return false;
 
-		IFluidHandler capability = world.getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+		IFluidHandler capability = FluidCaps.at(world, be.getBlockPos(), null);
 
 		if (capability == null)
 			return false;

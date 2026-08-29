@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.fluid.FluidHelper;
+
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe;
 
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
@@ -180,7 +182,7 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 		int amount = ingredient.amount();
 		return builder.addSlot(RecipeIngredientRole.INPUT, x, y)
 			.setBackground(getRenderedSlot(), -1, -1)
-			.addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.asList(ingredient.getFluids()))
+			.addIngredients(NeoForgeTypes.FLUID_STACK, FluidHelper.ingredientStacks(ingredient))
 			.setFluidRenderer(amount, false, 16, 16) // make fluid take up the full slot
 			.addTooltipCallback(CreateRecipeCategory::addPotionTooltip);
 	}
