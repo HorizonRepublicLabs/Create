@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.item;
 
+import net.minecraft.world.item.equipment.Equippable;
+
+import net.minecraft.core.component.DataComponents;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.Map;
@@ -16,7 +20,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 
 import net.neoforged.api.distmarker.Dist;
@@ -29,10 +32,11 @@ public interface LayeredArmorItem extends CustomRenderedArmorItem {
 	default void renderArmorPiece(HumanoidArmorLayer<?, ?, ?> layer, PoseStack poseStack,
 								  SuperRenderTypeBuffer bufferSource, LivingEntity entity, EquipmentSlot slot, int light,
 								  HumanoidModel<?> originalModel, ItemStack stack) {
-		if (!(stack.getItem() instanceof ArmorItem item)) {
+		// Armor is a data component in 26.x rather than an ArmorItem subclass.
+		Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
+		if (equippable == null)
 			return;
-		}
-		if (!item.canEquip(stack, slot, entity)) {
+		if (equippable.slot() != slot) {
 			return;
 		}
 
@@ -56,7 +60,7 @@ public interface LayeredArmorItem extends CustomRenderedArmorItem {
 	}
 
 	// from HumanoidArmorLayer.renderModel
-	private void renderModel(PoseStack poseStack, SuperRenderTypeBuffer bufferSource, int light, ArmorItem item,
+	private void renderModel(PoseStack poseStack, SuperRenderTypeBuffer bufferSource, int light, Equippable equippable,
 							 Model model, boolean glint, int color, Identifier armorResource) {
 		VertexConsumer vertexconsumer = bufferSource.getBuffer(RenderType.armorCutoutNoCull(armorResource));
 		model.renderToBuffer(poseStack, vertexconsumer, light, OverlayTexture.NO_OVERLAY, color);
