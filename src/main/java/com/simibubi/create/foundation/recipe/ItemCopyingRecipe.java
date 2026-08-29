@@ -46,7 +46,7 @@ public class ItemCopyingRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
+	public ItemStack assemble(CraftingInput input) {
 		IntAttached<ItemStack> copyCheck = copyCheck(input);
 		if (copyCheck == null)
 			return ItemStack.EMPTY;

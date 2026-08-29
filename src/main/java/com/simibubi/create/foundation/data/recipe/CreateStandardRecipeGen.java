@@ -1731,7 +1731,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		}
 
 		@Override
-		public ItemStack assemble(RecipeInput input, HolderLookup.Provider registries) {
+		public ItemStack assemble(RecipeInput input) {
 			throw new AssertionError("Only for datagen output");
 		}
 

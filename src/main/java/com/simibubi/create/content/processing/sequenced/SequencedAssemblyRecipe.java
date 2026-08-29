@@ -170,7 +170,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 	}
 
 	@Override
-	public ItemStack assemble(RecipeWrapper input, HolderLookup.Provider registries) {
+	public ItemStack assemble(RecipeWrapper input) {
 		return ItemStack.EMPTY;
 	}
 

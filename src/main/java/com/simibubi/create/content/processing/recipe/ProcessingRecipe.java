@@ -169,7 +169,7 @@ public abstract class ProcessingRecipe<I extends RecipeInput, P extends Processi
 	// IRecipe<> paperwork
 
 	@Override
-	public ItemStack assemble(I t, HolderLookup.Provider provider) {
+	public ItemStack assemble(I t) {
 		return getResultItem(provider);
 	}
 
