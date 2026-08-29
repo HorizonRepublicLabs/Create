@@ -691,13 +691,13 @@ public abstract class Contraption {
 		BlockPos controllerPos = localPos;
 		if (nbt.contains("Controller"))
 			controllerPos = toLocalPos(NBTHelper.readBlockPos(nbt, "Controller"));
-		nbt.put("Controller", NbtUtils.writeBlockPos(controllerPos));
+		nbt.store("Controller", BlockPos.CODEC, controllerPos);
 
 		if (updateTags.containsKey(localPos))
-			updateTags.get(localPos).put("Controller", NbtUtils.writeBlockPos(controllerPos));
+			updateTags.get(localPos).store("Controller", BlockPos.CODEC, controllerPos);
 
 		if (multiBlockBE.isController() && multiBlockBE.getHeight() <= 1 && multiBlockBE.getWidth() <= 1) {
-			nbt.put("LastKnownPos", NbtUtils.writeBlockPos(BlockPos.ZERO.below(Integer.MAX_VALUE - 1)));
+			nbt.store("LastKnownPos", BlockPos.CODEC, BlockPos.ZERO.below(Integer.MAX_VALUE - 1));
 			return;
 		}
 
@@ -817,13 +817,13 @@ public abstract class Contraption {
 		ListTag multiblocksNBT = new ListTag();
 		capturedMultiblocks.keySet().forEach(controllerPos -> {
 			CompoundTag tag = new CompoundTag();
-			tag.put("Controller", NbtUtils.writeBlockPos(controllerPos));
+			tag.store("Controller", BlockPos.CODEC, controllerPos);
 
 			Collection<StructureBlockInfo> multiblockParts = capturedMultiblocks.get(controllerPos);
 			ListTag partsNBT = new ListTag();
 			multiblockParts.forEach(info -> {
 				CompoundTag c = new CompoundTag();
-				c.put("Pos", NbtUtils.writeBlockPos(info.pos()));
+				c.store("Pos", BlockPos.CODEC, info.pos());
 				partsNBT.add(c);
 			});
 			tag.put("Parts", partsNBT);
@@ -837,7 +837,7 @@ public abstract class Contraption {
 			if (behaviour == null)
 				continue;
 			CompoundTag compound = new CompoundTag();
-			compound.put("Pos", NbtUtils.writeBlockPos(actor.left.pos()));
+			compound.store("Pos", BlockPos.CODEC, actor.left.pos());
 			behaviour.writeExtraData(actor.right);
 			actor.right.writeToNBT(compound);
 			actorsNBT.add(compound);
@@ -859,13 +859,13 @@ public abstract class Contraption {
 		ListTag interactorNBT = new ListTag();
 		for (BlockPos pos : interactors.keySet()) {
 			CompoundTag c = new CompoundTag();
-			c.put("Pos", NbtUtils.writeBlockPos(pos));
+			c.store("Pos", BlockPos.CODEC, pos);
 			interactorNBT.add(c);
 		}
 
 		nbt.put("Seats", NBTHelper.writeCompoundList(getSeats(), pos -> {
 			CompoundTag c = new CompoundTag();
-			c.put("Pos", NbtUtils.writeBlockPos(pos));
+			c.store("Pos", BlockPos.CODEC, pos);
 			return c;
 		}));
 		nbt.put("Passengers", NBTHelper.writeCompoundList(getSeatMapping().entrySet(), e -> {
@@ -889,7 +889,7 @@ public abstract class Contraption {
 		nbt.put("DisabledActors", disabledActorsNBT);
 		nbt.put("Interactors", interactorNBT);
 		nbt.put("Superglue", superglueNBT);
-		nbt.put("Anchor", NbtUtils.writeBlockPos(anchor));
+		nbt.store("Anchor", BlockPos.CODEC, anchor);
 		nbt.putBoolean("Stalled", stalled);
 		nbt.putBoolean("BottomlessSupply", hasUniversalCreativeCrate);
 
@@ -1191,7 +1191,7 @@ public abstract class Contraption {
 
 					if (blockEntity instanceof IMultiBlockEntityContainer) {
 						if (tag.contains("LastKnownPos") || capturedMultiblocks.isEmpty()) {
-							tag.put("LastKnownPos", NbtUtils.writeBlockPos(BlockPos.ZERO.below(Integer.MAX_VALUE - 1)));
+							tag.store("LastKnownPos", BlockPos.CODEC, BlockPos.ZERO.below(Integer.MAX_VALUE - 1));
 							tag.remove("Controller");
 						}
 					}
@@ -1226,7 +1226,7 @@ public abstract class Contraption {
 	protected void translateMultiblockControllers(StructureTransform transform) {
 		if (transform.rotationAxis != null && transform.rotationAxis != Axis.Y && transform.rotation != Rotation.NONE) {
 			capturedMultiblocks.values().forEach(info -> {
-				info.nbt().put("LastKnownPos", NbtUtils.writeBlockPos(BlockPos.ZERO.below(Integer.MAX_VALUE - 1)));
+				info.nbt().store("LastKnownPos", BlockPos.CODEC, BlockPos.ZERO.below(Integer.MAX_VALUE - 1));
 			});
 			return;
 		}
@@ -1241,7 +1241,7 @@ public abstract class Contraption {
 			BlockPos newControllerPos = new BlockPos(boundingBox.minX(), boundingBox.minY(), boundingBox.minZ());
 			BlockPos otherPos = transform.unapply(newControllerPos);
 
-			multiblockParts.forEach(info -> info.nbt().put("Controller", NbtUtils.writeBlockPos(newControllerPos)));
+			multiblockParts.forEach(info -> info.nbt().store("Controller", BlockPos.CODEC, newControllerPos));
 
 			if (controllerPos.equals(otherPos))
 				return;

@@ -123,7 +123,7 @@ public class BezierConnection implements Iterable<BezierConnection.Segment> {
 		compound.putBoolean("Primary", primary);
 		compound.put("Positions", tePositions.serializeEach(t -> {
 			CompoundTag tag = new CompoundTag();
-			tag.put("Pos", NbtUtils.writeBlockPos(t));
+			tag.store("Pos", BlockPos.CODEC, t);
 			return tag;
 		}));
 		compound.put("Starts", starts.serializeEach(VecHelper::writeNBTCompound));

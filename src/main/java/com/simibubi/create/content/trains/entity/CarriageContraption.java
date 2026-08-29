@@ -196,7 +196,7 @@ public class CarriageContraption extends Contraption {
 		tag.putBoolean("BackBlazeConductor", blockConductors.getSecond());
 		ListTag list = NBTHelper.writeCompoundList(conductorSeats.entrySet(), e -> {
 			CompoundTag compoundTag = new CompoundTag();
-			compoundTag.put("Pos", NbtUtils.writeBlockPos(e.getKey()));
+			compoundTag.store("Pos", BlockPos.CODEC, e.getKey());
 			compoundTag.putBoolean("Forward", e.getValue()
 				.getFirst());
 			compoundTag.putBoolean("Backward", e.getValue()

@@ -208,7 +208,7 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 			tag.putDouble("Smoothing", tilt.smoothingAngle.get());
 		if (boundLocation == null)
 			return;
-		tag.put("BoundLocation", NbtUtils.writeBlockPos(boundLocation.getSecond()));
+		tag.store("BoundLocation", BlockPos.CODEC, boundLocation.getSecond());
 		tag.putString("BoundDimension", boundLocation.getFirst()
 			.location()
 			.toString());

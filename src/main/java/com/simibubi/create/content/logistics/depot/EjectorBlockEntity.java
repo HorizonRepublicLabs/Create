@@ -532,7 +532,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 
 		if (earlyTarget != null) {
 			compound.put("EarlyTarget", VecHelper.writeNBT(earlyTarget.getFirst()));
-			compound.put("EarlyTargetPos", NbtUtils.writeBlockPos(earlyTarget.getSecond()));
+			compound.store("EarlyTargetPos", BlockPos.CODEC, earlyTarget.getSecond());
 			compound.putFloat("EarlyTargetTime", earlyTargetTime);
 		}
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.core.BlockPos;
+
 import net.minecraft.core.UUIDUtil;
 
 import java.util.HashSet;
@@ -45,7 +47,7 @@ public class LogisticsNetwork {
 
 		tag.put("Links", NBTHelper.writeCompoundList(totalLinks, p -> {
 			CompoundTag nbt = new CompoundTag();
-			nbt.put("Pos", NbtUtils.writeBlockPos(p.pos()));
+			nbt.store("Pos", BlockPos.CODEC, p.pos());
 			if (p.dimension() != Level.OVERWORLD)
 				NBTHelper.writeResourceLocation(nbt, "Dim", p.dimension().location());
 			return nbt;

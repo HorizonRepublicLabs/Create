@@ -217,7 +217,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 			compound.putBoolean("NeedsSpeedUpdate", true);
 
 		if (hasSource())
-			compound.put("Source", NbtUtils.writeBlockPos(source));
+			compound.store("Source", BlockPos.CODEC, source);
 
 		if (hasNetwork()) {
 			CompoundTag networkTag = new CompoundTag();

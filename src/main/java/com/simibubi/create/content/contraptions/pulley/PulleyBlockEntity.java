@@ -316,11 +316,11 @@ public class PulleyBlockEntity extends LinearActuatorBlockEntity implements Thre
 		super.write(compound, registries, clientPacket);
 
 		if (mirrorParent != null)
-			compound.put("MirrorParent", NbtUtils.writeBlockPos(mirrorParent));
+			compound.store("MirrorParent", BlockPos.CODEC, mirrorParent);
 		if (mirrorChildren != null)
 			compound.put("MirrorChildren", NBTHelper.writeCompoundList(mirrorChildren, p -> {
 				CompoundTag tag = new CompoundTag();
-				tag.put("Pos", NbtUtils.writeBlockPos(p));
+				tag.store("Pos", BlockPos.CODEC, p);
 				return tag;
 			}));
 	}

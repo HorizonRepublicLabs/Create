@@ -82,7 +82,7 @@ public class PoweredShaftBlockEntity extends GeneratingKineticBlockEntity {
 		if (initialTicks > 0)
 			compound.putInt("Warmup", initialTicks);
 		if (enginePos != null && capacityKey != null) {
-			compound.put("EnginePos", NbtUtils.writeBlockPos(enginePos));
+			compound.store("EnginePos", BlockPos.CODEC, enginePos);
 			compound.putFloat("EnginePower", engineEfficiency);
 			compound.putString("EngineType", RegisteredObjectsHelper.getKeyOrThrow(capacityKey)
 				.toString());

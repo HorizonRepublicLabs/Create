@@ -318,7 +318,7 @@ public class MountedStorageManager {
 						.resultOrPartial(err -> Create.LOGGER.error("Failed to serialize mounted item storage: {}", err))
 						.ifPresent(encoded -> {
 							CompoundTag tag = new CompoundTag();
-							tag.put("pos", NbtUtils.writeBlockPos(pos));
+							tag.store("pos", BlockPos.CODEC, pos);
 							tag.put("storage", encoded);
 							items.add(tag);
 						});
@@ -337,7 +337,7 @@ public class MountedStorageManager {
 						.resultOrPartial(err -> Create.LOGGER.error("Failed to serialize mounted fluid storage: {}", err))
 						.ifPresent(encoded -> {
 							CompoundTag tag = new CompoundTag();
-							tag.put("pos", NbtUtils.writeBlockPos(pos));
+							tag.store("pos", BlockPos.CODEC, pos);
 							tag.put("storage", encoded);
 							fluids.add(tag);
 						});

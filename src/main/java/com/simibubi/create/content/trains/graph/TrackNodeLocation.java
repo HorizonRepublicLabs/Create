@@ -75,7 +75,7 @@ public class TrackNodeLocation extends Vec3i {
 
 	public CompoundTag write(DimensionPalette dimensions) {
 		CompoundTag c = new CompoundTag();
-		c.put("Pos", NbtUtils.writeBlockPos(new BlockPos(this)));
+		c.store("Pos", BlockPos.CODEC, new BlockPos(this));
 		if (dimensions != null)
 			c.putInt("D", dimensions.encode(dimension));
 		if (yOffsetPixels != 0)

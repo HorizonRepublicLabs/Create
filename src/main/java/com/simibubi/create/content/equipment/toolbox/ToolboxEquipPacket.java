@@ -78,7 +78,7 @@ public record ToolboxEquipPacket(BlockPos toolboxPos, int slot, int hotbarSlot) 
 
 		CompoundTag data = new CompoundTag();
 		data.putInt("Slot", slot);
-		data.put("Pos", NbtUtils.writeBlockPos(toolboxPos));
+		data.store("Pos", BlockPos.CODEC, toolboxPos);
 		compound.put(key, data);
 
 		player.getPersistentData()

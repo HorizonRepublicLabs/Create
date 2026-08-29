@@ -152,7 +152,7 @@ public class ArmInteractionPoint {
 
 		CompoundTag nbt = new CompoundTag();
 		nbt.putString("Type", key.toString());
-		nbt.put("Pos", NbtUtils.writeBlockPos(pos.subtract(anchor)));
+		nbt.store("Pos", BlockPos.CODEC, pos.subtract(anchor));
 		serialize(nbt, anchor);
 		return nbt;
 	}
@@ -179,7 +179,7 @@ public class ArmInteractionPoint {
 	public static void transformPos(CompoundTag nbt, StructureTransform transform) {
 		BlockPos pos = NBTHelper.readBlockPos(nbt, "Pos");
 		pos = transform.applyWithoutOffset(pos);
-		nbt.put("Pos", NbtUtils.writeBlockPos(pos));
+		nbt.store("Pos", BlockPos.CODEC, pos);
 	}
 
 	public static boolean isInteractable(Level level, BlockPos pos, BlockState state) {

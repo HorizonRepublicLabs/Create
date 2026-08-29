@@ -206,7 +206,7 @@ public class BeltBlockEntity extends KineticBlockEntity implements Clearable {
 	@Override
 	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		if (controller != null)
-			compound.put("Controller", NbtUtils.writeBlockPos(controller));
+			compound.store("Controller", BlockPos.CODEC, controller);
 		compound.putBoolean("IsController", isController());
 		compound.putInt("Length", beltLength);
 		compound.putInt("Index", index);

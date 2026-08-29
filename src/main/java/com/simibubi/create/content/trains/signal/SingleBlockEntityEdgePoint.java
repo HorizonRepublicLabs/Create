@@ -59,7 +59,7 @@ public abstract class SingleBlockEntityEdgePoint extends TrackEdgePoint {
 	@Override
 	public void write(CompoundTag nbt, HolderLookup.Provider registries, DimensionPalette dimensions) {
 		super.write(nbt, registries, dimensions);
-		nbt.put("BlockEntityPos", NbtUtils.writeBlockPos(blockEntityPos));
+		nbt.store("BlockEntityPos", BlockPos.CODEC, blockEntityPos);
 		nbt.putInt("BlockEntityDimension", dimensions.encode(blockEntityDimension));
 	}
 

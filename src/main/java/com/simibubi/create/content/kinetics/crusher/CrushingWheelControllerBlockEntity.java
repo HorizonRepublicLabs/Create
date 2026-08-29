@@ -201,7 +201,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 				ItemEntity entityIn = new ItemEntity(level, outPos.x, outPos.y, outPos.z, stack);
 				entityIn.setDeltaMovement(outSpeed);
 				entityIn.getPersistentData()
-					.put("BypassCrushingWheel", NbtUtils.writeBlockPos(worldPosition));
+					.store("BypassCrushingWheel", BlockPos.CODEC, worldPosition);
 				level.addFreshEntity(entityIn);
 			}
 			inventory.clear();

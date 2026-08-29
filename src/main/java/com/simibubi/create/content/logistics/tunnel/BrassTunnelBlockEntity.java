@@ -610,7 +610,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 			compound.put(filtered ? "FilteredTargets" : "Targets",
 				NBTHelper.writeCompoundList(distributionTargets.get(filtered), pair -> {
 					CompoundTag nbt = new CompoundTag();
-					nbt.put("Pos", NbtUtils.writeBlockPos(pair.getKey()));
+					nbt.store("Pos", BlockPos.CODEC, pair.getKey());
 					nbt.putInt("Face", pair.getValue()
 						.get3DDataValue());
 					return nbt;

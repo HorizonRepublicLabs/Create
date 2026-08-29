@@ -137,12 +137,12 @@ public class TrackTargetingBlockItem extends BlockItem {
 				stack.get(AllDataComponents.TRACK_TARGETING_ITEM_BEZIER);
 			CompoundTag bezierNbt = new CompoundTag();
 			bezierNbt.putInt("Segment", bezierTrackPointLocation.segment());
-			bezierNbt.put("Key", NbtUtils.writeBlockPos(bezierTrackPointLocation.curveTarget()
-				.subtract(placedPos)));
+			bezierNbt.store("Key", BlockPos.CODEC, bezierTrackPointLocation.curveTarget()
+				.subtract(placedPos));
 			blockEntityData.put("Bezier", bezierNbt);
 		}
 
-		blockEntityData.put("TargetTrack", NbtUtils.writeBlockPos(selectedPos.subtract(placedPos)));
+		blockEntityData.store("TargetTrack", BlockPos.CODEC, selectedPos.subtract(placedPos));
 		blockEntityData.putString("id", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
 		BlockEntity.addEntityType(blockEntityData, ((IBE<?>) this.getBlock()).getBlockEntityType());
 

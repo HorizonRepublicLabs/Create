@@ -160,7 +160,7 @@ public class DisplayLinkBlockEntity extends LinkWithBulbBlockEntity  implements 
 	}
 
 	private void writeGatheredData(CompoundTag tag) {
-		tag.put("TargetOffset", NbtUtils.writeBlockPos(targetOffset));
+		tag.store("TargetOffset", BlockPos.CODEC, targetOffset);
 		tag.putInt("TargetLine", targetLine);
 
 		if (activeSource != null) {

@@ -96,7 +96,7 @@ public class GlobalStation extends SingleBlockEntityEdgePoint {
 			c.putString("Address", e.getValue().address);
 			c.put("OfflineBuffer", e.getValue().offlineBuffer.serializeNBT(registries));
 			c.putBoolean("Primed", e.getValue().primed);
-			c.put("Pos", NbtUtils.writeBlockPos(e.getKey()));
+			c.store("Pos", BlockPos.CODEC, e.getKey());
 			return c;
 		}));
 	}

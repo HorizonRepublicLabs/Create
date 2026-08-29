@@ -150,8 +150,8 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 			return;
 		}
 
-		context.data.put("ReferencePos", NbtUtils.writeBlockPos(pos));
-		context.data.put("BreakingPos", NbtUtils.writeBlockPos(argMax));
+		context.data.store("ReferencePos", BlockPos.CODEC, pos);
+		context.data.store("BreakingPos", BlockPos.CODEC, argMax);
 		context.stall = true;
 	}
 
@@ -386,7 +386,7 @@ public class RollerMovementBehaviour extends BlockBreakingMovementBehaviour {
 
 		if (paveResult == PaveResult.SUCCESS) {
 			context.data.putInt("WaitingTicks", 2);
-			context.data.put("LastPos", NbtUtils.writeBlockPos(pos));
+			context.data.store("LastPos", BlockPos.CODEC, pos);
 			context.stall = true;
 		}
 	}

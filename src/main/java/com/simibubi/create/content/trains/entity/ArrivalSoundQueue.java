@@ -91,7 +91,7 @@ public class ArrivalSoundQueue {
 		tag.put("Sources", NBTHelper.writeCompoundList(sources.entries(), e -> {
 			CompoundTag c = new CompoundTag();
 			c.putInt("Tick", e.getKey());
-			c.put("Pos", NbtUtils.writeBlockPos(e.getValue()));
+			c.store("Pos", BlockPos.CODEC, e.getValue());
 			return c;
 		}));
 		tagIn.put("SoundQueue", tag);

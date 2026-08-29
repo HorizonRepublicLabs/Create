@@ -54,8 +54,8 @@ public class StationMarker {
 
 	public CompoundTag save(HolderLookup.Provider registries) {
 		CompoundTag tag = new CompoundTag();
-		tag.put("source", NbtUtils.writeBlockPos(source));
-		tag.put("target", NbtUtils.writeBlockPos(target));
+		tag.store("source", BlockPos.CODEC, source);
+		tag.store("target", BlockPos.CODEC, target);
 		tag.putString("name", Component.Serializer.toJson(name, registries));
 
 		return tag;

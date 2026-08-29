@@ -492,9 +492,9 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 			compound.putBoolean("Uninitialized", true);
 		compound.put("Boiler", boiler.write());
 		if (lastKnownPos != null)
-			compound.put("LastKnownPos", NbtUtils.writeBlockPos(lastKnownPos));
+			compound.store("LastKnownPos", BlockPos.CODEC, lastKnownPos);
 		if (!isController())
-			compound.put("Controller", NbtUtils.writeBlockPos(controller));
+			compound.store("Controller", BlockPos.CODEC, controller);
 		if (isController()) {
 			compound.putBoolean("Window", window);
 			compound.put("TankContent", tankInventory.writeToNBT(registries, new CompoundTag()));

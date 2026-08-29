@@ -683,14 +683,14 @@ public class ChainConveyorBlockEntity extends KineticBlockEntity implements Tran
 	protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.write(compound, registries, clientPacket);
 		if (clientPacket && chainDestroyedEffectToSend != null) {
-			compound.put("DestroyEffect", NbtUtils.writeBlockPos(chainDestroyedEffectToSend));
+			compound.store("DestroyEffect", BlockPos.CODEC, chainDestroyedEffectToSend);
 			chainDestroyedEffectToSend = null;
 		}
 
 		compound.put("Connections", CatnipCodecUtils.encode(CatnipCodecs.set(BlockPos.CODEC), registries, connections).orElseThrow());
 		compound.put("TravellingPackages", NBTHelper.writeCompoundList(travellingPackages.entrySet(), entry -> {
 			CompoundTag compoundTag = new CompoundTag();
-			compoundTag.put("Target", NbtUtils.writeBlockPos(entry.getKey()));
+			compoundTag.store("Target", BlockPos.CODEC, entry.getKey());
 			compoundTag.put("Packages", NBTHelper.writeCompoundList(entry.getValue(),
 				p -> clientPacket ? p.writeToClient(registries) : p.write(registries)));
 			return compoundTag;

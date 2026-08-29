@@ -312,9 +312,9 @@ public class ItemVaultBlockEntity extends SmartBlockEntity implements IMultiBloc
 			compound.putBoolean("Uninitialized", true);
 
 		if (lastKnownPos != null)
-			compound.put("LastKnownPos", NbtUtils.writeBlockPos(lastKnownPos));
+			compound.store("LastKnownPos", BlockPos.CODEC, lastKnownPos);
 		if (!isController())
-			compound.put("Controller", NbtUtils.writeBlockPos(controller));
+			compound.store("Controller", BlockPos.CODEC, controller);
 		if (isController()) {
 			compound.putInt("Size", radius);
 			compound.putInt("Length", length);

@@ -70,7 +70,7 @@ public abstract class LaunchedItem {
 		c.putInt("TotalTicks", totalTicks);
 		c.putInt("TicksLeft", ticksRemaining);
 		c.put("Stack", stack.saveOptional(registries));
-		c.put("Target", NbtUtils.writeBlockPos(target));
+		c.store("Target", BlockPos.CODEC, target);
 		return c;
 	}
 

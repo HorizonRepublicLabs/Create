@@ -79,15 +79,15 @@ public class SchematicPrinter {
 
 	public void write(CompoundTag compound) {
 		if (currentPos != null)
-			compound.put("CurrentPos", NbtUtils.writeBlockPos(currentPos));
+			compound.store("CurrentPos", BlockPos.CODEC, currentPos);
 		if (schematicAnchor != null)
-			compound.put("Anchor", NbtUtils.writeBlockPos(schematicAnchor));
+			compound.store("Anchor", BlockPos.CODEC, schematicAnchor);
 		compound.putInt("EntityProgress", printingEntityIndex);
 		compound.putString("PrintStage", printStage.name());
 		ListTag tagDeferredBlocks = new ListTag();
 		for (BlockPos p : deferredBlocks) {
 			CompoundTag tag = new CompoundTag();
-			tag.put("Pos", NbtUtils.writeBlockPos(p));
+			tag.store("Pos", BlockPos.CODEC, p);
 			tagDeferredBlocks.add(tag);
 		}
 		compound.put("DeferredBlocks", tagDeferredBlocks);

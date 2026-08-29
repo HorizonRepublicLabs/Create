@@ -61,7 +61,7 @@ public abstract class BlockBreakingKineticBlockEntity extends KineticBlockEntity
 		compound.putInt("Progress", destroyProgress);
 		compound.putInt("NextTick", ticksUntilNextProgress);
 		if (breakingPos != null)
-			compound.put("Breaking", NbtUtils.writeBlockPos(breakingPos));
+			compound.store("Breaking", BlockPos.CODEC, breakingPos);
 		super.write(compound, registries, clientPacket);
 	}
 

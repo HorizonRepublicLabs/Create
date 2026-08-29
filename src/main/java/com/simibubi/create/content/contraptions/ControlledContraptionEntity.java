@@ -90,7 +90,7 @@ public class ControlledContraptionEntity extends AbstractContraptionEntity {
 	@Override
 	protected void writeAdditional(CompoundTag compound, HolderLookup.Provider registries, boolean spawnPacket) {
 		super.writeAdditional(compound, registries, spawnPacket);
-		compound.put("ControllerRelative", NbtUtils.writeBlockPos(controllerPos.subtract(blockPosition())));
+		compound.store("ControllerRelative", BlockPos.CODEC, controllerPos.subtract(blockPosition()));
 		if (rotationAxis != null)
 			NBTHelper.writeEnum(compound, "Axis", rotationAxis);
 		compound.putFloat("Angle", angle);

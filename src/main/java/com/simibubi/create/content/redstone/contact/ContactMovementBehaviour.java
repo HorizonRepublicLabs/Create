@@ -51,7 +51,7 @@ public class ContactMovementBehaviour implements MovementBehaviour {
 		if (AllBlocks.ELEVATOR_CONTACT.has(visitedState) && context.contraption instanceof ElevatorContraption ec)
 			ec.broadcastFloorData(world, pos);
 
-		context.data.put("lastContact", NbtUtils.writeBlockPos(pos));
+		context.data.store("lastContact", BlockPos.CODEC, pos);
 		return;
 	}
 

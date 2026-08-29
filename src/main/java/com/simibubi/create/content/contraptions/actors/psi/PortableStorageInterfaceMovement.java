@@ -139,7 +139,7 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 		if (psi.isPowered())
 			return false;
 
-		context.data.put(_workingPos_, NbtUtils.writeBlockPos(psi.getBlockPos()));
+		context.data.store(_workingPos_, BlockPos.CODEC, psi.getBlockPos());
 		if (!context.world.isClientSide()) {
 			Vec3 diff = VecHelper.getCenterOf(psi.getBlockPos())
 				.subtract(context.position);
@@ -147,7 +147,7 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 			float distance = (float) (diff.length() + 1.85f - 1);
 			psi.startTransferringTo(context.contraption, distance);
 		} else {
-			context.data.put(_clientPrevPos_, NbtUtils.writeBlockPos(pos));
+			context.data.store(_clientPrevPos_, BlockPos.CODEC, pos);
 			if (context.contraption instanceof CarriageContraption || context.contraption.entity.isStalled()
 				|| context.motion.lengthSqr() == 0)
 				getAnimation(context).chase(psi.getConnectionDistance() / 2, 0.25f, Chaser.LINEAR);

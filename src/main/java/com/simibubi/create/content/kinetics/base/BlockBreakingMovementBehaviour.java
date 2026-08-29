@@ -46,7 +46,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 
 		if (!canBreak(world, pos, stateVisited))
 			return;
-		context.data.put("BreakingPos", NbtUtils.writeBlockPos(pos));
+		context.data.store("BreakingPos", BlockPos.CODEC, pos);
 		context.stall = true;
 	}
 
@@ -246,7 +246,7 @@ public class BlockBreakingMovementBehaviour implements MovementBehaviour {
 
 		CompoundTag data = context.data;
 		data.putInt("WaitingTicks", 10);
-		data.put("LastPos", NbtUtils.writeBlockPos(pos));
+		data.store("LastPos", BlockPos.CODEC, pos);
 		context.stall = true;
 	}
 

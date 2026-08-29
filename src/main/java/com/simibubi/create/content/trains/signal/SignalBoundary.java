@@ -307,7 +307,7 @@ public class SignalBoundary extends TrackEdgePoint {
 				nbt.put("Tiles" + i, NBTHelper.writeCompoundList(blockEntities.get(i == 1)
 					.entrySet(), e -> {
 						CompoundTag c = new CompoundTag();
-						c.put("Pos", NbtUtils.writeBlockPos(e.getKey()));
+						c.store("Pos", BlockPos.CODEC, e.getKey());
 						c.putBoolean("Power", e.getValue());
 						return c;
 					}));

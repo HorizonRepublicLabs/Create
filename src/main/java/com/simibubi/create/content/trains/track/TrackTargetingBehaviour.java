@@ -91,7 +91,7 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 	@Override
 	public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
 		nbt.store("Id", UUIDUtil.CODEC, id);
-		nbt.put("TargetTrack", NbtUtils.writeBlockPos(targetTrack));
+		nbt.store("TargetTrack", BlockPos.CODEC, targetTrack);
 		nbt.putBoolean("Ortho", orthogonal);
 		nbt.putBoolean("TargetDirection", targetDirection == AxisDirection.POSITIVE);
 		if (rotatedDirection != null)
@@ -103,8 +103,8 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 		if (targetBezier != null) {
 			CompoundTag bezierNbt = new CompoundTag();
 			bezierNbt.putInt("Segment", targetBezier.segment());
-			bezierNbt.put("Key", NbtUtils.writeBlockPos(targetBezier.curveTarget()
-				.subtract(getPos())));
+			bezierNbt.store("Key", BlockPos.CODEC, targetBezier.curveTarget()
+				.subtract(getPos()));
 			nbt.put("Bezier", bezierNbt);
 		}
 		super.write(nbt, registries, clientPacket);

@@ -390,7 +390,7 @@ public class BlockHelper {
 					kbe.warnOfMovement();
 				if (blockEntity instanceof IMultiBlockEntityContainer imbe)
 					if (!imbe.isController())
-						data.put("Controller", NbtUtils.writeBlockPos(imbe.getController()));
+						data.store("Controller", BlockPos.CODEC, imbe.getController());
 				blockEntity.loadWithComponents(data, world.registryAccess());
 			}
 		}
