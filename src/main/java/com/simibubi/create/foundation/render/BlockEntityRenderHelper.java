@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.render;
 
+import net.minecraft.world.level.BlockAndLightGetter;
+
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 
 import net.minecraft.util.LightCoordsUtil;
@@ -36,7 +38,7 @@ public class BlockEntityRenderHelper {
 
 	/// LevelRenderer.getLightColor is gone in 26.x; this packs the same thing --
 	/// sky brightness with block brightness raised to the block's own emission.
-	public static int lightColorAt(BlockAndTintGetter level, BlockPos pos) {
+	public static int lightColorAt(BlockAndLightGetter level, BlockPos pos) {
 		int sky = level.getBrightness(LightLayer.SKY, pos);
 		int block = Math.max(level.getBlockState(pos)
 			.getLightEmission(), level.getBrightness(LightLayer.BLOCK, pos));
