@@ -70,13 +70,13 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		this.stack = stack;
 		type = PotatoCannonProjectileType.getTypeForItem(level().registryAccess(), stack.getItem())
 			.orElseGet(() -> level().registryAccess()
-				.registryOrThrow(CreateRegistries.POTATO_PROJECTILE_TYPE)
+				.lookupOrThrow(CreateRegistries.POTATO_PROJECTILE_TYPE)
 				.getHolderOrThrow(AllPotatoProjectileTypes.FALLBACK))
 			.value();
 	}
 
 	public void setEnchantmentEffectsFromCannon(ItemStack cannon) {
-		Registry<Enchantment> enchantmentRegistry = registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+		Registry<Enchantment> enchantmentRegistry = registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
 
 		int recovery = cannon.getEnchantmentLevel(enchantmentRegistry.getHolderOrThrow(AllEnchantments.POTATO_RECOVERY));
 
@@ -111,6 +111,15 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		super.addAdditionalSaveData(nbt);
 	}
 
+	/// kill needs a ServerLevel in 26.x. These call sites are all server side
+	/// already, but discard keeps the client path harmless.
+	private void killOnServer() {
+		if (level() instanceof ServerLevel serverLevel)
+			kill(serverLevel);
+		else
+			discard();
+	}
+
 	@Nullable
 	public Entity getStuckEntity() {
 		if (stuckEntity == null)
@@ -141,7 +150,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		if (stuckEntity != null) {
 			if (getY() < stuckEntity.getY() - 0.1) {
 				pop(position());
-				kill();
+				killOnServer();
 			} else {
 				stuckFallSpeed += 0.007 * type.gravityMultiplier();
 				stuckOffset = stuckOffset.add(0, -stuckFallSpeed, 0);
@@ -217,7 +226,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		DamageSource damageSource = causePotatoDamage();
 		if (onServer && !target.hurt(damageSource, damage)) {
 			target.setRemainingFireTicks(k);
-			kill();
+			killOnServer();
 			return;
 		}
 
@@ -234,7 +243,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 
 		if (!(target instanceof LivingEntity livingentity)) {
 			playHitSound(level(), position());
-			kill();
+			killOnServer();
 			return;
 		}
 
@@ -268,7 +277,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		if (type.sticky() && target.isAlive()) {
 			setStuckEntity(target);
 		} else {
-			kill();
+			killOnServer();
 		}
 
 	}
@@ -299,7 +308,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		}
 
 		super.onHitBlock(ray);
-		kill();
+		killOnServer();
 	}
 
 	@Override
@@ -309,7 +318,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		if (this.isInvulnerableTo(source))
 			return false;
 		pop(position());
-		kill();
+		killOnServer();
 		return true;
 	}
 

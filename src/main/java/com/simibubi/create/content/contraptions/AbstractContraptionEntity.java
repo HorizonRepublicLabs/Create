@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import net.minecraft.server.level.ServerLevel;
+
 
 
 import net.minecraft.world.level.storage.ValueInput;
@@ -720,9 +722,9 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	protected abstract StructureTransform makeStructureTransform();
 
 	@Override
-	public void kill() {
+	public void kill(ServerLevel level) {
 		ejectPassengers();
-		super.kill();
+		super.kill(level);
 	}
 
 	@Override

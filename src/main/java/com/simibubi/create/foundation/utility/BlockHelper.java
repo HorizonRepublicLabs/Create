@@ -247,7 +247,7 @@ public class BlockHelper {
 
 			// Simulating IceBlock#playerDestroy. Not calling method directly as it would drop item
 			// entities as a side-effect
-			Registry<Enchantment> enchantmentRegistry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+			Registry<Enchantment> enchantmentRegistry = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
 			if (state.getBlock() instanceof IceBlock && usedTool.getEnchantmentLevel(enchantmentRegistry.getHolderOrThrow(Enchantments.SILK_TOUCH)) == 0) {
 				if (!level.dimensionType().ultraWarm()) {
 					BlockState below = level.getBlockState(pos.below());
@@ -280,7 +280,7 @@ public class BlockHelper {
 		LevelChunkSection chunksection = chunk.getSection(idx);
 		if (chunksection == null) {
 			chunksection = new LevelChunkSection(world.registryAccess()
-				.registryOrThrow(Registries.BIOME));
+				.lookupOrThrow(Registries.BIOME));
 			chunk.getSections()[idx] = chunksection;
 		}
 		BlockState old = chunksection.setBlockState(SectionPos.sectionRelative(target.getX()),
