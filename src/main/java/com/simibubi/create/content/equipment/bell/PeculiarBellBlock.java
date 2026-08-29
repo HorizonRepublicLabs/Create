@@ -64,7 +64,7 @@ public class PeculiarBellBlock extends AbstractBellBlock<PeculiarBellBlockEntity
 		return tryConvert(world, currentPos, newState, facingState);
 	}
 
-	protected BlockState tryConvert(LevelAccessor world, BlockPos pos, BlockState state, BlockState underState) {
+	protected BlockState tryConvert(LevelReader world, BlockPos pos, BlockState state, BlockState underState) {
 		if (!AllBlocks.PECULIAR_BELL.has(state))
 			return state;
 

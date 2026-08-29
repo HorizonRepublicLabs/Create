@@ -203,7 +203,7 @@ public class GirderBlock extends Block implements SimpleWaterloggedBlock, IWrenc
 		return state.setValue(WATERLOGGED, ifluidstate.getType() == Fluids.WATER);
 	}
 
-	public static BlockState updateState(LevelAccessor level, BlockPos pos, BlockState state, Direction d) {
+	public static BlockState updateState(LevelReader level, BlockPos pos, BlockState state, Direction d) {
 		Axis axis = d.getAxis();
 		Property<Boolean> updateProperty = axis == Axis.X ? X : axis == Axis.Z ? Z : d == Direction.UP ? TOP : BOTTOM;
 		BlockState sideState = level.getBlockState(pos.relative(d));
@@ -238,7 +238,7 @@ public class GirderBlock extends Block implements SimpleWaterloggedBlock, IWrenc
 		return state;
 	}
 
-	public static boolean isFacingBracket(BlockAndTintGetter level, BlockPos pos, Direction d) {
+	public static boolean isFacingBracket(BlockGetter level, BlockPos pos, Direction d) {
 		BlockEntity blockEntity = level.getBlockEntity(pos.relative(d));
 		if (!(blockEntity instanceof SmartBlockEntity sbe))
 			return false;
@@ -251,7 +251,7 @@ public class GirderBlock extends Block implements SimpleWaterloggedBlock, IWrenc
 		return bracket.getValue(BracketBlock.FACING) == d;
 	}
 
-	public static BlockState updateVerticalProperty(LevelAccessor level, BlockPos pos, BlockState state,
+	public static BlockState updateVerticalProperty(LevelReader level, BlockPos pos, BlockState state,
 		Property<Boolean> updateProperty, BlockState sideState, Direction d) {
 		boolean canAttach = false;
 
