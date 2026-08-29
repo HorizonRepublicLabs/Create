@@ -45,6 +45,8 @@
     "accessor.ShapedRecipeAccessor",
     "accessor.StateHolderAccessor",
     "accessor.SystemReportAccessor",
+    "accessor.TagValueInputAccessor",
+    "accessor.TagValueOutputAccessor",
     "accessor.UseOnContextAccessor",
     "datafixer.BlockPosFormatAndRenamesFixMixin",
     "datafixer.ItemStackComponentizationFixMixin",
