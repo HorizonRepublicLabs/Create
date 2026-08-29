@@ -9,7 +9,7 @@ import com.simibubi.create.AllBlocks;
 import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.api.client.render.FluidRenderHelper;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.util.LightCoordsUtil;
 
 import net.neoforged.neoforge.fluids.FluidStack;
 
