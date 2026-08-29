@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.contraptionControls;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -105,7 +107,7 @@ public class ContraptionControlsRenderer extends SmartBlockEntityRenderer<Contra
 		ms.translate(0, buttondepth, 0);
 		VertexConsumer vc = buffer.getBuffer(RenderTypes.solidMovingBlock());
 		CreateCachedBuffers.partialFacing(AllPartialModels.CONTRAPTION_CONTROLS_BUTTON, ctx.state, ctx.state.getValue(ContraptionControlsBlock.FACING).getOpposite())
-			.light(LevelRenderer.getLightColor(renderWorld, ctx.localPos))
+			.light(BlockEntityRenderHelper.lightColorAt(renderWorld, ctx.localPos))
 			.useLevelLight(ctx.world, matrices.getWorld())
 			.renderInto(ms, vc);
 		ms.popPose();

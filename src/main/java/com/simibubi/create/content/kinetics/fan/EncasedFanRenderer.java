@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -38,8 +40,8 @@ public class EncasedFanRenderer extends KineticBlockEntityRenderer<EncasedFanBlo
 				.getValue(FACING);
 		VertexConsumer vb = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
 
-		int lightBehind = LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().relative(direction.getOpposite()));
-		int lightInFront = LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().relative(direction));
+		int lightBehind = BlockEntityRenderHelper.lightColorAt(be.getLevel(), be.getBlockPos().relative(direction.getOpposite()));
+		int lightInFront = BlockEntityRenderHelper.lightColorAt(be.getLevel(), be.getBlockPos().relative(direction));
 
 		SuperByteBuffer shaftHalf =
 				CreateCachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction.getOpposite());

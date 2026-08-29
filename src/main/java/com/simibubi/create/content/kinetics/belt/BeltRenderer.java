@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -285,7 +287,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 		} else {
 			int segment = (int) Math.floor(offset);
 			mutablePos.set(be.getBlockPos()).move(directionVec.getX() * segment, verticality * segment, directionVec.getZ() * segment);
-			stackLight = LevelRenderer.getLightColor(be.getLevel(), mutablePos);
+			stackLight = BlockEntityRenderHelper.lightColorAt(be.getLevel(), mutablePos);
 		}
 
 		boolean renderUpright = BeltHelper.isItemUpright(transported.stack);

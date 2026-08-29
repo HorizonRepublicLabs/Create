@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -57,7 +59,7 @@ public class CouplingRenderer {
 			return;
 
 		Couple<Integer> lightValues =
-			carts.map(c -> LevelRenderer.getLightColor(world, BlockPos.containing(c.getBoundingBox()
+			carts.map(c -> BlockEntityRenderHelper.lightColorAt(world, BlockPos.containing(c.getBoundingBox()
 				.getCenter())));
 
 		Vec3 center = carts.getFirst()

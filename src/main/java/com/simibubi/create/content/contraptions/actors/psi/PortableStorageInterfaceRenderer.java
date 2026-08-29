@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -61,7 +63,7 @@ public class PortableStorageInterfaceRenderer extends SafeBlockEntityRenderer<Po
 		float progress = animation.getValue(renderPartialTicks);
 		boolean lit = animation.settled();
 		render(blockState, lit, progress, matrices.getModel(),
-			sbb -> sbb.light(LevelRenderer.getLightColor(renderWorld, context.localPos))
+			sbb -> sbb.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
 				.useLevelLight(context.world, matrices.getWorld())
 				.renderInto(matrices.getViewProjection(), vb));
 	}

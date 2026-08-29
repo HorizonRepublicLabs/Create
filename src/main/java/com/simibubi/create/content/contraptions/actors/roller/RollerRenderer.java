@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.roller;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -81,7 +83,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 		PoseStack viewProjection = matrices.getViewProjection();
 		viewProjection.pushPose();
 		viewProjection.translate(0, -.25, 0);
-		int contraptionWorldLight = LevelRenderer.getLightColor(renderWorld, context.localPos);
+		int contraptionWorldLight = BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos);
 		superBuffer.translate(0, -.5, .5)
 			.rotateYDegrees(90)
 			.light(contraptionWorldLight)

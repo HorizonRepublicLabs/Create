@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -60,7 +62,7 @@ public class TrackRenderer extends SafeBlockEntityRenderer<TrackBlockEntity> {
 		renderGirder(level, bc, ms, vb, bePosition);
 
 		for (int i = 1; i < segment.length; i++) {
-			int light = LevelRenderer.getLightColor(level, segment.lightPosition[i].offset(bePosition));
+			int light = BlockEntityRenderHelper.lightColorAt(level, segment.lightPosition[i].offset(bePosition));
 
 			TrackMaterial.TrackModelHolder modelHolder = bc.getMaterial().getModelHolder();
 
@@ -92,7 +94,7 @@ public class TrackRenderer extends SafeBlockEntityRenderer<TrackBlockEntity> {
 		GirderAngles segment = bc.getBakedGirders();
 
 		for (int i = 1; i < segment.length; i++) {
-			int light = LevelRenderer.getLightColor(level, segment.lightPosition[i].offset(tePosition));
+			int light = BlockEntityRenderHelper.lightColorAt(level, segment.lightPosition[i].offset(tePosition));
 
 			for (boolean first : Iterate.trueAndFalse) {
 				Pose beamTransform = segment.beams[i].get(first);

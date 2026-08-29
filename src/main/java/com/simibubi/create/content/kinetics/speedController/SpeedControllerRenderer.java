@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.speedController;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -50,7 +52,7 @@ public class SpeedControllerRenderer extends SmartBlockEntityRenderer<SpeedContr
 		bracket.translate(0, 1, 0);
 		bracket.rotateCentered(
 				(float) (alongX ? Math.PI : Math.PI / 2), Direction.UP);
-		bracket.light(LevelRenderer.getLightColor(world, pos.above()));
+		bracket.light(BlockEntityRenderHelper.lightColorAt(world, pos.above()));
 		bracket.renderInto(ms, builder);
 	}
 

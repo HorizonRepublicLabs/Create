@@ -43,7 +43,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.RailShape;
-import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
 import com.simibubi.create.foundation.data.VariantModels.ConfiguredModel;
 
 import net.neoforged.neoforge.client.model.generators.Identifier.ExistingModelFile;
@@ -385,7 +384,7 @@ public class BlockStateGen {
 
 	public static <P extends WhistleExtenderBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> whistleExtender() {
 		return (c, p) -> {
-			BlockModelProvider models = VariantModels.models(p);
+			ModelGenShim models = VariantModels.models(p);
 			String basePath = "block/steam_whistle/extension/";
 			MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.particle;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import com.simibubi.create.Create;
 
 import net.createmod.catnip.api.math.VecHelper;
@@ -87,7 +89,7 @@ public class AirParticle extends SimpleAnimatedParticle {
 
 	public int getLightColor(float partialTick) {
 		BlockPos blockpos = BlockPos.containing(this.x, this.y, this.z);
-		return this.level.isLoaded(blockpos) ? LevelRenderer.getLightColor(level, blockpos) : 0;
+		return this.level.isLoaded(blockpos) ? BlockEntityRenderHelper.lightColorAt(level, blockpos) : 0;
 	}
 
 	private void selectSprite(int index) {

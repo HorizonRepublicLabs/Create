@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import com.google.common.base.Objects;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllDataComponents;
@@ -116,7 +118,7 @@ public class TrackTargetingClient {
 
 		Minecraft mc = Minecraft.getInstance();
 		BlockPos pos = lastHovered;
-		int light = LevelRenderer.getLightColor(mc.level, pos);
+		int light = BlockEntityRenderHelper.lightColorAt(mc.level, pos);
 		AxisDirection direction = lastDirection ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
 
 		RenderedTrackOverlayType type = lastType == EdgePointType.SIGNAL ? RenderedTrackOverlayType.SIGNAL

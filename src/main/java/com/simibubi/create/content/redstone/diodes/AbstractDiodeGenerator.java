@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.diodes;
 
+import com.simibubi.create.foundation.data.ModelGenShim;
+
 import com.simibubi.create.foundation.data.VariantModels;
 
 import java.util.List;
@@ -15,7 +17,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 
 import net.neoforged.neoforge.client.model.generators.Identifier.ExistingModelFile;
@@ -42,7 +43,7 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 	}
 
 	protected abstract <T extends Block> List<Identifier> createModels(DataGenContext<Block, T> ctx,
-																	  BlockModelProvider prov);
+																	  ModelGenShim prov);
 
 	protected abstract int getModelIndex(BlockState state);
 
@@ -54,7 +55,7 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 		return models.get(getModelIndex(state));
 	}
 
-	protected ExistingModelFile existingModel(BlockModelProvider prov, String name) {
+	protected ExistingModelFile existingModel(ModelGenShim prov, String name) {
 		return VariantModels.models(prov).getExistingFile(existing(name));
 	}
 

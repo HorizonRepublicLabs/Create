@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.pulley;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -87,7 +89,7 @@ public abstract class AbstractPulleyRenderer<T extends KineticBlockEntity> exten
 	public static void renderAt(LevelAccessor world, SuperByteBuffer partial, float offset, BlockPos pulleyPos,
 		PoseStack ms, VertexConsumer buffer) {
 		BlockPos actualPos = pulleyPos.below((int) offset);
-		int light = LevelRenderer.getLightColor(world, world.getBlockState(actualPos), actualPos);
+		int light = BlockEntityRenderHelper.lightColorAt(world, world.getBlockState(actualPos), actualPos);
 		partial.translate(0, -offset, 0)
 		.light(light)
 			.renderInto(ms, buffer);

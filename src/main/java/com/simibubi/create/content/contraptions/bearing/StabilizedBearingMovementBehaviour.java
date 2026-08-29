@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.bearing;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -78,7 +80,7 @@ public class StabilizedBearingMovementBehaviour implements MovementBehaviour {
 		superBuffer.rotateCentered(orientation);
 
 		// render
-		superBuffer.light(LevelRenderer.getLightColor(renderWorld, context.localPos))
+		superBuffer.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
 			.useLevelLight(context.world, matrices.getWorld())
 			.renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}

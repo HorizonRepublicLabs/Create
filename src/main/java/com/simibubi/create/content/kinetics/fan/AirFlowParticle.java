@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -109,7 +111,7 @@ public class AirFlowParticle extends SimpleAnimatedParticle {
 
 	public int getLightColor(float partialTick) {
 		BlockPos blockpos = BlockPos.containing(this.x, this.y, this.z);
-		return this.level.isLoaded(blockpos) ? LevelRenderer.getLightColor(level, blockpos) : 0;
+		return this.level.isLoaded(blockpos) ? BlockEntityRenderHelper.lightColorAt(level, blockpos) : 0;
 	}
 
 	private void selectSprite(int index) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.steamEngine;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -96,7 +98,7 @@ public class SteamJetParticle extends SimpleAnimatedParticle {
 	@Override
 	public int getLightColor(float partialTick) {
 		BlockPos blockpos = BlockPos.containing(this.x, this.y, this.z);
-		return this.level.isLoaded(blockpos) ? LevelRenderer.getLightColor(level, blockpos) : 0;
+		return this.level.isLoaded(blockpos) ? BlockEntityRenderHelper.lightColorAt(level, blockpos) : 0;
 	}
 
 	public static class Factory implements ParticleProvider<SteamJetParticleData> {

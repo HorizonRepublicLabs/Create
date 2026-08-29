@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -103,7 +105,7 @@ public class StationRenderer extends SafeBlockEntityRenderer<StationBlockEntity>
 				}
 
 			if (valid != -1) {
-				int lightColor = LevelRenderer.getLightColor(level, currentPos);
+				int lightColor = BlockEntityRenderHelper.lightColorAt(level, currentPos);
 				SuperByteBuffer sbb = CreateCachedBuffers.partial(assemblyOverlay, trackState);
 				sbb.color(valid);
 				sbb.light(lightColor);
