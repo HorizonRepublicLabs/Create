@@ -1,5 +1,15 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import net.minecraft.client.resources.model.sprite.Material;
+
+import net.minecraft.core.BlockPos;
+
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
+import com.simibubi.create.foundation.model.DataDrivenModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +31,7 @@ import net.neoforged.neoforge.client.model.DelegateBlockStateModel;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelProperty;
 
-public class BeltModel extends DelegateBlockStateModel {
+public class BeltModel extends DataDrivenModel<ModelData> {
 
 	public static final ModelProperty<CasingType> CASING_PROPERTY = new ModelProperty<>();
 	public static final ModelProperty<Boolean> COVER_PROPERTY = new ModelProperty<>();
@@ -32,22 +42,28 @@ public class BeltModel extends DelegateBlockStateModel {
 		super(template);
 	}
 
+	/// getParticleIcon(ModelData) became particleMaterial, which is handed the
+	/// level and can look the data up itself.
 	@Override
-	public TextureAtlasSprite getParticleIcon(ModelData data) {
+	public Material.Baked particleMaterial(BlockAndTintGetter level, BlockPos pos, BlockState state) {
+		ModelData data = level.getModelData(pos);
 		if (!data.has(CASING_PROPERTY))
-			return super.getParticleIcon(data);
+			return super.particleMaterial(level, pos, state);
 		CasingType type = data.get(CASING_PROPERTY);
 		if (type == CasingType.NONE || type == CasingType.BRASS)
-			return super.getParticleIcon(data);
-		return AllSpriteShifts.ANDESITE_CASING.getOriginal();
+			return super.particleMaterial(level, pos, state);
+		return new Material.Baked(AllSpriteShifts.ANDESITE_CASING.getOriginal(), false);
 	}
 
 	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData extraData, RenderType renderType) {
-		List<BakedQuad> quads = super.getQuads(state, side, rand, extraData, renderType);
-		if (!extraData.has(CASING_PROPERTY))
-			return quads;
+	protected ModelData gatherData(BlockAndTintGetter level, BlockPos pos, BlockState state) {
+		ModelData data = level.getModelData(pos);
+		return data.has(CASING_PROPERTY) ? data : null;
+	}
 
+	@Override
+	protected List<BakedQuad> transformQuads(List<BakedQuad> quads, ModelData extraData, BlockState state,
+		RandomSource rand, Direction side) {
 		boolean cover = extraData.get(COVER_PROPERTY);
 		CasingType type = extraData.get(CASING_PROPERTY);
 		boolean brassCasing = type == CasingType.BRASS;
@@ -63,7 +79,10 @@ public class BeltModel extends DelegateBlockStateModel {
 			BlockStateModel coverModel =
 				(brassCasing ? alongX ? AllPartialModels.BRASS_BELT_COVER_X : AllPartialModels.BRASS_BELT_COVER_Z
 					: alongX ? AllPartialModels.ANDESITE_BELT_COVER_X : AllPartialModels.ANDESITE_BELT_COVER_Z).get();
-			quads.addAll(coverModel.getQuads(state, side, rand, extraData, renderType));
+			List<BlockStateModelPart> coverParts = new ArrayList<>();
+			coverModel.collectParts(rand, coverParts);
+			for (BlockStateModelPart part : coverParts)
+				quads.addAll(part.getQuads(side));
 		}
 
 		if (brassCasing)
@@ -71,21 +90,15 @@ public class BeltModel extends DelegateBlockStateModel {
 
 		for (int i = 0; i < quads.size(); i++) {
 			BakedQuad quad = quads.get(i);
-			TextureAtlasSprite original = quad.materialInfo().sprite();
-			if (original != SPRITE_SHIFT.getOriginal())
+			if (quad.materialInfo().sprite() != SPRITE_SHIFT.getOriginal())
 				continue;
 
-			BakedQuad newQuad = BakedQuadHelper.clone(quad);
-			int[] vertexData = newQuad.getVertices();
-
+			BakedQuadHelper.Editor edit = BakedQuadHelper.edit(quad);
 			for (int vertex = 0; vertex < 4; vertex++) {
-				float u = BakedQuadHelper.getU(vertexData, vertex);
-				float v = BakedQuadHelper.getV(vertexData, vertex);
-				BakedQuadHelper.setU(vertexData, vertex, SPRITE_SHIFT.getTargetU(u));
-				BakedQuadHelper.setV(vertexData, vertex, SPRITE_SHIFT.getTargetV(v));
+				edit.setU(vertex, SPRITE_SHIFT.getTargetU(edit.getU(vertex)));
+				edit.setV(vertex, SPRITE_SHIFT.getTargetV(edit.getV(vertex)));
 			}
-
-			quads.set(i, newQuad);
+			quads.set(i, edit.build());
 		}
 
 		return quads;
