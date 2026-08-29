@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.transmission.sequencer;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
@@ -30,7 +32,7 @@ public class SequencedGearshiftGenerator extends SpecialBlockStateGen {
 		int seq = state.getValue(SequencedGearshiftBlock.STATE);
 		if (seq > 0)
 			variant = "seq_" + seq;
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(prov.modLoc("block/" + ctx.getName() + "/" + variant));
 	}
 

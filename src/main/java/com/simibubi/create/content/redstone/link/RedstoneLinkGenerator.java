@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
@@ -35,7 +37,7 @@ public class RedstoneLinkGenerator extends SpecialBlockStateGen {
 		if (state.getValue(RedstoneLinkBlock.POWERED))
 			variant += "_powered";
 
-		return prov.models().getExistingFile(prov.modLoc("block/redstone_link/" + variant));
+		return VariantModels.models(prov).getExistingFile(prov.modLoc("block/redstone_link/" + variant));
 	}
 
 }

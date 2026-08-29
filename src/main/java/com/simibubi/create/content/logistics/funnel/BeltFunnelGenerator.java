@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.funnel;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import com.simibubi.create.Create;
 import com.simibubi.create.content.logistics.funnel.BeltFunnelBlock.Shape;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
@@ -44,7 +46,7 @@ public class BeltFunnelGenerator extends SpecialBlockStateGen {
 		String shapeSuffix = shape == Shape.PULLING ? "_pull" : shape == Shape.PUSHING ? "_push" : "_neutral";
 		String name = ctx.getName() + "_" + shapeName + poweredSuffix;
 
-		return prov.models()
+		return VariantModels.models(prov)
 			.withExistingParent(name, prov.modLoc("block/belt_funnel/block_" + shapeName))
 			.texture("particle", materialBlockTexture)
 			.texture("block", materialBlockTexture)

@@ -78,16 +78,16 @@ public class WindowGen {
 		Function<Integer, Identifier> ends = i -> Create.asResource(palettesDir() + name + "_" + i + "_end");
 		return windowBlock(name, ingredient, null, renderType, translucent, n -> end_texture, n -> side_texture, color)
 			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), ConfiguredModel.builder()
-				.modelFile(p.models()
+				.modelFile(VariantModels.models(p)
 					.cubeColumn(c.getName() + "_1", side_texture, ends.apply(1)))
 				.nextModel()
-				.modelFile(p.models()
+				.modelFile(VariantModels.models(p)
 					.cubeColumn(c.getName() + "_2", side_texture, ends.apply(2)))
 				.nextModel()
-				.modelFile(p.models()
+				.modelFile(VariantModels.models(p)
 					.cubeColumn(c.getName() + "_3", side_texture, ends.apply(3)))
 				.nextModel()
-				.modelFile(p.models()
+				.modelFile(VariantModels.models(p)
 					.cubeColumn(c.getName() + "_4", side_texture, ends.apply(4)))
 				.build()))
 			.item()
@@ -133,7 +133,7 @@ public class WindowGen {
 			.properties(WindowGen::glassProperties)
 			.properties(p -> p.mapColor(color.get()))
 			.loot((t, g) -> t.dropWhenSilkTouch(g))
-			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 				.cubeColumn(c.getName(), sideTexture.apply(c.getName()), endTexture.apply(c.getName()))))
 			.tag(BlockTags.IMPERMEABLE)
 			.simpleItem();
@@ -224,7 +224,7 @@ public class WindowGen {
 
 	private static Function<RegistrateBlockModelGenerator, Identifier> getPaneModelProvider(String CGPparents,
 																						  String prefix, String partial, Identifier sideTexture, Identifier topTexture) {
-		return p -> p.models()
+		return p -> VariantModels.models(p)
 			.withExistingParent(prefix + partial, Create.asResource(CGPparents + partial))
 			.texture("pane", sideTexture)
 			.texture("edge", topTexture);

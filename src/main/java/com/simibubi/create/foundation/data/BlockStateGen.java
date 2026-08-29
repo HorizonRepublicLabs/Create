@@ -80,12 +80,12 @@ public class BlockStateGen {
 
 	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> simpleCubeAll(
 		String path) {
-		return (c, p) -> p.simpleBlock(c.get(), p.models()
+		return (c, p) -> p.simpleBlock(c.get(), VariantModels.models(p)
 			.cubeAll(c.getName(), p.modLoc("block/" + path)));
 	}
 
 	public static <T extends DirectionalAxisKineticBlock> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> directionalAxisBlockProvider() {
-		return (c, p) -> directionalAxisBlock(c, p, ($, vertical) -> p.models()
+		return (c, p) -> directionalAxisBlock(c, p, ($, vertical) -> VariantModels.models(p)
 			.getExistingFile(p.modLoc("block/" + c.getName() + "/" + (vertical ? "vertical" : "horizontal"))));
 	}
 
@@ -194,7 +194,7 @@ public class BlockStateGen {
 	public static <T extends Block> void cubeAll(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		String textureSubDir, String name) {
 		String texturePath = "block/" + textureSubDir + name;
-		prov.simpleBlock(ctx.get(), prov.models()
+		prov.simpleBlock(ctx.get(), VariantModels.models(prov)
 			.cubeAll(ctx.getName(), prov.modLoc(texturePath)));
 	}
 
@@ -210,7 +210,7 @@ public class BlockStateGen {
 					yRotation += 180;
 
 				return ConfiguredModel.builder()
-					.modelFile(p.models()
+					.modelFile(VariantModels.models(p)
 						.getExistingFile(p.modLoc("block/" + c.getName() + "/block_" + type.getSerializedName()
 							+ (powered ? "_powered" : ""))))
 					.rotationY(yRotation % 360)
@@ -220,7 +220,7 @@ public class BlockStateGen {
 
 	public static NonNullBiConsumer<DataGenContext<Block, BlazeBurnerBlock>, RegistrateBlockModelGenerator> blazeHeater() {
 		return (c, p) -> ConfiguredModel.builder()
-			.modelFile(p.models()
+			.modelFile(VariantModels.models(p)
 				.getExistingFile(p.modLoc("block/" + c.getName() + "/block")))
 			.build();
 	}
@@ -234,7 +234,7 @@ public class BlockStateGen {
 			List<Identifier> models = new ArrayList<>(4);
 			for (boolean isTopSticky : Iterate.trueAndFalse)
 				for (boolean isBottomSticky : Iterate.trueAndFalse)
-					models.add(p.models()
+					models.add(VariantModels.models(p)
 						.withExistingParent(
 							c.getName() + (isTopSticky ? "_top" : "") + (isBottomSticky ? "_bottom" : ""),
 							"block/cube_bottom_top")
@@ -255,21 +255,21 @@ public class BlockStateGen {
 			Identifier side_sticky = p.modLoc(path + "_side_sticky");
 
 			String templateModelPath = "block/radial_chassis";
-			Identifier base = p.models()
+			Identifier base = VariantModels.models(p)
 				.getExistingFile(p.modLoc(templateModelPath + "/base"));
 			List<Identifier> faces = new ArrayList<>(3);
 			List<Identifier> stickyFaces = new ArrayList<>(3);
 
 			for (Axis axis : Iterate.axes) {
 				String suffix = "side_" + axis.getSerializedName();
-				faces.add(p.models()
+				faces.add(VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + suffix,
 						p.modLoc(templateModelPath + "/" + suffix))
 					.texture("side", side));
 			}
 			for (Axis axis : Iterate.axes) {
 				String suffix = "side_" + axis.getSerializedName();
-				stickyFaces.add(p.models()
+				stickyFaces.add(VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + suffix + "_sticky",
 						p.modLoc(templateModelPath + "/" + suffix))
 					.texture("side", side_sticky));
@@ -333,7 +333,7 @@ public class BlockStateGen {
 			ConfiguredModel[] variants = new ConfiguredModel[4];
 			for (int i = 0; i < variants.length; i++)
 				variants[i] = ConfiguredModel.builder()
-					.modelFile(p.models()
+					.modelFile(VariantModels.models(p)
 						.cubeAll(type + "_natural_" + i, p.modLoc("block/palettes/stone_types/natural/" + type + "_" + i)))
 					.buildLast();
 			p.getVariantBuilder(c.get())
@@ -385,7 +385,7 @@ public class BlockStateGen {
 
 	public static <P extends WhistleExtenderBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> whistleExtender() {
 		return (c, p) -> {
-			BlockModelProvider models = p.models();
+			BlockModelProvider models = VariantModels.models(p);
 			String basePath = "block/steam_whistle/extension/";
 			MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
 
@@ -458,7 +458,7 @@ public class BlockStateGen {
 				for (String s : orientations) {
 					Pair<String, Axis> key = Pair.of(s, axis);
 					String modelName = path + "/" + s + "_" + axis.getSerializedName();
-					coreModels.put(key, p.models()
+					coreModels.put(key, VariantModels.models(p)
 						.withExistingParent(modelName, parent)
 						.element()
 						.from(4, 4, 4)
@@ -532,7 +532,7 @@ public class BlockStateGen {
 
 	public static Function<BlockState, ConfiguredModel[]> mapToAir(@NonnullType RegistrateBlockModelGenerator p) {
 		return state -> ConfiguredModel.builder()
-			.modelFile(p.models()
+			.modelFile(VariantModels.models(p)
 				.getExistingFile(p.mcLoc("block/air")))
 			.build();
 	}

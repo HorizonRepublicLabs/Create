@@ -362,7 +362,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.PODZOL)
 				.forceSolidOn())
 			.transform(axeOrPickaxe())
-			.blockstate(() -> (ctx, prov) -> VariantModels.horizontalBlock(prov, ctx.getEntry(), prov.models()
+			.blockstate(() -> (ctx, prov) -> VariantModels.horizontalBlock(prov, ctx.getEntry(), VariantModels.models(prov)
 				.getExistingFile(ctx.getId()), 0))
 			.simpleItem()
 			.register();
@@ -502,7 +502,7 @@ public class AllBlocks {
 				.mapColor(MapColor.PODZOL))
 			.transform(CStress.setNoImpact())
 			.transform(axeOrPickaxe())
-			.blockstate(() -> (c, p) -> new ChainDriveGenerator((state, suffix) -> p.models()
+			.blockstate(() -> (c, p) -> new ChainDriveGenerator((state, suffix) -> VariantModels.models(p)
 				.getExistingFile(p.modLoc("block/" + c.getName() + "/" + suffix))).generate(c, p))
 			.item()
 			.transform(customItemModel())
@@ -517,7 +517,7 @@ public class AllBlocks {
 			.transform(axeOrPickaxe())
 			.blockstate(() -> (c, p) -> new ChainDriveGenerator((state, suffix) -> {
 				String powered = state.getValue(ChainGearshiftBlock.POWERED) ? "_powered" : "";
-				return p.models()
+				return VariantModels.models(p)
 					.withExistingParent(c.getName() + "_" + suffix + powered,
 						p.modLoc("block/encased_chain_drive/" + suffix))
 					.texture("side", p.modLoc("block/" + c.getName() + powered));
@@ -762,7 +762,7 @@ public class AllBlocks {
 				AllBlockTags.FAN_TRANSPARENT.tag, AllBlockTags.PASSIVE_BOILER_HEATERS.tag)
 			.loot((lt, block) -> lt.dropOther(block, AllItems.EMPTY_BLAZE_BURNER.get()))
 			.blockstate(() -> (c, p) -> VariantModels.forAllStates(p, c.get(), state -> ConfiguredModel.builder()
-					.modelFile(p.models()
+					.modelFile(VariantModels.models(p)
 						.getExistingFile(p.modLoc("block/blaze_burner/"
 							+ (state.getValue(LitBlazeBurnerBlock.FLAME_TYPE) == LitBlazeBurnerBlock.FlameType.SOUL
 							? "block_with_soul_fire"
@@ -898,7 +898,7 @@ public class AllBlocks {
 				VariantModels.forAllStatesExcept(p, c.getEntry(), state -> {
 						Axis axis = state.getValue(BlockStateProperties.AXIS);
 						return ConfiguredModel.builder()
-							.modelFile(p.models()
+							.modelFile(VariantModels.models(p)
 								.getExistingFile(p.modLoc("block/fluid_pipe/window")))
 							.uvLock(false)
 							.rotationX(axis == Axis.Y ? 0 : 90)
@@ -1111,7 +1111,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(MapColor.DIRT))
 			.transform(axeOrPickaxe())
 			.loot((p, b) -> p.dropOther(b, PISTON_EXTENSION_POLE.get()))
-			.blockstate(() -> (c, p) -> BlockStateGen.directionalBlockIgnoresWaterlogged(c, p, state -> p.models()
+			.blockstate(() -> (c, p) -> BlockStateGen.directionalBlockIgnoresWaterlogged(c, p, state -> VariantModels.models(p)
 				.getExistingFile(p.modLoc("block/mechanical_piston/" + state.getValue(MechanicalPistonHeadBlock.TYPE)
 					.getSerializedName() + "/head"))))
 			.register();
@@ -1144,7 +1144,7 @@ public class AllBlocks {
 				Identifier existing = AssetLookup.partialBaseModel(c, p, partName);
 				if (!isPowered && !isFlipped)
 					return existing;
-				return p.models()
+				return VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + partName + powered + flipped,
 						existing.getLocation())
 					.texture("2", p.modLoc("block/" + c.getName() + powered + flipped));
@@ -1200,7 +1200,7 @@ public class AllBlocks {
 			.mapColor(MapColor.COLOR_BROWN))
 		.tag(AllBlockTags.BRITTLE.tag)
 		.tag(BlockTags.CLIMBABLE)
-		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 			.getExistingFile(p.modLoc("block/rope_pulley/" + c.getName()))))
 		.register();
 
@@ -1209,7 +1209,7 @@ public class AllBlocks {
 			.initialProperties(SharedProperties::stone)
 			.tag(AllBlockTags.BRITTLE.tag)
 			.tag(BlockTags.CLIMBABLE)
-			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 				.getExistingFile(p.modLoc("block/rope_pulley/" + c.getName()))))
 			.register();
 
@@ -1252,7 +1252,7 @@ public class AllBlocks {
 	public static final BlockEntry<MinecartAnchorBlock> MINECART_ANCHOR =
 		REGISTRATE.block("minecart_anchor", MinecartAnchorBlock::new)
 			.initialProperties(SharedProperties::stone)
-			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 				.getExistingFile(p.modLoc("block/cart_assembler/" + c.getName()))))
 			.register();
 
@@ -1471,7 +1471,7 @@ public class AllBlocks {
 				.sound(SoundType.SCAFFOLDING)
 				.noOcclusion())
 			.transform(axeOnly())
-			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.directionalBlock(p, c.get(), VariantModels.models(p)
 				.withExistingParent(colourName + "_sail", p.modLoc("block/white_sail"))
 				.texture("0", p.modLoc("block/sail/canvas_" + colourName))))
 			.tag(AllBlockTags.WINDMILL_SAILS.tag)
@@ -1600,7 +1600,7 @@ public class AllBlocks {
 			.noCollission()
 			.noOcclusion()
 			.replaceable())
-		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), p.models()
+		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 			.withExistingParent(c.getName(), p.mcLoc("block/air"))))
 		.lang("Track Marker for Maps")
 		.register();
@@ -1848,7 +1848,7 @@ public class AllBlocks {
 			.blockstate(() -> (c, p) -> {
 				VariantModels.horizontalBlock(p, c.get(), s -> {
 					String suffix = s.getValue(PostboxBlock.OPEN) ? "open" : "closed";
-					return p.models()
+					return VariantModels.models(p)
 						.withExistingParent(colourName + "_postbox_" + suffix,
 							p.modLoc("block/package_postbox/block_" + suffix))
 						.texture("0", p.modLoc("block/post_box/post_box_" + colourName))
@@ -2038,7 +2038,7 @@ public class AllBlocks {
 			.blockstate(() -> (c, p) -> BlockStateGen.simpleBlock(c, p, s -> {
 				boolean powered = s.getValue(RoseQuartzLampBlock.POWERING);
 				String name = c.getName() + (powered ? "_powered" : "");
-				return p.models()
+				return VariantModels.models(p)
 					.cubeAll(name, p.modLoc("block/" + name));
 			}))
 			.transform(pickaxeOnly())
@@ -2125,7 +2125,7 @@ public class AllBlocks {
 		REGISTRATE.block("lectern_controller", LecternControllerBlock::new)
 			.initialProperties(() -> Blocks.LECTERN)
 			.transform(axeOnly())
-			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(), p.models()
+			.blockstate(() -> (c, p) -> VariantModels.horizontalBlock(p, c.get(), VariantModels.models(p)
 				.getExistingFile(p.mcLoc("block/lectern"))))
 			.loot((lt, block) -> lt.dropOther(block, Blocks.LECTERN))
 			.register();
@@ -2189,7 +2189,7 @@ public class AllBlocks {
 				));
 			})
 			.blockstate(() -> (c, p) -> {
-				VariantModels.horizontalBlock(p, c.get(), p.models()
+				VariantModels.horizontalBlock(p, c.get(), VariantModels.models(p)
 					.withExistingParent(colourName + "_toolbox", p.modLoc("block/toolbox/block"))
 					.texture("0", p.modLoc("block/toolbox/" + colourName)));
 			})
@@ -2342,7 +2342,7 @@ public class AllBlocks {
 			.onRegister(interactionBehaviour(interactionBehaviour))
 			.transform(displaySource(AllDisplaySources.ENTITY_NAME))
 			.blockstate(() -> (c, p) -> {
-				VariantModels.simpleBlock(p, c.get(), p.models()
+				VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 					.withExistingParent(colourName + "_seat", p.modLoc("block/seat"))
 					.texture("1", p.modLoc("block/seat/top_" + colourName))
 					.texture("2", p.modLoc("block/seat/side_" + colourName)));

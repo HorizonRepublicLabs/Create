@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.thresholdSwitch;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.Create;
@@ -30,7 +32,7 @@ public class ThresholdSwitchGenerator extends SpecialBlockStateGen {
 		int level = state.getValue(ThresholdSwitchBlock.LEVEL);
 		String path = "block/threshold_switch/block_" + Lang.asId(state.getValue(ThresholdSwitchBlock.TARGET)
 			.name());
-		return prov.models()
+		return VariantModels.models(prov)
 			.withExistingParent(path + "_" + level, Create.asResource(path))
 			.texture("level", Create.asResource("block/threshold_switch/level_" + level));
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 import java.util.Arrays;
@@ -166,17 +168,17 @@ public abstract class PaletteBlockPartial<B extends Block> {
 			Identifier mainTexture = getTexture(variantName, pattern, 0);
 			Identifier sideTexture = customSide ? getTexture(variantName, pattern, 1) : mainTexture;
 
-			Identifier bottom = prov.models()
+			Identifier bottom = VariantModels.models(prov)
 				.slab(name, sideTexture, mainTexture, mainTexture);
-			Identifier top = prov.models()
+			Identifier top = VariantModels.models(prov)
 				.slabTop(name + "_top", sideTexture, mainTexture, mainTexture);
 			Identifier doubleSlab;
 
 			if (customSide) {
-				doubleSlab = prov.models()
+				doubleSlab = VariantModels.models(prov)
 					.cubeColumn(name + "_double", sideTexture, mainTexture);
 			} else {
-				doubleSlab = prov.models()
+				doubleSlab = VariantModels.models(prov)
 					.getExistingFile(prov.modLoc(pattern.createName(variantName)));
 			}
 

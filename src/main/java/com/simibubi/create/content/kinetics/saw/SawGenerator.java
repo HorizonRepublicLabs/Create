@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
@@ -36,7 +38,7 @@ public class SawGenerator extends SpecialBlockStateGen {
 			.getAxis()
 			.isVertical() ? "vertical" : "horizontal";
 
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(prov.modLoc(path + orientation));
 	}
 

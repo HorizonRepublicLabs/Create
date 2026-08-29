@@ -251,11 +251,11 @@ public class CopperBlockSet {
 			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
 			if (Objects.equals(blocks.getName(), blocks.getEndTextureName())) {
 				// End texture and base texture are equal, so we should use cube_all.
-				VariantModels.simpleBlock(prov, block, prov.models().cubeAll(path, texture));
+				VariantModels.simpleBlock(prov, block, VariantModels.models(prov).cubeAll(path, texture));
 			} else {
 				// End texture and base texture aren't equal, so we should use cube_column.
 				Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
-				VariantModels.simpleBlock(prov, block, prov.models()
+				VariantModels.simpleBlock(prov, block, VariantModels.models(prov)
 					.cubeColumn(path, texture, endTexture));
 			}
 

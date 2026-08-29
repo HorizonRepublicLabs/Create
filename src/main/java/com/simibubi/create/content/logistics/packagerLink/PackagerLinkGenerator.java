@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
@@ -33,7 +35,7 @@ public class PackagerLinkGenerator extends SpecialBlockStateGen {
 			state.getValue(PackagerLinkBlock.FACE) == AttachFace.WALL ? "block_horizontal" : "block_vertical";
 		if (state.getValue(PackagerLinkBlock.POWERED))
 			variant += "_powered";
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(prov.modLoc("block/stock_link/" + variant));
 	}
 

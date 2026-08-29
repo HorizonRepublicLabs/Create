@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.funnel;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
@@ -49,7 +51,7 @@ public class FunnelGenerator extends SpecialBlockStateGen {
 			.isHorizontal();
 		String parent = horizontal ? "horizontal" : hasFilter ? "vertical" : "vertical_filterless";
 
-		BlockModelBuilder model = p.models()
+		BlockModelBuilder model = VariantModels.models(p)
 			.withExistingParent("block/" + type + "_funnel_" + parent + extracting + powered,
 				p.modLoc(prefix + "block_" + parent))
 			.texture("particle", blockTexture)

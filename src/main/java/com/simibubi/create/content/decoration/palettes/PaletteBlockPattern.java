@@ -164,7 +164,7 @@ public class PaletteBlockPattern {
 
 	public IBlockStateProvider cubeAll(String variant) {
 		Identifier all = toLocation(variant, textures[0]);
-		return (ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models()
+		return (ctx, prov) -> prov.simpleBlock(ctx.get(), VariantModels.models(prov)
 			.cubeAll(createName(variant), all));
 	}
 
@@ -172,7 +172,7 @@ public class PaletteBlockPattern {
 		Identifier side = toLocation(variant, textures[0]);
 		Identifier bottom = toLocation(variant, textures[1]);
 		Identifier top = toLocation(variant, textures[2]);
-		return (ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models()
+		return (ctx, prov) -> prov.simpleBlock(ctx.get(), VariantModels.models(prov)
 			.cubeBottomTop(createName(variant), side, bottom, top));
 	}
 
@@ -184,12 +184,12 @@ public class PaletteBlockPattern {
 				Axis axis = state.getValue(BlockStateProperties.AXIS);
 				if (axis == Axis.Y)
 					return ConfiguredModel.builder()
-						.modelFile(prov.models()
+						.modelFile(VariantModels.models(prov)
 							.cubeColumn(createName(variant), side, end))
 						.uvLock(false)
 						.build();
 				return ConfiguredModel.builder()
-					.modelFile(prov.models()
+					.modelFile(VariantModels.models(prov)
 						.cubeColumnHorizontal(createName(variant) + "_horizontal", side, end))
 					.uvLock(false)
 					.rotationX(90)
@@ -202,7 +202,7 @@ public class PaletteBlockPattern {
 	public IBlockStateProvider cubeColumn(String variant) {
 		Identifier side = toLocation(variant, textures[0]);
 		Identifier end = toLocation(variant, textures[1]);
-		return (ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models()
+		return (ctx, prov) -> prov.simpleBlock(ctx.get(), VariantModels.models(prov)
 			.cubeColumn(createName(variant), side, end));
 	}
 

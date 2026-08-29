@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.nixieTube;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.content.redstone.nixieTube.DoubleFaceAttachedBlock.DoubleAttachFace;
@@ -29,7 +31,7 @@ public class NixieTubeGenerator extends SpecialBlockStateGen {
 	@Override
 	public <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
-		return prov.models()
+		return VariantModels.models(prov)
 			.withExistingParent(ctx.getName(), prov.modLoc("block/nixie_tube/block"));
 	}
 

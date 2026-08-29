@@ -115,7 +115,7 @@ public class MetalBarsGen {
 										  boolean specialEdge) {
 		Identifier barsTexture = p.modLoc("block/bars/" + name + "_bars");
 		Identifier edgeTexture = specialEdge ? p.modLoc("block/bars/" + name + "_bars_edge") : barsTexture;
-		return p.models()
+		return VariantModels.models(p)
 			.withExistingParent(name + "_" + suffix, p.modLoc("block/bars/" + suffix))
 			.texture("bars", barsTexture)
 			.texture("particle", barsTexture)

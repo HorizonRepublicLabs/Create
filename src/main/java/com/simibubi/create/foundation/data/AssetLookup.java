@@ -31,7 +31,7 @@ public class AssetLookup {
 			if (!suf.isEmpty())
 				string += "_" + suf;
 		final String location = "block/" + ctx.getName() + string;
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(prov.modLoc(location));
 	}
 
@@ -39,7 +39,7 @@ public class AssetLookup {
 	 * Custom block model from models/block/x.json
 	 */
 	public static Identifier standardModel(DataGenContext<?, ?> ctx, RegistrateBlockModelGenerator prov) {
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(prov.modLoc("block/" + ctx.getName()));
 	}
 
@@ -86,7 +86,7 @@ public class AssetLookup {
 
 	public static Function<BlockState, Identifier> forPowered(DataGenContext<?, ?> ctx,
 		RegistrateBlockModelGenerator prov, String path) {
-		return state -> prov.models()
+		return state -> VariantModels.models(prov)
 			.getExistingFile(
 				prov.modLoc("block/" + path + (state.getValue(BlockStateProperties.POWERED) ? "_powered" : "")));
 	}
@@ -97,7 +97,7 @@ public class AssetLookup {
 			Identifier baseModel = baseModelFunc.apply(state)
 				.getLocation();
 			Integer integer = state.getValue(property);
-			return prov.models()
+			return VariantModels.models(prov)
 				.withExistingParent(ctx.getName() + "_" + integer, baseModel)
 				.texture("indicator", "block/indicator/" + integer);
 		};

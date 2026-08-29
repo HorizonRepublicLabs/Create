@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.piston;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock.PistonState;
@@ -48,7 +50,7 @@ public class MechanicalPistonGenerator extends SpecialBlockStateGen {
 		String folder = pistonState == PistonState.RETRACTED ? type.getSerializedName() : pistonState.getSerializedName();
 		String partial = facing.getAxis() == Axis.X ^ axisAlongFirst ? "block_rotated" : "block";
 
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(prov.modLoc(path + "/" + folder + "/" + partial));
 	}
 

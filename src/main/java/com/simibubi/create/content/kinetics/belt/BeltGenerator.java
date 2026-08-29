@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
@@ -38,7 +40,7 @@ public class BeltGenerator extends SpecialBlockStateGen {
 		Boolean casing = state.getValue(BeltBlock.CASING);
 
 		if (!casing)
-			return prov.models()
+			return VariantModels.models(prov)
 				.getExistingFile(prov.modLoc("block/belt/particle"));
 
 		BeltPart part = state.getValue(BeltBlock.PART);
@@ -70,7 +72,7 @@ public class BeltGenerator extends SpecialBlockStateGen {
 			slopeName = "diagonal";
 
 		Identifier location = prov.modLoc(path + slopeName + "_" + partName);
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(location);
 	}
 

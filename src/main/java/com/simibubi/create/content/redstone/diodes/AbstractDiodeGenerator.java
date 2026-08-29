@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.diodes;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import java.util.List;
 
 import com.simibubi.create.Create;
@@ -48,7 +50,7 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 	public final <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
 		if (models == null)
-			models = createModels(ctx, prov.models());
+			models = createModels(ctx, VariantModels.models(prov));
 		return models.get(getModelIndex(state));
 	}
 

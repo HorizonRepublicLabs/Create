@@ -177,6 +177,12 @@ public class VariantModels {
 			.build(), BlockStateProperties.WATERLOGGED);
 	}
 
+	/// VariantModels.models(prov) used to reach the block model provider; that is a template
+	/// generator now, so this hands back the shim that keeps the old shape.
+	public static ModelGenShim models(RegistrateBlockModelGenerator generator) {
+		return new ModelGenShim(generator);
+	}
+
 	public static void accept(RegistrateBlockModelGenerator generator, Block block,
 		Map<String, BlockStateModel.Unbaked> variants) {
 		generator.blockStateOutput.accept(new BlockModelDefinitionGenerator() {

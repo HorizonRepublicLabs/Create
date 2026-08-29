@@ -51,7 +51,7 @@ public abstract class DirectionalAxisBlockStateGen extends SpecialBlockStateGen 
 			.getAxis()
 			.isVertical();
 		String partial = vertical ? "" : "_wall";
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(prov.modLoc(getModelPrefix(ctx, prov, state) + partial));
 	}
 

@@ -190,7 +190,7 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 			.transform(pickaxeOnly())
 			.blockstate(() -> hasNaturalVariants ? BlockStateGen.naturalStoneTypeBlock(name) : (c, p) -> {
 				final String location = "block/palettes/stone_types/" + c.getName();
-				VariantModels.simpleBlock(p, c.get(), p.models()
+				VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 					.cubeAll(c.getName(), p.modLoc(location)));
 			})
 			.tag(BlockTags.DRIPSTONE_REPLACEABLE)

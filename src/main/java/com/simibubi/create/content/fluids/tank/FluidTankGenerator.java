@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.content.fluids.tank.FluidTankBlock.Shape;
@@ -52,7 +54,7 @@ public class FluidTankGenerator extends SpecialBlockStateGen {
 		String modelName = shapeName + (shape == Shape.PLAIN ? "" : "_" + shape.getSerializedName());
 
 		if (!prefix.isEmpty())
-			return prov.models()
+			return VariantModels.models(prov)
 				.withExistingParent(prefix + modelName, prov.modLoc("block/fluid_tank/block_" + modelName))
 				.texture("0", prov.modLoc("block/" + prefix + "casing"))
 				.texture("1", prov.modLoc("block/" + prefix + "fluid_tank"))

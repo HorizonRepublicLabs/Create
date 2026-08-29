@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.bracket;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.foundation.data.DirectionalAxisBlockStateGen;
@@ -38,7 +40,7 @@ public class BracketGenerator extends DirectionalAxisBlockStateGen {
 
 		String path = "block/bracket/" + type + "/" + (vertical ? "ground" : "wall");
 
-		return prov.models()
+		return VariantModels.models(prov)
 			.withExistingParent(path + "_" + material, prov.modLoc(path))
 			.texture("bracket", prov.modLoc("block/bracket_" + material))
 			.texture("plate", prov.modLoc("block/bracket_plate_" + material));

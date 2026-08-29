@@ -20,7 +20,7 @@ public class ModelGen {
 
 	public static Identifier createOvergrown(DataGenContext<Block, ? extends Block> ctx, BlockStateProvider prov,
 		Identifier side, Identifier top, Identifier bottom, Identifier overlay) {
-		return prov.models()
+		return VariantModels.models(prov)
 			.withExistingParent(ctx.getName(), Create.asResource("block/overgrown"))
 			.texture("particle", side)
 			.texture("side", side)

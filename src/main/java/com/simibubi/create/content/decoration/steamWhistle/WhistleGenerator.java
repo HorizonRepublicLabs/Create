@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.steamWhistle;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
@@ -34,7 +36,7 @@ public class WhistleGenerator extends SpecialBlockStateGen {
 		if (!powered)
 			return model;
 		Identifier parentLocation = model.getLocation();
-		return prov.models()
+		return VariantModels.models(prov)
 			.withExistingParent(parentLocation.getPath() + "_powered", parentLocation)
 			.texture("2", Create.asResource("block/copper_redstone_plate_powered"));
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.Create;
@@ -29,9 +31,9 @@ public class TrackBlockStateGenerator extends SpecialBlockStateGen {
 		BlockState state) {
 		TrackShape value = state.getValue(TrackBlock.SHAPE);
 		if (value == TrackShape.NONE)
-			return prov.models()
+			return VariantModels.models(prov)
 				.getExistingFile(prov.mcLoc("block/air"));
-		return prov.models()
+		return VariantModels.models(prov)
 			.getExistingFile(Create.asResource("block/track/" + value.getModel()));
 	}
 

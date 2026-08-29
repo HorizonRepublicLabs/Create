@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.resources.Identifier;
 
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
@@ -39,7 +41,7 @@ public class SpecialCopycatPanelBlockState extends SpecialBlockStateGen {
 	@Override
 	public <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
-		BlockModelProvider models = prov.models();
+		BlockModelProvider models = VariantModels.models(prov);
 		return facing(state).getAxis() == Axis.Y
 			? models.getExistingFile(prov.modLoc("block/copycat_panel/" + name + "_vertical"))
 			: models.getExistingFile(prov.modLoc("block/copycat_panel/" + name));
