@@ -38,8 +38,6 @@ public class ChuteRenderer extends SafeBlockEntityRenderer<ChuteBlockEntity> {
 
 	public static void renderItem(ChuteBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light, int overlay) {
-		ItemRenderer itemRenderer = Minecraft.getInstance()
-			.getItemRenderer();
 		var msr = TransformStack.of(ms);
 		ms.pushPose();
 		msr.center();

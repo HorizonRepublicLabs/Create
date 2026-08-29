@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -234,7 +236,6 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 		int overlay, Direction beltFacing, Vec3i directionVec, BeltSlope slope, int verticality, boolean slopeAlongX,
 		boolean onContraption, TransportedItemStack transported, Vec3 beltStartOffset) {
 		Minecraft mc = Minecraft.getInstance();
-		ItemRenderer itemRenderer = mc.getItemRenderer();
 		MutableBlockPos mutablePos = new MutableBlockPos();
 
 		float offset = Mth.lerp(partialTicks, transported.prevBeltPosition, transported.beltPosition);
@@ -289,7 +290,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 		}
 
 		boolean renderUpright = BeltHelper.isItemUpright(transported.stack);
-		BlockStateModel bakedModel = itemRenderer.getModel(transported.stack, be.getLevel(), null, 0);
+		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(transported.stack, be.getLevel());
 		boolean blockItem = bakedModel.isGui3d();
 
 		int count = 0;

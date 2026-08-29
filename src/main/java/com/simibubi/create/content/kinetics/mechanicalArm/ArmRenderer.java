@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -49,10 +51,7 @@ public class ArmRenderer extends KineticBlockEntityRenderer<ArmBlockEntity> {
 		if (usingFlywheel && !hasItem)
 			return;
 
-		ItemRenderer itemRenderer = Minecraft.getInstance()
-			.getItemRenderer();
-
-		BlockStateModel bakedModel = itemRenderer.getModel(item, be.getLevel(), null, 0);
+		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(item, be.getLevel());
 		boolean isBlockItem = hasItem && (item.getItem() instanceof BlockItem) && bakedModel.isGui3d();
 
 		VertexConsumer builder = buffer.getBuffer(be.goggles ? RenderTypes.cutoutMovingBlock() : RenderTypes.solidMovingBlock());

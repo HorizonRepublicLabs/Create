@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -103,11 +105,9 @@ public class DepotRenderer extends SafeBlockEntityRenderer<DepotBlockEntity> {
 
 	public static void renderItem(PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay,
 								  ItemStack itemStack, int angle, Random r, Vec3 itemPosition, boolean alwaysUpright) {
-		ItemRenderer itemRenderer = Minecraft.getInstance()
-			.getItemRenderer();
 		var msr = TransformStack.of(ms);
 		int count = Mth.log2((itemStack.getCount())) / 2;
-		BlockStateModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
+		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(itemStack, null);
 		boolean blockItem = bakedModel.isGui3d();
 		boolean renderUpright = BeltHelper.isItemUpright(itemStack) || alwaysUpright && !blockItem;
 

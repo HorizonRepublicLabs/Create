@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.render;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -37,6 +39,18 @@ public class CreateItemRenderer {
 	public static void render(ItemStack stack, ItemDisplayContext context, PoseStack ms,
 		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		render(stack, context, ms, buffer, light, overlay, 0);
+	}
+
+	/// Stands in for the old model.isGui3d(): callers only ever wanted to know
+	/// whether the stack draws as a block, to pick a scale or an offset.
+	public static boolean isBlockItem(ItemStack stack, @Nullable Level level) {
+		if (stack.isEmpty())
+			return false;
+		ItemStackRenderState state = new ItemStackRenderState();
+		Minecraft.getInstance()
+			.getItemModelResolver()
+			.updateForTopItem(state, stack, ItemDisplayContext.FIXED, level, null, 0);
+		return state.usesBlockLight();
 	}
 
 	private CreateItemRenderer() {}

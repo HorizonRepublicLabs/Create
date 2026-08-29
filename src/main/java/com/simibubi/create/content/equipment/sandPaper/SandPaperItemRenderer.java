@@ -25,7 +25,6 @@ public class SandPaperItemRenderer extends CustomRenderedItemModelRenderer {
 	protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer,
 		ItemDisplayContext transformType, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay) {
 		Minecraft mc = Minecraft.getInstance();
-		ItemRenderer itemRenderer = mc.getItemRenderer();
 		LocalPlayer player = mc.player;
 		float partialTicks = AnimationTickHolder.getPartialTicks();
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.drain;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -76,11 +78,9 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 
 		ItemStack itemStack = transported.stack;
 		Random r = new Random(0);
-		ItemRenderer itemRenderer = Minecraft.getInstance()
-			.getItemRenderer();
 		int count = (int) (Mth.log2((int) (itemStack.getCount()))) / 2;
 		boolean renderUpright = BeltHelper.isItemUpright(itemStack);
-		BlockStateModel bakedModel = itemRenderer.getModel(itemStack, null, null, 0);
+		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(itemStack, null);
 		boolean blockItem = bakedModel.isGui3d();
 
 		if (renderUpright)

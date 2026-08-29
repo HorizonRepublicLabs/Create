@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.item.render;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -80,8 +82,6 @@ public class PartialItemModelRenderer {
 	}
 
 	private void renderBakedItemModel(BlockStateModel model, int light, PoseStack ms, VertexConsumer buffer) {
-		ItemRenderer ir = Minecraft.getInstance()
-			.getItemRenderer();
 		ModelData data = ModelData.EMPTY;
 
 		for (RenderType renderType : model.getRenderTypes(stack, false)) {

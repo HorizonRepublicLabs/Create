@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -157,12 +159,9 @@ public class ArmVisual extends SingleAxisRotatingVisual<ArmBlockEntity> implemen
 			msr.rotateZDegrees(180);
 
 		ItemStack item = blockEntity.heldItem;
-		ItemRenderer itemRenderer = Minecraft.getInstance()
-			.getItemRenderer();
 		boolean hasItem = !item.isEmpty();
 		boolean isBlockItem = hasItem && (item.getItem() instanceof BlockItem)
-			&& itemRenderer.getModel(item, Minecraft.getInstance().level, null, 0)
-			.isGui3d();
+			&& CreateItemRenderer.isBlockItem(item, Minecraft.getInstance().level);
 
 		for (int index : Iterate.zeroAndOne) {
 			poseStack.pushPose();

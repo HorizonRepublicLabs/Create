@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -91,11 +93,8 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 		if (punching)
 			ms.translate(0, 1 / 8f, -1 / 16f);
 
-		ItemRenderer itemRenderer = Minecraft.getInstance()
-			.getItemRenderer();
-
 		ItemDisplayContext transform = ItemDisplayContext.NONE;
-		BlockStateModel bakedModel = itemRenderer.getModel(be.heldItem, be.getLevel(), null, 0);
+		boolean bakedModelIsBlock = CreateItemRenderer.isBlockItem(be.heldItem, be.getLevel());
 		boolean isBlockItem = (be.heldItem.getItem() instanceof BlockItem) && bakedModel.isGui3d();
 
 		if (displayMode) {

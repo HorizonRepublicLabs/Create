@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.placard;
 
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -34,10 +36,11 @@ public class PlacardRenderer extends SafeBlockEntityRenderer<PlacardBlockEntity>
 		Direction facing = blockState.getValue(PlacardBlock.FACING);
 		AttachFace face = blockState.getValue(PlacardBlock.FACE);
 
-		ItemRenderer itemRenderer = Minecraft.getInstance()
-			.getItemRenderer();
-		BlockStateModel bakedModel = itemRenderer.getModel(heldItem, null, null, 0);
-		boolean blockItem = bakedModel.isGui3d();
+		ItemStackRenderState renderState = new ItemStackRenderState();
+			Minecraft.getInstance()
+				.getItemModelResolver()
+				.updateForTopItem(renderState, heldItem, ItemDisplayContext.FIXED, Minecraft.getInstance().level, null, 0);
+			boolean blockItem = renderState.usesBlockLight();
 
 		ms.pushPose();
 		TransformStack.of(ms)

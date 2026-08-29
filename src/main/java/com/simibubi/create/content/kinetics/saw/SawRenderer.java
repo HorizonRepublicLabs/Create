@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -146,10 +148,11 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 			if (stack.isEmpty())
 				continue;
 
-			ItemRenderer itemRenderer = Minecraft.getInstance()
-				.getItemRenderer();
-			BlockStateModel modelWithOverrides = itemRenderer.getModel(stack, be.getLevel(), null, 0);
-			boolean blockItem = modelWithOverrides.isGui3d();
+			ItemStackRenderState renderState = new ItemStackRenderState();
+			Minecraft.getInstance()
+				.getItemModelResolver()
+				.updateForTopItem(renderState, stack, ItemDisplayContext.FIXED, be.getLevel(), null, 0);
+			boolean blockItem = renderState.usesBlockLight();
 
 			ms.pushPose();
 			ms.translate(0, blockItem ? .925f : 13f / 16f, 0);
