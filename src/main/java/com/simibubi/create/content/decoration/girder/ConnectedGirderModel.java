@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.girder;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import java.util.ArrayList;
@@ -30,29 +32,18 @@ public class ConnectedGirderModel extends CTModel {
 		super(originalModel, new GirderCTBehaviour());
 	}
 
+	/// CTModel's collectParts does the connected-texture shifting; the bracket
+	/// geometry is extra parts on top, worked out from the world here rather
+	/// than stashed on ModelData first.
 	@Override
-	protected ModelData.Builder gatherModelData(Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state,
-		ModelData blockEntityData) {
-		super.gatherModelData(builder, world, pos, state, blockEntityData);
-		ConnectionData connectionData = new ConnectionData();
+	public void collectParts(BlockAndTintGetter level, BlockPos pos, BlockState state, RandomSource random,
+		List<BlockStateModelPart> parts) {
+		super.collectParts(level, pos, state, random, parts);
 		for (Direction d : Iterate.horizontalDirections)
-			connectionData.setConnected(d, GirderBlock.isConnected(world, pos, state, d));
-		return builder.with(CONNECTION_PROPERTY, connectionData);
-	}
-
-	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData extraData, RenderType renderType) {
-		List<BakedQuad> superQuads = super.getQuads(state, side, rand, extraData, renderType);
-		if (side != null || !extraData.has(CONNECTION_PROPERTY))
-			return superQuads;
-		List<BakedQuad> quads = new ArrayList<>(superQuads);
-		ConnectionData data = extraData.get(CONNECTION_PROPERTY);
-		for (Direction d : Iterate.horizontalDirections)
-			if (data.isConnected(d))
-				quads.addAll(AllPartialModels.METAL_GIRDER_BRACKETS.get(d)
+			if (GirderBlock.isConnected(level, pos, state, d))
+				AllPartialModels.METAL_GIRDER_BRACKETS.get(d)
 					.get()
-					.getQuads(state, side, rand, extraData, renderType));
-		return quads;
+					.collectParts(level, pos, state, random, parts);
 	}
 
 	private static class ConnectionData {

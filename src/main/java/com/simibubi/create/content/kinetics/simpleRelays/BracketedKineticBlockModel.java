@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.simpleRelays;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -23,53 +25,33 @@ import net.neoforged.neoforge.model.data.ModelProperty;
 
 public class BracketedKineticBlockModel extends DelegateBlockStateModel {
 
-	private static final ModelProperty<BracketedModelData> BRACKET_PROPERTY = new ModelProperty<>();
 
 	public BracketedKineticBlockModel(BlockStateModel template) {
 		super(template);
 	}
 
+	/// The bracket replaces the shaft's own geometry entirely when one is
+	/// attached, so this collects the bracket's parts instead of the delegate's.
+	/// Virtual render worlds keep the plain model.
 	@Override
-	public ModelData getModelData(BlockAndTintGetter world, BlockPos pos, BlockState state, ModelData blockEntityData) {
-		if (VirtualRenderHelper.isVirtual(blockEntityData))
-			return blockEntityData;
-		BracketedModelData data = new BracketedModelData();
+	public void collectParts(BlockAndTintGetter level, BlockPos pos, BlockState state, RandomSource random,
+		List<BlockStateModelPart> parts) {
+		ModelData data = level.getModelData(pos);
+		if (VirtualRenderHelper.isVirtual(data)) {
+			super.collectParts(level, pos, state, random, parts);
+			return;
+		}
+
 		BracketedBlockEntityBehaviour attachmentBehaviour =
-			BlockEntityBehaviour.get(world, pos, BracketedBlockEntityBehaviour.TYPE);
-		if (attachmentBehaviour != null)
-			data.putBracket(attachmentBehaviour.getBracket());
-		return ModelData.builder().with(BRACKET_PROPERTY, data)
-			.build();
+			BlockEntityBehaviour.get(level, pos, BracketedBlockEntityBehaviour.TYPE);
+		BlockState bracketState = attachmentBehaviour == null ? null : attachmentBehaviour.getBracket();
+		if (bracketState != null)
+			Minecraft.getInstance()
+				.getModelManager()
+				.getBlockStateModelSet()
+				.get(bracketState)
+				.collectParts(level, pos, bracketState, random, parts);
 	}
 
-	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData data, RenderType renderType) {
-		if (!VirtualRenderHelper.isVirtual(data)) {
-			if (data.has(BRACKET_PROPERTY)) {
-				BracketedModelData pipeData = data.get(BRACKET_PROPERTY);
-				BlockStateModel bracket = pipeData.getBracket();
-				if (bracket != null)
-					return bracket.getQuads(state, side, rand, data, renderType);
-			}
-			return Collections.emptyList();
-		}
-		return super.getQuads(state, side, rand, data, renderType);
-	}
-
-	private static class BracketedModelData {
-		private BlockStateModel bracket;
-
-		public void putBracket(BlockState state) {
-			if (state != null) {
-				this.bracket = Minecraft.getInstance()
-					.getBlockRenderer()
-					.getBlockModel(state);
-			}
-		}
-
-		public BlockStateModel getBracket() {
-			return bracket;
-		}
-	}
 
 }
