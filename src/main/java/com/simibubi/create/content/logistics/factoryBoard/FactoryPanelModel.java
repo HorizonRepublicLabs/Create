@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import com.simibubi.create.foundation.model.DataDrivenModel;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import java.util.ArrayList;
@@ -32,17 +36,15 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelProperty;
 
-public class FactoryPanelModel extends BakedModelWrapperWithData {
+public class FactoryPanelModel extends DataDrivenModel<FactoryPanelModel.FactoryPanelModelData> {
 
-	private static final ModelProperty<FactoryPanelModelData> PANEL_PROPERTY = new ModelProperty<>();
 
 	public FactoryPanelModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 
 	@Override
-	protected ModelData.Builder gatherModelData(ModelData.Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state,
-		ModelData blockEntityData) {
+	protected FactoryPanelModelData gatherData(BlockAndTintGetter world, BlockPos pos, BlockState state) {
 		FactoryPanelModelData data = new FactoryPanelModelData();
 		for (PanelSlot slot : PanelSlot.values()) {
 			FactoryPanelBehaviour behaviour = FactoryPanelBehaviour.at(world, new FactoryPanelPosition(pos, slot));
@@ -52,72 +54,63 @@ public class FactoryPanelModel extends BakedModelWrapperWithData {
 			data.type = behaviour.panelBE().restocker ? PanelType.PACKAGER : PanelType.NETWORK;
 		}
 		data.ponder = world instanceof PonderLevel;
-		return builder.with(PANEL_PROPERTY, data);
+		return data;
 	}
 
 	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData data,
-		RenderType renderType) {
-		if (side != null || !data.has(PANEL_PROPERTY))
-			return Collections.emptyList();
-		FactoryPanelModelData modelData = data.get(PANEL_PROPERTY);
-		List<BakedQuad> quads = new ArrayList<>(super.getQuads(state, null, rand, data, renderType));
+	protected List<BakedQuad> transformQuads(List<BakedQuad> base, FactoryPanelModelData modelData,
+		BlockState state, RandomSource rand, Direction side) {
+		if (side != null)
+			return List.of();
+		List<BakedQuad> quads = new ArrayList<>(base);
 		for (PanelSlot panelSlot : PanelSlot.values())
 			if (modelData.states.containsKey(panelSlot))
-				addPanel(quads, state, panelSlot, modelData.type, modelData.states.get(panelSlot), rand, data,
-					renderType, modelData.ponder);
+				addPanel(quads, state, panelSlot, modelData.type, modelData.states.get(panelSlot), rand,
+					modelData.ponder);
 		return quads;
 	}
 
 	public void addPanel(List<BakedQuad> quads, BlockState state, PanelSlot slot, PanelType type, PanelState panelState,
-		RandomSource rand, ModelData data, RenderType renderType, boolean ponder) {
+		RandomSource rand, boolean ponder) {
 		PartialModel factoryPanel = panelState == PanelState.PASSIVE
 			? type == PanelType.NETWORK ? AllPartialModels.FACTORY_PANEL : AllPartialModels.FACTORY_PANEL_RESTOCKER
 			: type == PanelType.NETWORK ? AllPartialModels.FACTORY_PANEL_WITH_BULB
 				: AllPartialModels.FACTORY_PANEL_RESTOCKER_WITH_BULB;
 
-		List<BakedQuad> quadsToAdd = factoryPanel.get()
-			.getQuads(state, null, rand, data, RenderTypes.solidMovingBlock());
+		List<BlockStateModelPart> panelParts = new ArrayList<>();
+		factoryPanel.get()
+			.collectParts(rand, panelParts);
+		List<BakedQuad> quadsToAdd = new ArrayList<>();
+		for (BlockStateModelPart part : panelParts)
+			quadsToAdd.addAll(part.getQuads(null));
 
 		float xRot = Mth.RAD_TO_DEG * FactoryPanelBlock.getXRot(state);
 		float yRot = Mth.RAD_TO_DEG * FactoryPanelBlock.getYRot(state);
 
 		for (BakedQuad bakedQuad : quadsToAdd) {
-			int[] vertices = bakedQuad.getVertices();
-			int[] transformedVertices = Arrays.copyOf(vertices, vertices.length);
-
-			Vec3 quadNormal = Vec3.atLowerCornerOf(bakedQuad.getDirection()
+			Vec3 quadNormal = Vec3.atLowerCornerOf(bakedQuad.direction()
 				.getUnitVec3i());
 			quadNormal = VecHelper.rotate(quadNormal, 180, Axis.Y);
 			quadNormal = VecHelper.rotate(quadNormal, xRot + 90, Axis.X);
 			quadNormal = VecHelper.rotate(quadNormal, yRot, Axis.Y);
 
-			for (int i = 0; i < vertices.length / BakedQuadHelper.VERTEX_STRIDE; i++) {
-				Vec3 vertex = BakedQuadHelper.getXYZ(vertices, i);
-				Vec3 normal = BakedQuadHelper.getNormalXYZ(vertices, i);
-
+			// The per-vertex normal the old code computed was thrown away -- it
+			// wrote a constant -- so only the positions are carried over.
+			BakedQuadHelper.Editor edit = BakedQuadHelper.edit(bakedQuad);
+			for (int i = 0; i < 4; i++) {
+				Vec3 vertex = edit.getXYZ(i);
 				vertex = vertex.add(slot.xOffset * .5, 0, slot.yOffset * .5);
 				vertex = VecHelper.rotateCentered(vertex, 180, Axis.Y);
 				vertex = VecHelper.rotateCentered(vertex, xRot + 90, Axis.X);
 				vertex = VecHelper.rotateCentered(vertex, yRot, Axis.Y);
-
-				normal = VecHelper.rotate(normal, 180, Axis.Y);
-				normal = VecHelper.rotate(normal, xRot + 90, Axis.X);
-				normal = VecHelper.rotate(normal, yRot, Axis.Y);
-
-				BakedQuadHelper.setXYZ(transformedVertices, i, vertex);
-				BakedQuadHelper.setNormalXYZ(transformedVertices, i, new Vec3(0, 1, 0));
+				edit.setXYZ(i, vertex);
 			}
 
-			Direction newNormal = Direction.fromDelta((int) Math.round(quadNormal.x), (int) Math.round(quadNormal.y),
-				(int) Math.round(quadNormal.z));
-			quads.add(new BakedQuad(transformedVertices, bakedQuad.getTintIndex(), newNormal, bakedQuad.materialInfo().sprite(),
-				!ponder && bakedQuad.isShade()));
+			quads.add(edit.build());
 		}
-
 	}
 
-	private static class FactoryPanelModelData {
+	public static class FactoryPanelModelData {
 		public PanelType type;
 		public EnumMap<PanelSlot, PanelState> states = new EnumMap<>(PanelSlot.class);
 		private boolean ponder;
