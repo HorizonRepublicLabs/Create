@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.data.MultipartModels;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.EAST;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.NORTH;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.SOUTH;
@@ -39,7 +41,7 @@ public class MetalBarsGen {
 			Identifier side = barsSubModel(p, name, "side", specialEdge);
 			Identifier side_alt = barsSubModel(p, name, "side_alt", specialEdge);
 
-			p.getMultipartBuilder(c.get())
+			MultipartModels.getMultipartBuilder(p, c.get())
 				.part()
 				.modelFile(post_ends)
 				.addModel()

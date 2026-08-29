@@ -1,6 +1,8 @@
 
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.data.MultipartModels;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
@@ -45,8 +47,6 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import com.simibubi.create.foundation.data.VariantModels.ConfiguredModel;
 
-import net.neoforged.neoforge.client.model.generators.Identifier.ExistingModelFile;
-import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 
 public class BlockStateGen {
 
@@ -274,7 +274,7 @@ public class BlockStateGen {
 					.texture("side", side_sticky));
 			}
 
-			MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
+			MultipartModels.Builder builder = MultipartModels.getMultipartBuilder(p, c.get());
 			BlockState propertyGetter = c.get()
 				.defaultBlockState()
 				.setValue(RadialChassisBlock.AXIS, Axis.Y);
@@ -345,7 +345,7 @@ public class BlockStateGen {
 		return (c, p) -> {
 			Identifier open = AssetLookup.partialBaseModel(c, p, "open");
 			Identifier flat = AssetLookup.partialBaseModel(c, p, "flat");
-			MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
+			MultipartModels.Builder builder = MultipartModels.getMultipartBuilder(p, c.get());
 			for (boolean flatPass : Iterate.trueAndFalse)
 				for (Direction d : Iterate.directions) {
 					int verticalAngle = d == Direction.UP ? 90 : d == Direction.DOWN ? -90 : 0;
@@ -386,7 +386,7 @@ public class BlockStateGen {
 		return (c, p) -> {
 			ModelGenShim models = VariantModels.models(p);
 			String basePath = "block/steam_whistle/extension/";
-			MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
+			MultipartModels.Builder builder = MultipartModels.getMultipartBuilder(p, c.get());
 
 			for (WhistleSize size : WhistleSize.values()) {
 				String basePathSize = basePath + size.getSerializedName() + "_";
@@ -488,7 +488,7 @@ public class BlockStateGen {
 				}
 			}
 
-			MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
+			MultipartModels.Builder builder = MultipartModels.getMultipartBuilder(p, c.get());
 			for (Axis axis : Iterate.axes) {
 				putPart(coreModels, builder, axis, LU, true, false, true, false);
 				putPart(coreModels, builder, axis, RU, true, false, false, true);
@@ -504,7 +504,7 @@ public class BlockStateGen {
 		};
 	}
 
-	private static void putPart(Map<Pair<String, Axis>, Identifier> coreModels, MultiPartBlockStateBuilder builder,
+	private static void putPart(Map<Pair<String, Axis>, Identifier> coreModels, MultipartModels.Builder builder,
 		Axis axis, String s, boolean up, boolean down, boolean left, boolean right) {
 		Direction positiveAxis = Direction.get(AxisDirection.POSITIVE, axis);
 		Map<Direction, BooleanProperty> propertyMap = FluidPipeBlock.PROPERTY_BY_DIRECTION;
