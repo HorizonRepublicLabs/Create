@@ -1,5 +1,10 @@
 package com.simibubi.create.content.processing.recipe;
 
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.function.Consumer;
 
 import org.jetbrains.annotations.NotNull;
@@ -56,20 +61,19 @@ public class ProcessingInventory extends ItemStackHandler {
 	}
 
 	@Override
-	public @NotNull CompoundTag serializeNBT(@NotNull HolderLookup.Provider registries) {
-		CompoundTag nbt = super.serializeNBT(registries);
-		nbt.putFloat("ProcessingTime", remainingTime);
-		nbt.putFloat("RecipeTime", recipeDuration);
-		nbt.putBoolean("AppliedRecipe", appliedRecipe);
-		return nbt;
+	public void serialize(ValueOutput output) {
+		super.serialize(output);
+		output.putFloat("ProcessingTime", remainingTime);
+		output.putFloat("RecipeTime", recipeDuration);
+		output.putBoolean("AppliedRecipe", appliedRecipe);
 	}
 
 	@Override
-	public void deserializeNBT(@NotNull HolderLookup.Provider registries, CompoundTag nbt) {
-		remainingTime = nbt.getFloatOr("ProcessingTime", 0.0F);
-		recipeDuration = nbt.getFloatOr("RecipeTime", 0.0F);
-		appliedRecipe = nbt.getBooleanOr("AppliedRecipe", false);
-		super.deserializeNBT(registries, nbt);
+	public void deserialize(ValueInput input) {
+		remainingTime = input.getFloatOr("ProcessingTime", 0.0F);
+		recipeDuration = input.getFloatOr("RecipeTime", 0.0F);
+		appliedRecipe = input.getBooleanOr("AppliedRecipe", false);
+		super.deserialize(input);
 		if (isEmpty())
 			appliedRecipe = false;
 	}

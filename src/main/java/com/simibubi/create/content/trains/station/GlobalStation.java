@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,7 +72,7 @@ public class GlobalStation extends SingleBlockEntityEdgePoint {
 		NBTHelper.iterateCompoundList(portList, c -> {
 			GlobalPackagePort port = new GlobalPackagePort();
 			port.address = c.getStringOr("Address", "");
-			port.offlineBuffer.deserializeNBT(registries, c.getCompoundOrEmpty("OfflineBuffer"));
+			ValueIOShim.load(port.offlineBuffer, registries, c.getCompoundOrEmpty("OfflineBuffer"));
 			port.primed = c.getBooleanOr("Primed", false);
 			connectedPorts.put(NBTHelper.readBlockPos(c, "Pos"), port);
 		});
@@ -94,7 +96,7 @@ public class GlobalStation extends SingleBlockEntityEdgePoint {
 		nbt.put("Ports", NBTHelper.writeCompoundList(connectedPorts.entrySet(), e -> {
 			CompoundTag c = new CompoundTag();
 			c.putString("Address", e.getValue().address);
-			c.put("OfflineBuffer", e.getValue().offlineBuffer.serializeNBT(registries));
+			c.put("OfflineBuffer", ValueIOShim.save(e.getValue().offlineBuffer, registries));
 			c.putBoolean("Primed", e.getValue().primed);
 			c.store("Pos", BlockPos.CODEC, e.getKey());
 			return c;

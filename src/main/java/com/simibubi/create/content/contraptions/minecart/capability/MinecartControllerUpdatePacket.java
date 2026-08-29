@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart.capability;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -30,7 +32,7 @@ public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag
 	);
 
 	public MinecartControllerUpdatePacket(MinecartController controller, @NotNull HolderLookup.Provider registries) {
-		this(controller.cart().getId(), controller.isEmpty() ? null : controller.serializeNBT(registries));
+		this(controller.cart().getId(), controller.isEmpty() ? null : ValueIOShim.save(controller, registries));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -43,7 +45,7 @@ public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag
 				entityByID.removeData(AllAttachmentTypes.MINECART_CONTROLLER);
 			} else {
 				MinecartController controller = entityByID.getData(AllAttachmentTypes.MINECART_CONTROLLER);
-				controller.deserializeNBT(player.registryAccess(), nbt);
+				ValueIOShim.load(controller, player.registryAccess(), nbt);
 			}
 		}
 	}

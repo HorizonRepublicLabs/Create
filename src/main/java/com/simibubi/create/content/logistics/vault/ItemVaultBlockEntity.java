@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.vault;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.List;
@@ -296,7 +298,7 @@ public class ItemVaultBlockEntity extends SmartBlockEntity implements IMultiBloc
 		}
 
 		if (!clientPacket) {
-			inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
+			ValueIOShim.load(inventory, registries, compound.getCompoundOrEmpty("Inventory"));
 			return;
 		}
 
@@ -324,7 +326,7 @@ public class ItemVaultBlockEntity extends SmartBlockEntity implements IMultiBloc
 
 		if (!clientPacket) {
 			compound.putString("StorageType", "CombinedInv");
-			compound.put("Inventory", inventory.serializeNBT(registries));
+			compound.put("Inventory", ValueIOShim.save(inventory, registries));
 		}
 	}
 

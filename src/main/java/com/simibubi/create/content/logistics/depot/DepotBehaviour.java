@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -227,7 +229,7 @@ public class DepotBehaviour extends BlockEntityBehaviour implements Clearable {
 	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		if (heldItem != null)
 			compound.put("HeldItem", heldItem.serializeNBT(registries));
-		compound.put("OutputBuffer", processingOutputBuffer.serializeNBT(registries));
+		compound.put("OutputBuffer", ValueIOShim.save(processingOutputBuffer, registries));
 		if (canMergeItems() && !incoming.isEmpty())
 			compound.put("Incoming", NBTHelper.writeCompoundList(incoming, stack -> stack.serializeNBT(registries)));
 	}
@@ -237,7 +239,7 @@ public class DepotBehaviour extends BlockEntityBehaviour implements Clearable {
 		heldItem = null;
 		if (compound.contains("HeldItem"))
 			heldItem = TransportedItemStack.read(compound.getCompoundOrEmpty("HeldItem"), registries);
-		processingOutputBuffer.deserializeNBT(registries, compound.getCompoundOrEmpty("OutputBuffer"));
+		ValueIOShim.load(processingOutputBuffer, registries, compound.getCompoundOrEmpty("OutputBuffer"));
 		if (canMergeItems()) {
 			ListTag list = compound.getListOrEmpty("Incoming");
 			incoming = NBTHelper.readCompoundList(list, c -> TransportedItemStack.read(c, registries));

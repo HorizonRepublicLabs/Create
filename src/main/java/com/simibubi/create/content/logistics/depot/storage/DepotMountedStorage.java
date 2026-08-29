@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot.storage;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
@@ -85,7 +87,7 @@ public class DepotMountedStorage extends WrapperMountedItemStorage<Handler> impl
 
 	public static DepotMountedStorage fromLegacy(HolderLookup.Provider registries, CompoundTag nbt) {
 		ItemStackHandler handler = new ItemStackHandler();
-		handler.deserializeNBT(registries, nbt);
+		ValueIOShim.load(handler, registries, nbt);
 		if (handler.getSlots() == 1) {
 			ItemStack stack = handler.getStackInSlot(0);
 			return new DepotMountedStorage(stack);

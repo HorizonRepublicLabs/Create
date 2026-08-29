@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -222,7 +224,7 @@ public abstract class LaunchedItem {
 		public CompoundTag serializeNBT(HolderLookup.Provider registries) {
 			CompoundTag serializeNBT = super.serializeNBT(registries);
 			if (entity != null)
-				serializeNBT.put("Entity", entity.serializeNBT(registries));
+				serializeNBT.put("Entity", ValueIOShim.saveEntity(entity, registries));
 			return serializeNBT;
 		}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.util.ArrayList;
@@ -456,7 +458,7 @@ public class MountedStorageManager {
 			} else {
 				// we can create a fallback storage safely, it will be validated before unmounting
 				ItemStackHandler handler = new ItemStackHandler();
-				handler.deserializeNBT(registries, data);
+				ValueIOShim.load(handler, registries, data);
 				this.addStorage(new FallbackMountedStorage(handler), pos);
 			}
 		});

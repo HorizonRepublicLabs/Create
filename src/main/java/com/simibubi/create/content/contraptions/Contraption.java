@@ -786,7 +786,7 @@ public abstract class Contraption {
 
 		stabilizedSubContraptions.clear();
 		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("SubContraptions"),
-			c -> stabilizedSubContraptions.put(c.read("Id", UUIDUtil.CODEC).orElseThrow(), BlockFace.fromNBT(c.getCompoundOrEmpty("Location"))));
+			c -> stabilizedSubContraptions.put(c.read("Id", UUIDUtil.CODEC).orElseThrow(), c.read("Location", BlockFace.CODEC).orElseThrow()));
 
 		interactors.clear();
 		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Interactors"), c -> {
@@ -878,8 +878,7 @@ public abstract class Contraption {
 		nbt.put("SubContraptions", NBTHelper.writeCompoundList(stabilizedSubContraptions.entrySet(), e -> {
 			CompoundTag tag = new CompoundTag();
 			tag.store("Id", UUIDUtil.CODEC, e.getKey());
-			tag.put("Location", e.getValue()
-				.serializeNBT());
+			tag.store("Location", BlockFace.CODEC, e.getValue());
 			return tag;
 		}));
 

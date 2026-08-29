@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.table;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.List;
@@ -62,7 +64,7 @@ public class SchematicTableBlockEntity extends SmartBlockEntity implements MenuP
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
+		ValueIOShim.load(inventory, registries, compound.getCompoundOrEmpty("Inventory"));
 		super.read(compound, registries, clientPacket);
 		if (!clientPacket)
 			return;
@@ -79,7 +81,7 @@ public class SchematicTableBlockEntity extends SmartBlockEntity implements MenuP
 
 	@Override
 	protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		compound.put("Inventory", inventory.serializeNBT(registries));
+		compound.put("Inventory", ValueIOShim.save(inventory, registries));
 		super.write(compound, registries, clientPacket);
 		if (clientPacket && isUploading) {
 			compound.putBoolean("Uploading", true);

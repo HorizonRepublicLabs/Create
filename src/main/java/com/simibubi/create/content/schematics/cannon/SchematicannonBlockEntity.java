@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -172,7 +174,7 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		if (!clientPacket) {
-			inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
+			ValueIOShim.load(inventory, registries, compound.getCompoundOrEmpty("Inventory"));
 		}
 
 		// Gui information
@@ -246,7 +248,7 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 	@Override
 	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		if (!clientPacket) {
-			compound.put("Inventory", inventory.serializeNBT(registries));
+			compound.put("Inventory", ValueIOShim.save(inventory, registries));
 			if (state == State.RUNNING) {
 				compound.putBoolean("Running", true);
 			}

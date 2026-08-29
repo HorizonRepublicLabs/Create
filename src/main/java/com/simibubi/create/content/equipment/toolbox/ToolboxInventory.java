@@ -1,5 +1,11 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.minecraft.world.level.storage.ValueOutput;
+
+import net.minecraft.world.level.storage.ValueInput;
+
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -162,10 +168,9 @@ public class ToolboxInventory extends ItemStackHandler {
 	}
 
 	@Override
-	public @NotNull CompoundTag serializeNBT(@NotNull HolderLookup.Provider registries) {
-		CompoundTag compound = super.serializeNBT(registries);
-		compound.put("Compartments", NBTHelper.writeItemList(filters, registries));
-		return compound;
+	public void serialize(ValueOutput output) {
+		super.serialize(output);
+		output.store("Compartments", ItemStack.OPTIONAL_CODEC.listOf(), filters);
 	}
 
 	@Override
@@ -177,14 +182,15 @@ public class ToolboxInventory extends ItemStackHandler {
 	}
 
 	@Override
-	public void deserializeNBT(@NotNull HolderLookup.Provider registries, CompoundTag nbt) {
-		filters = NBTHelper.readItemList(nbt.getListOrEmpty("Compartments"), registries);
+	public void deserialize(ValueInput input) {
+		filters = new ArrayList<>(input.read("Compartments", ItemStack.OPTIONAL_CODEC.listOf())
+			.orElse(List.of()));
 		if (filters.size() != 8) {
 			filters.clear();
 			for (int i = 0; i < 8; i++)
 				filters.add(ItemStack.EMPTY);
 		}
-		super.deserializeNBT(registries, nbt);
+		super.deserialize(input);
 	}
 
 	public ItemStack distributeToCompartment(@NotNull ItemStack stack, int compartment, boolean simulate) {

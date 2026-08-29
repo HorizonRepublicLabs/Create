@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.vault;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
@@ -53,7 +55,7 @@ public class ItemVaultMountedStorage extends WrapperMountedItemStorage<ItemStack
 
 	public static ItemVaultMountedStorage fromLegacy(HolderLookup.Provider registries,  CompoundTag nbt) {
 		ItemStackHandler handler = new ItemStackHandler();
-		handler.deserializeNBT(registries, nbt);
+		ValueIOShim.load(handler, registries, nbt);
 		return new ItemVaultMountedStorage(handler);
 	}
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
 import org.jetbrains.annotations.Nullable;
@@ -95,12 +97,12 @@ public class OpenEndedPipe extends FlowSource {
 		CompoundTag compound = new CompoundTag();
 		fluidHandler.writeToNBT(registries, compound);
 		compound.putBoolean("Pulling", wasPulling);
-		compound.put("Location", location.serializeNBT());
+		compound.put("Location", ValueIOShim.encode(BlockFace.CODEC, location, registries));
 		return compound;
 	}
 
 	public static OpenEndedPipe fromNBT(CompoundTag compound, HolderLookup.Provider registries, BlockPos blockEntityPos) {
-		BlockFace fromNBT = BlockFace.fromNBT(compound.getCompoundOrEmpty("Location"));
+		BlockFace fromNBT = ValueIOShim.decode(BlockFace.CODEC, compound.getCompoundOrEmpty("Location"), registries);
 		OpenEndedPipe oep = new OpenEndedPipe(new BlockFace(blockEntityPos, fromNBT.getFace()));
 
 		oep.fluidHandler.readFromNBT(registries, compound);

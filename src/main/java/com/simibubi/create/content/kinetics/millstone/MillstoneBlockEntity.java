@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.millstone;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -191,16 +193,16 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements Clearabl
 	@Override
 	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		compound.putInt("Timer", timer);
-		compound.put("InputInventory", inputInv.serializeNBT(registries));
-		compound.put("OutputInventory", outputInv.serializeNBT(registries));
+		compound.put("InputInventory", ValueIOShim.save(inputInv, registries));
+		compound.put("OutputInventory", ValueIOShim.save(outputInv, registries));
 		super.write(compound, registries, clientPacket);
 	}
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		timer = compound.getIntOr("Timer", 0);
-		inputInv.deserializeNBT(registries, compound.getCompoundOrEmpty("InputInventory"));
-		outputInv.deserializeNBT(registries, compound.getCompoundOrEmpty("OutputInventory"));
+		ValueIOShim.load(inputInv, registries, compound.getCompoundOrEmpty("InputInventory"));
+		ValueIOShim.load(outputInv, registries, compound.getCompoundOrEmpty("OutputInventory"));
 		super.read(compound, registries, clientPacket);
 	}
 
