@@ -20,14 +20,7 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.MeshData;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.AllSoundEvents;
@@ -341,7 +334,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		for (LineInfo line : cache.lines)
 			graphics.text(font, line.asComponent, line.x, line.y, 0x311A00, false);
 
-		renderHighlight(cache.selection);
+		renderHighlight(graphics, cache.selection);
 		renderCursor(graphics, cache.cursor, cache.cursorAtEnd);
 	}
 
@@ -556,29 +549,14 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		}
 	}
 
-	private void renderHighlight(Rect2i[] pSelected) {
-		Tesselator tesselator = Tesselator.getInstance();
-		BufferBuilder bufferbuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-//		RenderSystem.disableTexture();
-		RenderSystem.enableColorLogicOp();
-		RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);
-
+	/// The manual logic-op inversion is gone; GuiGraphics draws selection
+	/// highlights itself through the invert pipeline.
+	private void renderHighlight(GuiGraphicsExtractor graphics, Rect2i[] pSelected) {
 		for (Rect2i rect2i : pSelected) {
 			int i = rect2i.getX();
 			int j = rect2i.getY();
-			int k = i + rect2i.getWidth();
-			int l = j + rect2i.getHeight();
-			bufferbuilder.addVertex(i, l, 0);
-			bufferbuilder.addVertex(k, l, 0);
-			bufferbuilder.addVertex(k, j, 0);
-			bufferbuilder.addVertex(i, j, 0);
+			graphics.textHighlight(i, j, i + rect2i.getWidth(), j + rect2i.getHeight(), true);
 		}
-
-		@Nullable MeshData meshData = bufferbuilder.build();
-		if (meshData != null)
-			BufferUploader.drawWithShader(meshData);
-		RenderSystem.disableColorLogicOp();
-//		RenderSystem.enableTexture();
 	}
 
 	private Pos2i convertScreenToLocal(Pos2i pScreenPos) {
