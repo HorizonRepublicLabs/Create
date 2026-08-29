@@ -341,7 +341,7 @@ public class CarriageContraption extends Contraption {
 				if (withinVisible(pos)) {
 					values.put(pos, info.state());
 				} else if (atSeam(pos)) {
-					values.put(pos, Blocks.PURPLE_STAINED_GLASS.defaultBlockState());
+					values.put(pos, Blocks.STAINED_GLASS.purple().defaultBlockState());
 				}
 			});
 			return new RenderedBlocks(pos -> values.getOrDefault(pos, Blocks.AIR.defaultBlockState()), values.keySet());

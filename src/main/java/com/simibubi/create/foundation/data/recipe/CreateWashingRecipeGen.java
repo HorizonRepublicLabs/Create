@@ -42,7 +42,7 @@ public final class CreateWashingRecipeGen extends WashingRecipeGen {
 	GeneratedRecipe
 
 		WOOL = create("wool", b -> b.require(ItemTags.WOOL)
-		.output(Items.WHITE_WOOL)),
+		.output(Items.WOOL.white())),
 
 	STAINED_GLASS = create("stained_glass", b -> b.require(Tags.Items.GLASS_BLOCKS)
 		.output(Items.GLASS)),

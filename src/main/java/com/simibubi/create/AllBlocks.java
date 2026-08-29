@@ -1976,7 +1976,7 @@ public class AllBlocks {
 	public static final DyedBlockList<TableClothBlock> TABLE_CLOTHS = new DyedBlockList<>(colour -> {
 		String colourName = colour.getSerializedName();
 		return REGISTRATE.block(colourName + "_table_cloth", p -> new TableClothBlock(p, colour))
-			.transform(BuilderTransformers.tableCloth(colourName, () -> Blocks.BLACK_CARPET, true))
+			.transform(BuilderTransformers.tableCloth(colourName, () -> Blocks.CARPET.black(), true))
 			.properties(p -> p.mapColor(colour))
 			.recipe((c, p) -> {
 				ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, c.get(), 2)

@@ -57,7 +57,7 @@ public class TestMisc {
 				helper.fail("Schematicannon not done");
 			}
 			BlockPos lastBlock = new BlockPos(1, 4, 7);
-			helper.assertBlockPresent(Blocks.RED_WOOL, lastBlock);
+			helper.assertBlockPresent(Blocks.WOOL.red(), lastBlock);
 		});
 	}
 
@@ -67,7 +67,7 @@ public class TestMisc {
 		Sheep sheep = helper.getFirstEntity(EntityType.SHEEP, sheepPos);
 		sheep.shear(SoundSource.NEUTRAL);
 		helper.succeedWhen(() -> {
-			helper.assertItemEntityPresent(Items.WHITE_WOOL, sheepPos, 2);
+			helper.assertItemEntityPresent(Items.WOOL.white(), sheepPos, 2);
 		});
 	}
 
