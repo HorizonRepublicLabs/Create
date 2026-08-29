@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.pipes.valve;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -50,7 +52,7 @@ public class FluidValveRenderer extends KineticBlockEntityRenderer<FluidValveBlo
 			.rotateYDegrees(pointerRotationOffset + pointerRotation)
 			.uncenter()
 			.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -75,7 +77,7 @@ public class FactoryPanelModel extends BakedModelWrapperWithData {
 				: AllPartialModels.FACTORY_PANEL_RESTOCKER_WITH_BULB;
 
 		List<BakedQuad> quadsToAdd = factoryPanel.get()
-			.getQuads(state, null, rand, data, RenderType.solid());
+			.getQuads(state, null, rand, data, RenderTypes.solidMovingBlock());
 
 		float xRot = Mth.RAD_TO_DEG * FactoryPanelBlock.getXRot(state);
 		float yRot = Mth.RAD_TO_DEG * FactoryPanelBlock.getYRot(state);

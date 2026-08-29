@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -53,7 +55,7 @@ public class DrillRenderer extends KineticBlockEntityRenderer<DrillBlockEntity> 
 			.uncenter()
 			.light(LevelRenderer.getLightColor(renderWorld, context.localPos))
 			.useLevelLight(context.world, matrices.getWorld())
-			.renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderType.solid()));
+			.renderInto(matrices.getViewProjection(), buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 }

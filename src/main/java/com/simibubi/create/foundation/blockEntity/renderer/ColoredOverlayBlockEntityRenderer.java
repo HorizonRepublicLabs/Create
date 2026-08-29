@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.renderer;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -22,7 +24,7 @@ public abstract class ColoredOverlayBlockEntityRenderer<T extends BlockEntity> e
 		if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 
 		SuperByteBuffer render = render(getOverlayBuffer(be), getColor(be, partialTicks), light);
-		render.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+		render.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 	protected abstract int getColor(T be, float partialTicks);

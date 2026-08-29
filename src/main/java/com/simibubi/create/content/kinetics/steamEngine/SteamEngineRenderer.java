@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.steamEngine;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -50,7 +52,7 @@ public class SteamEngineRenderer extends SafeBlockEntityRenderer<SteamEngineBloc
 		float distance = Mth.sqrt(Mth.square(piston - 6 / 16f * Mth.sin(angle)));
 		float angle2 = (float) Math.acos(distance / (14 / 16f)) * (Mth.cos(angle) >= 0 ? 1f : -1f);
 
-		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
+		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
 
 		transformed(AllPartialModels.ENGINE_PISTON, blockState, facing, roll90)
 			.translate(0, piston + 20 / 16f, 0)

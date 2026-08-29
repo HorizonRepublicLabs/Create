@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -82,7 +84,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 
 			PoseStack localTransforms = new PoseStack();
 			var msr = TransformStack.of(localTransforms);
-			VertexConsumer vb = buffer.getBuffer(RenderType.solid());
+			VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
 			float renderTick = AnimationTickHolder.getRenderTime(be.getLevel());
 
 			msr.center()

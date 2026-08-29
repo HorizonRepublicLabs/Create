@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.signal;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -44,11 +46,11 @@ public class SignalRenderer extends SafeBlockEntityRenderer<SignalBlockEntity> {
 		if (signalState.isRedLight(renderTime))
 			CreateCachedBuffers.partial(AllPartialModels.SIGNAL_ON, blockState)
 				.light(LightCoordsUtil.pack(15, 0))
-				.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+				.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 		else
 			CreateCachedBuffers.partial(AllPartialModels.SIGNAL_OFF, blockState)
 				.light(light)
-				.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+				.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 
 		BlockPos pos = be.getBlockPos();
 		TrackTargetingBehaviour<SignalBoundary> target = be.edgePoint;

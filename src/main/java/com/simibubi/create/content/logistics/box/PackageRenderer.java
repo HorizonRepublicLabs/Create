@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.box;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -51,7 +53,7 @@ public class PackageRenderer extends EntityRenderer<PackageEntity> {
 			.rotateCentered(-AngleHelper.rad(yaw + 90), Direction.UP)
 			.light(light)
 			.nudge(entity.getId());
-		sbb.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+		sbb.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 	@Override

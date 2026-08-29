@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crank;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -31,7 +33,7 @@ public class HandCrankRenderer extends KineticBlockEntityRenderer<HandCrankBlock
 		Direction facing = be.getBlockState()
 			.getValue(FACING);
 		kineticRotationTransform(be.getRenderedHandle(), be, facing.getAxis(), AngleHelper.rad(be.getIndependentAngle(partialTicks)), light)
-			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 }

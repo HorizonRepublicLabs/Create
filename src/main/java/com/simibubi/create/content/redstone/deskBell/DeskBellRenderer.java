@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.deskBell;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -44,7 +46,7 @@ public class DeskBellRenderer extends SmartBlockEntityRenderer<DeskBellBlockEnti
 			.translate(0, f * -.75f / 16f, 0)
 			.light(light)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 
 		CreateCachedBuffers.partial(AllPartialModels.DESK_BELL_BELL, blockState)
 			.center()
@@ -58,7 +60,7 @@ public class DeskBellRenderer extends SmartBlockEntityRenderer<DeskBellBlockEnti
 			.uncenter()
 			.light(light)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 }

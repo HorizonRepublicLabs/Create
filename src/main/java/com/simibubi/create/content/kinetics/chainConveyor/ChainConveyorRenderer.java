@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.chainConveyor;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -63,7 +65,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 		CreateCachedBuffers.partial(AllPartialModels.CHAIN_CONVEYOR_WHEEL, be.getBlockState())
 			.light(light)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 
 		for (ChainConveyorPackage box : be.loopingPackages)
 			renderBox(be, ms, buffer, overlay, pos, box, partialTicks);
@@ -130,7 +132,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 
 			buf.light(light)
 				.overlay(overlay)
-				.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
+				.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 		}
 	}
 
@@ -168,7 +170,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 				guard.uncenter();
 				guard.light(light)
 					.overlay(overlay)
-					.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
+					.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 			}
 
 			ms.pushPose();
@@ -268,7 +270,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 
 	@Override
 	protected RenderType getRenderType(ChainConveyorBlockEntity be, BlockState state) {
-		return RenderType.cutoutMipped();
+		return RenderTypes.cutoutMovingBlock();
 	}
 
 }

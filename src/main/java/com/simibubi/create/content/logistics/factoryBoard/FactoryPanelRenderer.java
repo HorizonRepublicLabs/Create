@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -66,7 +68,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 			.translate(behaviour.slot.xOffset * .5, 0, behaviour.slot.yOffset * .5)
 			.light(glow > 0.125f ? LightCoordsUtil.FULL_BRIGHT : light)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderType.translucent()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.translucentMovingBlock()));
 
 		if (glow < .125f)
 			return;
@@ -160,7 +162,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 			connectionSprite.color(color)
 				.light(light)
 				.overlay(overlay)
-				.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
+				.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 
 			if (pathReversed) {
 				currentX += direction.getStepX() * .5;

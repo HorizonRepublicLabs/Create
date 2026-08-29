@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category.animations;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import org.joml.Matrix3x2fStack;
@@ -89,7 +91,7 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 		CreateCachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
 		.shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll)
 		.light(LightCoordsUtil.FULL_BRIGHT)
-			.renderInto(matrixStack, graphics.bufferSource().getBuffer(RenderType.cutoutMipped()));
+			.renderInto(matrixStack, graphics.bufferSource().getBuffer(RenderTypes.cutoutMovingBlock()));
 		matrixStack.popMatrix();
 	}
 

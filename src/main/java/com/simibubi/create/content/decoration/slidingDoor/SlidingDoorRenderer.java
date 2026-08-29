@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.slidingDoor;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -46,7 +48,7 @@ public class SlidingDoorRenderer extends SafeBlockEntityRenderer<SlidingDoorBloc
 		float value = be.animation.getValue(partialTicks);
 		float value2 = Mth.clamp(value * 10, 0, 1);
 
-		VertexConsumer vb = buffer.getBuffer(RenderType.cutoutMipped());
+		VertexConsumer vb = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
 		Vec3 offset = Vec3.atLowerCornerOf(movementDirection.getUnitVec3i())
 			.scale(value * value * 13 / 16f)
 			.add(Vec3.atLowerCornerOf(facing.getUnitVec3i())

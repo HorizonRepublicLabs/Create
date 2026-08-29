@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -340,7 +342,7 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 				.scale(scale)
 				.translate(-.5, 0, -.5)
 				.light(LevelRenderer.getLightColor(level, pos))
-				.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
+				.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 		ms.popPose();
 	}
 

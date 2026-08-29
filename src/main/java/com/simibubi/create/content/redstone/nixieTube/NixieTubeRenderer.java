@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.nixieTube;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -140,7 +142,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 
 		CreateCachedBuffers.partial(AllPartialModels.SIGNAL_PANEL, blockState)
 			.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 
 		ms.pushPose();
 		ms.translate(1 / 2f, 7.5f / 16f, 1 / 2f);
@@ -171,7 +173,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.light(0xf000f0)
 						.disableDiffuse()
 						.scale(vert ? longSide : 1, vert ? 1 : longSide, 1)
-						.renderInto(ms, buffer.getBuffer(RenderType.translucent()));
+						.renderInto(ms, buffer.getBuffer(RenderTypes.translucentMovingBlock()));
 
 					CachedBuffers
 						.partial(
@@ -215,7 +217,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.light(0xf000f0)
 						.disableDiffuse()
 						.scale(width, height,  1)
-						.renderInto(ms, buffer.getBuffer(RenderType.translucent()));
+						.renderInto(ms, buffer.getBuffer(RenderTypes.translucentMovingBlock()));
 
 					CachedBuffers
 						.partial(AllPartialModels.SIGNAL_COMPUTER_WHITE_GLOW, blockState)

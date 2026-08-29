@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -39,7 +41,7 @@ public class BacktankRenderer extends KineticBlockEntityRenderer<BacktankBlockEn
 				Direction.EAST)
 			.translate(0, -6.5f / 16, -11f / 16);
 		cogs.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 	@Override

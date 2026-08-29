@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -170,7 +172,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 	public void renderFast(MechanicalCrafterBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 		int light) {
 		BlockState blockState = be.getBlockState();
-		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
+		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
 
 		if (!VisualizationManager.supportsVisualization(be.getLevel())) {
 			SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.SHAFTLESS_COGWHEEL, blockState);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort.frogport;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -102,7 +104,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 			.uncenter()
 			.light(light)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 
 		SuperByteBuffer head = CreateCachedBuffers.partial(blockEntity.goggles ? AllPartialModels.FROGPORT_HEAD_GOGGLES : AllPartialModels.FROGPORT_HEAD, blockEntity.getBlockState());
 
@@ -116,7 +118,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 		head.light(light)
 //			.color(color)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 
 		SuperByteBuffer tongue = CreateCachedBuffers.partial(AllPartialModels.FROGPORT_TONGUE, blockEntity.getBlockState());
 
@@ -130,7 +132,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 
 		tongue.light(light)
 			.overlay(overlay)
-			.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 
 		// hat
 
@@ -145,7 +147,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 //			.light(light)
 //			.color(color)
 //			.overlay(overlay)
-//			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+//			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 
 	}
 
@@ -176,7 +178,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 				.uncenter()
 				.light(light)
 				.overlay(overlay)
-				.renderInto(ms, buffer.getBuffer(RenderType.cutout()));
+				.renderInto(ms, buffer.getBuffer(RenderTypes.cutoutMovingBlock()));
 			if (!blockEntity.currentlyDepositing)
 				break;
 		}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -89,7 +91,7 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 	@Override
 	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand) {
 		return getCroppedQuads(state, side, rand, getMaterial(ModelData.EMPTY), ModelData.EMPTY,
-			RenderType.cutoutMipped());
+			RenderTypes.cutoutMovingBlock());
 	}
 
 	@Override

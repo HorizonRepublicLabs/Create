@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -115,7 +117,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 
 	protected void renderComponents(DeployerBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,
 									int light, int overlay) {
-		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
+		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
 		if (!VisualizationManager.supportsVisualization(be.getLevel())) {
 			KineticBlockEntityRenderer.renderRotatingKineticBlock(be, getRenderedBlockState(be), ms, vb, light);
 		}
@@ -160,7 +162,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 										   ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
-		VertexConsumer builder = buffer.getBuffer(RenderType.solid());
+		VertexConsumer builder = buffer.getBuffer(RenderTypes.solidMovingBlock());
 		BlockState blockState = context.state;
 		Mode mode = NBTHelper.readEnum(context.blockEntityData, "Mode", Mode.class);
 		PartialModel handPose = getHandPose(mode);

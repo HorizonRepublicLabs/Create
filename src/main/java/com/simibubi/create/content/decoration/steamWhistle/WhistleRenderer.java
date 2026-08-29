@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.steamWhistle;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -48,7 +50,7 @@ public class WhistleRenderer extends SafeBlockEntityRenderer<WhistleBlockEntity>
 			.uncenter()
 			.translate(0, offset * 4 / 16f, 0)
 			.light(light)
-			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+			.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 }

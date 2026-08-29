@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.model;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import static net.createmod.catnip.api.client.render.SpriteShiftEntry.getUnInterpolatedU;
@@ -102,12 +104,12 @@ public class BakedModelHelper {
 		Map<Direction, List<BakedQuad>> culledFaces = new EnumMap<>(Direction.class);
 		for (Direction cullFace : Iterate.directions) {
 			random.setSeed(42L);
-			List<BakedQuad> quads = template.getQuads(null, cullFace, random, ModelData.EMPTY, RenderType.solid());
+			List<BakedQuad> quads = template.getQuads(null, cullFace, random, ModelData.EMPTY, RenderTypes.solidMovingBlock());
 			culledFaces.put(cullFace, swapSprites(quads, spriteSwapper));
 		}
 
 		random.setSeed(42L);
-		List<BakedQuad> quads = template.getQuads(null, null, random, ModelData.EMPTY, RenderType.solid());
+		List<BakedQuad> quads = template.getQuads(null, null, random, ModelData.EMPTY, RenderTypes.solidMovingBlock());
 		List<BakedQuad> unculledFaces = swapSprites(quads, spriteSwapper);
 
 		TextureAtlasSprite particleSprite = template.getParticleIcon(ModelData.EMPTY);

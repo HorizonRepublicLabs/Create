@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -37,7 +39,7 @@ public class ToolboxRenderer extends SmartBlockEntityRenderer<ToolboxBlockEntity
 		float lidAngle = blockEntity.lid.getValue(partialTicks);
 		float drawerOffset = blockEntity.drawers.getValue(partialTicks);
 
-		VertexConsumer builder = buffer.getBuffer(RenderType.cutoutMipped());
+		VertexConsumer builder = buffer.getBuffer(RenderTypes.cutoutMovingBlock());
 		lid.center()
 			.rotateYDegrees(-facing.toYRot())
 			.uncenter()

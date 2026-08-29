@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -98,7 +100,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 		if (modelTransform != null)
 			blazeBuffer.transform(modelTransform);
 		blazeBuffer.translate(0, headY, 0);
-		draw(blazeBuffer, horizontalAngle, ms, bufferSource.getBuffer(RenderType.solid()));
+		draw(blazeBuffer, horizontalAngle, ms, bufferSource.getBuffer(RenderTypes.solidMovingBlock()));
 
 		if (drawGoggles) {
 			PartialModel gogglesModel = blazeModel == AllPartialModels.BLAZE_INERT
@@ -108,7 +110,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 			if (modelTransform != null)
 				gogglesBuffer.transform(modelTransform);
 			gogglesBuffer.translate(0, headY + 8 / 16f, 0);
-			draw(gogglesBuffer, horizontalAngle, ms, bufferSource.getBuffer(RenderType.solid()));
+			draw(gogglesBuffer, horizontalAngle, ms, bufferSource.getBuffer(RenderTypes.solidMovingBlock()));
 		}
 
 		if (drawHat != null) {
@@ -124,7 +126,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 			} else {
 				hatBuffer.translateY(0.75f);
 			}
-			VertexConsumer cutout = bufferSource.getBuffer(RenderType.cutoutMipped());
+			VertexConsumer cutout = bufferSource.getBuffer(RenderTypes.cutoutMovingBlock());
 			hatBuffer
 					.rotateCentered(horizontalAngle + Mth.PI, Direction.UP)
 					.translate(0.5f, 0, 0.5f)
@@ -143,14 +145,14 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 				rodsBuffer.transform(modelTransform);
 			rodsBuffer.translate(0, offset1 + animation + .125f, 0)
 					.light(LightCoordsUtil.FULL_BRIGHT)
-					.renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+					.renderInto(ms, bufferSource.getBuffer(RenderTypes.solidMovingBlock()));
 
 			SuperByteBuffer rodsBuffer2 = CreateCachedBuffers.partial(rodsModel2, blockState);
 			if (modelTransform != null)
 				rodsBuffer2.transform(modelTransform);
 			rodsBuffer2.translate(0, offset2 + animation - 3 / 16f, 0)
 					.light(LightCoordsUtil.FULL_BRIGHT)
-					.renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
+					.renderInto(ms, bufferSource.getBuffer(RenderTypes.solidMovingBlock()));
 		}
 
 		if (canDrawFlame && blockAbove) {
@@ -182,7 +184,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 				flameBuffer.transform(modelTransform);
 			flameBuffer.shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll);
 
-			VertexConsumer cutout = bufferSource.getBuffer(RenderType.cutoutMipped());
+			VertexConsumer cutout = bufferSource.getBuffer(RenderTypes.cutoutMovingBlock());
 			draw(flameBuffer, horizontalAngle, ms, cutout);
 		}
 

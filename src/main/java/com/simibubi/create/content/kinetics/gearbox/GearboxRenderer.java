@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.gearbox;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -57,7 +59,7 @@ public class GearboxRenderer extends KineticBlockEntityRenderer<GearboxBlockEnti
 			angle = angle / 180f * (float) Math.PI;
 
 			kineticRotationTransform(shaft, be, axis, angle, light);
-			shaft.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+			shaft.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 		}
 	}
 

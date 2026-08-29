@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.bogey;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -24,7 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 public class StandardBogeyRenderer implements BogeyRenderer {
 	@Override
 	public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, SuperRenderTypeBuffer bufferSource, int light, int overlay, boolean inContraption) {
-		VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutoutMipped());
+		VertexConsumer buffer = bufferSource.getBuffer(RenderTypes.cutoutMovingBlock());
 
 		SuperByteBuffer shaft = CachedBuffers.block(AllBlocks.SHAFT.getDefaultState()
 				.setValue(ShaftBlock.AXIS, Direction.Axis.Z));
@@ -44,7 +46,7 @@ public class StandardBogeyRenderer implements BogeyRenderer {
 		public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, SuperRenderTypeBuffer bufferSource, int light, int overlay, boolean inContraption) {
 			super.render(bogeyData, wheelAngle, partialTick, poseStack, bufferSource, light, overlay, inContraption);
 
-			VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutoutMipped());
+			VertexConsumer buffer = bufferSource.getBuffer(RenderTypes.cutoutMovingBlock());
 
 			CreateCachedBuffers.partial(AllPartialModels.BOGEY_FRAME, Blocks.AIR.defaultBlockState())
 					.scale(1 - 1 / 512f)
@@ -71,7 +73,7 @@ public class StandardBogeyRenderer implements BogeyRenderer {
 		public void render(CompoundTag bogeyData, float wheelAngle, float partialTick, PoseStack poseStack, SuperRenderTypeBuffer bufferSource, int light, int overlay, boolean inContraption) {
 			super.render(bogeyData, wheelAngle, partialTick, poseStack, bufferSource, light, overlay, inContraption);
 
-			VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutoutMipped());
+			VertexConsumer buffer = bufferSource.getBuffer(RenderTypes.cutoutMovingBlock());
 
 			SuperByteBuffer secondaryShaft = CachedBuffers.block(AllBlocks.SHAFT.getDefaultState()
 					.setValue(ShaftBlock.AXIS, Direction.Axis.X));

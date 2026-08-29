@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.bearing;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -48,7 +50,7 @@ public class BearingRenderer<T extends KineticBlockEntity & IBearingBlockEntity>
 			superBuffer.rotateCentered(
 					AngleHelper.rad(AngleHelper.horizontalAngle(facing.getOpposite())), Direction.UP);
 		superBuffer.rotateCentered(AngleHelper.rad(-90 - AngleHelper.verticalAngle(facing)), Direction.EAST);
-		superBuffer.renderInto(ms, buffer.getBuffer(RenderType.solid()));
+		superBuffer.renderInto(ms, buffer.getBuffer(RenderTypes.solidMovingBlock()));
 	}
 
 	@Override

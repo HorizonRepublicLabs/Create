@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.funnel;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -33,7 +35,7 @@ public class FunnelRenderer extends SmartBlockEntityRenderer<FunnelBlockEntity> 
 			return;
 
 		BlockState blockState = be.getBlockState();
-		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
+		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
 		PartialModel partialModel = (blockState.getBlock() instanceof FunnelBlock ? AllPartialModels.FUNNEL_FLAP
 			: AllPartialModels.BELT_FUNNEL_FLAP);
 		SuperByteBuffer flapBuffer = CreateCachedBuffers.partial(partialModel, blockState);

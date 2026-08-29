@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.clock;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -36,7 +38,7 @@ public class CuckooClockRenderer extends KineticBlockEntityRenderer<CuckooClockB
 		BlockState blockState = be.getBlockState();
 		Direction direction = blockState.getValue(CuckooClockBlock.HORIZONTAL_FACING);
 
-		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
+		VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
 
 		// Render Hands
 		SuperByteBuffer hourHand = CreateCachedBuffers.partial(AllPartialModels.CUCKOO_HOUR_HAND, blockState);
