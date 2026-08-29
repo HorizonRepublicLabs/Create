@@ -38,13 +38,8 @@ public class OpenCreateMenuButton extends Button {
 
 	@Override
 	public void renderString(GuiGraphicsExtractor graphics, Font pFont, int pColor) {
+		// the model lookup only guarded the draw; graphics.item resolves its own
 		ItemStack icon = AllItems.GOGGLES.asStack();
-		BlockStateModel bakedmodel = Minecraft.getInstance()
-			.getItemRenderer()
-			.getModel(icon, Minecraft.getInstance().level, Minecraft.getInstance().player, 0);
-		if (bakedmodel == null)
-			return;
-		
 		graphics.item(icon, getX() + 2, getY() + 2);
 	}
 
