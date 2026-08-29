@@ -131,8 +131,6 @@ public abstract class ZapperScreen extends AbstractSimiScreen {
 		Matrix3x2fStack ms = graphics.pose();
 		ms.pushMatrix();
 		ms.translate((float) (x + 32), (float) (y + 42));
-		ms.mulPose(Axis.XP.rotationDegrees(-25f));
-		ms.mulPose(Axis.YP.rotationDegrees(-45f));
 		ms.scale((float) (20), (float) (20));
 
 		BlockState state = zapper.getOrDefault(AllDataComponents.SHAPER_BLOCK_USED, Blocks.AIR.defaultBlockState());;

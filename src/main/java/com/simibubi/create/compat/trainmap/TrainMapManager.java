@@ -289,7 +289,7 @@ public class TrainMapManager {
 				pose.translate((float) (x - 2), (float) (y - 2));
 
 				pose.translate(sprite.getWidth() / 2.0, sprite.getHeight() / 2.0, 0);
-				pose.mulPose(Axis.ZP.rotationDegrees(90 * (rotation / 2)));
+				pose.rotate((float) Math.toRadians(90 * (rotation / 2)));
 				pose.translate(-sprite.getWidth() / 2.0, -sprite.getHeight() / 2.0, 0);
 
 				sprite.render(graphics, 0, 0);

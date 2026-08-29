@@ -537,8 +537,6 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			int entityX = x - 35;
 			int entityY = y + windowHeight - 43;
 			ms.translate((float) (entityX), (float) (entityY));
-			ms.mulPose(Axis.XP.rotationDegrees(-22.5f));
-			ms.mulPose(Axis.YP.rotationDegrees(-45));
 			ms.scale((float) (48), (float) (-48));
 			float animation = keeperBE.headAnimation.getValue(AnimationTickHolder.getPartialTicks()) * .175f;
 			float horizontalAngle = AngleHelper.rad(270);
