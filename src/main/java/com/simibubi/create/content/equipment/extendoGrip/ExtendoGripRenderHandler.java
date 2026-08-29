@@ -2,7 +2,6 @@ package com.simibubi.create.content.equipment.extendoGrip;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllPartialModels;
@@ -69,7 +68,6 @@ public class ExtendoGripRenderHandler {
 		PoseStack ms = event.getPoseStack();
 		var msr = TransformStack.of(ms);
 		AbstractClientPlayer abstractclientplayerentity = mc.player;
-		RenderSystem.setShaderTexture(0, abstractclientplayerentity.getSkin().texture());
 
 		float flip = rightHand ? 1.0F : -1.0F;
 		float swingProgress = event.getSwingProgress();

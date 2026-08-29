@@ -1,8 +1,11 @@
 package com.simibubi.create.foundation.gui;
 
+import net.minecraft.client.Minecraft;
+
+import com.mojang.blaze3d.platform.Lighting;
+
 import org.joml.Vector3f;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Axis;
 
 import net.createmod.catnip.api.client.gui.ILightingSettings;
@@ -34,9 +37,17 @@ public class CustomLightingSettings implements ILightingSettings {
 		}
 	}
 
+	/// 26.x drives lighting from preset Lighting.Entry values through the game
+	/// renderer, and RenderSystem.setShaderLights now takes a packed GPU buffer
+	/// rather than two direction vectors. There is no way to hand it the custom
+	/// angles this class computes, so it falls back to the closest stock preset:
+	/// these settings only ever lit block models in JEI panels.
 	@Override
-	public void applyLighting() {
-		RenderSystem.setShaderLights(light1, light2);
+	public void apply() {
+		Minecraft.getInstance()
+			.gameRenderer
+			.lighting()
+			.setupFor(Lighting.Entry.ITEMS_3D);
 	}
 
 	public static Builder builder() {

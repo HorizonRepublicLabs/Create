@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.CreateClient;
@@ -100,7 +99,6 @@ public class TrainMapManager {
 		boolean enabled = AllConfigs.client().showTrainMapOverlay.get();
 		if (CreateClient.RAILWAYS.trackNetworks.isEmpty())
 			return;
-		RenderSystem.enableBlend();
 		Matrix3x2fStack pose = graphics.pose();
 		pose.pushMatrix();
 		pose.translate(0, 0);
@@ -246,7 +244,6 @@ public class TrainMapManager {
 	private static Object drawPoints(GuiGraphicsExtractor graphics, int mouseX, int mouseY, Object hoveredElement,
 		Rect2i bounds) {
 		Matrix3x2fStack pose = graphics.pose();
-		RenderSystem.enableDepthTest();
 
 		for (TrackGraph graph : CreateClient.RAILWAYS.trackNetworks.values()) {
 			for (GlobalStation station : graph.getPoints(EdgePointType.STATION)) {
@@ -314,8 +311,6 @@ public class TrainMapManager {
 	private static Object drawTrains(GuiGraphicsExtractor graphics, int mouseX, int mouseY, Object hoveredElement,
 		Rect2i bounds) {
 		Matrix3x2fStack pose = graphics.pose();
-		RenderSystem.enableDepthTest();
-		RenderSystem.enableBlend();
 
 		int spriteYOffset = -3;
 

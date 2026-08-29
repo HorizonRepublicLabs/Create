@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.blueprint.BlueprintEntity.BlueprintCraftingInventory;
 import com.simibubi.create.content.equipment.blueprint.BlueprintEntity.BlueprintSection;
@@ -353,7 +352,6 @@ public class BlueprintOverlayRenderer {
 
 		// Ingredients
 		for (Pair<ItemStack, Boolean> pair : ingredients) {
-			RenderSystem.enableBlend();
 			(pair.getSecond() ? AllGuiTextures.HOTSLOT_ACTIVE : AllGuiTextures.HOTSLOT).render(guiGraphics, x, y);
 			ItemStack itemStack = pair.getFirst();
 			String count = shopContext != null && !shopContext.checkout() || pair.getSecond() ? null
@@ -367,7 +365,6 @@ public class BlueprintOverlayRenderer {
 
 		// Arrow
 		x += 5;
-		RenderSystem.enableBlend();
 		if (invalidShop)
 			AllGuiTextures.HOTSLOT_ARROW_BAD.render(guiGraphics, x, y + 4);
 		else
@@ -412,7 +409,6 @@ public class BlueprintOverlayRenderer {
 				}
 		}
 
-		RenderSystem.disableBlend();
 	}
 
 	public static void drawItemStack(GuiGraphicsExtractor graphics, Minecraft mc, int x, int y, ItemStack itemStack,

@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -192,8 +191,6 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 		ms.pushPose();
 		ms.translate(x, y, 0);
 
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
 
 		int mouseOffsetX = mouseX - this.width / 2;
 		int mouseOffsetY = mouseY - this.height / 2;
@@ -331,7 +328,6 @@ public class RadialWrenchMenu extends AbstractSimiScreen {
 			.translateY(innerRadius + 3)
 			.translateZ(15);
 
-		RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
 		Tesselator tesselator = Tesselator.getInstance();
 		BufferBuilder bufferbuilder = tesselator.begin(Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);

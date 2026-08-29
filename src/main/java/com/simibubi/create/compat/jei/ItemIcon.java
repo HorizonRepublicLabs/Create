@@ -2,7 +2,6 @@ package com.simibubi.create.compat.jei;
 
 import org.joml.Matrix3x2fStack;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.drawable.IDrawable;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
@@ -37,7 +36,6 @@ public class ItemIcon implements IDrawable {
 			stack = supplier.get();
 		}
 
-		RenderSystem.enableDepthTest();
 		matrixStack.pushMatrix();
 		matrixStack.translate(xOffset + 1, yOffset + 1);
 

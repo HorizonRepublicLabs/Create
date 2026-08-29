@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllKeys;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
@@ -164,7 +163,6 @@ public class ToolboxHandlerClient {
 
 		int x = width / 2 - 90;
 		int y = height - 23;
-		RenderSystem.enableDepthTest();
 
 		Player player = mc.player;
 		CompoundTag persistentData = player.getPersistentData();

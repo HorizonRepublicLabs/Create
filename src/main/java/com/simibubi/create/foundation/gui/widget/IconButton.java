@@ -1,6 +1,5 @@
 package com.simibubi.create.foundation.gui.widget;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.simibubi.create.AllKeys;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
@@ -34,7 +33,6 @@ public class IconButton extends AbstractSimiWidget {
 					: isHovered ? AllGuiTextures.BUTTON_HOVER
 						: green ? AllGuiTextures.BUTTON_GREEN : AllGuiTextures.BUTTON;
 
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			drawBg(graphics, button);
 			icon.render(graphics, getX() + 1, getY() + 1);
 		}

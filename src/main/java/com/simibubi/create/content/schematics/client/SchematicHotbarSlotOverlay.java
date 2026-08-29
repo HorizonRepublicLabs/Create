@@ -3,7 +3,6 @@ package com.simibubi.create.content.schematics.client;
 import org.joml.Matrix3x2fStack;
 
 import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
@@ -16,7 +15,6 @@ public class SchematicHotbarSlotOverlay  {
 		Window mainWindow = Minecraft.getInstance().getWindow();
 		int x = mainWindow.getGuiScaledWidth() / 2 - 88;
 		int y = mainWindow.getGuiScaledHeight() - 19;
-		RenderSystem.enableDepthTest();
 		Matrix3x2fStack ms = graphics.pose();
 		ms.pushMatrix();
 		ms.translate(0, 0);

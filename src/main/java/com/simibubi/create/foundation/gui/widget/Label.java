@@ -2,7 +2,6 @@ package com.simibubi.create.foundation.gui.widget;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.createmod.catnip.api.client.gui.widget.AbstractSimiWidget;
 import net.minecraft.client.Minecraft;
@@ -75,7 +74,6 @@ public class Label extends AbstractSimiWidget {
 		if (text == null || text.getString().isEmpty())
 			return;
 
-		RenderSystem.setShaderColor(1, 1, 1, 1);
 		MutableComponent copy = text.plainCopy();
 		if (suffix != null && !suffix.isEmpty())
 			copy.append(suffix);

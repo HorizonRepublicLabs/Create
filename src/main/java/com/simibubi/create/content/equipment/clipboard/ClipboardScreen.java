@@ -296,7 +296,6 @@ public class ClipboardScreen extends AbstractSimiScreen {
 				.isBlank();
 
 			if (isAddress) {
-				RenderSystem.enableBlend();
 				(checked ? AllGuiTextures.CLIPBOARD_ADDRESS_INACTIVE : AllGuiTextures.CLIPBOARD_ADDRESS)
 					.render(graphics, x + 44, y + 50);
 				text = Component.literal(string.substring(1)
@@ -547,8 +546,6 @@ public class ClipboardScreen extends AbstractSimiScreen {
 	private void renderHighlight(Rect2i[] pSelected) {
 		Tesselator tesselator = Tesselator.getInstance();
 		BufferBuilder bufferbuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-		RenderSystem.setShader(GameRenderer::getPositionShader);
-		RenderSystem.setShaderColor(0.0F, 0.0F, 255.0F, 255.0F);
 //		RenderSystem.disableTexture();
 		RenderSystem.enableColorLogicOp();
 		RenderSystem.logicOp(GlStateManager.LogicOp.OR_REVERSE);

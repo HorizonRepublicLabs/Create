@@ -4,7 +4,6 @@ import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import org.joml.Matrix4f;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.Create;
@@ -186,7 +185,6 @@ public class AllIcons implements ScreenElement {
 
 	@OnlyIn(Dist.CLIENT)
 	public void bind() {
-		RenderSystem.setShaderTexture(0, ICON_ATLAS);
 	}
 
 	@OnlyIn(Dist.CLIENT)

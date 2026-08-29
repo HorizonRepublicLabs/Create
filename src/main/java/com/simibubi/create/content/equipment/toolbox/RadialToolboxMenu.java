@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllKeys;
@@ -200,13 +199,10 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 			if (i1 > 8) {
 				ms.pushPose();
 				ms.translate((float) (width / 2), (float) (height - 68), 0.0F);
-				RenderSystem.enableBlend();
-				RenderSystem.defaultBlendFunc();
 				int k1 = 16777215;
 				int k = i1 << 24 & -16777216;
 				int l = font.width(tip);
 				graphics.text(font, tip, Math.round(-l / 2f), -4, k1 | k, false);
-				RenderSystem.disableBlend();
 				ms.popPose();
 			}
 		}

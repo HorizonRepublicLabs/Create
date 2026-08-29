@@ -4,7 +4,6 @@ import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.function.Supplier;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
@@ -252,7 +251,6 @@ public class ClientEvents {
 		ChainConveyorInteractionHandler.drawCustomBlockSelection(ms, buffer, camera);
 
 		buffer.draw();
-		RenderSystem.enableCull();
 		ms.popPose();
 
 		ContraptionPlayerPassengerRotation.frame();

@@ -20,7 +20,6 @@ import org.lwjgl.glfw.GLFW;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -939,7 +938,6 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 					break;
 			}
 
-			RenderSystem.enableBlend();
 			graphics.blit(NUMBERS.location, 14 + x, 10, 0, NUMBERS.getStartX() + xOffset, NUMBERS.getStartY(),
 				spriteWidth, NUMBERS.getHeight(), 256, 256);
 			x += spriteWidth - 1;
