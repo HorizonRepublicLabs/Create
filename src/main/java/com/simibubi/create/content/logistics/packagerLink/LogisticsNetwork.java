@@ -49,7 +49,7 @@ public class LogisticsNetwork {
 			CompoundTag nbt = new CompoundTag();
 			nbt.store("Pos", BlockPos.CODEC, p.pos());
 			if (p.dimension() != Level.OVERWORLD)
-				NBTHelper.writeResourceLocation(nbt, "Dim", p.dimension().location());
+				NBTHelper.writeResourceLocation(nbt, "Dim", p.dimension().identifier());
 			return nbt;
 		}));
 
