@@ -263,7 +263,7 @@ public class StockTickerBlockEntity extends StockCheckingBlockEntity implements 
 			summary.add(receivedPayments.getStackInSlot(i));
 		for (BigItemStack entry : summary.getStacksByCount())
 			CreateLang.builder()
-				.text(Component.translatable(entry.stack.getDescriptionId())
+				.text(entry.stack.getItemName()
 					.getString() + " x" + entry.count)
 				.style(ChatFormatting.GREEN)
 				.forGoggles(tooltip);
