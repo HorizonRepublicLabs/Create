@@ -61,7 +61,7 @@ public class PackageFilterScreen extends AbstractFilterScreen<PackageFilterMenu>
 		ms.pushPose();
 		ms.translate(guiLeft + 16, guiTop + 23, 0);
 		GuiGameElement.of(PackageStyles.getDefaultBox())
-			.render(graphics);
+			.submit(graphics);
 		ms.popPose();
 	}
 

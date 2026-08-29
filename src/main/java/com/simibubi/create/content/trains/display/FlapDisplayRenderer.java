@@ -145,7 +145,7 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 		public boolean accept(int charIndex, Style style, int glyph) {
 			FontSet fontset = getFontSet();
 			int ticks = paused ? 0 : AnimationTickHolder.getTicks(level);
-			float time = paused ? 0 : AnimationTickHolder.getRenderTime(level);
+			float time = paused ? 0 : AnimationTickHolder.getRenderTime();
 			float dim = 1;
 
 			if (section.renderCharsIndividually() && section.spinning[Math.min(charIndex, section.spinning.length)]) {

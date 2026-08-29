@@ -88,7 +88,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 			PoseStack localTransforms = new PoseStack();
 			var msr = TransformStack.of(localTransforms);
 			VertexConsumer vb = buffer.getBuffer(RenderTypes.solidMovingBlock());
-			float renderTick = AnimationTickHolder.getRenderTime(be.getLevel());
+			float renderTick = AnimationTickHolder.getRenderTime();
 
 			msr.center()
 					.rotateYDegrees(AngleHelper.horizontalAngle(facing) + (upward ? 180 : 0) + (sideways ? 270 : 0))

@@ -42,7 +42,7 @@ public class SignalRenderer extends SafeBlockEntityRenderer<SignalBlockEntity> {
 		SignalState signalState = be.getState();
 		OverlayState overlayState = be.getOverlay();
 
-		float renderTime = AnimationTickHolder.getRenderTime(be.getLevel());
+		float renderTime = AnimationTickHolder.getRenderTime();
 		if (signalState.isRedLight(renderTime))
 			CreateCachedBuffers.partial(AllPartialModels.SIGNAL_ON, blockState)
 				.light(LightCoordsUtil.pack(15, 0))

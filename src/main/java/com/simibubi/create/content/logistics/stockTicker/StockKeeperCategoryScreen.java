@@ -425,7 +425,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 				.GuiRenderBuilder>at(leftPos + AllGuiTextures.STOCK_KEEPER_CATEGORY.getWidth() + 12,
 				topPos + imageHeight - 39, -190)
 			.scale(3)
-			.render(graphics);
+			.submit(graphics);
 
 		action(graphics, mouseX, mouseY, -1);
 

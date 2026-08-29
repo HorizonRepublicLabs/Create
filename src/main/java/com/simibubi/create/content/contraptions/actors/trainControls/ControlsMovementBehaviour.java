@@ -88,7 +88,7 @@ public class ControlsMovementBehaviour implements MovementBehaviour {
 			angles.speed.chase(0, 0, Chaser.EXP);
 		}
 
-		float pt = AnimationTickHolder.getPartialTicks(context.world);
+		float pt = AnimationTickHolder.getPartialTicks();
 		ControlsRenderer.render(context, renderWorld, matrices, buffer, angles.equipAnimation.getValue(pt),
 			angles.speed.getValue(pt), angles.steering.getValue(pt));
 	}

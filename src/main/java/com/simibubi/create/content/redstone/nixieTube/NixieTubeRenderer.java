@@ -146,7 +146,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 
 		ms.pushPose();
 		ms.translate(1 / 2f, 7.5f / 16f, 1 / 2f);
-		float renderTime = AnimationTickHolder.getRenderTime(be.getLevel());
+		float renderTime = AnimationTickHolder.getRenderTime();
 		Vec3 lampVec = Vec3.atCenterOf(be.getBlockPos());
 		Vec3 diff = lampVec.subtract(observerVec);
 

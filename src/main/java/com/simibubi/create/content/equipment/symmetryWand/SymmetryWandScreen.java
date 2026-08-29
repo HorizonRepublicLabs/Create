@@ -135,7 +135,7 @@ public class SymmetryWandScreen extends AbstractSimiScreen {
 			.scale(4)
 			.rotate(-70, 20, 20)
 			.at(x + 178, y + 448, -150)
-			.render(graphics);
+			.submit(graphics);
 	}
 
 	protected void renderBlock(GuiGraphicsExtractor graphics, int x, int y) {

@@ -46,7 +46,7 @@ public class MechanicalMixerRenderer extends KineticBlockEntityRenderer<Mechanic
 
 		float renderedHeadOffset = be.getRenderedHeadOffset(partialTicks);
 		float speed = be.getRenderedHeadRotationSpeed(partialTicks);
-		float time = AnimationTickHolder.getRenderTime(be.getLevel());
+		float time = AnimationTickHolder.getRenderTime();
 		float angle = ((time * speed * 6 / 10f) % 360) / 180 * (float) Math.PI;
 
 		SuperByteBuffer poleRender = CreateCachedBuffers.partial(AllPartialModels.MECHANICAL_MIXER_POLE, blockState);

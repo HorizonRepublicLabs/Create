@@ -133,7 +133,7 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 
 		GuiGameElement.of(AllBlocks.TOOLBOXES.get(color)
 			.getDefaultState())
-			.render(graphics);
+			.submit(graphics);
 
         TransformStack.of(ms)
 			.pushPose()

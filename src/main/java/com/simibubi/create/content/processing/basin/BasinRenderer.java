@@ -79,7 +79,7 @@ public class BasinRenderer extends SmartBlockEntityRenderer<BasinBlockEntity> {
 			if (fluidLevel > 0) {
 				ms.translate(0,
 					(Mth.sin(
-							AnimationTickHolder.getRenderTime(basin.getLevel()) / 12f + anglePartition * itemCount) + 1.5f)
+							AnimationTickHolder.getRenderTime() / 12f + anglePartition * itemCount) + 1.5f)
 						* 1 / 32f,
 					0);
 			}

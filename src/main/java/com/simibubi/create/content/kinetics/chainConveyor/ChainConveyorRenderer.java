@@ -138,7 +138,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 
 	private void renderChains(ChainConveyorBlockEntity be, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
-		float time = AnimationTickHolder.getRenderTime(be.getLevel()) / (360f / Math.abs(be.getSpeed()));
+		float time = AnimationTickHolder.getRenderTime() / (360f / Math.abs(be.getSpeed()));
 		time %= 1;
 		if (time < 0)
 			time += 1;

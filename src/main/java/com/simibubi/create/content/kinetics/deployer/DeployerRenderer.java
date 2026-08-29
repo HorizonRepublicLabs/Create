@@ -103,7 +103,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 			ms.translate(0, isBlockItem ? 9 / 16f : 11 / 16f, 0);
 			ms.scale(scale, scale, scale);
 			transform = ItemDisplayContext.GROUND;
-			ms.mulPose(Axis.YP.rotationDegrees(AnimationTickHolder.getRenderTime(be.getLevel())));
+			ms.mulPose(Axis.YP.rotationDegrees(AnimationTickHolder.getRenderTime()));
 
 		} else {
 			float scale = punching ? .75f : isBlockItem ? .75f - 1 / 64f : .5f;
@@ -198,7 +198,7 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 			axis = def.getRotationAxis(context.state);
 		}
 
-		float time = AnimationTickHolder.getRenderTime(context.world) / 20;
+		float time = AnimationTickHolder.getRenderTime() / 20;
 		float angle = (time * speed) % 360;
 
 		TransformStack.of(m)
