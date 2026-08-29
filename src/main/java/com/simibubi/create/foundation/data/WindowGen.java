@@ -124,7 +124,7 @@ public class WindowGen {
 		return REGISTRATE.block(name, p -> new WindowBlock(p, translucent))
 			.onRegister(ct == null ? $ -> {
 			} : connectedTextures(() -> new HorizontalCTBehaviour(ct.get())))
-			.recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
+			.recipe((c, p) -> ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
 				.pattern(" # ")
 				.pattern("#X#")
 				.define('#', ingredient.get())
@@ -247,7 +247,7 @@ public class WindowGen {
 				.defaultMapColor()))
 			.blockstate(() -> stateProvider)
 			.recipe((c, p) -> {
-				ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
+				ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
 					.pattern("###")
 					.pattern("###")
 					.define('#', parent.get())

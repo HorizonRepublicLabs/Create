@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.block;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+
 import com.simibubi.create.foundation.data.VariantModels;
 
 import java.util.EnumMap;
@@ -142,7 +144,7 @@ public class CopperBlockSet {
 			builder.recipe((ctx, prov) -> {
 				if (waxed) {
 					Block unwaxed = get(variant, state, false).get();
-					ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ctx.get())
+					ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, ctx.get())
 						.requires(unwaxed)
 						.requires(Items.HONEYCOMB)
 						.unlockedBy("has_unwaxed", prov.has(unwaxed))

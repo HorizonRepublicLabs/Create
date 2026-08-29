@@ -204,7 +204,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 			p.slab(DataIngredient.items(patternBlock.get()), category, c::get, c.getName(), false);
 			p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(type.materialTag)), category, c::get, 2);
 			DataIngredient ingredient = DataIngredient.items(c.get());
-			ShapelessRecipeBuilder.shapeless(category, patternBlock.get())
+			ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, category, patternBlock.get())
 				.requires(ingredient.toVanilla())
 				.requires(ingredient.toVanilla())
 				.unlockedBy("has_" + c.getName(), ingredient.getCriterion(p))
@@ -261,7 +261,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 			RecipeCategory category = RecipeCategory.BUILDING_BLOCKS;
 			p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(type.materialTag)), category, c::get, 1);
 			DataIngredient ingredient = DataIngredient.items(patternBlock.get());
-			ShapedRecipeBuilder.shaped(category, c.get(), 6)
+			ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, category, c.get(), 6)
 				.pattern("XXX")
 				.pattern("XXX")
 				.define('X', ingredient.toVanilla())

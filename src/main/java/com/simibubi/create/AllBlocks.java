@@ -958,7 +958,7 @@ public class AllBlocks {
 			.properties(p -> p.mapColor(colour.getMapColor()))
 			.transform(pickaxeOnly())
 			.transform(BuilderTransformers.valveHandle(colour))
-			.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get())
+			.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, c.get())
 				.requires(colour.getTag())
 				.requires(AllItemTags.VALVE_HANDLES.tag)
 				.unlockedBy("has_valve", p.has(AllItemTags.VALVE_HANDLES.tag))
@@ -1861,7 +1861,7 @@ public class AllBlocks {
 			.onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "block.create.package_postbox"))
 			.item(PackagePortItem::new)
 			.recipe((c, p) -> {
-				ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get())
+				ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get())
 					.define('D', colour.getTag())
 					.define('B', Items.BARREL)
 					.define('A', AllItems.ANDESITE_ALLOY)
@@ -1870,7 +1870,7 @@ public class AllBlocks {
 					.pattern("A")
 					.unlockedBy("has_barrel", p.has(Items.BARREL))
 					.save(p, Create.asResource("crafting/logistics/" + c.getName()));
-				ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, c.get())
+				ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get())
 					.requires(colour.getTag())
 					.requires(AllItemTags.POSTBOXES.tag)
 					.unlockedBy("has_postbox", p.has(AllItemTags.POSTBOXES.tag))
@@ -1936,12 +1936,12 @@ public class AllBlocks {
 			.transform(BuilderTransformers.tableCloth(colourName, () -> Blocks.CARPET.black(), true))
 			.properties(p -> p.mapColor(colour))
 			.recipe((c, p) -> {
-				ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
+				ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
 					.requires(DyeHelper.getWoolOfDye(colour))
 					.requires(AllItems.ANDESITE_ALLOY)
 					.unlockedBy("has_wool", p.has(ItemTags.WOOL))
 					.save(p, Create.asResource("crafting/logistics/" + c.getName()));
-				ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, c.get())
+				ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get())
 					.requires(colour.getTag())
 					.requires(AllItemTags.DYED_TABLE_CLOTHS.tag)
 					.unlockedBy("has_postbox", p.has(AllItemTags.DYED_TABLE_CLOTHS.tag))
@@ -2350,12 +2350,12 @@ public class AllBlocks {
 					.texture("2", p.modLoc("block/seat/side_" + colourName)));
 			})
 			.recipe((c, p) -> {
-				ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, c.get())
+				ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get())
 					.requires(DyeHelper.getWoolOfDye(colour))
 					.requires(ItemTags.WOODEN_SLABS)
 					.unlockedBy("has_wool", p.has(ItemTags.WOOL))
 					.save(p, Create.asResource("crafting/kinetics/" + c.getName()));
-				ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, c.get())
+				ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get())
 					.requires(colour.getTag())
 					.requires(AllItemTags.SEATS.tag)
 					.unlockedBy("has_seat", p.has(AllItemTags.SEATS.tag))

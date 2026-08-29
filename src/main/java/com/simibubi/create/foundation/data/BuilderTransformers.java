@@ -502,7 +502,7 @@ public class BuilderTransformers {
 			return item.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/item"))
 					.texture("0", p.modLoc("block/table_cloth/" + name)))
 				.tag(AllItemTags.TABLE_CLOTHS.tag)
-				.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get())
+				.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, c.get())
 					.requires(c.get())
 					.unlockedBy("has_" + c.getName(), p.has(c.get()))
 					.save(p, Create.asResource("crafting/logistics/" + c.getName() + "_clear")))
