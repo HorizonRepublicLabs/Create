@@ -67,7 +67,7 @@ public class KineticBlockEntityRenderer<T extends KineticBlockEntity> extends Sa
 	protected RenderType getRenderType(T be, BlockState state) {
 		// TODO: this is not very clean
 		BlockStateModel model = Minecraft.getInstance()
-			.getBlockRenderer().getBlockModel(state);
+			.getModelManager().getBlockStateModelSet().get(state);
 		ChunkRenderTypeSet typeSet = model.getRenderTypes(state, RandomSource.create(42L), ModelData.EMPTY);
 		for (RenderType type : REVERSED_CHUNK_BUFFER_LAYERS)
 			if (typeSet.contains(type))

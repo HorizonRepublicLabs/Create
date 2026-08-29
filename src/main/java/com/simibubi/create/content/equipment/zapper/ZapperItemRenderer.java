@@ -38,8 +38,9 @@ public abstract class ZapperItemRenderer extends CustomRenderedItemModelRenderer
 		ms.translate(-0.3F, -0.45F, -0.0F);
 		ms.scale(0.25F, 0.25F, 0.25F);
 		BlockStateModel modelForState = Minecraft.getInstance()
-			.getBlockRenderer()
-			.getBlockModel(state);
+			.getModelManager()
+			.getBlockStateModelSet()
+			.get(state);
 
 		if (state.getBlock() instanceof CrossCollisionBlock)
 			modelForState = Minecraft.getInstance()
