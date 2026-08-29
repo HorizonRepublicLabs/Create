@@ -1325,9 +1325,12 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 	}
 
 	@Override
-	public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
+	public boolean mouseDragged(MouseButtonEvent event, double pDragX, double pDragY) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
 		if (pButton != GLFW.GLFW_MOUSE_BUTTON_LEFT || !scrollHandleActive)
-			return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);
+			return super.mouseDragged(event, pDragX, pDragY);
 
 		Window window = minecraft.getWindow();
 		double scaleX = window.getGuiScaledWidth() / (double) window.getScreenWidth();

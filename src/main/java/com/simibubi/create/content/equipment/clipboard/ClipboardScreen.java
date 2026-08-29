@@ -386,11 +386,11 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		int pScanCode = event.scancode();
 		int pModifiers = event.modifiers();
 		if (pKeyCode == 266) {
-			backward.onPress();
+			backward.onPress(event);
 			return true;
 		}
 		if (pKeyCode == 267) {
-			forward.onPress();
+			forward.onPress(event);
 			return true;
 		}
 		if (editingIndex != -1 && pKeyCode != 256) {
@@ -652,8 +652,11 @@ public class ClipboardScreen extends AbstractSimiScreen {
 			StringSplitter.getWordPosition(s, 1, pIndex, false));
 	}
 
-	public boolean mouseDragged(double pMouseX, double pMouseY, int pButton, double pDragX, double pDragY) {
-		if (super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY))
+	public boolean mouseDragged(MouseButtonEvent event, double pDragX, double pDragY) {
+		double pMouseX = event.x();
+		double pMouseY = event.y();
+		int pButton = event.button();
+		if (super.mouseDragged(event, pDragX, pDragY))
 			return true;
 		if (pButton != 0)
 			return true;
