@@ -95,7 +95,7 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 			msr.rotateZDegrees(-verticalAngle);
 
 		if (renderUpright) {
-			Vec3 cameraPosition = Minecraft.getInstance().gameRenderer.getMainCamera().getPosition();
+			Vec3 cameraPosition = Minecraft.getInstance().gameRenderer.mainCamera().getPosition();
 			Vec3 vectorForOffset = itemPosition.add(offsetVec);
 			Vec3 diff = vectorForOffset.subtract(cameraPosition);
 

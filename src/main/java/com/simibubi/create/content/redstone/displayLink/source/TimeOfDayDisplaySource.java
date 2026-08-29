@@ -35,7 +35,7 @@ public class TimeOfDayDisplaySource extends SingleLineDisplaySource {
 		boolean isNatural = sLevel.dimensionType()
 			.natural();
 
-		int dayTime = (int) (sLevel.getDayTime() % 24000);
+		int dayTime = (int) (sLevel.getDefaultClockTime() % 24000);
 		int hours = (dayTime / 1000 + 6) % 24;
 		int minutes = (dayTime % 1000) * 60 / 1000;
 		MutableComponent suffix = CreateLang.translateDirect("generic.daytime." + (hours > 11 ? "pm" : "am"));

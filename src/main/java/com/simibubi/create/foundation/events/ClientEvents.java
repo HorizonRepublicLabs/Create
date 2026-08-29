@@ -241,7 +241,7 @@ public class ClientEvents {
 		PoseStack ms = event.getPoseStack();
 		ms.pushPose();
 		SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();
-		Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera()
+		Vec3 camera = Minecraft.getInstance().gameRenderer.mainCamera()
 			.getPosition();
 
 		TrackBlockOutline.drawCurveSelection(ms, buffer, camera);

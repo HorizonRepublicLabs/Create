@@ -81,7 +81,7 @@ public class LecternControllerBlockEntity extends SmartBlockEntity {
 
 		controllerData = CatnipCodecUtils.decode(ItemContainerContents.CODEC, registries, compound.get("ControllerData"))
 			.orElse(ItemContainerContents.EMPTY);
-		user = compound.hasUUID("User") ? compound.read("User", UUIDUtil.CODEC).orElseThrow() : null;
+		user = compound.read("User", UUIDUtil.CODEC).isPresent() ? compound.read("User", UUIDUtil.CODEC).orElseThrow() : null;
 	}
 
 	public ItemStack getController() {

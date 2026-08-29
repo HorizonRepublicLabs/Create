@@ -249,7 +249,7 @@ public class LogisticallyLinkedBehaviour extends BlockEntityBehaviour {
 	@Override
 	public void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
-		if (tag.hasUUID("Freq"))
+		if (tag.read("Freq", UUIDUtil.CODEC).isPresent())
 			freqId = tag.read("Freq", UUIDUtil.CODEC).orElseThrow();
 		redstonePower = tag.getIntOr("Power", 0);
 		addedGlobally = tag.getBooleanOr("Added", false);

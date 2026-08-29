@@ -74,7 +74,7 @@ public class CuckooClockBlockEntity extends KineticBlockEntity {
 
 
 		boolean isNatural = level.dimensionType().natural();
-		int dayTime = (int) ((level.getDayTime() * (isNatural ? 1 : 24)) % 24000);
+		int dayTime = (int) ((level.getDefaultClockTime() * (isNatural ? 1 : 24)) % 24000);
 		int hours = (dayTime / 1000 + 6) % 24;
 		int minutes = (dayTime % 1000) * 60 / 1000;
 
