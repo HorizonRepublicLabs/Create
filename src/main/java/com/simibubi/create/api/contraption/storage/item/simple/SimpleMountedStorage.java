@@ -1,5 +1,7 @@
 package com.simibubi.create.api.contraption.storage.item.simple;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -17,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -49,7 +50,7 @@ public class SimpleMountedStorage extends WrapperMountedItemStorage<ItemStackHan
 		if (be == null)
 			return;
 
-		IItemHandler cap = level.getCapability(ItemHandler.BLOCK, pos, null);
+		IItemHandler cap = ItemCaps.at(level, pos, null);
 		if (cap != null) {
 			validate(cap).ifPresent(handler -> {
 				for (int i = 0; i < handler.getSlots(); i++) {

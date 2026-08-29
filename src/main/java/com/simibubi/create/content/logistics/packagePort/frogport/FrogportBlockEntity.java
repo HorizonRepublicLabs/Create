@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort.frogport;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -45,7 +47,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -329,7 +330,7 @@ public class FrogportBlockEntity extends PackagePortBlockEntity implements IHave
 		BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(side));
 		if (blockEntity == null || blockEntity instanceof FrogportBlockEntity)
 			return null;
-		return level.getCapability(ItemHandler.BLOCK, blockEntity.getBlockPos(), side.getOpposite());
+		return ItemCaps.at(level, blockEntity.getBlockPos(), side.getOpposite());
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.item;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.minecraft.world.item.ItemStackTemplate;
 
 import net.minecraft.world.item.Item;
@@ -34,7 +36,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -124,7 +125,7 @@ public class ItemHelper {
 
 	public static <T extends IBE<? extends BlockEntity>> int calcRedstoneFromBlockEntity(T ibe, Level level, BlockPos pos) {
 		return ibe.getBlockEntityOptional(level, pos)
-			.map(be -> level.getCapability(ItemHandler.BLOCK, pos, null))
+			.map(be -> ItemCaps.at(level, pos, null))
 			.map(ItemHelper::calcRedstoneFromInventory)
 			.orElse(0);
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.impl.unpacking;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
@@ -14,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
@@ -27,7 +28,7 @@ public enum DefaultUnpackingHandler implements UnpackingHandler {
 		if (targetBE == null)
 			return false;
 
-		IItemHandler targetInv = level.getCapability(ItemHandler.BLOCK, pos, state, targetBE, side);
+		IItemHandler targetInv = ItemCaps.at(level, pos, state, targetBE, side);
 		if (targetInv == null)
 			return false;
 

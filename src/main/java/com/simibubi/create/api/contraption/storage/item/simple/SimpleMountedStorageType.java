@@ -1,5 +1,7 @@
 package com.simibubi.create.api.contraption.storage.item.simple;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.Optional;
 
 import com.mojang.serialization.MapCodec;
@@ -14,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 
@@ -33,7 +34,7 @@ public abstract class SimpleMountedStorageType<T extends SimpleMountedStorage> e
 	}
 
 	protected IItemHandler getHandler(Level level, BlockEntity be) {
-		IItemHandler handler = level.getCapability(ItemHandler.BLOCK, be.getBlockPos(), null);
+		IItemHandler handler = ItemCaps.at(level, be.getBlockPos(), null);
 		// make sure the handler is modifiable so new contents can be moved over on disassembly
 		return handler instanceof IItemHandlerModifiable modifiable ? modifiable : null;
 	}

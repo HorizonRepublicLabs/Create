@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.itemHatch;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import net.minecraft.world.level.LevelReader;
@@ -45,7 +47,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.neoforged.neoforge.capabilities.Capabilities.ItemHandler;
 import net.neoforged.neoforge.common.Tags.Items;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -106,7 +107,7 @@ public class ItemHatchBlock extends HorizontalDirectionalBlock
 		BlockEntity blockEntity = level.getBlockEntity(pos.relative(state.getValue(FACING)));
 		if (blockEntity == null)
 			return InteractionResult.FAIL;
-		IItemHandler targetInv = level.getCapability(ItemHandler.BLOCK, blockEntity.getBlockPos(), null);
+		IItemHandler targetInv = ItemCaps.at(level, blockEntity.getBlockPos(), null);
 		if (targetInv == null)
 			return InteractionResult.FAIL;
 
