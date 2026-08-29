@@ -327,12 +327,11 @@ public class BlueprintEntity extends HangingEntity
 	public void snapTo(double p_70012_1_, double p_70012_3_, double p_70012_5_, float p_70012_7_, float p_70012_8_) {
 		this.setPos(p_70012_1_, p_70012_3_, p_70012_5_);
 	}
-
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void lerpTo(double pX, double pY, double pZ, float pYRot, float pXRot, int pSteps) {
-		BlockPos blockpos =
-				this.pos.offset(BlockPos.containing(pX - this.getX(), pY - this.getY(), pZ - this.getZ()));
+	public void interpolateTo(Vec3 position, float yRot, float xRot) {
+		BlockPos blockpos = this.pos.offset(
+			BlockPos.containing(position.x - this.getX(), position.y - this.getY(), position.z - this.getZ()));
 		this.setPos(blockpos.getX(), blockpos.getY(), blockpos.getZ());
 	}
 

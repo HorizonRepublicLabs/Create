@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.box;
 
+import net.minecraft.world.entity.InterpolationHandler;
+
 import net.minecraft.world.level.storage.ValueInput;
 
 import net.minecraft.world.level.storage.ValueOutput;
@@ -148,12 +150,21 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 		motion = collideBoundingBox(this, motion, bb, level(), entityStream);
 
 		Vec3 clientPos = position().add(motion);
-		if (lerpSteps != 0)
-			clientPos = VecHelper.lerp(Math.min(1, tickCount / 20f), clientPos, new Vec3(lerpX, lerpY, lerpZ));
+		// 26.x moved the lerpSteps/lerpX-Z fields onto InterpolationHandler, which
+		// also owns the pending target this used to blend towards by hand.
+		InterpolationHandler interpolation = getInterpolation();
+		if (interpolation != null && interpolation.hasActiveInterpolation())
+			clientPos = VecHelper.lerp(Math.min(1, tickCount / 20f), clientPos, interpolation.position());
 		if (tickCount < 5)
 			setPos(clientPos.x, clientPos.y, clientPos.z);
-		if (tickCount < 20)
-			lerpTo(clientPos.x, clientPos.y, clientPos.z, getYRot(), getXRot(), lerpSteps == 0 ? 3 : lerpSteps);
+		if (tickCount < 20) {
+			if (interpolation != null) {
+				interpolation.interpolateTo(clientPos, getYRot(), getXRot());
+				interpolation.setInterpolationLength(InterpolationHandler.DEFAULT_INTERPOLATION_STEPS);
+			} else {
+				snapTo(clientPos.x, clientPos.y, clientPos.z, getYRot(), getXRot());
+			}
+		}
 	}
 
 	@Override

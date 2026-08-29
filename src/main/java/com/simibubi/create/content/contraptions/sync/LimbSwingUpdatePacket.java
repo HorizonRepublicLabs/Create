@@ -34,8 +34,14 @@ public record LimbSwingUpdatePacket(int entityId, Vec3 position, float limbSwing
 		CompoundTag data = entity.getPersistentData();
 		data.putInt("LastOverrideLimbSwingUpdate", 0);
 		data.putFloat("OverrideLimbSwing", limbSwing);
-		entity.lerpTo(position.x, position.y, position.z, entity.getYRot(),
-				entity.getXRot(), 2);
+		if (entity.getInterpolation() != null) {
+			entity.getInterpolation()
+				.interpolateTo(position, entity.getYRot(), entity.getXRot());
+			entity.getInterpolation()
+				.setInterpolationLength(2);
+		} else {
+			entity.snapTo(position.x, position.y, position.z, entity.getYRot(), entity.getXRot());
+		}
 	}
 
 	@Override
