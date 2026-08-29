@@ -1,5 +1,11 @@
 package com.simibubi.create.foundation.virtualWorld;
 
+import net.minecraft.world.level.ColorResolver;
+
+import net.minecraft.world.level.CardinalLighting;
+
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import net.minecraft.world.phys.AABB;
@@ -93,7 +99,7 @@ import net.minecraft.world.ticks.LevelTickAccess;
 
 import net.neoforged.neoforge.model.data.ModelData;
 
-public class VirtualRenderWorld extends Level implements VisualizationLevel {
+public class VirtualRenderWorld extends Level implements VisualizationLevel, BlockAndTintGetter {
 	protected final Level level;
 	protected final int minBuildHeight;
 	protected final int height;
@@ -367,6 +373,19 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 
 	public float getShade(Direction direction, boolean shade) {
 		return 1f;
+	}
+
+	/// The client render interfaces moved off Level in 26.x, so the virtual
+	/// world supplies the two client-only pieces itself: flat lighting, and
+	/// tints delegated to the level being rendered.
+	@Override
+	public CardinalLighting cardinalLighting() {
+		return CardinalLighting.DEFAULT;
+	}
+
+	@Override
+	public int getBlockTint(BlockPos pos, ColorResolver color) {
+		return level.getBlockTint(pos, color);
 	}
 
 	@Override
