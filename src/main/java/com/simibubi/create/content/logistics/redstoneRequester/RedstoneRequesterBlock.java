@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.redstoneRequester;
 
+import net.minecraft.world.item.component.TypedEntityData;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.world.level.redstone.Orientation;
@@ -112,7 +114,7 @@ public class RedstoneRequesterBlock extends Block implements IBE<RedstoneRequest
 		autoRequestData.writeToItem(BlockPos.ZERO, stack);
 
 		if (isRequester) {
-			CompoundTag beTag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
+			CompoundTag beTag = stack.get(DataComponents.BLOCK_ENTITY_DATA) instanceof TypedEntityData<?> data? data.copyTagWithoutId() : new CompoundTag();
 			beTag.store("Freq", UUIDUtil.CODEC, be.behaviour.freqId);
 			BlockEntity.addEntityType(beTag, AllBlockEntityTypes.REDSTONE_REQUESTER.get());
 			stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(beTag));

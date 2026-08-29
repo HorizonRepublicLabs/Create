@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.world.item.component.TypedEntityData;
+
 import net.minecraft.core.UUIDUtil;
 
 import java.util.UUID;
@@ -53,7 +55,7 @@ public class FactoryPanelBlockItem extends LogisticallyLinkedBlockItem {
 	public static ItemStack fixCtrlCopiedStack(ItemStack stack) {
 		// Salvage frequency data from one of the panel slots
 		if (isTuned(stack) && networkFromStack(stack) == null) {
-			CompoundTag bet = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
+			CompoundTag bet = stack.get(DataComponents.BLOCK_ENTITY_DATA) instanceof TypedEntityData<?> data? data.copyTagWithoutId() : new CompoundTag();
 			UUID frequency = UUID.randomUUID();
 
 			for (PanelSlot slot : PanelSlot.values()) {

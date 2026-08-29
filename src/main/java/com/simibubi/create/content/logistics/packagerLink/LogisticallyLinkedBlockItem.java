@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.world.item.component.TypedEntityData;
+
 import com.simibubi.create.foundation.item.TooltipLines;
 
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -55,7 +57,7 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 
 	@Nullable
 	public static UUID networkFromStack(ItemStack pStack) {
-		CompoundTag tag = pStack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
+		CompoundTag tag = pStack.get(DataComponents.BLOCK_ENTITY_DATA) instanceof TypedEntityData<?> data? data.copyTagWithoutId() : new CompoundTag();
 		if (!tag.read("Freq", UUIDUtil.CODEC).isPresent())
 			return null;
 		return tag.read("Freq", UUIDUtil.CODEC).orElseThrow();
@@ -68,7 +70,7 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 		List<Component> tooltipComponents = TooltipLines.forwarding(builder);
 		super.appendHoverText(stack, tooltipContext, display, builder, tooltipFlag);
 
-		CompoundTag tag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
+		CompoundTag tag = stack.get(DataComponents.BLOCK_ENTITY_DATA) instanceof TypedEntityData<?> data? data.copyTagWithoutId() : new CompoundTag();
 		if (!tag.read("Freq", UUIDUtil.CODEC).isPresent())
 			return;
 
@@ -133,7 +135,7 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 	}
 
 	public static void assignFrequency(ItemStack stack, Player player, UUID frequency) {
-		CompoundTag tag = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY).copyTag();
+		CompoundTag tag = stack.get(DataComponents.BLOCK_ENTITY_DATA) instanceof TypedEntityData<?> data? data.copyTagWithoutId() : new CompoundTag();
 		tag.store("Freq", UUIDUtil.CODEC, frequency);
 
 		CreateLang.sendStatus(player, CreateLang.translateDirect("logistically_linked.tuned"), true);
