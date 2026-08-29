@@ -151,7 +151,7 @@ public class TrainRelocator {
 			return lastHoveredResult = null;
 
 		Vec3 lookAngle = mc.player.getLookAngle();
-		boolean direction = bezierSelection != null && lookAngle.dot(bezierSelection.direction()) < 0;
+		boolean direction = bezierSelection != null && lookAngle.dot(bezierSelection.getDirection()) < 0;
 		boolean result = relocate(relocating, mc.level, blockPos, hoveredBezier, direction, lookAngle, true);
 		if (!simulate && result) {
 			relocating.carriages.forEach(c -> c.forEachPresentEntity(e -> e.nonDamageTicks = 10));

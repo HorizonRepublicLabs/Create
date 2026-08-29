@@ -10,22 +10,22 @@ import net.createmod.catnip.impl.neoforge.render.VirtualRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.neoforge.client.model.BakedModelWrapper;
+import net.neoforged.neoforge.client.model.DelegateBlockStateModel;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelProperty;
 
-public class BracketedKineticBlockModel extends BakedModelWrapper<BakedModel> {
+public class BracketedKineticBlockModel extends DelegateBlockStateModel {
 
 	private static final ModelProperty<BracketedModelData> BRACKET_PROPERTY = new ModelProperty<>();
 
-	public BracketedKineticBlockModel(BakedModel template) {
+	public BracketedKineticBlockModel(BlockStateModel template) {
 		super(template);
 	}
 
@@ -47,7 +47,7 @@ public class BracketedKineticBlockModel extends BakedModelWrapper<BakedModel> {
 		if (!VirtualRenderHelper.isVirtual(data)) {
 			if (data.has(BRACKET_PROPERTY)) {
 				BracketedModelData pipeData = data.get(BRACKET_PROPERTY);
-				BakedModel bracket = pipeData.getBracket();
+				BlockStateModel bracket = pipeData.getBracket();
 				if (bracket != null)
 					return bracket.getQuads(state, side, rand, data, renderType);
 			}
@@ -57,7 +57,7 @@ public class BracketedKineticBlockModel extends BakedModelWrapper<BakedModel> {
 	}
 
 	private static class BracketedModelData {
-		private BakedModel bracket;
+		private BlockStateModel bracket;
 
 		public void putBracket(BlockState state) {
 			if (state != null) {
@@ -67,7 +67,7 @@ public class BracketedKineticBlockModel extends BakedModelWrapper<BakedModel> {
 			}
 		}
 
-		public BakedModel getBracket() {
+		public BlockStateModel getBracket() {
 			return bracket;
 		}
 	}

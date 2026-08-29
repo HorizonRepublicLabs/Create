@@ -1,16 +1,16 @@
 package com.simibubi.create.foundation.model;
 
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.BakedModelWrapper;
+import net.neoforged.neoforge.client.model.DelegateBlockStateModel;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelData.Builder;
 
-public abstract class BakedModelWrapperWithData extends BakedModelWrapper<BakedModel> {
+public abstract class BakedModelWrapperWithData extends DelegateBlockStateModel {
 
-	public BakedModelWrapperWithData(BakedModel originalModel) {
+	public BakedModelWrapperWithData(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 

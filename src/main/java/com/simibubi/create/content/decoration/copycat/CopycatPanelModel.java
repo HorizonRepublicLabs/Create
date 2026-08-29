@@ -73,7 +73,7 @@ public class CopycatPanelModel extends CopycatModel {
 
 			for (int i = 0; i < size; i++) {
 				BakedQuad quad = templateQuads.get(i);
-				Direction direction = quad.getDirection();
+				Direction direction = quad.direction();
 
 				if (front && direction == facing)
 					continue;
@@ -81,7 +81,7 @@ public class CopycatPanelModel extends CopycatModel {
 					continue;
 
 				quads.add(BakedQuadHelper.cloneWithCustomGeometry(quad,
-					BakedModelHelper.cropAndMove(quad.getVertices(), quad.getSprite(), bb, normalScaledN13)));
+					BakedModelHelper.cropAndMove(quad.getVertices(), quad.materialInfo().sprite(), bb, normalScaledN13)));
 			}
 
 		}

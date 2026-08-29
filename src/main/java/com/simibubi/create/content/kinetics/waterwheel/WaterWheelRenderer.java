@@ -157,7 +157,7 @@ public class WaterWheelRenderer<T extends WaterWheelBlockEntity> extends Kinetic
 		if (!quads.isEmpty()) {
 			for (BakedQuad quad : quads) {
 				if (quad.getDirection() == side) {
-					return quad.getSprite();
+					return quad.materialInfo().sprite();
 				}
 			}
 		}

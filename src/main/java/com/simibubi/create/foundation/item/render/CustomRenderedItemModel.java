@@ -2,13 +2,13 @@ package com.simibubi.create.foundation.item.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.neoforge.client.model.BakedModelWrapper;
+import net.neoforged.neoforge.client.model.DelegateBlockStateModel;
 
-public class CustomRenderedItemModel extends BakedModelWrapper<BakedModel> {
+public class CustomRenderedItemModel extends DelegateBlockStateModel {
 
-	public CustomRenderedItemModel(BakedModel originalModel) {
+	public CustomRenderedItemModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 
@@ -18,7 +18,7 @@ public class CustomRenderedItemModel extends BakedModelWrapper<BakedModel> {
 	}
 
 	@Override
-	public BakedModel applyTransform(ItemDisplayContext cameraItemDisplayContext, PoseStack mat,
+	public BlockStateModel applyTransform(ItemDisplayContext cameraItemDisplayContext, PoseStack mat,
 		boolean leftHand) {
 		// Super call returns originalModel, but we want to return this, else BEWLR
 		// won't be used.
@@ -26,7 +26,7 @@ public class CustomRenderedItemModel extends BakedModelWrapper<BakedModel> {
 		return this;
 	}
 
-	public BakedModel getOriginalModel() {
+	public BlockStateModel getOriginalModel() {
 		return originalModel;
 	}
 

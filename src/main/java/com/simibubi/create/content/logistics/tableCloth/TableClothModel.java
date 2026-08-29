@@ -19,7 +19,7 @@ import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -37,7 +37,7 @@ public class TableClothModel extends BakedModelWrapperWithData {
 
 	private static final Map<TableClothBlock, List<List<BakedQuad>>> CORNERS = new HashMap<>();
 
-	public TableClothModel(BakedModel originalModel) {
+	public TableClothModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 
@@ -73,7 +73,7 @@ public class TableClothModel extends BakedModelWrapperWithData {
 
 		for (BakedQuad quad : pm.get()
 			.getQuads(null, null, rand, ModelData.EMPTY, renderType)) {
-			TextureAtlasSprite original = quad.getSprite();
+			TextureAtlasSprite original = quad.materialInfo().sprite();
 			BakedQuad newQuad = BakedQuadHelper.clone(quad);
 			int[] vertexData = newQuad.getVertices();
 			for (int vertex = 0; vertex < 4; vertex++) {

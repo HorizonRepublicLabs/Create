@@ -12,23 +12,23 @@ import net.createmod.catnip.api.client.render.SpriteShiftEntry;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.BakedModelWrapper;
+import net.neoforged.neoforge.client.model.DelegateBlockStateModel;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelProperty;
 
-public class BeltModel extends BakedModelWrapper<BakedModel> {
+public class BeltModel extends DelegateBlockStateModel {
 
 	public static final ModelProperty<CasingType> CASING_PROPERTY = new ModelProperty<>();
 	public static final ModelProperty<Boolean> COVER_PROPERTY = new ModelProperty<>();
 
 	private static final SpriteShiftEntry SPRITE_SHIFT = AllSpriteShifts.ANDESIDE_BELT_CASING;
 
-	public BeltModel(BakedModel template) {
+	public BeltModel(BlockStateModel template) {
 		super(template);
 	}
 
@@ -60,7 +60,7 @@ public class BeltModel extends BakedModelWrapper<BakedModel> {
 		if (cover) {
 			boolean alongX = state.getValue(BeltBlock.HORIZONTAL_FACING)
 				.getAxis() == Axis.X;
-			BakedModel coverModel =
+			BlockStateModel coverModel =
 				(brassCasing ? alongX ? AllPartialModels.BRASS_BELT_COVER_X : AllPartialModels.BRASS_BELT_COVER_Z
 					: alongX ? AllPartialModels.ANDESITE_BELT_COVER_X : AllPartialModels.ANDESITE_BELT_COVER_Z).get();
 			quads.addAll(coverModel.getQuads(state, side, rand, extraData, renderType));
@@ -71,7 +71,7 @@ public class BeltModel extends BakedModelWrapper<BakedModel> {
 
 		for (int i = 0; i < quads.size(); i++) {
 			BakedQuad quad = quads.get(i);
-			TextureAtlasSprite original = quad.getSprite();
+			TextureAtlasSprite original = quad.materialInfo().sprite();
 			if (original != SPRITE_SHIFT.getOriginal())
 				continue;
 

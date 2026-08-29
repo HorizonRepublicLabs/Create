@@ -69,7 +69,7 @@ public class CopycatStepModel extends CopycatModel {
 
 				for (int i = 0; i < size; i++) {
 					BakedQuad quad = templateQuads.get(i);
-					Direction direction = quad.getDirection();
+					Direction direction = quad.direction();
 
 					if (front && direction == facing)
 						continue;
@@ -81,7 +81,7 @@ public class CopycatStepModel extends CopycatModel {
 						continue;
 
 					quads.add(BakedQuadHelper.cloneWithCustomGeometry(quad,
-						BakedModelHelper.cropAndMove(quad.getVertices(), quad.getSprite(), bb1, offset)));
+						BakedModelHelper.cropAndMove(quad.getVertices(), quad.materialInfo().sprite(), bb1, offset)));
 				}
 
 			}

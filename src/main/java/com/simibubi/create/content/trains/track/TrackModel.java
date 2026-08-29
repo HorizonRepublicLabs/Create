@@ -12,7 +12,7 @@ import com.simibubi.create.foundation.model.BakedQuadHelper;
 import net.createmod.catnip.api.math.VecHelper;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.util.Mth;
@@ -20,12 +20,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.neoforge.client.model.BakedModelWrapper;
+import net.neoforged.neoforge.client.model.DelegateBlockStateModel;
 import net.neoforged.neoforge.model.data.ModelData;
 
-public class TrackModel extends BakedModelWrapper<BakedModel> {
+public class TrackModel extends DelegateBlockStateModel {
 
-	public TrackModel(BakedModel originalModel) {
+	public TrackModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 

@@ -96,7 +96,7 @@ public final class BakedQuadHelper {
 		public BakedQuad build() {
 			return new BakedQuad(positions[0], positions[1], positions[2], positions[3],
 				UVPair.pack(us[0], vs[0]), UVPair.pack(us[1], vs[1]), UVPair.pack(us[2], vs[2]),
-				UVPair.pack(us[3], vs[3]), source.direction(), source.materialInfo(), source.bakedNormals(),
+				UVPair.pack(us[3], vs[3]), source.getDirection(), source.materialInfo(), source.bakedNormals(),
 				source.bakedColors());
 		}
 	}

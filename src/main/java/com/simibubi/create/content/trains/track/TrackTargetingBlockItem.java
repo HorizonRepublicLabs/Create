@@ -183,7 +183,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 		TrackBlockEntity be = selection.blockEntity();
 		BezierTrackPointLocation loc = selection.loc();
 		boolean front = player.getLookAngle()
-			.dot(selection.direction()) < 0;
+			.dot(selection.getDirection()) < 0;
 
 		ClientNetworkHelper.INSTANCE.sendToServer(new CurvedTrackSelectionPacket(be.getBlockPos(), loc.curveTarget(),
 			front, loc.segment(), player.getInventory().selected));

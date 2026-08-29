@@ -69,7 +69,7 @@ public class TrackTargetingClient {
 				hovered = bezierSelection.blockEntity()
 					.getBlockPos();
 				hoveredBezier = bezierSelection.loc();
-				direction = lookAngle.dot(bezierSelection.direction()) < 0;
+				direction = lookAngle.dot(bezierSelection.getDirection()) < 0;
 
 			} else {
 				HitResult hitResult = mc.hitResult;

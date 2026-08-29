@@ -20,7 +20,7 @@ import net.createmod.catnip.api.math.VecHelper;
 import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -36,7 +36,7 @@ public class FactoryPanelModel extends BakedModelWrapperWithData {
 
 	private static final ModelProperty<FactoryPanelModelData> PANEL_PROPERTY = new ModelProperty<>();
 
-	public FactoryPanelModel(BakedModel originalModel) {
+	public FactoryPanelModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 
@@ -111,7 +111,7 @@ public class FactoryPanelModel extends BakedModelWrapperWithData {
 
 			Direction newNormal = Direction.fromDelta((int) Math.round(quadNormal.x), (int) Math.round(quadNormal.y),
 				(int) Math.round(quadNormal.z));
-			quads.add(new BakedQuad(transformedVertices, bakedQuad.getTintIndex(), newNormal, bakedQuad.getSprite(),
+			quads.add(new BakedQuad(transformedVertices, bakedQuad.getTintIndex(), newNormal, bakedQuad.materialInfo().sprite(),
 				!ponder && bakedQuad.isShade()));
 		}
 

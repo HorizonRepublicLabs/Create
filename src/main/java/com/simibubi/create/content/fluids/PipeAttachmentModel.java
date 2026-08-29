@@ -18,7 +18,7 @@ import net.createmod.catnip.api.data.Iterate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -36,15 +36,15 @@ public class PipeAttachmentModel extends BakedModelWrapperWithData {
 	private static final ModelProperty<PipeModelData> PIPE_PROPERTY = new ModelProperty<>();
 	private boolean ao;
 
-	public static PipeAttachmentModel withAO(BakedModel template) {
+	public static PipeAttachmentModel withAO(BlockStateModel template) {
 		return new PipeAttachmentModel(template, true);
 	}
 
-	public static PipeAttachmentModel withoutAO(BakedModel template) {
+	public static PipeAttachmentModel withoutAO(BlockStateModel template) {
 		return new PipeAttachmentModel(template, false);
 	}
 
-	public PipeAttachmentModel(BakedModel template, boolean ao) {
+	public PipeAttachmentModel(BlockStateModel template, boolean ao) {
 		super(template);
 		this.ao = ao;
 	}
@@ -115,7 +115,7 @@ public class PipeAttachmentModel extends BakedModelWrapperWithData {
 
 	private void addQuads(List<BakedQuad> quads, BlockState state, Direction side, RandomSource rand, ModelData data,
 						  PipeModelData pipeData, RenderType renderType) {
-		BakedModel bracket = pipeData.getBracket();
+		BlockStateModel bracket = pipeData.getBracket();
 		if (bracket != null)
 			quads.addAll(bracket.getQuads(state, side, rand, data, renderType));
 		for (Direction d : Iterate.directions) {
@@ -135,7 +135,7 @@ public class PipeAttachmentModel extends BakedModelWrapperWithData {
 	private static class PipeModelData {
 		private AttachmentTypes[] attachments;
 		private boolean encased;
-		private BakedModel bracket;
+		private BlockStateModel bracket;
 
 		public PipeModelData() {
 			attachments = new AttachmentTypes[6];
@@ -150,7 +150,7 @@ public class PipeAttachmentModel extends BakedModelWrapperWithData {
 			}
 		}
 
-		public BakedModel getBracket() {
+		public BlockStateModel getBracket() {
 			return bracket;
 		}
 

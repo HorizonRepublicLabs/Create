@@ -16,7 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.resources.model.geometry.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
@@ -37,7 +37,7 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 	private static final ModelProperty<ModelData> WRAPPED_DATA_PROPERTY = new ModelProperty<>();
 	private static final ModelProperty<Boolean> IS_EMISSIVE_PROPERTY = new ModelProperty<>();
 
-	public CopycatModel(BakedModel originalModel) {
+	public CopycatModel(BlockStateModel originalModel) {
 		super(originalModel);
 	}
 
@@ -167,7 +167,7 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 		return material == null ? AllBlocks.COPYCAT_BASE.getDefaultState() : material;
 	}
 
-	public static BakedModel getModelOf(BlockState state) {
+	public static BlockStateModel getModelOf(BlockState state) {
 		return Minecraft.getInstance()
 			.getBlockRenderer()
 			.getBlockModel(state);
