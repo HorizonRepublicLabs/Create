@@ -107,7 +107,7 @@ public class BlueprintEntity extends HangingEntity
 
 	@Override
 	public void addAdditionalSaveData(ValueOutput p_213281_1_) {
-		p_213281_1_.putByte("Facing", (byte) this.direction.get3DDataValue());
+		p_213281_1_.putByte("Facing", (byte) getDirection().get3DDataValue());
 		p_213281_1_.putByte("Orientation", (byte) this.verticalOrientation.get3DDataValue());
 		p_213281_1_.putInt("Size", size);
 		super.addAdditionalSaveData(p_213281_1_);
@@ -116,26 +116,26 @@ public class BlueprintEntity extends HangingEntity
 	@Override
 	public void readAdditionalSaveData(ValueInput p_70037_1_) {
 		if (p_70037_1_.getInt("Facing").isPresent()) {
-			this.direction = Direction.from3DDataValue(p_70037_1_.getByteOr("Facing", (byte) 0));
+			setDirectionRaw(Direction.from3DDataValue(p_70037_1_.getByteOr("Facing", (byte) 0)));
 			this.verticalOrientation = Direction.from3DDataValue(p_70037_1_.getByteOr("Orientation", (byte) 0));
 			this.size = p_70037_1_.getIntOr("Size", 0);
 		} else {
-			this.direction = Direction.SOUTH;
+			setDirectionRaw(Direction.SOUTH);
 			this.verticalOrientation = Direction.DOWN;
 			this.size = 1;
 		}
 		super.readAdditionalSaveData(p_70037_1_);
-		this.updateFacingWithBoundingBox(this.direction, this.verticalOrientation);
+		this.updateFacingWithBoundingBox(getDirection(), this.verticalOrientation);
 	}
 
 	protected void updateFacingWithBoundingBox(Direction facing, Direction verticalOrientation) {
 		Objects.requireNonNull(facing);
-		this.direction = facing;
+		setDirectionRaw(facing);
 		this.verticalOrientation = verticalOrientation;
 		if (facing.getAxis()
 			.isHorizontal()) {
 			setXRot(0.0F);
-			setYRot(this.direction.get2DDataValue() * 90);
+			setYRot(getDirection().get2DDataValue() * 90);
 		} else {
 			setXRot(-90 * facing.getAxisDirection()
 				.getStep());
@@ -157,23 +157,23 @@ public class BlueprintEntity extends HangingEntity
 	protected AABB calculateBoundingBox(BlockPos blockPos, Direction direction) {
 		Vec3 pos = Vec3.atLowerCornerOf(getPos())
 				.add(.5, .5, .5)
-				.subtract(Vec3.atLowerCornerOf(direction.getUnitVec3i())
+				.subtract(Vec3.atLowerCornerOf(getDirection().getUnitVec3i())
 						.scale(0.46875));
 		double d1 = pos.x;
 		double d2 = pos.y;
 		double d3 = pos.z;
 		this.setPosRaw(d1, d2, d3);
 
-		Axis axis = direction.getAxis();
+		Axis axis = getDirection().getAxis();
 		if (size == 2)
-			pos = pos.add(Vec3.atLowerCornerOf(axis.isHorizontal() ? direction.getCounterClockWise()
+			pos = pos.add(Vec3.atLowerCornerOf(axis.isHorizontal() ? getDirection().getCounterClockWise()
 									.getUnitVec3i()
 									: verticalOrientation.getClockWise()
 									.getUnitVec3i())
 							.scale(0.5))
 					.add(Vec3
 							.atLowerCornerOf(axis.isHorizontal() ? Direction.UP.getUnitVec3i()
-									: direction == Direction.UP ? verticalOrientation.getUnitVec3i()
+									: getDirection() == Direction.UP ? verticalOrientation.getUnitVec3i()
 									: verticalOrientation.getOpposite()
 									.getUnitVec3i())
 							.scale(0.5));
@@ -185,8 +185,8 @@ public class BlueprintEntity extends HangingEntity
 		double d4 = (double) this.getWidth();
 		double d5 = (double) this.getHeight();
 		double d6 = (double) this.getWidth();
-		Direction.Axis direction$axis = this.direction.getAxis();
-		switch (direction$axis) {
+		Direction.Axis directionAxis = getDirection().getAxis();
+		switch (directionAxis) {
 			case X:
 				d4 = 1.0D;
 				break;
@@ -206,8 +206,8 @@ public class BlueprintEntity extends HangingEntity
 
 	@Override
 	protected void recalculateBoundingBox() {
-		if (this.direction != null && this.verticalOrientation != null) {
-			setBoundingBox(calculateBoundingBox(pos, direction));
+		if (getDirection() != null && this.verticalOrientation != null) {
+			setBoundingBox(calculateBoundingBox(pos, getDirection()));
 		}
 	}
 	@Override
@@ -223,12 +223,12 @@ public class BlueprintEntity extends HangingEntity
 
 		int i = Math.max(1, this.getWidth() / 16);
 		int j = Math.max(1, this.getHeight() / 16);
-		BlockPos blockpos = this.pos.relative(this.direction.getOpposite());
-		Direction upDirection = direction.getAxis()
+		BlockPos blockpos = this.pos.relative(getDirection().getOpposite());
+		Direction upDirection = getDirection().getAxis()
 			.isHorizontal() ? Direction.UP
-			: direction == Direction.UP ? verticalOrientation : verticalOrientation.getOpposite();
-		Direction newDirection = direction.getAxis()
-			.isVertical() ? verticalOrientation.getClockWise() : direction.getCounterClockWise();
+			: getDirection() == Direction.UP ? verticalOrientation : verticalOrientation.getOpposite();
+		Direction newDirection = getDirection().getAxis()
+			.isVertical() ? verticalOrientation.getClockWise() : getDirection().getCounterClockWise();
 		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 
 		for (int k = 0; k < i; ++k) {
@@ -239,7 +239,7 @@ public class BlueprintEntity extends HangingEntity
 					.move(newDirection, k + i1)
 					.move(upDirection, l + j1);
 				BlockState blockstate = this.level().getBlockState(blockpos$mutable);
-				if (Block.canSupportCenter(this.level(), blockpos$mutable, this.direction))
+				if (Block.canSupportCenter(this.level(), blockpos$mutable, getDirection()))
 					continue;
 				if (!blockstate.isSolid() && !DiodeBlock.isDiode(blockstate)) {
 					return false;
