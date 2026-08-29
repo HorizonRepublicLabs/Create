@@ -62,14 +62,17 @@ public class TagGen {
 		};
 	}
 
+	/// addOptional takes a ResourceKey now, which needs a registry this helper
+	/// does not know. An optional tag entry carries the same meaning and only
+	/// needs the identifier.
 	public static <T extends TagAppender<?>> T addOptional(T appender, Mods mod, String id) {
-		appender.addOptional(mod.asResource(id));
+		appender.add(TagEntry.optionalElement(mod.asResource(id)));
 		return appender;
 	}
 
 	public static <T extends TagAppender<?>> T addOptional(T appender, Mods mod, List<String> ids) {
 		for (String id : ids) {
-			appender.addOptional(mod.asResource(id));
+			appender.add(TagEntry.optionalElement(mod.asResource(id)));
 		}
 		return appender;
 	}

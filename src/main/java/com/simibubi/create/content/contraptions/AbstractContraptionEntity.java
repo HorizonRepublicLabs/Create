@@ -784,7 +784,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	}
 
 	@Override
-	public CompoundTag saveWithoutId(CompoundTag nbt) {
+	public void saveWithoutId(ValueOutput output) {
 		Vec3 vec = position();
 		List<Entity> passengers = getPassengers();
 
@@ -801,8 +801,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 			entity.removalReason = null;
 		}
 
-		CompoundTag tag = super.saveWithoutId(nbt);
-		return tag;
+		super.saveWithoutId(output);
 	}
 
 	@Override
