@@ -1,5 +1,9 @@
 package com.simibubi.create.content.fluids;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import com.simibubi.create.foundation.model.DataDrivenModel;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,15 +29,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.model.data.ModelData.Builder;
 import net.neoforged.neoforge.model.data.ModelProperty;
 import net.minecraft.util.TriState;
 
-public class PipeAttachmentModel extends BakedModelWrapperWithData {
+public class PipeAttachmentModel extends DataDrivenModel<PipeAttachmentModel.PipeModelData> {
 
-	private static final ModelProperty<PipeModelData> PIPE_PROPERTY = new ModelProperty<>();
 	private boolean ao;
 
 	public static PipeAttachmentModel withAO(BlockStateModel template) {
@@ -50,8 +52,7 @@ public class PipeAttachmentModel extends BakedModelWrapperWithData {
 	}
 
 	@Override
-	protected ModelData.Builder gatherModelData(Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state,
-												ModelData blockEntityData) {
+	protected PipeModelData gatherData(BlockAndTintGetter world, BlockPos pos, BlockState state) {
 		PipeModelData data = new PipeModelData();
 		FluidTransportBehaviour transport = BlockEntityBehaviour.get(world, pos, FluidTransportBehaviour.TYPE);
 		BracketedBlockEntityBehaviour bracket = BlockEntityBehaviour.get(world, pos, BracketedBlockEntityBehaviour.TYPE);
@@ -63,76 +64,44 @@ public class PipeAttachmentModel extends BakedModelWrapperWithData {
 			data.putBracket(bracket.getBracket());
 
 		data.setEncased(FluidPipeBlock.shouldDrawCasing(world, pos, state));
-		return builder.with(PIPE_PROPERTY, data);
+		return data;
 	}
 
 	@Override
-	public ChunkRenderTypeSet getRenderTypes(@NotNull BlockState state, @NotNull RandomSource rand, @NotNull ModelData data) {
-		List<ChunkRenderTypeSet> set = new ArrayList<>();
-
-		set.add(super.getRenderTypes(state, rand, data));
-		set.add(AllPartialModels.FLUID_PIPE_CASING.get().getRenderTypes(state, rand, data));
-
-		if (data.has(PIPE_PROPERTY)) {
-			PipeModelData pipeData = data.get(PIPE_PROPERTY);
-			for (Direction d : Iterate.directions) {
-				AttachmentTypes type = pipeData.getAttachment(d);
-				for (ComponentPartials partial : type.partials) {
-					ChunkRenderTypeSet attachmentRenderTypeSet = AllPartialModels.PIPE_ATTACHMENTS.get(partial).get(d)
-						.get().getRenderTypes(state, rand, data);
-					set.add(attachmentRenderTypeSet);
-				}
-			}
-		}
-
-		return ChunkRenderTypeSet.union(set);
-	}
-
-	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData data, RenderType renderType) {
-		List<BakedQuad> quads = super.getQuads(state, side, rand, data, renderType);
-		if (data.has(PIPE_PROPERTY)) {
-			PipeModelData pipeData = data.get(PIPE_PROPERTY);
-			quads = new ArrayList<>(quads);
-			addQuads(quads, state, side, rand, data, pipeData, renderType);
-		}
+	protected List<BakedQuad> transformQuads(List<BakedQuad> base, PipeModelData pipeData, BlockState state,
+		RandomSource rand, Direction side) {
+		List<BakedQuad> quads = new ArrayList<>(base);
+		addQuads(quads, state, side, rand, pipeData);
 		return quads;
 	}
 
-	@Override
-	public TriState useAmbientOcclusion(BlockState state, ModelData data, RenderType renderType) {
-		if (ao) {
-			return TriState.TRUE;
-		} else {
-			return TriState.FALSE;
-		}
+	/// Collects a model's quads for one side; geometry comes from parts now.
+	private static void collectInto(List<BakedQuad> quads, BlockStateModel model, RandomSource rand,
+		Direction side) {
+		List<BlockStateModelPart> parts = new ArrayList<>();
+		model.collectParts(rand, parts);
+		for (BlockStateModelPart part : parts)
+			quads.addAll(part.getQuads(side));
 	}
 
-	@Override
-	public boolean useAmbientOcclusion() {
-		return ao;
-	}
-
-	private void addQuads(List<BakedQuad> quads, BlockState state, Direction side, RandomSource rand, ModelData data,
-						  PipeModelData pipeData, RenderType renderType) {
+	private void addQuads(List<BakedQuad> quads, BlockState state, Direction side, RandomSource rand,
+		PipeModelData pipeData) {
 		BlockStateModel bracket = pipeData.getBracket();
 		if (bracket != null)
-			quads.addAll(bracket.getQuads(state, side, rand, data, renderType));
+			collectInto(quads, bracket, rand, side);
 		for (Direction d : Iterate.directions) {
 			AttachmentTypes type = pipeData.getAttachment(d);
 			for (ComponentPartials partial : type.partials) {
-				quads.addAll(AllPartialModels.PIPE_ATTACHMENTS.get(partial)
+				collectInto(quads, AllPartialModels.PIPE_ATTACHMENTS.get(partial)
 					.get(d)
-					.get()
-					.getQuads(state, side, rand, data, renderType));
+					.get(), rand, side);
 			}
 		}
 		if (pipeData.isEncased())
-			quads.addAll(AllPartialModels.FLUID_PIPE_CASING.get()
-				.getQuads(state, side, rand, data, renderType));
+			collectInto(quads, AllPartialModels.FLUID_PIPE_CASING.get(), rand, side);
 	}
 
-	private static class PipeModelData {
+	public static class PipeModelData {
 		private AttachmentTypes[] attachments;
 		private boolean encased;
 		private BlockStateModel bracket;
@@ -145,8 +114,9 @@ public class PipeAttachmentModel extends BakedModelWrapperWithData {
 		public void putBracket(BlockState state) {
 			if (state != null) {
 				this.bracket = Minecraft.getInstance()
-					.getBlockRenderer()
-					.getBlockModel(state);
+					.getModelManager()
+					.getBlockStateModelSet()
+					.get(state);
 			}
 		}
 
