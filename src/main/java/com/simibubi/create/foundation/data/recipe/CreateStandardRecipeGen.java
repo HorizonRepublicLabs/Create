@@ -1756,50 +1756,60 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 			return wrapped.getType();
 		}
 
-		private record Serializer(
-			MapCodec<Recipe<?>> wrappedCodec) implements RecipeSerializer<ModdedCookingRecipeOutputShim> {
-			private static Serializer create(Recipe<?> wrapped) {
+		/// RecipeSerializer is a record of (codec, streamCodec) in 26.x rather than
+		/// an interface, so the shim builds one and still injects it into the
+		/// registry maps under the wrapped serializer's id. Only datagen ever
+		/// encodes through it, hence the stream codec that refuses.
+		private static final class Serializer {
+
+			private static RecipeSerializer<ModdedCookingRecipeOutputShim> create(Recipe<?> wrapped) {
 				RecipeSerializer<?> wrappedSerializer = wrapped.getSerializer();
 				@SuppressWarnings("unchecked")
-				Serializer serializer = new Serializer((MapCodec<Recipe<?>>) wrappedSerializer.codec());
+				MapCodec<Recipe<?>> wrappedCodec = (MapCodec<Recipe<?>>) wrappedSerializer.codec();
 
-				// Need to do some registry injection to get the Recipe/Registry#byNameCodec to encode the right type for this
-				// getResourceKey and getId
-				// byValue and toId
-				// Holder.Reference: key
+				MapCodec<ModdedCookingRecipeOutputShim> codec =
+					RecordCodecBuilder.mapCodec(instance -> instance.group(
+						wrappedCodec.forGetter(i -> i.wrapped),
+						FakeItemStack.CODEC.fieldOf("result")
+							.forGetter(i -> new FakeItemStack(i.overrideID))
+					).apply(instance, (wrappedRecipe, fakeItemStack) -> {
+						throw new AssertionError("Only for datagen output");
+					}));
+
+				StreamCodec<RegistryFriendlyByteBuf, ModdedCookingRecipeOutputShim> streamCodec =
+					StreamCodec.of((buf, value) -> {
+						throw new AssertionError("Only for datagen output");
+					}, buf -> {
+						throw new AssertionError("Only for datagen output");
+					});
+
+				RecipeSerializer<ModdedCookingRecipeOutputShim> serializer =
+					new RecipeSerializer<>(codec, streamCodec);
+
+				// Registry injection, so Recipe/Registry#byNameCodec encodes under the
+				// wrapped serializer's key rather than this one's.
 				if (BuiltInRegistries.RECIPE_SERIALIZER instanceof MappedRegistryAccessor<?> mra) {
 					@SuppressWarnings("unchecked")
 					MappedRegistryAccessor<RecipeSerializer<?>> mra$ = (MappedRegistryAccessor<RecipeSerializer<?>>) mra;
 
-					int wrappedId = mra$.getToId().getOrDefault(wrappedSerializer, -1);
-					ResourceKey<RecipeSerializer<?>> wrappedKey = mra$.getByValue().get(wrappedSerializer).key();
+					int wrappedId = mra$.getToId()
+						.getOrDefault(wrappedSerializer, -1);
+					ResourceKey<RecipeSerializer<?>> wrappedKey = mra$.getByValue()
+						.get(wrappedSerializer)
+						.key();
 
-					mra$.getToId().put(serializer, wrappedId);
-					//noinspection DataFlowIssue - it is ok to pass null as the owner, because this is only being used for serialization
-					mra$.getByValue().put(serializer, Holder.Reference.createStandAlone(null, wrappedKey));
+					mra$.getToId()
+						.put(serializer, wrappedId);
+					//noinspection DataFlowIssue - null owner is fine, this is only for serialization
+					mra$.getByValue()
+						.put(serializer, Holder.Reference.createStandAlone(null, wrappedKey));
 				} else {
-					throw new AssertionError("ModdedCookingRecipeOutputShim will not be able to" +
-						" serialize without injecting into a registry. Expected" +
-						" BuiltInRegistries.RECIPE_SERIALIZER to be of class MappedRegistry, is of class " +
-						BuiltInRegistries.RECIPE_SERIALIZER.getClass()
-					);
+					throw new AssertionError("ModdedCookingRecipeOutputShim will not be able to"
+						+ " serialize without injecting into a registry. Expected"
+						+ " BuiltInRegistries.RECIPE_SERIALIZER to be of class MappedRegistry, is of class "
+						+ BuiltInRegistries.RECIPE_SERIALIZER.getClass());
 				}
 				return serializer;
-			}
-
-			@Override
-			public MapCodec<ModdedCookingRecipeOutputShim> codec() {
-				return RecordCodecBuilder.mapCodec(instance -> instance.group(
-					wrappedCodec.forGetter(i -> i.wrapped),
-					FakeItemStack.CODEC.fieldOf("result").forGetter(i -> new FakeItemStack(i.overrideID))
-				).apply(instance, (wrappedRecipe, fakeItemStack) -> {
-					throw new AssertionError("Only for datagen output");
-				}));
-			}
-
-			@Override
-			public StreamCodec<RegistryFriendlyByteBuf, ModdedCookingRecipeOutputShim> streamCodec() {
-				throw new AssertionError("Only for datagen output");
 			}
 		}
 
