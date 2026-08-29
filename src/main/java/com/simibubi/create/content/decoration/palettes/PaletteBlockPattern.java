@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import static com.simibubi.create.content.decoration.palettes.PaletteBlockPartial.ALL_PARTIALS;
 import static com.simibubi.create.content.decoration.palettes.PaletteBlockPartial.FOR_POLISHED;
 import static com.simibubi.create.content.decoration.palettes.PaletteBlockPattern.PatternNameType.PREFIX;
@@ -178,8 +180,7 @@ public class PaletteBlockPattern {
 		Identifier side = toLocation(variant, textures[0]);
 		Identifier end = toLocation(variant, textures[1]);
 
-		return (ctx, prov) -> prov.getVariantBuilder(ctx.getEntry())
-			.forAllStatesExcept(state -> {
+		return (ctx, prov) -> VariantModels.forAllStatesExcept(prov, ctx.getEntry(), state -> {
 				Axis axis = state.getValue(BlockStateProperties.AXIS);
 				if (axis == Axis.Y)
 					return ConfiguredModel.builder()

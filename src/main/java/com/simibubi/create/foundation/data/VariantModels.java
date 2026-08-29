@@ -151,6 +151,32 @@ public class VariantModels {
 		}, BlockStateProperties.WATERLOGGED);
 	}
 
+	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block,
+		Function<BlockState, Identifier> modelFunc) {
+		forAllStatesExcept(generator, block, state -> ConfiguredModel.of(modelFunc.apply(state)).toArray(),
+			BlockStateProperties.WATERLOGGED);
+	}
+
+	public static void directionalBlock(RegistrateBlockModelGenerator generator, Block block,
+		Function<BlockState, Identifier> modelFunc) {
+		forAllStatesExcept(generator, block, state -> {
+			Direction dir = state.getValue(BlockStateProperties.FACING);
+			return ConfiguredModel.builder()
+				.modelFile(modelFunc.apply(state))
+				.rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+				.rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + 180) % 360)
+				.build();
+		}, BlockStateProperties.WATERLOGGED);
+	}
+
+	public static void horizontalBlock(RegistrateBlockModelGenerator generator, Block block,
+		Function<BlockState, Identifier> modelFunc) {
+		forAllStatesExcept(generator, block, state -> ConfiguredModel.builder()
+			.modelFile(modelFunc.apply(state))
+			.rotationY((((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot()) + 180) % 360)
+			.build(), BlockStateProperties.WATERLOGGED);
+	}
+
 	public static void accept(RegistrateBlockModelGenerator generator, Block block,
 		Map<String, BlockStateModel.Unbaked> variants) {
 		generator.blockStateOutput.accept(new BlockModelDefinitionGenerator() {

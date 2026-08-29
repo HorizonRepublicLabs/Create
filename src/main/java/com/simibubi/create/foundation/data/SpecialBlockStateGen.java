@@ -19,8 +19,7 @@ public abstract class SpecialBlockStateGen {
 	}
 
 	public final <T extends Block> void generate(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov) {
-		prov.getVariantBuilder(ctx.getEntry())
-			.forAllStatesExcept(state -> {
+		VariantModels.forAllStatesExcept(prov, ctx.getEntry(), state -> {
 				return ConfiguredModel.builder()
 					.modelFile(getModel(ctx, prov, state))
 					.rotationX((getXRotation(state) + 360) % 360)

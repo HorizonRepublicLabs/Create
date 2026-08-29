@@ -258,8 +258,7 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(() -> Blocks.SCAFFOLDING)
 			.properties(p -> p.sound(SoundType.COPPER)
 				.mapColor(color))
-			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
-				.forAllStatesExcept(s -> {
+			.blockstate(() -> (c, p) -> VariantModels.forAllStatesExcept(p, c.get(), s -> {
 					String suffix = s.getValue(MetalScaffoldingBlock.BOTTOM) ? "_horizontal" : "";
 					return ConfiguredModel.builder()
 						.modelFile(p.models()
@@ -336,8 +335,7 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(SharedProperties::stone)
 			.properties(BlockBehaviour.Properties::noOcclusion)
 			.transform(pickaxeOnly())
-			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
-				.forAllStates(state -> {
+			.blockstate(() -> (c, p) -> VariantModels.forAllStates(p, c.get(), state -> {
 					Shape shape = state.getValue(BeltTunnelBlock.SHAPE);
 					String window = shape == Shape.WINDOW ? "_window" : "";
 					if (shape == BeltTunnelBlock.Shape.CLOSED)
@@ -414,8 +412,7 @@ public class BuilderTransformers {
 						.texture("side", side)
 						.texture("casing", casing));
 
-				p.getVariantBuilder(c.get())
-					.forAllStates(state -> {
+				VariantModels.forAllStates(p, c.get(), state -> {
 						String variant = "single";
 						return ConfiguredModel.builder()
 							.modelFile(models.get(variant))

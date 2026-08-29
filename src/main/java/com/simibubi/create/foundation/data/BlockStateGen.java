@@ -105,8 +105,7 @@ public class BlockStateGen {
 
 	public static <T extends Block> void directionalBlockIgnoresWaterlogged(DataGenContext<Block, T> ctx,
 		RegistrateBlockModelGenerator prov, Function<BlockState, Identifier> modelFunc) {
-		prov.getVariantBuilder(ctx.getEntry())
-			.forAllStatesExcept(state -> {
+		VariantModels.forAllStatesExcept(prov, ctx.getEntry(), state -> {
 				Direction dir = state.getValue(BlockStateProperties.FACING);
 				return ConfiguredModel.builder()
 					.modelFile(modelFunc.apply(state))
@@ -126,8 +125,7 @@ public class BlockStateGen {
 
 	public static <T extends Block> void axisBlock(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		Function<BlockState, Identifier> modelFunc, boolean uvLock) {
-		prov.getVariantBuilder(ctx.getEntry())
-			.forAllStatesExcept(state -> {
+		VariantModels.forAllStatesExcept(prov, ctx.getEntry(), state -> {
 				Axis axis = state.getValue(BlockStateProperties.AXIS);
 				return ConfiguredModel.builder()
 					.modelFile(modelFunc.apply(state))
@@ -140,8 +138,7 @@ public class BlockStateGen {
 
 	public static <T extends Block> void simpleBlock(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		Function<BlockState, Identifier> modelFunc) {
-		prov.getVariantBuilder(ctx.getEntry())
-			.forAllStatesExcept(state -> {
+		VariantModels.forAllStatesExcept(prov, ctx.getEntry(), state -> {
 				return ConfiguredModel.builder()
 					.modelFile(modelFunc.apply(state))
 					.build();
@@ -150,8 +147,7 @@ public class BlockStateGen {
 
 	public static <T extends Block> void horizontalAxisBlock(DataGenContext<Block, T> ctx,
 		RegistrateBlockModelGenerator prov, Function<BlockState, Identifier> modelFunc) {
-		prov.getVariantBuilder(ctx.getEntry())
-			.forAllStates(state -> {
+		VariantModels.forAllStates(prov, ctx.getEntry(), state -> {
 				Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
 				return ConfiguredModel.builder()
 					.modelFile(modelFunc.apply(state))
@@ -162,8 +158,7 @@ public class BlockStateGen {
 
 	public static <T extends DirectionalAxisKineticBlock> void directionalAxisBlock(DataGenContext<Block, T> ctx,
 		RegistrateBlockModelGenerator prov, BiFunction<BlockState, Boolean, Identifier> modelFunc) {
-		prov.getVariantBuilder(ctx.getEntry())
-			.forAllStates(state -> {
+		VariantModels.forAllStates(prov, ctx.getEntry(), state -> {
 
 				boolean alongFirst = state.getValue(DirectionalAxisKineticBlock.AXIS_ALONG_FIRST_COORDINATE);
 				Direction direction = state.getValue(DirectionalAxisKineticBlock.FACING);
@@ -183,8 +178,7 @@ public class BlockStateGen {
 
 	public static <T extends Block> void horizontalWheel(DataGenContext<Block, T> ctx,
 		RegistrateBlockModelGenerator prov, Function<BlockState, Identifier> modelFunc) {
-		prov.getVariantBuilder(ctx.get())
-			.forAllStates(state -> ConfiguredModel.builder()
+		VariantModels.forAllStates(prov, ctx.get(), state -> ConfiguredModel.builder()
 				.modelFile(modelFunc.apply(state))
 				.rotationX(90)
 				.rotationY(((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING)
@@ -205,8 +199,7 @@ public class BlockStateGen {
 	}
 
 	public static NonNullBiConsumer<DataGenContext<Block, CartAssemblerBlock>, RegistrateBlockModelGenerator> cartAssembler() {
-		return (c, p) -> p.getVariantBuilder(c.get())
-			.forAllStates(state -> {
+		return (c, p) -> VariantModels.forAllStates(p, c.get(), state -> {
 				CartAssembleRailType type = state.getValue(CartAssemblerBlock.RAIL_TYPE);
 				Boolean powered = state.getValue(CartAssemblerBlock.POWERED);
 				Boolean backwards = state.getValue(CartAssemblerBlock.BACKWARDS);

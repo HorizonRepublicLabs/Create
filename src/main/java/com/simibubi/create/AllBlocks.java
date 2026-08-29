@@ -600,8 +600,7 @@ public class AllBlocks {
 		REGISTRATE.block("water_wheel_structure", WaterWheelStructuralBlock::new)
 			.initialProperties(SharedProperties::wooden)
 			.clientExtension(() -> () -> new WaterWheelStructuralBlock.RenderProperties())
-			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
-				.forAllStatesExcept(BlockStateGen.mapToAir(p), WaterWheelStructuralBlock.FACING))
+			.blockstate(() -> (c, p) -> VariantModels.forAllStatesExcept(p, c.get(), BlockStateGen.mapToAir(p), WaterWheelStructuralBlock.FACING))
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.DIRT))
 			.transform(axeOrPickaxe())
@@ -698,8 +697,7 @@ public class AllBlocks {
 				.air()
 				.noCollission()
 				.pushReaction(PushReaction.BLOCK))
-			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
-				.forAllStatesExcept(BlockStateGen.mapToAir(p), CrushingWheelControllerBlock.FACING))
+			.blockstate(() -> (c, p) -> VariantModels.forAllStatesExcept(p, c.get(), BlockStateGen.mapToAir(p), CrushingWheelControllerBlock.FACING))
 			.register();
 
 	public static final BlockEntry<MechanicalPressBlock> MECHANICAL_PRESS =
@@ -763,8 +761,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.FAN_PROCESSING_CATALYSTS_HAUNTING.tag, AllBlockTags.FAN_PROCESSING_CATALYSTS_SMOKING.tag,
 				AllBlockTags.FAN_TRANSPARENT.tag, AllBlockTags.PASSIVE_BOILER_HEATERS.tag)
 			.loot((lt, block) -> lt.dropOther(block, AllItems.EMPTY_BLAZE_BURNER.get()))
-			.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
-				.forAllStates(state -> ConfiguredModel.builder()
+			.blockstate(() -> (c, p) -> VariantModels.forAllStates(p, c.get(), state -> ConfiguredModel.builder()
 					.modelFile(p.models()
 						.getExistingFile(p.modLoc("block/blaze_burner/"
 							+ (state.getValue(LitBlazeBurnerBlock.FLAME_TYPE) == LitBlazeBurnerBlock.FlameType.SOUL
@@ -898,8 +895,7 @@ public class AllBlocks {
 			.properties(p -> p.noOcclusion())
 			.transform(pickaxeOnly())
 			.blockstate(() -> (c, p) -> {
-				p.getVariantBuilder(c.getEntry())
-					.forAllStatesExcept(state -> {
+				VariantModels.forAllStatesExcept(p, c.getEntry(), state -> {
 						Axis axis = state.getValue(BlockStateProperties.AXIS);
 						return ConfiguredModel.builder()
 							.modelFile(p.models()
@@ -1569,8 +1565,7 @@ public class AllBlocks {
 		.initialProperties(SharedProperties::softMetal)
 		.properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW))
 		.transform(axeOrPickaxe())
-		.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
-			.forAllStates(s -> ConfiguredModel.builder()
+		.blockstate(() -> (c, p) -> VariantModels.forAllStates(p, c.get(), s -> ConfiguredModel.builder()
 				.modelFile(AssetLookup.partialBaseModel(c, p))
 				.rotationX(s.getValue(ArmBlock.CEILING) ? 180 : 0)
 				.build()))
@@ -1637,8 +1632,7 @@ public class AllBlocks {
 			.noOcclusion()
 			.sound(SoundType.NETHERITE_BLOCK))
 		.transform(pickaxeOnly())
-		.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
-			.forAllStates(state -> ConfiguredModel.builder()
+		.blockstate(() -> (c, p) -> VariantModels.forAllStates(p, c.get(), state -> ConfiguredModel.builder()
 				.modelFile(AssetLookup.partialBaseModel(c, p, state.getValue(SignalBlock.TYPE)
 					.getSerializedName()))
 				.build()))
@@ -1802,8 +1796,7 @@ public class AllBlocks {
 			.sound(SoundType.NETHERITE_BLOCK)
 			.explosionResistance(1200))
 		.transform(pickaxeOnly())
-		.blockstate(() -> (c, p) -> p.getVariantBuilder(c.get())
-			.forAllStates(s -> ConfiguredModel.builder()
+		.blockstate(() -> (c, p) -> VariantModels.forAllStates(p, c.get(), s -> ConfiguredModel.builder()
 				.modelFile(AssetLookup.standardModel(c, p))
 				.rotationY(s.getValue(ItemVaultBlock.HORIZONTAL_AXIS) == Axis.X ? 90 : 0)
 				.build()))
