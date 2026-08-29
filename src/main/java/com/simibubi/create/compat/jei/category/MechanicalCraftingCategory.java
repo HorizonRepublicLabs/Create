@@ -169,8 +169,8 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 				RenderSystem.applyModelViewMatrix();
 				Minecraft minecraft = Minecraft.getInstance();
 				Font font = getFontRenderer(minecraft, ingredient);
-				graphics.renderItem(ingredient, 0, 0);
-				graphics.renderItemDecorations(font, ingredient, 0, 0, null);
+				graphics.item(ingredient, 0, 0);
+				graphics.itemDecorations(font, ingredient, 0, 0, null);
 				modelViewStack.popMatrix();
 				RenderSystem.applyModelViewMatrix();
 			}

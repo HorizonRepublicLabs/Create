@@ -147,7 +147,7 @@ public class PackagePortScreen extends AbstractSimiContainerScreen<PackagePortMe
 		x += 13;
 		y += 58;
 		AllGuiTextures.FROGPORT_SLOT.render(graphics, x, y);
-		graphics.renderItem(menu.contentHolder.target.getIcon(), x + 1, y + 1);
+		graphics.item(menu.contentHolder.target.getIcon(), x + 1, y + 1);
 
 		if (addressBox.isHovered()) {
 			graphics.setTooltipForNextFrame(font, List.of(CreateLang.translate("gui.package_port.catch_packages") .color(AbstractSimiWidget.HEADER_RGB) .component(), CreateLang.translate("gui.package_port.catch_packages_empty") .style(ChatFormatting.GRAY) .component(), CreateLang.translate("gui.package_port.catch_packages_wildcard") .style(ChatFormatting.GRAY) .component()), java.util.Optional.empty(), pMouseX, pMouseY);

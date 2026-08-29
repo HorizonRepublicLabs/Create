@@ -285,7 +285,7 @@ public class StationScreen extends AbstractStationScreen {
 		if (!nameBox.isFocused())
 			AllGuiTextures.STATION_EDIT_NAME.render(graphics, nameBoxX(text, nameBox) + font.width(text) + 5, y + 1);
 
-		graphics.renderItem(AllBlocks.TRAIN_DOOR.asStack(), x + 14, y + 103);
+		graphics.item(AllBlocks.TRAIN_DOOR.asStack(), x + 14, y + 103);
 
 		Train train = displayedTrain.get();
 		if (train == null) {

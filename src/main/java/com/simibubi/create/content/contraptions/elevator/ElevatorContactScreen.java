@@ -135,7 +135,7 @@ public class ElevatorContactScreen extends AbstractSimiScreen {
 			.scale(5)
 			.render(graphics);
 
-		graphics.renderItem(AllBlocks.TRAIN_DOOR.asStack(), x + 37, y + 58);
+		graphics.item(AllBlocks.TRAIN_DOOR.asStack(), x + 37, y + 58);
 	}
 
 	@Override

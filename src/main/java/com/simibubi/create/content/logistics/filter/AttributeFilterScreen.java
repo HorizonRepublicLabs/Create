@@ -185,7 +185,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 		PoseStack matrixStack = graphics.pose();
 		matrixStack.pushPose();
 		matrixStack.translate(0, 0, 150);
-		graphics.renderItemDecorations(font, stack, guiLeft + 16, guiTop + 62,
+		graphics.itemDecorations(font, stack, guiLeft + 16, guiTop + 62,
 			String.valueOf(selectedAttributes.size() - 1));
 		matrixStack.popPose();
 

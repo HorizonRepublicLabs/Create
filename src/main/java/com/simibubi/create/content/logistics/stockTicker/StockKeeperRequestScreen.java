@@ -866,7 +866,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		ms.pushMatrix();
 		ms.translate(0, 0);
 		if (customCount != 0 || craftable)
-			graphics.renderItemDecorations(font, stackWithCount, 1, 1, "");
+			graphics.itemDecorations(font, stackWithCount, 1, 1, "");
 		ms.translate(0, 0);
 		if (customCount > 1 || craftable)
 			drawItemCount(graphics, entry.count, customCount);

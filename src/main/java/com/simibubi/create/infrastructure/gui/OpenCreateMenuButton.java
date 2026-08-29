@@ -45,7 +45,7 @@ public class OpenCreateMenuButton extends Button {
 		if (bakedmodel == null)
 			return;
 		
-		graphics.renderItem(icon, getX() + 2, getY() + 2);
+		graphics.item(icon, getX() + 2, getY() + 2);
 	}
 
 	public static void click(Button b) {

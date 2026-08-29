@@ -344,7 +344,7 @@ public class BlueprintOverlayRenderer {
 
 			AllGuiTextures.TRADE_OVERLAY.render(guiGraphics, guiGraphics.guiWidth() / 2 - 48, y - 19);
 			if (shopContext.purchases() > 0) {
-				guiGraphics.renderItem(AllItems.SHOPPING_LIST.asStack(), guiGraphics.guiWidth() / 2 + 20, y - 20);
+				guiGraphics.item(AllItems.SHOPPING_LIST.asStack(), guiGraphics.guiWidth() / 2 + 20, y - 20);
 				guiGraphics.text(mc.font, Component.literal("x" + shopContext.purchases()), guiGraphics.guiWidth() / 2 + 20 + 16,
 					y - 20 + 4, 0xff_eeeeee, true);
 			}
@@ -422,7 +422,7 @@ public class BlueprintOverlayRenderer {
 		GuiGameElement.of(itemStack)
 			.at(x + 3, y + 3)
 			.render(graphics);
-		graphics.renderItemDecorations(mc.font, itemStack, x + 3, y + 3, count);
+		graphics.itemDecorations(mc.font, itemStack, x + 3, y + 3, count);
 	}
 
 	private static ItemStack[] getItemsMatchingFilter(ItemStack filter) {

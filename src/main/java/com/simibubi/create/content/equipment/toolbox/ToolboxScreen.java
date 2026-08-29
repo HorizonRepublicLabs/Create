@@ -109,8 +109,8 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 				String s = String.valueOf(count);
 				ms.pushPose();
 				ms.translate(0, 0, 100);
-				graphics.renderItem(minecraft.player, itemstack, i, j, 0);
-				graphics.renderItemDecorations(font, itemstack, i, j, s);
+				graphics.item(minecraft.player, itemstack, i, j, 0);
+				graphics.itemDecorations(font, itemstack, i, j, s);
 				ms.popPose();
 			}
 

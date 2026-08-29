@@ -139,7 +139,7 @@ public class RedstoneRequesterScreen extends AbstractSimiContainerScreen<Redston
 			PoseStack ms = graphics.pose();
 			ms.pushPose();
 			ms.translate(0, 0, 100);
-			graphics.renderItemDecorations(font, itemStack, inputX, inputY, "" + amounts.get(i));
+			graphics.itemDecorations(font, itemStack, inputX, inputY, "" + amounts.get(i));
 			ms.popPose();
 		}
 
