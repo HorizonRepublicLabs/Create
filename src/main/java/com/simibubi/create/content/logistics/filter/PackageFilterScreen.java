@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.filter;
 
+import org.joml.Matrix3x2fStack;
+
 import net.minecraft.client.input.CharacterEvent;
 
 import net.minecraft.client.input.KeyEvent;
@@ -63,12 +65,12 @@ public class PackageFilterScreen extends AbstractFilterScreen<PackageFilterMenu>
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
-		PoseStack ms = graphics.pose();
-		ms.pushPose();
-		ms.translate(guiLeft + 16, guiTop + 23, 0);
+		Matrix3x2fStack ms = graphics.pose();
+		ms.pushMatrix();
+		ms.translate((float) (guiLeft + 16), (float) (guiTop + 23));
 		GuiGameElement.of(PackageStyles.getDefaultBox())
 			.submit(graphics);
-		ms.popPose();
+		ms.popMatrix();
 	}
 
 	public void onAddressEdited(String s) {

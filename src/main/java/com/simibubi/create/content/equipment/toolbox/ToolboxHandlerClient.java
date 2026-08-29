@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import org.joml.Matrix3x2fStack;
+
 import com.simibubi.create.foundation.gui.HudState;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -177,8 +179,8 @@ public class ToolboxHandlerClient {
 		if (compound.isEmpty())
 			return;
 
-		PoseStack poseStack = guiGraphics.pose();
-		poseStack.pushPose();
+		Matrix3x2fStack poseStack = guiGraphics.pose();
+		poseStack.pushMatrix();
 		for (int slot = 0; slot < 9; slot++) {
 			String key = String.valueOf(slot);
 			if (!compound.contains(key))
@@ -192,7 +194,7 @@ public class ToolboxHandlerClient {
 				: selected ? TOOLBELT_SELECTED_OFF : TOOLBELT_HOTBAR_OFF;
 			texture.render(guiGraphics, x + 20 * slot - offset, y + offset);
 		}
-		poseStack.popPose();
+		poseStack.popMatrix();
 	}
 
 }

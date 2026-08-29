@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.goggles;
 
+import org.joml.Matrix3x2fStack;
+
 import com.simibubi.create.foundation.gui.HudState;
 
 import java.util.ArrayList;
@@ -174,8 +176,8 @@ public class GoggleOverlayRenderer {
 			return;
 		}
 
-		PoseStack poseStack = guiGraphics.pose();
-		poseStack.pushPose();
+		Matrix3x2fStack poseStack = guiGraphics.pose();
+		poseStack.pushMatrix();
 
 		int tooltipTextWidth = 0;
 		for (FormattedText textLine : tooltip) {
@@ -225,7 +227,7 @@ public class GoggleOverlayRenderer {
 			RemovedGuiUtils.drawHoveringText(guiGraphics, tooltip, posX, posY, width, height, -1, colorBackground.getRGB(),
 				colorBorderTop.getRGB(), colorBorderBot.getRGB(), mc.font);
 
-			poseStack.popPose();
+			poseStack.popMatrix();
 
 			return;
 		}
@@ -251,7 +253,7 @@ public class GoggleOverlayRenderer {
 
 		((MouseHandlerAccessor) mouseHandler).create$setXPos(cursorX);
 		((MouseHandlerAccessor) mouseHandler).create$setYPos(cursorY);
-		poseStack.popPose();
+		poseStack.popMatrix();
 
 	}
 

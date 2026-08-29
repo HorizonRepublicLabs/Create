@@ -91,7 +91,7 @@ public abstract class ProcessingViaFanCategory<T extends Recipe<?>> extends Crea
 	}
 
 	protected void translateFan(Matrix3x2fStack matrixStack) {
-		matrixStack.translate(56, 33);
+		matrixStack.translate((float) (56), (float) (33));
 	}
 
 	protected abstract void renderAttachedBlock(GuiGraphicsExtractor graphics);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.filter;
 
+import org.joml.Matrix3x2fStack;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -182,12 +184,12 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 	@Override
 	public void renderForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		ItemStack stack = menu.ghostInventory.getStackInSlot(1);
-		PoseStack matrixStack = graphics.pose();
-		matrixStack.pushPose();
-		matrixStack.translate(0, 0, 150);
+		Matrix3x2fStack matrixStack = graphics.pose();
+		matrixStack.pushMatrix();
+		matrixStack.translate((float) (0), (float) (0));
 		graphics.itemDecorations(font, stack, guiLeft + 16, guiTop + 62,
 			String.valueOf(selectedAttributes.size() - 1));
-		matrixStack.popPose();
+		matrixStack.popMatrix();
 
 		super.renderForeground(graphics, mouseX, mouseY, partialTicks);
 	}

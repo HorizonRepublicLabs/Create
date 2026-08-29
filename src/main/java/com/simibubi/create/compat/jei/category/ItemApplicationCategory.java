@@ -83,7 +83,7 @@ public class ItemApplicationCategory extends CreateRecipeCategory<ItemApplicatio
 
 		Matrix3x2fStack matrixStack = graphics.pose();
 		matrixStack.pushMatrix();
-		matrixStack.translate(74, 51);
+		matrixStack.translate((float) (74), (float) (51));
 		// The isometric tilt needs a 3D rotation on what is now a 2D GUI stack.
 		// catnip has not restored that yet, so these draw untilted for now.
 		int scale = 20;

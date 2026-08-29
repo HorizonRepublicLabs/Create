@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.gui;
 
+import org.joml.Matrix3x2fStack;
+
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -100,46 +102,46 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 		}
 
 
-		PoseStack ms = graphics.pose();
+		Matrix3x2fStack ms = graphics.pose();
 
 		for (int side : Iterate.positiveAndNegative) {
-			ms.pushPose();
-			ms.translate(width / 2, 60, 200);
-			ms.scale(24 * side, 24 * side, 32);
+			ms.pushMatrix();
+			ms.translate((float) (width / 2), (float) (60));
+			ms.scale((float) (24 * side), (float) (24 * side));
 			ms.translate(-1.75 * ((alpha * alpha) / 2f + .5f), .25f, 0);
 			TransformStack.of(ms)
 				.rotateXDegrees(45);
 			GuiGameElement.of(AllBlocks.LARGE_COGWHEEL.getDefaultState())
 				.rotateBlock(0, Util.getMillis() / 32f * side, 0)
 				.submit(graphics);
-			ms.translate(-1, 0, -1);
+			ms.translate((float) (-1), (float) (0));
 			GuiGameElement.of(AllBlocks.COGWHEEL.getDefaultState())
 				.rotateBlock(0, Util.getMillis() / -16f * side + 22.5f, 0)
 				.submit(graphics);
-			ms.popPose();
+			ms.popMatrix();
 		}
 
 
-		ms.pushPose();
-		ms.translate(width / 2 - 32, 32, -10);
-		ms.pushPose();
-		ms.scale(0.25f, 0.25f, 0.25f);
+		ms.pushMatrix();
+		ms.translate((float) (width / 2 - 32), (float) (32));
+		ms.pushMatrix();
+		ms.scale((float) (0.25f), (float) (0.25f));
 		AllGuiTextures.LOGO.render(graphics, 0, 0);
-		ms.popPose();
+		ms.popMatrix();
 		new BoxElement().withBackground(0x88_000000)
 			.flatBorder(new Color(0x01_000000))
 			.at(-32, 56, 100)
 			.withBounds(128, 11)
 			.submit(graphics);
-		ms.popPose();
+		ms.popMatrix();
 
-		ms.pushPose();
-		ms.translate(0, 0, 200);
+		ms.pushMatrix();
+		ms.translate((float) (0), (float) (0));
 		graphics.drawCenteredString(font, Component.literal(Create.NAME).withStyle(ChatFormatting.BOLD)
 				.append(
 					Component.literal(" v" + CreateBuildInfo.VERSION).withStyle(ChatFormatting.BOLD, ChatFormatting.WHITE)),
 			width / 2, 89, 0xFF_E4BB67);
-		ms.popPose();
+		ms.popMatrix();
 
 	}
 
@@ -234,12 +236,12 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 		@Override
 		protected void renderWidget(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pt) {
 			super.renderWidget(graphics, pMouseX, pMouseY, pt);
-			PoseStack pPoseStack = graphics.pose();
-			pPoseStack.pushPose();
+			Matrix3x2fStack pPoseStack = graphics.pose();
+			pPoseStack.pushMatrix();
 			pPoseStack.translate(getX() + width / 2 - (icon.getWidth() * scale) / 2, getY() + height / 2 - (icon.getHeight() * scale) / 2, 0);
-			pPoseStack.scale(scale, scale, 1);
+			pPoseStack.scale((float) (scale), (float) (scale));
 			icon.render(graphics, 0, 0);
-			pPoseStack.popPose();
+			pPoseStack.popMatrix();
 		}
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import org.joml.Matrix3x2fStack;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -35,12 +37,12 @@ public class PotatoCannonItemRenderer extends CustomRenderedItemModelRenderer {
 			return false;
 		}
 
-		PoseStack poseStack = guiGraphics.pose();
-		poseStack.pushPose();
-		poseStack.translate(xOffset, yOffset + 8, 100);
-		poseStack.scale(.5f, .5f, .5f);
+		Matrix3x2fStack poseStack = guiGraphics.pose();
+		poseStack.pushMatrix();
+		poseStack.translate((float) (xOffset), (float) (yOffset + 8));
+		poseStack.scale((float) (.5f), (float) (.5f));
 		guiGraphics.item(ammo.stack(), 0, 0);
-		poseStack.popPose();
+		poseStack.popMatrix();
 		return false;
 	};
 

@@ -36,7 +36,7 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 	public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 		Matrix3x2fStack matrixStack = graphics.pose();
 		matrixStack.pushMatrix();
-		matrixStack.translate(xOffset, yOffset);
+		matrixStack.translate((float) (xOffset), (float) (yOffset));
 		// The isometric tilt needs a 3D rotation on what is now a 2D GUI stack.
 		// catnip has not restored that yet, so these draw untilted for now.
 		int scale = 23;
@@ -61,8 +61,8 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 			.scale(scale)
 			.render(graphics);
 
-		matrixStack.scale(scale, -scale);
-		matrixStack.translate(0, -1.8);
+		matrixStack.scale((float) (scale), (float) (-scale));
+		matrixStack.translate((float) (0), (float) (-1.8));
 
 		SpriteShiftEntry spriteShift =
 			heatLevel == HeatLevel.SEETHING ? AllSpriteShifts.SUPER_BURNER_FLAME : AllSpriteShifts.BURNER_FLAME;

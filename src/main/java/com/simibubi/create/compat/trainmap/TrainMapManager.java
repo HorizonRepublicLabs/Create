@@ -101,7 +101,7 @@ public class TrainMapManager {
 			return;
 		Matrix3x2fStack pose = graphics.pose();
 		pose.pushMatrix();
-		pose.translate(0, 0);
+		pose.translate((float) (0), (float) (0));
 		AllGuiTextures.TRAINMAP_TOGGLE_PANEL.render(graphics, x, y);
 		(enabled ? AllGuiTextures.TRAINMAP_TOGGLE_ON : AllGuiTextures.TRAINMAP_TOGGLE_OFF).render(graphics, x + 18,
 			y + 3);
@@ -286,7 +286,7 @@ public class TrainMapManager {
 				boolean highlight = hoveredElement == null && Math.max(Math.abs(mouseX - x), Math.abs(mouseY - y)) < 3;
 
 				pose.pushMatrix();
-				pose.translate(x - 2, y - 2);
+				pose.translate((float) (x - 2), (float) (y - 2));
 
 				pose.translate(sprite.getWidth() / 2.0, sprite.getHeight() / 2.0, 0);
 				pose.mulPose(Axis.ZP.rotationDegrees(90 * (rotation / 2)));
@@ -296,7 +296,7 @@ public class TrainMapManager {
 				sprite.render(graphics, 0, 0);
 
 				if (highlight) {
-					pose.translate(0, 0);
+					pose.translate((float) (0), (float) (0));
 					highlightSprite.render(graphics, -1, -1);
 					hoveredElement = station;
 				}
@@ -402,7 +402,7 @@ public class TrainMapManager {
 				float pivotX = 7.5f + (slices - 3) * sliceXShiftByRotationIndex[rotation] / 2.0f;
 				float pivotY = 6.5f + (slices - 3) * sliceYShiftByRotationIndex[rotation] / 2.0f;
 				// Ysort at home
-				pose.translate(pX - pivotX, pY - pivotY, 10 + (avgY / 512.0) + (1024.0 + center.z() % 8192.0) / 1024.0);
+				pose.translate((float) (pX - pivotX), (float) (pY - pivotY));
 
 				int trainColorIndex = train.mapColorIndex;
 				int colorRow = trainColorIndex / 4;
@@ -439,7 +439,7 @@ public class TrainMapManager {
 
 			if (trainEntry.signalState != SignalState.NOT_WAITING) {
 				pose.pushMatrix();
-				pose.translate(frontPos.x - 0.5, frontPos.z - 0.5, 20 + (1024.0 + frontPos.z() % 8192.0) / 1024.0);
+				pose.translate((float) (frontPos.x - 0.5), (float) (frontPos.z - 0.5));
 				AllGuiTextures.TRAINMAP_SIGNAL.render(graphics, 0, -3);
 				pose.popMatrix();
 			}

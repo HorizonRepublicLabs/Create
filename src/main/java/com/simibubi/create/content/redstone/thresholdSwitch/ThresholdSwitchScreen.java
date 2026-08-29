@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.thresholdSwitch;
 
+import org.joml.Matrix3x2fStack;
+
 import net.minecraft.client.input.MouseButtonEvent;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -206,9 +208,9 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 		AllGuiTextures.THRESHOLD_SWITCH_CURRENT_STATE.render(graphics, torchX - 3,
 			torchY - 4 + (highlightTopRow ? 0 : 24));
 
-		PoseStack ms = graphics.pose();
-		ms.pushPose();
-		ms.translate(torchX - 5, torchY + 14, 200);
+		Matrix3x2fStack ms = graphics.pose();
+		ms.pushMatrix();
+		ms.translate((float) (torchX - 5), (float) (torchY + 14));
 		TransformStack.of(ms)
 			.rotateXDegrees(-22.5f)
 			.rotateYDegrees(45);
@@ -218,10 +220,10 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 					.setValue(RedstoneTorchBlock.LIT, blockEntity.isInverted() ^ power))
 				.scale(20)
 				.submit(graphics);
-			ms.translate(0, 26, 0);
+			ms.translate((float) (0), (float) (26));
 		}
 
-		ms.popPose();
+		ms.popMatrix();
 
 		if (mouseX >= itemX && mouseX < itemX + 16 && mouseY >= itemY && mouseY < itemY + 16) {
 			ArrayList<Component> list = new ArrayList<>();

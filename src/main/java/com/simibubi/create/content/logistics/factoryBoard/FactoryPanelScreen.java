@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import org.joml.Matrix3x2fStack;
+
 import net.minecraft.client.input.MouseButtonEvent;
 
 import com.simibubi.create.foundation.gui.Modifiers;
@@ -311,9 +313,9 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 			}
 		}
 
-		PoseStack ms = graphics.pose();
-		ms.pushPose();
-		ms.translate(0, 0, 10);
+		Matrix3x2fStack ms = graphics.pose();
+		ms.pushMatrix();
+		ms.translate((float) (0), (float) (0));
 
 		// ADDRESS
 		if (addressBox.isHovered() && !addressBox.isFocused())
@@ -328,8 +330,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		// ITEM PREVIEW
 		int previewY = restocker ? 0 : 60;
 
-		ms.pushPose();
-		ms.translate(0, previewY, 0);
+		ms.pushMatrix();
+		ms.translate((float) (0), (float) (previewY));
 		GuiGameElement.of(AllBlocks.FACTORY_GAUGE.asStack())
 			.scale(4)
 			.at(0, 0, -200)
@@ -342,7 +344,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 				.render(graphics, x + 214, y + 68);
 		}
 
-		ms.popPose();
+		ms.popMatrix();
 
 		// REDSTONE LINKS
 		if (!behaviour.targetedByLinks.isEmpty()) {
@@ -413,7 +415,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 			graphics.setTooltipForNextFrame(font, promiseTip, java.util.Optional.empty(), mouseX, mouseY);
 		}
 
-		ms.popPose();
+		ms.popMatrix();
 	}
 
 	//

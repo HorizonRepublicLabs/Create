@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.redstoneRequester;
 
+import org.joml.Matrix3x2fStack;
+
 import com.simibubi.create.foundation.gui.Modifiers;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -136,11 +138,11 @@ public class RedstoneRequesterScreen extends AbstractSimiContainerScreen<Redston
 			ItemStack itemStack = menu.ghostInventory.getStackInSlot(i);
 			if (itemStack.isEmpty())
 				continue;
-			PoseStack ms = graphics.pose();
-			ms.pushPose();
-			ms.translate(0, 0, 100);
+			Matrix3x2fStack ms = graphics.pose();
+			ms.pushMatrix();
+			ms.translate((float) (0), (float) (0));
 			graphics.itemDecorations(font, itemStack, inputX, inputY, "" + amounts.get(i));
-			ms.popPose();
+			ms.popMatrix();
 		}
 
 		if (addressBox.isHovered() && !addressBox.isFocused()) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import org.joml.Matrix3x2fStack;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -99,8 +101,8 @@ public abstract class AbstractStationScreen extends AbstractSimiScreen {
 	}
 
 	private void renderAdditional(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks, int guiLeft, int guiTop, AllGuiTextures background) {
-		PoseStack ms = graphics.pose();
-		ms.pushPose();
+		Matrix3x2fStack ms = graphics.pose();
+		ms.pushMatrix();
 		var msr = TransformStack.of(ms);
 		msr.pushPose()
 			.translate(guiLeft + background.getWidth() + 4, guiTop + background.getHeight() + 4, 100)
@@ -118,7 +120,7 @@ public abstract class AbstractStationScreen extends AbstractSimiScreen {
 				.render(graphics);
 		}
 
-		ms.popPose();
+		ms.popMatrix();
 	}
 
 	protected abstract PartialModel getFlag(float partialTicks);

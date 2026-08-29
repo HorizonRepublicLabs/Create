@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains;
 
+import org.joml.Matrix3x2fStack;
+
 import com.simibubi.create.foundation.gui.HudState;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -129,8 +131,8 @@ public class TrainHUD {
 		if (localPos == null)
 			return;
 
-		PoseStack poseStack = guiGraphics.pose();
-		poseStack.pushPose();
+		Matrix3x2fStack poseStack = guiGraphics.pose();
+		poseStack.pushMatrix();
 		poseStack.translate(guiGraphics.guiWidth() / 2 - 91, guiGraphics.guiHeight() - 29, 0);
 
 		// Speed, Throttle
@@ -147,25 +149,25 @@ public class TrainHUD {
 		int promptSize = (int) displayedPromptSize.getValue(partialTicks);
 		if (promptSize > 1) {
 
-			poseStack.pushPose();
-			poseStack.translate(promptSize / -2f + 91, -27, 0);
+			poseStack.pushMatrix();
+			poseStack.translate((float) (promptSize / -2f + 91), (float) (-27));
 
 			AllGuiTextures.TRAIN_PROMPT_L.render(guiGraphics, -3, 0);
 			AllGuiTextures.TRAIN_PROMPT_R.render(guiGraphics, promptSize, 0);
 			guiGraphics.blit(AllGuiTextures.TRAIN_PROMPT.location, 0, 0, 0, AllGuiTextures.TRAIN_PROMPT.getStartX() + (128 - promptSize / 2f),
 				AllGuiTextures.TRAIN_PROMPT.getStartY(), promptSize, AllGuiTextures.TRAIN_PROMPT.getHeight(), 256, 256);
 
-			poseStack.popPose();
+			poseStack.popMatrix();
 
 			Font font = mc.font;
 			if (currentPrompt != null && font.width(currentPrompt) < promptSize - 10) {
-				poseStack.pushPose();
+				poseStack.pushMatrix();
 				poseStack.translate(font.width(currentPrompt) / -2f + 82, -27, 100);
 				if (currentPromptShadow)
 					guiGraphics.text(font, currentPrompt, 9, 4, 0x544D45);
 				else
 					guiGraphics.text(font, currentPrompt, 9, 4, 0x544D45, false);
-				poseStack.popPose();
+				poseStack.popMatrix();
 			}
 		}
 
@@ -205,11 +207,11 @@ public class TrainHUD {
 		float angle = diff + angleOffset;
 		float snappedAngle = (snapSize * Math.round(angle / snapSize)) % 360f;
 
-		poseStack.translate(91, -9, 0);
-		poseStack.scale(0.925f, 0.925f, 1);
+		poseStack.translate((float) (91), (float) (-9));
+		poseStack.scale((float) (0.925f), (float) (0.925f));
 		PlacementClient.textured(poseStack, 0, 0, 1, snappedAngle);
 
-		poseStack.popPose();
+		poseStack.popMatrix();
 	}
 
 	public static boolean onScroll(double delta) {

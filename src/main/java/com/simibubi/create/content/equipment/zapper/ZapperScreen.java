@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import org.joml.Matrix3x2fStack;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -126,18 +128,18 @@ public abstract class ZapperScreen extends AbstractSimiScreen {
 	}
 
 	protected void renderBlock(GuiGraphicsExtractor graphics, int x, int y) {
-		PoseStack ms = graphics.pose();
-		ms.pushPose();
-		ms.translate(x + 32, y + 42, 120);
+		Matrix3x2fStack ms = graphics.pose();
+		ms.pushMatrix();
+		ms.translate((float) (x + 32), (float) (y + 42));
 		ms.mulPose(Axis.XP.rotationDegrees(-25f));
 		ms.mulPose(Axis.YP.rotationDegrees(-45f));
-		ms.scale(20, 20, 20);
+		ms.scale((float) (20), (float) (20));
 
 		BlockState state = zapper.getOrDefault(AllDataComponents.SHAPER_BLOCK_USED, Blocks.AIR.defaultBlockState());;
 
 		GuiGameElement.of(state)
 			.submit(graphics);
-		ms.popPose();
+		ms.popMatrix();
 	}
 
 	protected abstract ConfigureZapperPacket getConfigurationPacket();

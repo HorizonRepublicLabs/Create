@@ -70,7 +70,7 @@ public class ToolSelectionScreen extends Screen {
 		int y = mainWindow.getGuiScaledHeight() - h - 75;
 
 		matrixStack.pushMatrix();
-		matrixStack.translate(0, -yOffset);
+		matrixStack.translate((float) (0), (float) (-yOffset));
 
 		AllGuiTextures gray = AllGuiTextures.HUD_BACKGROUND;
 
@@ -113,7 +113,7 @@ public class ToolSelectionScreen extends Screen {
 
 			float alpha = focused ? 1 : .2f;
 			if (i == selection) {
-				matrixStack.translate(0, -10);
+				matrixStack.translate((float) (0), (float) (-10));
 				graphics.drawCenteredString(minecraft.font, tools.get(i)
 					.getDisplayName()
 					.getString(), x + i * 50 + 24, y + 28, 0xCCDDFF);

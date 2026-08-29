@@ -26,7 +26,7 @@ public class AnimatedItemDrain extends AnimatedKinetics {
 	public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 		Matrix3x2fStack matrixStack = graphics.pose();
 		matrixStack.pushMatrix();
-		matrixStack.translate(xOffset, yOffset);
+		matrixStack.translate((float) (xOffset), (float) (yOffset));
 		// The isometric tilt needs a 3D rotation on what is now a 2D GUI stack.
 		// catnip has not restored that yet, so these draw untilted for now.
 		int scale = 20;
@@ -36,7 +36,7 @@ public class AnimatedItemDrain extends AnimatedKinetics {
 			.submit(graphics);
 
 		UIRenderHelper.flipForGuiRender(matrixStack);
-		matrixStack.scale(scale, scale);
+		matrixStack.scale((float) (scale), (float) (scale));
 		float from = 2 / 16f;
 		float to = 1f - from;
 		FluidRenderHelper.renderFluidBox(fluid, from, from, from, to, 3 / 4f, to, graphics.bufferSource(), matrixStack, LightCoordsUtil.FULL_BRIGHT, false, true);

@@ -14,10 +14,10 @@ public class AnimatedCrafter extends AnimatedKinetics {
 	public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 		Matrix3x2fStack matrixStack = graphics.pose();
 		matrixStack.pushMatrix();
-		matrixStack.translate(xOffset, yOffset);
+		matrixStack.translate((float) (xOffset), (float) (yOffset));
 		AllGuiTextures.JEI_SHADOW.render(graphics, -16, 13);
 
-		matrixStack.translate(3, 16);
+		matrixStack.translate((float) (3), (float) (16));
 		// The isometric tilt that used to be applied here needs a 3D rotation on
 		// what is now a 2D GUI stack. catnip has not restored that yet -- see the
 		// TODO in GuiGameElement.transformMatrix -- so rotateBlock below is inert

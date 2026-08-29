@@ -104,7 +104,7 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 		Matrix3x2fStack matrixStack = graphics.pose();
 		matrixStack.pushMatrix();
 		float scale = getScale(recipe);
-		matrixStack.translate(getXPadding(recipe), getYPadding(recipe), 0);
+		matrixStack.translate((float) (getXPadding(recipe)), (float) (getYPadding(recipe)));
 
 		for (int row = 0; row < getHeight(recipe); row++)
 			for (int col = 0; col < getWidth(recipe); col++) {
@@ -119,8 +119,8 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 					.isEmpty())
 					continue;
 				matrixStack.pushMatrix();
-				matrixStack.translate(col * 19 * scale, row * 19 * scale);
-				matrixStack.scale(scale, scale);
+				matrixStack.translate((float) (col * 19 * scale), (float) (row * 19 * scale));
+				matrixStack.scale((float) (scale), (float) (scale));
 				AllGuiTextures.JEI_SLOT.render(graphics, 0, 0);
 				matrixStack.popMatrix();
 			}
@@ -132,7 +132,7 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 		crafter.draw(graphics, 129, 25);
 
 		matrixStack.pushMatrix();
-		matrixStack.translate(0, 0);
+		matrixStack.translate((float) (0), (float) (0));
 
 		int amount = 0;
 		for (Ingredient ingredient : recipe.placementInfo()
@@ -161,7 +161,7 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 			Matrix3x2fStack matrixStack = graphics.pose();
 			matrixStack.pushMatrix();
 			float scale = getScale(recipe);
-			matrixStack.scale(scale, scale);
+			matrixStack.scale((float) (scale), (float) (scale));
 
 			if (ingredient != null) {
 				Matrix4fStack modelViewStack = RenderSystem.getModelViewStack();

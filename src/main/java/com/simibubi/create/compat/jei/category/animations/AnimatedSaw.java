@@ -16,9 +16,9 @@ public class AnimatedSaw extends AnimatedKinetics {
 	public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 		Matrix3x2fStack matrixStack = graphics.pose();
 		matrixStack.pushMatrix();
-		matrixStack.translate(xOffset, yOffset);
-		matrixStack.translate(0, 0);
-		matrixStack.translate(2, 22);
+		matrixStack.translate((float) (xOffset), (float) (yOffset));
+		matrixStack.translate((float) (0), (float) (0));
+		matrixStack.translate((float) (2), (float) (22));
 		// The isometric tilt needs a 3D rotation on what is now a 2D GUI stack.
 		// catnip has not restored that yet, so these draw untilted for now.
 		int scale = 25;

@@ -23,7 +23,7 @@ public class AnimatedPress extends AnimatedKinetics {
 	public void draw(GuiGraphicsExtractor graphics, int xOffset, int yOffset) {
 		Matrix3x2fStack matrixStack = graphics.pose();
 		matrixStack.pushMatrix();
-		matrixStack.translate(xOffset, yOffset);
+		matrixStack.translate((float) (xOffset), (float) (yOffset));
 		// The isometric tilt needs a 3D rotation on what is now a 2D GUI stack.
 		// catnip has not restored that yet, so these draw untilted for now.
 		int scale = basin ? 23 : 24;
