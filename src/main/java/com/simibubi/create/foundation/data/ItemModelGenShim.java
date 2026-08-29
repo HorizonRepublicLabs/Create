@@ -7,7 +7,6 @@ import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.client.model.generators.template.ExtendedModelTemplateBuilder;
 
 /// The item model provider used to be reached the same way as the block one,
 /// building models by name off a parent. Registrate's generator works from

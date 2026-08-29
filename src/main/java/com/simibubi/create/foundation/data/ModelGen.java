@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
+
 import com.simibubi.create.Create;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
@@ -8,17 +10,16 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 
 
 public class ModelGen {
 
-	public static Identifier createOvergrown(DataGenContext<Block, ? extends Block> ctx, BlockStateProvider prov,
+	public static Identifier createOvergrown(DataGenContext<Block, ? extends Block> ctx, RegistrateBlockModelGenerator prov,
 		Identifier block, Identifier overlay) {
 		return createOvergrown(ctx, prov, block, block, block, overlay);
 	}
 
-	public static Identifier createOvergrown(DataGenContext<Block, ? extends Block> ctx, BlockStateProvider prov,
+	public static Identifier createOvergrown(DataGenContext<Block, ? extends Block> ctx, RegistrateBlockModelGenerator prov,
 		Identifier side, Identifier top, Identifier bottom, Identifier overlay) {
 		return VariantModels.models(prov)
 			.withExistingParent(ctx.getName(), Create.asResource("block/overgrown"))

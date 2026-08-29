@@ -14,7 +14,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 
 
 public class FunnelGenerator extends SpecialBlockStateGen {
@@ -51,7 +50,7 @@ public class FunnelGenerator extends SpecialBlockStateGen {
 			.isHorizontal();
 		String parent = horizontal ? "horizontal" : hasFilter ? "vertical" : "vertical_filterless";
 
-		BlockModelBuilder model = VariantModels.models(p)
+		ModelGenShim.Builder model = VariantModels.models(p)
 			.withExistingParent("block/" + type + "_funnel_" + parent + extracting + powered,
 				p.modLoc(prefix + "block_" + parent))
 			.texture("particle", blockTexture)

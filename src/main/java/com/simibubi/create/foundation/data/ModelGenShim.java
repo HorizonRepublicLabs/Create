@@ -4,7 +4,6 @@ import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator
 import com.tterrag.registrate.providers.generators.RegistrateLegacyBlockModelBuilder;
 
 import net.minecraft.client.data.models.model.TextureSlot;
-import net.neoforged.neoforge.client.model.generators.template.ExtendedModelTemplateBuilder;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 

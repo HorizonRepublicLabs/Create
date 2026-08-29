@@ -17,9 +17,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 
-import net.neoforged.neoforge.client.model.generators.Identifier.ExistingModelFile;
 
 public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 
@@ -28,7 +26,7 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 	public static <I extends BlockItem> void diodeItemModel(DataGenContext<Item, I> c, RegistrateItemModelGenerator p) {
 		String name = c.getName();
 		String path = "block/diodes/";
-		ItemModelBuilder builder = VariantModels.models(p).withExistingParent(name, p.modLoc(path + name));
+		ItemModelGenShim.Builder builder = VariantModels.models(p).withExistingParent(name, p.modLoc(path + name));
 		builder.texture("top", path + name + "/item");
 	}
 
@@ -55,7 +53,7 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 		return models.get(getModelIndex(state));
 	}
 
-	protected ExistingModelFile existingModel(ModelGenShim prov, String name) {
+	protected Identifier existingModel(ModelGenShim prov, String name) {
 		return VariantModels.models(prov).getExistingFile(existing(name));
 	}
 

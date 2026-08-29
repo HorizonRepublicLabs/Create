@@ -13,7 +13,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 
 
 public class AssetLookup {
@@ -47,7 +46,7 @@ public class AssetLookup {
 	 * Generate item model inheriting from a seperate model in
 	 * models/block/x/item.json
 	 */
-	public static <I extends BlockItem> ItemModelBuilder customItemModel(DataGenContext<Item, I> ctx,
+	public static <I extends BlockItem> ItemModelGenShim.Builder customItemModel(DataGenContext<Item, I> ctx,
 		RegistrateItemModelGenerator prov) {
 		return prov.blockItem(() -> ctx.getEntry()
 			.getBlock(), "/item");

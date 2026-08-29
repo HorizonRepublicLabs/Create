@@ -18,16 +18,14 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.Item;
 
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelBuilder;
 
 public class TrimmableArmorModelGenerator {
 	public static final VarHandle TEXTURES_HANDLE;
 
 	static {
 		try {
-			MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(ModelBuilder.class, MethodHandles.lookup());
-			TEXTURES_HANDLE = lookup.findVarHandle(ModelBuilder.class, "textures", Map.class);
+			MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(ModelGenShim.Builder.class, MethodHandles.lookup());
+			TEXTURES_HANDLE = lookup.findVarHandle(ModelGenShim.Builder.class, "textures", Map.class);
 		} catch (IllegalAccessException | NoSuchFieldException e) {
 			throw new RuntimeException(e);
 		}
@@ -35,7 +33,7 @@ public class TrimmableArmorModelGenerator {
 
 	public static <T extends ArmorItem> void generate(DataGenContext<Item, T> c, RegistrateItemModelGenerator p) {
 		T item = c.get();
-		ItemModelBuilder builder = p.generated(c);
+		ItemModelGenShim.Builder builder = p.generated(c);
 		for (ItemModelGenerators.TrimModelData data : ItemModelGeneratorsAccessor.create$getGENERATED_TRIM_MODELS()) {
 			Identifier modelLoc = ModelLocationUtils.getModelLocation(item);
 			Identifier textureLoc = TextureMapping.getItemTexture(item);
@@ -47,7 +45,7 @@ public class TrimmableArmorModelGenerator {
 			if (item.getMaterial() == AllArmorMaterials.CARDBOARD) {
 				trimLoc = Create.asResource("trims/items/card_" + item.getType().getName() + "_trim_" + trimId);
 			}
-			ItemModelBuilder itemModel = VariantModels.models(p).withExistingParent(trimModelLoc.getPath(), parent)
+			ItemModelGenShim.Builder itemModel = VariantModels.models(p).withExistingParent(trimModelLoc.getPath(), parent)
 				.texture("layer0", textureLoc);
 			Map<String, String> textures = (Map<String, String>) TEXTURES_HANDLE.get(itemModel);
 			textures.put("layer1", trimLoc.toString());

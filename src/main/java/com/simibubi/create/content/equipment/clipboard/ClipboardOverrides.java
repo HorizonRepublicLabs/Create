@@ -19,8 +19,6 @@ import net.minecraft.world.item.Item;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.Identifier.UncheckedModelFile;
 
 public class ClipboardOverrides {
 
@@ -50,15 +48,15 @@ public class ClipboardOverrides {
 		);
 	}
 
-	public static ItemModelBuilder addOverrideModels(DataGenContext<Item, ClipboardBlockItem> c,
+	public static ItemModelGenShim.Builder addOverrideModels(DataGenContext<Item, ClipboardBlockItem> c,
 		RegistrateItemModelGenerator p) {
-		ItemModelBuilder builder = p.generated(c::get);
+		ItemModelGenShim.Builder builder = p.generated(c::get);
 		for (ClipboardType type : ClipboardType.values()) {
 			int i = type.ordinal();
 			builder.override()
 					.predicate(ClipboardType.ID, i)
 					.model(p.getBuilder(c.getName() + "_" + i)
-							.parent(new UncheckedModelFile("item/generated"))
+							.parent(new Identifier("item/generated"))
 							.texture("layer0", Create.asResource("item/" + type.file)))
 					.end();
 		}
