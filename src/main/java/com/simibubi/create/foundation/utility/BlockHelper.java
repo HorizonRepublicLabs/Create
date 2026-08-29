@@ -230,7 +230,7 @@ public class BlockHelper {
 		}
 
 		if (level instanceof ServerLevel serverLevel && level.getGameRules()
-			.getBooleanOr(GameRules.RULE_DOBLOCKDROPS, false) && !level.restoringBlockSnapshots
+			.get(GameRules.BLOCK_DROPS) && !level.restoringBlockSnapshots
 			&& (player == null || !player.isCreative())) {
 			List<ItemStack> drops = Block.getDrops(state, serverLevel, pos, blockEntity, player, usedTool);
 

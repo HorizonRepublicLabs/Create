@@ -1,5 +1,11 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import net.minecraft.world.level.storage.TagValueOutput;
+
+import net.minecraft.util.ProblemReporter;
+
+import net.minecraft.server.level.ServerLevel;
+
 import net.minecraft.world.level.storage.ValueInput;
 
 import net.minecraft.world.level.storage.ValueOutput;
@@ -247,7 +253,7 @@ public class BlueprintEntity extends HangingEntity
 			}
 		}
 
-		return this.level().getEntities(this, this.getBoundingBox(), HANGING_ENTITY)
+		return this.level().getEntities(this, this.getBoundingBox(), e -> e instanceof HangingEntity)
 			.isEmpty();
 	}
 
@@ -288,9 +294,9 @@ public class BlueprintEntity extends HangingEntity
 	}
 
 	@Override
-	public void dropItem(@Nullable Entity p_110128_1_) {
+	public void dropItem(ServerLevel level, @Nullable Entity p_110128_1_) {
 		if (!level().getGameRules()
-			.getBooleanOr(GameRules.RULE_DOENTITYDROPS, false))
+			.get(GameRules.ENTITY_DROPS))
 			return;
 
 		playSound(SoundEvents.PAINTING_BREAK, 1.0F, 1.0F);
@@ -299,11 +305,11 @@ public class BlueprintEntity extends HangingEntity
 				return;
 		}
 
-		spawnAtLocation(AllItems.CRAFTING_BLUEPRINT.asStack());
+		spawnAtLocation(level, AllItems.CRAFTING_BLUEPRINT.asStack());
 	}
 
 	@Override
-	public ItemStack getPickedResult(HitResult target) {
+	public ItemStack getPickResult() {
 		return AllItems.CRAFTING_BLUEPRINT.asStack();
 	}
 
@@ -318,7 +324,7 @@ public class BlueprintEntity extends HangingEntity
 	}
 
 	@Override
-	public void moveTo(double p_70012_1_, double p_70012_3_, double p_70012_5_, float p_70012_7_, float p_70012_8_) {
+	public void snapTo(double p_70012_1_, double p_70012_3_, double p_70012_5_, float p_70012_7_, float p_70012_8_) {
 		this.setPos(p_70012_1_, p_70012_3_, p_70012_5_);
 	}
 
@@ -332,8 +338,9 @@ public class BlueprintEntity extends HangingEntity
 
 	@Override
 	public void writeSpawnData(RegistryFriendlyByteBuf registryFriendlyByteBuf) {
-		CompoundTag compound = new CompoundTag();
-		addAdditionalSaveData(compound);
+		TagValueOutput bridge = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, registryAccess());
+		addAdditionalSaveData(bridge);
+		CompoundTag compound = bridge.buildResult();
 		registryFriendlyByteBuf.writeNbt(compound);
 		registryFriendlyByteBuf.writeNbt(getPersistentData());
 	}

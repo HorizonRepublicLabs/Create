@@ -142,7 +142,7 @@ public abstract class BlockBreakingKineticBlockEntity extends KineticBlockEntity
 			if (stack.isEmpty())
 				return;
 			if (!level.getGameRules()
-				.getBooleanOr(GameRules.RULE_DOBLOCKDROPS, false))
+				.get(GameRules.BLOCK_DROPS))
 				return;
 			if (level.restoringBlockSnapshots)
 				return;
