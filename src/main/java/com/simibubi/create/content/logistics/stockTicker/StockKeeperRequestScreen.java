@@ -53,7 +53,6 @@ import com.simibubi.create.content.logistics.stockTicker.PackageOrderWithCrafts.
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity;
 import com.simibubi.create.content.processing.burner.BlazeBurnerRenderer;
-import com.simibubi.create.content.trains.station.NoShadowFontWrapper;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
@@ -244,7 +243,8 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		besideSearchButtonY = y + 18;
 
 		MutableComponent searchLabel = CreateLang.translateDirect("gui.stock_keeper.search_items");
-		searchBox = new EditBox(new NoShadowFontWrapper(font), x + 71, y + 22, 100, 9, searchLabel);
+		searchBox = new EditBox(font, x + 71, y + 22, 100, 9, searchLabel);
+		searchBox.setTextShadow(false);
 		searchBox.setMaxLength(50);
 		searchBox.setBordered(false);
 		searchBox.setTextColor(0x4A2D31);
@@ -257,7 +257,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		boolean initial = addressBox == null;
 		String previouslyUsedAddress = initial ? blockEntity.previouslyUsedAddress : addressBox.getValue();
 		addressBox =
-			new AddressEditBox(this, new NoShadowFontWrapper(font), x + 27, y + windowHeight - 36, 92, 10, true);
+			new AddressEditBox(this, font, x + 27, y + windowHeight - 36, 92, 10, true);
 		addressBox.setTextColor(0x714A40);
 		addressBox.setValue(previouslyUsedAddress);
 		addRenderableWidget(addressBox);

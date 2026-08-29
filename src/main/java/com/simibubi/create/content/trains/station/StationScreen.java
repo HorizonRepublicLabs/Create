@@ -78,8 +78,9 @@ public class StationScreen extends AbstractStationScreen {
 		Consumer<String> onTextChanged;
 
 		onTextChanged = s -> nameBox.setX(nameBoxX(s, nameBox));
-		nameBox = new EditBox(new NoShadowFontWrapper(font), x + 23, y + 4, background.getWidth() - 20, 10,
+		nameBox = new EditBox(font, x + 23, y + 4, background.getWidth() - 20, 10,
 			Component.literal(station.name));
+		nameBox.setTextShadow(false);
 		nameBox.setBordered(false);
 		nameBox.setMaxLength(25);
 		nameBox.setTextColor(0x592424);
@@ -128,6 +129,7 @@ public class StationScreen extends AbstractStationScreen {
 
 		onTextChanged = s -> trainNameBox.setX(nameBoxX(s, trainNameBox));
 		trainNameBox = new EditBox(font, x + 23, y + 47, background.getWidth() - 75, 10, CommonComponents.EMPTY);
+		trainNameBox.setTextShadow(false);
 		trainNameBox.setBordered(false);
 		trainNameBox.setMaxLength(35);
 		trainNameBox.setTextColor(0xC6C6C6);

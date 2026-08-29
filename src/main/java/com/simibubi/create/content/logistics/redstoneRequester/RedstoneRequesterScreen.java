@@ -14,7 +14,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.logistics.AddressEditBox;
 import com.simibubi.create.content.logistics.BigItemStack;
-import com.simibubi.create.content.trains.station.NoShadowFontWrapper;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
@@ -75,7 +74,8 @@ public class RedstoneRequesterScreen extends AbstractSimiContainerScreen<Redston
 		int y = getGuiTop();
 
 		if (addressBox == null) {
-			addressBox = new AddressEditBox(this, new NoShadowFontWrapper(font), x + 55, y + 68, 110, 10, false);
+			addressBox = new AddressEditBox(this, font, x + 55, y + 68, 110, 10, false);
+			addressBox.setTextShadow(false);
 			addressBox.setValue(menu.contentHolder.encodedTargetAdress);
 			addressBox.setTextColor(0x555555);
 		}

@@ -11,7 +11,6 @@ import java.util.function.Consumer;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simibubi.create.content.logistics.packagePort.frogport.FrogportBlockEntity;
-import com.simibubi.create.content.trains.station.NoShadowFontWrapper;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
@@ -62,8 +61,9 @@ public class PackagePortScreen extends AbstractSimiContainerScreen<PackagePortMe
 
 		Consumer<String> onTextChanged;
 		onTextChanged = s -> addressBox.setX(nameBoxX(s, addressBox));
-        addressBox = new EditBox(new NoShadowFontWrapper(font), x + 23, y - 11, background.getWidth() - 20, 10,
+        addressBox = new EditBox(font, x + 23, y - 11, background.getWidth() - 20, 10,
                 Component.empty());
+        addressBox.setTextShadow(false);
 		addressBox.setBordered(false);
 		addressBox.setMaxLength(25);
 		addressBox.setTextColor(0x3D3C48);

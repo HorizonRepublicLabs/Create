@@ -30,7 +30,6 @@ import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.logistics.AddressEditBox;
 import com.simibubi.create.content.logistics.BigItemStack;
 import com.simibubi.create.content.logistics.box.PackageStyles;
-import com.simibubi.create.content.trains.station.NoShadowFontWrapper;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.widget.IconButton;
@@ -172,7 +171,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 
 		if (addressBox == null) {
 			String frogAddress = behaviour.getFrogAddress();
-			addressBox = new AddressEditBox(this, new NoShadowFontWrapper(font), x + 36, y + windowHeight - 51, 108, 10, false, frogAddress);
+			addressBox = new AddressEditBox(this, font, x + 36, y + windowHeight - 51, 108, 10, false, frogAddress);
+			addressBox.setTextShadow(false);
 			addressBox.setValue(behaviour.recipeAddress);
 			addressBox.setTextColor(0x555555);
 		}
