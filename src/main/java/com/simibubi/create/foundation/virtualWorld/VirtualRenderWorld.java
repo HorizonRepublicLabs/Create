@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.virtualWorld;
 
+import net.minecraft.world.level.block.entity.FuelValues;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -79,8 +81,8 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 	private int externalPackedLight = 0;
 
 	public VirtualRenderWorld(Level level, int minBuildHeight, int height, Vec3i biomeOffset, Runnable onBlockUpdated) {
-		super((WritableLevelData) level.getLevelData(), level.dimension(), level.registryAccess(), level.dimensionTypeRegistration(), level.getProfilerSupplier(),
-			true, false, 0, 0);
+		super((WritableLevelData) level.getLevelData(), level.dimension(), level.registryAccess(),
+			level.dimensionTypeRegistration(), true, false, 0, 0);
 		this.level = level;
 		this.minBuildHeight = nextMultipleOf16(minBuildHeight);
 		this.height = nextMultipleOf16(height);
@@ -196,7 +198,7 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 		blockStates.put(pos, newState);
 
 		SectionPos sectionPos = SectionPos.of(pos);
-		short nonEmptyBlockCount = nonEmptyBlockCounts.getShortOr(sectionPos, (short) 0);
+		short nonEmptyBlockCount = nonEmptyBlockCounts.getShort(sectionPos);
 		boolean prevEmpty = nonEmptyBlockCount == 0;
 		if (!oldState.isAir()) {
 			--nonEmptyBlockCount;
@@ -292,7 +294,7 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 	}
 
 	@Override
-	public int getMinBuildHeight() {
+	public int getMinY() {
 		return minBuildHeight;
 	}
 
@@ -334,6 +336,11 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 		return 1f;
 	}
 
+	@Override
+	public FuelValues fuelValues() {
+		return level.fuelValues();
+	}
+
 	// THIN WRAPPERS
 
 	@Override
@@ -341,10 +348,6 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 		return level.getScoreboard();
 	}
 
-	@Override
-	public RecipeManager getRecipeManager() {
-		return level.getRecipeManager();
-	}
 
 	@Override
 	public BiomeManager getBiomeManager() {
@@ -371,25 +374,9 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel {
 		return level.potionBrewing();
 	}
 
-	@Override
-	public void setDayTimeFraction(float v) {
-		level.setDayTimeFraction(v);
-	}
 
-	@Override
-	public void setDayTimePerTick(float v) {
-		level.setDayTimePerTick(v);
-	}
 
-	@Override
-	public float getDayTimeFraction() {
-		return level.getDayTimeFraction();
-	}
 
-	@Override
-	public float getDayTimePerTick() {
-		return level.getDayTimePerTick();
-	}
 
 	// ADDITIONAL OVERRRIDES
 

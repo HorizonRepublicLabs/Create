@@ -62,7 +62,7 @@ public class MaterialChecklist {
 		if (item == Items.AIR)
 			return;
 		if (map.containsKey(item))
-			map.put(item, map.getIntOr(item, 0) + stack.getCount());
+			map.put(item, map.getInt(item) + stack.getCount());
 		else
 			map.put(item, stack.getCount());
 	}
