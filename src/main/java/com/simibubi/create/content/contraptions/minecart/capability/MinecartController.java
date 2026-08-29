@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.minecart.capability;
 
+import net.minecraft.world.level.storage.ValueOutput;
+
+import net.minecraft.world.level.storage.ValueInput;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.lang.ref.WeakReference;
@@ -42,13 +46,13 @@ import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import net.neoforged.neoforge.attachment.IAttachmentSerializer;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 
 /**
  * Extended code for Minecarts, this allows for handling stalled carts and
  * coupled trains
  */
-public class MinecartController implements INBTSerializable<CompoundTag> {
+public class MinecartController implements ValueIOSerializable {
 	public static final MinecartController EMPTY = new MinecartController.Empty();
 
 	public static final IAttachmentSerializer<CompoundTag, MinecartController> SERIALIZER = Type.SERIALIZER;
@@ -323,7 +327,7 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 	}
 
 	@Override
-	public CompoundTag serializeNBT(@NotNull HolderLookup.Provider provider) {
+	public void serialize(ValueOutput output) {
 		CompoundTag compoundNBT = new CompoundTag();
 
 		stallData.forEachWithContext((opt, internal) -> opt
@@ -331,11 +335,13 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 		couplings.forEachWithContext((opt, main) -> opt
 			.ifPresent(cd -> compoundNBT.put(main ? "MainCoupling" : "ConnectedCoupling", cd.serialize())));
 
-		return compoundNBT;
+		output.store("ControllerData", CompoundTag.CODEC, compoundNBT);
 	}
 
 	@Override
-	public void deserializeNBT(@NotNull HolderLookup.Provider provider, CompoundTag nbt) {
+	public void deserialize(ValueInput input) {
+		CompoundTag nbt = input.read("ControllerData", CompoundTag.CODEC)
+			.orElseGet(CompoundTag::new);
 		Optional<StallData> internalSD = Optional.empty();
 		Optional<StallData> externalSD = Optional.empty();
 		Optional<CouplingData> mainCD = Optional.empty();
@@ -563,13 +569,13 @@ public class MinecartController implements INBTSerializable<CompoundTag> {
 		}
 
 		@Override
-		public CompoundTag serializeNBT(@NotNull HolderLookup.Provider provider) {
-			return super.serializeNBT(provider);
+		public void serialize(ValueOutput output) {
+			super.serialize(output);
 		}
 
 		@Override
-		public void deserializeNBT(@NotNull HolderLookup.Provider provider, CompoundTag nbt) {
-			super.deserializeNBT(provider, nbt);
+		public void deserialize(ValueInput input) {
+			super.deserialize(input);
 		}
 
 		@Override

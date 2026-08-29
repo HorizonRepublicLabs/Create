@@ -1,5 +1,15 @@
 package com.simibubi.create.foundation.item;
 
+import net.minecraft.world.level.storage.TagValueOutput;
+
+import net.minecraft.world.level.storage.TagValueInput;
+
+import net.minecraft.util.ProblemReporter;
+
+import net.minecraft.world.level.storage.ValueOutput;
+
+import net.minecraft.world.level.storage.ValueInput;
+
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
@@ -12,12 +22,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class SmartInventory extends ItemHandlerContainer
-	implements IItemHandlerModifiable, INBTSerializable<CompoundTag> {
+	implements IItemHandlerModifiable, ValueIOSerializable {
 
 	protected boolean extractionAllowed;
 	protected boolean insertionAllowed;
@@ -130,13 +140,26 @@ public class SmartInventory extends ItemHandlerContainer
 	}
 
 	@Override
-	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
-		return getInv().serializeNBT(registries);
+	public void serialize(ValueOutput output) {
+		getInv().serialize(output);
 	}
 
 	@Override
+	public void deserialize(ValueInput input) {
+		getInv().deserialize(input);
+	}
+
+	/// Create reads and writes its block entities through CompoundTag, so these
+	/// keep that shape available on top of the ValueIO interface rather than
+	/// pushing the change out to every call site.
+	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
+		TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, registries);
+		serialize(output);
+		return output.buildResult();
+	}
+
 	public void deserializeNBT(HolderLookup.Provider registries, CompoundTag nbt) {
-		getInv().deserializeNBT(registries, nbt);
+		deserialize(TagValueInput.create(ProblemReporter.DISCARDING, registries, nbt));
 	}
 
 	private SyncedStackHandler getInv() {
