@@ -39,7 +39,9 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
-import net.minecraft.world.entity.vehicle.AbstractMinecart.Type;
+import net.minecraft.world.entity.vehicle.minecart.Minecart;
+import net.minecraft.world.entity.vehicle.minecart.MinecartChest;
+import net.minecraft.world.entity.vehicle.minecart.MinecartFurnace;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -59,18 +61,35 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 @EventBusSubscriber
 public class MinecartContraptionItem extends Item {
 
-	private final AbstractMinecart.Type minecartType;
+	/// AbstractMinecart.Type is gone; the variants are separate classes now, so
+	/// Create keeps its own small enum for the three it supports.
+	public enum Variant {
+		RIDEABLE, FURNACE, CHEST;
+
+		public static Variant of(AbstractMinecart cart) {
+			if (cart instanceof MinecartChest)
+				return CHEST;
+			if (cart instanceof MinecartFurnace)
+				return FURNACE;
+			if (cart instanceof Minecart)
+				return RIDEABLE;
+			return null;
+		}
+	}
+
+
+	private final Variant minecartType;
 
 	public static MinecartContraptionItem rideable(Properties builder) {
-		return new MinecartContraptionItem(Type.RIDEABLE, builder);
+		return new MinecartContraptionItem(Variant.RIDEABLE, builder);
 	}
 
 	public static MinecartContraptionItem furnace(Properties builder) {
-		return new MinecartContraptionItem(Type.FURNACE, builder);
+		return new MinecartContraptionItem(Variant.FURNACE, builder);
 	}
 
 	public static MinecartContraptionItem chest(Properties builder) {
-		return new MinecartContraptionItem(Type.CHEST, builder);
+		return new MinecartContraptionItem(Variant.CHEST, builder);
 	}
 
 	@Override
@@ -78,7 +97,7 @@ public class MinecartContraptionItem extends Item {
 		return AllConfigs.server().kinetics.minecartContraptionInContainers.get();
 	}
 
-	private MinecartContraptionItem(Type minecartTypeIn, Properties builder) {
+	private MinecartContraptionItem(Variant minecartTypeIn, Properties builder) {
 		super(builder);
 		this.minecartType = minecartTypeIn;
 		DispenserBlock.registerBehavior(this, DISPENSER_BEHAVIOR);
@@ -224,8 +243,8 @@ public class MinecartContraptionItem extends Item {
 			return;
 		if (player instanceof DeployerFakePlayer dfp && dfp.onMinecartContraption)
 			return;
-		Type type = cart.getMinecartType();
-		if (type != Type.RIDEABLE && type != Type.FURNACE && type != Type.CHEST)
+		Variant type = Variant.of(cart);
+		if (type == null)
 			return;
 		List<Entity> passengers = cart.getPassengers();
 		if (passengers.isEmpty() || !(passengers.get(0) instanceof OrientedContraptionEntity oce))
@@ -273,7 +292,7 @@ public class MinecartContraptionItem extends Item {
 		event.setCanceled(true);
 	}
 
-	public static ItemStack create(Type type, OrientedContraptionEntity entity) {
+	public static ItemStack create(Variant type, OrientedContraptionEntity entity) {
 		ItemStack stack = ItemStack.EMPTY;
 
 		switch (type) {
