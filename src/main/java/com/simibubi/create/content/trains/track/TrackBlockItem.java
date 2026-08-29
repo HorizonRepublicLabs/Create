@@ -91,7 +91,7 @@ public class TrackBlockItem extends BlockItem {
 			}
 			return super.useOn(pContext);
 		} else if (player.isShiftKeyDown()) {
-			return clearSelection(stack, level, player).getResult();
+			return clearSelection(stack, level, player);
 		}
 
 		boolean placing = !(state.getBlock() instanceof ITrackBlock);

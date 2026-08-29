@@ -82,7 +82,7 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 			}
 		}
 
-		return use(world, player, ctx.getHand()).getResult();
+		return use(world, player, ctx.getHand());
 	}
 
 	@Override

@@ -88,7 +88,7 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
-		return use(context.getLevel(), context.getPlayer(), context.getHand()).getResult();
+		return use(context.getLevel(), context.getPlayer(), context.getHand());
 	}
 
 	@Override

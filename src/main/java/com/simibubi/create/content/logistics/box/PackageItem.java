@@ -343,7 +343,7 @@ public class PackageItem extends Item {
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
 		if (context.getPlayer().isShiftKeyDown()) {
-			return open(context.getLevel(), context.getPlayer(), context.getHand()).getResult();
+			return open(context.getLevel(), context.getPlayer(), context.getHand());
 		}
 
 		Vec3 point = context.getClickLocation();

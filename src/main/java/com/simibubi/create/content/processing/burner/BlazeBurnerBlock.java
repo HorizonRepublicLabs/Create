@@ -178,7 +178,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 			}
 		}
 
-		return res.getResult() == InteractionResult.SUCCESS ? InteractionResult.SUCCESS : InteractionResult.TRY_WITH_EMPTY_HAND;
+		return res == InteractionResult.SUCCESS ? InteractionResult.SUCCESS : InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
 
 	public static InteractionResult tryInsert(BlockState state, Level world, BlockPos pos,

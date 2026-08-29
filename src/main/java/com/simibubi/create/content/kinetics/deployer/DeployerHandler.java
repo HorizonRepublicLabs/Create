@@ -351,7 +351,7 @@ public class DeployerHandler {
 
 		InteractionResult onItemRightClick = item.use(itemUseWorld, player, hand);
 
-		if (onItemRightClick.getResult().consumesAction() && item instanceof MobBucketItem bucketItem)
+		if (onItemRightClick.consumesAction() && item instanceof MobBucketItem bucketItem)
 			bucketItem.checkExtraContent(player, level, stack, clickedPos);
 
 		ItemStack resultStack = onItemRightClick.getObject();
