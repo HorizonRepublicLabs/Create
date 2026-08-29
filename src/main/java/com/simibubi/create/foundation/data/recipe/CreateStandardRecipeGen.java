@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+
+import net.minecraft.world.item.crafting.PlacementInfo;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.tags.BlockItemTags;
@@ -1739,18 +1743,32 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 			throw new AssertionError("Only for datagen output");
 		}
 
+		/// canCraftInDimensions and getResultItem left the Recipe interface;
+		/// placement info, notification and group joined it. Only datagen ever
+		/// touches this shim, so the new members answer trivially.
 		@Override
-		public boolean canCraftInDimensions(int pWidth, int pHeight) {
-			throw new AssertionError("Only for datagen output");
+		public boolean showNotification() {
+			return false;
 		}
 
 		@Override
-		public ItemStack getResultItem(HolderLookup.Provider registries) {
-			throw new AssertionError("Only for datagen output");
+		public String group() {
+			return "";
 		}
 
 		@Override
-		public RecipeSerializer<?> getSerializer() {
+		public PlacementInfo placementInfo() {
+			return PlacementInfo.NOT_PLACEABLE;
+		}
+
+		@Override
+		public RecipeBookCategory recipeBookCategory() {
+			return wrapped.recipeBookCategory();
+		}
+
+		@Override
+		@SuppressWarnings("unchecked")
+		public RecipeSerializer<ModdedCookingRecipeOutputShim> getSerializer() {
 			return serializers.computeIfAbsent(
 				getType(),
 				t -> Serializer.create(wrapped)
