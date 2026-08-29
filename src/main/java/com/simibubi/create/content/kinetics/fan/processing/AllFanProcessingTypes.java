@@ -119,14 +119,14 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public boolean canProcess(ItemStack stack, Level level) {
-			Optional<RecipeHolder<SmeltingRecipe>> smeltingRecipe = level.getRecipeManager()
+			Optional<RecipeHolder<SmeltingRecipe>> smeltingRecipe = level.recipeAccess()
 				.getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), level)
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 
 			if (smeltingRecipe.isPresent())
 				return true;
 
-			Optional<RecipeHolder<BlastingRecipe>> blastingRecipe = level.getRecipeManager()
+			Optional<RecipeHolder<BlastingRecipe>> blastingRecipe = level.recipeAccess()
 				.getRecipeFor(RecipeType.BLASTING, new SingleRecipeInput(stack), level)
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 
@@ -139,16 +139,16 @@ public class AllFanProcessingTypes {
 		@Override
 		@Nullable
 		public List<ItemStack> process(ItemStack stack, Level level) {
-			Optional<RecipeHolder<SmokingRecipe>> smokingRecipe = level.getRecipeManager()
+			Optional<RecipeHolder<SmokingRecipe>> smokingRecipe = level.recipeAccess()
 				.getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(stack), level)
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 
-			Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> smeltingRecipe = level.getRecipeManager()
+			Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> smeltingRecipe = level.recipeAccess()
 				.getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), level)
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 
 			if (smeltingRecipe.isEmpty()) {
-				smeltingRecipe = level.getRecipeManager()
+				smeltingRecipe = level.recipeAccess()
 					.getRecipeFor(RecipeType.BLASTING, new SingleRecipeInput(stack), level)
 					.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 			}
@@ -335,7 +335,7 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public boolean canProcess(ItemStack stack, Level level) {
-			return level.getRecipeManager()
+			return level.recipeAccess()
 				.getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(stack), level)
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED)
 				.isPresent();
@@ -344,7 +344,7 @@ public class AllFanProcessingTypes {
 		@Override
 		@Nullable
 		public List<ItemStack> process(ItemStack stack, Level level) {
-			return level.getRecipeManager()
+			return level.recipeAccess()
 				.getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(stack), level)
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED)
 				.map(RecipeHolder::value)

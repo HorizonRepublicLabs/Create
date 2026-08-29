@@ -258,7 +258,7 @@ public class BlueprintOverlayRenderer {
 			if (success) {
 				CraftingContainer craftingInventory = new BlueprintCraftingInventory(craftingGrid);
 				if (!recipe.isPresent())
-					recipe = mc.level.getRecipeManager()
+					recipe = mc.level.recipeAccess()
 						.getRecipeFor(RecipeType.CRAFTING, craftingInventory.asCraftInput(), mc.level);
 				ItemStack resultFromRecipe = recipe.filter(r -> r.value().matches(craftingInventory.asCraftInput(), mc.level))
 					.map(r -> r.value().assemble(craftingInventory.asCraftInput(), mc.level.registryAccess()))

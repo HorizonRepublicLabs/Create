@@ -145,7 +145,7 @@ public class RecipeGridHandler {
 		ItemStack result = null;
 		RegistryAccess registryAccess = world.registryAccess();
 		if (AllConfigs.server().recipes.allowRegularCraftingInCrafter.get())
-			result = world.getRecipeManager()
+			result = world.recipeAccess()
 				.getRecipeFor(RecipeType.CRAFTING, craftingInput, world)
 				.filter(r -> isRecipeAllowed(r, craftingInput))
 				.map(r -> r.value().assemble(craftingInput, registryAccess))

@@ -53,7 +53,7 @@ public class ManualApplicationRecipe extends ItemApplicationRecipe {
 			return;
 
 		RecipeType<Recipe<RecipeWrapper>> type = AllRecipeTypes.ITEM_APPLICATION.getType();
-		Optional<RecipeHolder<Recipe<RecipeWrapper>>> foundRecipe = level.getRecipeManager()
+		Optional<RecipeHolder<Recipe<RecipeWrapper>>> foundRecipe = level.recipeAccess()
 			.getAllRecipesFor(type)
 			.stream()
 			.filter(r -> {

@@ -680,7 +680,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 
 		ClientLevel level = Minecraft.getInstance().level;
 
-		availableCraftingRecipe = level.getRecipeManager()
+		availableCraftingRecipe = level.recipeAccess()
 			.getAllRecipesFor(RecipeType.CRAFTING)
 			.parallelStream()
 			.filter(r -> output.getItem() == r.value().getResultItem(level.registryAccess())

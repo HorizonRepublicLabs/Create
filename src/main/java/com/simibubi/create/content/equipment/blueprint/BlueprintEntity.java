@@ -402,7 +402,7 @@ public class BlueprintEntity extends HangingEntity
 					CraftingContainer craftingInventory = new BlueprintCraftingInventory(craftingGrid);
 
 					if (!recipe.isPresent())
-						recipe = level().getRecipeManager()
+						recipe = level().recipeAccess()
 							.getRecipeFor(RecipeType.CRAFTING, craftingInventory.asCraftInput(), level());
 					ItemStack result = recipe.filter(r -> r.value().matches(craftingInventory.asCraftInput(), level()))
 						.map(r -> r.value().assemble(craftingInventory.asCraftInput(), registryAccess()))
@@ -416,7 +416,7 @@ public class BlueprintEntity extends HangingEntity
 						amountCrafted += result.getCount();
 						result.onCraftedBy(player.level(), player, 1);
 						EventHooks.firePlayerCraftingEvent(player, result, craftingInventory);
-						NonNullList<ItemStack> nonnulllist = level().getRecipeManager()
+						NonNullList<ItemStack> nonnulllist = level().recipeAccess()
 							.getRemainingItemsFor(RecipeType.CRAFTING, craftingInventory.asCraftInput(), level());
 
 						if (firstPass)
