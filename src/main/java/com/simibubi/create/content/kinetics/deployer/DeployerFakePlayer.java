@@ -190,7 +190,7 @@ public class DeployerFakePlayer extends FakePlayer {
 				return true;
 			if (!(o instanceof GameProfile otherProfile))
 				return false;
-			return Objects.equals(getId(), otherProfile.getId()) && Objects.equals(getName(), otherProfile.getName());
+			return Objects.equals(getId(), otherProfile.id()) && Objects.equals(getName(), otherProfile.name());
 		}
 
 		@Override
