@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.utility.ComponentJson;
+
 import net.minecraft.core.UUIDUtil;
 
 import net.createmod.catnip.api.network.NetworkHelper;
@@ -174,7 +176,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 		if (tag.contains("ForceFlag"))
 			trainPresent = tag.getBooleanOr("ForceFlag", false);
 		if (tag.contains("PrevTrainName"))
-			lastDisassembledTrainName = Component.Serializer.fromJson(tag.getStringOr("PrevTrainName", ""), registries);
+			lastDisassembledTrainName = ComponentJson.fromJson(tag.getStringOr("PrevTrainName", ""), registries);
 		lastDisassembledMapColorIndex = tag.getIntOr("PrevTrainColor", 0);
 
 		if (!clientPacket)
@@ -201,7 +203,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 		tag.putInt("FailedCarriageIndex", failedCarriageIndex);
 
 		if (lastDisassembledTrainName != null)
-			tag.putString("PrevTrainName", Component.Serializer.toJson(lastDisassembledTrainName, registries));
+			tag.putString("PrevTrainName", ComponentJson.toJson(lastDisassembledTrainName, registries));
 		tag.putInt("PrevTrainColor", lastDisassembledMapColorIndex);
 
 		super.write(tag, registries, clientPacket);

@@ -53,7 +53,7 @@ public class DynamicComponent {
 	public void read(BlockPos pos, CompoundTag nbt, HolderLookup.Provider registries) {
 		rawCustomText = getJsonFromString(nbt.getStringOr("RawCustomText", ""));
 		try {
-			parsedCustomText = Component.Serializer.fromJson(nbt.getStringOr("CustomText", ""), registries);
+			parsedCustomText = ComponentJson.fromJson(nbt.getStringOr("CustomText", ""), registries);
 		} catch (JsonParseException e) {
 			parsedCustomText = null;
 		}
@@ -64,7 +64,7 @@ public class DynamicComponent {
 			return;
 
 		nbt.putString("RawCustomText", rawCustomText.toString());
-		nbt.putString("CustomText", Component.Serializer.toJson(parsedCustomText, registries));
+		nbt.putString("CustomText", ComponentJson.toJson(parsedCustomText, registries));
 	}
 
 	public static JsonElement getJsonFromString(String string) {
@@ -80,7 +80,7 @@ public class DynamicComponent {
 			return null;
 		try {
 			return ComponentUtils.updateForEntity(getCommandSource(serverLevel, pos),
-				Component.Serializer.fromJson(customText, level.registryAccess()), null, 0);
+				ComponentJson.fromJson(customText, level.registryAccess()), null, 0);
 		} catch (JsonParseException | CommandSyntaxException e) {
 			return null;
 		}

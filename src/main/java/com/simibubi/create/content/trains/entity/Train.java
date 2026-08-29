@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.foundation.utility.ComponentJson;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import java.util.ArrayList;
@@ -1174,7 +1176,7 @@ public class Train {
 		tag.putDouble("TargetSpeed", targetSpeed);
 		tag.putString("IconType", icon.id.toString());
 		tag.putInt("MapColorIndex", mapColorIndex);
-		tag.putString("Name", Component.Serializer.toJson(name, registries));
+		tag.putString("Name", ComponentJson.toJson(name, registries));
 		if (currentStation != null)
 			tag.store("Station", UUIDUtil.CODEC, currentStation);
 		tag.putBoolean("Backwards", currentlyBackwards);
@@ -1227,7 +1229,7 @@ public class Train {
 			train.speedBeforeStall = tag.getDoubleOr("SpeedBeforeStall", 0.0);
 		train.targetSpeed = tag.getDoubleOr("TargetSpeed", 0.0);
 		train.icon = TrainIconType.byId(Identifier.parse(tag.getStringOr("IconType", "")));
-		train.name = Component.Serializer.fromJson(tag.getStringOr("Name", ""), registries);
+		train.name = ComponentJson.fromJson(tag.getStringOr("Name", ""), registries);
 		train.currentStation = tag.contains("Station") ? tag.read("Station", UUIDUtil.CODEC).orElseThrow() : null;
 		train.currentlyBackwards = tag.getBooleanOr("Backwards", false);
 		train.derailed = tag.getBooleanOr("Derailed", false);
