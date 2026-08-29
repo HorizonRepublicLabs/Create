@@ -121,7 +121,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 
 		if (!clientPacket || playEvent.isEmpty())
 			return;
-		compound.put("PlayEvent", playEvent.saveOptional(registries));
+		compound.store("PlayEvent", ItemStack.OPTIONAL_CODEC, playEvent);
 		playEvent = ItemStack.EMPTY;
 	}
 
@@ -131,7 +131,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
 		recipeIndex = compound.getIntOr("RecipeIndex", 0);
 		if (compound.contains("PlayEvent"))
-			playEvent = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("PlayEvent"));
+			playEvent = compound.read("PlayEvent", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 	}
 
 	@Override

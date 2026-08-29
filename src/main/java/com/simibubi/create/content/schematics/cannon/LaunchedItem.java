@@ -69,7 +69,7 @@ public abstract class LaunchedItem {
 		CompoundTag c = new CompoundTag();
 		c.putInt("TotalTicks", totalTicks);
 		c.putInt("TicksLeft", ticksRemaining);
-		c.put("Stack", stack.saveOptional(registries));
+		c.store("Stack", ItemStack.OPTIONAL_CODEC, stack);
 		c.store("Target", BlockPos.CODEC, target);
 		return c;
 	}
@@ -87,7 +87,7 @@ public abstract class LaunchedItem {
 		target = NBTHelper.readBlockPos(c, "Target");
 		ticksRemaining = c.getIntOr("TicksLeft", 0);
 		totalTicks = c.getIntOr("TotalTicks", 0);
-		stack = ItemStack.parseOptional(registries, c.getCompoundOrEmpty("Stack"));
+		stack = c.read("Stack", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 	}
 
 	public static class ForBlockState extends LaunchedItem {

@@ -164,7 +164,7 @@ public class CopycatBlockEntity extends SmartBlockEntity
 	protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(tag, registries, clientPacket);
 
-		consumedItem = ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("Item"));
+		consumedItem = tag.read("Item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 
 		BlockState prevMaterial = material;
 		if (!tag.contains("Material")) {
@@ -208,7 +208,7 @@ public class CopycatBlockEntity extends SmartBlockEntity
 	}
 
 	protected void write(CompoundTag tag, HolderLookup.Provider registries, ItemStack stack, BlockState material) {
-		tag.put("Item", stack.saveOptional(registries));
+		tag.store("Item", ItemStack.OPTIONAL_CODEC, stack);
 		tag.put("Material", NbtUtils.writeBlockState(material));
 	}
 

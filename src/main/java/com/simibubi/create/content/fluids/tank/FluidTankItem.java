@@ -57,7 +57,7 @@ public class FluidTankItem extends BlockItem {
 				FluidStack fluid = FluidStack.parseOptional(minecraftserver.registryAccess(), nbt.getCompoundOrEmpty("TankContent"));
 				if (!fluid.isEmpty()) {
 					fluid.setAmount(Math.min(FluidTankBlockEntity.getCapacityMultiplier(), fluid.getAmount()));
-					nbt.put("TankContent", fluid.saveOptional(minecraftserver.registryAccess()));
+					nbt.store("TankContent", ItemStack.OPTIONAL_CODEC, fluid);
 				}
 			}
 			BlockEntity.addEntityType(nbt, ((IBE<?>) this.getBlock()).getBlockEntityType());

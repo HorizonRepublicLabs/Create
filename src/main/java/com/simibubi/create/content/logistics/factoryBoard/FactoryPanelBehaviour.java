@@ -813,7 +813,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 			return;
 
 		CompoundTag panelTag = new CompoundTag();
-		panelTag.put("Filter", getFilter().saveOptional(registries));
+		panelTag.store("Filter", ItemStack.OPTIONAL_CODEC, getFilter());
 		panelTag.putBoolean("UpTo", upTo);
 		panelTag.putInt("FilterAmount", count);
 		panelTag.store("Freq", UUIDUtil.CODEC, network);

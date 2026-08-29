@@ -548,7 +548,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 
 	@Override
 	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		compound.put("Item", item.saveOptional(registries));
+		compound.store("Item", ItemStack.OPTIONAL_CODEC, item);
 		compound.putFloat("ItemPosition", itemPosition.getValue());
 		compound.putFloat("Pull", pull);
 		compound.putFloat("Push", push);
@@ -559,7 +559,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		ItemStack previousItem = item;
-		item = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("Item"));
+		item = compound.read("Item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 		itemPosition.startWithValue(compound.getFloatOr("ItemPosition", 0.0F));
 		pull = compound.getFloatOr("Pull", 0.0F);
 		push = compound.getFloatOr("Push", 0.0F);

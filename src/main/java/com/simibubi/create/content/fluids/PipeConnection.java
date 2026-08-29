@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import net.minecraft.world.item.ItemStack;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.Optional;
@@ -227,7 +229,7 @@ public class PipeConnection {
 		if (hasFlow()) {
 			CompoundTag flowData = new CompoundTag();
 			Flow flow = this.flow.get();
-			flowData.put("Fluid", flow.fluid.saveOptional(registries));
+			flowData.store("Fluid", ItemStack.OPTIONAL_CODEC, flow.fluid);
 			flowData.putBoolean("In", flow.inbound);
 			if (!flow.complete)
 				flowData.put("Progress", flow.progress.writeNBT());

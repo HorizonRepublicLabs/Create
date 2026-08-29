@@ -177,8 +177,6 @@ public class SteamEngineBlock extends FaceAttachedHorizontalDirectionalBlock
 	public BlockEntityType<? extends SteamEngineBlockEntity> getBlockEntityType() {
 		return AllBlockEntityTypes.STEAM_ENGINE.get();
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 		@Override
 		public Predicate<ItemStack> getItemPredicate() {

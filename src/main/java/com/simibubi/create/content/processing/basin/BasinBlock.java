@@ -36,7 +36,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -52,7 +52,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class BasinBlock extends Block implements IBE<BasinBlockEntity>, IWrenchable {
 
-	public static final DirectionProperty FACING = BlockStateProperties.FACING_HOPPER;
+	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING_HOPPER;
 
 	public BasinBlock(Properties p_i48440_1_) {
 		super(p_i48440_1_);

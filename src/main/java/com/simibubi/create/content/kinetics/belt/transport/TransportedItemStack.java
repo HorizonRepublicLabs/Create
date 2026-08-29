@@ -73,7 +73,7 @@ public class TransportedItemStack implements Comparable<TransportedItemStack> {
 
 	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
 		CompoundTag nbt = new CompoundTag();
-		nbt.put("Item", stack.saveOptional(registries));
+		nbt.store("Item", ItemStack.OPTIONAL_CODEC, stack);
 		nbt.putFloat("Pos", beltPosition);
 		nbt.putFloat("PrevPos", prevBeltPosition);
 		nbt.putFloat("Offset", sideOffset);
@@ -99,7 +99,7 @@ public class TransportedItemStack implements Comparable<TransportedItemStack> {
 	}
 
 	public static TransportedItemStack read(CompoundTag nbt, HolderLookup.Provider registries) {
-		TransportedItemStack stack = new TransportedItemStack(ItemStack.parseOptional(registries, nbt.getCompoundOrEmpty("Item")));
+		TransportedItemStack stack = new TransportedItemStack(nbt.read("Item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY));
 		stack.beltPosition = nbt.getFloatOr("Pos", 0.0F);
 		stack.prevBeltPosition = nbt.getFloatOr("PrevPos", 0.0F);
 		stack.sideOffset = nbt.getFloatOr("Offset", 0.0F);

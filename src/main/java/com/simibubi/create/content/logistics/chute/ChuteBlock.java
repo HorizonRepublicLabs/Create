@@ -38,7 +38,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FluidState;
@@ -48,7 +48,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class ChuteBlock extends AbstractChuteBlock implements ProperWaterloggedBlock {
 
 	public static final Property<Shape> SHAPE = EnumProperty.create("shape", Shape.class);
-	public static final DirectionProperty FACING = BlockStateProperties.FACING_HOPPER;
+	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING_HOPPER;
 
 	public ChuteBlock(Properties p_i48440_1_) {
 		super(p_i48440_1_);

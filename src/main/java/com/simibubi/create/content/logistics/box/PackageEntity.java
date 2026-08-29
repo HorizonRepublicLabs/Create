@@ -408,7 +408,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	@Override
 	public void readAdditionalSaveData(ValueInput compound) {
 		super.readAdditionalSaveData(compound);
-		box = ItemStack.parseOptional(level().registryAccess(), compound.getCompoundOrEmpty("Box"));
+		box = compound.read("Box", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 		refreshDimensions();
 	}
 

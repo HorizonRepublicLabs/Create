@@ -1711,7 +1711,6 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 	}
 
 	@ParametersAreNonnullByDefault
-	@MethodsReturnNonnullByDefault
 	private static class ModdedCookingRecipeOutputShim implements Recipe<RecipeInput> {
 
 		private static final Map<RecipeType<?>, Serializer> serializers = new ConcurrentHashMap<>();
@@ -1812,7 +1811,6 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 	}
 
 	@ParametersAreNonnullByDefault
-	@MethodsReturnNonnullByDefault
 	private record ModdedCookingRecipeOutput(RecipeOutput wrapped,
 											 Identifier outputOverride) implements RecipeOutput {
 

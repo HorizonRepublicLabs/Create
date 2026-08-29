@@ -336,8 +336,6 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 	}
 
 	private static final int placementHelperId = PlacementHelpers.register(new PlacementHelper());
-
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 		@Override
 		public Predicate<ItemStack> getItemPredicate() {

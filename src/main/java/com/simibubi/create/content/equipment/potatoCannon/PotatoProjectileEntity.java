@@ -95,7 +95,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 
 	@Override
 	public void readAdditionalSaveData(ValueInput nbt) {
-		setItem(ItemStack.parseOptional(this.registryAccess(), nbt.getCompoundOrEmpty("Item")));
+		setItem(nbt.read("Item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY));
 		additionalDamageMult = nbt.getFloatOr("AdditionalDamage", 0.0F);
 		additionalKnockback = nbt.getFloatOr("AdditionalKnockback", 0.0F);
 		recoveryChance = nbt.getFloatOr("Recovery", 0.0F);
@@ -104,7 +104,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 
 	@Override
 	public void addAdditionalSaveData(ValueOutput nbt) {
-		nbt.put("Item", stack.saveOptional(this.registryAccess()));
+		nbt.store("Item", ItemStack.OPTIONAL_CODEC, stack);
 		nbt.putFloat("AdditionalDamage", additionalDamageMult);
 		nbt.putFloat("AdditionalKnockback", additionalKnockback);
 		nbt.putFloat("Recovery", recoveryChance);

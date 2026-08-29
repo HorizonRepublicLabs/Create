@@ -92,8 +92,6 @@ public class MetalLadderBlock extends LadderBlock implements IWrenchable {
 				.placeInWorld(level, (BlockItem) stack.getItem(), player, hand, hitResult);
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 
 		@Override

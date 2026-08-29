@@ -68,8 +68,6 @@ public class CogwheelBlockItem extends BlockItem {
 
 		return super.onItemUseFirst(stack, context);
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class SmallCogHelper extends DiagonalCogHelper {
 
 		@Override
@@ -107,8 +105,6 @@ public class CogwheelBlockItem extends BlockItem {
 			return super.getOffset(player, world, state, pos, ray);
 		}
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class LargeCogHelper extends DiagonalCogHelper {
 
 		@Override
@@ -147,8 +143,6 @@ public class CogwheelBlockItem extends BlockItem {
 			return super.getOffset(player, world, state, pos, ray);
 		}
 	}
-
-	@MethodsReturnNonnullByDefault
 	public abstract static class DiagonalCogHelper implements IPlacementHelper {
 
 		@Override
@@ -191,8 +185,6 @@ public class CogwheelBlockItem extends BlockItem {
 						.align(Iterate.axisSet)));
 		}
 	}
-
-	@MethodsReturnNonnullByDefault
 	public static class IntegratedLargeCogHelper implements IPlacementHelper {
 
 		@Override
@@ -246,8 +238,6 @@ public class CogwheelBlockItem extends BlockItem {
 		}
 
 	}
-
-	@MethodsReturnNonnullByDefault
 	public static class IntegratedSmallCogHelper implements IPlacementHelper {
 
 		@Override

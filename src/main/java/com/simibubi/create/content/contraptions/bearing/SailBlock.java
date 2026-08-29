@@ -226,8 +226,6 @@ public class SailBlock extends WrenchableDirectionalBlock {
 	public DyeColor getColor() {
 		return color;
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 		@Override
 		public Predicate<ItemStack> getItemPredicate() {

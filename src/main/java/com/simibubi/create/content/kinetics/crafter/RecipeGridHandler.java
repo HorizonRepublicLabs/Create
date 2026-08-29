@@ -199,7 +199,7 @@ public class RecipeGridHandler {
 				CompoundTag entry = new CompoundTag();
 				entry.putInt("x", pair.getKey());
 				entry.putInt("y", pair.getValue());
-				entry.put("item", stack.saveOptional(registries));
+				entry.store("item", ItemStack.OPTIONAL_CODEC, stack);
 				gridNBT.add(entry);
 			});
 			nbt.put("Grid", gridNBT);
@@ -212,7 +212,7 @@ public class RecipeGridHandler {
 				CompoundTag entry = (CompoundTag) inbt;
 				int x = entry.getIntOr("x", 0);
 				int y = entry.getIntOr("y", 0);
-				ItemStack stack = ItemStack.parseOptional(registries, entry.getCompoundOrEmpty("item"));
+				ItemStack stack = entry.read("item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 				items.grid.put(Pair.of(x, y), stack);
 			});
 			return items;

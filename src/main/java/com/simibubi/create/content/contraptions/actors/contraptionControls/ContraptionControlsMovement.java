@@ -52,7 +52,7 @@ public class ContraptionControlsMovement implements MovementBehaviour {
 		CompoundTag blockEntityData = ctx.blockEntityData;
 		if (blockEntityData == null)
 			return null;
-		return ItemStack.parseOptional(ctx.world.registryAccess(), blockEntityData.getCompoundOrEmpty("Filter"));
+		return blockEntityData.read("Filter", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 	}
 
 	public static boolean isDisabledInitially(MovementContext ctx) {

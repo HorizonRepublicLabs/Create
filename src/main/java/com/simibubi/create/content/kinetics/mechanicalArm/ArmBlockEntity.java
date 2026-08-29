@@ -526,7 +526,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 		NBTHelper.writeEnum(compound, "Phase", phase);
 		compound.putBoolean("Powered", redstoneLocked);
 		compound.putBoolean("Goggles", goggles);
-		compound.put("HeldItem", heldItem.saveOptional(registries));
+		compound.store("HeldItem", ItemStack.OPTIONAL_CODEC, heldItem);
 		compound.putInt("TargetPointIndex", chasedPointIndex);
 		compound.putFloat("MovementProgress", chasedPointProgress);
 	}
@@ -545,7 +545,7 @@ public class ArmBlockEntity extends KineticBlockEntity implements TransformableB
 		ListTag interactionPointTagBefore = interactionPointTag;
 
 		super.read(tag, registries, clientPacket);
-		heldItem = ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("HeldItem"));
+		heldItem = tag.read("HeldItem", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 		phase = NBTHelper.readEnum(tag, "Phase", Phase.class);
 		chasedPointIndex = tag.getIntOr("TargetPointIndex", 0);
 		chasedPointProgress = tag.getFloatOr("MovementProgress", 0.0F);

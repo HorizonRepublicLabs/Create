@@ -98,8 +98,6 @@ public class ShaftBlock extends AbstractSimpleShaftBlock implements EncasableBlo
 
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper extends PoleHelper<Direction.Axis> {
 		// used for extending a shaft in its axis, like the piston poles. works with
 		// shafts and cogs

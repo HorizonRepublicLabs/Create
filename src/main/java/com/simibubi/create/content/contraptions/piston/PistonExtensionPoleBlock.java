@@ -163,8 +163,6 @@ public class PistonExtensionPoleBlock extends WrenchableDirectionalBlock impleme
 	protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
 		return false;
 	}
-
-	@MethodsReturnNonnullByDefault
 	public static class PlacementHelper extends PoleHelper<Direction> {
 
 		private static final PlacementHelper instance = new PlacementHelper();

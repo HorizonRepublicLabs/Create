@@ -88,7 +88,7 @@ public class FilteringBehaviour extends BlockEntityBehaviour implements ValueSet
 
 	@Override
 	public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
-		nbt.put("Filter", getFilter().saveOptional(registries));
+		nbt.store("Filter", ItemStack.OPTIONAL_CODEC, getFilter());
 		nbt.putInt("FilterAmount", count);
 		nbt.putBoolean("UpTo", upTo);
 		super.write(nbt, registries, clientPacket);
@@ -362,7 +362,7 @@ public class FilteringBehaviour extends BlockEntityBehaviour implements ValueSet
 	public boolean writeToClipboard(HolderLookup.@NotNull Provider registries, CompoundTag tag, Direction side) {
 		ValueSettingsBehaviour.super.writeToClipboard(registries, tag, side);
 		ItemStack filter = getFilter(side);
-		tag.put("Filter", filter.saveOptional(registries));
+		tag.store("Filter", ItemStack.OPTIONAL_CODEC, filter);
 		return true;
 	}
 
@@ -382,7 +382,7 @@ public class FilteringBehaviour extends BlockEntityBehaviour implements ValueSet
 		if (getFilter(side).getItem() instanceof FilterItem && !player.isCreative())
 			refund = getFilter(side).copy();
 
-		ItemStack copied = ItemStack.parseOptional(registries, tag.getCompoundOrEmpty("Filter"));
+		ItemStack copied = tag.read("Filter", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 
 		if (copied.getItem() instanceof FilterItem filterType && !player.isCreative()) {
 			InvWrapper inv = new InvWrapper(player.getInventory());

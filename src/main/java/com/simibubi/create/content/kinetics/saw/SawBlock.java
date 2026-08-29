@@ -214,8 +214,6 @@ public class SawBlock extends DirectionalAxisKineticBlock implements IBE<SawBloc
 	protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {
 		return false;
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 
 		@Override

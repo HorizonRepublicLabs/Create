@@ -49,7 +49,7 @@ public record FilterScreenPacket(Option option, @Nullable CompoundTag data) impl
 			if (this.option == Option.UPDATE_FILTER_ITEM)
 				c.ghostInventory.setStackInSlot(
 					tag.getIntOr("Slot", 0),
-					ItemStack.parseOptional(player.registryAccess(), tag.getCompoundOrEmpty("Item"))
+					tag.read("Item", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY)
 				);
 		}
 

@@ -168,8 +168,6 @@ public class DrillBlock extends DirectionalKineticBlock implements IBE<DrillBloc
 
 		return InteractionResult.TRY_WITH_EMPTY_HAND;
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 
 		@Override

@@ -582,8 +582,8 @@ public class PackagerBlockEntity extends SmartBlockEntity implements Clearable {
 		signBasedAddress = compound.getStringOr("SignAddress", "");
 		customComputerAddress = compound.getStringOr("ComputerAddress", "");
 		hasCustomComputerAddress = compound.getBooleanOr("HasComputerAddress", false);
-		heldBox = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("HeldBox"));
-		previouslyUnwrapped = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("InsertedBox"));
+		heldBox = compound.read("HeldBox", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
+		previouslyUnwrapped = compound.read("InsertedBox", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 		if (clientPacket)
 			return;
 		queuedExitingPackages = NBTHelper.readCompoundList(compound.getListOrEmpty("QueuedExitingPackages"),
@@ -602,8 +602,8 @@ public class PackagerBlockEntity extends SmartBlockEntity implements Clearable {
 		compound.putString("SignAddress", signBasedAddress);
 		compound.putString("ComputerAddress", customComputerAddress);
 		compound.putBoolean("HasComputerAddress", hasCustomComputerAddress);
-		compound.put("HeldBox", heldBox.saveOptional(registries));
-		compound.put("InsertedBox", previouslyUnwrapped.saveOptional(registries));
+		compound.store("HeldBox", ItemStack.OPTIONAL_CODEC, heldBox);
+		compound.store("InsertedBox", ItemStack.OPTIONAL_CODEC, previouslyUnwrapped);
 		if (clientPacket)
 			return;
 		compound.put("QueuedExitingPackages", NBTHelper.writeCompoundList(queuedExitingPackages, bis -> {

@@ -63,8 +63,8 @@ public class DeployerMovingInteraction extends MovingInteractionBehaviour {
 			ItemStack deployerItem = fake.getMainHandItem();
 			player.setItemInHand(activeHand, deployerItem.copy());
 			fake.setItemInHand(InteractionHand.MAIN_HAND, heldStack.copy());
-			ctx.blockEntityData.put("HeldItem", heldStack.saveOptional(player.registryAccess()));
-			ctx.data.put("HeldItem", heldStack.saveOptional(player.registryAccess()));
+			ctx.blockEntityData.store("HeldItem", ItemStack.OPTIONAL_CODEC, heldStack);
+			ctx.data.store("HeldItem", ItemStack.OPTIONAL_CODEC, heldStack);
 		}
 //		if (index >= 0)
 //			setContraptionActorData(contraptionEntity, index, info, ctx);

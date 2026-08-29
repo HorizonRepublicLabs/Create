@@ -396,7 +396,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 		deferredInventoryList = compound.getListOrEmpty("Inventory");
 		overflowItems = NBTHelper.readItemList(compound.getListOrEmpty("Overflow"), registries);
 		if (compound.contains("HeldItem")) {
-			heldItem = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("HeldItem"));
+			heldItem = compound.read("HeldItem", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 		}
 		super.read(compound, registries, clientPacket);
 
@@ -405,7 +405,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 		fistBump = compound.getBooleanOr("Fistbump", false);
 		reach = compound.getFloatOr("Reach", 0.0F);
 		if (compound.contains("Particle")) {
-			ItemStack particleStack = ItemStack.parseOptional(registries, compound.getCompoundOrEmpty("Particle"));
+			ItemStack particleStack = compound.read("Particle", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 			SandPaperItem.spawnParticles(VecHelper.getCenterOf(worldPosition)
 				.add(getMovementVector().scale(reach + 1)), particleStack, this.level);
 		}
@@ -425,7 +425,7 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 			player.getInventory()
 				.save(invNBT);
 			compound.put("Inventory", invNBT);
-			compound.put("HeldItem", player.getMainHandItem().saveOptional(registries));
+			compound.store("HeldItem", ItemStack.OPTIONAL_CODEC, player.getMainHandItem());
 			compound.put("Overflow", NBTHelper.writeItemList(overflowItems, registries));
 		} else if (deferredInventoryList != null) {
 			compound.put("Inventory", deferredInventoryList);
@@ -439,9 +439,9 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 		compound.putFloat("Reach", reach);
 		if (player == null)
 			return;
-		compound.put("HeldItem", player.getMainHandItem().saveOptional(registries));
+		compound.store("HeldItem", ItemStack.OPTIONAL_CODEC, player.getMainHandItem());
 		if (player.spawnedItemEffects != null) {
-			compound.put("Particle", player.spawnedItemEffects.saveOptional(registries));
+			compound.store("Particle", ItemStack.OPTIONAL_CODEC, player.spawnedItemEffects);
 			player.spawnedItemEffects = null;
 		}
 	}

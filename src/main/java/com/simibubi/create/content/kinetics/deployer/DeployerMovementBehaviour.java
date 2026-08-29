@@ -273,7 +273,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 		DeployerFakePlayer player = getPlayer(context);
 		if (player == null)
 			return;
-		context.data.put("HeldItem", player.getMainHandItem().saveOptional(context.world.registryAccess()));
+		context.data.store("HeldItem", ItemStack.OPTIONAL_CODEC, player.getMainHandItem());
 	}
 
 	private DeployerFakePlayer getPlayer(MovementContext context) {

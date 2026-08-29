@@ -165,8 +165,6 @@ public class DeployerBlock extends DirectionalAxisKineticBlock implements IBE<De
 		else
 			return super.getFacingForPlacement(context);
 	}
-
-	@MethodsReturnNonnullByDefault
 	private static class PlacementHelper implements IPlacementHelper {
 
 		@Override

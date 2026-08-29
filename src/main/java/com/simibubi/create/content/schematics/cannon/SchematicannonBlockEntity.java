@@ -262,7 +262,7 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 		compound.putInt("AmountToPlace", blocksToPlace);
 
 		if (missingItem != null)
-			compound.put("MissingItem", missingItem.saveOptional(registries));
+			compound.store("MissingItem", ItemStack.OPTIONAL_CODEC, missingItem);
 
 		// Settings
 		Tag options = CatnipCodecUtils.encode(SchematicannonOptions.CODEC, registries, new SchematicannonOptions(replaceMode, skipMissing, replaceBlockEntities)).orElseThrow();

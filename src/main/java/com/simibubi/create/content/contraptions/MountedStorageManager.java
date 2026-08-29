@@ -449,7 +449,7 @@ public class MountedStorageManager {
 			} else if (data.contains("NoFuel")) {
 				this.addStorage(ItemVaultMountedStorage.fromLegacy(registries, data), pos);
 			} else if (data.contains("Bottomless")) {
-				ItemStack supplied = ItemStack.parseOptional(registries, data.getCompoundOrEmpty("ProvidedStack"));
+				ItemStack supplied = data.read("ProvidedStack", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 				this.addStorage(new CreativeCrateMountedStorage(supplied), pos);
 			} else if (data.contains("Synced")) {
 				this.addStorage(DepotMountedStorage.fromLegacy(registries, data), pos);
