@@ -76,7 +76,7 @@ public class ClipboardValueSettingsHandler {
 		if (shape.isEmpty())
 			return;
 
-		VertexConsumer vb = event.getMultiBufferSource()
+		VertexConsumer vb = event.getSubmitNodeCollector()
 			.getBuffer(RenderType.lines());
 		Vec3 camPos = event.getCamera()
 			.getPosition();

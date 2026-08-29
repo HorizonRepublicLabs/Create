@@ -181,7 +181,7 @@ public class TrackBlockOutline {
 			.isWithinBounds(pos))
 			return;
 
-		VertexConsumer vb = event.getMultiBufferSource()
+		VertexConsumer vb = event.getSubmitNodeCollector()
 			.getBuffer(RenderType.lines());
 		Vec3 camPos = event.getCamera()
 			.getPosition();

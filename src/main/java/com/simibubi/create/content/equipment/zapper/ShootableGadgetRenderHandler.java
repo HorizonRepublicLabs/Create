@@ -81,7 +81,7 @@ public abstract class ShootableGadgetRenderHandler {
 		ItemInHandRenderer firstPersonRenderer = mc.getEntityRenderDispatcher().getItemInHandRenderer();
 
 		PoseStack ms = event.getPoseStack();
-		SuperRenderTypeBuffer buffer = event.getMultiBufferSource();
+		SuperRenderTypeBuffer buffer = event.getSubmitNodeCollector();
 		int light = event.getPackedLight();
 		float pt = event.getPartialTick();
 

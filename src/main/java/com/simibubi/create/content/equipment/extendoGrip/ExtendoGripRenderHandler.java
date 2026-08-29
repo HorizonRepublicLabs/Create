@@ -99,10 +99,10 @@ public class ExtendoGripRenderHandler {
 			AvatarRenderer playerrenderer = (AvatarRenderer) mc.getEntityRenderDispatcher()
 				.getRenderer(player);
 			if (rightHand)
-				playerrenderer.renderRightHand(event.getPoseStack(), event.getMultiBufferSource(),
+				playerrenderer.renderRightHand(event.getPoseStack(), event.getSubmitNodeCollector(),
 					event.getPackedLight(), player);
 			else
-				playerrenderer.renderLeftHand(event.getPoseStack(), event.getMultiBufferSource(),
+				playerrenderer.renderLeftHand(event.getPoseStack(), event.getSubmitNodeCollector(),
 					event.getPackedLight(), player);
 			ms.popPose();
 
@@ -113,7 +113,7 @@ public class ExtendoGripRenderHandler {
 			ItemDisplayContext transform =
 				rightHand ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND;
 			firstPersonRenderer.renderItem(mc.player, notInOffhand ? heldItem : offhandItem, transform, !rightHand,
-				event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight());
+				event.getPoseStack(), event.getSubmitNodeCollector(), event.getPackedLight());
 
 			if (!notInOffhand) {
 				ClientHooks.handleCameraTransforms(ms, mc.getItemRenderer()
@@ -129,7 +129,7 @@ public class ExtendoGripRenderHandler {
 				}
 
 				firstPersonRenderer.renderItem(mc.player, heldItem, transform, !rightHand, event.getPoseStack(),
-					event.getMultiBufferSource(), event.getPackedLight());
+					event.getSubmitNodeCollector(), event.getPackedLight());
 			}
 
 			ms.popPose();

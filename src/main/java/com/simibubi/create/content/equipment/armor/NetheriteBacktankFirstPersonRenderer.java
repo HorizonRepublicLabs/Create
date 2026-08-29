@@ -44,7 +44,7 @@ public class NetheriteBacktankFirstPersonRenderer {
 
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
-		SuperRenderTypeBuffer buffer = event.getMultiBufferSource();
+		SuperRenderTypeBuffer buffer = event.getSubmitNodeCollector();
 		if (!(mc.getEntityRenderDispatcher()
 			.getRenderer(player) instanceof AvatarRenderer pr))
 			return;
