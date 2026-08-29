@@ -116,7 +116,7 @@ public class PlacardBlock extends FaceAttachedHorizontalDirectionalBlock
 	public BlockState updateShape(BlockState pState, LevelReader pLevel,
 		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
 		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
-		updateWater(pLevel, pState, pCurrentPos);
+		updateWater(pLevel, tickAccess, pState, pCurrentPos);
 		return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
 	}
 

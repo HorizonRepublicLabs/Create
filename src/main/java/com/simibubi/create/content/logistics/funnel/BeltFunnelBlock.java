@@ -138,7 +138,7 @@ public class BeltFunnelBlock extends AbstractHorizontalFunnelBlock implements Sp
 	public BlockState updateShape(BlockState state, LevelReader world,
 		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
 		BlockPos p_196271_6_, BlockState neighbour, RandomSource randomSource) {
-		updateWater(world, state, pos);
+		updateWater(world, tickAccess, state, pos);
 		if (!isOnValidBelt(state, world, pos)) {
 			BlockState parentState = ProperWaterloggedBlock.withWater(world, parent.getDefaultState(), pos);
 			if (state.getOptionalValue(POWERED)

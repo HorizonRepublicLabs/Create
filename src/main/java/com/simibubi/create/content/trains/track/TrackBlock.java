@@ -313,7 +313,7 @@ public class TrackBlock extends Block
 	public BlockState updateShape(BlockState state, LevelReader level,
 		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pDirection,
 		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
-		updateWater(level, state, pCurrentPos);
+		updateWater(level, tickAccess, state, pCurrentPos);
 		TrackShape shape = state.getValue(SHAPE);
 		if (!shape.isPortal())
 			return state;

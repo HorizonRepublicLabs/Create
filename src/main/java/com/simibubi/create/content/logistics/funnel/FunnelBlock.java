@@ -174,7 +174,7 @@ public abstract class FunnelBlock extends AbstractDirectionalFunnelBlock {
 	public BlockState updateShape(BlockState state, LevelReader world,
 		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
 		BlockPos p_196271_6_, BlockState p_196271_3_, RandomSource randomSource) {
-		updateWater(world, state, pos);
+		updateWater(world, tickAccess, state, pos);
 		if (getFacing(state).getAxis()
 			.isVertical() || direction != Direction.DOWN)
 			return state;

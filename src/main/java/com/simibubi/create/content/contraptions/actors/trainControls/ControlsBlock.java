@@ -52,7 +52,7 @@ public class ControlsBlock extends HorizontalDirectionalBlock implements IWrench
 	public BlockState updateShape(BlockState pState, LevelReader pLevel,
 		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pDirection,
 		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
-		updateWater(pLevel, pState, pCurrentPos);
+		updateWater(pLevel, tickAccess, pState, pCurrentPos);
 		return pState.setValue(OPEN, pLevel instanceof ContraptionWorld);
 	}
 

@@ -77,7 +77,7 @@ public class PostboxBlock extends HorizontalDirectionalBlock
 	public BlockState updateShape(BlockState pState, LevelReader pLevel,
 		ScheduledTickAccess tickAccess, BlockPos pPos, Direction pDirection,
 		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
-		updateWater(pLevel, pState, pPos);
+		updateWater(pLevel, tickAccess, pState, pPos);
 		return pState;
 	}
 

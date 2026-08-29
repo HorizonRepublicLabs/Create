@@ -159,7 +159,7 @@ public class FluidValveBlock extends DirectionalAxisKineticBlock
 	public BlockState updateShape(BlockState state, LevelReader world,
 		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
 		BlockPos neighbourPos, BlockState neighbourState, RandomSource randomSource) {
-		updateWater(world, state, pos);
+		updateWater(world, tickAccess, state, pos);
 		return state;
 	}
 
