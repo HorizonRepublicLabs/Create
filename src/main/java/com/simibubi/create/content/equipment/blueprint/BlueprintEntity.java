@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -406,8 +408,7 @@ public class BlueprintEntity extends HangingEntity
 					CraftingContainer craftingInventory = new BlueprintCraftingInventory(craftingGrid);
 
 					if (!recipe.isPresent())
-						recipe = level().recipeAccess()
-							.getRecipeFor(RecipeType.CRAFTING, craftingInventory.asCraftInput(), level());
+						recipe = RecipeLookup.find(level(), RecipeType.CRAFTING, craftingInventory.asCraftInput());
 					ItemStack result = recipe.filter(r -> r.value().matches(craftingInventory.asCraftInput(), level()))
 						.map(r -> r.value().assemble(craftingInventory.asCraftInput(), registryAccess()))
 						.orElse(ItemStack.EMPTY);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import com.simibubi.create.foundation.gui.HudState;
 
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -262,8 +264,7 @@ public class BlueprintOverlayRenderer {
 			if (success) {
 				CraftingContainer craftingInventory = new BlueprintCraftingInventory(craftingGrid);
 				if (!recipe.isPresent())
-					recipe = mc.level.recipeAccess()
-						.getRecipeFor(RecipeType.CRAFTING, craftingInventory.asCraftInput(), mc.level);
+					recipe = RecipeLookup.find(mc.level, RecipeType.CRAFTING, craftingInventory.asCraftInput());
 				ItemStack resultFromRecipe = recipe.filter(r -> r.value().matches(craftingInventory.asCraftInput(), mc.level))
 					.map(r -> r.value().assemble(craftingInventory.asCraftInput(), mc.level.registryAccess()))
 					.orElse(ItemStack.EMPTY);

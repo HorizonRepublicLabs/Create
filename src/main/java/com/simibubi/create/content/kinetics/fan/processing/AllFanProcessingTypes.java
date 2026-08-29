@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan.processing;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import com.simibubi.create.foundation.utility.ValueIOShim;
@@ -125,15 +127,13 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public boolean canProcess(ItemStack stack, Level level) {
-			Optional<RecipeHolder<SmeltingRecipe>> smeltingRecipe = level.recipeAccess()
-				.getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), level)
+			Optional<RecipeHolder<SmeltingRecipe>> smeltingRecipe = RecipeLookup.find(level, RecipeType.SMELTING, new SingleRecipeInput(stack))
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 
 			if (smeltingRecipe.isPresent())
 				return true;
 
-			Optional<RecipeHolder<BlastingRecipe>> blastingRecipe = level.recipeAccess()
-				.getRecipeFor(RecipeType.BLASTING, new SingleRecipeInput(stack), level)
+			Optional<RecipeHolder<BlastingRecipe>> blastingRecipe = RecipeLookup.find(level, RecipeType.BLASTING, new SingleRecipeInput(stack))
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 
 			if (blastingRecipe.isPresent())
@@ -145,17 +145,14 @@ public class AllFanProcessingTypes {
 		@Override
 		@Nullable
 		public List<ItemStack> process(ItemStack stack, Level level) {
-			Optional<RecipeHolder<SmokingRecipe>> smokingRecipe = level.recipeAccess()
-				.getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(stack), level)
+			Optional<RecipeHolder<SmokingRecipe>> smokingRecipe = RecipeLookup.find(level, RecipeType.SMOKING, new SingleRecipeInput(stack))
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 
-			Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> smeltingRecipe = level.recipeAccess()
-				.getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(stack), level)
+			Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> smeltingRecipe = RecipeLookup.find(level, RecipeType.SMELTING, new SingleRecipeInput(stack))
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 
 			if (smeltingRecipe.isEmpty()) {
-				smeltingRecipe = level.recipeAccess()
-					.getRecipeFor(RecipeType.BLASTING, new SingleRecipeInput(stack), level)
+				smeltingRecipe = RecipeLookup.find(level, RecipeType.BLASTING, new SingleRecipeInput(stack))
 					.filter(AllRecipeTypes.CAN_BE_AUTOMATED);
 			}
 
@@ -339,8 +336,7 @@ public class AllFanProcessingTypes {
 
 		@Override
 		public boolean canProcess(ItemStack stack, Level level) {
-			return level.recipeAccess()
-				.getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(stack), level)
+			return RecipeLookup.find(level, RecipeType.SMOKING, new SingleRecipeInput(stack))
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED)
 				.isPresent();
 		}
@@ -348,8 +344,7 @@ public class AllFanProcessingTypes {
 		@Override
 		@Nullable
 		public List<ItemStack> process(ItemStack stack, Level level) {
-			return level.recipeAccess()
-				.getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(stack), level)
+			return RecipeLookup.find(level, RecipeType.SMOKING, new SingleRecipeInput(stack))
 				.filter(AllRecipeTypes.CAN_BE_AUTOMATED)
 				.map(RecipeHolder::value)
 				.map(r -> RecipeApplier.applyRecipeOn(level, stack, r, false))
