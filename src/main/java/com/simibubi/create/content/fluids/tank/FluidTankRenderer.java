@@ -10,7 +10,7 @@ import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRender
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.animation.LerpedFloat;
 import net.createmod.catnip.api.data.Iterate;
-import net.createmod.catnip.platform.NeoForgeCatnipServices;
+import net.createmod.catnip.api.client.render.FluidRenderHelper;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -75,7 +75,7 @@ public class FluidTankRenderer extends SafeBlockEntityRenderer<FluidTankBlockEnt
 
 		ms.pushPose();
 		ms.translate(0, clampedLevel - totalHeight, 0);
-		NeoForgeCatnipServices.FLUID_RENDERER.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, buffer,
+		FluidRenderHelper.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, buffer,
 			ms, light, false, true);
 		ms.popPose();
 	}

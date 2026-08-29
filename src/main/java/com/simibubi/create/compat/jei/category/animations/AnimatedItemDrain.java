@@ -7,7 +7,7 @@ import com.mojang.math.Axis;
 import com.simibubi.create.AllBlocks;
 
 import net.createmod.catnip.api.client.gui.UIRenderHelper;
-import net.createmod.catnip.platform.NeoForgeCatnipServices;
+import net.createmod.catnip.api.client.render.FluidRenderHelper;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.LightTexture;
 
@@ -39,7 +39,7 @@ public class AnimatedItemDrain extends AnimatedKinetics {
 		matrixStack.scale(scale, scale);
 		float from = 2 / 16f;
 		float to = 1f - from;
-		NeoForgeCatnipServices.FLUID_RENDERER.renderFluidBox(fluid, from, from, from, to, 3 / 4f, to, graphics.bufferSource(), matrixStack, LightTexture.FULL_BRIGHT, false, true);
+		FluidRenderHelper.renderFluidBox(fluid, from, from, from, to, 3 / 4f, to, graphics.bufferSource(), matrixStack, LightTexture.FULL_BRIGHT, false, true);
 		graphics.flush();
 
 		matrixStack.popMatrix();

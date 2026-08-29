@@ -60,7 +60,6 @@ import net.createmod.catnip.api.client.gui.UIRenderHelper;
 import net.createmod.catnip.api.client.gui.element.GuiGameElement;
 import net.createmod.catnip.api.lang.Lang;
 import net.createmod.catnip.api.math.AngleHelper;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.ChatFormatting;
@@ -1430,8 +1429,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		BlockPos pos = blockEntity.getBlockPos();
 		ClientNetworkHelper.INSTANCE.sendToServer(
 			new PackageOrderRequestPacket(pos, PackageOrderWithCrafts.empty(), addressBox.getValue(), false));
-		CatnipServices.NETWORK
-			.sendToServer(new StockKeeperCategoryHidingPacket(pos, new ArrayList<>(hiddenCategories)));
+		ClientNetworkHelper.INSTANCE.sendToServer(new StockKeeperCategoryHidingPacket(pos, new ArrayList<>(hiddenCategories)));
 		super.removed();
 	}
 

@@ -17,7 +17,7 @@ import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRende
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.createmod.catnip.api.math.VecHelper;
-import net.createmod.catnip.platform.NeoForgeCatnipServices;
+import net.createmod.catnip.api.client.render.FluidRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -148,7 +148,7 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 			float yOffset = (7 / 16f) * level;
 			ms.pushPose();
 			ms.translate(0, yOffset, 0);
-			NeoForgeCatnipServices.FLUID_RENDERER.renderFluidBox(fluidStack, min, yMin - yOffset, min, max, yMin,
+			FluidRenderHelper.renderFluidBox(fluidStack, min, yMin - yOffset, min, max, yMin,
 				max, buffer, ms, light, false, false);
 			ms.popPose();
 		}
@@ -173,7 +173,7 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 		if (processingTicks != -1) {
 			radius = (float) (Math.pow(((2 * processingProgress) - 1), 2) - 1);
 			AABB bb = new AABB(0.5, 1.0, 0.5, 0.5, 0.25, 0.5).inflate(radius / 32f);
-			NeoForgeCatnipServices.FLUID_RENDERER.renderFluidBox(fluidStack2, (float) bb.minX, (float) bb.minY, (float) bb.minZ,
+			FluidRenderHelper.renderFluidBox(fluidStack2, (float) bb.minX, (float) bb.minY, (float) bb.minZ,
 				(float) bb.maxX, (float) bb.maxY, (float) bb.maxZ, buffer, ms, light, true, false);
 		}
 
