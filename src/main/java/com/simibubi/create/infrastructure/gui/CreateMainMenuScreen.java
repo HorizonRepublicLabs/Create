@@ -21,7 +21,7 @@ import net.createmod.catnip.api.client.lang.FontHelper.Palette;
 import net.createmod.catnip.api.theme.Color;
 import net.createmod.ponder.impl.client.gui.PonderTagIndexScreen;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
