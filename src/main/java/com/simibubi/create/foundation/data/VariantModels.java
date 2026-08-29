@@ -100,7 +100,7 @@ public class VariantModels {
 			String key = variantKey(state, skip);
 			if (variants.containsKey(key))
 				continue;
-			variants.put(key, toMultiVariant(modelFunc.apply(state)));
+			variants.put(key, toMultiVariant(modelFunc.apply(state)).toUnbaked());
 		}
 
 		accept(generator, block, variants);
@@ -131,7 +131,7 @@ public class VariantModels {
 	}
 
 	public static Variant toVariant(ConfiguredModel model) {
-		Variant variant = new Variant(model.model(), new Variant.SimpleModelState());
+		Variant variant = new Variant(model.model());
 		if (model.rotationX() != 0)
 			variant = variant.withXRot(quadrant(model.rotationX()));
 		if (model.rotationY() != 0)
@@ -152,16 +152,11 @@ public class VariantModels {
 
 	/// Same shape vanilla writes: name=value pairs, comma separated, sorted by
 	/// property name so the key is stable.
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private static String variantKey(BlockState state, Set<Property<?>> skip) {
 		return state.getValues()
-			.entrySet()
-			.stream()
-			.filter(e -> !skip.contains(e.getKey()))
-			.sorted(java.util.Comparator.comparing(e -> e.getKey()
-				.getName()))
-			.map(e -> e.getKey()
-				.getName() + "=" + ((Property) e.getKey()).getName((Comparable) e.getValue()))
+			.filter(value -> !skip.contains(value.property()))
+			.map(Property.Value::toString)
+			.sorted()
 			.collect(Collectors.joining(","));
 	}
 
