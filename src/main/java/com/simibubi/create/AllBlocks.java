@@ -523,7 +523,7 @@ public class AllBlocks {
 					.texture("side", p.modLoc("block/" + c.getName() + powered));
 			}).generate(c, p))
 			.item()
-			.model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/encased_chain_drive/item"))
+			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/encased_chain_drive/item"))
 				.texture("side", p.modLoc("block/" + c.getName())))
 			.build()
 			.register();
@@ -991,7 +991,7 @@ public class AllBlocks {
 			.transform(mountedFluidStorage(AllMountedStorageTypes.CREATIVE_FLUID_TANK))
 			.item(FluidTankItem::new)
 			.properties(p -> p.rarity(Rarity.EPIC))
-			.model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/fluid_tank/block_single_window"))
+			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/fluid_tank/block_single_window"))
 				.texture("5", p.modLoc("block/creative_fluid_tank_window_single"))
 				.texture("1", p.modLoc("block/creative_fluid_tank"))
 				.texture("particle", p.modLoc("block/creative_fluid_tank"))
@@ -1245,7 +1245,7 @@ public class AllBlocks {
 				.getColorForPower(pos != null && world != null ? state.getValue(BlockStateProperties.POWER) : 0))
 			.tag(BlockTags.RAILS)
 			.item()
-			.model((c, p) -> p.generated(c, Create.asResource("block/" + c.getName())))
+			.model(() -> (c, p) -> p.generated(c, Create.asResource("block/" + c.getName())))
 			.build()
 			.register();
 
@@ -1287,7 +1287,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.blockstate(() -> BlockStateGen.radialChassis())
 			.item()
-			.model((c, p) -> {
+			.model(() -> (c, p) -> {
 				String path = "block/" + c.getName();
 				p.cubeColumn(c.getName(), p.modLoc(path + "_side"), p.modLoc(path + "_end"));
 			})
@@ -1591,7 +1591,7 @@ public class AllBlocks {
 		.lang("Train Track")
 		.item(TrackBlockItem::new)
 		.tag(AllItemTags.TRACKS.tag)
-		.model((c, p) -> p.generated(c, Create.asResource("item/" + c.getName())))
+		.model(() -> (c, p) -> p.generated(c, Create.asResource("item/" + c.getName())))
 		.build()
 		.register();
 
@@ -1835,7 +1835,7 @@ public class AllBlocks {
 			.transform(pickaxeOnly())
 			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 			.item(PackagePortItem::new)
-			.model(AssetLookup::customItemModel)
+			.model(() -> AssetLookup::customItemModel)
 			.build()
 			.register();
 
@@ -1874,7 +1874,7 @@ public class AllBlocks {
 					.unlockedBy("has_postbox", RegistrateRecipeProvider.has(AllItemTags.POSTBOXES.tag))
 					.save(p, Create.asResource("crafting/logistics/" + c.getName() + "_from_other_postbox"));
 			})
-			.model((c, p) -> p.withExistingParent(colourName + "_postbox", p.modLoc("block/package_postbox/item"))
+			.model(() -> (c, p) -> p.withExistingParent(colourName + "_postbox", p.modLoc("block/package_postbox/item"))
 				.texture("0", p.modLoc("block/post_box/post_box_" + colourName))
 				.texture("1", p.modLoc("block/post_box/post_box_" + colourName + "_closed")))
 			.tag(AllItemTags.POSTBOXES.tag)
@@ -1924,7 +1924,7 @@ public class AllBlocks {
 			.onRegister(CreateRegistrate.blockModel(() -> FactoryPanelModel::new))
 			.transform(displaySource(AllDisplaySources.GAUGE_STATUS))
 			.item(FactoryPanelBlockItem::new)
-			.model(AssetLookup::customItemModel)
+			.model(() -> AssetLookup::customItemModel)
 			.build()
 			.register();
 
@@ -2083,7 +2083,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.blockstate(() -> new BrassDiodeGenerator()::generate)
 			.item()
-			.model(AbstractDiodeGenerator::diodeItemModel)
+			.model(() -> AbstractDiodeGenerator::diodeItemModel)
 			.build()
 			.register();
 
@@ -2093,7 +2093,7 @@ public class AllBlocks {
 			.tag(AllBlockTags.SAFE_NBT.tag)
 			.blockstate(() -> new BrassDiodeGenerator()::generate)
 			.item()
-			.model(AbstractDiodeGenerator::diodeItemModel)
+			.model(() -> AbstractDiodeGenerator::diodeItemModel)
 			.build()
 			.register();
 
@@ -2102,7 +2102,7 @@ public class AllBlocks {
 		.tag(AllBlockTags.SAFE_NBT.tag)
 		.blockstate(() -> new BrassDiodeGenerator()::generate)
 		.item()
-		.model(AbstractDiodeGenerator::diodeItemModel)
+		.model(() -> AbstractDiodeGenerator::diodeItemModel)
 		.build()
 		.register();
 
@@ -2197,7 +2197,7 @@ public class AllBlocks {
 			.transform(mountedItemStorage(AllMountedStorageTypes.TOOLBOX))
 			.tag(AllBlockTags.TOOLBOXES.tag)
 			.item(UncontainableBlockItem::new)
-			.model((c, p) -> p.withExistingParent(colourName + "_toolbox", p.modLoc("block/toolbox/item"))
+			.model(() -> (c, p) -> p.withExistingParent(colourName + "_toolbox", p.modLoc("block/toolbox/item"))
 				.texture("0", p.modLoc("block/toolbox/" + colourName)))
 			.tag(AllItemTags.TOOLBOXES.tag)
 			.build()
@@ -2214,7 +2214,7 @@ public class AllBlocks {
 		.loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
 		.item(ClipboardBlockItem::new)
 		.onRegister(ClipboardBlockItem::registerModelOverrides)
-		.model((c, p) -> ClipboardOverrides.addOverrideModels(c, p))
+		.model(() -> (c, p) -> ClipboardOverrides.addOverrideModels(c, p))
 		.build()
 		.register();
 

@@ -91,7 +91,7 @@ public class WindowGen {
 					.cubeColumn(c.getName() + "_4", side_texture, ends.apply(4)))
 				.build()))
 			.item()
-			.model((c, p) -> p.cubeColumn(c.getName(), side_texture, ends.apply(1)))
+			.model(() -> (c, p) -> p.cubeColumn(c.getName(), side_texture, ends.apply(1)))
 			.build();
 	}
 
@@ -152,7 +152,7 @@ public class WindowGen {
 				.tag(Tags.Blocks.GLASS_BLOCKS_COLORLESS, BlockTags.IMPERMEABLE)
 			.item()
 				.tag(Tags.Items.GLASS_BLOCKS_COLORLESS)
-			.model((c, p) -> p.cubeColumn(c.getName(), p.modLoc(palettesDir() + c.getName()),
+			.model(() -> (c, p) -> p.cubeColumn(c.getName(), p.modLoc(palettesDir() + c.getName()),
 				p.modLoc("block/palettes/framed_glass")))
 			.build()
 			.register();
@@ -264,7 +264,7 @@ public class WindowGen {
 			itemBuilder.tag(Tags.Items.GLASS_PANES);
 
 		BlockBuilder<G, CreateRegistrate> blockBuilder = itemBuilder
-			.model((c, p) -> p.generated(c, sideTexture))
+			.model(() -> (c, p) -> p.generated(c, sideTexture))
 			.build();
 
 		if (colorless)

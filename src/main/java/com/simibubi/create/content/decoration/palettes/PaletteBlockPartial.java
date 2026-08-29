@@ -233,7 +233,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		protected ItemBuilder<BlockItem, BlockBuilder<WallBlock, CreateRegistrate>> transformItem(
 			ItemBuilder<BlockItem, BlockBuilder<WallBlock, CreateRegistrate>> builder, String variantName,
 			PaletteBlockPattern pattern) {
-			builder.model((c, p) -> p.wallInventory(c.getName(), getTexture(variantName, pattern, 0)));
+			builder.model(() -> (c, p) -> p.wallInventory(c.getName(), getTexture(variantName, pattern, 0)));
 			return super.transformItem(builder, variantName, pattern);
 		}
 

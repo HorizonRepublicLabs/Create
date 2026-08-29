@@ -30,7 +30,7 @@ public class ModelGen {
 	}
 
 	public static <I extends BlockItem, P> NonNullFunction<ItemBuilder<I, P>, P> customItemModel() {
-		return b -> b.model(AssetLookup::customItemModel)
+		return b -> b.model(() -> AssetLookup::customItemModel)
 			.build();
 	}
 

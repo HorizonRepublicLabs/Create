@@ -133,7 +133,7 @@ public class MetalBarsGen {
 			.transform(TagGen.pickaxeOnly())
 			.blockstate(() -> barsBlockState(name, specialEdge))
 			.item()
-			.model((c, p) -> {
+			.model(() -> (c, p) -> {
 				Identifier barsTexture = p.modLoc("block/bars/" + name + "_bars");
 				p.generated(c, barsTexture);
 			})

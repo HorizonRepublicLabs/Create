@@ -170,7 +170,7 @@ public class BuilderTransformers {
 			.item()
 			.tag(ItemTags.DOORS)
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
-			.model((c, p) -> p.blockSprite(c, p.modLoc("item/" + type + "_door")))
+			.model(() -> (c, p) -> p.blockSprite(c, p.modLoc("item/" + type + "_door")))
 			.build();
 	}
 
@@ -209,7 +209,7 @@ public class BuilderTransformers {
 					.texture("side", Create.asResource("block/" + casing + encasedSuffix));
 			}, false))
 			.item()
-			.model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + blockFolder + "/item"))
+			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + blockFolder + "/item"))
 				.texture("casing", Create.asResource("block/" + casing + "_casing"))
 				.texture("particle", Create.asResource("block/" + casing + "_casing"))
 				.texture("1", Identifier.withDefaultNamespace("block/stripped_" + wood + "_log_top"))
@@ -248,7 +248,7 @@ public class BuilderTransformers {
 			.tag(BlockTags.CLIMBABLE)
 			.item()
 			.recipe((c, p) -> p.stonecutting(ingredient.get(), RecipeCategory.DECORATIONS, c::get, 2))
-			.model((c, p) -> p.blockSprite(c::get, p.modLoc("block/ladder_" + name)))
+			.model(() -> (c, p) -> p.blockSprite(c::get, p.modLoc("block/ladder_" + name)))
 			.build();
 	}
 
@@ -276,7 +276,7 @@ public class BuilderTransformers {
 			.tag(BlockTags.CLIMBABLE)
 			.item(MetalScaffoldingBlockItem::new)
 			.recipe((c, p) -> p.stonecutting(ingredient.get(), RecipeCategory.DECORATIONS, c::get, 2))
-			.model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
+			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
 			.build();
 	}
 
@@ -353,7 +353,7 @@ public class BuilderTransformers {
 						.build();
 				}))
 			.item(BeltTunnelItem::new)
-			.model((c, p) -> {
+			.model(() -> (c, p) -> {
 				p.withExistingParent("item/" + type + "_tunnel", p.modLoc("block/belt_tunnel/item"))
 					.texture("top", p.modLoc(prefix + "_top"))
 					.texture("tunnel", p.modLoc(prefix))
@@ -387,7 +387,7 @@ public class BuilderTransformers {
 				.texture("side", sideTextureLocation)
 				.texture("back", backTextureLocation)))
 			.item()
-			.model((c, p) -> p.withExistingParent(c.getName(), baseItemModelLocation)
+			.model(() -> (c, p) -> p.withExistingParent(c.getName(), baseItemModelLocation)
 				.texture("top", topTextureLocation)
 				.texture("side", sideTextureLocation)
 				.texture("back", backTextureLocation))
@@ -453,7 +453,7 @@ public class BuilderTransformers {
 					.withExistingParent(c.getName() + "_" + variant, p.modLoc("block/bell_base/block_" + variant));
 			}))
 			.item()
-			.model((c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
+			.model(() -> (c, p) -> p.withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
 			.build();
 	}
@@ -464,7 +464,7 @@ public class BuilderTransformers {
 				.getPath(), p -> new PackageItem(p, style))
 			.properties(p -> p.stacksTo(1))
 			.tag(AllItemTags.PACKAGES.tag)
-			.model((c, p) -> {
+			.model(() -> (c, p) -> {
 				if (style.rare())
 					p.withExistingParent(c.getName(), p.modLoc("item/package/custom" + size))
 						.texture("2", p.modLoc("item/package/" + style.type()));
@@ -497,7 +497,7 @@ public class BuilderTransformers {
 			if (dyed)
 				item.tag(AllItemTags.DYED_TABLE_CLOTHS.tag);
 
-			return item.model((c, p) -> p.withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/item"))
+			return item.model(() -> (c, p) -> p.withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/item"))
 					.texture("0", p.modLoc("block/table_cloth/" + name)))
 				.tag(AllItemTags.TABLE_CLOTHS.tag)
 				.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get())
@@ -517,7 +517,7 @@ public class BuilderTransformers {
 			.transform(pickaxeOnly())
 			.blockstate(() -> new PackagerGenerator()::generate)
 			.item()
-			.model(AssetLookup::customItemModel)
+			.model(() -> AssetLookup::customItemModel)
 			.build();
 	}
 
