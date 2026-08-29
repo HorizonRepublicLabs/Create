@@ -58,7 +58,7 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 		ThreadLocalObjects objects = THREAD_LOCAL_OBJECTS.get();
 
 		PoseStack poseStack = objects.poseStack;
-		RandomSource random = objects.getRandom();
+		RandomSource random = objects.random;
 		var clientContraption = contraption.getOrCreateClientContraptionLazy();
 		RenderedBlocks blocks = clientContraption.getRenderedBlocks();
 

@@ -53,8 +53,8 @@ public class FluidStackParticle extends TextureSheetParticle {
 		this.zd = vz;
 
 		this.quadSize /= 2.0F;
-		this.uo = this.getRandom().nextFloat() * 3.0F;
-		this.vo = this.getRandom().nextFloat() * 3.0F;
+		this.uo = this.random.nextFloat() * 3.0F;
+		this.vo = this.random.nextFloat() * 3.0F;
 	}
 
 	@Override

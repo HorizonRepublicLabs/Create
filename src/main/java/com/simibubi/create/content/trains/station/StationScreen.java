@@ -86,7 +86,7 @@ public class StationScreen extends AbstractStationScreen {
 
 		Runnable assemblyCallback = () -> {
 			switchingToAssemblyMode = true;
-			minecraft.setScreen(new AssemblyScreen(blockEntity, station));
+			minecraft.setScreenAndShow(new AssemblyScreen(blockEntity, station));
 		};
 
 		newTrainButton = new WideIconButton(x + 84, y + 65, AllGuiTextures.I_NEW_TRAIN);

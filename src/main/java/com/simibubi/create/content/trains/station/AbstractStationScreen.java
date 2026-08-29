@@ -43,7 +43,7 @@ public abstract class AbstractStationScreen extends AbstractSimiScreen {
 	@Override
 	protected void init() {
 		if (blockEntity.computerBehaviour.hasAttachedComputer())
-			minecraft.setScreen(new ComputerScreen(title, () ->
+			minecraft.setScreenAndShow(new ComputerScreen(title, () ->
                 Component.literal(station.name),
 				this::renderAdditional, this, blockEntity.computerBehaviour::hasAttachedComputer));
 
@@ -84,7 +84,7 @@ public abstract class AbstractStationScreen extends AbstractSimiScreen {
 		super.tick();
 
 		if (blockEntity.computerBehaviour.hasAttachedComputer())
-			minecraft.setScreen(new ComputerScreen(title, () ->
+			minecraft.setScreenAndShow(new ComputerScreen(title, () ->
                 Component.literal(station.name),
 				this::renderAdditional, this, blockEntity.computerBehaviour::hasAttachedComputer));
 	}

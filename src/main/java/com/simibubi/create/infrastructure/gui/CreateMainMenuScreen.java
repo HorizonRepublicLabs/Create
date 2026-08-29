@@ -211,7 +211,7 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 			if (p_213069_2_)
 				Util.getPlatform()
 					.openUri(url);
-			this.minecraft.setScreen(this);
+			this.minecraft.setScreenAndShow(this);
 		}, url, true));
 	}
 

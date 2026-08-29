@@ -91,7 +91,7 @@ public class SchematicRenderer {
 		ThreadLocalObjects objects = THREAD_LOCAL_OBJECTS.get();
 
 		PoseStack poseStack = objects.poseStack;
-		RandomSource random = objects.getRandom();
+		RandomSource random = objects.random;
 		BlockPos.MutableBlockPos mutableBlockPos = objects.mutableBlockPos;
 		SchematicLevel renderWorld = schematic;
 		BoundingBox bounds = renderWorld.getBounds();

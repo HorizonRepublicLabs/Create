@@ -43,7 +43,7 @@ public class ComputerScreen extends AbstractSimiScreen {
 	@Override
 	public void tick() {
 		if (!hasAttachedComputer.get())
-			minecraft.setScreen(previousScreen);
+			minecraft.setScreenAndShow(previousScreen);
 
 		super.tick();
 	}

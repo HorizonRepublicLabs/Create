@@ -39,7 +39,7 @@ public class SequencedGearshiftScreen extends AbstractSimiScreen {
 	@Override
 	protected void init() {
 		if (be.computerBehaviour.hasAttachedComputer())
-			minecraft.setScreen(
+			minecraft.setScreenAndShow(
 				new ComputerScreen(title, this::renderAdditional, this, be.computerBehaviour::hasAttachedComputer));
 
 		setWindowSize(background.getWidth(), background.getHeight());
@@ -132,7 +132,7 @@ public class SequencedGearshiftScreen extends AbstractSimiScreen {
 		super.tick();
 
 		if (be.computerBehaviour.hasAttachedComputer())
-			minecraft.setScreen(
+			minecraft.setScreenAndShow(
 				new ComputerScreen(title, this::renderAdditional, this, be.computerBehaviour::hasAttachedComputer));
 	}
 

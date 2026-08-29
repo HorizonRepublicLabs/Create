@@ -175,7 +175,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		addRenderableWidget(addressBox);
 
 		confirmButton = new IconButton(x + sizeX - 33, y + sizeY - 25, AllIcons.I_CONFIRM);
-		confirmButton.withCallback(() -> minecraft.setScreen(null));
+		confirmButton.withCallback(() -> minecraft.setScreenAndShow(null));
 		confirmButton.setToolTip(CreateLang.translate("gui.factory_panel.save_and_close")
 			.component());
 		addRenderableWidget(confirmButton);
@@ -183,7 +183,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		deleteButton = new IconButton(x + sizeX - 55, y + sizeY - 25, AllIcons.I_TRASH);
 		deleteButton.withCallback(() -> {
 			sendReset = true;
-			minecraft.setScreen(null);
+			minecraft.setScreenAndShow(null);
 		});
 		deleteButton.setToolTip(CreateLang.translate("gui.factory_panel.reset")
 			.component());
@@ -198,7 +198,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		newInputButton = new IconButton(x + 31, y + 47, AllIcons.I_ADD);
 		newInputButton.withCallback(() -> {
 			FactoryPanelConnectionHandler.startConnection(behaviour);
-			minecraft.setScreen(null);
+			minecraft.setScreenAndShow(null);
 		});
 		newInputButton.setToolTip(CreateLang.translate("gui.factory_panel.connect_input")
 			.component());
@@ -206,7 +206,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 		relocateButton = new IconButton(x + 31, y + 67, AllIcons.I_MOVE_GAUGE);
 		relocateButton.withCallback(() -> {
 			FactoryPanelConnectionHandler.startRelocating(behaviour);
-			minecraft.setScreen(null);
+			minecraft.setScreenAndShow(null);
 		});
 		relocateButton.setToolTip(CreateLang.translate("gui.factory_panel.relocate")
 			.component());

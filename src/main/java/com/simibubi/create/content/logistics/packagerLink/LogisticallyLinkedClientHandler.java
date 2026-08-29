@@ -49,7 +49,7 @@ public class LogisticallyLinkedClientHandler {
 				.getShape(player.level(), be.getBlockPos());
 			if (shape.isEmpty())
 				continue;
-			if (!player.canInteractWithBlock(be.getBlockPos(), 64))
+			if (!player.isWithinBlockInteractionRange(be.getBlockPos(), 64))
 				continue;
 			for (int i = 0; i < shape.toAabbs()
 				.size(); i++) {

@@ -137,7 +137,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		});
 		clearBtn.setToolTip(CreateLang.translateDirect("gui.clipboard.erase_checked"));
 		closeBtn = new IconButton(x + 234, y + 175, AllIcons.I_PRIORITY_VERY_LOW)
-			.withCallback(() -> minecraft.setScreen(null));
+			.withCallback(() -> minecraft.setScreenAndShow(null));
 		closeBtn.setToolTip(CreateLang.translateDirect("station.close"));
 		addRenderableWidget(closeBtn);
 		addRenderableWidget(clearBtn);
@@ -160,12 +160,12 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		frameTick++;
 
 		if (targetedBlock != null) {
-			if (!minecraft.player.canInteractWithBlock(targetedBlock, 10)) {
-				minecraft.setScreen(null);
+			if (!minecraft.player.isWithinBlockInteractionRange(targetedBlock, 10)) {
+				minecraft.setScreenAndShow(null);
 				return;
 			}
 			if (!AllBlocks.CLIPBOARD.has(minecraft.level.getBlockState(targetedBlock))) {
-				minecraft.setScreen(null);
+				minecraft.setScreenAndShow(null);
 				return;
 			}
 		}

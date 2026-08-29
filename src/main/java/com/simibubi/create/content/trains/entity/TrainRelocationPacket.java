@@ -62,7 +62,7 @@ public record TrainRelocationPacket(UUID trainId, BlockPos pos, Vec3 lookAngle, 
 			return;
 
 		int verifyDistance = AllConfigs.server().trains.maxTrackPlacementLength.get() * 2;
-		if (!sender.canInteractWithBlock(pos, verifyDistance)) {
+		if (!sender.isWithinBlockInteractionRange(pos, verifyDistance)) {
 			Create.LOGGER.warn(messagePrefix + train.name.getString() + ": player too far from clicked pos");
 			return;
 		}
