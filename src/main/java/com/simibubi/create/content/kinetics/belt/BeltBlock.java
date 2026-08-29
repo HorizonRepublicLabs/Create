@@ -167,8 +167,9 @@ public class BeltBlock extends HorizontalKineticBlock
 	}
 
 	@Override
-	public void updateEntityAfterFallOn(BlockGetter worldIn, Entity entityIn) {
-		super.updateEntityAfterFallOn(worldIn, entityIn);
+	public void fallOn(Level level, BlockState state, BlockPos landedPos, Entity entityIn, double fallDistance) {
+		BlockGetter worldIn = level;
+		super.fallOn(level, state, landedPos, entityIn, fallDistance);
 		BlockPos entityPosition = entityIn.blockPosition();
 		BlockPos beltPos = null;
 
