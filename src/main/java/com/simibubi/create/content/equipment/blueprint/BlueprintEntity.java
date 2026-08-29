@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import net.minecraft.world.level.storage.TagValueOutput;
 
 import net.minecraft.util.ProblemReporter;
@@ -282,7 +284,7 @@ public class BlueprintEntity extends HangingEntity
 
 		Vec3 hitVec = rayTrace.get();
 		BlueprintSection sectionAt = getSectionAt(hitVec.subtract(position()));
-		ItemStackHandler items = sectionAt.getItems();
+		ItemStackHandler items = ItemHelper.ingredientStacks(sectionAt);
 
 		if (items.getStackInSlot(9)
 			.isEmpty())
@@ -357,7 +359,7 @@ public class BlueprintEntity extends HangingEntity
 
 		boolean holdingWrench = AllItems.WRENCH.isIn(player.getItemInHand(hand));
 		BlueprintSection section = getSectionAt(vec);
-		ItemStackHandler items = section.getItems();
+		ItemStackHandler items = ItemHelper.ingredientStacks(section);
 
 		if (!holdingWrench && !level().isClientSide() && !items.getStackInSlot(9)
 			.isEmpty()) {

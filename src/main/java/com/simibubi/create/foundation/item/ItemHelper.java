@@ -33,6 +33,15 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class ItemHelper {
 
+	/// Ingredient.getItems returned ItemStacks; items() is a stream of item
+	/// holders now, so this keeps the stack list Create's JEI and tooltips want.
+	public static List<ItemStack> ingredientStacks(Ingredient ingredient) {
+		return ingredient.items()
+			.map(ItemStack::new)
+			.toList();
+	}
+
+
 	public static boolean sameItem(ItemStack stack, ItemStack otherStack) {
 		return !otherStack.isEmpty() && stack.is(otherStack.getItem());
 	}
@@ -122,9 +131,8 @@ public class ItemHelper {
 		Ingredients:
 		for (Ingredient igd : recipeIngredients) {
 			for (Pair<Ingredient, MutableInt> pair : actualIngredients) {
-				ItemStack[] stacks1 = pair.getFirst()
-					.getItems();
-				ItemStack[] stacks2 = igd.getItems();
+				ItemStack[] stacks1 = ItemHelper.ingredientStacks(pair.getFirst()).toArray(new ItemStack[0]);
+				ItemStack[] stacks2 = ItemHelper.ingredientStacks(igd).toArray(new ItemStack[0]);
 				if (stacks1.length != stacks2.length)
 					continue;
 				for (int i = 0; i <= stacks1.length; i++) {
@@ -145,8 +153,8 @@ public class ItemHelper {
 	public static boolean matchIngredients(Ingredient i1, Ingredient i2) {
 		if (i1 == i2)
 			return true;
-		ItemStack[] stacks1 = i1.getItems();
-		ItemStack[] stacks2 = i2.getItems();
+		ItemStack[] stacks1 = ItemHelper.ingredientStacks(i1).toArray(new ItemStack[0]);
+		ItemStack[] stacks2 = ItemHelper.ingredientStacks(i2).toArray(new ItemStack[0]);
 		if (stacks1 == stacks2)
 			return true;
 		if (stacks1.length == stacks2.length) {

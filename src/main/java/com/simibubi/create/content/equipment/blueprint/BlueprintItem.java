@@ -109,7 +109,7 @@ public class BlueprintItem extends Item {
 	}
 
 	private static ItemStack convertIItemListToFilter(Value itemList, boolean isCompoundIngredient) {
-		Collection<ItemStack> stacks = itemList.getItems();
+		Collection<ItemStack> stacks = ItemHelper.ingredientStacks(itemList);
 		if (itemList instanceof ItemValue) {
 			for (ItemStack itemStack : stacks)
 				return itemStack;

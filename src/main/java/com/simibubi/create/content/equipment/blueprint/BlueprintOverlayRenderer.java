@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
@@ -193,7 +195,7 @@ public class BlueprintOverlayRenderer {
 
 	public static void rebuild(BlueprintSection sectionAt, boolean sneak) {
 		cachedRenderedFilters.clear();
-		ItemStackHandler items = sectionAt.getItems();
+		ItemStackHandler items = ItemHelper.ingredientStacks(sectionAt);
 		boolean empty = true;
 		for (int i = 0; i < 9; i++) {
 			if (!items.getStackInSlot(i)

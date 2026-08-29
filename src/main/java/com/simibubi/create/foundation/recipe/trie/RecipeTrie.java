@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.recipe.trie;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -195,7 +197,7 @@ public class RecipeTrie<R extends Recipe<?>> {
 				}
 
 				Set<AbstractVariant> variants = new HashSet<>();
-				for (ItemStack stack : ingredient.getItems()) {
+				for (ItemStack stack : ItemHelper.ingredientStacks(ingredient)) {
 					variants.add(getOrAssignVariant(stack.getItem()));
 				}
 

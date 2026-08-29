@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.potion;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -127,7 +129,7 @@ public class PotionMixingRecipes {
 				FluidStack outputFluid = null;
 				for (ItemStack stack : supportedContainerStacks) {
 					if (input.test(stack)) {
-						ItemStack[] stacks = input.getItems();
+						ItemStack[] stacks = ItemHelper.ingredientStacks(input).toArray(new ItemStack[0]);
 						if (stacks.length == 0){
 							continue;
 						}
@@ -164,7 +166,7 @@ public class PotionMixingRecipes {
 		for (RecipeHolder<MixingRecipe> recipe : all) {
 			for (Ingredient ingredient : recipe.value().placementInfo()
 			.ingredients()) {
-				for (ItemStack itemStack : ingredient.getItems()) {
+				for (ItemStack itemStack : ItemHelper.ingredientStacks(ingredient)) {
 					Item item = itemStack.getItem();
 					if (processedItems.add(item)) {
 						byItem.computeIfAbsent(item, i -> new ArrayList<>())

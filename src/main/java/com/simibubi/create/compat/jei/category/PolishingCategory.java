@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.sandPaper.SandPaperItemComponent;
@@ -52,8 +54,7 @@ public class PolishingCategory extends CreateRecipeCategory<SandPaperPolishingRe
 
 		NonNullList<Ingredient> ingredients = recipe.placementInfo()
 			.ingredients();
-		ItemStack[] matchingStacks = ingredients.get(0)
-			.getItems();
+		ItemStack[] matchingStacks = ItemHelper.ingredientStacks(ingredients.get(0)).toArray(new ItemStack[0]);
 		if (matchingStacks.length == 0)
 			return;
 

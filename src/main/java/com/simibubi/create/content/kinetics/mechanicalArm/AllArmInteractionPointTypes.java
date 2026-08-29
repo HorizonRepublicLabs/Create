@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import java.util.Optional;
 
 import org.apache.commons.lang3.mutable.MutableBoolean;
@@ -521,7 +523,7 @@ public class AllArmInteractionPointTypes {
 				return stack;
 			if (simulate) {
 				boolean hasSpace = false;
-				for (ItemStack campfireStack : campfireBE.getItems()) {
+				for (ItemStack campfireStack : ItemHelper.ingredientStacks(campfireBE)) {
 					if (campfireStack.isEmpty()) {
 						hasSpace = true;
 						break;

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.AllMenuTypes;
 import com.simibubi.create.content.equipment.blueprint.BlueprintEntity.BlueprintSection;
@@ -107,7 +109,7 @@ public class BlueprintMenu extends GhostItemMenu<BlueprintSection> {
 
 	@Override
 	protected ItemStackHandler createGhostInventory() {
-		return contentHolder.getItems();
+		return ItemHelper.ingredientStacks(contentHolder);
 	}
 
 	@Override
