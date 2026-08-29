@@ -204,7 +204,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 	protected void renderTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		if (this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
 			if (this.hoveredSlot.index == 37) {
-				graphics.renderComponentTooltip(font, selectedAttributes, mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, selectedAttributes, java.util.Optional.empty(), mouseX, mouseY);
 				return;
 			}
 			graphics.renderTooltip(font, this.hoveredSlot.getItem(), mouseX, mouseY);

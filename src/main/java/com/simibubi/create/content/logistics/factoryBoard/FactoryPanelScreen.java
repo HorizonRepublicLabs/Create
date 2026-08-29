@@ -369,7 +369,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 						.style(ChatFormatting.DARK_GRAY)
 						.style(ChatFormatting.ITALIC)
 						.component());
-				graphics.renderComponentTooltip(font, linkTip, mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, linkTip, java.util.Optional.empty(), mouseX, mouseY);
 			}
 		}
 
@@ -419,7 +419,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 						.component());
 			}
 
-			graphics.renderComponentTooltip(font, promiseTip, mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, promiseTip, java.util.Optional.empty(), mouseX, mouseY);
 		}
 
 		ms.popPose();

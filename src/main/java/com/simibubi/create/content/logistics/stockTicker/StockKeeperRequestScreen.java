@@ -801,7 +801,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 				if (lines.size() > 0)
 					lines.set(0, CreateLang.translateDirect("gui.stock_keeper.craft", lines.get(0)
 						.copy()));
-				graphics.renderComponentTooltip(font, lines, mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, lines, java.util.Optional.empty(), mouseX, mouseY);
 			} else
 				graphics.renderTooltip(font, entry.stack, mouseX, mouseY);
 		}

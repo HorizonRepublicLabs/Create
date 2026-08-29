@@ -224,7 +224,7 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 				list.add(CreateLang.translateDirect("gui.threshold_switch.not_attached"));
 				list.add(CreateLang.translateDirect("display_link.view_compatible")
 					.withStyle(ChatFormatting.DARK_GRAY));
-				graphics.renderComponentTooltip(font, list, mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, list, java.util.Optional.empty(), mouseX, mouseY);
 				return;
 			}
 
@@ -234,7 +234,7 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 					.withStyle(ChatFormatting.GRAY));
 				list.add(CreateLang.translateDirect("display_link.view_compatible")
 					.withStyle(ChatFormatting.DARK_GRAY));
-				graphics.renderComponentTooltip(font, list, mouseX, mouseY);
+				graphics.setTooltipForNextFrame(font, list, java.util.Optional.empty(), mouseX, mouseY);
 				return;
 			}
 
@@ -260,7 +260,7 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 			list.add(CreateLang.translateDirect("display_link.view_compatible")
 				.withStyle(ChatFormatting.DARK_GRAY));
 
-			graphics.renderComponentTooltip(font, list, mouseX, mouseY);
+			graphics.setTooltipForNextFrame(font, list, java.util.Optional.empty(), mouseX, mouseY);
 			return;
 		}
 
