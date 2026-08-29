@@ -625,17 +625,18 @@ public class MinecartController implements ValueIOSerializable {
 
 		private static final IAttachmentSerializer<MinecartController> SERIALIZER = new IAttachmentSerializer<>() {
 			@Override
-			public @NotNull MinecartController read(@NotNull IAttachmentHolder holder, @NotNull CompoundTag tag, @NotNull HolderLookup.Provider provider) {
-				return Type.valueOf(tag.getStringOr("Type", "")).getSerializer().read(holder, tag, provider);
+			public @NotNull MinecartController read(@NotNull IAttachmentHolder holder, @NotNull ValueInput input) {
+				return Type.valueOf(input.getStringOr("Type", ""))
+					.getSerializer()
+					.read(holder, input);
 			}
 
 			@Override
-			public @Nullable CompoundTag write(MinecartController attachment, @NotNull HolderLookup.Provider provider) {
-				CompoundTag tag = attachment.serializeNBT(provider);
-				if (tag != null) {
-					tag.putString("Type", attachment.getType().name());
-				}
-				return tag;
+			public boolean write(MinecartController attachment, @NotNull ValueOutput output) {
+				output.putString("Type", attachment.getType()
+					.name());
+				attachment.serialize(output);
+				return true;
 			}
 		};
 
