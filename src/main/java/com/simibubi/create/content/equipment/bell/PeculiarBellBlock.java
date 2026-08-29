@@ -73,7 +73,8 @@ public class PeculiarBellBlock extends AbstractBellBlock<PeculiarBellBlockEntity
 			return state;
 
 		if (world.isClientSide()) {
-			spawnConversionParticles(world, pos);
+			if (world instanceof LevelAccessor accessor)
+				spawnConversionParticles(accessor, pos);
 		} else if (world instanceof Level) {
 			AllSoundEvents.HAUNTED_BELL_CONVERT.playOnServer((Level) world, pos);
 		}

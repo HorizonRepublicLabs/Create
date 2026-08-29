@@ -522,14 +522,14 @@ public class BeltBlock extends HorizontalKineticBlock
 		return state;
 	}
 
-	public void updateCoverProperty(LevelAccessor world, BlockPos pos, BlockState state) {
+	public void updateCoverProperty(LevelReader world, BlockPos pos, BlockState state) {
 		if (world.isClientSide())
 			return;
 		if (state.getValue(CASING) && state.getValue(SLOPE) == BeltSlope.HORIZONTAL)
 			withBlockEntityDo(world, pos, bbe -> bbe.setCovered(isBlockCoveringBelt(world, pos.above())));
 	}
 
-	public static boolean isBlockCoveringBelt(LevelAccessor world, BlockPos pos) {
+	public static boolean isBlockCoveringBelt(LevelReader world, BlockPos pos) {
 		BlockState blockState = world.getBlockState(pos);
 		VoxelShape collisionShape = blockState.getCollisionShape(world, pos);
 		if (collisionShape.isEmpty())
@@ -548,11 +548,13 @@ public class BeltBlock extends HorizontalKineticBlock
 		return true;
 	}
 
-	private void updateTunnelConnections(LevelAccessor world, BlockPos pos) {
+	private void updateTunnelConnections(LevelReader world, BlockPos pos) {
+		if (!(world instanceof LevelAccessor accessor))
+			return;
 		Block tunnelBlock = world.getBlockState(pos)
 			.getBlock();
 		if (tunnelBlock instanceof BeltTunnelBlock)
-			((BeltTunnelBlock) tunnelBlock).updateTunnel(world, pos);
+			((BeltTunnelBlock) tunnelBlock).updateTunnel(accessor, pos);
 	}
 
 	public static List<BlockPos> getBeltChain(LevelAccessor world, BlockPos controllerPos) {

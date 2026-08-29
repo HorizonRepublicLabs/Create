@@ -136,7 +136,7 @@ public class ElevatorPulleyBlockEntity extends PulleyBlockEntity {
 
 		ElevatorContactBlock ecb = AllBlocks.ELEVATOR_CONTACT.get();
 		ecb.withBlockEntityDo(level, contactPos, be -> be.activateBlock = true);
-		ecb.scheduleActivation(level, contactPos);
+		ecb.scheduleActivation(level, level, contactPos);
 	}
 
 	@Override

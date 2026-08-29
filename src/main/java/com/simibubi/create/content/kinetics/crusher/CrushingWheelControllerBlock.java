@@ -140,7 +140,7 @@ public class CrushingWheelControllerBlock extends DirectionalBlock implements IB
 		return stateIn;
 	}
 
-	public void updateSpeed(BlockState state, LevelAccessor world, BlockPos pos) {
+	public void updateSpeed(BlockState state, LevelReader world, BlockPos pos) {
 		withBlockEntityDo(world, pos, be -> {
 			if (!state.getValue(VALID)) {
 				if (be.crushingspeed != 0) {

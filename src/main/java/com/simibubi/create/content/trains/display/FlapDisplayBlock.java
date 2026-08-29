@@ -279,13 +279,13 @@ public class FlapDisplayBlock extends HorizontalKineticBlock
 	public BlockState updateShape(BlockState state, LevelReader pLevel,
 		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pDirection,
 		BlockPos pNeighborPos, BlockState pNeighborState, RandomSource randomSource) {
-		return updatedShapeInner(state, pDirection, pNeighborState, pLevel, pCurrentPos);
+		return updatedShapeInner(state, pDirection, pNeighborState, pLevel, tickAccess, pCurrentPos);
 	}
 
 	private BlockState updatedShapeInner(BlockState state, Direction pDirection, BlockState pNeighborState,
-										 LevelAccessor pLevel, BlockPos pCurrentPos) {
+										 LevelReader pLevel, ScheduledTickAccess tickAccess, BlockPos pCurrentPos) {
 		if (state.getValue(BlockStateProperties.WATERLOGGED))
-			pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+			tickAccess.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
 		if (!canConnect(state, pNeighborState))
 			return setConnection(state, pDirection, false);
 		if (pDirection.getAxis() == getConnectionAxis(state))
