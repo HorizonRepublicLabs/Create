@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import com.tterrag.registrate.providers.DataGenContext;
+
 import com.tterrag.registrate.providers.generators.RegistrateItemModelGenerator;
 
 import net.minecraft.client.data.models.model.TextureMapping;
@@ -21,6 +23,12 @@ public class ItemModelGenShim {
 
 	public Builder withExistingParent(String name, Identifier parent) {
 		return new Builder(name, parent);
+	}
+
+	/// Forge's provider had generated(ctx, texture) for a flat item model;
+	/// Registrate spells it generateFlatItem.
+	public void generated(DataGenContext<Item, ?> ctx, Identifier texture) {
+		generator.generateFlatItem(ctx.get(), new Material(texture));
 	}
 
 	public Identifier getExistingFile(Identifier location) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.data.ItemModelGenShim;
+
 import com.simibubi.create.foundation.data.MultipartModels;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.EAST;
@@ -137,7 +139,7 @@ public class MetalBarsGen {
 			.item()
 			.model(() -> (c, p) -> {
 				Identifier barsTexture = p.modLoc("block/bars/" + name + "_bars");
-				p.generated(c, barsTexture);
+				new ItemModelGenShim(p).generated(c, barsTexture);
 			})
 			.recipe((c, p) -> p.stonecutting(ingredient.get(), RecipeCategory.DECORATIONS, c::get, 4))
 			.build()

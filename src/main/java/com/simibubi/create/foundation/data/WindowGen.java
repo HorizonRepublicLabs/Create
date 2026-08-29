@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.data.ItemModelGenShim;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -268,7 +270,7 @@ public class WindowGen {
 			itemBuilder.tag(Tags.Items.GLASS_PANES);
 
 		BlockBuilder<G, CreateRegistrate> blockBuilder = itemBuilder
-			.model(() -> (c, p) -> p.generated(c, sideTexture))
+			.model(() -> (c, p) -> new ItemModelGenShim(p).generated(c, sideTexture))
 			.build();
 
 		if (colorless)

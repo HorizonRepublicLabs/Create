@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import com.simibubi.create.foundation.data.ItemModelGenShim;
+
 import net.minecraft.resources.ResourceKey;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -1249,7 +1251,7 @@ public class AllBlocks {
 				.getColorForPower(pos != null && world != null ? state.getValue(BlockStateProperties.POWER) : 0))
 			.tag(BlockTags.RAILS)
 			.item()
-			.model(() -> (c, p) -> p.generated(c, Create.asResource("block/" + c.getName())))
+			.model(() -> (c, p) -> new ItemModelGenShim(p).generated(c, Create.asResource("block/" + c.getName())))
 			.build()
 			.register();
 
@@ -1595,7 +1597,7 @@ public class AllBlocks {
 		.lang("Train Track")
 		.item(TrackBlockItem::new)
 		.tag(AllItemTags.TRACKS.tag)
-		.model(() -> (c, p) -> p.generated(c, Create.asResource("item/" + c.getName())))
+		.model(() -> (c, p) -> new ItemModelGenShim(p).generated(c, Create.asResource("item/" + c.getName())))
 		.build()
 		.register();
 
