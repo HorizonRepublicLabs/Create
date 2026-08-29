@@ -245,4 +245,26 @@ public class VariantModels {
 	}
 
 	private VariantModels() {}
+
+	/// The model chains end in a builder where the old provider handed back a
+	/// ModelFile, so these build it for the caller.
+	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block,
+		ModelGenShim.Builder model) {
+		simpleBlock(generator, block, model.build());
+	}
+
+	public static void horizontalBlock(RegistrateBlockModelGenerator generator, Block block,
+		ModelGenShim.Builder model) {
+		horizontalBlock(generator, block, model.build());
+	}
+
+	public static void directionalBlock(RegistrateBlockModelGenerator generator, Block block,
+		ModelGenShim.Builder model) {
+		directionalBlock(generator, block, model.build());
+	}
+
+	public static void horizontalFaceBlock(RegistrateBlockModelGenerator generator, Block block,
+		ModelGenShim.Builder model) {
+		horizontalFaceBlock(generator, block, model.build());
+	}
 }
