@@ -68,7 +68,7 @@ public class NixieTubePeripheral extends SyncedPeripheral<NixieTubeBlockEntity> 
 			return;
 		blockEntity.computerSignal = null;
 
-		String tagElement = ComponentJson.toJson(Component.literal(arguments.getStringOr(0, "")), level.registryAccess());
+		String tagElement = ComponentJson.toJson(Component.literal(arguments.optString(0).orElse("")), level.registryAccess());
 
 		@Nullable String colour = arguments.optString(1, null);
 		BlockState state = null;
