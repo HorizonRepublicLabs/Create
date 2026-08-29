@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -13,7 +15,6 @@ import com.simibubi.create.content.kinetics.simpleRelays.AbstractSimpleShaftBloc
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -30,14 +31,15 @@ public class ValueBoxRenderer {
 	public static void renderItemIntoValueBox(ItemStack filter, PoseStack ms, SuperRenderTypeBuffer buffer, int light,
 		int overlay) {
 		Minecraft mc = Minecraft.getInstance();
-		ItemRenderer itemRenderer = mc.getItemRenderer();
-		BlockStateModel modelWithOverrides = itemRenderer.getModel(filter, null, null, 0);
-		boolean blockItem = modelWithOverrides.isGui3d();
+		ItemStackRenderState renderState = new ItemStackRenderState();
+		mc.getItemModelResolver()
+			.updateForTopItem(renderState, filter, ItemDisplayContext.FIXED, mc.level, null, 0);
+		boolean blockItem = renderState.usesBlockLight();
 		float scale = (!blockItem ? .5f : 1f) + 1 / 64f;
 		float zOffset = (!blockItem ? -.15f : 0) + customZOffset(filter.getItem());
 		ms.scale(scale, scale, scale);
 		ms.translate(0, 0, zOffset);
-		itemRenderer.render(filter, ItemDisplayContext.FIXED, false, ms, buffer, light, overlay, modelWithOverrides);
+		CreateItemRenderer.render(filter, ItemDisplayContext.FIXED, ms, buffer, light, overlay, 0);
 	}
 
 	public static void renderFlatItemIntoValueBox(ItemStack filter, PoseStack ms, SuperRenderTypeBuffer buffer, int light,

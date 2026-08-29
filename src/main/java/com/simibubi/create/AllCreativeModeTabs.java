@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.platform.services.PlatformHelper;
@@ -13,7 +15,6 @@ import java.util.function.Predicate;
 
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
 
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -91,10 +92,11 @@ public class AllCreativeModeTabs {
 			MutableObject<Predicate<Item>> isItem3d = new MutableObject<>(item -> false);
 			if (PlatformHelper.INSTANCE.getEnv().isClient())
 				isItem3d.setValue(item -> {
-					ItemRenderer itemRenderer = Minecraft.getInstance()
-						.getItemRenderer();
-					BlockStateModel model = itemRenderer.getModel(new ItemStack(item), null, null, 0);
-					return model.isGui3d();
+					ItemStackRenderState state = new ItemStackRenderState();
+					Minecraft.getInstance()
+						.getItemModelResolver()
+						.updateForTopItem(state, new ItemStack(item), ItemDisplayContext.GUI, null, null, 0);
+					return state.usesBlockLight();
 				});
 			IS_ITEM_3D_PREDICATE = isItem3d.getValue();
 		}

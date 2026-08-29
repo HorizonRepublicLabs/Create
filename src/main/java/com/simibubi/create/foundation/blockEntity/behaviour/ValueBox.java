@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import java.lang.ref.WeakReference;
@@ -15,7 +17,6 @@ import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.util.LightCoordsUtil;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -137,10 +138,11 @@ public class ValueBox extends ChasingAABBOutline {
 			boolean isFilter = stack.getItem() instanceof FilterItem;
 			boolean isEmpty = stack.isEmpty();
 
-			ItemRenderer itemRenderer = Minecraft.getInstance()
-				.getItemRenderer();
-			BlockStateModel modelWithOverrides = itemRenderer.getModel(stack, null, null, 0);
-			boolean blockItem = modelWithOverrides.isGui3d();
+			ItemStackRenderState renderState = new ItemStackRenderState();
+			Minecraft.getInstance()
+				.getItemModelResolver()
+				.updateForTopItem(renderState, stack, ItemDisplayContext.GUI, null, null, 0);
+			boolean blockItem = renderState.usesBlockLight();
 
 			float scale = 1.5f;
 			ms.translate(-font.width(count), 0, 0);
