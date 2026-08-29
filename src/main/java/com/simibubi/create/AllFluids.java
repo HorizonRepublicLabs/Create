@@ -1,5 +1,11 @@
 package com.simibubi.create;
 
+import net.minecraft.client.renderer.fog.FogData;
+
+import net.minecraft.client.renderer.fog.environment.FogEnvironment;
+
+import org.joml.Vector4f;
+
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -7,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.simibubi.create.AllTags.AllFluidTags;
 import com.simibubi.create.AllTags.AllItemTags;
@@ -189,50 +194,31 @@ public class AllFluids {
 			this.flowingTexture = flowingTexture;
 		}
 
-		@Override
-		public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-			consumer.accept(new IClientFluidTypeExtensions() {
+		/// Fluid textures and tint are data-driven now, so only the fog hooks
+		/// survive here. They are registered through RegisterClientExtensionsEvent
+		/// rather than handed to a consumer.
+		public IClientFluidTypeExtensions clientExtensions() {
+			return new IClientFluidTypeExtensions() {
 
 				@Override
-				public Identifier getStillTexture() {
-					return stillTexture;
-				}
-
-				@Override
-				public Identifier getFlowingTexture() {
-					return flowingTexture;
-				}
-
-				@Override
-				public int getTintColor(FluidStack stack) {
-					return TintedFluidType.this.getTintColor(stack);
-				}
-
-				@Override
-				public int getTintColor(FluidState state, BlockAndTintGetter getter, BlockPos pos) {
-					return TintedFluidType.this.getTintColor(state, getter, pos);
-				}
-
-				@Override
-				public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level,
-														int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
+				public void modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance,
+					float darkenWorldAmount, Vector4f fluidFogColor) {
 					Vector3f customFogColor = TintedFluidType.this.getCustomFogColor();
-					return customFogColor == null ? fluidFogColor : customFogColor;
+					if (customFogColor != null)
+						fluidFogColor.set(customFogColor.x, customFogColor.y, customFogColor.z, fluidFogColor.w);
 				}
 
 				@Override
-				public void modifyFogRender(Camera camera, FogMode mode, float renderDistance, float partialTick,
-											float nearDistance, float farDistance, FogShape shape) {
+				public void modifyFogRender(Camera camera, @Nullable FogEnvironment environment, float renderDistance,
+					float partialTick, FogData fogData) {
 					float modifier = TintedFluidType.this.getFogDistanceModifier();
-					float baseWaterFog = 96.0f;
-					if (modifier != 1f) {
-						RenderSystem.setShaderFogShape(FogShape.CYLINDER);
-						RenderSystem.setShaderFogStart(-8);
-						RenderSystem.setShaderFogEnd(baseWaterFog * modifier);
-					}
+					if (modifier == 1f)
+						return;
+					fogData.environmentalStart = -8;
+					fogData.environmentalEnd = 96.0f * modifier;
 				}
 
-			});
+			};
 		}
 
 		protected abstract int getTintColor(FluidStack stack);
