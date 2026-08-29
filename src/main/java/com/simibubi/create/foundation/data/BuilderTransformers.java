@@ -94,7 +94,6 @@ import com.simibubi.create.foundation.data.VariantModels.ConfiguredModel;
 
 import net.neoforged.neoforge.common.Tags;
 
-@SuppressWarnings("removal") // addLayer is staying... for now
 public class BuilderTransformers {
 	public static <B extends EncasedShaftBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> encasedShaft(String casing,
 																										 Supplier<CTSpriteShiftEntry> casingShift) {
@@ -129,10 +128,6 @@ public class BuilderTransformers {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.NONE)
 				.isValidSpawn((state, level, pos, type) -> false))
-			.addLayer(() -> RenderType::solid)
-			.addLayer(() -> RenderType::cutout)
-			.addLayer(() -> RenderType::cutoutMipped)
-			.addLayer(() -> RenderType::translucent)
 			.color(() -> CopycatBlock::wrappedColor)
 			.transform(TagGen.axeOrPickaxe());
 	}
@@ -165,7 +160,6 @@ public class BuilderTransformers {
 				Identifier top = AssetLookup.partialBaseModel(c, p, "top");
 				p.doorBlock(c.get(), bottom, bottom, bottom, bottom, top, top, top, top);
 			})
-			.addLayer(() -> RenderType::cutoutMipped)
 			.transform(pickaxeOnly())
 			.onRegister(interactionBehaviour(new DoorMovingInteraction()))
 			.onRegister(movementBehaviour(new SlidingDoorMovementBehaviour()))
@@ -197,7 +191,7 @@ public class BuilderTransformers {
 		String blockFolder = large ? "encased_large_cogwheel" : "encased_cogwheel";
 		String wood = casing.equals("brass") ? "dark_oak" : "spruce";
 		String gearbox = casing.equals("brass") ? "brass_gearbox" : "gearbox";
-		return encasedBase(b, drop).addLayer(() -> RenderType::cutoutMipped)
+		return encasedBase(b, drop)
 			.onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, casingShift.get(),
 				(s, f) -> f.getAxis() == s.getValue(EncasedCogwheelBlock.AXIS)
 					&& !s.getValue(f.getAxisDirection() == AxisDirection.POSITIVE ? EncasedCogwheelBlock.TOP_SHAFT
@@ -235,7 +229,6 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(SharedProperties::wooden)
 			.blockstate((c, p) -> p.horizontalBlock(c.get(), p.models()
 				.getExistingFile(p.modLoc("block/cuckoo_clock/block"))))
-			.addLayer(() -> RenderType::cutoutMipped)
 			.transform(CStress.setImpact(1))
 			.item()
 			.transform(ModelGen.customItemModel("cuckoo_clock", "item"));
@@ -245,7 +238,6 @@ public class BuilderTransformers {
 																					   Supplier<DataIngredient> ingredient, MapColor color) {
 		return b -> b.initialProperties(() -> Blocks.LADDER)
 			.properties(p -> p.mapColor(color))
-			.addLayer(() -> RenderType::cutout)
 			.blockstate((c, p) -> p.horizontalBlock(c.get(), p.models()
 				.withExistingParent(c.getName(), p.modLoc("block/ladder"))
 				.texture("0", p.modLoc("block/ladder_" + name + "_hoop"))
@@ -266,7 +258,6 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(() -> Blocks.SCAFFOLDING)
 			.properties(p -> p.sound(SoundType.COPPER)
 				.mapColor(color))
-			.addLayer(() -> RenderType::cutout)
 			.blockstate((c, p) -> p.getVariantBuilder(c.get())
 				.forAllStatesExcept(s -> {
 					String suffix = s.getValue(MetalScaffoldingBlock.BOTTOM) ? "_horizontal" : "";
@@ -343,7 +334,6 @@ public class BuilderTransformers {
 		String prefix = "block/tunnel/" + type + "_tunnel";
 		String funnel_prefix = "block/funnel/" + type + "_funnel";
 		return b -> b.initialProperties(SharedProperties::stone)
-			.addLayer(() -> RenderType::cutoutMipped)
 			.properties(BlockBehaviour.Properties::noOcclusion)
 			.transform(pickaxeOnly())
 			.blockstate((c, p) -> p.getVariantBuilder(c.get())
@@ -380,7 +370,6 @@ public class BuilderTransformers {
 		return b -> b.initialProperties(SharedProperties::stone)
 			.properties(p -> p.noOcclusion())
 			.blockstate(new MechanicalPistonGenerator(type)::generate)
-			.addLayer(() -> RenderType::cutoutMipped)
 			.transform(CStress.setImpact(4.0))
 			.item()
 			.transform(ModelGen.customItemModel("mechanical_piston", type.getSerializedName(), "item"));
@@ -441,7 +430,6 @@ public class BuilderTransformers {
 	public static <B extends Block, P> NonNullUnaryOperator<BlockBuilder<B, P>> backtank(Supplier<ItemLike> drop) {
 		return b -> b.blockstate((c, p) -> p.horizontalBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 			.transform(pickaxeOnly())
-			.addLayer(() -> RenderType::cutoutMipped)
 			.transform(CStress.setImpact(4.0))
 			.loot((lt, block) -> {
 				Builder builder = LootTable.lootTable();
@@ -460,7 +448,6 @@ public class BuilderTransformers {
 			.properties(p -> p.noOcclusion()
 				.sound(SoundType.ANVIL))
 			.transform(pickaxeOnly())
-			.addLayer(() -> RenderType::cutoutMipped)
 			.tag(AllBlockTags.BRITTLE.tag)
 			.blockstate((c, p) -> p.horizontalBlock(c.getEntry(), state -> {
 				String variant = state.getValue(BlockStateProperties.BELL_ATTACHMENT)
@@ -502,7 +489,6 @@ public class BuilderTransformers {
 			TagKey<Block> soundTag = dyed ? BlockTags.COMBINATION_STEP_SOUND_BLOCKS : BlockTags.INSIDE_STEP_SOUND_BLOCKS;
 
 			ItemBuilder<TableClothBlockItem, BlockBuilder<B, P>> item = b.initialProperties(initialProps)
-				.addLayer(() -> RenderType::cutoutMipped)
 				.blockstate((c, p) -> p.simpleBlock(c.get(), p.models()
 					.withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/block"))
 					.texture("0", p.modLoc("block/table_cloth/" + name))))
@@ -532,7 +518,6 @@ public class BuilderTransformers {
 			.properties(p -> p.mapColor(MapColor.TERRACOTTA_BLUE)
 				.sound(SoundType.NETHERITE_BLOCK))
 			.transform(pickaxeOnly())
-			.addLayer(() -> RenderType::cutoutMipped)
 			.blockstate(new PackagerGenerator()::generate)
 			.item()
 			.model(AssetLookup::customItemModel)

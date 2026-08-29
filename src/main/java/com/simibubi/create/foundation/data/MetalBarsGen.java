@@ -125,7 +125,6 @@ public class MetalBarsGen {
 	public static BlockEntry<IronBarsBlock> createBars(String name, boolean specialEdge,
 													   Supplier<DataIngredient> ingredient, MapColor color) {
 		return Create.registrate().block(name + "_bars", IronBarsBlock::new)
-			.addLayer(() -> RenderType::cutoutMipped)
 			.initialProperties(() -> Blocks.IRON_BARS)
 			.properties(p -> p.sound(SoundType.COPPER)
 				.mapColor(color))

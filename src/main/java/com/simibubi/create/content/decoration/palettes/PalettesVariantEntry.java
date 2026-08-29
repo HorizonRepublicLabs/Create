@@ -52,8 +52,8 @@ public class PalettesVariantEntry {
 
 			itemBuilder.tag(paletteStoneVariants.materialTag);
 
-			if (pattern.isTranslucent())
-				builder.addLayer(() -> RenderType::translucent);
+			// 26.x picks the chunk section layer from the sprite's transparency
+			// when the model bakes, so translucency no longer needs declaring.
 			pattern.createCTBehaviour(name)
 				.ifPresent(b -> builder.onRegister(connectedTextures(b)));
 

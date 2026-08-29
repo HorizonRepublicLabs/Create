@@ -122,7 +122,6 @@ public class WindowGen {
 		return REGISTRATE.block(name, p -> new WindowBlock(p, translucent))
 			.onRegister(ct == null ? $ -> {
 			} : connectedTextures(() -> new HorizontalCTBehaviour(ct.get())))
-			.addLayer(renderType)
 			.recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
 				.pattern(" # ")
 				.pattern("#X#")
@@ -144,7 +143,6 @@ public class WindowGen {
 															  Supplier<ConnectedTextureBehaviour> behaviour) {
 		return REGISTRATE.block(name, ConnectedGlassBlock::new)
 			.onRegister(connectedTextures(behaviour))
-			.addLayer(() -> RenderType::cutout)
 			.initialProperties(() -> Blocks.GLASS)
 			.properties(WindowGen::glassProperties)
 			.loot((t, g) -> t.dropWhenSilkTouch(g))
@@ -242,7 +240,6 @@ public class WindowGen {
 
 		ItemBuilder<BlockItem, BlockBuilder<G, CreateRegistrate>> itemBuilder = REGISTRATE.block(name, factory)
 			.onRegister(connectedTextures)
-			.addLayer(renderType)
 			.initialProperties(() -> Blocks.GLASS_PANE)
 			.properties(p -> p.mapColor(parent.get()
 				.defaultMapColor()))
