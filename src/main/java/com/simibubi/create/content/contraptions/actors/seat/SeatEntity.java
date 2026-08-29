@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.seat;
 
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+
 import net.minecraft.world.level.storage.ValueInput;
 
 import net.minecraft.world.level.storage.ValueOutput;
@@ -135,7 +137,7 @@ public class SeatEntity extends Entity implements IEntityWithComplexSpawn {
 	protected void addAdditionalSaveData(ValueOutput tag) {
 	}
 
-	public static class Render extends EntityRenderer<SeatEntity> {
+	public static class Render extends EntityRenderer<SeatEntity, EntityRenderState> {
 
 		public Render(EntityRendererProvider.Context context) {
 			super(context);
@@ -147,9 +149,10 @@ public class SeatEntity extends Entity implements IEntityWithComplexSpawn {
 			return false;
 		}
 
+		/// The seat is invisible; a bare render state is all it needs.
 		@Override
-		public Identifier getTextureLocation(SeatEntity seatEntity) {
-			return null;
+		public EntityRenderState createRenderState() {
+			return new EntityRenderState();
 		}
 	}
 
