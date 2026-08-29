@@ -139,7 +139,7 @@ public class AllFanProcessingTypes {
 			if (blastingRecipe.isPresent())
 				return true;
 
-			return !stack.has(DataComponents.FIRE_RESISTANT);
+			return !stack.has(DataComponents.DAMAGE_RESISTANT);
 		}
 
 		@Override

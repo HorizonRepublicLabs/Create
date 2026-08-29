@@ -490,6 +490,6 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 
 	@Override
 	public boolean fireImmune() {
-		return box.has(DataComponents.FIRE_RESISTANT) || super.fireImmune();
+		return box.has(DataComponents.DAMAGE_RESISTANT) || super.fireImmune();
 	}
 }

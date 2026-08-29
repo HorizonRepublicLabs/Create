@@ -82,7 +82,7 @@ public class DivingHelmetItem extends BaseArmorItem {
 			return;
 
 		boolean lavaDiving = entity.isInLava();
-		if (!helmet.has(DataComponents.FIRE_RESISTANT) && lavaDiving)
+		if (!helmet.has(DataComponents.DAMAGE_RESISTANT) && lavaDiving)
 			return;
 
 		if (event.canBreathe() && !lavaDiving)
@@ -96,7 +96,7 @@ public class DivingHelmetItem extends BaseArmorItem {
 			if (entity instanceof ServerPlayer sp)
 				AllAdvancements.DIVING_SUIT_LAVA.awardTo(sp);
 			if (backtanks.stream()
-				.noneMatch(backtank -> backtank.has(DataComponents.FIRE_RESISTANT)))
+				.noneMatch(backtank -> backtank.has(DataComponents.DAMAGE_RESISTANT)))
 				return;
 		}
 

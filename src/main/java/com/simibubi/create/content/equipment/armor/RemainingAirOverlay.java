@@ -56,7 +56,7 @@ public class RemainingAirOverlay implements GuiLayer {
 
 		ItemStack backtank = getDisplayedBacktank(player);
 		poseStack.translate(guiGraphics.guiWidth() / 2 + 90, guiGraphics.guiHeight() - 53 + (backtank
-				.has(DataComponents.FIRE_RESISTANT) ? 9 : 0), 0);
+				.has(DataComponents.DAMAGE_RESISTANT) ? 9 : 0), 0);
 
 		Component text = Component.literal(StringUtil.formatTickDuration(Math.max(0, timeLeft - 1) * 20, mc.level.tickRateManager().tickrate()));
 		GuiGameElement.of(backtank)
