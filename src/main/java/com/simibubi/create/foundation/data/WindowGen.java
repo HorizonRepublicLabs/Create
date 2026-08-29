@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
@@ -69,7 +71,7 @@ public class WindowGen {
 	}
 
 	public static BlockEntry<WindowBlock> woodenWindowBlock(WoodType woodType, Block planksBlock) {
-		return woodenWindowBlock(woodType, planksBlock, () -> RenderType::cutoutMipped, false);
+		return woodenWindowBlock(woodType, planksBlock, () -> RenderTypes::cutoutMovingBlock, false);
 	}
 
 	public static BlockBuilder<WindowBlock, CreateRegistrate> randomisedWindowBlock(String name,
@@ -165,7 +167,7 @@ public class WindowGen {
 		Identifier sideTexture = Create.asResource(palettesDir() + "framed_glass");
 		Identifier itemSideTexture = Create.asResource(palettesDir() + name);
 		Identifier topTexture = Create.asResource(palettesDir() + "framed_glass_pane_top");
-		Supplier<Supplier<RenderType>> renderType = () -> RenderType::cutoutMipped;
+		Supplier<Supplier<RenderType>> renderType = () -> RenderTypes::cutoutMovingBlock;
 		return connectedGlassPane(name, parent, ctshift, sideTexture, itemSideTexture, topTexture, renderType, true)
 			.register();
 	}
@@ -180,7 +182,7 @@ public class WindowGen {
 
 	public static BlockEntry<ConnectedGlassPaneBlock> woodenWindowPane(WoodType woodType,
 																	   Supplier<? extends Block> parent) {
-		return woodenWindowPane(woodType, parent, () -> RenderType::cutoutMipped);
+		return woodenWindowPane(woodType, parent, () -> RenderTypes::cutoutMovingBlock);
 	}
 
 	public static BlockEntry<ConnectedGlassPaneBlock> woodenWindowPane(WoodType woodType,

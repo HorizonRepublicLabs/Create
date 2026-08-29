@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import static com.simibubi.create.foundation.data.WindowGen.customWindowBlock;
@@ -62,7 +64,7 @@ public class AllPaletteBlocks {
 
 	public static final BlockEntry<GlassPaneBlock> TILED_GLASS_PANE =
 		WindowGen.standardGlassPane("tiled_glass", TILED_GLASS, Create.asResource("block/palettes/tiled_glass"),
-			Identifier.withDefaultNamespace("block/glass_pane_top"), () -> RenderType::cutoutMipped);
+			Identifier.withDefaultNamespace("block/glass_pane_top"), () -> RenderTypes::cutoutMovingBlock);
 
 	public static final BlockEntry<ConnectedGlassPaneBlock> FRAMED_GLASS_PANE =
 		framedGlassPane("framed_glass", FRAMED_GLASS, () -> AllSpriteShifts.FRAMED_GLASS),
@@ -106,9 +108,9 @@ public class AllPaletteBlocks {
 		CHERRY_WINDOW_PANE = woodenWindowPane(WoodType.CHERRY, CHERRY_WINDOW),
 		BAMBOO_WINDOW_PANE = woodenWindowPane(WoodType.BAMBOO, BAMBOO_WINDOW),
 		ORNATE_IRON_WINDOW_PANE = customWindowPane("ornate_iron_window", ORNATE_IRON_WINDOW,
-			() -> AllSpriteShifts.ORNATE_IRON_WINDOW, () -> RenderType::cutoutMipped).register(),
+			() -> AllSpriteShifts.ORNATE_IRON_WINDOW, () -> RenderTypes::cutoutMovingBlock).register(),
 		INDUSTRIAL_IRON_WINDOW_PANE = customWindowPane("industrial_iron_window", INDUSTRIAL_IRON_WINDOW,
-			() -> AllSpriteShifts.INDUSTRIAL_IRON_WINDOW, () -> RenderType::cutoutMipped).register(),
+			() -> AllSpriteShifts.INDUSTRIAL_IRON_WINDOW, () -> RenderTypes::cutoutMovingBlock).register(),
 		WEATHERED_IRON_WINDOW_PANE =
 			customWindowPane("weathered_iron_window", WEATHERED_IRON_WINDOW, null, () -> RenderType::translucent)
 				.onRegister(CreateRegistrate.connectedTextures(() -> new WeatheredIronWindowPaneCTBehaviour()))
