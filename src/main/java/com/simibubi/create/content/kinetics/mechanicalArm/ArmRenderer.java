@@ -123,7 +123,7 @@ public class ArmRenderer extends KineticBlockEntityRenderer<ArmBlockEntity> {
 			.light(light);
 		SuperByteBuffer upperBody = CreateCachedBuffers.partial(AllPartialModels.ARM_UPPER_BODY, blockState)
 			.light(light);
-		SuperByteBuffer claw = CachedBuffers
+		SuperByteBuffer claw = CreateCachedBuffers
 			.partial(goggles ? AllPartialModels.ARM_CLAW_BASE_GOGGLES : AllPartialModels.ARM_CLAW_BASE, blockState)
 			.light(light);
 		SuperByteBuffer upperClawGrip = CreateCachedBuffers.partial(AllPartialModels.ARM_CLAW_GRIP_UPPER,

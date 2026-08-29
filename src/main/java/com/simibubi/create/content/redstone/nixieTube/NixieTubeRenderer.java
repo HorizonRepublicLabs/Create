@@ -175,7 +175,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.scale(vert ? longSide : 1, vert ? 1 : longSide, 1)
 						.renderInto(ms, buffer.getBuffer(CreateRenderTypes.translucentMovingBlock()));
 
-					CachedBuffers
+					CreateCachedBuffers
 						.partial(
 							first ? AllPartialModels.SIGNAL_RED_GLOW
 								: yellow ? AllPartialModels.SIGNAL_YELLOW_GLOW : AllPartialModels.SIGNAL_WHITE_GLOW,
@@ -186,7 +186,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 				}
 
-				CachedBuffers
+				CreateCachedBuffers
 					.partial(first ? AllPartialModels.SIGNAL_RED
 						: yellow ? AllPartialModels.SIGNAL_YELLOW : AllPartialModels.SIGNAL_WHITE, blockState)
 					.light(0xF000F0)
@@ -219,7 +219,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.scale(width, height,  1)
 						.renderInto(ms, buffer.getBuffer(CreateRenderTypes.translucentMovingBlock()));
 
-					CachedBuffers
+					CreateCachedBuffers
 						.partial(AllPartialModels.SIGNAL_COMPUTER_WHITE_GLOW, blockState)
 						.light(0xf000f0)
 						.color(
@@ -232,7 +232,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 						.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 				}
 
-				CachedBuffers
+				CreateCachedBuffers
 					.partial(AllPartialModels.SIGNAL_COMPUTER_WHITE_BASE, blockState)
 					.light(0xF000F0)
 					.color(12, 12, 12, 255)
@@ -240,7 +240,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 					.scale(1 + 1.25f / 16f)
 					.renderInto(ms, buffer.getBuffer(CreateRenderTypes.additive()));
 
-				CachedBuffers
+				CreateCachedBuffers
 					.partial(AllPartialModels.SIGNAL_COMPUTER_WHITE, blockState)
 					.light(0xF000F0)
 					.color(tubeDisplay.r, tubeDisplay.g, tubeDisplay.b, 255)

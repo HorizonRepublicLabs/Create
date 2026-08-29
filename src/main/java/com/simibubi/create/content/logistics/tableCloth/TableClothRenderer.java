@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tableCloth;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -41,7 +43,7 @@ public class TableClothRenderer extends SmartBlockEntityRenderer<TableClothBlock
 		float rotationInRadians = Mth.DEG_TO_RAD * (180 - blockEntity.facing.toYRot());
 
 		if (blockEntity.isShop()) {
-			CachedBuffers
+			CreateCachedBuffers
 				.partial(blockEntity.sideOccluded ? AllPartialModels.TABLE_CLOTH_PRICE_TOP
 					: AllPartialModels.TABLE_CLOTH_PRICE_SIDE, blockEntity.getBlockState())
 				.rotateCentered(rotationInRadians, Direction.UP)
