@@ -394,7 +394,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 			return true;
 		}
 		if (editingIndex != -1 && pKeyCode != 256) {
-			keyPressedWhileEditing(pKeyCode, pScanCode, pModifiers);
+			keyPressedWhileEditing(event, pKeyCode, pScanCode, pModifiers);
 			clearDisplayCache();
 			return true;
 		}
@@ -417,17 +417,19 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		return true;
 	}
 
-	private boolean keyPressedWhileEditing(int pKeyCode, int pScanCode, int pModifiers) {
-		if (Screen.isSelectAll(pKeyCode)) {
+	/// The clipboard shortcuts read the modifiers off the key event now
+	/// rather than being static queries on Screen.
+	private boolean keyPressedWhileEditing(KeyEvent event, int pKeyCode, int pScanCode, int pModifiers) {
+		if (event.isSelectAll()) {
 			editContext.selectAll();
 			return true;
-		} else if (Screen.isCopy(pKeyCode)) {
+		} else if (event.isCopy()) {
 			editContext.copy();
 			return true;
-		} else if (Screen.isPaste(pKeyCode)) {
+		} else if (event.isPaste()) {
 			editContext.paste();
 			return true;
-		} else if (Screen.isCut(pKeyCode)) {
+		} else if (event.isCut()) {
 			editContext.cut();
 			return true;
 		} else {
