@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -190,9 +192,7 @@ public class SchematicannonRenderer extends SafeBlockEntityRenderer<Schematicann
 				// Render the item
 				float scale = 1.2f;
 				ms.scale(scale, scale, scale);
-				Minecraft.getInstance()
-					.getItemRenderer()
-					.renderStatic(launched.stack, ItemDisplayContext.GROUND, light, overlay, ms, buffer, blockEntity.getLevel(), 0);
+				CreateItemRenderer.render(launched.stack, ItemDisplayContext.GROUND, ms, buffer, light, overlay, 0);
 			}
 
 			ms.popPose();

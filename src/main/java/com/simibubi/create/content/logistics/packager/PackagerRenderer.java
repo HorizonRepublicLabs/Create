@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packager;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -71,10 +73,7 @@ public class PackagerRenderer extends SmartBlockEntityRenderer<PackagerBlockEnti
 				.rotateYDegrees(facing.toYRot())
 				.translate(0, 2 / 16f, 0)
 				.scale(1.49f, 1.49f, 1.49f);
-			Minecraft.getInstance()
-				.getItemRenderer()
-				.renderStatic(null, renderedBox, ItemDisplayContext.FIXED, false, ms, buffer, be.getLevel(), light,
-					overlay, 0);
+			CreateItemRenderer.render(null, renderedBox, ms, buffer, ItemDisplayContext.FIXED, false, light);
 			ms.popPose();
 		}
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.sandPaper;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -58,8 +60,7 @@ public class SandPaperItemRenderer extends CustomRenderedItemModelRenderer {
 			}
 
 			ItemStack toPolish = stack.get(AllDataComponents.SAND_PAPER_POLISHING).item();
-			//noinspection DataFlowIssue - We call .has, toPolish won't be null
-			itemRenderer.renderStatic(toPolish, ItemDisplayContext.GUI, light, overlay, ms, buffer, player.level(), 0);
+			//noinspection DataFlowIssue - We call .has, toPolish won'CreateItemRenderer.render(toPolish, ItemDisplayContext.GUI, ms, buffer, light, overlay, 0);
 
 			ms.popPose();
 		}

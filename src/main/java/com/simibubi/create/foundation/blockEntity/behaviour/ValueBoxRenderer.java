@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -70,8 +72,7 @@ public class ValueBoxRenderer {
 			.normal()
 			.set(copy);
 		Minecraft mc = Minecraft.getInstance();
-		mc.getItemRenderer()
-			.renderStatic(filter, ItemDisplayContext.GUI, itemLight, OverlayTexture.NO_OVERLAY, squashedMS, buffer, mc.level, 0);
+		CreateItemRenderer.render(filter, ItemDisplayContext.GUI, squashedMS, buffer, itemLight, OverlayTexture.NO_OVERLAY, 0);
 
 		ms.popPose();
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -81,9 +83,7 @@ public class EjectorRenderer extends ShaftRenderer<EjectorBlockEntity> {
 				msr.rotateXDegrees(time * 40);
 			}
 			msr.translateBack(itemRotOffset);
-			Minecraft.getInstance()
-				.getItemRenderer()
-				.renderStatic(intAttached.getValue(), ItemDisplayContext.FIXED, light, overlay, ms, buffer, be.getLevel(), 0);
+			CreateItemRenderer.render(intAttached.getValue(), ItemDisplayContext.FIXED, ms, buffer, light, overlay, 0);
 			ms.popPose();
 		}
 

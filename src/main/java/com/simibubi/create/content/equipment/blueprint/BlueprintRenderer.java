@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -107,10 +109,7 @@ public class BlueprintRenderer extends EntityRenderer<BlueprintEntity> {
 						.normal()
 						.set(copy);
 
-					Minecraft.getInstance()
-						.getItemRenderer()
-						.renderStatic(stack, ItemDisplayContext.GUI, itemLight, OverlayTexture.NO_OVERLAY, squashedMS,
-							buffer, entity.level(), 0);
+					CreateItemRenderer.render(stack, ItemDisplayContext.GUI, squashedMS, buffer, itemLight, OverlayTexture.NO_OVERLAY, 0);
 					squashedMS.popPose();
 				});
 				squashedMS.popPose();

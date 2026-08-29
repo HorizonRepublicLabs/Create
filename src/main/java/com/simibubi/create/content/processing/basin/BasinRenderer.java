@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -139,8 +141,7 @@ public class BasinRenderer extends SmartBlockEntityRenderer<BasinBlockEntity> {
 
 	protected void renderItem(PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
-		mc.getItemRenderer()
-			.renderStatic(stack, ItemDisplayContext.GROUND, light, overlay, ms, buffer, mc.level, 0);
+		CreateItemRenderer.render(stack, ItemDisplayContext.GROUND, ms, buffer, light, overlay, 0);
 	}
 
 	protected float renderFluids(BasinBlockEntity basin, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,

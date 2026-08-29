@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.chute;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -51,7 +53,7 @@ public class ChuteRenderer extends SafeBlockEntityRenderer<ChuteBlockEntity> {
 			msr.rotateXDegrees(itemPosition * 180);
 			msr.rotateYDegrees(itemPosition * 180);
 		}
-		itemRenderer.renderStatic(be.item, ItemDisplayContext.FIXED, light, overlay, ms, buffer, be.getLevel(), 0);
+		CreateItemRenderer.render(be.item, ItemDisplayContext.FIXED, ms, buffer, light, overlay, 0);
 		ms.popPose();
 	}
 

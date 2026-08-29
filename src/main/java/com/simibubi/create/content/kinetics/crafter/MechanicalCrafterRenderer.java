@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -79,9 +81,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 				ms.pushPose();
 				ms.translate(0, 0, -1 / 256f);
 				ms.mulPose(Axis.YP.rotationDegrees(180));
-				Minecraft.getInstance()
-					.getItemRenderer()
-					.renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, ms, buffer, be.getLevel(), 0);
+				CreateItemRenderer.render(stack, ItemDisplayContext.FIXED, ms, buffer, light, overlay, 0);
 				ms.popPose();
 			}
 		} else {
@@ -130,9 +130,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 				TransformStack.of(ms)
 					.rotateYDegrees(180)
 					.translate(0, 0, (x + y * 3 + offset * 9) / 1024f );
-				Minecraft.getInstance()
-					.getItemRenderer()
-					.renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, ms, buffer, be.getLevel(), 0);
+				CreateItemRenderer.render(stack, ItemDisplayContext.FIXED, ms, buffer, light, overlay, 0);
 				ms.popPose();
 			});
 
@@ -159,9 +157,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 						return;
 					ms.pushPose();
 					ms.mulPose(Axis.YP.rotationDegrees(180));
-					Minecraft.getInstance()
-						.getItemRenderer()
-						.renderStatic(stack, ItemDisplayContext.FIXED, light, overlay, ms, buffer, be.getLevel(), 0);
+					CreateItemRenderer.render(stack, ItemDisplayContext.FIXED, ms, buffer, light, overlay, 0);
 					ms.popPose();
 				});
 			}

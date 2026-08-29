@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.curios;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -62,9 +64,7 @@ public class GogglesCurioRenderer implements ICurioRenderer {
 
 		// Render
 		Minecraft mc = Minecraft.getInstance();
-		mc.getItemRenderer()
-			.renderStatic(stack, ItemDisplayContext.HEAD, light, OverlayTexture.NO_OVERLAY, matrixStack,
-				renderTypeBuffer, mc.level, 0);
+		CreateItemRenderer.render(stack, ItemDisplayContext.HEAD, matrixStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, 0);
 		matrixStack.popPose();
 	}
 

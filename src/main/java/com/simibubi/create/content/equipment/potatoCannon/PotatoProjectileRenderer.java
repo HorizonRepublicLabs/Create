@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -30,10 +32,7 @@ public class PotatoProjectileRenderer extends EntityRenderer<PotatoProjectileEnt
 		entity.getRenderMode()
 			.transform(ms, entity, pt);
 
-		Minecraft.getInstance()
-			.getItemRenderer()
-			.renderStatic(item, ItemDisplayContext.GROUND, light, OverlayTexture.NO_OVERLAY, ms, buffer, entity.level(),
-				0);
+		CreateItemRenderer.render(item, ItemDisplayContext.GROUND, ms, buffer, light, OverlayTexture.NO_OVERLAY, 0);
 		ms.popPose();
 	}
 
