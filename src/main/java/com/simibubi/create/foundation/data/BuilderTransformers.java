@@ -90,8 +90,8 @@ import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+import com.simibubi.create.foundation.data.VariantModels.ConfiguredModel;
+
 import net.neoforged.neoforge.common.Tags;
 
 @SuppressWarnings("removal") // addLayer is staying... for now
@@ -139,9 +139,9 @@ public class BuilderTransformers {
 
 	public static <B extends TrapDoorBlock, P> NonNullUnaryOperator<BlockBuilder<B, P>> trapdoor(boolean orientable) {
 		return b -> b.blockstate((c, p) -> {
-				ModelFile bottom = AssetLookup.partialBaseModel(c, p, "bottom");
-				ModelFile top = AssetLookup.partialBaseModel(c, p, "top");
-				ModelFile open = AssetLookup.partialBaseModel(c, p, "open");
+				Identifier bottom = AssetLookup.partialBaseModel(c, p, "bottom");
+				Identifier top = AssetLookup.partialBaseModel(c, p, "top");
+				Identifier open = AssetLookup.partialBaseModel(c, p, "open");
 				if (orientable)
 					p.trapdoorBlock(c.get(), bottom, top, open, orientable);
 				else
@@ -161,8 +161,8 @@ public class BuilderTransformers {
 			.properties(p -> p.requiresCorrectToolForDrops()
 				.strength(3.0F, 6.0F))
 			.blockstate((c, p) -> {
-				ModelFile bottom = AssetLookup.partialBaseModel(c, p, "bottom");
-				ModelFile top = AssetLookup.partialBaseModel(c, p, "top");
+				Identifier bottom = AssetLookup.partialBaseModel(c, p, "bottom");
+				Identifier top = AssetLookup.partialBaseModel(c, p, "top");
 				p.doorBlock(c.get(), bottom, bottom, bottom, bottom, top, top, top, top);
 			})
 			.addLayer(() -> RenderType::cutoutMipped)
@@ -412,7 +412,7 @@ public class BuilderTransformers {
 			.transform(axeOrPickaxe())
 			.blockstate((c, p) -> {
 				String[] variants = {"single", "top", "bottom", "left", "right"};
-				Map<String, ModelFile> models = new HashMap<>();
+				Map<String, Identifier> models = new HashMap<>();
 
 				Identifier crate = p.modLoc("block/crate_" + type);
 				Identifier side = p.modLoc("block/crate_" + type + "_side");

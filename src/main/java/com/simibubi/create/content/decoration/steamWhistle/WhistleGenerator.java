@@ -4,12 +4,12 @@ import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class WhistleGenerator extends SpecialBlockStateGen {
 
@@ -24,13 +24,13 @@ public class WhistleGenerator extends SpecialBlockStateGen {
 	}
 
 	@Override
-	public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
+	public <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
 		String wall = state.getValue(WhistleBlock.WALL) ? "wall" : "floor";
 		String size = state.getValue(WhistleBlock.SIZE)
 			.getSerializedName();
 		boolean powered = state.getValue(WhistleBlock.POWERED);
-		ModelFile model = AssetLookup.partialBaseModel(ctx, prov, size, wall);
+		Identifier model = AssetLookup.partialBaseModel(ctx, prov, size, wall);
 		if (!powered)
 			return model;
 		Identifier parentLocation = model.getLocation();

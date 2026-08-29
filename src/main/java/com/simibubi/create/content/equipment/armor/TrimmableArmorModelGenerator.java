@@ -7,7 +7,7 @@ import java.util.Map;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.mixin.accessor.ItemModelGeneratorsAccessor;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateItemModelProvider;
+import com.tterrag.registrate.providers.generators.RegistrateItemModelGenerator;
 
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
@@ -31,7 +31,7 @@ public class TrimmableArmorModelGenerator {
 		}
 	}
 
-	public static <T extends ArmorItem> void generate(DataGenContext<Item, T> c, RegistrateItemModelProvider p) {
+	public static <T extends ArmorItem> void generate(DataGenContext<Item, T> c, RegistrateItemModelGenerator p) {
 		T item = c.get();
 		ItemModelBuilder builder = p.generated(c);
 		for (ItemModelGenerators.TrimModelData data : ItemModelGeneratorsAccessor.create$getGENERATED_TRIM_MODELS()) {

@@ -6,7 +6,7 @@ import com.mojang.serialization.Codec;
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.Create;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateItemModelProvider;
+import com.tterrag.registrate.providers.generators.RegistrateItemModelGenerator;
 
 import io.netty.buffer.ByteBuf;
 import net.createmod.catnip.api.data.codec.stream.CatnipStreamCodecBuilders;
@@ -20,7 +20,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelFile.UncheckedModelFile;
+import net.neoforged.neoforge.client.model.generators.Identifier.UncheckedModelFile;
 
 public class ClipboardOverrides {
 
@@ -51,7 +51,7 @@ public class ClipboardOverrides {
 	}
 
 	public static ItemModelBuilder addOverrideModels(DataGenContext<Item, ClipboardBlockItem> c,
-		RegistrateItemModelProvider p) {
+		RegistrateItemModelGenerator p) {
 		ItemModelBuilder builder = p.generated(c::get);
 		for (ClipboardType type : ClipboardType.values()) {
 			int i = type.ordinal();

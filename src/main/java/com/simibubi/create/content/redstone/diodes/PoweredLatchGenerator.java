@@ -9,13 +9,13 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class PoweredLatchGenerator extends AbstractDiodeGenerator {
 
 	@Override
-	protected <T extends Block> List<ModelFile> createModels(DataGenContext<Block, T> ctx, BlockModelProvider prov) {
-		List<ModelFile> models = new ArrayList<>(2);
+	protected <T extends Block> List<Identifier> createModels(DataGenContext<Block, T> ctx, BlockModelProvider prov) {
+		List<Identifier> models = new ArrayList<>(2);
 		String name = ctx.getName();
 		Identifier off = existing("latch_off");
 		Identifier on = existing("latch_on");

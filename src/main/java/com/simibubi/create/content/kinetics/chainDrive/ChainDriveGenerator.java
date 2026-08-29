@@ -1,22 +1,24 @@
 package com.simibubi.create.content.kinetics.chainDrive;
 
+import net.minecraft.resources.Identifier;
+
 import java.util.function.BiFunction;
 
 import com.simibubi.create.content.kinetics.chainDrive.ChainDriveBlock.Part;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class ChainDriveGenerator extends SpecialBlockStateGen {
 
-	private BiFunction<BlockState, String, ModelFile> modelFunc;
+	private BiFunction<BlockState, String, Identifier> modelFunc;
 
-	public ChainDriveGenerator(BiFunction<BlockState, String, ModelFile> modelFunc) {
+	public ChainDriveGenerator(BiFunction<BlockState, String, Identifier> modelFunc) {
 		this.modelFunc = modelFunc;
 	}
 
@@ -52,7 +54,7 @@ public class ChainDriveGenerator extends SpecialBlockStateGen {
 	}
 
 	@Override
-	public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
+	public <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
 		return modelFunc.apply(state, getModelSuffix(state));
 	}

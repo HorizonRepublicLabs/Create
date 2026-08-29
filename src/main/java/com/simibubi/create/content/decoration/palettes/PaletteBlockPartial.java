@@ -10,7 +10,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -32,7 +32,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public abstract class PaletteBlockPartial<B extends Block> {
 
@@ -100,7 +100,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 	protected abstract void createRecipes(AllPaletteStoneTypes type, BlockEntry<? extends Block> patternBlock,
 										  DataGenContext<Block, ? extends Block> c, RegistrateRecipeProvider p);
 
-	protected abstract void generateBlockState(DataGenContext<Block, B> ctx, RegistrateBlockstateProvider prov,
+	protected abstract void generateBlockState(DataGenContext<Block, B> ctx, RegistrateBlockModelGenerator prov,
 											   String variantName, PaletteBlockPattern pattern, Supplier<? extends Block> block);
 
 	private static class Stairs extends PaletteBlockPartial<StairBlock> {
@@ -115,7 +115,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		}
 
 		@Override
-		protected void generateBlockState(DataGenContext<Block, StairBlock> ctx, RegistrateBlockstateProvider prov,
+		protected void generateBlockState(DataGenContext<Block, StairBlock> ctx, RegistrateBlockModelGenerator prov,
 										  String variantName, PaletteBlockPattern pattern, Supplier<? extends Block> block) {
 			prov.stairsBlock(ctx.get(), getTexture(variantName, pattern, 0));
 		}
@@ -160,17 +160,17 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		}
 
 		@Override
-		protected void generateBlockState(DataGenContext<Block, SlabBlock> ctx, RegistrateBlockstateProvider prov,
+		protected void generateBlockState(DataGenContext<Block, SlabBlock> ctx, RegistrateBlockModelGenerator prov,
 										  String variantName, PaletteBlockPattern pattern, Supplier<? extends Block> block) {
 			String name = ctx.getName();
 			Identifier mainTexture = getTexture(variantName, pattern, 0);
 			Identifier sideTexture = customSide ? getTexture(variantName, pattern, 1) : mainTexture;
 
-			ModelFile bottom = prov.models()
+			Identifier bottom = prov.models()
 				.slab(name, sideTexture, mainTexture, mainTexture);
-			ModelFile top = prov.models()
+			Identifier top = prov.models()
 				.slabTop(name + "_top", sideTexture, mainTexture, mainTexture);
-			ModelFile doubleSlab;
+			Identifier doubleSlab;
 
 			if (customSide) {
 				doubleSlab = prov.models()
@@ -236,7 +236,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		}
 
 		@Override
-		protected void generateBlockState(DataGenContext<Block, WallBlock> ctx, RegistrateBlockstateProvider prov,
+		protected void generateBlockState(DataGenContext<Block, WallBlock> ctx, RegistrateBlockModelGenerator prov,
 										  String variantName, PaletteBlockPattern pattern, Supplier<? extends Block> block) {
 			prov.wallBlock(ctx.get(), pattern.createName(variantName), getTexture(variantName, pattern, 0));
 		}

@@ -3,8 +3,8 @@ package com.simibubi.create.content.logistics.funnel;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
-import com.tterrag.registrate.providers.RegistrateItemModelProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
+import com.tterrag.registrate.providers.generators.RegistrateItemModelGenerator;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 
 import net.minecraft.core.Direction;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class FunnelGenerator extends SpecialBlockStateGen {
 
@@ -38,7 +38,7 @@ public class FunnelGenerator extends SpecialBlockStateGen {
 	}
 
 	@Override
-	public <T extends Block> ModelFile getModel(DataGenContext<Block, T> c, RegistrateBlockstateProvider p,
+	public <T extends Block> Identifier getModel(DataGenContext<Block, T> c, RegistrateBlockModelGenerator p,
 		BlockState s) {
 		String prefix = "block/funnel/";
 		String powered = s.getValue(FunnelBlock.POWERED) ? "_powered" : "_unpowered";
@@ -64,7 +64,7 @@ public class FunnelGenerator extends SpecialBlockStateGen {
 			.texture("open", p.modLoc(prefix + "funnel" + closed));
 	}
 
-	public static NonNullBiConsumer<DataGenContext<Item, FunnelItem>, RegistrateItemModelProvider> itemModel(
+	public static NonNullBiConsumer<DataGenContext<Item, FunnelItem>, RegistrateItemModelGenerator> itemModel(
 		String type) {
 		String prefix = "block/funnel/";
 		Identifier blockTexture = Create.asResource("block/" + type + "_block");

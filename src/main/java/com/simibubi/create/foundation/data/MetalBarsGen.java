@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 import com.simibubi.create.AllTags.AllBlockTags;
 import com.simibubi.create.Create;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
@@ -24,20 +24,20 @@ import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class MetalBarsGen {
 
-	public static <P extends IronBarsBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockstateProvider> barsBlockState(
+	public static <P extends IronBarsBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> barsBlockState(
 		String name, boolean specialEdge) {
 		return (c, p) -> {
 
-			ModelFile post_ends = barsSubModel(p, name, "post_ends", specialEdge);
-			ModelFile post = barsSubModel(p, name, "post", specialEdge);
-			ModelFile cap = barsSubModel(p, name, "cap", specialEdge);
-			ModelFile cap_alt = barsSubModel(p, name, "cap_alt", specialEdge);
-			ModelFile side = barsSubModel(p, name, "side", specialEdge);
-			ModelFile side_alt = barsSubModel(p, name, "side_alt", specialEdge);
+			Identifier post_ends = barsSubModel(p, name, "post_ends", specialEdge);
+			Identifier post = barsSubModel(p, name, "post", specialEdge);
+			Identifier cap = barsSubModel(p, name, "cap", specialEdge);
+			Identifier cap_alt = barsSubModel(p, name, "cap_alt", specialEdge);
+			Identifier side = barsSubModel(p, name, "side", specialEdge);
+			Identifier side_alt = barsSubModel(p, name, "side_alt", specialEdge);
 
 			p.getMultipartBuilder(c.get())
 				.part()
@@ -111,7 +111,7 @@ public class MetalBarsGen {
 		};
 	}
 
-	private static ModelFile barsSubModel(RegistrateBlockstateProvider p, String name, String suffix,
+	private static Identifier barsSubModel(RegistrateBlockModelGenerator p, String name, String suffix,
 										  boolean specialEdge) {
 		Identifier barsTexture = p.modLoc("block/bars/" + name + "_bars");
 		Identifier edgeTexture = specialEdge ? p.modLoc("block/bars/" + name + "_bars_edge") : barsTexture;

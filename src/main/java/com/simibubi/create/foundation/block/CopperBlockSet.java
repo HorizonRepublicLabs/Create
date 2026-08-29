@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.DataIngredient;
@@ -214,7 +214,7 @@ public class CopperBlockSet {
 
 		void generateRecipes(BlockEntry<?> blockVariant, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov);
 
-		void generateBlockState(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, CopperBlockSet blocks,
+		void generateBlockState(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov, CopperBlockSet blocks,
 								WeatherState state, boolean waxed);
 	}
 
@@ -239,7 +239,7 @@ public class CopperBlockSet {
 		}
 
 		@Override
-		public void generateBlockState(DataGenContext<Block, Block> ctx, RegistrateBlockstateProvider prov,
+		public void generateBlockState(DataGenContext<Block, Block> ctx, RegistrateBlockModelGenerator prov,
 									   CopperBlockSet blocks, WeatherState state, boolean waxed) {
 			Block block = ctx.get();
 			String path = RegisteredObjectsHelper.getKeyOrThrow(block)
@@ -294,7 +294,7 @@ public class CopperBlockSet {
 		}
 
 		@Override
-		public void generateBlockState(DataGenContext<Block, SlabBlock> ctx, RegistrateBlockstateProvider prov,
+		public void generateBlockState(DataGenContext<Block, SlabBlock> ctx, RegistrateBlockModelGenerator prov,
 									   CopperBlockSet blocks, WeatherState state, boolean waxed) {
 			Identifier fullModel =
 				prov.modLoc(ModelProvider.BLOCK_FOLDER + "/" + getWeatherStatePrefix(state) + blocks.getName());
@@ -342,7 +342,7 @@ public class CopperBlockSet {
 		}
 
 		@Override
-		public void generateBlockState(DataGenContext<Block, StairBlock> ctx, RegistrateBlockstateProvider prov,
+		public void generateBlockState(DataGenContext<Block, StairBlock> ctx, RegistrateBlockModelGenerator prov,
 									   CopperBlockSet blocks, WeatherState state, boolean waxed) {
 			String baseLoc = ModelProvider.BLOCK_FOLDER + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
 			Identifier texture = prov.modLoc(baseLoc + blocks.getName());

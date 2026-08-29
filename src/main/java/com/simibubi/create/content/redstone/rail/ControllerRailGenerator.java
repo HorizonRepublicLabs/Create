@@ -1,15 +1,17 @@
 package com.simibubi.create.content.redstone.rail;
 
+import net.minecraft.resources.Identifier;
+
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.block.state.properties.RailShape;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class ControllerRailGenerator extends SpecialBlockStateGen {
 
@@ -43,7 +45,7 @@ public class ControllerRailGenerator extends SpecialBlockStateGen {
 	}
 
 	@Override
-	public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
+	public <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
 		RailShape shape = state.getValue(ControllerRailBlock.SHAPE);
 		boolean backwards = ControllerRailBlock.isStateBackwards(state);

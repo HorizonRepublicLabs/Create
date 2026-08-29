@@ -9,14 +9,14 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class ToggleLatchGenerator extends AbstractDiodeGenerator {
 
 	@Override
-	protected <T extends Block> List<ModelFile> createModels(DataGenContext<Block, T> ctx, BlockModelProvider prov) {
+	protected <T extends Block> List<Identifier> createModels(DataGenContext<Block, T> ctx, BlockModelProvider prov) {
 		String name = ctx.getName();
-		List<ModelFile> models = new ArrayList<>(4);
+		List<Identifier> models = new ArrayList<>(4);
 		Identifier off = existing("latch_off");
 		Identifier on = existing("latch_on");
 

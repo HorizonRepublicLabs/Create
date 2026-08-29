@@ -1,15 +1,17 @@
 package com.simibubi.create.content.decoration.bracket;
 
+import net.minecraft.resources.Identifier;
+
 import com.simibubi.create.foundation.data.DirectionalAxisBlockStateGen;
 import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class BracketGenerator extends DirectionalAxisBlockStateGen {
 
@@ -20,13 +22,13 @@ public class BracketGenerator extends DirectionalAxisBlockStateGen {
 	}
 
 	@Override
-	public <T extends Block> String getModelPrefix(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
+	public <T extends Block> String getModelPrefix(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
 		return "";
 	}
 
 	@Override
-	public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
+	public <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
 		String type = state.getValue(BracketBlock.TYPE)
 			.getSerializedName();

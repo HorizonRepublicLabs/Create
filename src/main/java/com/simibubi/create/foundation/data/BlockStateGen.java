@@ -26,7 +26,7 @@ import com.simibubi.create.content.fluids.pipes.FluidPipeBlock;
 import com.simibubi.create.content.kinetics.base.DirectionalAxisKineticBlock;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonnullType;
 
@@ -44,67 +44,67 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.client.model.generators.ModelFile.ExistingModelFile;
+import com.simibubi.create.foundation.data.VariantModels.ConfiguredModel;
+
+import net.neoforged.neoforge.client.model.generators.Identifier.ExistingModelFile;
 import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 
 public class BlockStateGen {
 
 	// Functions
 
-	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> axisBlockProvider(
+	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> axisBlockProvider(
 		boolean customItem) {
 		return (c, p) -> axisBlock(c, p, getBlockModel(customItem, c, p));
 	}
 
-	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> directionalBlockProvider(
+	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> directionalBlockProvider(
 		boolean customItem) {
 		return (c, p) -> p.directionalBlock(c.get(), getBlockModel(customItem, c, p));
 	}
 
-	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> directionalBlockProviderIgnoresWaterlogged(
+	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> directionalBlockProviderIgnoresWaterlogged(
 		boolean customItem) {
 		return (c, p) -> directionalBlockIgnoresWaterlogged(c, p, getBlockModel(customItem, c, p));
 	}
 
-	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> horizontalBlockProvider(
+	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> horizontalBlockProvider(
 		boolean customItem) {
 		return (c, p) -> p.horizontalBlock(c.get(), getBlockModel(customItem, c, p));
 	}
 
-	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> horizontalAxisBlockProvider(
+	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> horizontalAxisBlockProvider(
 		boolean customItem) {
 		return (c, p) -> horizontalAxisBlock(c, p, getBlockModel(customItem, c, p));
 	}
 
-	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> simpleCubeAll(
+	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> simpleCubeAll(
 		String path) {
 		return (c, p) -> p.simpleBlock(c.get(), p.models()
 			.cubeAll(c.getName(), p.modLoc("block/" + path)));
 	}
 
-	public static <T extends DirectionalAxisKineticBlock> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> directionalAxisBlockProvider() {
+	public static <T extends DirectionalAxisKineticBlock> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> directionalAxisBlockProvider() {
 		return (c, p) -> directionalAxisBlock(c, p, ($, vertical) -> p.models()
 			.getExistingFile(p.modLoc("block/" + c.getName() + "/" + (vertical ? "vertical" : "horizontal"))));
 	}
 
-	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockstateProvider> horizontalWheelProvider(
+	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> horizontalWheelProvider(
 		boolean customItem) {
 		return (c, p) -> horizontalWheel(c, p, getBlockModel(customItem, c, p));
 	}
 
 	// Utility
 
-	private static <T extends Block> Function<BlockState, ModelFile> getBlockModel(boolean customItem,
-		DataGenContext<Block, T> c, RegistrateBlockstateProvider p) {
+	private static <T extends Block> Function<BlockState, Identifier> getBlockModel(boolean customItem,
+		DataGenContext<Block, T> c, RegistrateBlockModelGenerator p) {
 		return $ -> customItem ? AssetLookup.partialBaseModel(c, p) : AssetLookup.standardModel(c, p);
 	}
 
 	// Generators
 
 	public static <T extends Block> void directionalBlockIgnoresWaterlogged(DataGenContext<Block, T> ctx,
-		RegistrateBlockstateProvider prov, Function<BlockState, ModelFile> modelFunc) {
+		RegistrateBlockModelGenerator prov, Function<BlockState, Identifier> modelFunc) {
 		prov.getVariantBuilder(ctx.getEntry())
 			.forAllStatesExcept(state -> {
 				Direction dir = state.getValue(BlockStateProperties.FACING);
@@ -119,13 +119,13 @@ public class BlockStateGen {
 			}, BlockStateProperties.WATERLOGGED);
 	}
 
-	public static <T extends Block> void axisBlock(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
-		Function<BlockState, ModelFile> modelFunc) {
+	public static <T extends Block> void axisBlock(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
+		Function<BlockState, Identifier> modelFunc) {
 		axisBlock(ctx, prov, modelFunc, false);
 	}
 
-	public static <T extends Block> void axisBlock(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
-		Function<BlockState, ModelFile> modelFunc, boolean uvLock) {
+	public static <T extends Block> void axisBlock(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
+		Function<BlockState, Identifier> modelFunc, boolean uvLock) {
 		prov.getVariantBuilder(ctx.getEntry())
 			.forAllStatesExcept(state -> {
 				Axis axis = state.getValue(BlockStateProperties.AXIS);
@@ -138,8 +138,8 @@ public class BlockStateGen {
 			}, BlockStateProperties.WATERLOGGED);
 	}
 
-	public static <T extends Block> void simpleBlock(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
-		Function<BlockState, ModelFile> modelFunc) {
+	public static <T extends Block> void simpleBlock(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
+		Function<BlockState, Identifier> modelFunc) {
 		prov.getVariantBuilder(ctx.getEntry())
 			.forAllStatesExcept(state -> {
 				return ConfiguredModel.builder()
@@ -149,7 +149,7 @@ public class BlockStateGen {
 	}
 
 	public static <T extends Block> void horizontalAxisBlock(DataGenContext<Block, T> ctx,
-		RegistrateBlockstateProvider prov, Function<BlockState, ModelFile> modelFunc) {
+		RegistrateBlockModelGenerator prov, Function<BlockState, Identifier> modelFunc) {
 		prov.getVariantBuilder(ctx.getEntry())
 			.forAllStates(state -> {
 				Axis axis = state.getValue(BlockStateProperties.HORIZONTAL_AXIS);
@@ -161,7 +161,7 @@ public class BlockStateGen {
 	}
 
 	public static <T extends DirectionalAxisKineticBlock> void directionalAxisBlock(DataGenContext<Block, T> ctx,
-		RegistrateBlockstateProvider prov, BiFunction<BlockState, Boolean, ModelFile> modelFunc) {
+		RegistrateBlockModelGenerator prov, BiFunction<BlockState, Boolean, Identifier> modelFunc) {
 		prov.getVariantBuilder(ctx.getEntry())
 			.forAllStates(state -> {
 
@@ -182,7 +182,7 @@ public class BlockStateGen {
 	}
 
 	public static <T extends Block> void horizontalWheel(DataGenContext<Block, T> ctx,
-		RegistrateBlockstateProvider prov, Function<BlockState, ModelFile> modelFunc) {
+		RegistrateBlockModelGenerator prov, Function<BlockState, Identifier> modelFunc) {
 		prov.getVariantBuilder(ctx.get())
 			.forAllStates(state -> ConfiguredModel.builder()
 				.modelFile(modelFunc.apply(state))
@@ -192,19 +192,19 @@ public class BlockStateGen {
 				.build());
 	}
 
-	public static <T extends Block> void cubeAll(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
+	public static <T extends Block> void cubeAll(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		String textureSubDir) {
 		cubeAll(ctx, prov, textureSubDir, ctx.getName());
 	}
 
-	public static <T extends Block> void cubeAll(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
+	public static <T extends Block> void cubeAll(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		String textureSubDir, String name) {
 		String texturePath = "block/" + textureSubDir + name;
 		prov.simpleBlock(ctx.get(), prov.models()
 			.cubeAll(ctx.getName(), prov.modLoc(texturePath)));
 	}
 
-	public static NonNullBiConsumer<DataGenContext<Block, CartAssemblerBlock>, RegistrateBlockstateProvider> cartAssembler() {
+	public static NonNullBiConsumer<DataGenContext<Block, CartAssemblerBlock>, RegistrateBlockModelGenerator> cartAssembler() {
 		return (c, p) -> p.getVariantBuilder(c.get())
 			.forAllStates(state -> {
 				CartAssembleRailType type = state.getValue(CartAssemblerBlock.RAIL_TYPE);
@@ -225,20 +225,20 @@ public class BlockStateGen {
 			});
 	}
 
-	public static NonNullBiConsumer<DataGenContext<Block, BlazeBurnerBlock>, RegistrateBlockstateProvider> blazeHeater() {
+	public static NonNullBiConsumer<DataGenContext<Block, BlazeBurnerBlock>, RegistrateBlockModelGenerator> blazeHeater() {
 		return (c, p) -> ConfiguredModel.builder()
 			.modelFile(p.models()
 				.getExistingFile(p.modLoc("block/" + c.getName() + "/block")))
 			.build();
 	}
 
-	public static <B extends LinearChassisBlock> NonNullBiConsumer<DataGenContext<Block, B>, RegistrateBlockstateProvider> linearChassis() {
+	public static <B extends LinearChassisBlock> NonNullBiConsumer<DataGenContext<Block, B>, RegistrateBlockModelGenerator> linearChassis() {
 		return (c, p) -> {
 			Identifier side = p.modLoc("block/" + c.getName() + "_side");
 			Identifier top = p.modLoc("block/linear_chassis_end");
 			Identifier top_sticky = p.modLoc("block/linear_chassis_end_sticky");
 
-			List<ModelFile> models = new ArrayList<>(4);
+			List<Identifier> models = new ArrayList<>(4);
 			for (boolean isTopSticky : Iterate.trueAndFalse)
 				for (boolean isBottomSticky : Iterate.trueAndFalse)
 					models.add(p.models()
@@ -248,24 +248,24 @@ public class BlockStateGen {
 						.texture("side", side)
 						.texture("bottom", isBottomSticky ? top_sticky : top)
 						.texture("top", isTopSticky ? top_sticky : top));
-			BiFunction<Boolean, Boolean, ModelFile> modelFunc = (t, b) -> models.get((t ? 0 : 2) + (b ? 0 : 1));
+			BiFunction<Boolean, Boolean, Identifier> modelFunc = (t, b) -> models.get((t ? 0 : 2) + (b ? 0 : 1));
 
 			axisBlock(c, p, state -> modelFunc.apply(state.getValue(LinearChassisBlock.STICKY_TOP),
 				state.getValue(LinearChassisBlock.STICKY_BOTTOM)));
 		};
 	}
 
-	public static <B extends RadialChassisBlock> NonNullBiConsumer<DataGenContext<Block, B>, RegistrateBlockstateProvider> radialChassis() {
+	public static <B extends RadialChassisBlock> NonNullBiConsumer<DataGenContext<Block, B>, RegistrateBlockModelGenerator> radialChassis() {
 		return (c, p) -> {
 			String path = "block/" + c.getName();
 			Identifier side = p.modLoc(path + "_side");
 			Identifier side_sticky = p.modLoc(path + "_side_sticky");
 
 			String templateModelPath = "block/radial_chassis";
-			ModelFile base = p.models()
+			Identifier base = p.models()
 				.getExistingFile(p.modLoc(templateModelPath + "/base"));
-			List<ModelFile> faces = new ArrayList<>(3);
-			List<ModelFile> stickyFaces = new ArrayList<>(3);
+			List<Identifier> faces = new ArrayList<>(3);
+			List<Identifier> stickyFaces = new ArrayList<>(3);
 
 			for (Axis axis : Iterate.axes) {
 				String suffix = "side_" + axis.getSerializedName();
@@ -334,7 +334,7 @@ public class BlockStateGen {
 		};
 	}
 
-	public static <P extends Block> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockstateProvider> naturalStoneTypeBlock(
+	public static <P extends Block> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> naturalStoneTypeBlock(
 		String type) {
 		return (c, p) -> {
 			ConfiguredModel[] variants = new ConfiguredModel[4];
@@ -349,10 +349,10 @@ public class BlockStateGen {
 		};
 	}
 
-	public static <P extends EncasedPipeBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockstateProvider> encasedPipe() {
+	public static <P extends EncasedPipeBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> encasedPipe() {
 		return (c, p) -> {
-			ModelFile open = AssetLookup.partialBaseModel(c, p, "open");
-			ModelFile flat = AssetLookup.partialBaseModel(c, p, "flat");
+			Identifier open = AssetLookup.partialBaseModel(c, p, "open");
+			Identifier flat = AssetLookup.partialBaseModel(c, p, "flat");
 			MultiPartBlockStateBuilder builder = p.getMultipartBuilder(c.get());
 			for (boolean flatPass : Iterate.trueAndFalse)
 				for (Direction d : Iterate.directions) {
@@ -369,11 +369,10 @@ public class BlockStateGen {
 		};
 	}
 
-	public static <P extends TrapDoorBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockstateProvider> uvLockedTrapdoorBlock(
-		P block, ModelFile bottom, ModelFile top, ModelFile open) {
+	public static <P extends TrapDoorBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> uvLockedTrapdoorBlock(
+		P block, Identifier bottom, Identifier top, Identifier open) {
 		return (c, p) -> {
-			p.getVariantBuilder(block)
-				.forAllStatesExcept(state -> {
+			VariantModels.forAllStatesExcept(p, block, state -> {
 					int xRot = 0;
 					int yRot = ((int) state.getValue(TrapDoorBlock.FACING)
 						.toYRot()) + 180;
@@ -391,7 +390,7 @@ public class BlockStateGen {
 		};
 	}
 
-	public static <P extends WhistleExtenderBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockstateProvider> whistleExtender() {
+	public static <P extends WhistleExtenderBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> whistleExtender() {
 		return (c, p) -> {
 			BlockModelProvider models = p.models();
 			String basePath = "block/steam_whistle/extension/";
@@ -426,7 +425,7 @@ public class BlockStateGen {
 		};
 	}
 
-	public static <P extends FluidPipeBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockstateProvider> pipe() {
+	public static <P extends FluidPipeBlock> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> pipe() {
 		return (c, p) -> {
 			String path = "block/" + c.getName();
 
@@ -456,7 +455,7 @@ public class BlockStateGen {
 				.build();
 
 			Map<Axis, Identifier> coreTemplates = new IdentityHashMap<>();
-			Map<Pair<String, Axis>, ModelFile> coreModels = new HashMap<>();
+			Map<Pair<String, Axis>, Identifier> coreModels = new HashMap<>();
 
 			for (Axis axis : Iterate.axes)
 				coreTemplates.put(axis, p.modLoc(path + "/core_" + axis.getSerializedName()));
@@ -513,7 +512,7 @@ public class BlockStateGen {
 		};
 	}
 
-	private static void putPart(Map<Pair<String, Axis>, ModelFile> coreModels, MultiPartBlockStateBuilder builder,
+	private static void putPart(Map<Pair<String, Axis>, Identifier> coreModels, MultiPartBlockStateBuilder builder,
 		Axis axis, String s, boolean up, boolean down, boolean left, boolean right) {
 		Direction positiveAxis = Direction.get(AxisDirection.POSITIVE, axis);
 		Map<Direction, BooleanProperty> propertyMap = FluidPipeBlock.PROPERTY_BY_DIRECTION;
@@ -538,7 +537,7 @@ public class BlockStateGen {
 			.end();
 	}
 
-	public static Function<BlockState, ConfiguredModel[]> mapToAir(@NonnullType RegistrateBlockstateProvider p) {
+	public static Function<BlockState, ConfiguredModel[]> mapToAir(@NonnullType RegistrateBlockModelGenerator p) {
 		return state -> ConfiguredModel.builder()
 			.modelFile(p.models()
 				.getExistingFile(p.mcLoc("block/air")))

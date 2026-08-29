@@ -5,8 +5,8 @@ import java.util.List;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
-import com.tterrag.registrate.providers.RegistrateItemModelProvider;
+import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
+import com.tterrag.registrate.providers.generators.RegistrateItemModelGenerator;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
@@ -15,14 +15,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.client.model.generators.ModelFile.ExistingModelFile;
+
+import net.neoforged.neoforge.client.model.generators.Identifier.ExistingModelFile;
 
 public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 
-	private List<ModelFile> models;
+	private List<Identifier> models;
 
-	public static <I extends BlockItem> void diodeItemModel(DataGenContext<Item, I> c, RegistrateItemModelProvider p) {
+	public static <I extends BlockItem> void diodeItemModel(DataGenContext<Item, I> c, RegistrateItemModelGenerator p) {
 		String name = c.getName();
 		String path = "block/diodes/";
 		ItemModelBuilder builder = p.withExistingParent(name, p.modLoc(path + name));
@@ -39,13 +39,13 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 		return horizontalAngle(state.getValue(AbstractDiodeBlock.FACING));
 	}
 
-	protected abstract <T extends Block> List<ModelFile> createModels(DataGenContext<Block, T> ctx,
+	protected abstract <T extends Block> List<Identifier> createModels(DataGenContext<Block, T> ctx,
 																	  BlockModelProvider prov);
 
 	protected abstract int getModelIndex(BlockState state);
 
 	@Override
-	public final <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov,
+	public final <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
 		if (models == null)
 			models = createModels(ctx, prov.models());

@@ -318,8 +318,8 @@ import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+import com.simibubi.create.foundation.data.VariantModels.ConfiguredModel;
+
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.util.DeferredSoundType;
 
@@ -1163,7 +1163,7 @@ public class AllBlocks {
 					.getSerializedName();
 				String flipped = isFlipped ? "_flipped" : "";
 				String powered = isPowered ? "_powered" : "";
-				ModelFile existing = AssetLookup.partialBaseModel(c, p, partName);
+				Identifier existing = AssetLookup.partialBaseModel(c, p, partName);
 				if (!isPowered && !isFlipped)
 					return existing;
 				return p.models()

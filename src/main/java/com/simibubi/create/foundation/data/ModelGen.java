@@ -9,16 +9,16 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+
 
 public class ModelGen {
 
-	public static ModelFile createOvergrown(DataGenContext<Block, ? extends Block> ctx, BlockStateProvider prov,
+	public static Identifier createOvergrown(DataGenContext<Block, ? extends Block> ctx, BlockStateProvider prov,
 		Identifier block, Identifier overlay) {
 		return createOvergrown(ctx, prov, block, block, block, overlay);
 	}
 
-	public static ModelFile createOvergrown(DataGenContext<Block, ? extends Block> ctx, BlockStateProvider prov,
+	public static Identifier createOvergrown(DataGenContext<Block, ? extends Block> ctx, BlockStateProvider prov,
 		Identifier side, Identifier top, Identifier bottom, Identifier overlay) {
 		return prov.models()
 			.withExistingParent(ctx.getName(), Create.asResource("block/overgrown"))
