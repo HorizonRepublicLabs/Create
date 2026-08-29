@@ -10,7 +10,7 @@ import com.simibubi.create.foundation.particle.ICustomParticleDataWithSprite;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.client.particle.ParticleResources;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -47,7 +47,7 @@ public abstract class BasicParticleData<T extends Particle> implements ParticleO
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public ParticleEngine.SpriteParticleRegistration<BasicParticleData<T>> getMetaFactory() {
+	public ParticleResources.SpriteParticleRegistration<BasicParticleData<T>> getMetaFactory() {
 		return animatedSprite -> (data, worldIn, x, y, z, vx, vy, vz) ->
 			getBasicFactory().makeParticle(worldIn, x, y, z, vx, vy, vz, animatedSprite);
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.particle;
 
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+
 import net.minecraft.core.particles.ColorParticleOption;
 
 import org.jetbrains.annotations.NotNull;
@@ -11,14 +13,14 @@ import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-public class FluidStackParticle extends TextureSheetParticle {
+public class FluidStackParticle extends SingleQuadParticle {
 	private final float uo;
 	private final float vo;
 	private final FluidStack fluid;
@@ -33,14 +35,11 @@ public class FluidStackParticle extends TextureSheetParticle {
 
 	public FluidStackParticle(ClientLevel world, FluidStack fluid, double x, double y, double z, double vx, double vy,
 		double vz) {
-		super(world, x, y, z, vx, vy, vz);
+		super(world, x, y, z, vx, vy, vz, spriteFor(fluid));
 
 		clientFluid = IClientFluidTypeExtensions.of(fluid.getFluid());
 
 		this.fluid = fluid;
-		this.setSprite(Minecraft.getInstance()
-			.getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-			.apply(clientFluid.getStillTexture(fluid)));
 
 		this.gravity = 1.0F;
 		this.rCol = 0.8F;
@@ -110,9 +109,17 @@ public class FluidStackParticle extends TextureSheetParticle {
 		return fluid.getFluid() instanceof PotionFluid;
 	}
 
+	/// Particles declare a layer rather than a render type now.
 	@Override
-	public @NotNull ParticleRenderType getRenderType() {
-		return ParticleRenderType.TERRAIN_SHEET;
+	protected SingleQuadParticle.Layer getLayer() {
+		return SingleQuadParticle.Layer.TRANSLUCENT_TERRAIN;
+	}
+
+	private static TextureAtlasSprite spriteFor(FluidStack fluid) {
+		return Minecraft.getInstance()
+			.getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+			.apply(IClientFluidTypeExtensions.of(fluid.getFluid())
+				.getStillTexture(fluid));
 	}
 
 }
