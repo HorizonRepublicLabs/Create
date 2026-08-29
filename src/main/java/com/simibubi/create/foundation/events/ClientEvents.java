@@ -104,7 +104,7 @@ import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
-import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import net.neoforged.neoforge.client.event.RenderFrameEvent;
@@ -329,13 +329,13 @@ public class ClientEvents {
 		ItemStack divingHelmet = DivingHelmetItem.getWornItem(entity);
 		if (!divingHelmet.isEmpty()) {
 			if (FluidHelper.isWater(fluid)) {
+				// the fog event is no longer cancellable; the distances it carries
+				// are what vanilla reads, so setting them is the whole effect
 				event.scaleFarPlaneDistance(6.25f);
-				event.setCanceled(true);
 				return;
 			} else if (FluidHelper.isLava(fluid) && NetheriteDivingHandler.isNetheriteDivingHelmet(divingHelmet)) {
 				event.setNearPlaneDistance(-4.0f);
 				event.setFarPlaneDistance(20.0f);
-				event.setCanceled(true);
 				return;
 			}
 		}
@@ -355,9 +355,10 @@ public class ClientEvents {
 	}
 
 	@SubscribeEvent
-	public static void registerClientReloadListeners(RegisterClientReloadListenersEvent event) {
-		event.registerReloadListener(CreateClient.RESOURCE_RELOAD_LISTENER);
-		event.registerReloadListener(TrainHatInfoReloadListener.LISTENER);
+	public static void registerClientReloadListeners(AddClientReloadListenersEvent event) {
+		// reload listeners carry an identifier now so they can be ordered
+		event.addListener(Create.asResource("resource_reload"), CreateClient.RESOURCE_RELOAD_LISTENER);
+		event.addListener(Create.asResource("train_hat_info"), TrainHatInfoReloadListener.LISTENER);
 	}
 
 	@SubscribeEvent
