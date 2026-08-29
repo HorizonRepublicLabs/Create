@@ -402,9 +402,8 @@ public class BlueprintOverlayRenderer {
 					}
 					if ((mc.gui.getGuiTicks() / 40) % cycle != i)
 						continue;
-					guiGraphics.renderComponentTooltip(mc.gui.getFont(), tooltipLines, mc.getWindow()
-							.getGuiScaledWidth(),
-						mc.getWindow()
+					guiGraphics.setTooltipForNextFrame(mc.gui.getFont(), tooltipLines, java.util.Optional.empty(), mc.getWindow()
+							.getGuiScaledWidth(), mc.getWindow()
 							.getGuiScaledHeight());
 				}
 		}

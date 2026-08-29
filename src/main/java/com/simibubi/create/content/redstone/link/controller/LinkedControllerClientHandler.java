@@ -251,7 +251,7 @@ public class LinkedControllerClientHandler {
 		int y = height1 - height - 24;
 
 		// TODO
-		guiGraphics.renderComponentTooltip(Minecraft.getInstance().font, list, x, y);
+		guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, list, java.util.Optional.empty(), x, y);
 
 		poseStack.popPose();
 	}

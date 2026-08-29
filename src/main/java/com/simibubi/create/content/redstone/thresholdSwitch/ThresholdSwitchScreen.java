@@ -267,13 +267,11 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 		for (boolean power : Iterate.trueAndFalse) {
 			int thisTorchY = power ? torchY : torchY + 26;
 			if (mouseX >= torchX && mouseX < torchX + 16 && mouseY >= thisTorchY && mouseY < thisTorchY + 16) {
-				graphics.renderComponentTooltip(font,
-					List.of(CreateLang
+				graphics.setTooltipForNextFrame(font, List.of(CreateLang
 						.translate(power ^ blockEntity.isInverted() ? "gui.threshold_switch.power_on_when"
 							: "gui.threshold_switch.power_off_when")
 						.color(AbstractSimiWidget.HEADER_RGB)
-						.component()),
-					mouseX, mouseY);
+						.component()), java.util.Optional.empty(), mouseX, mouseY);
 				return;
 			}
 		}
