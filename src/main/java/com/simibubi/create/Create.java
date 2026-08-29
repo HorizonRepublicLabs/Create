@@ -114,7 +114,6 @@ public class Create {
 
 		AllSoundEvents.prepare();
 		AllCreativeModeTabs.register(modEventBus);
-		AllArmorMaterials.register(modEventBus);
 		AllDisplaySources.register();
 		AllDisplayTargets.register();
 		AllBlocks.register();

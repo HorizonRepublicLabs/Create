@@ -81,8 +81,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorItem.Type;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -348,7 +347,7 @@ public class AllItems {
 
 	public static final ItemEntry<? extends BaseArmorItem>
 
-		CARDBOARD_HELMET = REGISTRATE.item("cardboard_helmet", p -> new CardboardArmorItem(ArmorItem.Type.HELMET, p))
+		CARDBOARD_HELMET = REGISTRATE.item("cardboard_helmet", p -> new CardboardArmorItem(ArmorType.HELMET, p))
 		.properties(p -> p.durability(Type.HELMET.getDurability(4)))
 		.tag(ItemTags.HEAD_ARMOR)
 		.burnTime(1000)
@@ -358,7 +357,7 @@ public class AllItems {
 		.register(),
 
 	CARDBOARD_CHESTPLATE =
-		REGISTRATE.item("cardboard_chestplate", p -> new CardboardArmorItem(ArmorItem.Type.CHESTPLATE, p))
+		REGISTRATE.item("cardboard_chestplate", p -> new CardboardArmorItem(ArmorType.CHESTPLATE, p))
 			.properties(p -> p.durability(Type.CHESTPLATE.getDurability(4)))
 			.tag(ItemTags.CHEST_ARMOR)
 			.burnTime(1000)
@@ -367,7 +366,7 @@ public class AllItems {
 			.register(),
 
 	CARDBOARD_LEGGINGS =
-		REGISTRATE.item("cardboard_leggings", p -> new CardboardArmorItem(ArmorItem.Type.LEGGINGS, p))
+		REGISTRATE.item("cardboard_leggings", p -> new CardboardArmorItem(ArmorType.LEGGINGS, p))
 			.properties(p -> p.durability(Type.LEGGINGS.getDurability(4)))
 			.tag(ItemTags.LEG_ARMOR)
 			.burnTime(1000)
@@ -375,7 +374,7 @@ public class AllItems {
 			.model(() -> TrimmableArmorModelGenerator::generate)
 			.register(),
 
-	CARDBOARD_BOOTS = REGISTRATE.item("cardboard_boots", p -> new CardboardArmorItem(ArmorItem.Type.BOOTS, p))
+	CARDBOARD_BOOTS = REGISTRATE.item("cardboard_boots", p -> new CardboardArmorItem(ArmorType.BOOTS, p))
 		.properties(p -> p.durability(Type.BOOTS.getDurability(4)))
 		.tag(ItemTags.FOOT_ARMOR)
 		.burnTime(1000)

@@ -15,7 +15,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Block;
 
 public class BacktankItem extends BaseArmorItem {
 	public static final EquipmentSlot SLOT = EquipmentSlot.CHEST;
-	public static final ArmorItem.Type TYPE = ArmorItem.Type.CHESTPLATE;
+	public static final ArmorType TYPE = ArmorType.CHESTPLATE;
 	public static final int BAR_COLOR = 0xEFEFEF;
 
 	private final Supplier<BacktankBlockItem> blockItem;

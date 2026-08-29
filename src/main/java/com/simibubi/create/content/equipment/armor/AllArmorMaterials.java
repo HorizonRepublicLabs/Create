@@ -1,85 +1,40 @@
 package com.simibubi.create.content.equipment.armor;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.Map;
 
-import com.simibubi.create.AllItems;
+import com.google.common.collect.Maps;
+import com.simibubi.create.AllTags.AllItemTags;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.Create;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.equipment.ArmorMaterial;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 
-import org.jetbrains.annotations.ApiStatus.Internal;
-
+/// ArmorMaterial is a plain record in 26.x rather than a registry entry, and
+/// the armor texture comes from an equipment asset instead of an item hook.
 public class AllArmorMaterials {
-	private static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(Registries.ARMOR_MATERIAL, Create.ID);
+	public static final ResourceKey<EquipmentAsset> COPPER_ASSET = asset("copper");
+	public static final ResourceKey<EquipmentAsset> CARDBOARD_ASSET = asset("cardboard");
 
-	public static final Holder<ArmorMaterial> COPPER = register(
-				"copper",
-				new int[] { 2, 4, 3, 1, 4 },
-				7,
-				AllSoundEvents.COPPER_ARMOR_EQUIP.getMainEventHolder(),
-				0.0F,
-				0.0F,
-				() -> Ingredient.of(Items.COPPER_INGOT)
-			);
+	public static final ArmorMaterial COPPER = new ArmorMaterial(
+		11, defense(1, 3, 4, 2, 4), 7, AllSoundEvents.COPPER_ARMOR_EQUIP.getMainEventHolder(), 0.0F, 0.0F,
+		ItemTags.REPAIRS_COPPER_ARMOR, COPPER_ASSET);
 
-	public static final Holder<ArmorMaterial> CARDBOARD = register(
-				"cardboard",
-				new int[] { 1, 1, 1, 1, 2 },
-				4,
-				SoundEvents.ARMOR_EQUIP_LEATHER,
-				0.0F,
-				0.0F,
-				() -> Ingredient.of(AllItems.CARDBOARD)
-	);
+	public static final ArmorMaterial CARDBOARD = new ArmorMaterial(
+		5, defense(1, 1, 1, 1, 2), 4, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F,
+		AllItemTags.CARDBOARD_PLATES.tag, CARDBOARD_ASSET);
 
-	private static Holder<ArmorMaterial> register(
-			String name,
-			int[] defense,
-			int enchantmentValue,
-			Holder<SoundEvent> equipSound,
-			float toughness,
-			float knockbackResistance,
-			Supplier<Ingredient> repairIngredient
-	) {
-		List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(Create.asResource(name)));
-		return register(name, defense, enchantmentValue, equipSound, toughness, knockbackResistance, repairIngredient, list);
+	private static ResourceKey<EquipmentAsset> asset(String name) {
+		return ResourceKey.create(EquipmentAssets.ROOT_ID, Create.asResource(name));
 	}
 
-	private static Holder<ArmorMaterial> register(
-			String name,
-			int[] defense,
-			int enchantmentValue,
-			Holder<SoundEvent> equipSound,
-			float toughness,
-			float knockbackResistance,
-			Supplier<Ingredient> repairIngridient,
-			List<ArmorMaterial.Layer> layers
-	) {
-		EnumMap<ArmorItem.Type, Integer> enummap = new EnumMap<>(ArmorItem.Type.class);
-
-		for (ArmorItem.Type armoritem$type : ArmorItem.Type.values()) {
-			enummap.put(armoritem$type, defense[armoritem$type.ordinal()]);
-		}
-
-		return ARMOR_MATERIALS.register(name,
-				() -> new ArmorMaterial(enummap, enchantmentValue, equipSound, repairIngridient, layers, toughness, knockbackResistance)
-		);
-	}
-
-	@Internal
-	public static void register(IEventBus eventBus) {
-		ARMOR_MATERIALS.register(eventBus);
+	private static Map<ArmorType, Integer> defense(int boots, int legs, int chest, int helmet, int body) {
+		return Maps.newEnumMap(Map.of(ArmorType.BOOTS, boots, ArmorType.LEGGINGS, legs, ArmorType.CHESTPLATE, chest,
+			ArmorType.HELMET, helmet, ArmorType.BODY, body));
 	}
 }
