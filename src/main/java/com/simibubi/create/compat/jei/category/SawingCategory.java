@@ -27,7 +27,8 @@ public class SawingCategory extends CreateRecipeCategory<CuttingRecipe> {
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 44, 5)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.getIngredients().get(0));
+				.addIngredients(recipe.placementInfo()
+			.ingredients().get(0));
 
 		List<ProcessingOutput> results = recipe.getRollableResults();
 		int i = 0;

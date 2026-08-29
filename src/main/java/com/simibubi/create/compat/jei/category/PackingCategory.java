@@ -47,7 +47,8 @@ public class PackingCategory extends BasinCategory {
 		}
 
 		int i = 0;
-		NonNullList<Ingredient> ingredients = recipe.getIngredients();
+		NonNullList<Ingredient> ingredients = recipe.placementInfo()
+			.ingredients();
 		int size = ingredients.size();
 		int rows = size == 4 ? 2 : 3;
 		while (i < size) {

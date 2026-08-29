@@ -27,7 +27,8 @@ public class MillingCategory extends CreateRecipeCategory<AbstractCrushingRecipe
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 15, 9)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.getIngredients().get(0));
+				.addIngredients(recipe.placementInfo()
+			.ingredients().get(0));
 
 		List<ProcessingOutput> results = recipe.getRollableResults();
 		boolean single = results.size() == 1;

@@ -42,7 +42,8 @@ public class BasinCategory extends CreateRecipeCategory<BasinRecipe> {
 
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, BasinRecipe recipe, IFocusGroup focuses) {
-		List<Pair<Ingredient, MutableInt>> condensedIngredients = ItemHelper.condenseIngredients(recipe.getIngredients());
+		List<Pair<Ingredient, MutableInt>> condensedIngredients = ItemHelper.condenseIngredients(recipe.placementInfo()
+			.ingredients());
 
 		int size = condensedIngredients.size() + recipe.getFluidIngredients().size();
 		int xOffset = size < 3 ? (3 - size) * 19 / 2 : 0;

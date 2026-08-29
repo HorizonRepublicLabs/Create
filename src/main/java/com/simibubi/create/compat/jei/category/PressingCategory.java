@@ -27,7 +27,8 @@ public class PressingCategory extends CreateRecipeCategory<PressingRecipe> {
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 27, 51)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.getIngredients().get(0));
+				.addIngredients(recipe.placementInfo()
+			.ingredients().get(0));
 
 		List<ProcessingOutput> results = recipe.getRollableResults();
 		int i = 0;

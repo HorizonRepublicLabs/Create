@@ -162,7 +162,9 @@ public abstract class BasinOperatingBlockEntity extends KineticBlockEntity {
 					list.add(r.value());
 		}
 
-		list.sort((r1, r2) -> r2.getIngredients().size() - r1.getIngredients().size());
+		list.sort((r1, r2) -> r2.placementInfo()
+			.ingredients().size() - r1.placementInfo()
+			.ingredients().size());
 
 		return list;
 	}

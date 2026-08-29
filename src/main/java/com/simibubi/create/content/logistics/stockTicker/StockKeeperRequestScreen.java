@@ -1643,7 +1643,8 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 
 	private Pair<Integer, List<List<BigItemStack>>> maxCraftable(CraftableBigItemStack cbis, InventorySummary summary,
 																 Function<ItemStack, Integer> countModifier, int newTypeLimit) {
-		List<Ingredient> ingredients = cbis.getIngredients();
+		List<Ingredient> ingredients = cbis.placementInfo()
+			.ingredients();
 		List<List<BigItemStack>> validEntriesByIngredient = new ArrayList<>();
 		List<BigItemStack> alreadyCreated = new ArrayList<>();
 

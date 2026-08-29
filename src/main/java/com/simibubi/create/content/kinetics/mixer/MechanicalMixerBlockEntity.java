@@ -262,7 +262,8 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 	protected boolean matchStaticFilters(RecipeHolder<? extends Recipe<?>> recipe) {
 		Recipe<?> r = recipe.value();
 		return ((r instanceof CraftingRecipe && !(r instanceof ShapedRecipe)
-			&& AllConfigs.server().recipes.allowShapelessInMixer.get() && r.getIngredients()
+			&& AllConfigs.server().recipes.allowShapelessInMixer.get() && r.placementInfo()
+			.ingredients()
 			.size() > 1
 			&& !MechanicalPressBlockEntity.canCompress(r)) && !AllRecipeTypes.shouldIgnoreInAutomation(recipe)
 			|| r.getType() == AllRecipeTypes.MIXING.getType());

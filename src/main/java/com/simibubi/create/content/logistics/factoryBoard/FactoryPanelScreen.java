@@ -106,7 +106,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 	public static List<BigItemStack> convertRecipeToPackageOrderContext(CraftingRecipe availableCraftingRecipe, List<BigItemStack> inputs, boolean respectAmounts) {
 		List<BigItemStack> craftingIngredients = new ArrayList<>();
 		BigItemStack emptyIngredient = new BigItemStack(ItemStack.EMPTY, 1);
-		NonNullList<Ingredient> ingredients = availableCraftingRecipe.getIngredients();
+		NonNullList<Ingredient> ingredients = availableCraftingRecipe.placementInfo()
+			.ingredients();
 		List<BigItemStack> mutableInputs = BigItemStack.duplicateWrappers(inputs);
 
 		int width = Math.min(3, ingredients.size());
@@ -690,7 +691,8 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 					return false;
 
 				Set<Item> itemsUsed = new HashSet<>();
-				for (Ingredient ingredient : r.value().getIngredients()) {
+				for (Ingredient ingredient : r.value().placementInfo()
+			.ingredients()) {
 					if (ingredient.isEmpty())
 						continue;
 					boolean available = false;

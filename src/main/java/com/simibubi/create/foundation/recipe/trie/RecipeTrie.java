@@ -183,7 +183,8 @@ public class RecipeTrie<R extends Recipe<?>> {
 		private <R1 extends R> AbstractRecipe<R1> createRecipe(R1 recipe) {
 			Set<AbstractIngredient> ingredients = new HashSet<>();
 
-			for (Ingredient ingredient : recipe.getIngredients()) {
+			for (Ingredient ingredient : recipe.placementInfo()
+			.ingredients()) {
 				if (ingredient.isEmpty()) {
 					ingredients.add(AbstractIngredient.Universal.INSTANCE);
 					continue;

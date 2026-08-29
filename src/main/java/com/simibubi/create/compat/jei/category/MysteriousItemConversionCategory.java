@@ -36,7 +36,8 @@ public class MysteriousItemConversionCategory extends CreateRecipeCategory<Conve
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 27, 17)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.getIngredients().get(0));
+				.addIngredients(recipe.placementInfo()
+			.ingredients().get(0));
 		builder
 				.addSlot(RecipeIngredientRole.OUTPUT, 132, 17)
 				.setBackground(getRenderedSlot(), -1, -1)

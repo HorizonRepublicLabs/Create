@@ -190,7 +190,8 @@ public class CreateJEI implements IModPlugin {
 			autoShapeless = builder(BasinRecipe.class)
 				.enableWhen(AllConfigs.server().recipes.allowShapelessInMixer)
 				.addAllRecipesIf(r -> r.value() instanceof CraftingRecipe && !(r.value() instanceof ShapedRecipe)
-						&& r.value().getIngredients()
+						&& r.value().placementInfo()
+			.ingredients()
 						.size() > 1
 						&& !MechanicalPressBlockEntity.canCompress(r.value()) && !AllRecipeTypes.shouldIgnoreInAutomation(r),
 					BasinRecipe::convertShapeless)
@@ -290,7 +291,8 @@ public class CreateJEI implements IModPlugin {
 			autoShaped = builder(CraftingRecipe.class)
 				.enableWhen(AllConfigs.server().recipes.allowRegularCraftingInCrafter)
 				.addAllRecipesIf(r -> r.value() instanceof CraftingRecipe && !(r.value() instanceof ShapedRecipe)
-					&& r.value().getIngredients()
+					&& r.value().placementInfo()
+			.ingredients()
 					.size() == 1
 					&& !AllRecipeTypes.shouldIgnoreInAutomation(r))
 				.addTypedRecipesIf(() -> RecipeType.CRAFTING,
@@ -455,19 +457,23 @@ public class CreateJEI implements IModPlugin {
 	}
 
 	public static boolean doInputsMatch(Recipe<?> recipe1, Recipe<?> recipe2) {
-		if (recipe1.getIngredients()
+		if (recipe1.placementInfo()
+			.ingredients()
 			.isEmpty()
-			|| recipe2.getIngredients()
+			|| recipe2.placementInfo()
+			.ingredients()
 			.isEmpty()) {
 			return false;
 		}
-		ItemStack[] matchingStacks = recipe1.getIngredients()
+		ItemStack[] matchingStacks = recipe1.placementInfo()
+			.ingredients()
 			.getFirst()
 			.getItems();
 		if (matchingStacks.length == 0) {
 			return false;
 		}
-		return recipe2.getIngredients()
+		return recipe2.placementInfo()
+			.ingredients()
 			.getFirst()
 			.test(matchingStacks[0]);
 	}

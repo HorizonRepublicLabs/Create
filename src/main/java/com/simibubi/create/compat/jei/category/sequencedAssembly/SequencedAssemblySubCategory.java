@@ -110,7 +110,8 @@ public abstract class SequencedAssemblySubCategory {
 			IRecipeSlotBuilder slot = builder
 					.addSlot(RecipeIngredientRole.INPUT, x + 4, 15)
 					.setBackground(CreateRecipeCategory.getRenderedSlot(), -1, -1)
-					.addIngredients(recipe.getRecipe().getIngredients().get(1));
+					.addIngredients(recipe.getRecipe().placementInfo()
+			.ingredients().get(1));
 
 			if (recipe.getAsAssemblyRecipe() instanceof DeployerApplicationRecipe deployerRecipe && deployerRecipe.shouldKeepHeldItem()) {
 				slot.addTooltipCallback(

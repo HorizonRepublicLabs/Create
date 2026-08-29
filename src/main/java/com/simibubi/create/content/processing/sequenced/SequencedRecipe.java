@@ -45,7 +45,8 @@ public class SequencedRecipe<T extends ProcessingRecipe<?, ?>> {
 	void initFromSequencedAssembly(SequencedAssemblyRecipe parent, boolean isFirst) {
 		if (getAsAssemblyRecipe().supportsAssembly()) {
 			Ingredient transit = Ingredient.of(parent.getTransitionalItem());
-			wrapped.getIngredients()
+			wrapped.placementInfo()
+			.ingredients()
 					.set(0, isFirst ? CompoundIngredient.of(transit, parent.getIngredient()) : transit);
 		}
 	}

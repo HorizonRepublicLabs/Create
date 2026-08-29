@@ -59,7 +59,8 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 		IIngredientRenderer<ItemStack> renderer = new CrafterIngredientRenderer(recipe);
 		int i = 0;
 
-		for (Ingredient ingredient : recipe.getIngredients()) {
+		for (Ingredient ingredient : recipe.placementInfo()
+			.ingredients()) {
 			float f = 19 * scale;
 			int xPosition = (int) (x + 1 + (i % getWidth(recipe)) * f);
 			int yPosition = (int) (y + 1 + (i / getWidth(recipe)) * f);
@@ -108,10 +109,12 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 		for (int row = 0; row < getHeight(recipe); row++)
 			for (int col = 0; col < getWidth(recipe); col++) {
 				int pIndex = row * getWidth(recipe) + col;
-				if (pIndex >= recipe.getIngredients()
+				if (pIndex >= recipe.placementInfo()
+			.ingredients()
 					.size())
 					break;
-				if (recipe.getIngredients()
+				if (recipe.placementInfo()
+			.ingredients()
 					.get(pIndex)
 					.isEmpty())
 					continue;
@@ -132,7 +135,8 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 		matrixStack.translate(0, 0);
 
 		int amount = 0;
-		for (Ingredient ingredient : recipe.getIngredients()) {
+		for (Ingredient ingredient : recipe.placementInfo()
+			.ingredients()) {
 			if (Ingredient.EMPTY == ingredient)
 				continue;
 			amount++;

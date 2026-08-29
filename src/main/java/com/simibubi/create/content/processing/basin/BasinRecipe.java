@@ -78,7 +78,8 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 		List<ItemStack> recipeOutputItems = new ArrayList<>();
 		List<FluidStack> recipeOutputFluids = new ArrayList<>();
 
-		List<Ingredient> ingredients = new LinkedList<>(recipe.getIngredients());
+		List<Ingredient> ingredients = new LinkedList<>(recipe.placementInfo()
+			.ingredients());
 		List<SizedFluidIngredient> fluidIngredients =
 			isBasinRecipe ? ((BasinRecipe) recipe).getFluidIngredients() : Collections.emptyList();
 
@@ -178,7 +179,8 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 
 	public static RecipeHolder<BasinRecipe> convertShapeless(RecipeHolder<?> recipe) {
 		BasinRecipe basinRecipe =
-			new Builder<>(BasinRecipe::new, recipe.id()).withItemIngredients(recipe.value().getIngredients())
+			new Builder<>(BasinRecipe::new, recipe.id()).withItemIngredients(recipe.value().placementInfo()
+			.ingredients())
 				.withSingleItemOutput(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()))
 				.build();
 		return new RecipeHolder<>(recipe.id(), basinRecipe);
