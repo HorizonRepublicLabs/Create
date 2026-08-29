@@ -1,5 +1,9 @@
 package com.simibubi.create.content.fluids.tank;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import com.simibubi.create.foundation.model.DelegateModelPart;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import java.util.ArrayList;
@@ -43,30 +47,38 @@ public class FluidTankModel extends CTModel {
 		super(originalModel, new FluidTankCTBehaviour(side, top, inner));
 	}
 
+	/// Faces shared with a connected neighbour are dropped. Culling used to
+	/// happen by asking the delegate for one side at a time and skipping the
+	/// culled ones; parts report their quads per side, so the same choice is
+	/// made in the wrapper.
 	@Override
-	protected ModelData.Builder gatherModelData(Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state,
-		ModelData blockEntityData) {
-		super.gatherModelData(builder, world, pos, state, blockEntityData);
+	public void collectParts(BlockAndTintGetter level, BlockPos pos, BlockState state, RandomSource random,
+		List<BlockStateModelPart> parts) {
 		CullData cullData = new CullData();
 		for (Direction d : Iterate.horizontalDirections)
-			cullData.setCulled(d, ConnectivityHandler.isConnected(world, pos, pos.relative(d)));
-		return builder.with(CULL_PROPERTY, cullData);
+			cullData.setCulled(d, ConnectivityHandler.isConnected(level, pos, pos.relative(d)));
+
+		int first = parts.size();
+		super.collectParts(level, pos, state, random, parts);
+		for (int i = first; i < parts.size(); i++)
+			parts.set(i, new CulledPart(parts.get(i), cullData));
 	}
 
-	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, ModelData extraData, RenderType renderType) {
-		if (side != null)
-			return Collections.emptyList();
+	private static class CulledPart extends DelegateModelPart {
 
-		List<BakedQuad> quads = new ArrayList<>();
-		for (Direction d : Iterate.directions) {
-			if (extraData.has(CULL_PROPERTY) && extraData.get(CULL_PROPERTY)
-				.isCulled(d))
-				continue;
-			quads.addAll(super.getQuads(state, d, rand, extraData, renderType));
+		private final CullData cullData;
+
+		CulledPart(BlockStateModelPart wrapped, CullData cullData) {
+			super(wrapped);
+			this.cullData = cullData;
 		}
-		quads.addAll(super.getQuads(state, null, rand, extraData, renderType));
-		return quads;
+
+		@Override
+		public List<BakedQuad> getQuads(Direction direction) {
+			if (direction != null && cullData.isCulled(direction))
+				return List.of();
+			return wrapped.getQuads(direction);
+		}
 	}
 
 	private static class CullData {
