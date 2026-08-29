@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.bearing;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import org.jetbrains.annotations.Nullable;
@@ -53,7 +55,7 @@ public class StabilizedBearingMovementBehaviour implements MovementBehaviour {
 
 		Direction facing = context.state.getValue(BlockStateProperties.FACING);
 		PartialModel top = AllPartialModels.BEARING_TOP;
-		SuperByteBuffer superBuffer = CachedBuffers.partial(top, context.state);
+		SuperByteBuffer superBuffer = CreateCachedBuffers.partial(top, context.state);
 		float renderPartialTicks = AnimationTickHolder.getPartialTicks();
 
 		// rotate to match blockstate

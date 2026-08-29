@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort.frogport;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -26,7 +28,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 	@Override
 	protected void renderSafe(FrogportBlockEntity blockEntity, float partialTicks, PoseStack ms,
 		SuperRenderTypeBuffer buffer, int light, int overlay) {
-		SuperByteBuffer body = CachedBuffers.partial(AllPartialModels.FROGPORT_BODY, blockEntity.getBlockState());
+		SuperByteBuffer body = CreateCachedBuffers.partial(AllPartialModels.FROGPORT_BODY, blockEntity.getBlockState());
 
 		float yaw = blockEntity.getYaw();
 
@@ -102,7 +104,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 			.overlay(overlay)
 			.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
 
-		SuperByteBuffer head = CachedBuffers.partial(blockEntity.goggles ? AllPartialModels.FROGPORT_HEAD_GOGGLES : AllPartialModels.FROGPORT_HEAD, blockEntity.getBlockState());
+		SuperByteBuffer head = CreateCachedBuffers.partial(blockEntity.goggles ? AllPartialModels.FROGPORT_HEAD_GOGGLES : AllPartialModels.FROGPORT_HEAD, blockEntity.getBlockState());
 
 		head.center()
 			.rotateYDegrees(yaw)
@@ -116,7 +118,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 			.overlay(overlay)
 			.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
 
-		SuperByteBuffer tongue = CachedBuffers.partial(AllPartialModels.FROGPORT_TONGUE, blockEntity.getBlockState());
+		SuperByteBuffer tongue = CreateCachedBuffers.partial(AllPartialModels.FROGPORT_TONGUE, blockEntity.getBlockState());
 
 		tongue.center()
 			.rotateYDegrees(yaw)
@@ -132,7 +134,7 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 
 		// hat
 
-//		SuperByteBuffer hatBuffer = CachedBuffers.partial(AllPartialModels.TRAIN_HAT, blockEntity.getBlockState());
+//		SuperByteBuffer hatBuffer = CreateCachedBuffers.partial(AllPartialModels.TRAIN_HAT, blockEntity.getBlockState());
 //		hatBuffer
 //			.translate(8 / 16f, 14 / 16f, 8 / 16f)
 //			.rotateYDegrees(yaw + 180)
@@ -157,9 +159,9 @@ public class FrogportRenderer extends SmartBlockEntityRenderer<FrogportBlockEnti
 		if (key == BuiltInRegistries.ITEM.getDefaultKey())
 			return;
 		SuperByteBuffer rigBuffer =
-			CachedBuffers.partial(AllPartialModels.PACKAGE_RIGGING.get(key), blockEntity.getBlockState());
+			CreateCachedBuffers.partial(AllPartialModels.PACKAGE_RIGGING.get(key), blockEntity.getBlockState());
 		SuperByteBuffer boxBuffer =
-			CachedBuffers.partial(AllPartialModels.PACKAGES.get(key), blockEntity.getBlockState());
+			CreateCachedBuffers.partial(AllPartialModels.PACKAGES.get(key), blockEntity.getBlockState());
 
 		boolean animating = blockEntity.isAnimationInProgress();
 		boolean depositing = blockEntity.currentlyDepositing;

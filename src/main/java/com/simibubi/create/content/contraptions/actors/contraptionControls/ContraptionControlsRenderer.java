@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.contraptionControls;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -54,14 +56,14 @@ public class ContraptionControlsRenderer extends SmartBlockEntityRenderer<Contra
 		ms.translate(buttonOffset.x, buttonOffset.y, buttonOffset.z);
 
 		VertexConsumer vc = buffer.getBuffer(RenderType.solid());
-		CachedBuffers.partialFacing(AllPartialModels.CONTRAPTION_CONTROLS_BUTTON, blockState, facing)
+		CreateCachedBuffers.partialFacing(AllPartialModels.CONTRAPTION_CONTROLS_BUTTON, blockState, facing)
 			.light(light)
 			.renderInto(ms, vc);
 
 		ms.popPose();
 
 		int i = (((int) blockEntity.indicator.getValue(pt) / 45) % 8) + 8;
-		CachedBuffers.partialFacing(AllPartialModels.CONTRAPTION_CONTROLS_INDICATOR.get(i % 8), blockState, facing)
+		CreateCachedBuffers.partialFacing(AllPartialModels.CONTRAPTION_CONTROLS_INDICATOR.get(i % 8), blockState, facing)
 			.light(light)
 			.renderInto(ms, vc);
 	}
@@ -100,7 +102,7 @@ public class ContraptionControlsRenderer extends SmartBlockEntityRenderer<Contra
 		msr.translate(ctx.localPos);
 		ms.translate(0, buttondepth, 0);
 		VertexConsumer vc = buffer.getBuffer(RenderType.solid());
-		CachedBuffers.partialFacing(AllPartialModels.CONTRAPTION_CONTROLS_BUTTON, ctx.state, ctx.state.getValue(ContraptionControlsBlock.FACING).getOpposite())
+		CreateCachedBuffers.partialFacing(AllPartialModels.CONTRAPTION_CONTROLS_BUTTON, ctx.state, ctx.state.getValue(ContraptionControlsBlock.FACING).getOpposite())
 			.light(LevelRenderer.getLightColor(renderWorld, ctx.localPos))
 			.useLevelLight(ctx.world, matrices.getWorld())
 			.renderInto(ms, vc);

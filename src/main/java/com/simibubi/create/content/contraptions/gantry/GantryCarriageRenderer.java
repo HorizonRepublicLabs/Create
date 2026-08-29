@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.gantry;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -55,7 +57,7 @@ public class GantryCarriageRenderer extends KineticBlockEntityRenderer<GantryCar
 			if (facing == Direction.NORTH || facing == Direction.EAST)
 				angleForBE *= -1;
 
-		SuperByteBuffer cogs = CachedBuffers.partial(AllPartialModels.GANTRY_COGS, state);
+		SuperByteBuffer cogs = CreateCachedBuffers.partial(AllPartialModels.GANTRY_COGS, state);
 		cogs.center()
 				.rotateYDegrees(AngleHelper.horizontalAngle(facing))
 				.rotateXDegrees(facing == Direction.UP ? 0 : facing == Direction.DOWN ? 180 : 90)

@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -100,8 +102,8 @@ public class CreateClient {
 		//BUFFER_CACHE.registerCompartment(ContraptionRenderInfo.CONTRAPTION, 20);
 		//BUFFER_CACHE.registerCompartment(WorldSectionElement.DOC_WORLD_SECTION, 20);
 
-		SuperByteBufferCache.getInstance().registerCompartment(CachedBuffers.PARTIAL);
-		SuperByteBufferCache.getInstance().registerCompartment(CachedBuffers.DIRECTIONAL_PARTIAL);
+		SuperByteBufferCache.getInstance().registerCompartment(CreateCachedBuffers.PARTIAL);
+		SuperByteBufferCache.getInstance().registerCompartment(CreateCachedBuffers.DIRECTIONAL_PARTIAL);
 		SuperByteBufferCache.getInstance().registerCompartment(KineticBlockEntityRenderer.KINETIC_BLOCK);
 		SuperByteBufferCache.getInstance().registerCompartment(WaterWheelRenderer.WATER_WHEEL);
 		SuperByteBufferCache.getInstance().registerCompartment(ContraptionEntityRenderer.CONTRAPTION, 20);

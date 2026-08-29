@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.simpleRelays.encased;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -59,7 +61,7 @@ public class EncasedCogRenderer extends KineticBlockEntityRenderer<SimpleKinetic
 		for (Direction d : Iterate.directionsInAxis(getRotationAxisOf(be))) {
 			if (!def.hasShaftTowards(be.getLevel(), be.getBlockPos(), blockState, d))
 				continue;
-			SuperByteBuffer shaft = CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), d);
+			SuperByteBuffer shaft = CreateCachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), d);
 			kineticRotationTransform(shaft, be, axis, angle, light);
 			shaft.renderInto(ms, buffer.getBuffer(RenderType.solid()));
 		}
@@ -67,7 +69,7 @@ public class EncasedCogRenderer extends KineticBlockEntityRenderer<SimpleKinetic
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(SimpleKineticBlockEntity be, BlockState state) {
-		return CachedBuffers.partialFacingVertical(
+		return CreateCachedBuffers.partialFacingVertical(
 			large ? AllPartialModels.SHAFTLESS_LARGE_COGWHEEL : AllPartialModels.SHAFTLESS_COGWHEEL, state,
 			Direction.fromAxisAndDirection(state.getValue(EncasedCogwheelBlock.AXIS), AxisDirection.POSITIVE));
 	}

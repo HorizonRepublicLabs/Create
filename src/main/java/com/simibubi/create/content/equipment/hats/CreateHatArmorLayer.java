@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.hats;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.ArrayList;
@@ -82,7 +84,7 @@ public class CreateHatArmorLayer<T extends LivingEntity, M extends EntityModel<T
 			ms.translate(0, -2.25F / 16.0F, 0);
 			msr.rotateXDegrees(-8.5F);
 			BlockState air = Blocks.AIR.defaultBlockState();
-			CachedBuffers.partial(hat, air)
+			CreateCachedBuffers.partial(hat, air)
 				.disableDiffuse()
 				.light(light)
 				.renderInto(ms, buffer.getBuffer(Sheets.cutoutBlockSheet()));

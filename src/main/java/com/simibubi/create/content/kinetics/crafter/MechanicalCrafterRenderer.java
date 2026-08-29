@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
@@ -171,7 +173,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 
 		if (!VisualizationManager.supportsVisualization(be.getLevel())) {
-			SuperByteBuffer superBuffer = CachedBuffers.partial(AllPartialModels.SHAFTLESS_COGWHEEL, blockState);
+			SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.SHAFTLESS_COGWHEEL, blockState);
 			standardKineticRotationTransform(superBuffer, be, light);
 			superBuffer.rotateCentered((float) (blockState.getValue(HORIZONTAL_FACING)
 				.getAxis() != Direction.Axis.X ? 0 : Math.PI / 2), Direction.UP);
@@ -212,7 +214,7 @@ public class MechanicalCrafterRenderer extends SafeBlockEntityRenderer<Mechanica
 	}
 
 	private SuperByteBuffer renderAndTransform(PartialModel renderBlock, BlockState crafterState) {
-		SuperByteBuffer buffer = CachedBuffers.partial(renderBlock, crafterState);
+		SuperByteBuffer buffer = CreateCachedBuffers.partial(renderBlock, crafterState);
 		float xRot = crafterState.getValue(MechanicalCrafterBlock.POINTING)
 			.getXRotation();
 		float yRot = AngleHelper.horizontalAngle(crafterState.getValue(HORIZONTAL_FACING));

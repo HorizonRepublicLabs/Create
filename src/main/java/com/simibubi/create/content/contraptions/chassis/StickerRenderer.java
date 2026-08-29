@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.chassis;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -29,7 +31,7 @@ public class StickerRenderer extends SafeBlockEntityRenderer<StickerBlockEntity>
 		if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 
 		BlockState state = be.getBlockState();
-		SuperByteBuffer head = CachedBuffers.partial(AllPartialModels.STICKER_HEAD, state);
+		SuperByteBuffer head = CreateCachedBuffers.partial(AllPartialModels.STICKER_HEAD, state);
 		float offset = be.piston.getValue(AnimationTickHolder.getPartialTicks(be.getLevel()));
 
 		if (be.getLevel() != Minecraft.getInstance().level && !be.isVirtual())

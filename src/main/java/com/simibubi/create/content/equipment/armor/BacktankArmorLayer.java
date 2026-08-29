@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -51,8 +53,8 @@ public class BacktankArmorLayer<T extends LivingEntity, M extends EntityModel<T>
 		BlockState renderedState = item.getBlock().defaultBlockState()
 			.setValue(BacktankBlock.HORIZONTAL_FACING, Direction.SOUTH);
 		SuperByteBuffer backtank = CachedBuffers.block(renderedState);
-		SuperByteBuffer cogs = CachedBuffers.partial(BacktankRenderer.getCogsModel(renderedState), renderedState);
-		SuperByteBuffer nob = CachedBuffers.partial(BacktankRenderer.getShaftModel(renderedState), renderedState);
+		SuperByteBuffer cogs = CreateCachedBuffers.partial(BacktankRenderer.getCogsModel(renderedState), renderedState);
+		SuperByteBuffer nob = CreateCachedBuffers.partial(BacktankRenderer.getShaftModel(renderedState), renderedState);
 
 		ms.pushPose();
 

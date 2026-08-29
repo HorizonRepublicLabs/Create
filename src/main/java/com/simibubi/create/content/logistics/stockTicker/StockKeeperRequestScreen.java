@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import org.joml.Matrix3x2fStack;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -536,7 +538,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			Lighting.setupForEntityInInventory();
 
 			VertexConsumer cutout = graphics.bufferSource().getBuffer(RenderType.cutoutMipped());
-			CachedBuffers.partial(AllPartialModels.BLAZE_CAGE, keeperBE.getBlockState())
+			CreateCachedBuffers.partial(AllPartialModels.BLAZE_CAGE, keeperBE.getBlockState())
 				.rotateCentered(horizontalAngle + Mth.PI, Direction.UP)
 				.light(LightCoordsUtil.FULL_BRIGHT)
 				.renderInto(ms, cutout);

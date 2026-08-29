@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -97,13 +99,13 @@ public class FluidTankRenderer extends SafeBlockEntityRenderer<FluidTankBlockEnt
 				continue;
 			ms.pushPose();
 			float yRot = -d.toYRot() - 90;
-			CachedBuffers.partial(AllPartialModels.BOILER_GAUGE, blockState)
+			CreateCachedBuffers.partial(AllPartialModels.BOILER_GAUGE, blockState)
 				.rotateYDegrees(yRot)
 				.uncenter()
 				.translate(be.width / 2f - 6 / 16f, 0, 0)
 				.light(light)
 				.renderInto(ms, vb);
-			CachedBuffers.partial(AllPartialModels.BOILER_GAUGE_DIAL, blockState)
+			CreateCachedBuffers.partial(AllPartialModels.BOILER_GAUGE_DIAL, blockState)
 				.rotateYDegrees(yRot)
 				.uncenter()
 				.translate(be.width / 2f - 6 / 16f, 0, 0)

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import org.jetbrains.annotations.Nullable;
@@ -92,7 +94,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 
 		var blazeModel = getBlazeModel(heatLevel, blockAbove);
 
-		SuperByteBuffer blazeBuffer = CachedBuffers.partial(blazeModel, blockState);
+		SuperByteBuffer blazeBuffer = CreateCachedBuffers.partial(blazeModel, blockState);
 		if (modelTransform != null)
 			blazeBuffer.transform(modelTransform);
 		blazeBuffer.translate(0, headY, 0);
@@ -102,7 +104,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 			PartialModel gogglesModel = blazeModel == AllPartialModels.BLAZE_INERT
 					? AllPartialModels.BLAZE_GOGGLES_SMALL : AllPartialModels.BLAZE_GOGGLES;
 
-			SuperByteBuffer gogglesBuffer = CachedBuffers.partial(gogglesModel, blockState);
+			SuperByteBuffer gogglesBuffer = CreateCachedBuffers.partial(gogglesModel, blockState);
 			if (modelTransform != null)
 				gogglesBuffer.transform(modelTransform);
 			gogglesBuffer.translate(0, headY + 8 / 16f, 0);
@@ -110,7 +112,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 		}
 
 		if (drawHat != null) {
-			SuperByteBuffer hatBuffer = CachedBuffers.partial(drawHat, blockState);
+			SuperByteBuffer hatBuffer = CreateCachedBuffers.partial(drawHat, blockState);
 			if (modelTransform != null)
 				hatBuffer.transform(modelTransform);
 			hatBuffer.translate(0, headY, 0);
@@ -136,14 +138,14 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 			PartialModel rodsModel2 = heatLevel == HeatLevel.SEETHING ? AllPartialModels.BLAZE_BURNER_SUPER_RODS_2
 					: AllPartialModels.BLAZE_BURNER_RODS_2;
 
-			SuperByteBuffer rodsBuffer = CachedBuffers.partial(rodsModel, blockState);
+			SuperByteBuffer rodsBuffer = CreateCachedBuffers.partial(rodsModel, blockState);
 			if (modelTransform != null)
 				rodsBuffer.transform(modelTransform);
 			rodsBuffer.translate(0, offset1 + animation + .125f, 0)
 					.light(LightCoordsUtil.FULL_BRIGHT)
 					.renderInto(ms, bufferSource.getBuffer(RenderType.solid()));
 
-			SuperByteBuffer rodsBuffer2 = CachedBuffers.partial(rodsModel2, blockState);
+			SuperByteBuffer rodsBuffer2 = CreateCachedBuffers.partial(rodsModel2, blockState);
 			if (modelTransform != null)
 				rodsBuffer2.transform(modelTransform);
 			rodsBuffer2.translate(0, offset2 + animation - 3 / 16f, 0)
@@ -175,7 +177,7 @@ public class BlazeBurnerRenderer extends SafeBlockEntityRenderer<BlazeBurnerBloc
 			uScroll = uScroll - Math.floor(uScroll);
 			uScroll = uScroll * spriteWidth / 2;
 
-			SuperByteBuffer flameBuffer = CachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, blockState);
+			SuperByteBuffer flameBuffer = CreateCachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, blockState);
 			if (modelTransform != null)
 				flameBuffer.transform(modelTransform);
 			flameBuffer.shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll);

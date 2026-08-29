@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.pipes.valve;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -31,7 +33,7 @@ public class FluidValveRenderer extends KineticBlockEntityRenderer<FluidValveBlo
 
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 		BlockState blockState = be.getBlockState();
-		SuperByteBuffer pointer = CachedBuffers.partial(AllPartialModels.FLUID_VALVE_POINTER, blockState);
+		SuperByteBuffer pointer = CreateCachedBuffers.partial(AllPartialModels.FLUID_VALVE_POINTER, blockState);
 		Direction facing = blockState.getValue(FluidValveBlock.FACING);
 
 		float pointerRotation = Mth.lerp(be.pointer.getValue(partialTicks), 0, -90);

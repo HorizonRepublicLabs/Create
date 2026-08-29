@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -101,7 +103,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 
 				PartialModel beltPartial = getBeltPartial(diagonal, start, end, bottom);
 
-				SuperByteBuffer beltBuffer = CachedBuffers.partial(beltPartial, blockState)
+				SuperByteBuffer beltBuffer = CreateCachedBuffers.partial(beltPartial, blockState)
 					.light(light);
 
 				SpriteShiftEntry spriteShift = getSpriteShiftEntry(color, diagonal, bottom);
@@ -153,7 +155,7 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 					return stack;
 				};
 
-				SuperByteBuffer superBuffer = CachedBuffers.partialDirectional(AllPartialModels.BELT_PULLEY,
+				SuperByteBuffer superBuffer = CreateCachedBuffers.partialDirectional(AllPartialModels.BELT_PULLEY,
 					blockState, dir, matrixStackSupplier);
 				KineticBlockEntityRenderer.standardKineticRotationTransform(superBuffer, be, light)
 					.renderInto(ms, vb);

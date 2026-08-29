@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.clock;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -37,8 +39,8 @@ public class CuckooClockRenderer extends KineticBlockEntityRenderer<CuckooClockB
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 
 		// Render Hands
-		SuperByteBuffer hourHand = CachedBuffers.partial(AllPartialModels.CUCKOO_HOUR_HAND, blockState);
-		SuperByteBuffer minuteHand = CachedBuffers.partial(AllPartialModels.CUCKOO_MINUTE_HAND, blockState);
+		SuperByteBuffer hourHand = CreateCachedBuffers.partial(AllPartialModels.CUCKOO_HOUR_HAND, blockState);
+		SuperByteBuffer minuteHand = CreateCachedBuffers.partial(AllPartialModels.CUCKOO_MINUTE_HAND, blockState);
 		float hourAngle = be.hourHand.getValue(partialTicks);
 		float minuteAngle = be.minuteHand.getValue(partialTicks);
 		rotateHand(hourHand, hourAngle, direction).light(light)
@@ -47,8 +49,8 @@ public class CuckooClockRenderer extends KineticBlockEntityRenderer<CuckooClockB
 				.renderInto(ms, vb);
 
 		// Doors
-		SuperByteBuffer leftDoor = CachedBuffers.partial(AllPartialModels.CUCKOO_LEFT_DOOR, blockState);
-		SuperByteBuffer rightDoor = CachedBuffers.partial(AllPartialModels.CUCKOO_RIGHT_DOOR, blockState);
+		SuperByteBuffer leftDoor = CreateCachedBuffers.partial(AllPartialModels.CUCKOO_LEFT_DOOR, blockState);
+		SuperByteBuffer rightDoor = CreateCachedBuffers.partial(AllPartialModels.CUCKOO_RIGHT_DOOR, blockState);
 		float angle = 0;
 		float offset = 0;
 
@@ -79,7 +81,7 @@ public class CuckooClockRenderer extends KineticBlockEntityRenderer<CuckooClockB
 			offset = -(angle / 135) * 1 / 2f + 10 / 16f;
 			PartialModel partialModel = (be.animationType == Animation.PIG ? AllPartialModels.CUCKOO_PIG : AllPartialModels.CUCKOO_CREEPER);
 			SuperByteBuffer figure =
-					CachedBuffers.partial(partialModel, blockState);
+					CreateCachedBuffers.partial(partialModel, blockState);
 			figure.rotateCentered(AngleHelper.rad(AngleHelper.horizontalAngle(direction.getCounterClockWise())), Direction.UP);
 			figure.translate(offset, 0, 0);
 			figure.light(light)
@@ -90,7 +92,7 @@ public class CuckooClockRenderer extends KineticBlockEntityRenderer<CuckooClockB
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(CuckooClockBlockEntity be, BlockState state) {
-		return CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, state, state
+		return CreateCachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, state, state
 				.getValue(CuckooClockBlock.HORIZONTAL_FACING)
 				.getOpposite());
 	}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tunnel;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -30,7 +32,7 @@ public class BeltTunnelRenderer extends SmartBlockEntityRenderer<BeltTunnelBlock
 		if (VisualizationManager.supportsVisualization(be.getLevel()))
 			return;
 
-		SuperByteBuffer flapBuffer = CachedBuffers.partial(AllPartialModels.BELT_TUNNEL_FLAP, be.getBlockState());
+		SuperByteBuffer flapBuffer = CreateCachedBuffers.partial(AllPartialModels.BELT_TUNNEL_FLAP, be.getBlockState());
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 
 		for (Direction direction : Iterate.directions) {

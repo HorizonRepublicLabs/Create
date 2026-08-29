@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packager;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -42,7 +44,7 @@ public class PackagerRenderer extends SmartBlockEntityRenderer<PackagerBlockEnti
 		if (!VisualizationManager.supportsVisualization(be.getLevel())) {
 			var hatchModel = getHatchModel(be);
 
-			SuperByteBuffer sbb = CachedBuffers.partial(hatchModel, blockState);
+			SuperByteBuffer sbb = CreateCachedBuffers.partial(hatchModel, blockState);
 			sbb.translate(Vec3.atLowerCornerOf(facing.getUnitVec3i())
 					.scale(.49999f))
 				.rotateYCenteredDegrees(AngleHelper.horizontalAngle(facing))
@@ -50,7 +52,7 @@ public class PackagerRenderer extends SmartBlockEntityRenderer<PackagerBlockEnti
 				.light(light)
 				.renderInto(ms, buffer.getBuffer(RenderType.solid()));
 
-			sbb = CachedBuffers.partial(getTrayModel(blockState), blockState);
+			sbb = CreateCachedBuffers.partial(getTrayModel(blockState), blockState);
 			sbb.translate(Vec3.atLowerCornerOf(facing.getUnitVec3i())
 					.scale(trayOffset))
 				.rotateYCenteredDegrees(facing.toYRot())

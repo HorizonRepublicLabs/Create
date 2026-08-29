@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -100,7 +102,7 @@ public class StationRenderer extends SafeBlockEntityRenderer<StationBlockEntity>
 
 			if (valid != -1) {
 				int lightColor = LevelRenderer.getLightColor(level, currentPos);
-				SuperByteBuffer sbb = CachedBuffers.partial(assemblyOverlay, trackState);
+				SuperByteBuffer sbb = CreateCachedBuffers.partial(assemblyOverlay, trackState);
 				sbb.color(valid);
 				sbb.light(lightColor);
 				sbb.renderInto(ms, vb);
@@ -116,7 +118,7 @@ public class StationRenderer extends SafeBlockEntityRenderer<StationBlockEntity>
 								  SuperRenderTypeBuffer buffer, int light, int overlay) {
 		if (!be.resolveFlagAngle())
 			return;
-		SuperByteBuffer flagBB = CachedBuffers.partial(flag, be.getBlockState());
+		SuperByteBuffer flagBB = CreateCachedBuffers.partial(flag, be.getBlockState());
 		transformFlag(flagBB, be, partialTicks, be.flagYRot, be.flagFlipped);
 		flagBB.translate(0.5f / 16, 0, 0)
 			.rotateYDegrees(be.flagFlipped ? 0 : 180)

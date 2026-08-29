@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mixer;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -37,7 +39,7 @@ public class MechanicalMixerRenderer extends KineticBlockEntityRenderer<Mechanic
 
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 
-		SuperByteBuffer superBuffer = CachedBuffers.partial(AllPartialModels.SHAFTLESS_COGWHEEL, blockState);
+		SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.SHAFTLESS_COGWHEEL, blockState);
 		standardKineticRotationTransform(superBuffer, be, light).renderInto(ms, vb);
 
 		float renderedHeadOffset = be.getRenderedHeadOffset(partialTicks);
@@ -45,13 +47,13 @@ public class MechanicalMixerRenderer extends KineticBlockEntityRenderer<Mechanic
 		float time = AnimationTickHolder.getRenderTime(be.getLevel());
 		float angle = ((time * speed * 6 / 10f) % 360) / 180 * (float) Math.PI;
 
-		SuperByteBuffer poleRender = CachedBuffers.partial(AllPartialModels.MECHANICAL_MIXER_POLE, blockState);
+		SuperByteBuffer poleRender = CreateCachedBuffers.partial(AllPartialModels.MECHANICAL_MIXER_POLE, blockState);
 		poleRender.translate(0, -renderedHeadOffset, 0)
 				.light(light)
 				.renderInto(ms, vb);
 
 		VertexConsumer vbCutout = buffer.getBuffer(RenderType.cutoutMipped());
-		SuperByteBuffer headRender = CachedBuffers.partial(AllPartialModels.MECHANICAL_MIXER_HEAD, blockState);
+		SuperByteBuffer headRender = CreateCachedBuffers.partial(AllPartialModels.MECHANICAL_MIXER_HEAD, blockState);
 		headRender.rotateCentered(angle, Direction.UP)
 				.translate(0, -renderedHeadOffset, 0)
 				.light(light)

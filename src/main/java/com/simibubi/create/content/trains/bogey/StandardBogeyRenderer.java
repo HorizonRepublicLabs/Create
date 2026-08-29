@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.bogey;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -44,13 +46,13 @@ public class StandardBogeyRenderer implements BogeyRenderer {
 
 			VertexConsumer buffer = bufferSource.getBuffer(RenderType.cutoutMipped());
 
-			CachedBuffers.partial(AllPartialModels.BOGEY_FRAME, Blocks.AIR.defaultBlockState())
+			CreateCachedBuffers.partial(AllPartialModels.BOGEY_FRAME, Blocks.AIR.defaultBlockState())
 					.scale(1 - 1 / 512f)
 					.light(light)
 					.overlay(overlay)
 					.renderInto(poseStack, buffer);
 
-			SuperByteBuffer wheels = CachedBuffers.partial(AllPartialModels.SMALL_BOGEY_WHEELS, Blocks.AIR.defaultBlockState());
+			SuperByteBuffer wheels = CreateCachedBuffers.partial(AllPartialModels.SMALL_BOGEY_WHEELS, Blocks.AIR.defaultBlockState());
 			for (int side : Iterate.positiveAndNegative) {
 				wheels.translate(0, 12 / 16f, side)
 					.rotateXDegrees(wheelAngle)
@@ -83,7 +85,7 @@ public class StandardBogeyRenderer implements BogeyRenderer {
 						.renderInto(poseStack, buffer);
 			}
 
-			CachedBuffers.partial(AllPartialModels.BOGEY_DRIVE, Blocks.AIR.defaultBlockState())
+			CreateCachedBuffers.partial(AllPartialModels.BOGEY_DRIVE, Blocks.AIR.defaultBlockState())
 					.scale(1 - 1 / 512f)
 					.light(light)
 					.overlay(overlay)
@@ -98,27 +100,27 @@ public class StandardBogeyRenderer implements BogeyRenderer {
 			scroll = scroll - Mth.floor(scroll);
 			scroll = scroll * spriteSize * 0.5f;
 
-			CachedBuffers.partial(AllPartialModels.BOGEY_DRIVE_BELT, Blocks.AIR.defaultBlockState())
+			CreateCachedBuffers.partial(AllPartialModels.BOGEY_DRIVE_BELT, Blocks.AIR.defaultBlockState())
 					.scale(1 - 1 / 512f)
 					.light(light)
 					.overlay(overlay)
 					.shiftUVScrolling(AllSpriteShifts.BOGEY_BELT, scroll)
 					.renderInto(poseStack, buffer);
 
-			CachedBuffers.partial(AllPartialModels.BOGEY_PISTON, Blocks.AIR.defaultBlockState())
+			CreateCachedBuffers.partial(AllPartialModels.BOGEY_PISTON, Blocks.AIR.defaultBlockState())
 					.translate(0, 0, 1 / 4f * Math.sin(AngleHelper.rad(wheelAngle)))
 					.light(light)
 					.overlay(overlay)
 					.renderInto(poseStack, buffer);
 
-			CachedBuffers.partial(AllPartialModels.LARGE_BOGEY_WHEELS, Blocks.AIR.defaultBlockState())
+			CreateCachedBuffers.partial(AllPartialModels.LARGE_BOGEY_WHEELS, Blocks.AIR.defaultBlockState())
 					.translate(0, 1, 0)
 					.rotateXDegrees(wheelAngle)
 					.light(light)
 					.overlay(overlay)
 					.renderInto(poseStack, buffer);
 
-			CachedBuffers.partial(AllPartialModels.BOGEY_PIN, Blocks.AIR.defaultBlockState())
+			CreateCachedBuffers.partial(AllPartialModels.BOGEY_PIN, Blocks.AIR.defaultBlockState())
 					.translate(0, 1, 0)
 					.rotateXDegrees(wheelAngle)
 					.translate(0, 1 / 4f, 0)

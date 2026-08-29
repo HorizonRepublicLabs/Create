@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -28,7 +30,7 @@ public class BacktankRenderer extends KineticBlockEntityRenderer<BacktankBlockEn
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 
 		BlockState blockState = be.getBlockState();
-		SuperByteBuffer cogs = CachedBuffers.partial(getCogsModel(blockState), blockState);
+		SuperByteBuffer cogs = CreateCachedBuffers.partial(getCogsModel(blockState), blockState);
 		cogs.center()
 			.rotateYDegrees(180 + AngleHelper.horizontalAngle(blockState.getValue(BacktankBlock.HORIZONTAL_FACING)))
 			.uncenter()
@@ -42,7 +44,7 @@ public class BacktankRenderer extends KineticBlockEntityRenderer<BacktankBlockEn
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(BacktankBlockEntity be, BlockState state) {
-		return CachedBuffers.partial(getShaftModel(state), state);
+		return CreateCachedBuffers.partial(getShaftModel(state), state);
 	}
 
 	public static PartialModel getCogsModel(BlockState state) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.chainConveyor;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.List;
@@ -58,7 +60,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 		if (VisualizationManager.supportsVisualization(be.getLevel()))
 			return;
 
-		CachedBuffers.partial(AllPartialModels.CHAIN_CONVEYOR_WHEEL, be.getBlockState())
+		CreateCachedBuffers.partial(AllPartialModels.CHAIN_CONVEYOR_WHEEL, be.getBlockState())
 			.light(light)
 			.overlay(overlay)
 			.renderInto(ms, buffer.getBuffer(RenderType.cutoutMipped()));
@@ -101,9 +103,9 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 		}
 
 		SuperByteBuffer rigBuffer =
-			CachedBuffers.partial(AllPartialModels.PACKAGE_RIGGING.get(physicsData.modelKey), blockState);
+			CreateCachedBuffers.partial(AllPartialModels.PACKAGE_RIGGING.get(physicsData.modelKey), blockState);
 		SuperByteBuffer boxBuffer =
-			CachedBuffers.partial(AllPartialModels.PACKAGES.get(physicsData.modelKey), blockState);
+			CreateCachedBuffers.partial(AllPartialModels.PACKAGES.get(physicsData.modelKey), blockState);
 
 		Vec3 dangleDiff = VecHelper.rotate(targetPosition.add(0, 0.5, 0)
 			.subtract(position), -yaw, Axis.Y);
@@ -159,7 +161,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 
 			if (!VisualizationManager.supportsVisualization(be.getLevel())) {
 				SuperByteBuffer guard =
-					CachedBuffers.partial(AllPartialModels.CHAIN_CONVEYOR_GUARD, be.getBlockState());
+					CreateCachedBuffers.partial(AllPartialModels.CHAIN_CONVEYOR_GUARD, be.getBlockState());
 				guard.center();
 				guard.rotateYDegrees((float) yaw);
 
@@ -261,7 +263,7 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(ChainConveyorBlockEntity be, BlockState state) {
-		return CachedBuffers.partial(AllPartialModels.CHAIN_CONVEYOR_SHAFT, state);
+		return CreateCachedBuffers.partial(AllPartialModels.CHAIN_CONVEYOR_SHAFT, state);
 	}
 
 	@Override

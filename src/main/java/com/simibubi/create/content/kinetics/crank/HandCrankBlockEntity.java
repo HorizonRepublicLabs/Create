@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crank;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.AllSoundEvents;
@@ -105,7 +107,7 @@ public class HandCrankBlockEntity extends GeneratingKineticBlockEntity {
 		BlockState blockState = getBlockState();
 		Direction facing = blockState.getOptionalValue(HandCrankBlock.FACING)
 			.orElse(Direction.UP);
-		return CachedBuffers.partialFacing(AllPartialModels.HAND_CRANK_HANDLE, blockState, facing.getOpposite());
+		return CreateCachedBuffers.partialFacing(AllPartialModels.HAND_CRANK_HANDLE, blockState, facing.getOpposite());
 	}
 
 	@OnlyIn(Dist.CLIENT)

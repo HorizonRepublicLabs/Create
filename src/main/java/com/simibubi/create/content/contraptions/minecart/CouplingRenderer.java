@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static net.minecraft.util.Mth.lerp;
@@ -66,9 +68,9 @@ public class CouplingRenderer {
 
 		BlockState renderState = Blocks.AIR.defaultBlockState();
 		VertexConsumer builder = buffer.getBuffer(RenderType.solid());
-		SuperByteBuffer attachment = CachedBuffers.partial(AllPartialModels.COUPLING_ATTACHMENT, renderState);
-		SuperByteBuffer ring = CachedBuffers.partial(AllPartialModels.COUPLING_RING, renderState);
-		SuperByteBuffer connector = CachedBuffers.partial(AllPartialModels.COUPLING_CONNECTOR, renderState);
+		SuperByteBuffer attachment = CreateCachedBuffers.partial(AllPartialModels.COUPLING_ATTACHMENT, renderState);
+		SuperByteBuffer ring = CreateCachedBuffers.partial(AllPartialModels.COUPLING_RING, renderState);
+		SuperByteBuffer connector = CreateCachedBuffers.partial(AllPartialModels.COUPLING_CONNECTOR, renderState);
 
 		Vec3 zero = Vec3.ZERO;
 		Vec3 firstEndpoint = transforms.getFirst()

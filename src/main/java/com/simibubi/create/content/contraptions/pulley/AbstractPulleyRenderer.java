@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.pulley;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -61,8 +63,8 @@ public abstract class AbstractPulleyRenderer<T extends KineticBlockEntity> exten
 		BlockState blockState = be.getBlockState();
 		BlockPos pos = be.getBlockPos();
 
-		SuperByteBuffer halfMagnet = CachedBuffers.partial(this.halfMagnet, blockState);
-		SuperByteBuffer halfRope = CachedBuffers.partial(this.halfRope, blockState);
+		SuperByteBuffer halfMagnet = CreateCachedBuffers.partial(this.halfMagnet, blockState);
+		SuperByteBuffer halfRope = CreateCachedBuffers.partial(this.halfRope, blockState);
 		SuperByteBuffer magnet = renderMagnet(be);
 		SuperByteBuffer rope = renderRope(be);
 
@@ -110,7 +112,7 @@ public abstract class AbstractPulleyRenderer<T extends KineticBlockEntity> exten
 
 	protected SuperByteBuffer getRotatedCoil(T be) {
 		BlockState blockState = be.getBlockState();
-		return CachedBuffers.partialFacing(getCoil(), blockState,
+		return CreateCachedBuffers.partialFacing(getCoil(), blockState,
 			Direction.get(AxisDirection.POSITIVE, getShaftAxis(be)));
 	}
 

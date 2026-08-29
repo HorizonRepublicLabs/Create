@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.box;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -44,7 +46,7 @@ public class PackageRenderer extends EntityRenderer<PackageEntity> {
 		PartialModel model) {
 		if (model == null)
 			return;
-		SuperByteBuffer sbb = CachedBuffers.partial(model, Blocks.AIR.defaultBlockState());
+		SuperByteBuffer sbb = CreateCachedBuffers.partial(model, Blocks.AIR.defaultBlockState());
 		sbb.translate(-.5, 0, -.5)
 			.rotateCentered(-AngleHelper.rad(yaw + 90), Direction.UP)
 			.light(light)

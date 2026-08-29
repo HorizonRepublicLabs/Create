@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.steamWhistle;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -40,7 +42,7 @@ public class WhistleRenderer extends SafeBlockEntityRenderer<WhistleBlockEntity>
 			offset -= Math.sin(wiggleProgress * (2 * Mth.PI) * (4 - size.ordinal())) / 16f;
 		}
 
-		CachedBuffers.partial(mouth, blockState)
+		CreateCachedBuffers.partial(mouth, blockState)
 			.center()
 			.rotateYDegrees(AngleHelper.horizontalAngle(direction))
 			.uncenter()

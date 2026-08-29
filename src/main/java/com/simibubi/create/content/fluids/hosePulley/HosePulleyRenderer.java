@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.hosePulley;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.content.contraptions.pulley.AbstractPulleyRenderer;
@@ -32,12 +34,12 @@ public class HosePulleyRenderer extends AbstractPulleyRenderer<HosePulleyBlockEn
 
 	@Override
 	protected SuperByteBuffer renderRope(HosePulleyBlockEntity be) {
-		return CachedBuffers.partial(AllPartialModels.HOSE, be.getBlockState());
+		return CreateCachedBuffers.partial(AllPartialModels.HOSE, be.getBlockState());
 	}
 
 	@Override
 	protected SuperByteBuffer renderMagnet(HosePulleyBlockEntity be) {
-		return CachedBuffers.partial(AllPartialModels.HOSE_MAGNET, be.getBlockState());
+		return CreateCachedBuffers.partial(AllPartialModels.HOSE_MAGNET, be.getBlockState());
 	}
 
 	@Override

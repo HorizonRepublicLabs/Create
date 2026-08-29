@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.deskBell;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -34,7 +36,7 @@ public class DeskBellRenderer extends SmartBlockEntityRenderer<DeskBellBlockEnti
 
 		Direction facing = blockState.getValue(DeskBellBlock.FACING);
 
-		CachedBuffers.partial(AllPartialModels.DESK_BELL_PLUNGER, blockState)
+		CreateCachedBuffers.partial(AllPartialModels.DESK_BELL_PLUNGER, blockState)
 			.center()
 			.rotateYDegrees(AngleHelper.horizontalAngle(facing))
 			.rotateXDegrees(AngleHelper.verticalAngle(facing) + 90)
@@ -44,7 +46,7 @@ public class DeskBellRenderer extends SmartBlockEntityRenderer<DeskBellBlockEnti
 			.overlay(overlay)
 			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
 
-		CachedBuffers.partial(AllPartialModels.DESK_BELL_BELL, blockState)
+		CreateCachedBuffers.partial(AllPartialModels.DESK_BELL_BELL, blockState)
 			.center()
 			.rotateYDegrees(AngleHelper.horizontalAngle(facing))
 			.rotateXDegrees(AngleHelper.verticalAngle(facing) + 90)

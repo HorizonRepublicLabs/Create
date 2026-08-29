@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -113,19 +115,19 @@ public class ArmRenderer extends KineticBlockEntityRenderer<ArmBlockEntity> {
 	private void renderArm(VertexConsumer builder, PoseStack ms, PoseStack msLocal, TransformStack msr,
 		BlockState blockState, int color, float baseAngle, float lowerArmAngle, float upperArmAngle, float headAngle,
 		boolean goggles, boolean inverted, boolean hasItem, boolean isBlockItem, int light) {
-		SuperByteBuffer base = CachedBuffers.partial(AllPartialModels.ARM_BASE, blockState)
+		SuperByteBuffer base = CreateCachedBuffers.partial(AllPartialModels.ARM_BASE, blockState)
 			.light(light);
-		SuperByteBuffer lowerBody = CachedBuffers.partial(AllPartialModels.ARM_LOWER_BODY, blockState)
+		SuperByteBuffer lowerBody = CreateCachedBuffers.partial(AllPartialModels.ARM_LOWER_BODY, blockState)
 			.light(light);
-		SuperByteBuffer upperBody = CachedBuffers.partial(AllPartialModels.ARM_UPPER_BODY, blockState)
+		SuperByteBuffer upperBody = CreateCachedBuffers.partial(AllPartialModels.ARM_UPPER_BODY, blockState)
 			.light(light);
 		SuperByteBuffer claw = CachedBuffers
 			.partial(goggles ? AllPartialModels.ARM_CLAW_BASE_GOGGLES : AllPartialModels.ARM_CLAW_BASE, blockState)
 			.light(light);
-		SuperByteBuffer upperClawGrip = CachedBuffers.partial(AllPartialModels.ARM_CLAW_GRIP_UPPER,
+		SuperByteBuffer upperClawGrip = CreateCachedBuffers.partial(AllPartialModels.ARM_CLAW_GRIP_UPPER,
 			blockState)
 			.light(light);
-		SuperByteBuffer lowerClawGrip = CachedBuffers.partial(AllPartialModels.ARM_CLAW_GRIP_LOWER, blockState)
+		SuperByteBuffer lowerClawGrip = CreateCachedBuffers.partial(AllPartialModels.ARM_CLAW_GRIP_LOWER, blockState)
 			.light(light);
 
 		transformBase(msr, baseAngle);
@@ -201,7 +203,7 @@ public class ArmRenderer extends KineticBlockEntityRenderer<ArmBlockEntity> {
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(ArmBlockEntity be, BlockState state) {
-		return CachedBuffers.partial(AllPartialModels.ARM_COG, state);
+		return CreateCachedBuffers.partial(AllPartialModels.ARM_COG, state);
 	}
 
 }

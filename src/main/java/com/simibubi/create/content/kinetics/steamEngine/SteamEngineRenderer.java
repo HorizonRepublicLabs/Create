@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.steamEngine;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -76,7 +78,7 @@ public class SteamEngineRenderer extends SafeBlockEntityRenderer<SteamEngineBloc
 	}
 
 	private SuperByteBuffer transformed(PartialModel model, BlockState blockState, Direction facing, boolean roll90) {
-		return CachedBuffers.partial(model, blockState)
+		return CreateCachedBuffers.partial(model, blockState)
 			.center()
 			.rotateYDegrees(AngleHelper.horizontalAngle(facing))
 			.rotateXDegrees(AngleHelper.verticalAngle(facing) + 90)

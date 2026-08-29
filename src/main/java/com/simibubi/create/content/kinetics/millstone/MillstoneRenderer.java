@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.millstone;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
@@ -16,7 +18,7 @@ public class MillstoneRenderer extends KineticBlockEntityRenderer<MillstoneBlock
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(MillstoneBlockEntity be, BlockState state) {
-		return CachedBuffers.partial(AllPartialModels.MILLSTONE_COG, state);
+		return CreateCachedBuffers.partial(AllPartialModels.MILLSTONE_COG, state);
 	}
 
 }

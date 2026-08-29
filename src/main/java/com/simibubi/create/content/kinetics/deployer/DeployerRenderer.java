@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -121,8 +123,8 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 		BlockState blockState = be.getBlockState();
 		Vec3 offset = getHandOffset(be, partialTicks, blockState);
 
-		SuperByteBuffer pole = CachedBuffers.partial(AllPartialModels.DEPLOYER_POLE, blockState);
-		SuperByteBuffer hand = CachedBuffers.partial(be.getHandPose(), blockState);
+		SuperByteBuffer pole = CreateCachedBuffers.partial(AllPartialModels.DEPLOYER_POLE, blockState);
+		SuperByteBuffer hand = CreateCachedBuffers.partial(be.getHandPose(), blockState);
 
 		transform(pole.translate(offset.x, offset.y, offset.z), blockState, true)
 			.light(light)
@@ -168,8 +170,8 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 			speed = 0;
 
 		SuperByteBuffer shaft = CachedBuffers.block(AllBlocks.SHAFT.getDefaultState());
-		SuperByteBuffer pole = CachedBuffers.partial(AllPartialModels.DEPLOYER_POLE, blockState);
-		SuperByteBuffer hand = CachedBuffers.partial(handPose, blockState);
+		SuperByteBuffer pole = CreateCachedBuffers.partial(AllPartialModels.DEPLOYER_POLE, blockState);
+		SuperByteBuffer hand = CreateCachedBuffers.partial(handPose, blockState);
 
 		double factor;
 		if (context.contraption.stalled || context.position == null || context.data.contains("StationaryTimer")) {

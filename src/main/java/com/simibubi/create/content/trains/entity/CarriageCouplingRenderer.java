@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.Collection;
@@ -72,7 +74,7 @@ public class CarriageCouplingRenderer {
 				{
 					ms.pushPose();
 					ms.translate(anchor.x - camera.x, anchor.y - camera.y, anchor.z - camera.z);
-					CachedBuffers.partial(AllPartialModels.TRAIN_COUPLING_HEAD, air)
+					CreateCachedBuffers.partial(AllPartialModels.TRAIN_COUPLING_HEAD, air)
 						.rotateYDegrees(-yRot)
 						.rotateXDegrees(xRot)
 						.light(lightCoords)
@@ -84,7 +86,7 @@ public class CarriageCouplingRenderer {
 					int couplingSegments = (int) Math.round(couplingDistance * 4);
 					double stretch = ((anchor2.distanceTo(anchor) - 2 * margin) * 4) / couplingSegments;
 					for (int j = 0; j < couplingSegments; j++) {
-						CachedBuffers.partial(AllPartialModels.TRAIN_COUPLING_CABLE, air)
+						CreateCachedBuffers.partial(AllPartialModels.TRAIN_COUPLING_CABLE, air)
 							.rotateYDegrees(-yRot + 180)
 							.rotateXDegrees(-xRot)
 							.translate(0, 0, margin + 2 / 16f)
@@ -102,7 +104,7 @@ public class CarriageCouplingRenderer {
 						.add(anchor2)
 						.subtract(camera);
 					ms.translate(translation.x, translation.y, translation.z);
-					CachedBuffers.partial(AllPartialModels.TRAIN_COUPLING_HEAD, air)
+					CreateCachedBuffers.partial(AllPartialModels.TRAIN_COUPLING_HEAD, air)
 						.rotateYDegrees(-yRot + 180)
 						.rotateXDegrees(-xRot)
 						.light(lightCoords2)

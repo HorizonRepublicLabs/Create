@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.gauge;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -47,8 +49,8 @@ public class GaugeRenderer extends ShaftRenderer<GaugeBlockEntity> {
 
         PartialModel partialModel = (type == Type.SPEED ? AllPartialModels.GAUGE_HEAD_SPEED : AllPartialModels.GAUGE_HEAD_STRESS);
 		SuperByteBuffer headBuffer =
-				CachedBuffers.partial(partialModel, gaugeState);
-		SuperByteBuffer dialBuffer = CachedBuffers.partial(AllPartialModels.GAUGE_DIAL, gaugeState);
+				CreateCachedBuffers.partial(partialModel, gaugeState);
+		SuperByteBuffer dialBuffer = CreateCachedBuffers.partial(AllPartialModels.GAUGE_DIAL, gaugeState);
 
 		float dialPivot = 5.75f / 16;
 		float progress = Mth.lerp(partialTicks, be.prevDialState, be.dialState);

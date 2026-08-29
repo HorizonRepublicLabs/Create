@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.slidingDoor;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -56,7 +58,7 @@ public class SlidingDoorRenderer extends SafeBlockEntityRenderer<SlidingDoorBloc
 
 			boolean flip = blockState.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
 			for (boolean left : Iterate.trueAndFalse) {
-				SuperByteBuffer partial = CachedBuffers.partial(partials.get(left ^ flip), blockState);
+				SuperByteBuffer partial = CreateCachedBuffers.partial(partials.get(left ^ flip), blockState);
 				float f = flip ? -1 : 1;
 
 				partial.translate(0, -1 / 512f, 0)

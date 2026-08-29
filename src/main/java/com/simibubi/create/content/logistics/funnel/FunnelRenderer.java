@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.funnel;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -34,7 +36,7 @@ public class FunnelRenderer extends SmartBlockEntityRenderer<FunnelBlockEntity> 
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 		PartialModel partialModel = (blockState.getBlock() instanceof FunnelBlock ? AllPartialModels.FUNNEL_FLAP
 			: AllPartialModels.BELT_FUNNEL_FLAP);
-		SuperByteBuffer flapBuffer = CachedBuffers.partial(partialModel, blockState);
+		SuperByteBuffer flapBuffer = CreateCachedBuffers.partial(partialModel, blockState);
 
 		var funnelFacing = FunnelBlock.getFunnelFacing(blockState);
 		float f = be.flap.getValue(partialTicks);

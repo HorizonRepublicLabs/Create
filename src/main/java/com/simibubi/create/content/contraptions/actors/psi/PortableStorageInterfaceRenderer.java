@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.function.Consumer;
@@ -64,8 +66,8 @@ public class PortableStorageInterfaceRenderer extends SafeBlockEntityRenderer<Po
 
 	private static void render(BlockState blockState, boolean lit, float progress, PoseStack local,
 		Consumer<SuperByteBuffer> drawCallback) {
-		SuperByteBuffer middle = CachedBuffers.partial(getMiddleForState(blockState, lit), blockState);
-		SuperByteBuffer top = CachedBuffers.partial(getTopForState(blockState), blockState);
+		SuperByteBuffer middle = CreateCachedBuffers.partial(getMiddleForState(blockState, lit), blockState);
+		SuperByteBuffer top = CreateCachedBuffers.partial(getTopForState(blockState), blockState);
 
 		if (local != null) {
 			middle.transform(local);

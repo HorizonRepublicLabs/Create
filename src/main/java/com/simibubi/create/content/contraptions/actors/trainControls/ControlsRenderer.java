@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.trainControls;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -26,7 +28,7 @@ public class ControlsRenderer {
 		BlockState state = context.state;
 		Direction facing = state.getValue(ControlsBlock.FACING);
 
-		SuperByteBuffer cover = CachedBuffers.partial(AllPartialModels.TRAIN_CONTROLS_COVER, state);
+		SuperByteBuffer cover = CreateCachedBuffers.partial(AllPartialModels.TRAIN_CONTROLS_COVER, state);
 		float hAngle = 180 + AngleHelper.horizontalAngle(facing);
 		PoseStack ms = matrices.getModel();
 		cover.transform(ms)
@@ -41,7 +43,7 @@ public class ControlsRenderer {
 
 		for (boolean first : Iterate.trueAndFalse) {
 			float vAngle = Mth.clamp(first ? firstLever * 70 - 25 : secondLever * 15, -45, 45);
-			SuperByteBuffer lever = CachedBuffers.partial(AllPartialModels.TRAIN_CONTROLS_LEVER, state);
+			SuperByteBuffer lever = CreateCachedBuffers.partial(AllPartialModels.TRAIN_CONTROLS_LEVER, state);
 			ms.pushPose();
 			TransformStack.of(ms)
 				.center()

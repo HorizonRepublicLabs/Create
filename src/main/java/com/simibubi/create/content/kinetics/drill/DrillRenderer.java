@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.simibubi.create.AllPartialModels;
@@ -27,13 +29,13 @@ public class DrillRenderer extends KineticBlockEntityRenderer<DrillBlockEntity> 
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(DrillBlockEntity be, BlockState state) {
-		return CachedBuffers.partialFacing(AllPartialModels.DRILL_HEAD, state);
+		return CreateCachedBuffers.partialFacing(AllPartialModels.DRILL_HEAD, state);
 	}
 
 	public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		BlockState state = context.state;
-		SuperByteBuffer superBuffer = CachedBuffers.partial(AllPartialModels.DRILL_HEAD, state);
+		SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.DRILL_HEAD, state);
 		Direction facing = state.getValue(DrillBlock.FACING);
 
 		float speed = (float) (context.contraption.stalled

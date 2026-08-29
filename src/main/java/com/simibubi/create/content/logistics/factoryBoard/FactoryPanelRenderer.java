@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.List;
@@ -57,7 +59,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 		PartialModel partial = behaviour.redstonePowered || missingAddress ? AllPartialModels.FACTORY_PANEL_RED_LIGHT
 			: AllPartialModels.FACTORY_PANEL_LIGHT;
 
-		CachedBuffers.partial(partial, blockState)
+		CreateCachedBuffers.partial(partial, blockState)
 			.rotateCentered(yRot, Direction.UP)
 			.rotateCentered(xRot, Direction.EAST)
 			.rotateCentered(Mth.PI, Direction.UP)
@@ -73,7 +75,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 		glow = Mth.clamp(glow, -1, 1);
 		int color = (int) (200 * glow);
 
-		CachedBuffers.partial(partial, blockState)
+		CreateCachedBuffers.partial(partial, blockState)
 			.rotateCentered(yRot, Direction.UP)
 			.rotateCentered(xRot, Direction.EAST)
 			.rotateCentered(Mth.PI, Direction.UP)
@@ -144,7 +146,7 @@ public class FactoryPanelRenderer extends SmartBlockEntityRenderer<FactoryPanelB
 			PartialModel partial = (dots ? AllPartialModels.FACTORY_PANEL_DOTTED
 				: isArrowSegment ? AllPartialModels.FACTORY_PANEL_ARROWS : AllPartialModels.FACTORY_PANEL_LINES)
 					.get(pathReversed ? direction : direction.getOpposite());
-			SuperByteBuffer connectionSprite = CachedBuffers.partial(partial, blockState)
+			SuperByteBuffer connectionSprite = CreateCachedBuffers.partial(partial, blockState)
 				.rotateCentered(yRot, Direction.UP)
 				.rotateCentered(xRot, Direction.EAST)
 				.rotateCentered(Mth.PI, Direction.UP)

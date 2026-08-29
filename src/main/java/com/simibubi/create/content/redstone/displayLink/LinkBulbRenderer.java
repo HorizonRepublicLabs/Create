@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.displayLink;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -45,12 +47,12 @@ public class LinkBulbRenderer extends SafeBlockEntityRenderer<LinkWithBulbBlockE
 			.rotateXDegrees(-AngleHelper.verticalAngle(face) - 90)
 			.uncenter();
 
-		CachedBuffers.partial(AllPartialModels.DISPLAY_LINK_TUBE, blockState)
+		CreateCachedBuffers.partial(AllPartialModels.DISPLAY_LINK_TUBE, blockState)
 			.translate(be.getBulbOffset(blockState))
 			.light(LightCoordsUtil.FULL_BRIGHT)
 			.renderInto(ms, buffer.getBuffer(RenderType.translucent()));
 
-		CachedBuffers.partial(AllPartialModels.DISPLAY_LINK_GLOW, blockState)
+		CreateCachedBuffers.partial(AllPartialModels.DISPLAY_LINK_GLOW, blockState)
 			.translate(be.getBulbOffset(blockState))
 			.light(LightCoordsUtil.FULL_BRIGHT)
 			.color(color, color, color, 255)

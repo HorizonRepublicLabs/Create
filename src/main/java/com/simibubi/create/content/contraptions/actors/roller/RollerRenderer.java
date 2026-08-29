@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.roller;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
@@ -40,7 +42,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 
 		ms.pushPose();
 		ms.translate(0, -0.25, 0);
-		SuperByteBuffer superBuffer = CachedBuffers.partial(AllPartialModels.ROLLER_WHEEL, blockState);
+		SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.ROLLER_WHEEL, blockState);
 		Direction facing = blockState.getValue(RollerBlock.FACING);
 		superBuffer.translate(Vec3.atLowerCornerOf(facing.getUnitVec3i())
 			.scale(17 / 16f));
@@ -51,7 +53,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 			.renderInto(ms, vc);
 		ms.popPose();
 
-		CachedBuffers.partial(AllPartialModels.ROLLER_FRAME, blockState)
+		CreateCachedBuffers.partial(AllPartialModels.ROLLER_FRAME, blockState)
 			.rotateCentered(AngleHelper.rad(AngleHelper.horizontalAngle(facing) + 180), Direction.UP)
 			.light(light)
 			.renderInto(ms, vc);
@@ -62,7 +64,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 		BlockState blockState = context.state;
 		Direction facing = blockState.getValue(HORIZONTAL_FACING);
 		VertexConsumer vc = buffers.getBuffer(RenderType.cutoutMipped());
-		SuperByteBuffer superBuffer = CachedBuffers.partial(AllPartialModels.ROLLER_WHEEL, blockState);
+		SuperByteBuffer superBuffer = CreateCachedBuffers.partial(AllPartialModels.ROLLER_WHEEL, blockState);
 		float speed = (float) (!VecHelper.isVecPointingTowards(context.relativeMotion, facing.getOpposite())
 			? context.getAnimationSpeed()
 			: -context.getAnimationSpeed());
@@ -85,7 +87,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 			.renderInto(viewProjection, vc);
 		viewProjection.popPose();
 
-		CachedBuffers.partial(AllPartialModels.ROLLER_FRAME, blockState)
+		CreateCachedBuffers.partial(AllPartialModels.ROLLER_FRAME, blockState)
 			.transform(matrices.getModel())
 			.rotateCentered(AngleHelper.rad(AngleHelper.horizontalAngle(facing) + 180), Direction.UP)
 			.light(contraptionWorldLight)

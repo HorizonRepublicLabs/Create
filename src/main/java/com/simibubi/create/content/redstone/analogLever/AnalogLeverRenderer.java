@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.analogLever;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -35,7 +37,7 @@ public class AnalogLeverRenderer extends SafeBlockEntityRenderer<AnalogLeverBloc
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 
 		// Handle
-		SuperByteBuffer handle = CachedBuffers.partial(AllPartialModels.ANALOG_LEVER_HANDLE, leverState);
+		SuperByteBuffer handle = CreateCachedBuffers.partial(AllPartialModels.ANALOG_LEVER_HANDLE, leverState);
 		float angle = (float) ((state / 15) * 90 / 180 * Math.PI);
 		transform(handle, leverState).translate(1 / 2f, 1 / 16f, 1 / 2f)
 				.rotate(angle, Direction.EAST)
@@ -45,7 +47,7 @@ public class AnalogLeverRenderer extends SafeBlockEntityRenderer<AnalogLeverBloc
 
 		// Indicator
 		int color = Color.mixColors(0x2C0300, 0xCD0000, state / 15f);
-		SuperByteBuffer indicator = transform(CachedBuffers.partial(AllPartialModels.ANALOG_LEVER_INDICATOR, leverState), leverState);
+		SuperByteBuffer indicator = transform(CreateCachedBuffers.partial(AllPartialModels.ANALOG_LEVER_INDICATOR, leverState), leverState);
 		indicator.light(light)
 				.color(color)
 				.renderInto(ms, vb);

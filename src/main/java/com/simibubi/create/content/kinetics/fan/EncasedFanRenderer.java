@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -38,9 +40,9 @@ public class EncasedFanRenderer extends KineticBlockEntityRenderer<EncasedFanBlo
 		int lightInFront = LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().relative(direction));
 
 		SuperByteBuffer shaftHalf =
-				CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction.getOpposite());
+				CreateCachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction.getOpposite());
 		SuperByteBuffer fanInner =
-				CachedBuffers.partialFacing(AllPartialModels.ENCASED_FAN_INNER, be.getBlockState(), direction.getOpposite());
+				CreateCachedBuffers.partialFacing(AllPartialModels.ENCASED_FAN_INNER, be.getBlockState(), direction.getOpposite());
 
 		float time = AnimationTickHolder.getRenderTime(be.getLevel());
 		float speed = be.getSpeed() * 5;

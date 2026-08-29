@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.diodes;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.renderer.ColoredOverlayBlockEntityRenderer;
 
@@ -21,7 +23,7 @@ public class BrassDiodeRenderer extends ColoredOverlayBlockEntityRenderer<BrassD
 
 	@Override
 	protected SuperByteBuffer getOverlayBuffer(BrassDiodeBlockEntity be) {
-		return CachedBuffers.partial(AllPartialModels.FLEXPEATER_INDICATOR, be.getBlockState());
+		return CreateCachedBuffers.partial(AllPartialModels.FLEXPEATER_INDICATOR, be.getBlockState());
 	}
 
 }

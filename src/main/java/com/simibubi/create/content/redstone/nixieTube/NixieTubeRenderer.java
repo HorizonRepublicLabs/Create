@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.nixieTube;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -136,7 +138,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 		boolean invertTubes =
 			facing == Direction.DOWN || blockState.getValue(NixieTubeBlock.FACE) == DoubleAttachFace.WALL_REVERSED;
 
-		CachedBuffers.partial(AllPartialModels.SIGNAL_PANEL, blockState)
+		CreateCachedBuffers.partial(AllPartialModels.SIGNAL_PANEL, blockState)
 			.light(light)
 			.renderInto(ms, buffer.getBuffer(RenderType.solid()));
 
@@ -165,7 +167,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 					float longSide = yellow ? 1 : 4;
 					float longSideGlow = yellow ? 2 : 5.125f;
 
-					CachedBuffers.partial(AllPartialModels.SIGNAL_WHITE_CUBE, blockState)
+					CreateCachedBuffers.partial(AllPartialModels.SIGNAL_WHITE_CUBE, blockState)
 						.light(0xf000f0)
 						.disableDiffuse()
 						.scale(vert ? longSide : 1, vert ? 1 : longSide, 1)
@@ -209,7 +211,7 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 					float width = horiz ? tubeDisplay.glowWidth : tubeDisplay.glowHeight;
 					float height = horiz ? tubeDisplay.glowHeight : tubeDisplay.glowWidth;
 
-					CachedBuffers.partial(AllPartialModels.SIGNAL_COMPUTER_WHITE_CUBE, blockState)
+					CreateCachedBuffers.partial(AllPartialModels.SIGNAL_COMPUTER_WHITE_CUBE, blockState)
 						.light(0xf000f0)
 						.disableDiffuse()
 						.scale(width, height,  1)

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -29,8 +31,8 @@ public class ToolboxRenderer extends SmartBlockEntityRenderer<ToolboxBlockEntity
 		Direction facing = blockState.getValue(ToolboxBlock.FACING)
 			.getOpposite();
 		SuperByteBuffer lid =
-			CachedBuffers.partial(AllPartialModels.TOOLBOX_LIDS.get(blockEntity.getColor()), blockState);
-		SuperByteBuffer drawer = CachedBuffers.partial(AllPartialModels.TOOLBOX_DRAWER, blockState);
+			CreateCachedBuffers.partial(AllPartialModels.TOOLBOX_LIDS.get(blockEntity.getColor()), blockState);
+		SuperByteBuffer drawer = CreateCachedBuffers.partial(AllPartialModels.TOOLBOX_DRAWER, blockState);
 
 		float lidAngle = blockEntity.lid.getValue(partialTicks);
 		float drawerOffset = blockEntity.drawers.getValue(partialTicks);

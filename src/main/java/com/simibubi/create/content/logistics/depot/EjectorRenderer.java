@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -46,7 +48,7 @@ public class EjectorRenderer extends ShaftRenderer<EjectorBlockEntity> {
 		float angle = lidProgress * 70;
 
 		if (!VisualizationManager.supportsVisualization(be.getLevel())) {
-			SuperByteBuffer model = CachedBuffers.partial(AllPartialModels.EJECTOR_TOP, be.getBlockState());
+			SuperByteBuffer model = CreateCachedBuffers.partial(AllPartialModels.EJECTOR_TOP, be.getBlockState());
 			applyLidAngle(be, angle, model);
 			model.light(light)
 					.renderInto(ms, buffer.getBuffer(RenderType.solid()));

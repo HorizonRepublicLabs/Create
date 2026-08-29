@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static com.simibubi.create.AllPartialModels.GIRDER_SEGMENT_BOTTOM;
@@ -60,7 +62,7 @@ public class TrackRenderer extends SafeBlockEntityRenderer<TrackBlockEntity> {
 
 			TrackMaterial.TrackModelHolder modelHolder = bc.getMaterial().getModelHolder();
 
-			CachedBuffers.partial(modelHolder.tie(), air)
+			CreateCachedBuffers.partial(modelHolder.tie(), air)
 				.mulPose(segment.tieTransform[i].pose())
 				.mulNormal(segment.tieTransform[i].normal())
 				.light(light)
@@ -68,7 +70,7 @@ public class TrackRenderer extends SafeBlockEntityRenderer<TrackBlockEntity> {
 
 			for (boolean first : Iterate.trueAndFalse) {
 				Pose transform = segment.railTransforms[i].get(first);
-				CachedBuffers.partial(first ? modelHolder.leftSegment() : modelHolder.rightSegment(), air)
+				CreateCachedBuffers.partial(first ? modelHolder.leftSegment() : modelHolder.rightSegment(), air)
 					.mulPose(transform.pose())
 					.mulNormal(transform.normal())
 					.light(light)
@@ -92,7 +94,7 @@ public class TrackRenderer extends SafeBlockEntityRenderer<TrackBlockEntity> {
 
 			for (boolean first : Iterate.trueAndFalse) {
 				Pose beamTransform = segment.beams[i].get(first);
-				CachedBuffers.partial(GIRDER_SEGMENT_MIDDLE, air)
+				CreateCachedBuffers.partial(GIRDER_SEGMENT_MIDDLE, air)
 					.mulPose(beamTransform.pose())
 					.mulNormal(beamTransform.normal())
 					.light(light)
@@ -101,7 +103,7 @@ public class TrackRenderer extends SafeBlockEntityRenderer<TrackBlockEntity> {
 				for (boolean top : Iterate.trueAndFalse) {
 					Pose beamCapTransform = segment.beamCaps[i].get(top)
 						.get(first);
-					CachedBuffers.partial(top ? GIRDER_SEGMENT_TOP : GIRDER_SEGMENT_BOTTOM, air)
+					CreateCachedBuffers.partial(top ? GIRDER_SEGMENT_TOP : GIRDER_SEGMENT_BOTTOM, air)
 						.mulPose(beamCapTransform.pose())
 						.mulNormal(beamCapTransform.normal())
 						.light(light)

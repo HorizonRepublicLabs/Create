@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.pump;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 
@@ -16,7 +18,7 @@ public class PumpRenderer extends KineticBlockEntityRenderer<PumpBlockEntity> {
 
 	@Override
 	protected SuperByteBuffer getRotatedModel(PumpBlockEntity be, BlockState state) {
-		return CachedBuffers.partialFacing(AllPartialModels.MECHANICAL_PUMP_COG, state);
+		return CreateCachedBuffers.partialFacing(AllPartialModels.MECHANICAL_PUMP_COG, state);
 	}
 
 }

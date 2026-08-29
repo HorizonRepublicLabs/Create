@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -83,7 +85,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 				rotate = true;
 		}
 
-		SuperByteBuffer superBuffer = CachedBuffers.partialFacing(partial, blockState);
+		SuperByteBuffer superBuffer = CreateCachedBuffers.partialFacing(partial, blockState);
 		if (rotate) {
 			superBuffer.rotateCentered(AngleHelper.rad(90), Direction.UP);
 		}
@@ -180,7 +182,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 		if (state.getValue(FACING)
 			.getAxis()
 			.isHorizontal())
-			return CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF,
+			return CreateCachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF,
 				state.rotate(be.getLevel(), be.getBlockPos(), Rotation.CLOCKWISE_180));
 		return CachedBuffers.block(KineticBlockEntityRenderer.KINETIC_BLOCK, getRenderedBlockState(be));
 	}
@@ -210,14 +212,14 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 		SuperByteBuffer superBuffer;
 		if (SawBlock.isHorizontal(state)) {
 			if (shouldAnimate)
-				superBuffer = CachedBuffers.partial(AllPartialModels.SAW_BLADE_HORIZONTAL_ACTIVE, state);
+				superBuffer = CreateCachedBuffers.partial(AllPartialModels.SAW_BLADE_HORIZONTAL_ACTIVE, state);
 			else
-				superBuffer = CachedBuffers.partial(AllPartialModels.SAW_BLADE_HORIZONTAL_INACTIVE, state);
+				superBuffer = CreateCachedBuffers.partial(AllPartialModels.SAW_BLADE_HORIZONTAL_INACTIVE, state);
 		} else {
 			if (shouldAnimate)
-				superBuffer = CachedBuffers.partial(AllPartialModels.SAW_BLADE_VERTICAL_ACTIVE, state);
+				superBuffer = CreateCachedBuffers.partial(AllPartialModels.SAW_BLADE_VERTICAL_ACTIVE, state);
 			else
-				superBuffer = CachedBuffers.partial(AllPartialModels.SAW_BLADE_VERTICAL_INACTIVE, state);
+				superBuffer = CreateCachedBuffers.partial(AllPartialModels.SAW_BLADE_VERTICAL_INACTIVE, state);
 		}
 
 		superBuffer.transform(matrices.getModel())

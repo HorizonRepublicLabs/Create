@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category.animations;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import org.joml.Matrix3x2fStack;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -84,7 +86,7 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 		uScroll = uScroll - Math.floor(uScroll);
 		uScroll = uScroll * spriteWidth / 2;
 
-		CachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
+		CreateCachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
 		.shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll)
 		.light(LightCoordsUtil.FULL_BRIGHT)
 			.renderInto(matrixStack, graphics.bufferSource().getBuffer(RenderType.cutoutMipped()));

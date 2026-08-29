@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.press;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
@@ -39,7 +41,7 @@ public class MechanicalPressRenderer extends KineticBlockEntityRenderer<Mechanic
 		float renderedHeadOffset =
 			pressingBehaviour.getRenderedHeadOffset(partialTicks) * pressingBehaviour.mode.headOffset;
 
-		SuperByteBuffer headRender = CachedBuffers.partialFacing(AllPartialModels.MECHANICAL_PRESS_HEAD, blockState,
+		SuperByteBuffer headRender = CreateCachedBuffers.partialFacing(AllPartialModels.MECHANICAL_PRESS_HEAD, blockState,
 			blockState.getValue(HORIZONTAL_FACING));
 		headRender.translate(0, -renderedHeadOffset, 0)
 			.light(light)

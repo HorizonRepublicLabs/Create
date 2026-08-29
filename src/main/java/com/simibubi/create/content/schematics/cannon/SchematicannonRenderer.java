@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -57,14 +59,14 @@ public class SchematicannonRenderer extends SafeBlockEntityRenderer<Schematicann
 
 		VertexConsumer vb = buffer.getBuffer(RenderType.solid());
 
-		SuperByteBuffer connector = CachedBuffers.partial(AllPartialModels.SCHEMATICANNON_CONNECTOR, state);
+		SuperByteBuffer connector = CreateCachedBuffers.partial(AllPartialModels.SCHEMATICANNON_CONNECTOR, state);
 		connector.translate(.5f, 0, .5f);
 		connector.rotate((float) ((yaw + 90) / 180 * Math.PI), Direction.UP);
 		connector.translate(-.5f, 0, -.5f);
 		connector.light(light)
 			.renderInto(ms, vb);
 
-		SuperByteBuffer pipe = CachedBuffers.partial(AllPartialModels.SCHEMATICANNON_PIPE, state);
+		SuperByteBuffer pipe = CreateCachedBuffers.partial(AllPartialModels.SCHEMATICANNON_PIPE, state);
 		pipe.translate(.5f, 15 / 16f, .5f);
 		pipe.rotate((float) ((yaw + 90) / 180 * Math.PI), Direction.UP);
 		pipe.rotate((float) (pitch / 180 * Math.PI), Direction.SOUTH);

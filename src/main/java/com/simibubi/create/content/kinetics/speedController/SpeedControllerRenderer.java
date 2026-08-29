@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.speedController;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -44,7 +46,7 @@ public class SpeedControllerRenderer extends SmartBlockEntityRenderer<SpeedContr
 		BlockState blockState = blockEntity.getBlockState();
 		boolean alongX = blockState.getValue(SpeedControllerBlock.HORIZONTAL_AXIS) == Axis.X;
 
-		SuperByteBuffer bracket = CachedBuffers.partial(AllPartialModels.SPEED_CONTROLLER_BRACKET, blockState);
+		SuperByteBuffer bracket = CreateCachedBuffers.partial(AllPartialModels.SPEED_CONTROLLER_BRACKET, blockState);
 		bracket.translate(0, 1, 0);
 		bracket.rotateCentered(
 				(float) (alongX ? Math.PI : Math.PI / 2), Direction.UP);

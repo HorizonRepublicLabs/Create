@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.spout;
 
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -82,7 +84,7 @@ public class SpoutRenderer extends SafeBlockEntityRenderer<SpoutBlockEntity> {
 
 		ms.pushPose();
 		for (PartialModel bit : BITS) {
-			CachedBuffers.partial(bit, be.getBlockState())
+			CreateCachedBuffers.partial(bit, be.getBlockState())
 					.light(light)
 					.renderInto(ms, buffer.getBuffer(RenderType.solid()));
 			ms.translate(0, -3 * squeeze / 32f, 0);
