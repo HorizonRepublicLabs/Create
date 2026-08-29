@@ -782,7 +782,7 @@ public abstract class Contraption {
 
 		seatMapping.clear();
 		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("Passengers"),
-			c -> seatMapping.put(NbtUtils.loadUUID(NBTHelper.getINBT(c, "Id")), c.getIntOr("Seat", 0)));
+			c -> seatMapping.put(c.read("Id", UUIDUtil.CODEC).orElse(null), c.getIntOr("Seat", 0)));
 
 		stabilizedSubContraptions.clear();
 		NBTHelper.iterateCompoundList(nbt.getListOrEmpty("SubContraptions"),
@@ -870,7 +870,7 @@ public abstract class Contraption {
 		}));
 		nbt.put("Passengers", NBTHelper.writeCompoundList(getSeatMapping().entrySet(), e -> {
 			CompoundTag tag = new CompoundTag();
-			tag.put("Id", NbtUtils.createUUID(e.getKey()));
+			tag.store("Id", UUIDUtil.CODEC, e.getKey());
 			tag.putInt("Seat", e.getValue());
 			return tag;
 		}));

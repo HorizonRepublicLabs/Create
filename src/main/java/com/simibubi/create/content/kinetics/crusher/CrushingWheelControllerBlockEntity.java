@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crusher;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.ArrayList;
@@ -346,7 +348,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 	@Override
 	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		if (hasEntity())
-			compound.put("Entity", NbtUtils.createUUID(entityUUID));
+			compound.store("Entity", UUIDUtil.CODEC, entityUUID);
 		compound.put("Inventory", inventory.serializeNBT(registries));
 		compound.putFloat("Speed", crushingspeed);
 		super.write(compound, registries, clientPacket);
@@ -356,7 +358,8 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
 		if (compound.contains("Entity") && !isOccupied()) {
-			entityUUID = NbtUtils.loadUUID(NBTHelper.getINBT(compound, "Entity"));
+			entityUUID = compound.read("Entity", UUIDUtil.CODEC)
+				.orElse(null);
 			this.searchForEntity = true;
 		}
 		crushingspeed = compound.getFloatOr("Speed", 0.0F);

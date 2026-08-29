@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart.capability;
 
+import net.minecraft.core.UUIDUtil;
+
 import net.minecraft.world.level.storage.ValueOutput;
 
 import net.minecraft.world.level.storage.ValueInput;
@@ -397,16 +399,16 @@ public class MinecartController implements ValueIOSerializable {
 
 		CompoundTag serialize() {
 			CompoundTag nbt = new CompoundTag();
-			nbt.put("Main", NbtUtils.createUUID(mainCartID));
-			nbt.put("Connected", NbtUtils.createUUID(connectedCartID));
+			nbt.store("Main", UUIDUtil.CODEC, mainCartID);
+			nbt.store("Connected", UUIDUtil.CODEC, connectedCartID);
 			nbt.putFloat("Length", length);
 			nbt.putBoolean("Contraption", contraption);
 			return nbt;
 		}
 
 		static CouplingData read(CompoundTag nbt) {
-			UUID mainCartID = NbtUtils.loadUUID(NBTHelper.getINBT(nbt, "Main"));
-			UUID connectedCartID = NbtUtils.loadUUID(NBTHelper.getINBT(nbt, "Connected"));
+			UUID mainCartID = nbt.read("Main", UUIDUtil.CODEC).orElse(null);
+			UUID connectedCartID = nbt.read("Connected", UUIDUtil.CODEC).orElse(null);
 			float length = nbt.getFloatOr("Length", 0.0F);
 			boolean contraption = nbt.getBooleanOr("Contraption", false);
 			return new CouplingData(mainCartID, connectedCartID, length, contraption);
