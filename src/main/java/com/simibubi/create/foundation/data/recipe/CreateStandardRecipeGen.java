@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import net.minecraft.tags.BlockItemTags;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import static com.simibubi.create.foundation.data.recipe.CommonMetal.ALUMINUM;
@@ -750,7 +752,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 			.pattern("I")),
 
 	CONTRAPTION_CONTROLS = create(AllBlocks.CONTRAPTION_CONTROLS).unlockedBy(I::andesiteAlloy)
-		.viaShaped(b -> b.define('B', ItemTags.BUTTONS)
+		.viaShaped(b -> b.define('B', BlockItemTags.BUTTONS.item())
 			.define('C', I.andesiteCasing())
 			.define('I', I.electronTube())
 			.pattern("B")
@@ -1308,7 +1310,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 	TREE_FERTILIZER = create(AllItems.TREE_FERTILIZER).returns(2)
 		.unlockedBy(() -> Items.BONE_MEAL)
-		.viaShapeless(b -> b.requires(Ingredient.of(ItemTags.SMALL_FLOWERS), 2)
+		.viaShapeless(b -> b.requires(Ingredient.of(BlockItemTags.SMALL_FLOWERS.item()), 2)
 			.requires(Ingredient.of(Items.HORN_CORAL, Items.BRAIN_CORAL, Items.TUBE_CORAL, Items.BUBBLE_CORAL,
 				Items.FIRE_CORAL))
 			.requires(Items.BONE_MEAL)),
@@ -1376,7 +1378,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 	UA_TREE_FERTILIZER = create(AllItems.TREE_FERTILIZER::get).returns(2)
 		.unlockedBy(() -> Items.BONE_MEAL)
 		.whenModLoaded(Mods.UA.getId())
-		.viaShapeless(b -> b.requires(Ingredient.of(ItemTags.SMALL_FLOWERS), 2)
+		.viaShapeless(b -> b.requires(Ingredient.of(BlockItemTags.SMALL_FLOWERS.item()), 2)
 			.requires(AllItemTags.UA_CORAL.tag)
 			.requires(Items.BONE_MEAL));
 
