@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import net.minecraft.world.item.ItemStack;
 
 import net.createmod.catnip.api.platform.services.PlatformHelper;
@@ -258,7 +260,7 @@ public class PipeConnection {
 		if (connectionData.contains("Flow")) {
 			CompoundTag flowData = connectionData.getCompoundOrEmpty("Flow");
 
-			FluidStack fluid = FluidStack.parseOptional(registries, flowData.getCompoundOrEmpty("Fluid"));
+			FluidStack fluid = StackNbt.parseFluid(registries, flowData.getCompoundOrEmpty("Fluid"));
 			boolean inbound = flowData.getBooleanOr("In", false);
 			if (flow.isEmpty()) {
 				flow = Optional.of(new Flow(inbound, fluid));

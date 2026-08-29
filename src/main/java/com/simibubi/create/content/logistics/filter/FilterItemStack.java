@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.filter;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class FilterItemStack {
 	}
 
 	public static FilterItemStack of(HolderLookup.Provider registries, CompoundTag tag) {
-		return of(ItemStack.parseOptional(registries, tag));
+		return of(StackNbt.parse(registries, tag));
 	}
 
 	public static FilterItemStack empty() {
@@ -50,7 +52,7 @@ public class FilterItemStack {
 	}
 
 	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
-		return (CompoundTag) filterItemStack.saveOptional(registries);
+		return (CompoundTag) StackNbt.save(registries, filterItemStack);
 	}
 
 	public ItemStack item() {

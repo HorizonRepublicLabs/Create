@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.schedule.condition;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -97,7 +99,7 @@ public class RedstoneLinkCondition extends ScheduleWaitCondition {
 
 	@Override
 	protected void writeAdditional(HolderLookup.Provider registries, CompoundTag tag) {
-		tag.put("Frequency", freq.serializeEach(f -> (CompoundTag) f.getStack().saveOptional(registries)));
+		tag.put("Frequency", freq.serializeEach(f -> (CompoundTag) StackNbt.save(registries, f.getStack())));
 	}
 
 	public boolean lowActivation() {
@@ -107,7 +109,7 @@ public class RedstoneLinkCondition extends ScheduleWaitCondition {
 	@Override
 	protected void readAdditional(HolderLookup.Provider registries, CompoundTag tag) {
 		if (tag.contains("Frequency"))
-			freq = Couple.deserializeEach(tag.getListOrEmpty("Frequency"), c -> Frequency.of(ItemStack.parseOptional(registries, c)));
+			freq = Couple.deserializeEach(tag.getListOrEmpty("Frequency"), c -> Frequency.of(StackNbt.parse(registries, c)));
 	}
 
 	@Override

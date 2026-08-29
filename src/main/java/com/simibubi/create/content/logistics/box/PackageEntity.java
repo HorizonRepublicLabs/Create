@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.box;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import net.minecraft.world.entity.InterpolationHandler;
 
 import net.minecraft.world.level.storage.ValueInput;
@@ -415,7 +417,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	@Override
 	public void addAdditionalSaveData(ValueOutput compound) {
 		super.addAdditionalSaveData(compound);
-		compound.put("Box", box.saveOptional(level().registryAccess()));
+		compound.put("Box", StackNbt.save(level().registryAccess(), box));
 	}
 
 	@Override

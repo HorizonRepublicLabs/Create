@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.mounted;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
@@ -252,7 +254,7 @@ public class MinecartContraptionItem extends Item {
 		ItemStack generatedStack = create(type, oce);
 		generatedStack.set(DataComponents.CUSTOM_NAME, entity.getCustomName());
 
-		if (ContraptionPickupLimiting.isTooLargeForPickup(generatedStack.saveOptional(event.getLevel().registryAccess()))) {
+		if (ContraptionPickupLimiting.isTooLargeForPickup(StackNbt.save(event.getLevel().registryAccess(), generatedStack))) {
 			MutableComponent message = CreateLang.translateDirect("contraption.minecart_contraption_too_big")
 				.withStyle(ChatFormatting.RED);
 			player.displayClientMessage(message, true);

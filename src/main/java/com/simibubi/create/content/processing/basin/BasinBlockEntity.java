@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -175,16 +177,16 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		ListTag disabledList = compound.getListOrEmpty("DisabledSpoutput");
 		disabledList.forEach(d -> disabledSpoutputs.add(Direction.valueOf(((StringTag) d).getAsString())));
 		spoutputBuffer = NBTHelper.readItemList(compound.getListOrEmpty("Overflow"), registries);
-		spoutputFluidBuffer = NBTHelper.readCompoundList(compound.getListOrEmpty("FluidOverflow"), tag -> FluidStack.parseOptional(registries, tag));
+		spoutputFluidBuffer = NBTHelper.readCompoundList(compound.getListOrEmpty("FluidOverflow"), tag -> StackNbt.parseFluid(registries, tag));
 
 		if (!clientPacket)
 			return;
 
 		NBTHelper.iterateCompoundList(compound.getListOrEmpty("VisualizedItems"),
-			c -> visualizedOutputItems.add(IntAttached.with(OUTPUT_ANIMATION_TIME, ItemStack.parseOptional(registries, c))));
+			c -> visualizedOutputItems.add(IntAttached.with(OUTPUT_ANIMATION_TIME, StackNbt.parse(registries, c))));
 		NBTHelper.iterateCompoundList(compound.getListOrEmpty("VisualizedFluids"),
 			c -> visualizedOutputFluids
-				.add(IntAttached.with(OUTPUT_ANIMATION_TIME, FluidStack.parseOptional(registries, c))));
+				.add(IntAttached.with(OUTPUT_ANIMATION_TIME, StackNbt.parseFluid(registries, c))));
 	}
 
 	@Override
@@ -200,13 +202,13 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		compound.put("DisabledSpoutput", disabledList);
 		compound.put("Overflow", NBTHelper.writeItemList(spoutputBuffer, registries));
 		compound.put("FluidOverflow",
-			NBTHelper.writeCompoundList(spoutputFluidBuffer, fs -> (CompoundTag) fs.saveOptional(registries)));
+			NBTHelper.writeCompoundList(spoutputFluidBuffer, fs -> (CompoundTag) StackNbt.save(registries, fs)));
 
 		if (!clientPacket)
 			return;
 
-		compound.put("VisualizedItems", NBTHelper.writeCompoundList(visualizedOutputItems, ia -> (CompoundTag) ia.getValue().saveOptional(registries)));
-		compound.put("VisualizedFluids", NBTHelper.writeCompoundList(visualizedOutputFluids, ia -> (CompoundTag) ia.getValue().saveOptional(registries)));
+		compound.put("VisualizedItems", NBTHelper.writeCompoundList(visualizedOutputItems, ia -> (CompoundTag) StackNbt.save(registries, ia.getValue())));
+		compound.put("VisualizedFluids", NBTHelper.writeCompoundList(visualizedOutputFluids, ia -> (CompoundTag) StackNbt.save(registries, ia.getValue())));
 		visualizedOutputItems.clear();
 		visualizedOutputFluids.clear();
 	}

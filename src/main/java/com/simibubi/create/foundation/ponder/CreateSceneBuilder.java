@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.ponder;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -241,7 +243,7 @@ public class CreateSceneBuilder extends PonderSceneBuilder {
 
 		public void setFilterData(Selection selection, Class<? extends BlockEntity> teType, ItemStack filter) {
 			modifyBlockEntityNBT(selection, teType, nbt -> {
-				nbt.put("Filter", filter.saveOptional(world().getHolderLookupProvider()));
+				nbt.put("Filter", StackNbt.save(world().getHolderLookupProvider(), filter));
 			});
 		}
 
@@ -250,7 +252,7 @@ public class CreateSceneBuilder extends PonderSceneBuilder {
 			modifyBlockEntityNBT(scene.getSceneBuildingUtil().select().position(armLocation), ArmBlockEntity.class,
 				compound -> {
 					NBTHelper.writeEnum(compound, "Phase", phase);
-					compound.put("HeldItem", heldItem.saveOptional(world().getHolderLookupProvider()));
+					compound.put("HeldItem", StackNbt.save(world().getHolderLookupProvider(), heldItem));
 					compound.putInt("TargetPointIndex", targetedPoint);
 					compound.putFloat("MovementProgress", 0);
 				});

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank.storage;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
@@ -91,7 +93,7 @@ public class FluidTankMountedStorage extends WrapperMountedFluidStorage<Handler>
 
 	public static FluidTankMountedStorage fromLegacy(HolderLookup.Provider registries, CompoundTag nbt) {
 		int capacity = nbt.getIntOr("Capacity", 0);
-		FluidStack fluid = FluidStack.parseOptional(registries, nbt);
+		FluidStack fluid = StackNbt.parseFluid(registries, nbt);
 		return new FluidTankMountedStorage(capacity, fluid);
 	}
 

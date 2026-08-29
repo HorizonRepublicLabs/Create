@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import net.minecraft.core.UUIDUtil;
@@ -285,7 +287,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 				.load(context.blockEntityData.getListOrEmpty("Inventory"));
 			if (context.data.contains("HeldItem"))
 				deployerFakePlayer.setItemInHand(InteractionHand.MAIN_HAND,
-					ItemStack.parseOptional(context.world.registryAccess(), context.data.getCompoundOrEmpty("HeldItem")));
+					StackNbt.parse(context.world.registryAccess(), context.data.getCompoundOrEmpty("HeldItem")));
 			context.blockEntityData.remove("Inventory");
 			context.temporaryData = deployerFakePlayer;
 		}

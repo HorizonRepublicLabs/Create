@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.link;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -134,10 +136,8 @@ public class LinkBehaviour extends BlockEntityBehaviour implements IRedstoneLink
 	@Override
 	public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
 		super.write(nbt, registries, clientPacket);
-		nbt.put("FrequencyFirst", frequencyFirst.getStack()
-			.saveOptional(registries));
-		nbt.put("FrequencyLast", frequencyLast.getStack()
-			.saveOptional(registries));
+		nbt.put("FrequencyFirst", StackNbt.save(registries, frequencyFirst.getStack()));
+		nbt.put("FrequencyLast", StackNbt.save(registries, frequencyLast.getStack()));
 		nbt.putLong("LastKnownPosition", blockEntity.getBlockPos()
 			.asLong());
 	}
@@ -234,10 +234,8 @@ public class LinkBehaviour extends BlockEntityBehaviour implements IRedstoneLink
 
 	@Override
 	public boolean writeToClipboard(@NotNull HolderLookup.Provider registries, CompoundTag tag, Direction side) {
-		tag.put("First", frequencyFirst.getStack()
-			.saveOptional(registries));
-		tag.put("Last", frequencyLast.getStack()
-			.saveOptional(registries));
+		tag.put("First", StackNbt.save(registries, frequencyFirst.getStack()));
+		tag.put("Last", StackNbt.save(registries, frequencyLast.getStack()));
 		return true;
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank.storage.creative;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
@@ -47,7 +49,7 @@ public class CreativeFluidTankMountedStorage extends WrapperMountedFluidStorage<
 
 	public static CreativeFluidTankMountedStorage fromLegacy(HolderLookup.Provider registries, CompoundTag nbt) {
 		int capacity = nbt.getIntOr("Capacity", 0);
-		FluidStack fluid = FluidStack.parseOptional(registries, nbt.getCompoundOrEmpty("ProvidedStack"));
+		FluidStack fluid = StackNbt.parseFluid(registries, nbt.getCompoundOrEmpty("ProvidedStack"));
 		CreativeSmartFluidTank tank = new CreativeSmartFluidTank(capacity, $ -> {});
 		tank.setContainedFluid(fluid);
 		return new CreativeFluidTankMountedStorage(tank);

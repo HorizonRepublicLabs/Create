@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.ponder.scenes.highLogistics;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -735,7 +737,7 @@ public class FactoryGaugeScenes {
 			.modifyBlockEntityNBT(basin, BasinBlockEntity.class, nbt -> {
 				nbt.put("VisualizedItems",
 					NBTHelper.writeCompoundList(
-						ImmutableList.of(IntAttached.with(1, AllItems.ANDESITE_ALLOY.asStack())), ia -> (CompoundTag) ia.getValue().saveOptional(builder.world().getHolderLookupProvider())));
+						ImmutableList.of(IntAttached.with(1, AllItems.ANDESITE_ALLOY.asStack())), ia -> (CompoundTag) StackNbt.save(builder.world().getHolderLookupProvider(), ia.getValue())));
 			});
 		scene.idle(4);
 		scene.rotateCameraY(90);

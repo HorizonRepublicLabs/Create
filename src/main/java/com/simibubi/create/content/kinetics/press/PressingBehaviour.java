@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.press;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +81,7 @@ public class PressingBehaviour extends BeltProcessingBehaviour {
 
 		if (clientPacket) {
 			NBTHelper.iterateCompoundList(compound.getListOrEmpty("ParticleItems"),
-				c -> particleItems.add(ItemStack.parseOptional(registries, c)));
+				c -> particleItems.add(StackNbt.parse(registries, c)));
 			spawnParticles();
 		}
 	}
@@ -93,7 +95,7 @@ public class PressingBehaviour extends BeltProcessingBehaviour {
 		super.write(compound, registries, clientPacket);
 
 		if (clientPacket) {
-			compound.put("ParticleItems", NBTHelper.writeCompoundList(particleItems, s -> (CompoundTag) s.saveOptional(registries)));
+			compound.put("ParticleItems", NBTHelper.writeCompoundList(particleItems, s -> (CompoundTag) StackNbt.save(registries, s)));
 			particleItems.clear();
 		}
 	}

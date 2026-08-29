@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.utility.StackNbt;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.ArrayList;
@@ -528,7 +530,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 		NBTHelper.writeEnum(compound, "State", state);
 		compound.put("Lid", lidProgress.writeNBT());
 		compound.put("LaunchedItems",
-			NBTHelper.writeCompoundList(launchedItems, ia -> ia.serializeNBT(s -> (CompoundTag) s.saveOptional(registries))));
+			NBTHelper.writeCompoundList(launchedItems, ia -> ia.serializeNBT(s -> (CompoundTag) StackNbt.save(registries, s))));
 
 		if (earlyTarget != null) {
 			compound.put("EarlyTarget", VecHelper.writeNBT(earlyTarget.getFirst()));
@@ -560,7 +562,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 		state = NBTHelper.readEnum(compound, "State", State.class);
 		lidProgress.readNBT(compound.getCompoundOrEmpty("Lid"), false);
 		launchedItems = NBTHelper.readCompoundList(compound.getListOrEmpty("LaunchedItems"),
-			nbt -> IntAttached.read(nbt, t -> ItemStack.parseOptional(registries, t)));
+			nbt -> IntAttached.read(nbt, t -> StackNbt.parse(registries, t)));
 
 		earlyTarget = null;
 		earlyTargetTime = 0;
