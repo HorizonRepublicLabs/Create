@@ -66,7 +66,7 @@ public class BlueprintScreen extends AbstractSimiContainerScreen<BlueprintMenu> 
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
+	protected void extractContents(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
 		int invX = getLeftOfCentered(PLAYER_INVENTORY.getWidth());
 		int invY = topPos + background.getHeight() + 4;
 		renderPlayerInventory(graphics, invX, invY);

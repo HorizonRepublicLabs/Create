@@ -374,11 +374,11 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 	}
 
 	@Override
-	public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		partialTicks = minecraft.getTimer().getGameTimeDeltaPartialTick(false);
 
 		if (menu.slotsActive)
-			super.render(graphics, mouseX, mouseY, partialTicks);
+			super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 		else {
 			renderBackground(graphics, mouseX, mouseY, partialTicks);
 			renderBg(graphics, partialTicks, mouseX, mouseY);
@@ -1018,7 +1018,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
+	protected void extractContents(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
 		AllGuiTextures.SCHEDULE.render(graphics, leftPos, topPos);
 		FormattedCharSequence formattedcharsequence = title.getVisualOrderText();
 		int center = leftPos + (AllGuiTextures.SCHEDULE.getWidth() - 8) / 2;

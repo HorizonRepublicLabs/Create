@@ -119,7 +119,7 @@ public class ValueSettingsClient implements LayeredDraw.Layer {
 	}
 
 	@Override
-	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+	public void extractRenderState(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (HudState.isHidden(mc) || !ValueSettingsInputHandler.canInteract(mc.player))
 			return;

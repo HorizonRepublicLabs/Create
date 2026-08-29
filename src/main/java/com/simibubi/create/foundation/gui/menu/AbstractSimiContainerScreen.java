@@ -106,16 +106,16 @@ public abstract class AbstractSimiContainerScreen<T extends AbstractContainerMen
 	}*/
 
 	@Override
-	public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		partialTicks = AnimationTickHolder.getPartialTicksUI();
 
-		super.render(graphics, mouseX, mouseY, partialTicks);
+		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
 		renderForeground(graphics, mouseX, mouseY, partialTicks);
 	}
 
 	@Override
-	protected void renderLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+	protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
 		// no-op to prevent screen- and inventory-title from being rendered at incorrect
 		// location
 		// could also set this.titleX/Y and this.playerInventoryTitleX/Y to the proper

@@ -302,7 +302,7 @@ public enum AllGuiTextures implements ScreenElement, TextureSheetSegment {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void render(GuiGraphicsExtractor graphics, int x, int y, Color c) {
+	public void extractRenderState(GuiGraphicsExtractor graphics, int x, int y, Color c) {
 		bind();
 		UIRenderHelper.drawColoredTexture(graphics, c, x, y, startX, startY, width, height);
 	}

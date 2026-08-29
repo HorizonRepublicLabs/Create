@@ -77,10 +77,10 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		if (firstRenderTime == 0L)
 			this.firstRenderTime = Util.getMillis();
-		super.render(graphics, mouseX, mouseY, partialTicks);
+		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 	}
 
 	@Override

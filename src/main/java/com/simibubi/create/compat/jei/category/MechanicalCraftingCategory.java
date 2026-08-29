@@ -157,7 +157,7 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 		}
 
 		@Override
-		public void render(GuiGraphicsExtractor graphics, @NotNull ItemStack ingredient) {
+		public void extractRenderState(GuiGraphicsExtractor graphics, @NotNull ItemStack ingredient) {
 			Matrix3x2fStack matrixStack = graphics.pose();
 			matrixStack.pushMatrix();
 			float scale = getScale(recipe);

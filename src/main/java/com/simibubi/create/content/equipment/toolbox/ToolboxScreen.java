@@ -71,14 +71,14 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 	}
 
 	@Override
-	public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		menu.renderPass = true;
-		super.render(graphics, mouseX, mouseY, partialTicks);
+		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 		menu.renderPass = false;
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
+	protected void extractContents(GuiGraphicsExtractor graphics, float partialTicks, int mouseX, int mouseY) {
 		int x = leftPos + imageWidth - BG.getWidth();
 		int y = topPos;
 

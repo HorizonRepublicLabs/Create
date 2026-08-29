@@ -112,7 +112,7 @@ public class PackagePortScreen extends AbstractSimiContainerScreen<PackagePortMe
 	}
 
 	@Override
-	protected void renderBg(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
+	protected void extractContents(GuiGraphicsExtractor graphics, float pPartialTick, int pMouseX, int pMouseY) {
 		int x = getGuiLeft();
 		int y = getGuiTop();
 

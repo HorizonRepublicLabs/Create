@@ -27,7 +27,7 @@ public class RemainingAirOverlay implements LayeredDraw.Layer {
 	public static final RemainingAirOverlay INSTANCE = new RemainingAirOverlay();
 
 	@Override
-	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+	public void extractRenderState(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (HudState.isHidden(mc) || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;

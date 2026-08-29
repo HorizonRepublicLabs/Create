@@ -132,7 +132,7 @@ public class TrainMapRenderer implements AutoCloseable {
 
 	//
 
-	public void render(GuiGraphicsExtractor graphics, boolean linearFiltering, Rect2i bounds) {
+	public void extractRenderState(GuiGraphicsExtractor graphics, boolean linearFiltering, Rect2i bounds) {
 		BufferSource bufferSource = graphics.bufferSource();
 		Matrix3x2fStack pose = graphics.pose();
 		maps.forEach((key, tmi) -> {

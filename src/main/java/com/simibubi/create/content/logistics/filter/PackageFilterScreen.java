@@ -54,8 +54,8 @@ public class PackageFilterScreen extends AbstractFilterScreen<PackageFilterMenu>
 	}
 
 	@Override
-	public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		super.render(graphics, mouseX, mouseY, partialTicks);
+	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
+		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
 		PoseStack ms = graphics.pose();
 		ms.pushPose();
