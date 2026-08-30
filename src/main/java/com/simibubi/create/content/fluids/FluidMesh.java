@@ -18,6 +18,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 
 public class FluidMesh {
+
+	/// Sprites no longer report an inset ratio; this is the value the fluid
+	/// geometry has always pulled its uvs in by to keep neighbouring sprites
+	/// from bleeding.
+	private static final float UV_SHRINK_RATIO = 0.0625f;
 	private static final RendererReloadCache<TextureAtlasSprite, Model> STREAM = new RendererReloadCache<>(sprite -> new SingleMeshModel(new FluidStreamMesh(sprite), material(sprite)));
 
 	private static final RendererReloadCache<SurfaceKey, Model> SURFACE = new RendererReloadCache<>(sprite -> new SingleMeshModel(new FluidSurfaceMesh(sprite.texture(), sprite.width()), material(sprite.texture())));
@@ -76,7 +81,7 @@ public class FluidMesh {
 
 			int vertex = 0;
 
-			float shrink = texture.uvShrinkRatio() * 0.25f * textureScale;
+			float shrink = UV_SHRINK_RATIO * 0.25f * textureScale;
 			float centerU = texture.getU0() + (texture.getU1() - texture.getU0()) * 0.5f;
 			float centerV = texture.getV0() + (texture.getV1() - texture.getV0()) * 0.5f;
 
@@ -148,7 +153,7 @@ public class FluidMesh {
 
 			float textureScale = 1 / 32f;
 
-			float shrink = texture.uvShrinkRatio() * 0.25f * textureScale;
+			float shrink = UV_SHRINK_RATIO * 0.25f * textureScale;
 			float centerU = texture.getU0() + (texture.getU1() - texture.getU0()) * 0.5f;
 
 			float radius = PIPE_RADIUS;
