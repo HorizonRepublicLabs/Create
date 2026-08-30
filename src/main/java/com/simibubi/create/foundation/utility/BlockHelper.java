@@ -233,7 +233,7 @@ public class BlockHelper {
 			player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
 		}
 
-		if (level instanceof ServerLevel serverLevel && level.getGameRules()
+		if (level instanceof ServerLevel serverLevel && ((ServerLevel) level).getGameRules()
 			.get(GameRules.BLOCK_DROPS) && !level.restoringBlockSnapshots
 			&& (player == null || !player.isCreative())) {
 			List<ItemStack> drops = Block.getDrops(state, serverLevel, pos, blockEntity, player, usedTool);
