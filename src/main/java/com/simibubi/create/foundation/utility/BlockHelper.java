@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.utility;
 
+import net.minecraft.world.attribute.EnvironmentAttributes;
+
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 import java.util.ArrayList;
@@ -251,7 +253,7 @@ public class BlockHelper {
 			// entities as a side-effect
 			Registry<Enchantment> enchantmentRegistry = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
 			if (state.getBlock() instanceof IceBlock && usedTool.getEnchantmentLevel(enchantmentRegistry.getOrThrow(Enchantments.SILK_TOUCH)) == 0) {
-				if (!level.dimensionType().ultraWarm()) {
+				if (!level.environmentAttributes().getDimensionValue(EnvironmentAttributes.WATER_EVAPORATES)) {
 					BlockState below = level.getBlockState(pos.below());
 					if (below.blocksMotion() || below.liquid()) {
 						fluidState = IceBlock.meltsInto().getFluidState();
@@ -345,8 +347,7 @@ public class BlockHelper {
 			state = Blocks.CAULDRON.defaultBlockState();
 		}
 
-		if (world.dimensionType()
-			.ultraWarm() && state.getFluidState().is(FluidTags.WATER)) {
+		if (world.environmentAttributes().getDimensionValue(EnvironmentAttributes.WATER_EVAPORATES) && state.getFluidState().is(FluidTags.WATER)) {
 			int i = target.getX();
 			int j = target.getY();
 			int k = target.getZ();

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import net.minecraft.world.attribute.EnvironmentAttributes;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
@@ -201,8 +203,7 @@ public class OpenEndedPipe extends FlowSource {
 		if (!AllConfigs.server().fluids.pipesPlaceFluidSourceBlocks.get())
 			return true;
 
-		if (world.dimensionType()
-			.ultraWarm() && FluidHelper.isTag(fluid, FluidTags.WATER)) {
+		if (world.environmentAttributes().getDimensionValue(EnvironmentAttributes.WATER_EVAPORATES) && FluidHelper.isTag(fluid, FluidTags.WATER)) {
 			int i = outputPos.getX();
 			int j = outputPos.getY();
 			int k = outputPos.getZ();

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.transfer;
 
+import net.minecraft.world.attribute.EnvironmentAttributes;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -134,8 +136,7 @@ public class FluidFillingBehaviour extends FluidManipulationBehaviour {
 		int maxRange = maxRange();
 		int maxRangeSq = maxRange * maxRange;
 		int maxBlocks = maxBlocks();
-		boolean evaporate = world.dimensionType()
-			.ultraWarm() && FluidHelper.isTag(fluid, FluidTags.WATER);
+		boolean evaporate = world.environmentAttributes().getDimensionValue(EnvironmentAttributes.WATER_EVAPORATES) && FluidHelper.isTag(fluid, FluidTags.WATER);
 		boolean canPlaceSources = AllConfigs.server().fluids.fluidFillPlaceFluidSourceBlocks.get();
 
 		if ((!fillInfinite() && infinite) || evaporate || !canPlaceSources) {
