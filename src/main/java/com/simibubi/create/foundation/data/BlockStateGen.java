@@ -330,15 +330,15 @@ public class BlockStateGen {
 	public static <P extends Block> NonNullBiConsumer<DataGenContext<Block, P>, RegistrateBlockModelGenerator> naturalStoneTypeBlock(
 		String type) {
 		return (c, p) -> {
+			// A block state names its variants directly now; the four naturals are
+			// weighted equally, as they were.
 			ConfiguredModel[] variants = new ConfiguredModel[4];
 			for (int i = 0; i < variants.length; i++)
 				variants[i] = ConfiguredModel.builder()
 					.modelFile(VariantModels.models(p)
 						.cubeAll(type + "_natural_" + i, p.modLoc("block/palettes/stone_types/natural/" + type + "_" + i)))
 					.buildLast();
-			p.getVariantBuilder(c.get())
-				.partialState()
-				.setModels(variants);
+			VariantModels.forAllStates(p, c.get(), state -> variants);
 		};
 	}
 
