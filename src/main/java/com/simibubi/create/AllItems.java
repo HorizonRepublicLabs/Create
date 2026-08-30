@@ -91,7 +91,6 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SwordItem;
 
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.Tags.Items;
@@ -190,7 +189,6 @@ public class AllItems {
 		REGISTRATE.item("cardboard_sword", CardboardSwordItem::new)
 			.burnTime(1000)
 			.properties(p -> p.stacksTo(1))
-			.properties(p -> p.attributes(SwordItem.createAttributes(AllToolMaterials.CARDBOARD, 3, 1)))
 			.model(AssetLookup.customItemModel("cardboard_sword"))
 			.register();
 
@@ -204,8 +202,7 @@ public class AllItems {
 	public static final ItemEntry<ChromaticCompoundItem> CHROMATIC_COMPOUND =
 		REGISTRATE.item("chromatic_compound", ChromaticCompoundItem::new)
 			.properties(p -> p.rarity(Rarity.UNCOMMON))
-			.model(() -> AssetLookup.existingItemModel())
-			.color(() -> ChromaticCompoundColor::new)
+			.model(() -> AssetLookup.chromaticItemModel())
 			.register();
 
 	public static final ItemEntry<ShadowSteelItem> SHADOW_STEEL = REGISTRATE.item("shadow_steel", ShadowSteelItem::new)

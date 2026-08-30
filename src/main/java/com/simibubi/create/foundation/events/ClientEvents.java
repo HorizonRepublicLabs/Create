@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.events;
 
+import com.simibubi.create.content.legacy.ChromaticCompoundColor;
+
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+
 import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
 
 import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
@@ -382,6 +386,12 @@ public class ClientEvents {
 	/// Hand-drawn items name their renderer in their model, so the names are
 	/// bound to the renderers before models bake.
 	/// A model selects on a named property now; the clipboard's type is one.
+	/// Item tints are declared by models as named sources.
+	@SubscribeEvent
+	public static void registerItemTintSources(RegisterColorHandlersEvent.ItemTintSources event) {
+		event.register(Create.asResource("chromatic_compound"), ChromaticCompoundColor.CODEC);
+	}
+
 	@SubscribeEvent
 	public static void registerSelectProperties(RegisterSelectItemModelPropertyEvent event) {
 		event.register(ClipboardOverrides.ClipboardType.ID, ClipboardOverrides.TypeProperty.TYPE);

@@ -267,7 +267,7 @@ public class AllFluids {
 		 * render layer)
 		 */
 		@Override
-		public int getTintColor(FluidState state, BlockGetter world, BlockPos pos) {
+		public int getTintColor(FluidState state, BlockAndTintGetter world, BlockPos pos) {
 			return 0x00ffffff;
 		}
 

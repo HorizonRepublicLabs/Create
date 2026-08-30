@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.content.legacy.ChromaticCompoundColor;
+
+import net.minecraft.client.data.models.model.ItemModelUtils;
+
 import net.minecraft.client.resources.model.sprite.Material;
 
 import com.simibubi.create.Create;
@@ -152,5 +156,13 @@ public class AssetLookup {
 		Identifier base, String rendererName) {
 		p.itemModelOutput.accept(c.get(),
 			new CustomRenderedItemModelWrapper.Unbaked(base, Create.asResource(rendererName), Optional.empty()));
+	}
+
+	/// The chromatic compound's three layers each shift colour on their own, and
+	/// a model names a tint source per layer.
+	public static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelGenerator> chromaticItemModel() {
+		return (c, p) -> p.itemModelOutput.accept(c.get(),
+			ItemModelUtils.tintedModel(p.modLoc("item/" + c.getName()), new ChromaticCompoundColor(0),
+				new ChromaticCompoundColor(1), new ChromaticCompoundColor(2)));
 	}
 }
