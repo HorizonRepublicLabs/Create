@@ -201,7 +201,8 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 	}
 
 	@Override
-	public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
+	public boolean canDestroyBlock(ItemStack stack, BlockState state, Level worldIn, BlockPos pos,
+		LivingEntity player) {
 		return false;
 	}
 

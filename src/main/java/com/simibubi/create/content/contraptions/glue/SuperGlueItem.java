@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.glue;
 
+import net.minecraft.world.entity.LivingEntity;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import com.simibubi.create.content.contraptions.chassis.AbstractChassisBlock;
@@ -49,7 +51,8 @@ public class SuperGlueItem extends Item {
 	}
 
 	@Override
-	public boolean canAttackBlock(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer) {
+	public boolean canDestroyBlock(ItemStack stack, BlockState pState, Level pLevel, BlockPos pPos,
+		LivingEntity pPlayer) {
 		return false;
 	}
 

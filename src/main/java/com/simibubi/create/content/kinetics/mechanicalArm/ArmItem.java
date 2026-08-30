@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import net.minecraft.world.entity.LivingEntity;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 
 
@@ -38,7 +40,8 @@ public class ArmItem extends BlockItem {
 	}
 
 	@Override
-	public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, Player p_195938_4_) {
+	public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos,
+		LivingEntity p_195938_4_) {
 		return !ArmInteractionPoint.isInteractable(world, pos, state);
 	}
 

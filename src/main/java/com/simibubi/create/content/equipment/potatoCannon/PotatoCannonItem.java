@@ -229,7 +229,8 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 	}
 
 	@Override
-	public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, Player player) {
+	public boolean canDestroyBlock(ItemStack stack, BlockState state, Level world, BlockPos pos,
+		LivingEntity player) {
 		return false;
 	}
 
