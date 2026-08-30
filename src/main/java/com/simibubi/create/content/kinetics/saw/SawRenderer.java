@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 
 import com.simibubi.create.foundation.render.CreateRenderTypes;
@@ -178,7 +180,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 			if (!box)
 				ms.mulPose(Axis.XP.rotationDegrees(90));
 
-			itemRenderer.render(stack, ItemDisplayContext.FIXED, false, ms, buffer, light, overlay, modelWithOverrides);
+			CreateItemRenderer.render(stack, ItemDisplayContext.FIXED, ms, buffer, light, overlay);
 			renderedI++;
 
 			ms.popPose();

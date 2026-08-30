@@ -128,7 +128,7 @@ public class GlassPipeVisual extends AbstractBlockEntityVisual<StraightPipeBlock
 			fluidInstance.setChanged();
 
 			if (progress != 1) {
-				TextureAtlasSprite stillTexture = atlas.apply(clientFluid.getStillTexture(fluidStack));
+				TextureAtlasSprite stillTexture = FluidAppearance.stillTexture(fluidStack);
 				surface.get(stillTexture)
 					.setIdentityTransform()
 					.translate(getVisualPosition())

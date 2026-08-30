@@ -29,7 +29,7 @@ import dev.engine_room.flywheel.lib.instance.InstanceTypes;
 import dev.engine_room.flywheel.lib.instance.TransformedInstance;
 import dev.engine_room.flywheel.lib.material.SimpleMaterial;
 import dev.engine_room.flywheel.lib.model.ModelUtil;
-import dev.engine_room.flywheel.lib.model.baked.BlockModelBuilder;
+import dev.engine_room.flywheel.lib.model.baked.LevelModelBuilder;
 import dev.engine_room.flywheel.lib.task.ForEachPlan;
 import dev.engine_room.flywheel.lib.task.NestedPlan;
 import dev.engine_room.flywheel.lib.task.PlanMap;
@@ -95,7 +95,9 @@ public class ContraptionVisual<E extends AbstractContraptionEntity> extends Abst
 			}
 		};
 
-		var model = new BlockModelBuilder(modelWorld, blocks.positions())
+		// A whole level's worth of blocks is a LevelModelBuilder; BlockModelBuilder
+		// takes a single model now.
+		var model = new LevelModelBuilder(modelWorld, blocks.positions())
 			.materialFunc((renderType, shaded, ao) -> {
 				Material material = ModelUtil.getMaterial(renderType, shaded, ao);
 				if (material != null && material.cardinalLightingMode() == CardinalLightingMode.ENTITY) {

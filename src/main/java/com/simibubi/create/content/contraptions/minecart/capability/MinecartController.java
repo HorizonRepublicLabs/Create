@@ -137,7 +137,9 @@ public class MinecartController implements ValueIOSerializable {
 		}
 		BlockPos blockpos = new BlockPos(i, j, k);
 		BlockState blockstate = world.getBlockState(blockpos);
-		if (cart.canUseRail() && blockstate.is(BlockTags.RAILS)
+		// A cart no longer says whether it can ride rails; being on one is what
+		// the check was for.
+		if (cart.isOnRails() && blockstate.is(BlockTags.RAILS)
 			&& blockstate.getBlock() instanceof PoweredRailBlock
 			&& ((PoweredRailBlock) blockstate.getBlock())
 			.isActivatorRail()) {
