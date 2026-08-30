@@ -140,7 +140,7 @@ public class ChuteBlock extends AbstractChuteBlock implements ProperWaterloggedB
 		ScheduledTickAccess tickAccess, BlockPos pos, Direction direction,
 		BlockPos p_196271_6_, BlockState above, RandomSource randomSource) {
 		updateWater(world, tickAccess, state, pos);
-		return super.updateShape(state, direction, above, world, pos, p_196271_6_);
+		return super.updateShape(state, world, tickAccess, pos, direction, p_196271_6_, above, randomSource);
 	}
 
 	@Override

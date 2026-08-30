@@ -59,7 +59,7 @@ public class BrassTunnelBlock extends BeltTunnelBlock {
 	public BlockState updateShape(BlockState state, LevelReader worldIn,
 		ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing,
 		BlockPos facingPos, BlockState facingState, RandomSource randomSource) {
-		return super.updateShape(state, facing, facingState, worldIn, currentPos, facingPos);
+		return super.updateShape(state, worldIn, tickAccess, currentPos, facing, facingPos, facingState, randomSource);
 	}
 
 }

@@ -57,7 +57,7 @@ public class PeculiarBellBlock extends AbstractBellBlock<PeculiarBellBlockEntity
 	public BlockState updateShape(BlockState state, LevelReader world,
 		ScheduledTickAccess tickAccess, BlockPos currentPos, Direction facing,
 		BlockPos facingPos, BlockState facingState, RandomSource randomSource) {
-		BlockState newState = super.updateShape(state, facing, facingState, world, currentPos, facingPos);
+		BlockState newState = super.updateShape(state, world, tickAccess, currentPos, facing, facingPos, facingState, randomSource);
 		if (facing != Direction.DOWN)
 			return newState;
 

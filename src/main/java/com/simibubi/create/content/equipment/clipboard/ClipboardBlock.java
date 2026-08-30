@@ -182,7 +182,7 @@ public class ClipboardBlock extends FaceAttachedHorizontalDirectionalBlock
 		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
 		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
 		updateWater(pLevel, tickAccess, pState, pCurrentPos);
-		return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+		return super.updateShape(pState, pLevel, tickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, randomSource);
 	}
 
 	@Override

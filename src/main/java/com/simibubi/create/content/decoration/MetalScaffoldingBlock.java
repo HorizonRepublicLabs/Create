@@ -66,7 +66,7 @@ public class MetalScaffoldingBlock extends ScaffoldingBlock implements IWrenchab
 	public BlockState updateShape(BlockState pState, LevelReader pLevel,
 		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
 		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
-		super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+		super.updateShape(pState, pLevel, tickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, randomSource);
 		BlockState stateBelow = pLevel.getBlockState(pCurrentPos.below());
 		return pFacing == Direction.DOWN ? pState.setValue(BOTTOM,
 			!stateBelow.is(this) && !stateBelow.isFaceSturdy(pLevel, pCurrentPos.below(), Direction.UP)) : pState;

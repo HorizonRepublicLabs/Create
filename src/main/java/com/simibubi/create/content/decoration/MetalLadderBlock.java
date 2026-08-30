@@ -72,7 +72,7 @@ public class MetalLadderBlock extends LadderBlock implements IWrenchable {
 		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
 		if (!pState.canSurvive(pLevel, pCurrentPos))
 			return Blocks.AIR.defaultBlockState();
-		return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+		return super.updateShape(pState, pLevel, tickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, randomSource);
 	}
 
 	@Override

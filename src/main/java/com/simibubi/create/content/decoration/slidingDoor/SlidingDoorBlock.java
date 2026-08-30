@@ -137,7 +137,7 @@ public class SlidingDoorBlock extends DoorBlock implements IWrenchable, IBE<Slid
 	public BlockState updateShape(BlockState pState, LevelReader pLevel,
 		ScheduledTickAccess tickAccess, BlockPos pCurrentPos, Direction pFacing,
 		BlockPos pFacingPos, BlockState pFacingState, RandomSource randomSource) {
-		BlockState blockState = super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+		BlockState blockState = super.updateShape(pState, pLevel, tickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, randomSource);
 		if (blockState.isAir())
 			return blockState;
 		DoubleBlockHalf doubleblockhalf = blockState.getValue(HALF);
