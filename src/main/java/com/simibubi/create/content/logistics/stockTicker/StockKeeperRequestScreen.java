@@ -377,7 +377,8 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 				}
 
 				if (tagSearch) {
-					if (stack.getTags()
+					if (stack.typeHolder()
+			.tags()
 						.anyMatch(key -> key.location()
 							.toString()
 							.contains(value)))
@@ -1337,7 +1338,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		if (minecraft.isWindowActive()) {
 			double forceX = (barX + 2) / scaleX;
 			double forceY = Mth.clamp(pMouseY, minY, maxY) / scaleY;
-			GLFW.glfwSetCursorPos(window.getWindow().handle(), forceX, forceY);
+			GLFW.glfwSetCursorPos(window.handle(), forceX, forceY);
 		}
 
 		return true;
@@ -1615,8 +1616,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 
 	private Pair<Integer, List<List<BigItemStack>>> maxCraftable(CraftableBigItemStack cbis, InventorySummary summary,
 																 Function<ItemStack, Integer> countModifier, int newTypeLimit) {
-		List<Ingredient> ingredients = cbis.placementInfo()
-			.ingredients();
+		List<Ingredient> ingredients = cbis.getIngredients();
 		List<List<BigItemStack>> validEntriesByIngredient = new ArrayList<>();
 		List<BigItemStack> alreadyCreated = new ArrayList<>();
 

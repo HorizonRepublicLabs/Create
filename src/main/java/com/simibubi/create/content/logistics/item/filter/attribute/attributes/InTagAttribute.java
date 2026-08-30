@@ -57,7 +57,8 @@ public record InTagAttribute(TagKey<Item> tag) implements ItemAttribute {
 
 		@Override
 		public List<ItemAttribute> getAllAttributes(ItemStack stack, Level level) {
-			return stack.getTags()
+			return stack.typeHolder()
+			.tags()
 				.map(InTagAttribute::new)
 				.collect(Collectors.toList());
 		}
