@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import net.minecraft.world.level.saveddata.SavedDataType;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -17,11 +19,16 @@ public class LogisticsNetworkSavedData extends SavedData {
 
 	private Map<UUID, LogisticsNetwork> logisticsNetworks = new HashMap<>();
 
-	public static SavedData.Factory<LogisticsNetworkSavedData> factory() {
-		return new SavedData.Factory<>(LogisticsNetworkSavedData::new, LogisticsNetworkSavedData::load);
+	/// Saved data is described by a type with a codec now. Create's networks are
+	/// written as nbt, so the codec passes a compound through and the existing
+	/// reader and writer do the work, with the level supplying the registries.
+	public static SavedDataType<LogisticsNetworkSavedData> type() {
+		return new SavedDataType<>(Create.asResource("create_logistics"), level -> new LogisticsNetworkSavedData(),
+			level -> CompoundTag.CODEC.xmap(tag -> load(tag, level.registryAccess()),
+				data -> data.save(new CompoundTag(), level.registryAccess())));
 	}
 
-	@Override
+	/// No longer an override; the codec calls it.
 	public CompoundTag save(CompoundTag nbt, HolderLookup.Provider registries) {
 		GlobalLogisticsManager logistics = Create.LOGISTICS;
 		nbt.put("LogisticsNetworks",
@@ -48,7 +55,7 @@ public class LogisticsNetworkSavedData extends SavedData {
 	public static LogisticsNetworkSavedData load(MinecraftServer server) {
 		return server.overworld()
 			.getDataStorage()
-			.computeIfAbsent(factory(), "create_logistics");
+			.computeIfAbsent(type());
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains;
 
+import net.minecraft.world.level.saveddata.SavedDataType;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -25,11 +27,16 @@ public class RailwaySavedData extends SavedData {
 	private Map<UUID, SignalEdgeGroup> signalEdgeGroups = new HashMap<>();
 	private Map<UUID, Train> trains = new HashMap<>();
 
-	public static SavedData.Factory<RailwaySavedData> factory() {
-		return new SavedData.Factory<>(RailwaySavedData::new, RailwaySavedData::load);
+	/// Saved data is described by a type with a codec now. Create's networks are
+	/// written as nbt, so the codec passes a compound through and the existing
+	/// reader and writer do the work, with the level supplying the registries.
+	public static SavedDataType<RailwaySavedData> type() {
+		return new SavedDataType<>(Create.asResource("create_tracks"), level -> new RailwaySavedData(),
+			level -> CompoundTag.CODEC.xmap(tag -> load(tag, level.registryAccess()),
+				data -> data.save(new CompoundTag(), level.registryAccess())));
 	}
 
-	@Override
+	/// No longer an override; the codec calls it.
 	public CompoundTag save(CompoundTag nbt, HolderLookup.Provider registries) {
 		GlobalRailwayManager railways = Create.RAILWAYS;
 //		Create.LOGGER.info("Saving Railway Information...");
@@ -101,7 +108,7 @@ public class RailwaySavedData extends SavedData {
 	public static RailwaySavedData load(MinecraftServer server) {
 		return server.overworld()
 			.getDataStorage()
-			.computeIfAbsent(factory(), "create_tracks");
+			.computeIfAbsent(type());
 	}
 
 }
