@@ -215,7 +215,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 	TRANSMITTER = create(AllItems.TRANSMITTER).unlockedByTag(I::copper)
 		.viaShaped(b -> b.define('L', I.copperSheet())
-			.define('N', Items.LIGHTNING_ROD.weathering().unaffected)
+			.define('N', Items.LIGHTNING_ROD.weathering().unaffected())
 			.define('R', I.redstone())
 			.pattern(" N ")
 			.pattern("LLL")

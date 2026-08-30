@@ -738,7 +738,7 @@ public class ChainConveyorBlockEntity extends KineticBlockEntity implements Tran
 		int found = 0;
 
 		Inventory inv = player.getInventory();
-		int size = inv.items.size();
+		int size = inv.getContainerSize();
 		for (int j = 0; j <= size + 1; j++) {
 			int i = j;
 			boolean offhand = j == size + 1;
