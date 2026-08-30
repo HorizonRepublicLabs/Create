@@ -28,6 +28,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class LinkedControllerItemRenderer extends CustomRenderedItemModelRenderer {
 
+	/// The lectern draws the controller too, and has no item model of its own
+	/// to reach through.
+	public static final CustomRenderedItemModel MODEL =
+		new CustomRenderedItemModel(Create.asResource("item/linked_controller/item"));
+
 	public LinkedControllerItemRenderer() {
 		super(Create.asResource("item/linked_controller/item"));
 	}

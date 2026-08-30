@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.resources.Identifier;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -37,27 +39,16 @@ public abstract class ZapperItemRenderer extends CustomRenderedItemModelRenderer
 			renderBlockUsed(stack, ms, buffer, light, overlay);
 	}
 
-	@SuppressWarnings("deprecation")
+	/// The item pipeline picks the model for a stack itself, including the
+	/// inventory model a cross-collision block draws as, so the indicator just
+	/// asks for the block's item.
 	private void renderBlockUsed(ItemStack stack, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay) {
 		BlockState state = stack.get(AllDataComponents.SHAPER_BLOCK_USED);
 
 		ms.pushPose();
 		ms.translate(-0.3F, -0.45F, -0.0F);
 		ms.scale(0.25F, 0.25F, 0.25F);
-		BlockStateModel modelForState = Minecraft.getInstance()
-			.getModelManager()
-			.getBlockStateModelSet()
-			.get(state);
-
-		if (state.getBlock() instanceof CrossCollisionBlock)
-			modelForState = Minecraft.getInstance()
-				.getItemRenderer()
-				.getModel(new ItemStack(state.getBlock()), null, null, 0);
-
-		Minecraft.getInstance()
-			.getItemRenderer()
-			.render(new ItemStack(state.getBlock()), ItemDisplayContext.NONE, false, ms, buffer, light, overlay,
-				modelForState);
+		CreateItemRenderer.render(new ItemStack(state.getBlock()), ItemDisplayContext.NONE, ms, buffer, light, overlay);
 		ms.popPose();
 	}
 
