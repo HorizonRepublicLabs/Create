@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.virtualWorld;
 
+import net.minecraft.world.level.chunk.ChunkAccess;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -142,7 +144,7 @@ public class VirtualChunk extends LevelChunk {
 	}
 
 	@Override
-	public void setUnsaved(boolean unsaved) {
+	public void markUnsaved() {
 	}
 
 	@Override
@@ -179,7 +181,7 @@ public class VirtualChunk extends LevelChunk {
 	@Override
 	public void findBlocks(@NotNull Predicate<BlockState> roughFilter, @NotNull BiPredicate<BlockState, BlockPos> fineFilter, @NotNull BiConsumer<BlockPos, BlockState> output) {
 		world.blockStates.forEach((pos, state) -> {
-			if (SectionPos.blockToSectionCoord(pos.getX()) == chunkPos.x && SectionPos.blockToSectionCoord(pos.getZ()) == chunkPos.z) {
+			if (SectionPos.blockToSectionCoord(pos.getX()) == chunkPos.x() && SectionPos.blockToSectionCoord(pos.getZ()) == chunkPos.z()) {
 				if (roughFilter.test(state) && fineFilter.test(state, pos)) {
 					output.accept(pos, state);
 				}
@@ -198,7 +200,7 @@ public class VirtualChunk extends LevelChunk {
 	}
 
 	@Override
-	public TicksToSave getTicksForSerialization() {
+	public ChunkAccess.PackedTicks getTicksForSerialization(long currentTick) {
 		throw new UnsupportedOperationException();
 	}
 
