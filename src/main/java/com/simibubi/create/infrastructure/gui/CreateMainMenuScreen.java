@@ -228,7 +228,6 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 		/// A button draws its own contents; the frame is drawn for it.
 		@Override
 		protected void extractContents(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pt) {
-			super.extractContents(graphics, pMouseX, pMouseY, pt);
 			Matrix3x2fStack pPoseStack = graphics.pose();
 			pPoseStack.pushMatrix();
 			pPoseStack.translate((float) (getX() + width / 2 - (icon.getWidth() * scale) / 2), (float) (getY() + height / 2 - (icon.getHeight() * scale) / 2));
