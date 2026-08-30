@@ -113,7 +113,8 @@ public class GaugeBlock extends DirectionalAxisKineticBlock implements IBE<Gauge
 			return false;
 		if (getRotationAxis(state) == Axis.Y && face != state.getValue(FACING))
 			return false;
-		if (!Block.shouldRenderFace(state, world, pos, face, pos.relative(face)) && !(world instanceof WrappedLevel))
+		if (!Block.shouldRenderFace(world, pos, state, world.getBlockState(pos.relative(face)), face)
+			&& !(world instanceof WrappedLevel))
 			return false;
 		return true;
 	}
