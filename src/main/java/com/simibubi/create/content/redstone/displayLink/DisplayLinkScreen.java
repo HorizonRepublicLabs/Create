@@ -118,9 +118,11 @@ public class DisplayLinkScreen extends AbstractSimiScreen {
 		Block sourceBlock = sourceState.getBlock();
 		Block targetBlock = targetState.getBlock();
 
-		asItem = sourceBlock.getCloneItemStack(level, blockEntity.getSourcePosition(), sourceState);
+		asItem = sourceBlock.getCloneItemStack(level, blockEntity.getSourcePosition(), sourceState, true,
+			minecraft.player);
 		ItemStack sourceIcon = asItem == null || asItem.isEmpty() ? FALLBACK : asItem;
-		asItem = targetBlock.getCloneItemStack(level, blockEntity.getTargetPosition(), targetState);
+		asItem = targetBlock.getCloneItemStack(level, blockEntity.getTargetPosition(), targetState, true,
+			minecraft.player);
 		ItemStack targetIcon = asItem == null || asItem.isEmpty() ? FALLBACK : asItem;
 
 		sources = DisplaySource.getAll(level, blockEntity.getSourcePosition());
