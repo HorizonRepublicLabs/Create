@@ -75,7 +75,7 @@ public class AllPaletteBlocks {
 
 	public static final BlockEntry<WindowBlock> OAK_WINDOW = woodenWindowBlock(WoodType.OAK, Blocks.OAK_PLANKS),
 		SPRUCE_WINDOW = woodenWindowBlock(WoodType.SPRUCE, Blocks.SPRUCE_PLANKS),
-		BIRCH_WINDOW = woodenWindowBlock(WoodType.BIRCH, Blocks.BIRCH_PLANKS, () -> RenderType::translucent, true),
+		BIRCH_WINDOW = woodenWindowBlock(WoodType.BIRCH, Blocks.BIRCH_PLANKS, () -> RenderTypes::translucentMovingBlock, true),
 		JUNGLE_WINDOW = woodenWindowBlock(WoodType.JUNGLE, Blocks.JUNGLE_PLANKS),
 		ACACIA_WINDOW = woodenWindowBlock(WoodType.ACACIA, Blocks.ACACIA_PLANKS),
 		DARK_OAK_WINDOW = woodenWindowBlock(WoodType.DARK_OAK, Blocks.DARK_OAK_PLANKS),
@@ -86,19 +86,19 @@ public class AllPaletteBlocks {
 		BAMBOO_WINDOW = woodenWindowBlock(WoodType.BAMBOO, Blocks.BAMBOO_PLANKS),
 		ORNATE_IRON_WINDOW =
 			customWindowBlock("ornate_iron_window", () -> Items.IRON_NUGGET, () -> AllSpriteShifts.ORNATE_IRON_WINDOW,
-				() -> RenderType::cutout, false, () -> MapColor.TERRACOTTA_LIGHT_GRAY),
+				() -> RenderTypes::cutoutMovingBlock, false, () -> MapColor.TERRACOTTA_LIGHT_GRAY),
 		INDUSTRIAL_IRON_WINDOW = customWindowBlock("industrial_iron_window", AllBlocks.INDUSTRIAL_IRON_BLOCK,
-			() -> AllSpriteShifts.INDUSTRIAL_IRON_WINDOW, () -> RenderType::cutout, false, () -> MapColor.COLOR_GRAY),
+			() -> AllSpriteShifts.INDUSTRIAL_IRON_WINDOW, () -> RenderTypes::cutoutMovingBlock, false, () -> MapColor.COLOR_GRAY),
 		WEATHERED_IRON_WINDOW = WindowGen
 			.randomisedWindowBlock("weathered_iron_window", AllBlocks.WEATHERED_IRON_BLOCK,
-				() -> RenderType::translucent, true, () -> MapColor.TERRACOTTA_LIGHT_GRAY)
+				() -> RenderTypes::translucentMovingBlock, true, () -> MapColor.TERRACOTTA_LIGHT_GRAY)
 			.onRegister(CreateRegistrate.connectedTextures(() -> new WeatheredIronWindowCTBehaviour()))
 			.register();
 
 	public static final BlockEntry<ConnectedGlassPaneBlock> OAK_WINDOW_PANE =
 		woodenWindowPane(WoodType.OAK, OAK_WINDOW),
 		SPRUCE_WINDOW_PANE = woodenWindowPane(WoodType.SPRUCE, SPRUCE_WINDOW),
-		BIRCH_WINDOW_PANE = woodenWindowPane(WoodType.BIRCH, BIRCH_WINDOW, () -> RenderType::translucent),
+		BIRCH_WINDOW_PANE = woodenWindowPane(WoodType.BIRCH, BIRCH_WINDOW, () -> RenderTypes::translucentMovingBlock),
 		JUNGLE_WINDOW_PANE = woodenWindowPane(WoodType.JUNGLE, JUNGLE_WINDOW),
 		ACACIA_WINDOW_PANE = woodenWindowPane(WoodType.ACACIA, ACACIA_WINDOW),
 		DARK_OAK_WINDOW_PANE = woodenWindowPane(WoodType.DARK_OAK, DARK_OAK_WINDOW),
@@ -112,7 +112,7 @@ public class AllPaletteBlocks {
 		INDUSTRIAL_IRON_WINDOW_PANE = customWindowPane("industrial_iron_window", INDUSTRIAL_IRON_WINDOW,
 			() -> AllSpriteShifts.INDUSTRIAL_IRON_WINDOW, () -> RenderTypes::cutoutMovingBlock).register(),
 		WEATHERED_IRON_WINDOW_PANE =
-			customWindowPane("weathered_iron_window", WEATHERED_IRON_WINDOW, null, () -> RenderType::translucent)
+			customWindowPane("weathered_iron_window", WEATHERED_IRON_WINDOW, null, () -> RenderTypes::translucentMovingBlock)
 				.onRegister(CreateRegistrate.connectedTextures(() -> new WeatheredIronWindowPaneCTBehaviour()))
 				.register();
 
