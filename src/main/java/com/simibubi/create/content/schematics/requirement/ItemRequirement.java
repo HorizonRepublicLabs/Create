@@ -1,5 +1,9 @@
 package com.simibubi.create.content.schematics.requirement;
 
+import net.minecraft.world.entity.EquipmentSlotGroup;
+
+import net.minecraft.world.entity.EquipmentSlot;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -152,9 +156,11 @@ public class ItemRequirement {
 		if (entity instanceof ArmorStand armorStand) {
 			List<StackRequirement> requirements = new ArrayList<>();
 			requirements.add(new StackRequirement(new ItemStack(Items.ARMOR_STAND), ItemUseType.CONSUME));
-			armorStand.getAllSlots()
-				.forEach(s -> requirements
-					.add(new StrictNbtStackRequirement(ComponentProcessors.withUnsafeComponentsDiscarded(s), ItemUseType.CONSUME)));
+			// An entity's slots are walked by group now rather than handed out.
+			for (EquipmentSlot slot : EquipmentSlotGroup.ANY)
+				requirements.add(new StrictNbtStackRequirement(
+					ComponentProcessors.withUnsafeComponentsDiscarded(armorStand.getItemBySlot(slot)),
+					ItemUseType.CONSUME));
 			return new ItemRequirement(requirements);
 		}
 

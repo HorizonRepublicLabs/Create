@@ -89,7 +89,7 @@ public abstract class TrainHUDUpdatePacket implements ClientboundCreatePayload {
 		}
 	}
 
-	public static class Serverbound extends TrainHUDUpdatePacket implements SelfHandlingPayload, ClientboundCreatePayload {
+	public static class Serverbound extends TrainHUDUpdatePacket implements SelfHandlingPayload, CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(Train train, Double sendThrottle) {

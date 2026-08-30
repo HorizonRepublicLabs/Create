@@ -76,7 +76,7 @@ public abstract class HonkPacket implements ClientboundCreatePayload {
 		}
 	}
 
-	public static class Serverbound extends HonkPacket implements SelfHandlingPayload, ClientboundCreatePayload {
+	public static class Serverbound extends HonkPacket implements SelfHandlingPayload, CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(Train train, boolean isHonk) {

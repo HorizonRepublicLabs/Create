@@ -548,7 +548,7 @@ public class TrackBlock extends Block
 	@Override
 	public Vec3 getUpNormal(BlockGetter world, BlockPos pos, BlockState state) {
 		return state.getValue(SHAPE)
-			.getUnitVec3i();
+			.getNormal();
 	}
 
 	@Override

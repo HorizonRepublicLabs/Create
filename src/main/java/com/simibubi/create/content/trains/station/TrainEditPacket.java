@@ -68,7 +68,7 @@ public abstract class TrainEditPacket implements ClientboundCreatePayload {
 			NetworkHelper.INSTANCE.sendToAllClients(new TrainEditReturnPacket(id, name, iconType, mapColor));
 	}
 
-	public static class Serverbound extends TrainEditPacket implements SelfHandlingPayload, ClientboundCreatePayload {
+	public static class Serverbound extends TrainEditPacket implements SelfHandlingPayload, CreatePacketPayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(UUID id, String name, Identifier iconType, int mapColor) {
