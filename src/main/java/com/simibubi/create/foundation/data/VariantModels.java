@@ -170,6 +170,11 @@ public class VariantModels {
 			.getPath()));
 	}
 
+	/// For blocks whose one state picks between several weighted models.
+	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block, ConfiguredModel[] models) {
+		forAllStatesExcept(generator, block, state -> models, BlockStateProperties.WATERLOGGED);
+	}
+
 	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block, Identifier model) {
 		forAllStatesExcept(generator, block, state -> ConfiguredModel.of(model).toArray(),
 			BlockStateProperties.WATERLOGGED);

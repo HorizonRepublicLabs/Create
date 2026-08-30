@@ -241,7 +241,8 @@ public class WindowGen {
 		return p -> VariantModels.models(p)
 			.withExistingParent(prefix + partial, Create.asResource(CGPparents + partial))
 			.texture("pane", sideTexture)
-			.texture("edge", topTexture);
+			.texture("edge", topTexture)
+			.build();
 	}
 
 	private static <G extends GlassPaneBlock> BlockBuilder<G, CreateRegistrate> glassPane(String name,
