@@ -547,7 +547,7 @@ public class ClipboardScreen extends AbstractSimiScreen {
 		if (!pIsEndOfText) {
 			graphics.fill(pCursorPos.x, pCursorPos.y - 1, pCursorPos.x + 1, pCursorPos.y + 9, -16777216);
 		} else {
-			graphics.text(font, "_", (float) pCursorPos.x, (float) pCursorPos.y, 0, false);
+			graphics.text(font, "_", pCursorPos.x, pCursorPos.y, 0, false);
 		}
 	}
 

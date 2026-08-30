@@ -1034,8 +1034,8 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		AllGuiTextures.SCHEDULE.render(graphics, leftPos, topPos);
 		FormattedCharSequence formattedcharsequence = title.getVisualOrderText();
 		int center = leftPos + (AllGuiTextures.SCHEDULE.getWidth() - 8) / 2;
-		graphics.text(font, formattedcharsequence, (float) (center - font.width(formattedcharsequence) / 2),
-			(float) topPos + 4, 0x505050, false);
+		graphics.text(font, formattedcharsequence, center - font.width(formattedcharsequence) / 2, topPos + 4, 0x505050,
+			false);
 		renderSchedule(graphics, pMouseX, pMouseY, pPartialTick);
 
 		if (editingCondition == null && editingDestination == null)
@@ -1054,8 +1054,8 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 			.getVisualOrderText()
 			: CreateLang.translateDirect("schedule.condition.editor")
 			.getVisualOrderText();
-		graphics.text(font, formattedcharsequence, (float) (center - font.width(formattedcharsequence) / 2),
-			(float) topPos + 44, 0x505050, false);
+		graphics.text(font, formattedcharsequence, center - font.width(formattedcharsequence) / 2, topPos + 44, 0x505050,
+			false);
 
 		IScheduleInput rendered = editingCondition == null ? editingDestination : editingCondition;
 
