@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.block;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import net.minecraft.client.resources.model.sprite.Material;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -152,8 +156,8 @@ public class CopperBlockSet {
 						.requires(unwaxed)
 						.requires(Items.HONEYCOMB)
 						.unlockedBy("has_unwaxed", prov.has(unwaxed))
-						.save(prov, Identifier.fromNamespaceAndPath(ctx.getId()
-							.getNamespace(), "crafting/" + generalDirectory + ctx.getName() + "_from_honeycomb"));
+						.save(prov, ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(ctx.getId()
+							.getNamespace(), "crafting/" + generalDirectory + ctx.getName() + "_from_honeycomb")));
 				}
 
 				variant.generateRecipes(get(BlockVariant.INSTANCE, state, waxed), ctx, prov);

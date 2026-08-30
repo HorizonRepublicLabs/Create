@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import net.minecraft.client.data.models.model.TextureSlot;
+
 import net.minecraft.client.data.models.model.TextureMapping;
 
 import net.minecraft.client.data.models.model.ModelTemplates;
@@ -252,7 +254,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 			// The inventory model comes from the wall template rather than a
 			// helper of its own.
 			builder.model(() -> (c, p) -> p.generateWithTemplate(c.get(), ModelTemplates.WALL_INVENTORY,
-				TextureMapping.wall(new Material(getTexture(variantName, pattern, 0)))));
+				new TextureMapping().put(TextureSlot.WALL, new Material(getTexture(variantName, pattern, 0)))));
 			return super.transformItem(builder, variantName, pattern);
 		}
 
