@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.pump;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import net.minecraft.world.level.BlockGetter;
 
 import java.util.ArrayList;
@@ -290,7 +292,7 @@ public class PumpBlockEntity extends KineticBlockEntity {
 
 		// fluid handler endpoint
 		if (blockEntity != null) {
-			IFluidHandler capability = blockEntity.getLevel().getCapability(Capabilities.Fluid.BLOCK, blockEntity.getBlockPos(), face.getOpposite());
+			IFluidHandler capability = FluidCaps.at(blockEntity.getLevel(), blockEntity.getBlockPos(), face.getOpposite());
 			if (capability != null)
 				return true;
 		}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.millstone;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
@@ -103,7 +105,7 @@ public class MillstoneBlock extends KineticBlock implements IBE<MillstoneBlockEn
 		if (millstone == null)
 			return;
 
-		IItemHandler capability = millstone.getLevel().getCapability(Capabilities.Item.BLOCK, millstone.getBlockPos(), null);
+		IItemHandler capability = ItemCaps.at(millstone.getLevel(), millstone.getBlockPos(), null);
 		if (capability == null)
 			return;
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.mixer;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.List;
@@ -240,7 +242,7 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 		if (basin.isEmpty())
 			return matchingRecipes;
 
-		IItemHandler availableItems = level.getCapability(Capabilities.Item.BLOCK, basinBlockEntity.getBlockPos(), null);
+		IItemHandler availableItems = ItemCaps.at(level, basinBlockEntity.getBlockPos(), null);
 		if (availableItems == null)
 			return matchingRecipes;
 

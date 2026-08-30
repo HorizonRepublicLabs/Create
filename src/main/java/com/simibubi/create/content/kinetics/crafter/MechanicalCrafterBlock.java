@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.world.level.redstone.Orientation;
@@ -166,7 +168,7 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 					return InteractionResult.SUCCESS;
 				}
 
-				IItemHandler capability = level.getCapability(Capabilities.Item.BLOCK, crafter.getBlockPos(), null);
+				IItemHandler capability = ItemCaps.at(level, crafter.getBlockPos(), null);
 				if (capability == null)
 					return InteractionResult.TRY_WITH_EMPTY_HAND;
 				ItemStack remainder =

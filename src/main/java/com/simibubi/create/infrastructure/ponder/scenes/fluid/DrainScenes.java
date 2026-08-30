@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.ponder.scenes.fluid;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.content.fluids.drain.ItemDrainBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
@@ -57,7 +59,7 @@ public class DrainScenes {
 		scene.world().modifyBlockEntity(drainPos, ItemDrainBlockEntity.class, be -> {
 			be.getBehaviour(SmartFluidTankBehaviour.TYPE)
 				.allowInsertion();
-			IFluidHandler fh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+			IFluidHandler fh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 			if (fh != null)
 				fh.fill(new FluidStack(Fluids.LAVA, 1000), FluidAction.EXECUTE);
 		});
@@ -72,7 +74,7 @@ public class DrainScenes {
 
 		scene.world().modifyBlockEntity(drainPos, ItemDrainBlockEntity.class,
 			be -> {
-				IFluidHandler fh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler fh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (fh != null)
 					fh.drain(500, FluidAction.EXECUTE);
 			});

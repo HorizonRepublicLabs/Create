@@ -1,5 +1,9 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -70,8 +74,8 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 
 	private static boolean apply(BasinBlockEntity basin, Recipe<?> recipe, boolean test) {
 		boolean isBasinRecipe = recipe instanceof BasinRecipe;
-		IItemHandler availableItems = basin.getLevel().getCapability(Capabilities.Item.BLOCK, basin.getBlockPos(), null);
-		IFluidHandler availableFluids = basin.getLevel().getCapability(Capabilities.Fluid.BLOCK, basin.getBlockPos(), null);
+		IItemHandler availableItems = ItemCaps.at(basin.getLevel(), basin.getBlockPos(), null);
+		IFluidHandler availableFluids = FluidCaps.at(basin.getLevel(), basin.getBlockPos(), null);
 
 		if (availableItems == null || availableFluids == null)
 			return false;

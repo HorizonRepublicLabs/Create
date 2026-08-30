@@ -67,7 +67,7 @@ public class BeltTunnelBlockEntity extends SmartBlockEntity {
 						if (AllBlocks.BELT.has(be.level.getBlockState(be.worldPosition.below()))) {
 							BlockEntity beBelow = be.level.getBlockEntity(be.worldPosition.below());
 							if (beBelow != null) {
-								IItemHandler capBelow = be.level.getCapability(Capabilities.Item.BLOCK, be.worldPosition.below(), Direction.UP);
+								IItemHandler capBelow = ItemCaps.at(be.level, be.worldPosition.below(), Direction.UP);
 								if (capBelow != null) {
 									be.cap = capBelow;
 								}

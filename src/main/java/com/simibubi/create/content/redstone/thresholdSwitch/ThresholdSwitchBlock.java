@@ -1,5 +1,9 @@
 package com.simibubi.create.content.redstone.thresholdSwitch;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -104,8 +108,8 @@ public class ThresholdSwitchBlock extends DirectedDirectionalBlock implements IB
 			BlockEntity be = context.getLevel()
 				.getBlockEntity(context.getClickedPos()
 					.relative(face));
-			if (be != null && (be.getLevel().getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), null) != null ||
-					be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null) != null)) {
+			if (be != null && (ItemCaps.at(be.getLevel(), be.getBlockPos(), null) != null ||
+					FluidCaps.at(be.getLevel(), be.getBlockPos(), null) != null)) {
 				preferredFacing = face;
 				break;
 			}

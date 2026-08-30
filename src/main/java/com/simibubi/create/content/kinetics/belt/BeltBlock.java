@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 
 import net.minecraft.util.RandomSource;
@@ -218,7 +220,7 @@ public class BeltBlock extends HorizontalKineticBlock
 			if (BeltTunnelInteractionHandler.getTunnelOnPosition(worldIn, pos) != null)
 				return;
 			withBlockEntityDo(worldIn, pos, be -> {
-				IItemHandler handler = worldIn.getCapability(Capabilities.Item.BLOCK, pos, state, be, null);
+				IItemHandler handler = ItemCaps.at(worldIn, pos, state, be, null);
 				if (handler == null)
 					return;
 				ItemStack remainder = handler.insertItem(0, asItem, false);
@@ -279,7 +281,7 @@ public class BeltBlock extends HorizontalKineticBlock
 
 		if (PackageItem.isPackage(stack)) {
 			ItemStack toInsert = stack.copy();
-			IItemHandler handler = level.getCapability(Capabilities.Item.BLOCK, belt.getBlockPos(), null);
+			IItemHandler handler = ItemCaps.at(level, belt.getBlockPos(), null);
 			if (handler == null)
 				return InteractionResult.TRY_WITH_EMPTY_HAND;
 			ItemStack remainder = handler.insertItem(0, toInsert, false);

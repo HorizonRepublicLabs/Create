@@ -1,5 +1,9 @@
 package com.simibubi.create.content.redstone.smartObserver;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.world.level.redstone.Orientation;
@@ -67,8 +71,8 @@ public class SmartObserverBlock extends DirectedDirectionalBlock implements IBE<
 			else if (BlockEntityBehaviour.get(blockEntity, FluidTransportBehaviour.TYPE) != null)
 				canDetect = true;
 			else if (blockEntity != null && (
-					context.getLevel().getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), null) != null ||
-					context.getLevel().getCapability(Capabilities.Fluid.BLOCK, blockEntity.getBlockPos(), null) != null
+					ItemCaps.at(context.getLevel(), blockEntity.getBlockPos(), null) != null ||
+					FluidCaps.at(context.getLevel(), blockEntity.getBlockPos(), null) != null
 			))
 				canDetect = true;
 			else if (blockEntity instanceof FunnelBlockEntity)

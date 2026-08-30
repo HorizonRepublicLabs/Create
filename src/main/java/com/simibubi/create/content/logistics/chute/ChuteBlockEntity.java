@@ -518,7 +518,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 				capCaches.put(side, cache);
 				return cache.getCapability();
 			} else {
-				return level.getCapability(Capabilities.Item.BLOCK, pos, side.getOpposite());
+				return ItemCaps.at(level, pos, side.getOpposite());
 			}
 		} else {
 			return capCaches.get(side).getCapability();

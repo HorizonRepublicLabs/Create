@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -199,7 +201,7 @@ public class FluidPropagator {
 		if (blockEntity == null || blockEntity.getLevel() == null)
 			return false;
 		IFluidHandler capability =
-			blockEntity.getLevel().getCapability(Capabilities.Fluid.BLOCK, blockEntity.getBlockPos(), side);
+			FluidCaps.at(blockEntity.getLevel(), blockEntity.getBlockPos(), side);
 		return capability != null;
 	}
 

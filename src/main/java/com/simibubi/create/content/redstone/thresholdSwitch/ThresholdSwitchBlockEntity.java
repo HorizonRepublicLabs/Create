@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.thresholdSwitch;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.List;
 
 import com.simibubi.create.compat.thresholdSwitch.FunctionalStorage;
@@ -242,7 +244,7 @@ public class ThresholdSwitchBlockEntity extends SmartBlockEntity implements Clea
 	}
 
 	private boolean isSuitableInventory(BlockEntity be) {
-		return be != null && !(be instanceof StockTickerBlockEntity || level.getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), null, be, null) instanceof ProcessingInventory);
+		return be != null && !(be instanceof StockTickerBlockEntity || ItemCaps.at(level, be.getBlockPos(), null, be, null) instanceof ProcessingInventory);
 	}
 
 	private BlockPos getTargetPos() {

@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.ponder.scenes.fluid;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllFluids;
 import com.simibubi.create.AllItems;
@@ -169,7 +171,7 @@ public class FluidTankScenes {
 		scene.idle(80);
 		scene.world().modifyBlockEntity(util.grid().at(4, 3, 0), SpoutBlockEntity.class,
 			be -> {
-				IFluidHandler handler = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler handler = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (handler != null)
 					handler.fill(content, FluidAction.EXECUTE);
 			});

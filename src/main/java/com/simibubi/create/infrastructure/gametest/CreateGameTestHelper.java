@@ -1,5 +1,9 @@
 package com.simibubi.create.infrastructure.gametest;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -250,7 +254,7 @@ public class CreateGameTestHelper extends GameTestHelper {
 		BlockEntity be = getBlockEntity(pos);
 		if (be == null)
 			fail("BlockEntity not present");
-		IFluidHandler handler = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+		IFluidHandler handler = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 		if (handler == null)
 			fail("handler not present");
 		return handler;
@@ -318,7 +322,7 @@ public class CreateGameTestHelper extends GameTestHelper {
 		BlockEntity be = getBlockEntity(pos);
 		if (be == null)
 			fail("BlockEntity not present");
-		IItemHandler handler = be.getLevel().getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), null);
+		IItemHandler handler = ItemCaps.at(be.getLevel(), be.getBlockPos(), null);
 		if (handler == null)
 			fail("handler not present");
 		return handler;

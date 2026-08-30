@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.ponder.scenes.fluid;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.AllFluids;
 import com.simibubi.create.content.contraptions.actors.psi.PortableFluidInterfaceBlockEntity;
 import com.simibubi.create.content.fluids.pump.PumpBlock;
@@ -51,7 +53,7 @@ public class FluidMovementActorScenes {
 		scene.world().modifyBlock(pumpPos, s -> s.setValue(PumpBlock.FACING, Direction.NORTH), false);
 
 		scene.world().modifyBlockEntity(st, type, be -> {
-			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+			IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 			if (ifh != null)
 				ifh.fill(FluidHelper.copyStackWithAmount(chocolate, 10000), FluidAction.EXECUTE);
 		});
@@ -148,12 +150,12 @@ public class FluidMovementActorScenes {
 						.withItem(bucket);
 
 			scene.world().modifyBlockEntity(st, type, be -> {
-				IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (ifh != null)
 					ifh.drain(1000, FluidAction.EXECUTE);
 			});
 			scene.world().modifyBlockEntity(ct1, type, be -> {
-				IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (ifh != null)
 					ifh.fill(chocolate, FluidAction.EXECUTE);
 			});
@@ -161,12 +163,12 @@ public class FluidMovementActorScenes {
 		}
 		for (int i = 0; i < 8; i++) {
 			scene.world().modifyBlockEntity(st, type, be -> {
-				IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (ifh != null)
 					ifh.drain(1000, FluidAction.EXECUTE);
 			});
 			scene.world().modifyBlockEntity(ct2, type, be -> {
-				IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (ifh != null)
 					ifh.fill(chocolate, FluidAction.EXECUTE);
 			});
@@ -185,12 +187,12 @@ public class FluidMovementActorScenes {
 
 		for (int i = 0; i < 8; i++) {
 			scene.world().modifyBlockEntity(ct2, type, be -> {
-				IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (ifh != null)
 					ifh.drain(1000, FluidAction.EXECUTE);
 			});
 			scene.world().modifyBlockEntity(st, type, be -> {
-				IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (ifh != null)
 					ifh.fill(chocolate, FluidAction.EXECUTE);
 			});
@@ -198,12 +200,12 @@ public class FluidMovementActorScenes {
 		}
 		for (int i = 0; i < 16; i++) {
 			scene.world().modifyBlockEntity(ct1, type, be -> {
-				IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (ifh != null)
 					ifh.drain(1000, FluidAction.EXECUTE);
 			});
 			scene.world().modifyBlockEntity(st, type, be -> {
-				IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+				IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 				if (ifh != null)
 					ifh.fill(chocolate, FluidAction.EXECUTE);
 			});
@@ -211,7 +213,7 @@ public class FluidMovementActorScenes {
 		}
 
 		scene.world().modifyBlockEntity(util.grid().at(2, 2, 3), type, be -> {
-			IFluidHandler ifh = be.getLevel().getCapability(Capabilities.Fluid.BLOCK, be.getBlockPos(), null);
+			IFluidHandler ifh = FluidCaps.at(be.getLevel(), be.getBlockPos(), null);
 			if (ifh != null)
 				ifh.drain(8000, FluidAction.EXECUTE);
 		});

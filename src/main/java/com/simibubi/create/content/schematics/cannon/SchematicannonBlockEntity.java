@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.minecraft.core.component.DataComponentGetter;
 
 import com.simibubi.create.foundation.utility.ValueIOShim;
@@ -160,7 +162,7 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 			BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(facing));
 			if (blockEntity != null) {
 				IItemHandler capability =
-					level.getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), facing.getOpposite());
+					ItemCaps.at(level, blockEntity.getBlockPos(), facing.getOpposite());
 				if (capability != null) {
 					attachedInventories.add(capability);
 				}

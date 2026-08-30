@@ -754,7 +754,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 		if (beltCapability == null) {
 			BlockEntity blockEntity = level.getBlockEntity(worldPosition.below());
 			if (blockEntity != null)
-				beltCapability = level.getCapability(Capabilities.Item.BLOCK, blockEntity.getBlockPos(), null);
+				beltCapability = ItemCaps.at(level, blockEntity.getBlockPos(), null);
 		}
 		return beltCapability;
 	}

@@ -396,7 +396,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			filter = null; // Do not test spout outputs against the recipe filter
 
 		IItemHandler targetInv = be == null ? null
-			: Optional.ofNullable(level.getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), direction.getOpposite()))
+			: ItemCaps.at(Optional.ofNullable(level, be.getBlockPos(), direction.getOpposite()))
 			.orElse(inserter == null ? null : inserter.getInventory());
 
 		IFluidHandler targetTank = be == null ? null
@@ -547,7 +547,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			InvManipulationBehaviour inserter =
 				be == null ? null : BlockEntityBehaviour.get(level, be.getBlockPos(), InvManipulationBehaviour.TYPE);
 			IItemHandler targetInv = be == null ? null
-				: Optional.ofNullable(level.getCapability(Capabilities.Item.BLOCK, be.getBlockPos(), direction.getOpposite()))
+				: ItemCaps.at(Optional.ofNullable(level, be.getBlockPos(), direction.getOpposite()))
 				.orElse(inserter == null ? null : inserter.getInventory());
 			IFluidHandler targetTank = be == null ? null
 				: FluidCaps.at(level, be.getBlockPos(), direction.getOpposite());
