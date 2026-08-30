@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import java.util.ArrayList;
@@ -117,7 +119,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 
 	@Override
 	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		compound.put("Inventory", inventory.serializeNBT(registries));
+		compound.put("Inventory", ValueIOShim.save(inventory, registries));
 		compound.putInt("RecipeIndex", recipeIndex);
 		super.write(compound, registries, clientPacket);
 
@@ -130,7 +132,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(compound, registries, clientPacket);
-		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
+		ValueIOShim.load(inventory, registries, compound.getCompoundOrEmpty("Inventory"));
 		recipeIndex = compound.getIntOr("RecipeIndex", 0);
 		if (compound.contains("PlayEvent"))
 			playEvent = compound.read("PlayEvent", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);

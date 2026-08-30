@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.utility.ComponentJson;
 
 import net.minecraft.core.UUIDUtil;
@@ -286,7 +288,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 
 	@Override
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
-		inventory.deserializeNBT(registries, compound.getCompoundOrEmpty("Inventory"));
+		ValueIOShim.load(inventory, registries, compound.getCompoundOrEmpty("Inventory"));
 		super.read(compound, registries, clientPacket);
 		if (compound.contains("UniqueId", 11))
 			this.uniqueId = compound.read("UniqueId", UUIDUtil.CODEC).orElseThrow();
@@ -299,7 +301,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 		if (uniqueId == null)
 			uniqueId = UUID.randomUUID();
 
-		compound.put("Inventory", inventory.serializeNBT(registries));
+		compound.put("Inventory", ValueIOShim.save(inventory, registries));
 		compound.store("UniqueId", UUIDUtil.CODEC, uniqueId);
 
 		if (customName != null)
