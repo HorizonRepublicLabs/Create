@@ -230,9 +230,10 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		if (this.isOnFire() && !targetIsEnderman)
 			target.igniteForSeconds(5);
 
-		boolean onServer = !level().isClientSide();
+		// Damage is dealt on the server against the level it happens in.
+		boolean onServer = level() instanceof ServerLevel;
 		DamageSource damageSource = causePotatoDamage();
-		if (onServer && !target.hurt(damageSource, damage)) {
+		if (onServer && !target.hurtServer((ServerLevel) level(), damageSource, damage)) {
 			target.setRemainingFireTicks(k);
 			killOnServer();
 			return;
@@ -245,7 +246,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 			if (random.nextDouble() <= recoveryChance) {
 				recoverItem();
 			} else {
-				spawnAtLocation(type.dropStack());
+				spawnAtLocation((ServerLevel) level(), type.dropStack());
 			}
 		}
 
@@ -263,7 +264,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 				.multiply(1.0D, 0.0D, 1.0D)
 				.normalize();
 			if (appliedMotion.lengthSqr() > 0.0D)
-				livingentity.knockback(knockback * 0.6, -appliedMotion.x, -appliedMotion.z);
+				livingentity.knockback(knockback * 0.6, -appliedMotion.x, -appliedMotion.z, damageSource, damage);
 		}
 
 		if (onServer && owner instanceof LivingEntity) {
@@ -273,7 +274,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 		if (livingentity != owner && livingentity instanceof Player && owner instanceof ServerPlayer
 			&& !this.isSilent()) {
 			((ServerPlayer) owner).connection
-				.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.ARROW_HIT_PLAYER, 0.0F));
+				.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.PLAY_ARROW_HIT_SOUND, 0.0F));
 		}
 
 		if (onServer && owner instanceof ServerPlayer serverplayerentity) {
@@ -291,8 +292,8 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 	}
 
 	private void recoverItem() {
-		if (!stack.isEmpty())
-			spawnAtLocation(stack.copyWithCount(1));
+		if (!stack.isEmpty() && level() instanceof ServerLevel serverLevel)
+			spawnAtLocation(serverLevel, stack.copyWithCount(1));
 	}
 
 	public static void playHitSound(Level world, Vec3 location) {
@@ -311,7 +312,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 			if (random.nextDouble() <= recoveryChance) {
 				recoverItem();
 			} else {
-				spawnAtLocation(getProjectileType().dropStack());
+				spawnAtLocation((ServerLevel) level(), getProjectileType().dropStack());
 			}
 		}
 
@@ -323,7 +324,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amt) {
 		if (source.is(DamageTypeTags.IS_FIRE))
 			return false;
-		if (this.isInvulnerableTo(source))
+		if (this.isInvulnerableToBase(source))
 			return false;
 		pop(position());
 		killOnServer();
