@@ -303,7 +303,7 @@ public class ExtendoGripItem extends Item {
 		if (!isUncaughtClientInteraction(entity, target))
 			return;
 		if (isHoldingExtendoGrip(entity))
-			ClientNetworkHelper.INSTANCE.sendToServer(new ExtendoGripInteractionPacket(target, event.getHand(), event.getLocalPos()));
+			ClientNetworkHelper.INSTANCE.sendToServer(new ExtendoGripInteractionPacket(target, event.getHand(), event.getLocation()));
 	}
 
 	public static boolean isHoldingExtendoGrip(Player player) {

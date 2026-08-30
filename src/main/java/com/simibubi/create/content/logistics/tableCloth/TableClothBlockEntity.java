@@ -127,8 +127,9 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 		super.lazyTick();
 		BlockPos relativePos = worldPosition.relative(facing);
 		sideOccluded = AllBlockTags.TABLE_CLOTHS.matches(level.getBlockState(relativePos))
+			// An occlusion shape is asked of the state alone now.
 			|| Block.isFaceFull(level.getBlockState(relativePos.below())
-			.getOcclusionShape(level, relativePos.below()), facing.getOpposite());
+				.getOcclusionShape(), facing.getOpposite());
 	}
 
 	@Override

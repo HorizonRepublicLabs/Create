@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.world.ItemStackWithSlot;
+
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import net.minecraft.core.UUIDUtil;
 
 import java.util.UUID;
@@ -50,8 +54,10 @@ public class DeployerMovingInteraction extends MovingInteractionBehaviour {
 				UUID owner = ctx.blockEntityData.contains("Owner") ? ctx.blockEntityData.read("Owner", UUIDUtil.CODEC).orElseThrow() : null;
 				DeployerFakePlayer deployerFakePlayer = new DeployerFakePlayer((ServerLevel) ctx.world, owner);
 				deployerFakePlayer.onMinecartContraption = ctx.contraption instanceof MountedContraption;
+				// An inventory loads from a typed list now.
 				deployerFakePlayer.getInventory()
-					.load(ctx.blockEntityData.getListOrEmpty("Inventory"));
+					.load(ValueIOShim.inputOf(ctx.blockEntityData, ctx.world.registryAccess())
+						.listOrEmpty("Inventory", ItemStackWithSlot.CODEC));
 				ctx.temporaryData = fake = deployerFakePlayer;
 				ctx.blockEntityData.remove("Inventory");
 			} else
