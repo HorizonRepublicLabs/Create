@@ -90,7 +90,8 @@ public class BlueprintMenu extends GhostItemMenu<BlueprintSection> {
 		}
 
 		CraftingRecipe icraftingrecipe = optional.get().value();
-		ItemStack itemstack = icraftingrecipe.assemble(craftingInventory.asCraftInput(), level.registryAccess());
+		// A recipe assembles from its input alone now.
+		ItemStack itemstack = icraftingrecipe.assemble(craftingInventory.asCraftInput());
 		ghostInventory.setStackInSlot(9, itemstack);
 		contentHolder.inferredIcon = true;
 		ItemStack toSend = itemstack.copy();
@@ -109,7 +110,7 @@ public class BlueprintMenu extends GhostItemMenu<BlueprintSection> {
 
 	@Override
 	protected ItemStackHandler createGhostInventory() {
-		return ItemHelper.ingredientStacks(contentHolder);
+		return contentHolder.getItems();
 	}
 
 	@Override

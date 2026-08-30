@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.render;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 
 import java.util.ArrayList;
@@ -106,7 +108,8 @@ public class ClientContraption {
 		for (StructureBlockInfo info : contraption.getBlocks().values()) {
 			renderLevel.setBlock(info.pos(), info.state(), 0);
 
-			BlockEntity blockEntity = readBlockEntity(renderLevel, info, contraption.getIsLegacy().getBooleanOr(info.pos(), false));
+			BlockEntity blockEntity = readBlockEntity(renderLevel, info, contraption.getIsLegacy()
+				.getBoolean(info.pos()));
 
 			if (blockEntity != null) {
 				renderLevel.setBlockEntity(blockEntity);
@@ -150,7 +153,8 @@ public class ClientContraption {
 		BlockEntity be = entityBlock.newBlockEntity(pos, state);
 		postprocessReadBlockEntity(level, be, state);
 		if (be != null && nbt != null) {
-			be.handleUpdateTag(nbt, level.registryAccess());
+			// A block entity reads its update tag through value io now.
+			be.handleUpdateTag(ValueIOShim.inputOf(nbt, level.registryAccess()));
 		}
 
 		return be;

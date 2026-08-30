@@ -55,7 +55,8 @@ public class FillingBySpout {
 		}
 
 		for (RecipeHolder<Recipe<RecipeInput>> recipe : RecipeLookup.allOfType(world, AllRecipeTypes.FILLING.getType())) {
-			FillingRecipe fillingRecipe = (FillingRecipe) recipe.value();
+			if (!(recipe.value() instanceof FillingRecipe fillingRecipe))
+				continue;
 			SizedFluidIngredient requiredFluid = fillingRecipe.getRequiredFluid();
 			if (requiredFluid.ingredient().test(availableFluid))
 				return requiredFluid.amount();
@@ -76,7 +77,8 @@ public class FillingBySpout {
 					.test(toFill))
 				.orElseGet(() -> {
 					for (RecipeHolder<Recipe<RecipeInput>> recipe : RecipeLookup.allOfType(level, AllRecipeTypes.FILLING.getType())) {
-						FillingRecipe fr = (FillingRecipe) recipe.value();
+						if (!(recipe.value() instanceof FillingRecipe fr))
+							continue;
 						SizedFluidIngredient requiredFluid = fr.getRequiredFluid();
 						if (requiredFluid.test(toFill))
 							return new RecipeHolder<>(recipe.id(), fr);

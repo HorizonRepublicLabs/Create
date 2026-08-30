@@ -393,7 +393,7 @@ public class CreateJEI implements IModPlugin {
 
 			if (potionContents.hasEffects()) {
 				Set<Holder<MobEffect>> effectSet = new HashSet<>();
-				potionContents.forEachEffect(mei -> effectSet.add(mei.getEffect()));
+				potionContents.forEachEffect(mei -> effectSet.add(mei.getEffect()), 1);
 				if (!visitedEffects.add(effectSet))
 					continue;
 }
@@ -477,7 +477,7 @@ public class CreateJEI implements IModPlugin {
 
 	public static boolean doOutputsMatch(Recipe<?> recipe1, Recipe<?> recipe2) {
 		RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
-		return ItemHelper.sameItem(RecipeResult.of(CreateRecipeCategory, recipe1), RecipeResult.of(CreateRecipeCategory, recipe2));
+		return ItemHelper.sameItem(RecipeResult.of(recipe1, registryAccess), RecipeResult.of(recipe2, registryAccess));
 	}
 
 	@Override
