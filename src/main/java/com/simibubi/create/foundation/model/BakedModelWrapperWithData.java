@@ -1,7 +1,5 @@
 package com.simibubi.create.foundation.model;
 
-import net.minecraft.world.level.BlockGetter;
-
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
@@ -16,16 +14,18 @@ public abstract class BakedModelWrapperWithData extends DelegateBlockStateModel 
 		super(originalModel);
 	}
 
-	@Override
-	public final ModelData getModelData(BlockGetter world, BlockPos pos, BlockState state, ModelData blockEntityData) {
+	/// Nothing hands a model its data ahead of time any more: the level reaches
+	/// collectParts, so a model builds what it needs there and asks for this.
+	public final ModelData buildModelData(BlockAndTintGetter world, BlockPos pos, BlockState state,
+		ModelData blockEntityData) {
 		Builder builder = ModelData.builder();
-		if (originalModel instanceof BakedModelWrapperWithData)
-			((BakedModelWrapperWithData) originalModel).gatherModelData(builder, world, pos, state, blockEntityData);
+		if (delegate instanceof BakedModelWrapperWithData wrapper)
+			wrapper.gatherModelData(builder, world, pos, state, blockEntityData);
 		gatherModelData(builder, world, pos, state, blockEntityData);
 		return builder.build();
 	}
 
-	protected abstract ModelData.Builder gatherModelData(ModelData.Builder builder, BlockGetter world,
+	protected abstract ModelData.Builder gatherModelData(ModelData.Builder builder, BlockAndTintGetter world,
 		BlockPos pos, BlockState state, ModelData blockEntityData);
 
 }

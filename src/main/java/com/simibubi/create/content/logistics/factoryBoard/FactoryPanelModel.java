@@ -46,7 +46,7 @@ public class FactoryPanelModel extends DataDrivenModel<FactoryPanelModel.Factory
 	}
 
 	@Override
-	protected FactoryPanelModelData gatherData(BlockGetter world, BlockPos pos, BlockState state) {
+	protected FactoryPanelModelData gatherData(BlockAndTintGetter world, BlockPos pos, BlockState state) {
 		FactoryPanelModelData data = new FactoryPanelModelData();
 		for (PanelSlot slot : PanelSlot.values()) {
 			FactoryPanelBehaviour behaviour = FactoryPanelBehaviour.at(world, new FactoryPanelPosition(pos, slot));

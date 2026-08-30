@@ -47,7 +47,7 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 	}
 
 	@Override
-	protected Builder gatherModelData(Builder builder, BlockGetter world, BlockPos pos, BlockState state,
+	protected Builder gatherModelData(Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state,
 		ModelData blockEntityData) {
 		BlockState material = getMaterial(blockEntityData);
 		builder.with(MATERIAL_PROPERTY, material);
@@ -96,7 +96,7 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 	@Override
 	public void collectParts(BlockAndTintGetter level, BlockPos pos, BlockState state, RandomSource random,
 		List<BlockStateModelPart> parts) {
-		ModelData data = level.getModelData(pos);
+		ModelData data = buildModelData(level, pos, state, level.getModelData(pos));
 		BlockState material = getMaterial(data);
 		if (material == null) {
 			super.collectParts(level, pos, state, random, parts);

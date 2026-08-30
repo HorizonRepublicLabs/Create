@@ -42,7 +42,7 @@ public class CTModel extends DelegateBlockStateModel {
 		this.behaviour = behaviour;
 	}
 
-	protected CTData createCTData(BlockGetter world, BlockPos pos, BlockState state) {
+	protected CTData createCTData(BlockAndTintGetter world, BlockPos pos, BlockState state) {
 		CTData data = new CTData();
 		MutableBlockPos mutablePos = new MutableBlockPos();
 		for (Direction face : Iterate.directions) {

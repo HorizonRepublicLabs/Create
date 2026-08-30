@@ -45,7 +45,6 @@ import com.simibubi.create.content.equipment.armor.TrimmableArmorModelGenerator;
 import com.simibubi.create.content.equipment.blueprint.BlueprintItem;
 import com.simibubi.create.content.equipment.extendoGrip.ExtendoGripItem;
 import com.simibubi.create.content.equipment.goggles.GogglesItem;
-import com.simibubi.create.content.equipment.goggles.GogglesModel;
 import com.simibubi.create.content.equipment.potatoCannon.PotatoCannonItem;
 import com.simibubi.create.content.equipment.sandPaper.SandPaperItem;
 import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandItem;
@@ -270,7 +269,6 @@ public class AllItems {
 		.properties(p -> p.stacksTo(1)
 			.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD)
 				.build()))
-		.onRegister(CreateRegistrate.itemModel(() -> GogglesModel::new))
 		.lang("Engineer's Goggles")
 		.register();
 
