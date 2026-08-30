@@ -1,16 +1,14 @@
 package com.simibubi.create.foundation.mixin.accessor;
 
-import java.util.function.Function;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.font.FontSet;
-import net.minecraft.resources.Identifier;
 
+/// Glyphs come from a provider now, and the font keeps it to itself. The flap
+/// display picks its own glyphs per character, so it needs the way in.
 @Mixin(Font.class)
 public interface FontAccessor {
-	@Accessor("fonts")
-	Function<Identifier, FontSet> create$getFonts();
+	@Accessor("provider")
+	Font.Provider create$getProvider();
 }

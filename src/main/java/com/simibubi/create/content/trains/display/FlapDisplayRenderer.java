@@ -1,5 +1,19 @@
 package com.simibubi.create.content.trains.display;
 
+import net.minecraft.util.Mth;
+
+import com.simibubi.create.foundation.mixin.accessor.FontAccessor;
+
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.util.ARGB;
+
+import net.minecraft.network.chat.FontDescription;
+
+import net.minecraft.client.gui.font.TextRenderable;
+
+import net.minecraft.client.gui.GlyphSource;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -22,9 +36,7 @@ import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.math.AngleHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.font.FontSet;
 import net.minecraft.client.gui.font.glyphs.BakedGlyph;
-import net.minecraft.client.gui.font.glyphs.EmptyGlyph;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Vec3i;
@@ -50,7 +62,7 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 		super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
 
 		Font fontRenderer = Minecraft.getInstance().font;
-		FontSet fontSet = fontRenderer.getFontSet(Style.DEFAULT_FONT);
+		GlyphSource glyphSource = glyphSource();
 
 		float scale = 1 / 32f;
 
@@ -90,23 +102,25 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 			for (int i = 0; i < line.size(); i++) {
 				FlapDisplaySection section = line.get(i);
 				renderOutput.nextSection(section);
-				int ticks = AnimationTickHolder.getTicks(be.getLevel());
+				int ticks = AnimationTickHolder.getTicks();
 				String text = section.renderCharsIndividually() || !section.spinning[0] ? section.text
 					: section.cyclingOptions[((ticks / 3) + i * 13) % section.cyclingOptions.length];
 				StringDecomposer.iterateFormatted(text, Style.EMPTY, renderOutput);
 				ms.translate(section.size + (section.hasGap ? 8 : 1), 0, 0);
 			}
 
-			if (buffer instanceof BufferSource bs) {
-				BakedGlyph texturedglyph = fontSet.whiteGlyph();
-				bs.endBatch(texturedglyph.renderType(Font.DisplayMode.NORMAL));
-			}
 
 			ms.popPose();
 			ms.translate(0, 16, 0);
 		}
 
 		ms.popPose();
+	}
+
+	/// Glyphs come from the font's provider, which it keeps to itself.
+	private static GlyphSource glyphSource() {
+		return ((FontAccessor) Minecraft.getInstance().font).create$getProvider()
+			.glyphs(FontDescription.DEFAULT);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -143,8 +157,8 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 		}
 
 		public boolean accept(int charIndex, Style style, int glyph) {
-			FontSet fontset = getFontSet();
-			int ticks = paused ? 0 : AnimationTickHolder.getTicks(level);
+			GlyphSource glyphSource = glyphSource();
+			int ticks = paused ? 0 : AnimationTickHolder.getTicks();
 			float time = paused ? 0 : AnimationTickHolder.getRenderTime();
 			float dim = 1;
 
@@ -157,7 +171,8 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 				dim = 0.75f;
 			}
 
-			GlyphInfo glyphinfo = fontset.getGlyphInfo(glyph, false);
+			BakedGlyph baked = glyphSource.getGlyph(glyph);
+			GlyphInfo glyphinfo = baked.info();
 			float glyphWidth = glyphinfo.getAdvance(false);
 
 			if (!section.renderCharsIndividually() && section.spinning[0]) {
@@ -167,8 +182,9 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 					dim = 0.75f;
 			}
 
-			BakedGlyph bakedglyph =
-				style.isObfuscated() && glyph != 32 ? fontset.getRandomGlyph(glyphinfo) : fontset.getGlyph(glyph);
+			BakedGlyph bakedglyph = style.isObfuscated() && glyph != 32
+				? glyphSource.getRandomGlyph(RandomSource.create(), Mth.ceil(glyphWidth))
+				: glyphSource.getGlyph(glyph);
 			TextColor textcolor = style.getColor();
 
 			float red = this.r * dim;
@@ -187,10 +203,14 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 			if (section.renderCharsIndividually())
 				x += (standardWidth - glyphWidth) / 2f;
 
-			if (isNotEmpty(bakedglyph)) {
-				VertexConsumer vertexconsumer = bufferSource.getBuffer(renderTypeOf(bakedglyph));
-				bakedglyph.render(style.isItalic(), x, 0, pose, vertexconsumer, red, green, blue, a, light);
-			}
+			// A glyph builds a renderable of its own now, carrying the colour it
+			// was asked for; an empty one hands back nothing.
+			int packedColor = ARGB.colorFromFloat(a, red, green, blue);
+			TextRenderable.Styled renderable =
+				bakedglyph.createGlyph(x, 0, packedColor, 0, style, style.isBold() ? 1 : 0, 0);
+			if (renderable != null)
+				renderable.render(pose, bufferSource.getBuffer(renderable.renderType(Font.DisplayMode.NORMAL, false)),
+					light, false);
 
 			if (section.renderCharsIndividually())
 				x += standardWidth - (standardWidth - glyphWidth) / 2f;
@@ -209,25 +229,15 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 			float g = (bgColor >> 8 & 255) / 255f;
 			float b = (bgColor & 255) / 255f;
 
-			BakedGlyph bakedglyph = getFontSet().whiteGlyph();
-			VertexConsumer vertexconsumer = bufferSource.getBuffer(renderTypeOf(bakedglyph));
-			bakedglyph.renderEffect(new BakedGlyph.Effect(-1f, 9f, section.size, -2f, 0.01f, r, g, b, a), this.pose,
-				vertexconsumer, light);
+			TextRenderable background = ((FontAccessor) Minecraft.getInstance().font).create$getProvider()
+				.effect()
+				.createEffect(-1f, 9f, section.size, -2f, 0.01f, ARGB.colorFromFloat(a, r, g, b), 0, 0);
+			background.render(this.pose,
+				bufferSource.getBuffer(background.renderType(Font.DisplayMode.NORMAL, false)), light, false);
 
 			return x;
 		}
 
-		private FontSet getFontSet() {
-			return Minecraft.getInstance().font.getFontSet(Style.DEFAULT_FONT);
-		}
-
-		private RenderType renderTypeOf(BakedGlyph bakedglyph) {
-			return bakedglyph.renderType(Font.DisplayMode.NORMAL);
-		}
-
-		private boolean isNotEmpty(BakedGlyph bakedglyph) {
-			return !(bakedglyph instanceof EmptyGlyph);
-		}
 
 	}
 
@@ -237,9 +247,11 @@ public class FlapDisplayRenderer extends KineticBlockEntityRenderer<FlapDisplayB
 			state.getValue(FlapDisplayBlock.HORIZONTAL_FACING));
 	}
 
+	/// No block entity to ask any more; only controllers draw anything, and the
+	/// rest leave right away.
 	@Override
 	public boolean shouldRenderOffScreen() {
-		return be.isController;
+		return true;
 	}
 
 }
