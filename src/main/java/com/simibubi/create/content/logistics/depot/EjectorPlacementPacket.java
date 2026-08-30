@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
+
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
