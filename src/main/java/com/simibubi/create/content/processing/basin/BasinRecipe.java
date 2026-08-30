@@ -193,7 +193,7 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 			.ingredients())
 				.withSingleItemOutput(RecipeResult.of(recipe.value(), Minecraft.getInstance().level.registryAccess()))
 				.build();
-		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, recipe.id()), basinRecipe);
+		return new RecipeHolder<>(recipe.id(), basinRecipe);
 	}
 
 	protected BasinRecipe(IRecipeTypeInfo type, ProcessingRecipeParams params) {

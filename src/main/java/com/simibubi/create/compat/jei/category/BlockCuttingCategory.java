@@ -115,7 +115,7 @@ public class BlockCuttingCategory extends CreateRecipeCategory<CondensedBlockCut
 			}
 			CondensedBlockCuttingRecipe cr = new CondensedBlockCuttingRecipe(i1);
 			cr.addOutput(getResultItem(recipe.value()));
-			condensed.add(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, recipe.id()), cr));
+			condensed.add(new RecipeHolder<>(recipe.id(), cr));
 		}
 		return condensed;
 	}
