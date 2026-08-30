@@ -22,7 +22,7 @@ public class TrackPlacementOverlay implements GuiLayer {
 	public static final TrackPlacementOverlay INSTANCE = new TrackPlacementOverlay();
 
 	@Override
-	public void extractRenderState(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (HudState.isHidden(mc) || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;

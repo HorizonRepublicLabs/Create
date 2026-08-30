@@ -257,7 +257,7 @@ public class SchematicHandler implements GuiLayer {
 	}
 
 	@Override
-	public void extractRenderState(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (HudState.isHidden(mc) || !active)
 			return;

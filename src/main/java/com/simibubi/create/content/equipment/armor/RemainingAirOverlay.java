@@ -30,7 +30,7 @@ public class RemainingAirOverlay implements GuiLayer {
 	public static final RemainingAirOverlay INSTANCE = new RemainingAirOverlay();
 
 	@Override
-	public void extractRenderState(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+	public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
 		Minecraft mc = Minecraft.getInstance();
 		if (HudState.isHidden(mc) || mc.gameMode.getPlayerMode() == GameType.SPECTATOR)
 			return;
@@ -55,8 +55,9 @@ public class RemainingAirOverlay implements GuiLayer {
 		poseStack.pushMatrix();
 
 		ItemStack backtank = getDisplayedBacktank(player);
+		// The gui stack is 2D; there is no depth to translate by.
 		poseStack.translate(guiGraphics.guiWidth() / 2 + 90, guiGraphics.guiHeight() - 53 + (backtank
-				.has(DataComponents.DAMAGE_RESISTANT) ? 9 : 0), 0);
+			.has(DataComponents.DAMAGE_RESISTANT) ? 9 : 0));
 
 		Component text = Component.literal(StringUtil.formatTickDuration(Math.max(0, timeLeft - 1) * 20, mc.level.tickRateManager().tickrate()));
 		GuiGameElement.of(backtank)
