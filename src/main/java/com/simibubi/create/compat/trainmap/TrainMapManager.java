@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.trainmap;
 
+import net.minecraft.util.ARGB;
+
 import org.joml.Matrix3x2fStack;
 
 import java.util.ArrayList;
@@ -42,7 +44,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -720,9 +721,9 @@ public class TrainMapManager {
 					if (map.alphaAt(xi, zi) >= a)
 						continue;
 					if (map.is(xi, zi, mainColor))
-						map.setPixel(xi, zi, FastColor.ABGR32.color(a, mainColorShadow));
+						map.setPixel(xi, zi, ARGB.color(a, mainColorShadow));
 					else if (map.is(xi, zi, darkerColor))
-						map.setPixel(xi, zi, FastColor.ABGR32.color(a, darkerColorShadow));
+						map.setPixel(xi, zi, ARGB.color(a, darkerColorShadow));
 				}
 			}
 		}
@@ -734,7 +735,7 @@ public class TrainMapManager {
 	}
 
 	private static int markY(int color, double y) {
-		return FastColor.ABGR32.color(mapYtoAlpha(y), color);
+		return ARGB.color(mapYtoAlpha(y), color);
 	}
 
 }

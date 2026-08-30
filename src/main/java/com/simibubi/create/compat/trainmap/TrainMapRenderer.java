@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.trainmap;
 
+import net.minecraft.util.ARGB;
+
 import org.joml.Matrix3x2fStack;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -27,7 +29,6 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 
@@ -90,7 +91,7 @@ public class TrainMapRenderer implements AutoCloseable {
 		xCoord = Mth.positiveModulo(xCoord, WIDTH);
 		zCoord = Mth.positiveModulo(zCoord, HEIGHT);
 		instance.getImage()
-			.blendPixel(xCoord, zCoord, FastColor.ABGR32.color(alpha, color));
+			.blendPixel(xCoord, zCoord, ARGB.color(alpha, color));
 	}
 
 	public void blendPixels(int xCoordFrom, int zCoordFrom, int xCoordTo, int zCoordTo, int color, int alpha) {
