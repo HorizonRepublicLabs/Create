@@ -171,7 +171,7 @@ public class ScheduleItem extends Item implements MenuProvider, SupportsItemCopy
 
 	@Override
 	public Component getDisplayName() {
-		return getDescription();
+		return Component.translatable(getDescriptionId());
 	}
 
 	@Override
