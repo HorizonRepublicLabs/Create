@@ -35,7 +35,7 @@ public class ShadowRenderHelper {
 	}
 
 	private static final RenderType SHADOW_LAYER =
-		RenderTypes.entityNoOutline(Identifier.withDefaultNamespace("textures/misc/shadow.png"));
+		RenderTypes.entityShadow(Identifier.withDefaultNamespace("textures/misc/shadow.png"));
 
 	public static void renderShadow(PoseStack matrixStack, SuperRenderTypeBuffer buffer, float opacity, float radius) {
 		PoseStack.Pose entry = matrixStack.last();

@@ -47,8 +47,8 @@ public class SmartBlockEntityRenderer<T extends SmartBlockEntity> extends SafeBl
 		float f = yOffset + 0.25f;
 		ms.pushPose();
 		ms.translate(0.5, f, 0.5);
-		ms.mulPose(mc.getEntityRenderDispatcher()
-			.cameraOrientation());
+		// The dispatcher holds the camera itself now.
+		ms.mulPose(mc.getEntityRenderDispatcher().camera.rotation());
 		ms.scale(0.025F, -0.025F, 0.025F);
 		Matrix4f matrix4f = ms.last()
 			.pose();

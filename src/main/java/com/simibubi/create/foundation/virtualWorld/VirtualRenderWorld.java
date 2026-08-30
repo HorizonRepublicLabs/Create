@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.virtualWorld;
 
+import net.minecraft.client.multiplayer.ClientLevel;
+
 import net.minecraft.world.level.ColorResolver;
 
 import net.minecraft.world.level.CardinalLighting;
@@ -385,7 +387,11 @@ public class VirtualRenderWorld extends Level implements VisualizationLevel, Blo
 
 	@Override
 	public int getBlockTint(BlockPos pos, ColorResolver color) {
-		return level.getBlockTint(pos, color);
+		// Only the client level resolves tints; a virtual world falls back to
+		// the resolver's own default otherwise.
+		return level instanceof ClientLevel clientLevel ? clientLevel.getBlockTint(pos, color)
+			: color.getColor(level.getBiome(pos)
+				.value(), pos.getX(), pos.getZ());
 	}
 
 	@Override
