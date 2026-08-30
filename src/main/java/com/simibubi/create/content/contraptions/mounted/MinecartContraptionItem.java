@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.mounted;
 
+import net.minecraft.world.entity.EntityTypes;
+
+import net.minecraft.world.entity.EntityType;
+
 import net.minecraft.network.chat.Component;
 
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -68,7 +72,17 @@ public class MinecartContraptionItem extends Item {
 	/// AbstractMinecart.Type is gone; the variants are separate classes now, so
 	/// Create keeps its own small enum for the three it supports.
 	public enum Variant {
-		RIDEABLE, FURNACE, CHEST;
+		RIDEABLE(EntityTypes.MINECART), FURNACE(EntityTypes.FURNACE_MINECART), CHEST(EntityTypes.CHEST_MINECART);
+
+		private final EntityType<? extends AbstractMinecart> entityType;
+
+		Variant(EntityType<? extends AbstractMinecart> entityType) {
+			this.entityType = entityType;
+		}
+
+		public EntityType<? extends AbstractMinecart> entityType() {
+			return entityType;
+		}
 
 		public static Variant of(AbstractMinecart cart) {
 			if (cart instanceof MinecartChest)
@@ -151,7 +165,8 @@ public class MinecartContraptionItem extends Item {
 			}
 
 			AbstractMinecart abstractminecartentity = AbstractMinecart.createMinecart(world, d0, d1 + d3, d2,
-				((MinecartContraptionItem) stack.getItem()).minecartType, EntitySpawnReason.DISPENSER, stack, null);
+				((MinecartContraptionItem) stack.getItem()).minecartType.entityType(), EntitySpawnReason.DISPENSER,
+				stack, null);
 			if (stack.has(DataComponents.CUSTOM_NAME))
 				abstractminecartentity.setCustomName(stack.getHoverName());
 			world.addFreshEntity(abstractminecartentity);
@@ -189,7 +204,8 @@ public class MinecartContraptionItem extends Item {
 
 				AbstractMinecart abstractminecartentity =
 					AbstractMinecart.createMinecart(serverlevel, (double) blockpos.getX() + 0.5D,
-						(double) blockpos.getY() + 0.0625D + d0, (double) blockpos.getZ() + 0.5D, this.minecartType,
+						(double) blockpos.getY() + 0.0625D + d0, (double) blockpos.getZ() + 0.5D,
+						this.minecartType.entityType(),
 						EntitySpawnReason.DISPENSER, itemstack, null);
 				if (itemstack.has(DataComponents.CUSTOM_NAME))
 					abstractminecartentity.setCustomName(itemstack.getHoverName());
