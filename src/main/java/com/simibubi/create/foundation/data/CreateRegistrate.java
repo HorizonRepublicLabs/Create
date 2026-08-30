@@ -274,7 +274,8 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 
 	public static NonNullConsumer<? super Block> connectedTextures(
 		Supplier<ConnectedTextureBehaviour> behavior) {
-		return entry -> PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> registerCTBehviour(entry, behavior));
+		return entry -> PlatformHelper.INSTANCE
+			.executeOnClientOnly(() -> () -> CreateRegistrateClientHooks.registerCTBehaviour(entry, behavior));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -297,10 +298,4 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 			.register(RegisteredObjectsHelper.getKeyOrThrow(entry), func.get());
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	private static void registerCTBehviour(Block entry, Supplier<ConnectedTextureBehaviour> behaviorSupplier) {
-		ConnectedTextureBehaviour behavior = behaviorSupplier.get();
-		CreateClient.MODEL_SWAPPER.getCustomBlockModels()
-			.register(RegisteredObjectsHelper.getKeyOrThrow(entry), model -> new CTModel(model, behavior));
-	}
 }
