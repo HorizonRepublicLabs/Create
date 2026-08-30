@@ -1548,14 +1548,14 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 		GeneratedRecipeBuilder unlockedBy(Supplier<? extends ItemLike> item) {
 			this.unlockedBy = () -> ItemPredicate.Builder.item()
-				.of(item.get())
+				.of(items, item.get())
 				.build();
 			return this;
 		}
 
 		GeneratedRecipeBuilder unlockedByTag(Supplier<TagKey<Item>> tag) {
 			this.unlockedBy = () -> ItemPredicate.Builder.item()
-				.of(tag.get())
+				.of(items, tag.get())
 				.build();
 			return this;
 		}
@@ -1609,7 +1609,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 						Ingredient.of(base.get()), upgradeMaterial.get(), RecipeCategory.COMBAT, result.get()
 							.asItem());
 				b.unlocks("has_item", inventoryTrigger(ItemPredicate.Builder.item()
-					.of(base.get())
+					.of(items, base.get())
 					.build()));
 				b.save(consumer, ResourceKey.create(Registries.RECIPE, createLocation("crafting")));
 			});

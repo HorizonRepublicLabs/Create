@@ -1,5 +1,15 @@
 package com.simibubi.create.api.data.recipe;
 
+import net.minecraft.advancements.predicates.ItemPredicate;
+
+import net.minecraft.advancements.triggers.InventoryChangeTrigger;
+
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+
+import net.minecraft.advancements.triggers.Criterion;
+
+import java.util.Optional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -66,6 +76,14 @@ public abstract class BaseRecipeProvider extends RecipeProvider.Runner {
 	@Override
 	public String getName() {
 		return getClass().getSimpleName();
+	}
+
+
+	/// The vanilla helper sits on the provider, which the generators no longer
+	/// extend, so it is repeated here for them.
+	protected static Criterion<InventoryChangeTrigger.TriggerInstance> inventoryTrigger(ItemPredicate... predicates) {
+		return CriteriaTriggers.INVENTORY_CHANGED.createCriterion(new InventoryChangeTrigger.TriggerInstance(
+			Optional.empty(), InventoryChangeTrigger.TriggerInstance.Slots.ANY, List.of(predicates)));
 	}
 
 	@FunctionalInterface
