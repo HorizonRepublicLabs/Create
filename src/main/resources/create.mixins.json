@@ -53,6 +53,7 @@
     "datafixer.V1460Mixin"
   ],
   "client": [
+    "accessor.AbstractContainerScreenAccessor",
     "accessor.EntityRenderDispatcherAccessor",
     "accessor.FontAccessor",
     "accessor.GuiAccessor",

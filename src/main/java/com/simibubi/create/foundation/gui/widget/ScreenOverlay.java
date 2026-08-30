@@ -12,11 +12,14 @@ public class ScreenOverlay extends CompositeWidget {
 		this.zOffset = zOffset;
 	}
 
+	/// The gui stack has no z any more, so the offset no longer moves anything;
+	/// widgets draw in submission order instead.
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		graphics.pose().pushPose();
-		graphics.pose().translate((float) (0), (float) (0));
+		graphics.pose()
+			.pushMatrix();
 		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
-		graphics.pose().popPose();
+		graphics.pose()
+			.popMatrix();
 	}
 }

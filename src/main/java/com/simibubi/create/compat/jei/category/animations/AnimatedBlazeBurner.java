@@ -49,7 +49,7 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 
 		blockElement(AllBlocks.BLAZE_BURNER.getDefaultState()).atLocal(0, 1.65f, 0)
 			.scale(scale)
-			.render(graphics);
+			.submit(graphics);
 
 		PartialModel blaze =
 			heatLevel == HeatLevel.SEETHING ? AllPartialModels.BLAZE_SUPER : AllPartialModels.BLAZE_ACTIVE;
@@ -59,11 +59,11 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 		blockElement(blaze).atLocal(1, 1.8f, 1)
 			.rotate(0, 180, 0)
 			.scale(scale)
-			.render(graphics);
-		blockElement(rods2).atLocal(1, 1.7 + offset, 1)
+			.submit(graphics);
+		blockElement(rods2).atLocal(1, 1.7f + offset, 1)
 			.rotate(0, 180, 0)
 			.scale(scale)
-			.render(graphics);
+			.submit(graphics);
 
 		SpriteShiftEntry spriteShift =
 			heatLevel == HeatLevel.SEETHING ? AllSpriteShifts.SUPER_BURNER_FLAME : AllSpriteShifts.BURNER_FLAME;

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.gui.menu;
 
+import com.simibubi.create.foundation.mixin.accessor.AbstractContainerScreenAccessor;
+
 import net.minecraft.client.input.KeyEvent;
 
 import net.minecraft.client.input.MouseButtonEvent;
@@ -50,8 +52,10 @@ public abstract class AbstractSimiContainerScreen<T extends AbstractContainerMen
 	 * This method must be called before {@code super.init()}!
 	 */
 	protected void setWindowSize(int width, int height) {
-		imageWidth = width;
-		imageHeight = height;
+		// The screen's size is final now; Create sizes itself from its own
+		// background before init runs.
+		((AbstractContainerScreenAccessor) this).create$setImageWidth(width);
+		((AbstractContainerScreenAccessor) this).create$setImageHeight(height);
 	}
 
 	/**
