@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import net.minecraft.world.level.chunk.PaletteResize;
+
 import net.minecraft.core.UUIDUtil;
 
 import static com.simibubi.create.content.contraptions.piston.MechanicalPistonBlock.isExtensionPole;
@@ -739,7 +741,7 @@ public abstract class Contraption {
 		capturedMultiblocks.clear();
 		nbt.getListOrEmpty("CapturedMultiblocks").forEach(c -> {
 			CompoundTag tag = (CompoundTag) c;
-			if (!tag.contains("Controller", Tag.TAG_COMPOUND) && !tag.contains("Parts", Tag.TAG_LIST))
+			if (!tag.contains("Controller") && !tag.contains("Parts"))
 				return;
 
 			BlockPos controllerPos = NBTHelper.readBlockPos(tag, "Controller");
@@ -903,15 +905,19 @@ public abstract class Contraption {
 		storage.write(nbt, registries, spawnPacket);
 	}
 
+	private static final PaletteResize<BlockState> PALETTE_OVERFLOW = (bits, state) -> {
+		throw new IllegalStateException("Palette Map index exceeded maximum");
+	};
+
 	private CompoundTag writeBlocksCompound(boolean spawnPacket) {
 		CompoundTag compound = new CompoundTag();
-		HashMapPalette<BlockState> palette = new HashMapPalette<>(GameData.getBlockStateIDMap(), 16, (i, s) -> {
-			throw new IllegalStateException("Palette Map index exceeded maximum");
-		});
+		// The palette no longer holds the global id map, and the resize handler
+		// travels with each lookup instead of the palette.
+		HashMapPalette<BlockState> palette = new HashMapPalette<>(16);
 		ListTag blockList = new ListTag();
 
 		for (StructureBlockInfo block : this.blocks.values()) {
-			int id = palette.idFor(block.state());
+			int id = palette.idFor(block.state(), PALETTE_OVERFLOW);
 			BlockPos pos = block.pos();
 			CompoundTag c = new CompoundTag();
 			c.putLong("Pos", pos.asLong());
@@ -943,7 +949,7 @@ public abstract class Contraption {
 
 		ListTag paletteNBT = new ListTag();
 		for (int i = 0; i < palette.getSize(); ++i)
-			paletteNBT.add(NbtUtils.writeBlockState(palette.values.byId(i)));
+			paletteNBT.add(NbtUtils.writeBlockState(palette.valueFor(i)));
 
 		compound.put("Palette", paletteNBT);
 		compound.put("BlockList", blockList);
@@ -961,14 +967,11 @@ public abstract class Contraption {
 		ListTag blockList;
 		if (usePalettedDeserialization) {
 			CompoundTag c = ((CompoundTag) compound);
-			palette = new HashMapPalette<>(GameData.getBlockStateIDMap(), 16, (i, s) -> {
-				throw new IllegalStateException("Palette Map index exceeded maximum");
-			});
-
 			ListTag list = c.getListOrEmpty("Palette");
-			palette.values.clear();
+			List<BlockState> states = new ArrayList<>(list.size());
 			for (int i = 0; i < list.size(); ++i)
-				palette.values.add(NbtUtils.readBlockState(holderGetter, list.getCompoundOrEmpty(i)));
+				states.add(NbtUtils.readBlockState(holderGetter, list.getCompoundOrEmpty(i)));
+			palette = new HashMapPalette<>(16, states);
 
 			blockList = c.getListOrEmpty("BlockList");
 		} else {
@@ -982,7 +985,7 @@ public abstract class Contraption {
 
 			this.blocks.put(info.pos(), info);
 
-			if (c.contains("UpdateTag", Tag.TAG_COMPOUND)) {
+			if (c.contains("UpdateTag")) {
 				CompoundTag updateTag = c.getCompoundOrEmpty("UpdateTag");
 				// it's very important that empty tags are read here. see writeBlocksCompound
 				this.updateTags.put(info.pos(), updateTag);
