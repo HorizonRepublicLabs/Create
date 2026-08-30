@@ -116,8 +116,8 @@ public class RedstoneRequesterBlock extends Block implements IBE<RedstoneRequest
 		if (isRequester) {
 			CompoundTag beTag = stack.get(DataComponents.BLOCK_ENTITY_DATA) instanceof TypedEntityData<?> data? data.copyTagWithoutId() : new CompoundTag();
 			beTag.store("Freq", UUIDUtil.CODEC, be.behaviour.freqId);
-			BlockEntity.addEntityType(beTag, AllBlockEntityTypes.REDSTONE_REQUESTER.get());
-			stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(beTag));
+						stack.set(DataComponents.BLOCK_ENTITY_DATA,
+				TypedEntityData.of(AllBlockEntityTypes.REDSTONE_REQUESTER.get(), beTag));
 		}
 
 		player.setItemInHand(InteractionHand.MAIN_HAND, stack);

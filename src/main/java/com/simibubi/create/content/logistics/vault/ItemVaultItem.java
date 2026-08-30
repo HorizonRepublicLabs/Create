@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.vault;
 
+import net.minecraft.world.item.component.TypedEntityData;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.api.connectivity.ConnectivityHandler;
 import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandItem;
@@ -48,13 +50,13 @@ public class ItemVaultItem extends BlockItem {
 			return false;
 		CustomData blockEntityData = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
 		if (blockEntityData != null) {
-			CompoundTag nbt = blockEntityData.copyTag();
+			CompoundTag nbt = blockEntityData.copyTagWithoutId();
 			nbt.remove("Length");
 			nbt.remove("Size");
 			nbt.remove("Controller");
 			nbt.remove("LastKnownPos");
-			BlockEntity.addEntityType(nbt, ((IBE<?>) this.getBlock()).getBlockEntityType());
-			itemStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt));
+						itemStack.set(DataComponents.BLOCK_ENTITY_DATA,
+				TypedEntityData.of(((IBE<?>) this.getBlock()).getBlockEntityType(), nbt));
 		}
 		return super.updateCustomBlockEntityTag(blockPos, level, player, itemStack, blockState);
 	}

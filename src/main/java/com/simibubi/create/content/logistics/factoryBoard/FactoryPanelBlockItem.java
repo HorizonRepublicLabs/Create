@@ -67,8 +67,8 @@ public class FactoryPanelBlockItem extends LogisticallyLinkedBlockItem {
 			bet = new CompoundTag();
 			bet.store("Freq", UUIDUtil.CODEC, frequency);
 
-			BlockEntity.addEntityType(bet, ((IBE<?>) ((BlockItem) stack.getItem()).getBlock()).getBlockEntityType());
-			stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(bet));
+						stack.set(DataComponents.BLOCK_ENTITY_DATA,
+				TypedEntityData.of(((IBE<?>) ((BlockItem) stack.getItem()).getBlock()).getBlockEntityType(), bet));
 		}
 
 		return stack;

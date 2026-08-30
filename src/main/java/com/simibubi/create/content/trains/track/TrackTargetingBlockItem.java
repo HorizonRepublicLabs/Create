@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.minecraft.world.item.component.TypedEntityData;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.List;
@@ -144,9 +146,10 @@ public class TrackTargetingBlockItem extends BlockItem {
 
 		blockEntityData.store("TargetTrack", BlockPos.CODEC, selectedPos.subtract(placedPos));
 		blockEntityData.putString("id", BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
-		BlockEntity.addEntityType(blockEntityData, ((IBE<?>) this.getBlock()).getBlockEntityType());
+		
+		stack.set(DataComponents.BLOCK_ENTITY_DATA,
 
-		stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(blockEntityData));
+			TypedEntityData.of(((IBE<?>) this.getBlock()).getBlockEntityType(), blockEntityData));
 		stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_POS);
 		stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_SELECTED_DIRECTION);
 		stack.remove(AllDataComponents.TRACK_TARGETING_ITEM_BEZIER);

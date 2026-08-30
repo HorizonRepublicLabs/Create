@@ -140,8 +140,8 @@ public class LogisticallyLinkedBlockItem extends BlockItem {
 
 		CreateLang.sendStatus(player, CreateLang.translateDirect("logistically_linked.tuned"), true);
 
-		BlockEntity.addEntityType(tag, ((IBE<?>) ((BlockItem) stack.getItem()).getBlock()).getBlockEntityType());
-		stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(tag));
+				stack.set(DataComponents.BLOCK_ENTITY_DATA,
+			TypedEntityData.of(((IBE<?>) ((BlockItem) stack.getItem()).getBlock()).getBlockEntityType(), tag));
 	}
 
 }

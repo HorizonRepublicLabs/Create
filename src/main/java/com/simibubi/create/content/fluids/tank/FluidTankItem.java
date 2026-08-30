@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import net.minecraft.world.item.component.TypedEntityData;
+
 import net.minecraft.util.ProblemReporter;
 
 import net.minecraft.world.level.storage.TagValueOutput;
@@ -53,7 +55,7 @@ public class FluidTankItem extends BlockItem {
 			return false;
 		CustomData blockEntityData = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
 		if (blockEntityData != null) {
-			CompoundTag nbt = blockEntityData.copyTag();
+			CompoundTag nbt = blockEntityData.copyTagWithoutId();
 			nbt.remove("Luminosity");
 			nbt.remove("Size");
 			nbt.remove("Height");
@@ -67,12 +69,9 @@ public class FluidTankItem extends BlockItem {
 					nbt.store("TankContent", FluidStack.OPTIONAL_CODEC, fluid);
 				}
 			}
-			// The block entity type is written into a value output.
-			TagValueOutput typeOutput =
-				TagValueOutput.createWithContext(ProblemReporter.DISCARDING, minecraftserver.registryAccess());
-			BlockEntity.addEntityType(typeOutput, ((IBE<?>) this.getBlock()).getBlockEntityType());
-			nbt.merge(typeOutput.buildResult());
-			itemStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt));
+			// The component carries the block entity type alongside the tag now.
+			itemStack.set(DataComponents.BLOCK_ENTITY_DATA,
+				TypedEntityData.of(((IBE<?>) this.getBlock()).getBlockEntityType(), nbt));
 		}
 		return super.updateCustomBlockEntityTag(blockPos, level, player, itemStack, blockState);
 	}
