@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import java.util.List;
+
 import net.minecraft.client.resources.model.sprite.Material;
 
 import net.minecraft.tags.BlockItemTags;
@@ -136,7 +138,8 @@ public class BuilderTransformers {
 			.properties(p -> p.noOcclusion()
 				.mapColor(MapColor.NONE)
 				.isValidSpawn((state, level, pos, type) -> false))
-			.color(() -> CopycatBlock::wrappedColor)
+			// A block declares a list of tint sources now rather than one colour.
+			.color(() -> () -> List.of(CopycatBlock.wrappedColor()))
 			.transform(TagGen.axeOrPickaxe());
 	}
 
@@ -275,8 +278,8 @@ public class BuilderTransformers {
 							.texture("inside", p.modLoc("block/scaffold/" + name + "_scaffold_inside"))
 							.texture("side", p.modLoc("block/scaffold/" + name + "_scaffold"))
 							.texture("casing", p.modLoc("block/" + name + "_casing"))
-							.texture("particle", p.modLoc("block/scaffold/" + name + "_scaffold")))
-						.build();
+							.texture("particle", p.modLoc("block/scaffold/" + name + "_scaffold"))
+							.build());
 				}, MetalScaffoldingBlock.WATERLOGGED, MetalScaffoldingBlock.DISTANCE))
 			.onRegister(connectedTextures(
 				() -> new MetalScaffoldingCTBehaviour(scaffoldShift, scaffoldInsideShift, casingShift)))
@@ -356,7 +359,8 @@ public class BuilderTransformers {
 							.texture("tunnel", p.modLoc(prefix))
 							.texture("direction", p.modLoc(funnel_prefix + "_neutral"))
 							.texture("frame", p.modLoc(funnel_prefix + "_frame"))
-							.texture("particle", particleTexture))
+							.texture("particle", particleTexture)
+							.build())
 						.rotationY(state.getValue(BeltTunnelBlock.HORIZONTAL_AXIS) == Axis.X ? 0 : 90)
 						.build();
 				}))
@@ -418,7 +422,8 @@ public class BuilderTransformers {
 						.withExistingParent("block/crate/" + type + "/" + variant, p.modLoc("block/crate/" + variant))
 						.texture("crate", crate)
 						.texture("side", side)
-						.texture("casing", casing)).build();
+						.texture("casing", casing)
+						.build());
 
 				VariantModels.forAllStates(p, c.get(), state -> {
 						String variant = "single";
@@ -458,7 +463,8 @@ public class BuilderTransformers {
 				String variant = state.getValue(BlockStateProperties.BELL_ATTACHMENT)
 					.getSerializedName();
 				return VariantModels.models(p)
-					.withExistingParent(c.getName() + "_" + variant, p.modLoc("block/bell_base/block_" + variant));
+					.withExistingParent(c.getName() + "_" + variant, p.modLoc("block/bell_base/block_" + variant))
+					.build();
 			}))
 			.item()
 			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("block/" + c.getName())))
