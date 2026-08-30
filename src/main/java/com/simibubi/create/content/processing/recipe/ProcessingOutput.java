@@ -101,7 +101,7 @@ public class ProcessingOutput {
 	@ScheduledForRemoval(inVersion = "1.21.1+ Port")
 	@Deprecated(since = "6.0.3", forRemoval = true)
 	private static final Codec<Either<ItemStack, Pair<Identifier, Integer>>> ITEM_CODEC_OLD = Codec.either(
-		ItemStack.SINGLE_ITEM_CODEC,
+		ItemStack.CODEC,
 		Identifier.CODEC.comapFlatMap(
 			loc -> DataResult.error(() -> "Compat cannot be deserialized"),
 			Pair::getFirst

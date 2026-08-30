@@ -64,7 +64,8 @@ public final class SingletonItemAttribute implements ItemAttribute {
 
 		@Override
 		public MapCodec<? extends ItemAttribute> codec() {
-			return Codec.unit(attribute).fieldOf("value");
+			// A unit codec is a MapCodec directly now.
+			return MapCodec.unit(attribute);
 		}
 
 		@Override

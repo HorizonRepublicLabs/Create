@@ -21,7 +21,7 @@ public class SmartChuteRenderer extends SmartBlockEntityRenderer<SmartChuteBlock
 			return;
 		if (blockEntity.itemPosition.getValue(partialTicks) > 0)
 			return;
-		ChuteRenderer.item(blockEntity, partialTicks, ms, buffer, light, overlay);
+		ChuteRenderer.renderItem(blockEntity, partialTicks, ms, buffer, light, overlay);
 	}
 
 }
