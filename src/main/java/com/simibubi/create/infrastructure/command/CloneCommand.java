@@ -135,7 +135,9 @@ public class CloneCommand {
 
 		for (StructureTemplate.StructureBlockInfo info : reverse) {
 			BlockEntity be = world.getBlockEntity(info.pos());
-			Clearable.tryClear(be);
+			// Clearable no longer offers a static helper.
+			if (be instanceof Clearable clearable)
+				clearable.clearContent();
 			world.setBlock(info.pos(), Blocks.BARRIER.defaultBlockState(), Block.UPDATE_CLIENTS);
 		}
 

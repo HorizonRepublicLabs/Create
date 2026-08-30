@@ -362,7 +362,8 @@ public class ItemHelper {
 	}
 
 	public static void fillItemStackHandler(ItemContainerContents contents, ItemStackHandler inv) {
-		List<ItemStack> itemStacks = contents.stream().toList();
+		List<ItemStack> itemStacks = contents.nonEmptyItemCopyStream()
+			.toList();
 
 		for (int i = 0; i < itemStacks.size(); i++) {
 			inv.setStackInSlot(i, itemStacks.get(i));
