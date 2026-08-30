@@ -122,7 +122,7 @@ public abstract class LaunchedItem {
 		void readNBT(CompoundTag nbt, HolderLookup.Provider registries, HolderGetter<Block> holderGetter) {
 			super.readNBT(nbt, registries, holderGetter);
 			state = NbtUtils.readBlockState(holderGetter, nbt.getCompoundOrEmpty("BlockState"));
-			if (nbt.contains("Data", Tag.TAG_COMPOUND)) {
+			if (nbt.contains("Data")) {
 				data = nbt.getCompoundOrEmpty("Data");
 			}
 		}
@@ -145,15 +145,16 @@ public abstract class LaunchedItem {
 			CompoundTag serializeNBT = super.serializeNBT(registries);
 			serializeNBT.putInt("Length", length);
 			serializeNBT.putIntArray("Casing", Arrays.stream(casings)
-				.map(CasingType::ordinal)
-				.toList());
+				.mapToInt(CasingType::ordinal)
+				.toArray());
 			return serializeNBT;
 		}
 
 		@Override
 		void readNBT(CompoundTag nbt, HolderLookup.Provider registries, HolderGetter<Block> holderGetter) {
 			length = nbt.getIntOr("Length", 0);
-			int[] intArray = nbt.getIntArray("Casing");
+			int[] intArray = nbt.getIntArray("Casing")
+				.orElse(new int[0]);
 			casings = new CasingType[length];
 			for (int i = 0; i < casings.length; i++)
 				casings[i] = i >= intArray.length ? CasingType.NONE

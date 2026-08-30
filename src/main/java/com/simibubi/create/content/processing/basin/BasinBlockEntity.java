@@ -204,13 +204,13 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		compound.put("DisabledSpoutput", disabledList);
 		compound.put("Overflow", NBTHelper.writeItemList(spoutputBuffer, registries));
 		compound.put("FluidOverflow",
-			NBTHelper.writeCompoundList(spoutputFluidBuffer, fs -> (CompoundTag) StackNbt.save(registries, fs)));
+			NBTHelper.writeCompoundList(spoutputFluidBuffer, fs -> (CompoundTag) StackNbt.saveFluid(registries, fs)));
 
 		if (!clientPacket)
 			return;
 
 		compound.put("VisualizedItems", NBTHelper.writeCompoundList(visualizedOutputItems, ia -> (CompoundTag) StackNbt.save(registries, ia.getValue())));
-		compound.put("VisualizedFluids", NBTHelper.writeCompoundList(visualizedOutputFluids, ia -> (CompoundTag) StackNbt.save(registries, ia.getValue())));
+		compound.put("VisualizedFluids", NBTHelper.writeCompoundList(visualizedOutputFluids, ia -> (CompoundTag) StackNbt.saveFluid(registries, ia.getValue())));
 		visualizedOutputItems.clear();
 		visualizedOutputFluids.clear();
 	}
@@ -396,8 +396,8 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			filter = null; // Do not test spout outputs against the recipe filter
 
 		IItemHandler targetInv = be == null ? null
-			: ItemCaps.at(Optional.ofNullable(level, be.getBlockPos(), direction.getOpposite()))
-			.orElse(inserter == null ? null : inserter.getInventory());
+			: Optional.ofNullable(ItemCaps.at(level, be.getBlockPos(), direction.getOpposite()))
+				.orElse(inserter == null ? null : inserter.getInventory());
 
 		IFluidHandler targetTank = be == null ? null
 			: FluidCaps.at(level, be.getBlockPos(), direction.getOpposite());

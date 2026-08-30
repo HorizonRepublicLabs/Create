@@ -16,7 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.random.WeightedEntry.Wrapper;
+import net.minecraft.util.random.Weighted;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -81,7 +81,7 @@ public class BlazeBurnerBlockItem extends BlockItem {
 
 		List<SpawnData> possibleSpawns = spawner.spawnPotentials.unwrap()
 			.stream()
-			.map(Wrapper::data)
+			.map(Weighted::value)
 			.toList();
 
 		if (possibleSpawns.isEmpty()) {
