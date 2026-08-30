@@ -78,7 +78,7 @@ public class ToolboxDyeingRecipe extends CustomRecipe {
 		return dyedToolbox;
 	}
 
-	@Override
+	/// No longer part of the recipe contract; the crafter checks the grid.
 	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 2;
 	}
