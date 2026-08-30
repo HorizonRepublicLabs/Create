@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -39,27 +41,23 @@ public class NetheriteBacktankFirstPersonRenderer {
 			mc.player != null && AllItems.NETHERITE_BACKTANK.isIn(mc.player.getItemBySlot(EquipmentSlot.CHEST));
 	}
 
+	/// The event hands over the arm part, its light and the collector, so the
+	/// renderer no longer walks the player model itself.
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void onRenderPlayerHand(RenderArmEvent event) {
+	public static void onRenderPlayerHand(RenderArmEvent<?> event) {
 		if (!rendererActive)
 			return;
 
-		Minecraft mc = Minecraft.getInstance();
-		LocalPlayer player = mc.player;
-		SuperRenderTypeBuffer buffer = event.getSubmitNodeCollector();
-		if (!(mc.getEntityRenderDispatcher()
-			.getRenderer(player) instanceof AvatarRenderer pr))
-			return;
-
-		PlayerModel<AbstractClientPlayer> model = pr.getModel();
-		model.attackTime = 0.0F;
-		model.crouching = false;
-		model.swimAmount = 0.0F;
-		model.setupAnim(player, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
-		ModelPart armPart = event.getArm() == HumanoidArm.LEFT ? model.leftSleeve : model.rightSleeve;
+		ModelPart armPart = event.getArmPart();
 		armPart.xRot = 0.0F;
+
+		SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();
+		buffer.setCollector(event.getSubmitNodeCollector());
 		armPart.render(event.getPoseStack(), buffer.getBuffer(RenderTypes.entitySolid(BACKTANK_ARMOR_LOCATION)),
 			LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY);
+		buffer.draw();
+		buffer.setCollector(null);
+
 		event.setCanceled(true);
 	}
 

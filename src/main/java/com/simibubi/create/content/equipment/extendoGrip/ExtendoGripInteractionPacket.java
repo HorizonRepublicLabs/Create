@@ -54,12 +54,13 @@ public record ExtendoGripInteractionPacket(InteractionHand hand, int target, Vec
 			d *= d;
 			if (sender.distanceToSqr(entityByID) > d)
 				return;
+			// Interacting takes the hit location now; the entity-side hook is
+			// gone, so both cases go through the player.
 			if (this.hand == null)
 				sender.attack(entityByID);
-			else if (this.point == null)
-				sender.interactOn(entityByID, this.hand);
 			else
-				entityByID.interactAt(sender, this.point, this.hand);
+				sender.interactOn(entityByID, this.hand,
+					this.point == null ? entityByID.position() : this.point);
 		}
 	}
 }
