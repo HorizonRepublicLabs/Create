@@ -98,7 +98,7 @@ public class EjectorBlock extends HorizontalKineticBlock implements IBE<EjectorB
 
 	@Override
 	public void fallOn(Level p_180658_1_, BlockState p_152427_, BlockPos p_180658_2_, Entity p_180658_3_,
-		float p_180658_4_) {
+		double p_180658_4_) {
 		Optional<EjectorBlockEntity> blockEntityOptional = getBlockEntityOptional(p_180658_1_, p_180658_2_);
 		if (blockEntityOptional.isPresent() && !p_180658_3_.isSuppressingBounce()) {
 			p_180658_3_.causeFallDamage(p_180658_4_, 1.0F, p_180658_1_.damageSources().fall());

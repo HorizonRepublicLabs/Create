@@ -343,7 +343,7 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 	}
 
 	@Override
-	public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float p_152430_) {
+	public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, double p_152430_) {
 		BlockState material = getMaterial(pLevel, pPos);
 		material.getBlock()
 			.fallOn(pLevel, material, pPos, pEntity, p_152430_);
