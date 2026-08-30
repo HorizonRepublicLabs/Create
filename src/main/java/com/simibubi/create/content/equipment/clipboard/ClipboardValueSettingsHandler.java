@@ -81,7 +81,7 @@ public class ClipboardValueSettingsHandler {
 			return;
 
 		Vec3 camPos = event.getCamera()
-			.getPosition();
+			.position();
 
 		// The outline is drawn in the submit pass now, and the renderer says it
 		// replaces vanilla's.

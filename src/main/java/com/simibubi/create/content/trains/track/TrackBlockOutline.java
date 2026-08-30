@@ -189,7 +189,7 @@ public class TrackBlockOutline {
 			return;
 
 		Vec3 camPos = event.getCamera()
-			.getPosition();
+			.position();
 
 		event.addCustomRenderer((renderState, collector, ms, levelRenderState) -> {
 			SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();

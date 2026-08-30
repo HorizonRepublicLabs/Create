@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.placard;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;

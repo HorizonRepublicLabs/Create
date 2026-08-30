@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.bell;
 
+import org.joml.Vector3f;
+
 import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -99,7 +101,10 @@ public class SoulParticle extends CustomRotationParticle {
 	public Quaternionf getCustomRotation(Camera camera, float partialTicks) {
 		if (isPerimeter)
 			return Axis.XP.rotationDegrees(90);
-		return new Quaternionf().rotationXYZ(0, -camera.getYRot() * Mth.DEG_TO_RAD, 0);
+		// A camera hands out its rotation rather than its angles.
+		return new Quaternionf().rotationXYZ(0,
+			-camera.rotation()
+				.getEulerAnglesYXZ(new Vector3f()).y, 0);
 	}
 
 	public static class Data extends BasicParticleData<SoulParticle> {
