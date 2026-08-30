@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.world.DifficultyInstance;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -90,6 +92,13 @@ public class DeployerHandler {
 			super(level);
 			this.face = face;
 			this.pos = pos;
+		}
+
+		/// The accessor asks for the difficulty itself now rather than reaching
+		/// through the level.
+		@Override
+		public DifficultyInstance getCurrentDifficultyAt(BlockPos at) {
+			return getLevel().getCurrentDifficultyAt(at);
 		}
 
 		@Override
@@ -186,7 +195,7 @@ public class DeployerHandler {
 					return;
 				}
 				if (cancelResult == null) {
-					if (entity.interact(player, hand)
+					if (entity.interact(player, hand, entity.position())
 						.consumesAction()) {
 						if (entity instanceof AbstractVillager villager) {
 							if (villager.getTradingPlayer() instanceof DeployerFakePlayer)
@@ -199,7 +208,9 @@ public class DeployerHandler {
 				}
 				if (!success && entity instanceof Player playerEntity) {
 					if (stack.has(DataComponents.FOOD)) {
-						FoodProperties foodProperties = item.getFoodProperties(stack, player);
+						// Food is a component on the stack rather than something the
+						// item works out.
+						FoodProperties foodProperties = stack.get(DataComponents.FOOD);
 						if (foodProperties != null && playerEntity.canEat(foodProperties.canAlwaysEat())) {
 							ItemStack copy = stack.copy();
 							player.setItemInHand(hand, stack.finishUsingItem(level, playerEntity));
@@ -407,7 +418,9 @@ public class DeployerHandler {
 			world.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
 			world.setBlock(posUp, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
 		} else {
-			if (!blockstate.onDestroyedByPlayer(world, pos, player, canHarvest, world.getFluidState(pos)))
+			// The hook names the tool doing the breaking.
+			if (!blockstate.onDestroyedByPlayer(world, pos, player, player.getMainHandItem(), canHarvest,
+				world.getFluidState(pos)))
 				return true;
 		}
 
