@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +49,7 @@ public class SchematicProcessor implements StructureProcessor {
 	@Override
 	public StructureTemplate.StructureEntityInfo processEntity(LevelReader world, BlockPos pos, StructureTemplate.StructureEntityInfo rawInfo,
 			StructureTemplate.StructureEntityInfo info, StructurePlaceSettings settings, StructureTemplate template) {
-		return EntityType.by(info.nbt).flatMap(type -> {
+		return EntityType.by(ValueIOShim.inputOf(info.nbt, world.registryAccess())).flatMap(type -> {
 			// The restriction is a property of the type rather than a question
 			// asked of an instance, so nothing has to be spawned to check it.
 			if (!type.onlyOpCanSetNbt())
