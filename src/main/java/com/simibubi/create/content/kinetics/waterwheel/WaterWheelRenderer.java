@@ -130,7 +130,7 @@ public class WaterWheelRenderer<T extends WaterWheelBlockEntity> extends Kinetic
 	private static BlockState getLogBlockState(String namespace, String wood) {
 		for (String location : LOG_LOCATIONS) {
 			Optional<BlockState> state =
-				BuiltInRegistries.BLOCK.getHolder(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(namespace, location.replace("x", wood))))
+				BuiltInRegistries.BLOCK.get(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(namespace, location.replace("x", wood))))
 					.map(Holder::value)
 					.map(Block::defaultBlockState);
 			if (state.isPresent())

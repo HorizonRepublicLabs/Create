@@ -45,7 +45,7 @@ public class ItemHelper {
 	/// Particle options take an ItemStackTemplate rather than a stack now, and
 	/// there is no conversion on ItemStack itself.
 	public static ItemStackTemplate asTemplate(ItemStack stack) {
-		return new ItemStackTemplate(stack.getItemHolder(), stack.getCount(), stack.getComponentsPatch());
+		return new ItemStackTemplate(stack.typeHolder(), stack.getCount(), stack.getComponentsPatch());
 	}
 
 
