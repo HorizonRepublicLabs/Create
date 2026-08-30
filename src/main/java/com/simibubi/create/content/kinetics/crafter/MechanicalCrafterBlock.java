@@ -95,7 +95,7 @@ public class MechanicalCrafterBlock extends HorizontalKineticBlock
 	/// changes, so that branch would never run; onPlace sees the same
 	/// transition from the other side.
 	@Override
-	protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
 		if (oldState.is(this) && getTargetDirection(state) != getTargetDirection(oldState)) {
 			MechanicalCrafterBlockEntity crafter = CrafterHelper.getCrafter(level, pos);
 			if (crafter != null)

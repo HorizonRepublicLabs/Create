@@ -43,10 +43,7 @@ public class EjectorItem extends BlockItem {
 		return super.updateCustomBlockEntityTag(pos, world, player, p_195943_4_, p_195943_5_);
 	}
 
-	@Override
-	public boolean canAttackBlock(BlockState state, Level world, BlockPos pos,
-		Player p_195938_4_) {
-		return !p_195938_4_.isShiftKeyDown();
-	}
+	// canAttackBlock is gone; blocks decide whether they can be hit, so the
+	// ejector's shift-only rule no longer has a hook.
 
 }

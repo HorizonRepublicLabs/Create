@@ -186,7 +186,8 @@ public class BeltBlock extends HorizontalKineticBlock
 		if (!(worldIn instanceof Level))
 			return;
 
-		entityInside(worldIn.getBlockState(beltPos), (Level) worldIn, beltPos, entityIn);
+		entityInside(worldIn.getBlockState(beltPos), (Level) worldIn, beltPos, entityIn,
+			InsideBlockEffectApplier.NOOP, false);
 	}
 
 	@Override
