@@ -106,7 +106,7 @@ public class ChainConveyorConnectionHandler {
 			return;
 		}
 
-		SoundType soundtype = Blocks.CHAIN.defaultBlockState()
+		SoundType soundtype = Blocks.IRON_CHAIN.defaultBlockState()
 			.getSoundType();
 		if (soundtype != null)
 			level.playSound(player, pos, soundtype.getPlaceSound(), SoundSource.BLOCKS,
