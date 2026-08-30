@@ -33,7 +33,7 @@ public class TrackPlacementOverlay implements GuiLayer {
 		if (TrackPlacement.extraTipWarmup < 4)
 			return;
 
-		if (((GuiAccessor) mc.gui).create$getToolHighlightTimer() > 0)
+		if (((GuiAccessor) mc.gui.hud).create$getToolHighlightTimer() > 0)
 			return;
 
 		boolean active = mc.options.keySprint.isDown();

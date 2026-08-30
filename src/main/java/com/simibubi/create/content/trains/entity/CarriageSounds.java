@@ -271,7 +271,7 @@ public class CarriageSounds {
 	}
 
 	static class LoopingSound extends AbstractTickableSoundInstance {
-		private static final SubtitleOverlay OVERLAY = ((GuiAccessor) Minecraft.getInstance().gui).create$getSubtitleOverlay();
+		private static final SubtitleOverlay OVERLAY = ((GuiAccessor) Minecraft.getInstance().gui.hud).create$getSubtitleOverlay();
 
 		private final boolean repeatSubtitle;
 		private final WeighedSoundEvents weighedSoundEvents = this.resolve(Minecraft.getInstance().getSoundManager());

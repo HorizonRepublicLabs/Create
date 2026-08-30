@@ -8,9 +8,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.simibubi.create.content.trains.track.TrackBlockOutline;
 import com.simibubi.create.foundation.block.BigOutlines;
 
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.Minecraft;
 
-@Mixin(GameRenderer.class)
+/// Picking moved from the game renderer to the client itself.
+@Mixin(Minecraft.class)
 public class GameRendererMixin {
 	@Inject(method = "pick(F)V", at = @At("TAIL"))
 	private void create$bigShapePick(CallbackInfo ci) {

@@ -20,9 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.foundation.blockEntity.CachedRenderBBBlockEntity;
-import com.simibubi.create.foundation.mixin.accessor.LevelRendererAccessor;
 
-import com.simibubi.create.foundation.mixin.accessor.LevelRendererAccessor;
 
 import net.createmod.ponder.api.client.level.PonderLevel;
 import net.minecraft.client.Minecraft;
@@ -85,10 +83,9 @@ public abstract class SafeBlockEntityRenderer<T extends BlockEntity>
 		if (level instanceof PonderLevel)
 			return false;
 
-		LevelRendererAccessor accessor = (LevelRendererAccessor) Minecraft.getInstance().levelRenderer;
-		Frustum frustum = accessor.create$getCapturedFrustum() != null ?
-			accessor.create$getCapturedFrustum() :
-			accessor.create$getCullingFrustum();
+		// The culling frustum belongs to the camera now.
+		Frustum frustum = Minecraft.getInstance().gameRenderer.mainCamera()
+			.getCullFrustum();
 
 		AABB itemBB = new AABB(
 				itemPos.x - 0.25,

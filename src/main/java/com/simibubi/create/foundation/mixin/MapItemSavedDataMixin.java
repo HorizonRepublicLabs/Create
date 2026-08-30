@@ -1,5 +1,17 @@
 package com.simibubi.create.foundation.mixin;
 
+import net.minecraft.world.level.saveddata.maps.MapId;
+
+import net.minecraft.world.level.saveddata.SavedDataType;
+
+import com.mojang.serialization.DynamicOps;
+
+import com.mojang.serialization.DataResult;
+
+import com.mojang.serialization.Codec;
+
+import com.mojang.datafixers.util.Pair;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -57,31 +69,52 @@ public class MapItemSavedDataMixin implements StationMapData {
 	@Unique
 	private final Map<String, StationMarker> create$stationMarkers = Maps.newHashMap();
 
-	@Inject(
-			method = "load",
-			at = @At("RETURN")
-	)
-	private static void create$onLoad(CompoundTag tag, HolderLookup.Provider levelRegistry, CallbackInfoReturnable<MapItemSavedData> cir) {
-		MapItemSavedData mapData = cir.getReturnValue();
-		StationMapData stationMapData = (StationMapData) mapData;
-
-		ListTag listTag = tag.getListOrEmpty(STATION_MARKERS_KEY);
-		for (int i = 0; i < listTag.size(); ++i) {
-			StationMarker stationMarker = StationMarker.load(listTag.getCompoundOrEmpty(i), levelRegistry);
-			stationMapData.addStationMarker(stationMarker);
-		}
+	/// Map data is codec-backed now: there is no load or save to inject into,
+	/// so the saved data type's codec is wrapped with one that carries the
+	/// station markers alongside vanilla's fields.
+	@Inject(method = "type", at = @At("RETURN"), cancellable = true)
+	private static void create$attachStationMarkers(MapId id,
+		CallbackInfoReturnable<SavedDataType<MapItemSavedData>> cir) {
+		SavedDataType<MapItemSavedData> vanilla = cir.getReturnValue();
+		cir.setReturnValue(new SavedDataType<>(vanilla.id(), vanilla.factory(),
+			level -> create$withStationMarkers(vanilla.codecFactory()
+				.create(level)),
+			vanilla.dataFixType()));
 	}
 
-	@Inject(
-			method = "save",
-			at = @At("RETURN")
-	)
-	private void create$onSave(CompoundTag tag, HolderLookup.Provider registries, CallbackInfoReturnable<CompoundTag> cir) {
-		ListTag listTag = new ListTag();
-		for (StationMarker stationMarker : create$stationMarkers.values()) {
-			listTag.add(stationMarker.save(registries));
-		}
-		tag.put(STATION_MARKERS_KEY, listTag);
+	@Unique
+	private static Codec<MapItemSavedData> create$withStationMarkers(Codec<MapItemSavedData> wrapped) {
+		Codec<List<StationMarker>> markersCodec = StationMarker.CODEC.listOf();
+		return new Codec<>() {
+			@Override
+			public <T> DataResult<Pair<MapItemSavedData, T>> decode(DynamicOps<T> ops, T input) {
+				return wrapped.decode(ops, input)
+					.map(pair -> {
+						StationMapData mapData = (StationMapData) pair.getFirst();
+						ops.getMap(input)
+							.result()
+							.map(map -> map.get(STATION_MARKERS_KEY))
+							.flatMap(markers -> markers == null ? Optional.empty()
+								: markersCodec.parse(ops, markers)
+									.result())
+							.ifPresent(markers -> markers.forEach(mapData::addStationMarker));
+						return pair;
+					});
+			}
+
+			@Override
+			public <T> DataResult<T> encode(MapItemSavedData input, DynamicOps<T> ops, T prefix) {
+				return wrapped.encode(input, ops, prefix)
+					.flatMap(encoded -> {
+						List<StationMarker> markers =
+							List.copyOf(((MapItemSavedDataMixin) (Object) input).create$stationMarkers.values());
+						if (markers.isEmpty())
+							return DataResult.success(encoded);
+						return markersCodec.encodeStart(ops, markers)
+							.flatMap(list -> ops.mergeToMap(encoded, ops.createString(STATION_MARKERS_KEY), list));
+					});
+			}
+		};
 	}
 
 	@Override

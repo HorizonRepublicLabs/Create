@@ -5,10 +5,11 @@ import net.minecraft.client.gui.components.SubtitleOverlay;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Hud;
 
 
-@Mixin(Gui.class)
+/// The subtitle overlay and tool highlight moved from the gui to the hud.
+@Mixin(Hud.class)
 public interface GuiAccessor {
 	@Accessor("subtitleOverlay")
 	SubtitleOverlay create$getSubtitleOverlay();

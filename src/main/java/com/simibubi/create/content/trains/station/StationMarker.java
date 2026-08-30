@@ -1,5 +1,11 @@
 package com.simibubi.create.content.trains.station;
 
+import net.minecraft.network.chat.ComponentSerialization;
+
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import com.mojang.serialization.Codec;
+
 import com.simibubi.create.foundation.utility.ComponentJson;
 
 import java.util.Objects;
@@ -25,6 +31,16 @@ public class StationMarker {
 	private final BlockPos target;
 	private final Component name;
 	private final String id;
+
+	/// Map data is codec-backed now, so the marker carries one.
+	public static final Codec<StationMarker> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		BlockPos.CODEC.fieldOf("source")
+			.forGetter(StationMarker::getSource),
+		BlockPos.CODEC.fieldOf("target")
+			.forGetter(StationMarker::getTarget),
+		ComponentSerialization.CODEC.fieldOf("name")
+			.forGetter(StationMarker::getName))
+		.apply(instance, StationMarker::new));
 
 	public StationMarker(BlockPos source, BlockPos target, Component name) {
 		this.source = source;

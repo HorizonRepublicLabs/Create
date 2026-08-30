@@ -1,6 +1,8 @@
 package com.simibubi.create.foundation.mixin.accessor;
 
-import java.util.Map;
+import java.util.List;
+
+import net.minecraft.CrashReportCategory;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -19,6 +21,8 @@ public interface SystemReportAccessor {
 		throw new AssertionError();
 	}
 
+	/// The report keeps an ordered list of key/value entries now rather than a
+	/// map.
 	@Accessor
-	Map<String, String> getEntries();
+	List<CrashReportCategory.Entry> getEntries();
 }

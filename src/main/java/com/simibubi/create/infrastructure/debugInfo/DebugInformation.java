@@ -45,7 +45,10 @@ public class DebugInformation {
 	private static final ImmutableMap<String, String> mcSystemInfo = Util.make(() -> {
 		SystemReport systemReport = new SystemReport();
 		SystemReportAccessor access = (SystemReportAccessor) systemReport;
-		return ImmutableMap.copyOf(access.getEntries());
+		ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+		access.getEntries()
+			.forEach(entry -> builder.put(entry.key(), entry.value()));
+		return builder.buildKeepingLast();
 	});
 
 	public static void registerClientInfo(DebugInfoSection section) {

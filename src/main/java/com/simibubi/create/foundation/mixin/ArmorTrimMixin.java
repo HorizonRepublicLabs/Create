@@ -1,6 +1,6 @@
 package com.simibubi.create.foundation.mixin;
 
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,47 +13,35 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.armor.AllArmorMaterials;
 
-import net.minecraft.util.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.Util;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 import net.minecraft.world.item.equipment.trim.ArmorTrim;
-import net.minecraft.world.item.equipment.trim.TrimMaterial;
 import net.minecraft.world.item.equipment.trim.TrimPattern;
 
+/// The inner and outer texture hooks collapsed into one asset lookup that names
+/// the equipment rather than the armour material, so the cardboard swap keys off
+/// the asset and reads the layer from the prefix.
 @Mixin(ArmorTrim.class)
 public abstract class ArmorTrimMixin {
 	@Shadow
 	@Final
-	private Holder<TrimMaterial> material;
-
-	@Shadow
-	@Final
 	private Holder<TrimPattern> pattern;
 
-	@Shadow
-	private static String getColorPaletteSuffix(Holder<TrimMaterial> trimMaterial, Holder<ArmorMaterial> armorMaterial) {
-		throw new AssertionError();
-	}
-
 	@Unique
-	private final BiFunction<Boolean, Holder<ArmorMaterial>, Identifier> create$textureCardboard = Util.memoize((inner, armorMaterial) -> {
-		String assetPath = pattern.value().assetId().getPath();
-		String colorSuffix = getColorPaletteSuffix(material, armorMaterial);
-		return Create.asResource("trims/models/armor/card_" + assetPath + (inner ? "_leggings_" : "_") + colorSuffix);
+	private final Function<Boolean, Identifier> create$textureCardboard = Util.memoize(leggings -> {
+		String assetPath = pattern.value()
+			.assetId()
+			.getPath();
+		return Create.asResource("trims/models/armor/card_" + assetPath + (leggings ? "_leggings" : ""));
 	});
 
-	@Inject(method = "innerTexture", at = @At("HEAD"), cancellable = true)
-	private void create$swapTexturesForCardboardTrimsInner(Holder<ArmorMaterial> armorMaterial, CallbackInfoReturnable<Identifier> cir) {
-		if (armorMaterial.value() == AllArmorMaterials.CARDBOARD) {
-			cir.setReturnValue(create$textureCardboard.apply(true, armorMaterial));
-		}
-	}
-
-	@Inject(method = "outerTexture", at = @At("HEAD"), cancellable = true)
-	private void create$swapTexturesForCardboardTrimsOuter(Holder<ArmorMaterial> armorMaterial, CallbackInfoReturnable<Identifier> cir) {
-		if (armorMaterial.value() == AllArmorMaterials.CARDBOARD) {
-			cir.setReturnValue(create$textureCardboard.apply(false, armorMaterial));
-		}
+	@Inject(method = "layerAssetId", at = @At("HEAD"), cancellable = true)
+	private void create$swapTexturesForCardboardTrims(String layerAssetPrefix,
+		ResourceKey<EquipmentAsset> equipmentAsset, CallbackInfoReturnable<Identifier> cir) {
+		if (equipmentAsset == AllArmorMaterials.CARDBOARD_ASSET)
+			cir.setReturnValue(create$textureCardboard.apply(layerAssetPrefix.endsWith("humanoid_leggings")));
 	}
 }

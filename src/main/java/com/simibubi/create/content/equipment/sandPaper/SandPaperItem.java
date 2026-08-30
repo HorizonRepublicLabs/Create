@@ -10,8 +10,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.foundation.item.CustomUseEffectsItem;
-import com.simibubi.create.foundation.mixin.accessor.LivingEntityAccessor;
 
 import net.minecraft.util.TriState;
 import net.createmod.catnip.api.math.VecHelper;
@@ -46,7 +44,7 @@ import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 
 @ParametersAreNonnullByDefault
-public class SandPaperItem extends Item implements CustomUseEffectsItem {
+public class SandPaperItem extends Item {
 
 	public SandPaperItem(Properties properties) {
 		super(properties.durability(8));
@@ -202,28 +200,23 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		return itemAbility == ItemAbilities.AXE_SCRAPE || itemAbility == ItemAbilities.AXE_WAX_OFF;
 	}
 
+	/// LivingEntity no longer asks an item whether to trigger use effects; the
+	/// per-tick hook is the item's own now.
 	@Override
-	public TriState shouldTriggerUseEffects(ItemStack stack, LivingEntity entity) {
-		// Trigger every tick so that we have more fine grain control over the animation
-		return TriState.TRUE;
-	}
+	public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int ticksRemaining) {
+		super.onUseTick(level, entity, stack, ticksRemaining);
 
-	@Override
-	public boolean triggerUseEffects(ItemStack stack, LivingEntity entity, int count, RandomSource random) {
 		if (stack.has(AllDataComponents.SAND_PAPER_POLISHING)) {
-			ItemStack polishing = stack.get(AllDataComponents.SAND_PAPER_POLISHING).item();
+			ItemStack polishing = stack.get(AllDataComponents.SAND_PAPER_POLISHING)
+				.item();
 			if (!polishing.isEmpty())
-				((LivingEntityAccessor) entity).create$callSpawnItemParticles(polishing, 1);
+				entity.spawnItemParticles(polishing, 1);
 		}
 
 		// After 6 ticks play the sound every 7th
 		if ((entity.getTicksUsingItem() - 6) % 7 == 0)
-			// The eating sound is the item's own; entities no longer pick one for
-			// a stack.
-			entity.playSound(getEatingSound(), 0.9F + 0.2F * random.nextFloat(),
-				random.nextFloat() * 0.2F + 0.9F);
-
-		return true;
+			entity.playSound(getEatingSound(), 0.9F + 0.2F * entity.getRandom().nextFloat(),
+				entity.getRandom().nextFloat() * 0.2F + 0.9F);
 	}
 
 	public SoundEvent getEatingSound() {
