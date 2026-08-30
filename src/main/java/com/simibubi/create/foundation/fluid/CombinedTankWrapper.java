@@ -108,7 +108,7 @@ public class CombinedTankWrapper implements IFluidHandler {
 			resource.shrink(amount);
 
 			if (!drainedFromCurrent.isEmpty() && (drained.isEmpty() || FluidStack.isSameFluidSameComponents(drainedFromCurrent, drained)))
-				drained = new FluidStack(drainedFromCurrent.getFluidHolder(), amount + drained.getAmount(),
+				drained = new FluidStack(drainedFromCurrent.typeHolder(), amount + drained.getAmount(),
 					drainedFromCurrent.getComponentsPatch());
 			if (resource.isEmpty())
 				break;
@@ -127,7 +127,7 @@ public class CombinedTankWrapper implements IFluidHandler {
 			maxDrain -= amount;
 
 			if (!drainedFromCurrent.isEmpty() && (drained.isEmpty() || FluidStack.isSameFluidSameComponents(drainedFromCurrent, drained)))
-				drained = new FluidStack(drainedFromCurrent.getFluidHolder(), amount + drained.getAmount(),
+				drained = new FluidStack(drainedFromCurrent.typeHolder(), amount + drained.getAmount(),
 					drainedFromCurrent.getComponentsPatch());
 			if (maxDrain == 0)
 				break;

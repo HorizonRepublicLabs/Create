@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.fluid;
 
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+
+import net.neoforged.neoforge.fluids.FluidUtil;
+
 
 import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 
@@ -47,10 +51,9 @@ public class FluidCaps {
 	@Nullable
 	/// An item's own tank is reached through an access to the stack now, rather
 	/// than the stack answering directly.
-	public static IFluidHandler of(ItemStack stack) {
-		var handler = ItemAccess.forStack(stack)
-			.getCapability(Capabilities.Fluid.ITEM);
-		return handler == null ? null : IFluidHandler.of(handler);
+	public static IFluidHandlerItem of(ItemStack stack) {
+		return FluidUtil.getFluidHandler(stack)
+			.orElse(null);
 	}
 
 	/// The other direction: Create's tanks are fluid handlers, and the

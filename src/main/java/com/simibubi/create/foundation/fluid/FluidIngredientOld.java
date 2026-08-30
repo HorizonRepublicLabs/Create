@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.fluid;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+
 import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval;
 
 import com.mojang.serialization.Codec;
@@ -13,14 +15,14 @@ import net.minecraft.tags.TagKey;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.DataComponentFluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
-import net.neoforged.neoforge.fluids.crafting.TagFluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 
 @ScheduledForRemoval(inVersion = "1.21.1+ Port")
 @Deprecated(since = "6.0.7", forRemoval = true)
 public class FluidIngredientOld {
 	private static final Codec<SizedFluidIngredient> FLUID_STACK = RecordCodecBuilder.create(i -> i.group(
 			validatedType("fluid_stack"),
-			FluidStack.FLUID_NON_EMPTY_CODEC.fieldOf("fluid").forGetter(s -> null),
+			BuiltInRegistries.FLUID.byNameCodec().fieldOf("fluid").forGetter(s -> null),
 			DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(s -> null),
 			Codec.INT.fieldOf("amount").forGetter(s -> null)
 		).apply(i, (type, fluid, components, amount) -> new SizedFluidIngredient(DataComponentFluidIngredient.of(false, components.split().added(), fluid), amount))
@@ -30,7 +32,10 @@ public class FluidIngredientOld {
 		validatedType("fluid_tag"),
 		TagKey.codec(Registries.FLUID).fieldOf("fluid_tag").forGetter(s -> null),
 		Codec.INT.fieldOf("amount").forGetter(s -> null)
-	).apply(i, (type, tag, amount) -> new SizedFluidIngredient(TagFluidIngredient.tag(tag), amount)));
+	).apply(i, (type, tag, amount) -> new SizedFluidIngredient(
+		FluidIngredient.of(BuiltInRegistries.FLUID.get(tag)
+			.orElseThrow()),
+		amount)));
 
 	public static final Codec<SizedFluidIngredient> CODEC = Codec.withAlternative(FLUID_STACK, FLUID_TAG);
 

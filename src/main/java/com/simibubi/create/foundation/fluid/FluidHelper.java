@@ -68,6 +68,11 @@ public class FluidHelper {
 		return ingredientStacks(ingredient, FluidType.BUCKET_VOLUME);
 	}
 
+	/// A sized ingredient knows the amount the recipe asks for.
+	public static List<FluidStack> ingredientStacks(SizedFluidIngredient ingredient) {
+		return ingredientStacks(ingredient.ingredient(), ingredient.amount());
+	}
+
 
 	public static enum FluidExchange {
 		ITEM_TO_TANK, TANK_TO_ITEM;
