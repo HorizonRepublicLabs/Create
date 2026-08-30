@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.speedController;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import java.util.function.Predicate;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -54,10 +58,11 @@ public class SpeedControllerBlock extends HorizontalAxisKineticBlock implements 
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block p_220069_4_, BlockPos neighbourPos,
-		boolean p_220069_6_) {
-		if (neighbourPos.equals(pos.above()))
-			withBlockEntityDo(world, pos, SpeedControllerBlockEntity::updateBracket);
+	/// A neighbour update no longer says where it came from, so the bracket is
+	/// rechecked whichever side changed.
+	protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block p_220069_4_,
+		@Nullable Orientation orientation, boolean p_220069_6_) {
+		withBlockEntityDo(world, pos, SpeedControllerBlockEntity::updateBracket);
 	}
 
 	@Override

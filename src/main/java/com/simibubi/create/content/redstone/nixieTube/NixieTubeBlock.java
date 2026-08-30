@@ -249,7 +249,7 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState) {
+	public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pPos, BlockState pState, boolean includeData, Player clonePlayer) {
 		return AllBlocks.ORANGE_NIXIE_TUBE.asStack();
 	}
 

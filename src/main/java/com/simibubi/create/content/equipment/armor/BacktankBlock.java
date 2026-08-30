@@ -173,7 +173,7 @@ public class BacktankBlock extends HorizontalKineticBlock implements IBE<Backtan
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader pLevel, BlockPos pos, BlockState state, boolean includeData, Player clonePlayer) {
 		Item item = asItem();
 		if (item instanceof BacktankItem.BacktankBlockItem placeable)
 			item = placeable.getActualItem();

@@ -114,7 +114,7 @@ public class ToolboxBlock extends HorizontalDirectionalBlock implements SimpleWa
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData, Player clonePlayer) {
 		ItemStack item = new ItemStack(this);
 		Optional<ToolboxBlockEntity> blockEntityOptional = getBlockEntityOptional(level, pos);
 

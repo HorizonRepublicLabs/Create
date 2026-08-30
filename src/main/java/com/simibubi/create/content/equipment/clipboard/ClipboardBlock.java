@@ -139,7 +139,7 @@ public class ClipboardBlock extends FaceAttachedHorizontalDirectionalBlock
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state) {
+	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData, Player clonePlayer) {
 		return applyComponentsToDropStack(new ItemStack(this), level.getBlockEntity(pos));
 	}
 

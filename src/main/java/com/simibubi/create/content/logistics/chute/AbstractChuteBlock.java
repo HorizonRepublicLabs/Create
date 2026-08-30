@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.chute;
 
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import net.minecraft.world.level.LevelReader;
@@ -164,11 +166,10 @@ public abstract class AbstractChuteBlock extends Block implements IWrenchable, I
 	}
 
 	@Override
-	public void neighborChanged(BlockState p_220069_1_, Level world, BlockPos pos, Block p_220069_4_,
-		BlockPos neighbourPos, boolean p_220069_6_) {
-		if (pos.below()
-			.equals(neighbourPos))
-			withBlockEntityDo(world, pos, ChuteBlockEntity::blockBelowChanged);
+	protected void neighborChanged(BlockState p_220069_1_, Level world, BlockPos pos, Block p_220069_4_,
+		@Nullable Orientation orientation, boolean p_220069_6_) {
+		// A neighbour update no longer says where it came from.
+		withBlockEntityDo(world, pos, ChuteBlockEntity::blockBelowChanged);
 	}
 
 	public abstract BlockState updateChuteState(BlockState state, BlockState above, BlockGetter world, BlockPos pos);

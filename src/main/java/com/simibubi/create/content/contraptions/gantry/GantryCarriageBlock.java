@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.gantry;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.level.redstone.Orientation;
+
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -81,10 +85,11 @@ public class GantryCarriageBlock extends DirectionalAxisKineticBlock implements 
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block p_220069_4_, BlockPos updatePos,
-								boolean p_220069_6_) {
-		if (updatePos.equals(pos.relative(state.getValue(FACING)
-			.getOpposite())) && !canSurvive(state, world, pos))
+	/// A neighbour update no longer says where it came from, so survival is
+	/// rechecked whichever side changed.
+	protected void neighborChanged(BlockState state, Level world, BlockPos pos, Block p_220069_4_,
+		@Nullable Orientation orientation, boolean p_220069_6_) {
+		if (!canSurvive(state, world, pos))
 			world.destroyBlock(pos, true);
 	}
 
