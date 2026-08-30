@@ -414,7 +414,8 @@ public class ScheduleRuntime {
 			conditionProgress.add(i);
 		NBTHelper.iterateCompoundList(tag.getListOrEmpty("ConditionContext"), conditionContext::add);
 
-		int[] readTransits = tag.getIntArray("TransitTimes");
+		int[] readTransits = tag.getIntArray("TransitTimes")
+			.orElseGet(() -> new int[0]);
 		if (schedule != null) {
 			schedule.entries.forEach($ -> predictionTicks.add(TBD));
 			if (readTransits.length == schedule.entries.size())
