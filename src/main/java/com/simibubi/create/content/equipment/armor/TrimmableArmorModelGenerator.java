@@ -1,58 +1,30 @@
 package com.simibubi.create.content.equipment.armor;
 
-import com.simibubi.create.foundation.data.VariantModels;
-
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.VarHandle;
-import java.util.Map;
-
 import com.simibubi.create.Create;
-import com.simibubi.create.foundation.mixin.accessor.ItemModelGeneratorsAccessor;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.generators.RegistrateItemModelGenerator;
 
 import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.model.ModelLocationUtils;
-import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.Item;
 
-
+/// Trim models used to be overrides hung off one generated model, keyed by a
+/// predicate. They are separate models selected by trim material now, and the
+/// generator builds the whole set, so Create only has to name the textures its
+/// own trims live under.
 public class TrimmableArmorModelGenerator {
-	public static final VarHandle TEXTURES_HANDLE;
 
-	static {
-		try {
-			MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(ModelGenShim.Builder.class, MethodHandles.lookup());
-			TEXTURES_HANDLE = lookup.findVarHandle(ModelGenShim.Builder.class, "textures", Map.class);
-		} catch (IllegalAccessException | NoSuchFieldException e) {
-			throw new RuntimeException(e);
-		}
+	public static <T extends BaseArmorItem> void generate(DataGenContext<Item, T> c, RegistrateItemModelGenerator p) {
+		T item = c.get();
+		p.generateTrimmableItem(item, item.getArmorMaterial()
+			.assetId(), slotTrimPrefix(item), false);
 	}
 
-	public static <T extends ArmorItem> void generate(DataGenContext<Item, T> c, RegistrateItemModelGenerator p) {
-		T item = c.get();
-		ItemModelGenShim.Builder builder = p.generated(c);
-		for (ItemModelGenerators.TrimModelData data : ItemModelGeneratorsAccessor.create$getGENERATED_TRIM_MODELS()) {
-			Identifier modelLoc = ModelLocationUtils.getModelLocation(item);
-			Identifier textureLoc = TextureMapping.getItemTexture(item);
-			String trimId = data.name(item.getMaterial());
-			Identifier trimModelLoc = modelLoc.withSuffix("_" + trimId + "_trim");
-			Identifier trimLoc =
-				Identifier.withDefaultNamespace("trims/items/" + item.getType().getName() + "_trim_" + trimId);
-			String parent = "item/generated";
-			if (item.getMaterial() == AllArmorMaterials.CARDBOARD) {
-				trimLoc = Create.asResource("trims/items/card_" + item.getType().getName() + "_trim_" + trimId);
-			}
-			ItemModelGenShim.Builder itemModel = VariantModels.models(p).withExistingParent(trimModelLoc.getPath(), parent)
-				.texture("layer0", textureLoc);
-			Map<String, String> textures = (Map<String, String>) TEXTURES_HANDLE.get(itemModel);
-			textures.put("layer1", trimLoc.toString());
-			builder.override()
-				.predicate(ItemModelGenerators.TRIM_TYPE_PREDICATE_ID, data.itemModelIndex())
-				.model(itemModel)
-				.end();
-		}
+	private static Identifier slotTrimPrefix(BaseArmorItem item) {
+		String slot = item.getArmorType()
+			.getName();
+		if (item.getArmorMaterial() == AllArmorMaterials.CARDBOARD)
+			return Create.asResource("trims/items/card_" + slot + "_trim");
+		return ItemModelGenerators.prefixForSlotTrim(slot);
 	}
 }
