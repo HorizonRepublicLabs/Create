@@ -1076,7 +1076,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		}
 
 		matrices.pushMatrix();
-		matrices.translate((float) (0), (float) (getGuiTop()) + 87, 0);
+		matrices.translate((float) ((float) (0)), (float) ((float) (getGuiTop()) + 87));
 		editorSubWidgets.renderBg(getGuiLeft() + 77, graphics);
 		matrices.popMatrix();
 

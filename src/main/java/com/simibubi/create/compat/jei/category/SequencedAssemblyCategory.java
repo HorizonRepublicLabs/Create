@@ -148,7 +148,7 @@ public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAss
 		for (SequencedRecipe<?> sequencedRecipe : recipe.getSequence())
 			width += getSubCategory(sequencedRecipe).getWidth() + margin;
 		width -= margin;
-		matrixStack.translate(width / -2 + getBackground().getWidth() / 2, 0, 0);
+		matrixStack.translate((float) (width / -2 + getBackground().getWidth() / 2), (float) (0));
 
 		matrixStack.pushMatrix();
 		List<SequencedRecipe<?>> sequence = recipe.getSequence();

@@ -101,7 +101,7 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 				.at(-9, -9)
 				.submit(graphics);
 
-			ms.translate((float) (0), (float) (-40 + (10 * (1 - fade)) * (1 - fade)), 0);
+			ms.translate((float) ((float) (0)), (float) ((float) (-40 + (10 * (1 - fade)) * (1 - fade))));
 			AllGuiTextures.TOOLBELT_SLOT.render(graphics, -12, -12);
 			ms.translate((float) (-0.5), (float) (0.5));
 			AllIcons.I_DISABLE.render(graphics, -9, -9);
@@ -119,7 +119,7 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 				hoveredSlot = DEPOSIT;
 
 			ms.pushMatrix();
-			ms.translate(80 + (-5 * (1 - fade) * (1 - fade)), 0, 0);
+			ms.translate((float) (80 + (-5 * (1 - fade) * (1 - fade))), (float) (0));
 			AllGuiTextures.TOOLBELT_SLOT.render(graphics, -12, -12);
 			ms.translate((float) (-0.5), (float) (0.5));
 			AllIcons.I_TOOLBOX.render(graphics, -9, -9);
@@ -204,7 +204,7 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 
 			if (i1 > 8) {
 				ms.pushMatrix();
-				ms.translate((float) (width / 2), (float) (height - 68), 0.0F);
+				ms.translate((float) ((float) (width / 2)), (float) ((float) (height - 68)));
 				int k1 = 16777215;
 				int k = i1 << 24 & -16777216;
 				int l = font.width(tip);

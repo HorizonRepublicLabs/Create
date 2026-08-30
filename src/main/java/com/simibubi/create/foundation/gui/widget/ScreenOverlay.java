@@ -15,7 +15,7 @@ public class ScreenOverlay extends CompositeWidget {
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		graphics.pose().pushPose();
-		graphics.pose().translate(0, 0, this.zOffset);
+		graphics.pose().translate((float) (0), (float) (0));
 		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 		graphics.pose().popPose();
 	}

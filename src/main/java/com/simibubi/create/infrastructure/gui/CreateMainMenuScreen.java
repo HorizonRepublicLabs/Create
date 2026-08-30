@@ -226,7 +226,7 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 			super.renderWidget(graphics, pMouseX, pMouseY, pt);
 			Matrix3x2fStack pPoseStack = graphics.pose();
 			pPoseStack.pushMatrix();
-			pPoseStack.translate(getX() + width / 2 - (icon.getWidth() * scale) / 2, getY() + height / 2 - (icon.getHeight() * scale) / 2, 0);
+			pPoseStack.translate((float) (getX() + width / 2 - (icon.getWidth() * scale) / 2), (float) (getY() + height / 2 - (icon.getHeight() * scale) / 2));
 			pPoseStack.scale((float) (scale), (float) (scale));
 			icon.render(graphics, 0, 0);
 			pPoseStack.popMatrix();

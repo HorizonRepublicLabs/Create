@@ -134,7 +134,7 @@ public class TrainHUD {
 
 		Matrix3x2fStack poseStack = guiGraphics.pose();
 		poseStack.pushMatrix();
-		poseStack.translate(guiGraphics.guiWidth() / 2 - 91, guiGraphics.guiHeight() - 29, 0);
+		poseStack.translate((float) (guiGraphics.guiWidth() / 2 - 91), (float) (guiGraphics.guiHeight() - 29));
 
 		// Speed, Throttle
 
@@ -163,7 +163,7 @@ public class TrainHUD {
 			Font font = mc.font;
 			if (currentPrompt != null && font.width(currentPrompt) < promptSize - 10) {
 				poseStack.pushMatrix();
-				poseStack.translate(font.width(currentPrompt) / -2f + 82, -27, 100);
+				poseStack.translate((float) (font.width(currentPrompt) / -2f + 82), (float) (-27));
 				if (currentPromptShadow)
 					guiGraphics.text(font, currentPrompt, 9, 4, 0x544D45);
 				else

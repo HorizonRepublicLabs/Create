@@ -718,7 +718,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 				BigItemStack entry = category.get(index);
 
 				ms.pushMatrix();
-				ms.translate(itemsX + (index % cols) * colWidth, pY, 0);
+				ms.translate((float) (itemsX + (index % cols) * colWidth), (float) (pY));
 				renderItemEntry(graphics, 1, entry, isStackHovered, false);
 				ms.popMatrix();
 			}
@@ -746,7 +746,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			int barX = itemsX + cols * colWidth;
 			int barY = y + 15;
 			ms.pushMatrix();
-			ms.translate((float) (0), (float) ((currentScroll * rowHeight)) / totalH * (windowH - 2), 0);
+			ms.translate((float) ((float) (0)), (float) ((float) ((currentScroll * rowHeight)) / totalH * (windowH - 2)));
 			AllGuiTextures pad = AllGuiTextures.STOCK_KEEPER_REQUEST_SCROLL_PAD;
 			graphics.blit(pad.location, barX, barY, pad.getWidth(), barSize, pad.getStartX(), pad.getStartY(),
 				pad.getWidth(), pad.getHeight(), 256, 256);

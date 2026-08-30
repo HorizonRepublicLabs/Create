@@ -105,7 +105,7 @@ public class JourneyTrainMap implements IClientPlugin {
 		pose.pushMatrix();
 
 		pose.translate((float) (screen.width / 2.0f), (float) (screen.height / 2.0f));
-		pose.scale((float) scale, (float) scale, 1);
+		pose.scale((float) ((float) scale), (float) ((float) scale));
 		pose.translate((float) (-x), (float) (-z));
 
 		float mouseX = mX - screen.width / 2.0f;
