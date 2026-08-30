@@ -24,13 +24,16 @@ public class BrassDiodeGenerator extends AbstractDiodeGenerator {
 
 		models.add(prov.getExistingFile(template));
 		models.add(prov.withExistingParent(name + "_powered", template)
-			.texture("top", texture(ctx, "powered"))).build();
+			.texture("top", texture(ctx, "powered"))
+			.build());
 		models.add(prov.withExistingParent(name + "_powering", template)
 			.texture("torch", poweredTorch())
-			.texture("top", texture(ctx, "powering"))).build();
+			.texture("top", texture(ctx, "powering"))
+			.build());
 		models.add(prov.withExistingParent(name + "_powered_powering", template)
 			.texture("torch", poweredTorch())
-			.texture("top", texture(ctx, "powered_powering"))).build();
+			.texture("top", texture(ctx, "powered_powering"))
+			.build());
 
 		return models;
 	}

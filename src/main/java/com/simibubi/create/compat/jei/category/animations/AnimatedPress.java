@@ -44,7 +44,7 @@ public class AnimatedPress extends AnimatedKinetics {
 
 		if (basin)
 			blockElement(AllBlocks.BASIN.getDefaultState())
-					.atLocal(0, 1.65, 0)
+					.atLocal(0, 1.65f, 0)
 					.scale(scale)
 					.submit(graphics);
 

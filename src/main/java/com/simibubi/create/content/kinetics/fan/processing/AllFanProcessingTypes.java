@@ -418,8 +418,7 @@ public class AllFanProcessingTypes {
 		public void spawnProcessingParticles(Level level, Vec3 pos) {
 			if (level.getRandom().nextInt(8) != 0)
 				return;
-			Vector3f color = new Color(0x0055FF).asVectorF();
-			level.addParticle(new DustParticleOptions(color, 1), pos.x + (level.getRandom().nextFloat() - .5f) * .5f,
+			level.addParticle(new DustParticleOptions(0x0055FF, 1), pos.x + (level.getRandom().nextFloat() - .5f) * .5f,
 				pos.y + .5f, pos.z + (level.getRandom().nextFloat() - .5f) * .5f, 0, 1 / 8f, 0);
 			level.addParticle(ParticleTypes.SPIT, pos.x + (level.getRandom().nextFloat() - .5f) * .5f, pos.y + .5f,
 				pos.z + (level.getRandom().nextFloat() - .5f) * .5f, 0, 1 / 8f, 0);

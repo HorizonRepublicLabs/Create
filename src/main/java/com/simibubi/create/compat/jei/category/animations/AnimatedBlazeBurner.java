@@ -47,7 +47,7 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 
 		float offset = (Mth.sin(AnimationTickHolder.getRenderTime() / 16f) + 0.5f) / 16f;
 
-		blockElement(AllBlocks.BLAZE_BURNER.getDefaultState()).atLocal(0, 1.65, 0)
+		blockElement(AllBlocks.BLAZE_BURNER.getDefaultState()).atLocal(0, 1.65f, 0)
 			.scale(scale)
 			.render(graphics);
 
@@ -56,7 +56,7 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 		PartialModel rods2 = heatLevel == HeatLevel.SEETHING ? AllPartialModels.BLAZE_BURNER_SUPER_RODS_2
 			: AllPartialModels.BLAZE_BURNER_RODS_2;
 
-		blockElement(blaze).atLocal(1, 1.8, 1)
+		blockElement(blaze).atLocal(1, 1.8f, 1)
 			.rotate(0, 180, 0)
 			.scale(scale)
 			.render(graphics);
