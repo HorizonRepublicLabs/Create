@@ -35,7 +35,8 @@ public class WhistleGenerator extends SpecialBlockStateGen {
 		Identifier model = AssetLookup.partialBaseModel(ctx, prov, size, wall);
 		if (!powered)
 			return model;
-		Identifier parentLocation = model.location();
+		// A model is an identifier now.
+		Identifier parentLocation = model;
 		return VariantModels.models(prov)
 			.withExistingParent(parentLocation.getPath() + "_powered", parentLocation)
 			.texture("2", Create.asResource("block/copper_redstone_plate_powered")).build();

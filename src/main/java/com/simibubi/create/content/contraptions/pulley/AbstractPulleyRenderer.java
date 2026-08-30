@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.pulley;
 
+import net.minecraft.util.LightCoordsUtil;
+
+import net.minecraft.world.level.BlockAndLightGetter;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -91,7 +95,10 @@ public abstract class AbstractPulleyRenderer<T extends KineticBlockEntity> exten
 	public static void renderAt(LevelAccessor world, SuperByteBuffer partial, float offset, BlockPos pulleyPos,
 		PoseStack ms, VertexConsumer buffer) {
 		BlockPos actualPos = pulleyPos.below((int) offset);
-		int light = BlockEntityRenderHelper.lightColorAt(world, world.getBlockState(actualPos), actualPos);
+		// Light is read straight off the level now, with no state to hand over.
+		int light = world instanceof BlockAndLightGetter lightGetter
+			? BlockEntityRenderHelper.lightColorAt(lightGetter, actualPos)
+			: LightCoordsUtil.FULL_BRIGHT;
 		partial.translate(0, -offset, 0)
 		.light(light)
 			.renderInto(ms, buffer);
