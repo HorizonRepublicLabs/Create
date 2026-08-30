@@ -65,7 +65,7 @@ public class VirtualChunk extends LevelChunk {
 
 	@Override
 	@Nullable
-	public BlockState setBlockState(BlockPos pos, BlockState state, boolean isMoving) {
+	public BlockState setBlockState(BlockPos pos, BlockState state, int flags) {
 		return null;
 	}
 
