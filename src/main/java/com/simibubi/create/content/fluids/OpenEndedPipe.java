@@ -95,7 +95,7 @@ public class OpenEndedPipe extends FlowSource {
 
 	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
 		CompoundTag compound = new CompoundTag();
-		fluidHandler.writeToNBT(registries, compound);
+		compound.merge(ValueIOShim.save(fluidHandler, registries));
 		compound.putBoolean("Pulling", wasPulling);
 		compound.put("Location", ValueIOShim.encode(BlockFace.CODEC, location, registries));
 		return compound;
@@ -105,7 +105,7 @@ public class OpenEndedPipe extends FlowSource {
 		BlockFace fromNBT = ValueIOShim.decode(BlockFace.CODEC, compound.getCompoundOrEmpty("Location"), registries);
 		OpenEndedPipe oep = new OpenEndedPipe(new BlockFace(blockEntityPos, fromNBT.getFace()));
 
-		oep.fluidHandler.readFromNBT(registries, compound);
+		ValueIOShim.load(oep.fluidHandler, registries, compound);
 		oep.wasPulling = compound.getBooleanOr("Pulling", false);
 		return oep;
 	}

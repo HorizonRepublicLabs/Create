@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import static java.lang.Math.abs;
@@ -444,7 +446,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 			height = compound.getIntOr("Height", 0);
 			tankInventory.setCapacity(getTotalTankSize() * getCapacityMultiplier());
 
-			tankInventory.readFromNBT(registries, compound.getCompoundOrEmpty("TankContent"));
+			ValueIOShim.load(tankInventory, registries, compound.getCompoundOrEmpty("TankContent"));
 			if (tankInventory.getSpace() < 0)
 				tankInventory.drain(-tankInventory.getSpace(), FluidAction.EXECUTE);
 		}
@@ -499,7 +501,7 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 			compound.store("Controller", BlockPos.CODEC, controller);
 		if (isController()) {
 			compound.putBoolean("Window", window);
-			compound.put("TankContent", tankInventory.writeToNBT(registries, new CompoundTag()));
+			compound.put("TankContent", ValueIOShim.save(tankInventory, registries));
 			compound.putInt("Size", width);
 			compound.putInt("Height", height);
 		}

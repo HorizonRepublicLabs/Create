@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.hosePulley;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.utility.LerpedFloatNbt;
 
 import java.util.List;
@@ -161,7 +163,7 @@ public class HosePulleyBlockEntity extends KineticBlockEntity {
 		if (clientPacket)
 			offset.forceNextSync();
 		compound.put("Offset", LerpedFloatNbt.write(offset));
-		compound.put("Tank", internalTank.writeToNBT(registries, new CompoundTag()));
+		compound.put("Tank", ValueIOShim.save(internalTank, registries));
 		super.write(compound, registries, clientPacket);
 		if (clientPacket)
 			compound.putBoolean("Infinite", infinite);
@@ -171,7 +173,7 @@ public class HosePulleyBlockEntity extends KineticBlockEntity {
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		LerpedFloatNbt.read(offset, compound.getCompoundOrEmpty("Offset"), clientPacket);
 
-		internalTank.readFromNBT(registries, compound.getCompoundOrEmpty("Tank"));
+		ValueIOShim.load(internalTank, registries, compound.getCompoundOrEmpty("Tank"));
 		super.read(compound, registries, clientPacket);
 		if (clientPacket)
 			infinite = compound.getBooleanOr("Infinite", false);
