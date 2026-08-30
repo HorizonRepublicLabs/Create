@@ -1,5 +1,15 @@
 package com.simibubi.create.compat.curios;
 
+import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
+
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+
+import net.minecraft.client.renderer.SubmitNodeCollector;
+
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -32,18 +42,20 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 public class GogglesCurioRenderer implements ICurioRenderer {
 	public static final ModelLayerLocation LAYER = new ModelLayerLocation(Create.asResource("goggles"), "goggles");
 
-	private final HumanoidModel<LivingEntity> model;
+	private final HumanoidModel<HumanoidRenderState> model;
 
 	public GogglesCurioRenderer(ModelPart part) {
 		this.model = new HumanoidModel<>(part);
 	}
 
+	/// Curios draws from a render state and submits through a collector now, so
+	/// the head follows the animated model rather than the entity directly.
 	@Override
-	public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, SuperRenderTypeBuffer renderTypeBuffer, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		// Prepare values for transformation
-		model.setupAnim(slotContext.entity(), limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-		model.prepareMobModel(slotContext.entity(), limbSwing, limbSwingAmount, partialTicks);
-		ICurioRenderer.followHeadRotations(slotContext.entity(), model.head);
+	public <S extends LivingEntityRenderState, M extends EntityModel<? super S>> void render(ItemStack stack,
+		SlotContext slotContext, PoseStack matrixStack, SubmitNodeCollector collector, int light, S renderState,
+		RenderLayerParent<S, M> renderLayerParent, EntityRendererProvider.Context context, float netHeadYaw,
+		float headPitch) {
+		ICurioRenderer.setupHumanoidAnimations(model, renderState);
 
 		// Translate and rotate with our head
 		matrixStack.pushPose();
@@ -57,14 +69,20 @@ public class GogglesCurioRenderer implements ICurioRenderer {
 		matrixStack.mulPose(Axis.ZP.rotationDegrees(180.0f));
 		matrixStack.scale(0.625f, 0.625f, 0.625f);
 
-		if(!slotContext.entity().getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
+		if (!slotContext.entity()
+			.getItemBySlot(EquipmentSlot.HEAD)
+			.isEmpty()) {
 			matrixStack.mulPose(Axis.ZP.rotationDegrees(180.0f));
 			matrixStack.translate(0, -0.25, 0);
 		}
 
-		// Render
-		Minecraft mc = Minecraft.getInstance();
-		CreateItemRenderer.render(stack, ItemDisplayContext.HEAD, matrixStack, renderTypeBuffer, light, OverlayTexture.NO_OVERLAY, 0);
+		SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();
+		buffer.setCollector(collector);
+		CreateItemRenderer.render(stack, ItemDisplayContext.HEAD, matrixStack, buffer, light,
+			OverlayTexture.NO_OVERLAY, 0);
+		buffer.draw();
+		buffer.setCollector(null);
+
 		matrixStack.popPose();
 	}
 
