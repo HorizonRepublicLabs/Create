@@ -101,6 +101,9 @@ public enum AllRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
 	private final Supplier<RecipeType<?>> type;
 
 	private boolean isProcessingRecipe;
+	/// A serializer is a record of codecs now and no longer carries the factory
+	/// it was built from, so the type keeps it for datagen.
+	private StandardProcessingRecipe.Factory<?> processingFactory;
 
 	public static final Codec<AllRecipeTypes> CODEC = StringRepresentable.fromEnum(AllRecipeTypes::values);
 
@@ -132,6 +135,7 @@ public enum AllRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
 	AllRecipeTypes(StandardProcessingRecipe.Factory<?> processingFactory) {
 		this(() -> StandardProcessingRecipe.serializer(processingFactory));
 		isProcessingRecipe = true;
+		this.processingFactory = processingFactory;
 	}
 
 	AllRecipeTypes(ProcessingRecipe.Factory<ItemApplicationRecipeParams, ? extends ItemApplicationRecipe> itemApplicationFactory) {
@@ -149,6 +153,15 @@ public enum AllRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
 	@Override
 	public Identifier getId() {
 		return id;
+	}
+
+	@SuppressWarnings("unchecked")
+	public <R extends StandardProcessingRecipe<?>> StandardProcessingRecipe.Factory<R> getProcessingFactory() {
+		return (StandardProcessingRecipe.Factory<R>) processingFactory;
+	}
+
+	public boolean isProcessingRecipe() {
+		return isProcessingRecipe;
 	}
 
 	@SuppressWarnings("unchecked")

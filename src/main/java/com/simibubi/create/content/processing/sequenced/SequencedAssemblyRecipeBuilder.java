@@ -40,7 +40,8 @@ public class SequencedAssemblyRecipeBuilder {
 	public SequencedAssemblyRecipeBuilder(Identifier id) {
 		this.id = id;
 		recipeConditions = new ArrayList<>();
-		this.recipe = new SequencedAssemblyRecipe(AllRecipeTypes.SEQUENCED_ASSEMBLY.getSerializer());
+		// The recipe holds no serializer of its own now.
+		this.recipe = new SequencedAssemblyRecipe();
 	}
 
 	public <R extends StandardProcessingRecipe<?>> SequencedAssemblyRecipeBuilder addStep(

@@ -61,7 +61,7 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 		return withItemIngredients(NonNullList.copyOf(List.of(ingredients)));
 	}
 
-	public S withItemIngredients(NonNullList<Ingredient> ingredients) {
+	public S withItemIngredients(List<Ingredient> ingredients) {
 		params.ingredients = ingredients;
 		return self();
 	}

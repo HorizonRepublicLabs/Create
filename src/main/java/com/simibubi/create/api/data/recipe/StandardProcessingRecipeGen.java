@@ -1,5 +1,7 @@
 package com.simibubi.create.api.data.recipe;
 
+import com.simibubi.create.AllRecipeTypes;
+
 import java.util.concurrent.CompletableFuture;
 
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
@@ -24,12 +26,11 @@ public abstract class StandardProcessingRecipeGen<R extends StandardProcessingRe
 		super(output, registries, defaultNamespace);
 	}
 
-	protected StandardProcessingRecipe.Serializer<R> getSerializer() {
-		return getRecipeType().getSerializer();
-	}
-
+	/// A serializer no longer carries the factory it was built from; the recipe
+	/// type keeps it.
 	@Override
 	protected Builder<R> getBuilder(Identifier id) {
-		return new StandardProcessingRecipe.Builder<>(getSerializer().factory(), id);
+		return new StandardProcessingRecipe.Builder<>(
+			((AllRecipeTypes) getRecipeType()).<R>getProcessingFactory(), id);
 	}
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.AllRecipeTypes;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -203,7 +205,9 @@ public class RuntimeDataGenerator {
 			IRecipeTypeInfo recipeType = recipe.getTypeInfo();
 			Identifier typeId = recipeType.getId();
 
-			if (!(recipeType.getSerializer() instanceof StandardProcessingRecipe.Serializer))
+			// A serializer is a record of codecs now, so the type says whether it
+			// is a processing recipe.
+			if (!(recipeType instanceof AllRecipeTypes allRecipeTypes && allRecipeTypes.isProcessingRecipe()))
 				throw new IllegalStateException("Cannot datagen ProcessingRecipe of type: " + typeId);
 
 			Identifier id = Identifier.fromNamespaceAndPath(recipeId.getNamespace(),
