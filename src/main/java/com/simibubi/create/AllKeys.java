@@ -6,7 +6,6 @@ import org.lwjgl.glfw.GLFW;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
-import net.createmod.catnip.client.ConflictSafeKeyMapping;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 
@@ -28,6 +27,8 @@ public enum AllKeys {
 	CTRL_MODIFIER("ctrl_modifier", GLFW.GLFW_KEY_LEFT_CONTROL, "Ctrl Modifier", true),
 	ALT_MODIFIER("alt_modifier", GLFW.GLFW_KEY_LEFT_ALT, "Alt Modifier", true),
 	;
+
+	public static final KeyMapping.Category CATEGORY = new KeyMapping.Category(Create.asResource("main"));
 
 	private KeyMapping keybind;
 	private final String description;
@@ -60,12 +61,12 @@ public enum AllKeys {
 
 	@SubscribeEvent
 	public static void register(RegisterKeyMappingsEvent event) {
+		// A key mapping belongs to a registered category now rather than a
+		// name, and NeoForge never had the fabric conflict problem catnip's
+		// conflict-safe mapping worked around.
+		event.registerCategory(CATEGORY);
 		for (AllKeys key : values()) {
-			if (key.conflictSafe) {
-				key.keybind = new ConflictSafeKeyMapping(key.description, key.key, Create.NAME);
-			} else {
-				key.keybind = new KeyMapping(key.description, key.key, Create.NAME);
-			}
+			key.keybind = new KeyMapping(key.description, key.key, CATEGORY);
 			if (!key.modifiable)
 				continue;
 

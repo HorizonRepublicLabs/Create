@@ -30,7 +30,6 @@ import com.tterrag.registrate.util.entry.FluidEntry;
 import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.FogRenderer.FogMode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -187,13 +186,11 @@ public class AllFluids {
 	public static abstract class TintedFluidType extends FluidType {
 
 		protected static final int NO_TINT = 0xffffffff;
-		private final Identifier stillTexture;
-		private final Identifier flowingTexture;
 
-		public TintedFluidType(Properties properties, Identifier stillTexture, Identifier flowingTexture) {
+		/// Textures are data-driven now, so a fluid type is built from its
+		/// properties alone.
+		public TintedFluidType(Properties properties) {
 			super(properties);
-			this.stillTexture = stillTexture;
-			this.flowingTexture = flowingTexture;
 		}
 
 		/// Fluid textures and tint are data-driven now, so only the fog hooks
@@ -243,17 +240,16 @@ public class AllFluids {
 		private Supplier<Float> fogDistance;
 
 		public static FluidTypeFactory create(int fogColor, Supplier<Float> fogDistance) {
-			return (p, s, f) -> {
-				SolidRenderedPlaceableFluidType fluidType = new SolidRenderedPlaceableFluidType(p, s, f);
+			return p -> {
+				SolidRenderedPlaceableFluidType fluidType = new SolidRenderedPlaceableFluidType(p);
 				fluidType.fogColor = new Color(fogColor, false).asVectorF();
 				fluidType.fogDistance = fogDistance;
 				return fluidType;
 			};
 		}
 
-		private SolidRenderedPlaceableFluidType(Properties properties, Identifier stillTexture,
-												Identifier flowingTexture) {
-			super(properties, stillTexture, flowingTexture);
+		private SolidRenderedPlaceableFluidType(Properties properties) {
+			super(properties);
 		}
 
 		@Override
