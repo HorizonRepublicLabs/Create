@@ -327,14 +327,14 @@ public class AllItems {
 		COPPER_DIVING_HELMET = REGISTRATE
 		.item("copper_diving_helmet",
 			p -> new DivingHelmetItem(AllArmorMaterials.COPPER, p, Create.asResource("copper_diving")))
-		.properties(p -> p.durability(Type.HELMET.getDurability(7)))
+		.properties(p -> p.durability(ArmorType.HELMET.getDurability(7)))
 		.tag(ItemTags.HEAD_ARMOR)
 		.register(),
 
 	NETHERITE_DIVING_HELMET = REGISTRATE
 		.item("netherite_diving_helmet",
 			p -> new DivingHelmetItem(ArmorMaterials.NETHERITE, p, Create.asResource("netherite_diving")))
-		.properties(p -> p.fireResistant().durability(Type.HELMET.getDurability(37)))
+		.properties(p -> p.fireResistant().durability(ArmorType.HELMET.getDurability(37)))
 		.tag(ItemTags.HEAD_ARMOR)
 		.register();
 
@@ -342,21 +342,21 @@ public class AllItems {
 		COPPER_DIVING_BOOTS = REGISTRATE
 		.item("copper_diving_boots",
 			p -> new DivingBootsItem(AllArmorMaterials.COPPER, p, Create.asResource("copper_diving")))
-		.properties(p -> p.durability(Type.BOOTS.getDurability(7)))
+		.properties(p -> p.durability(ArmorType.BOOTS.getDurability(7)))
 		.tag(ItemTags.FOOT_ARMOR)
 		.register(),
 
 	NETHERITE_DIVING_BOOTS = REGISTRATE
 		.item("netherite_diving_boots",
 			p -> new DivingBootsItem(ArmorMaterials.NETHERITE, p, Create.asResource("netherite_diving")))
-		.properties(p -> p.fireResistant().durability(Type.BOOTS.getDurability(37)))
+		.properties(p -> p.fireResistant().durability(ArmorType.BOOTS.getDurability(37)))
 		.tag(ItemTags.FOOT_ARMOR)
 		.register();
 
 	public static final ItemEntry<? extends BaseArmorItem>
 
 		CARDBOARD_HELMET = REGISTRATE.item("cardboard_helmet", p -> new CardboardArmorItem(ArmorType.HELMET, p))
-		.properties(p -> p.durability(Type.HELMET.getDurability(4)))
+		.properties(p -> p.durability(ArmorType.HELMET.getDurability(4)))
 		.tag(ItemTags.HEAD_ARMOR)
 		.burnTime(1000)
 		.onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.create.cardboard_armor"))
@@ -366,7 +366,7 @@ public class AllItems {
 
 	CARDBOARD_CHESTPLATE =
 		REGISTRATE.item("cardboard_chestplate", p -> new CardboardArmorItem(ArmorType.CHESTPLATE, p))
-			.properties(p -> p.durability(Type.CHESTPLATE.getDurability(4)))
+			.properties(p -> p.durability(ArmorType.CHESTPLATE.getDurability(4)))
 			.tag(ItemTags.CHEST_ARMOR)
 			.burnTime(1000)
 			.onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.create.cardboard_armor"))
@@ -375,7 +375,7 @@ public class AllItems {
 
 	CARDBOARD_LEGGINGS =
 		REGISTRATE.item("cardboard_leggings", p -> new CardboardArmorItem(ArmorType.LEGGINGS, p))
-			.properties(p -> p.durability(Type.LEGGINGS.getDurability(4)))
+			.properties(p -> p.durability(ArmorType.LEGGINGS.getDurability(4)))
 			.tag(ItemTags.LEG_ARMOR)
 			.burnTime(1000)
 			.onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.create.cardboard_armor"))
@@ -383,7 +383,7 @@ public class AllItems {
 			.register(),
 
 	CARDBOARD_BOOTS = REGISTRATE.item("cardboard_boots", p -> new CardboardArmorItem(ArmorType.BOOTS, p))
-		.properties(p -> p.durability(Type.BOOTS.getDurability(4)))
+		.properties(p -> p.durability(ArmorType.BOOTS.getDurability(4)))
 		.tag(ItemTags.FOOT_ARMOR)
 		.burnTime(1000)
 		.onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "item.create.cardboard_armor"))

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.symmetryWand;
 
+import net.minecraft.util.ARGB;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
@@ -189,7 +191,7 @@ public class SymmetryHandler {
 			Vec3 pos = start.add(step.scale(i));
 			Vec3 speed = new Vec3(0, random.nextDouble() * -40f, 0);
 
-			level.addParticle(new DustParticleOptions(new Vector3f(1, 1, 1), 1), pos.x, pos.y,
+			level.addParticle(new DustParticleOptions(ARGB.colorFromFloat(1, 1, 1, 1), 1), pos.x, pos.y,
 				pos.z, speed.x, speed.y, speed.z);
 		}
 
