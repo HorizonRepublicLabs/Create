@@ -9,7 +9,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.item.CustomUseEffectsItem;
-import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.mixin.accessor.LivingEntityAccessor;
 
 import net.minecraft.util.TriState;
@@ -242,10 +241,4 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		return 1;
 	}
 
-	/// Client extensions are registered through an event now rather than
-	/// handed to a consumer; see ClientEvents.
-	@OnlyIn(Dist.CLIENT)
-	public IClientItemExtensions clientExtensions() {
-		return SimpleCustomRenderer.create(this, new SandPaperItemRenderer());
-	}
 }

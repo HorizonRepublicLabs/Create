@@ -1,33 +1,21 @@
 package com.simibubi.create.foundation.item.render;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
+import dev.engine_room.flywheel.lib.model.baked.PartialModel;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.neoforged.neoforge.client.model.DelegateBlockStateModel;
+import net.minecraft.resources.Identifier;
 
-public class CustomRenderedItemModel extends DelegateBlockStateModel {
+/// Item models are no longer block models that can be wrapped and flagged for
+/// custom rendering, so the model a hand-drawn item starts from is named
+/// directly and resolved the same way its moving parts are.
+public class CustomRenderedItemModel {
 
-	public CustomRenderedItemModel(BlockStateModel originalModel) {
-		super(originalModel);
-	}
+	private final PartialModel base;
 
-	@Override
-	public boolean isCustomRenderer() {
-		return true;
-	}
-
-	@Override
-	public BlockStateModel applyTransform(ItemDisplayContext cameraItemDisplayContext, PoseStack mat,
-		boolean leftHand) {
-		// Super call returns originalModel, but we want to return this, else BEWLR
-		// won't be used.
-		super.applyTransform(cameraItemDisplayContext, mat, leftHand);
-		return this;
+	public CustomRenderedItemModel(Identifier baseModel) {
+		this.base = PartialModel.of(baseModel);
 	}
 
 	public BlockStateModel getOriginalModel() {
-		return originalModel;
+		return base.get();
 	}
-
 }

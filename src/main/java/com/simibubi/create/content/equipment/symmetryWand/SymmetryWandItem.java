@@ -19,7 +19,6 @@ import com.simibubi.create.content.equipment.symmetryWand.mirror.CrossPlaneMirro
 import com.simibubi.create.content.equipment.symmetryWand.mirror.EmptyMirror;
 import com.simibubi.create.content.equipment.symmetryWand.mirror.PlaneMirror;
 import com.simibubi.create.content.equipment.symmetryWand.mirror.SymmetryMirror;
-import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.BlockHelper;
 import com.simibubi.create.infrastructure.config.AllConfigs;
 
@@ -314,11 +313,5 @@ public class SymmetryWandItem extends Item {
 		return false;
 	}
 
-	/// Client extensions are registered through an event now rather than
-	/// handed to a consumer; see ClientEvents.
-	@OnlyIn(Dist.CLIENT)
-	public IClientItemExtensions clientExtensions() {
-		return SimpleCustomRenderer.create(this, new SymmetryWandItemRenderer());
-	}
 
 }

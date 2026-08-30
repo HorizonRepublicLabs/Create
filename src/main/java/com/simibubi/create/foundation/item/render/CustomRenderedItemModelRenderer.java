@@ -1,34 +1,32 @@
 package com.simibubi.create.foundation.item.render;
 
-import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public abstract class CustomRenderedItemModelRenderer extends BlockEntityWithoutLevelRenderer {
+/// Hand-drawn items are reached through the item model that names them rather
+/// than through a block entity renderer, so this is a plain base class now.
+public abstract class CustomRenderedItemModelRenderer {
 
-	public CustomRenderedItemModelRenderer() {
-		super(null, null);
+	private final CustomRenderedItemModel model;
+
+	protected CustomRenderedItemModelRenderer(Identifier baseModel) {
+		this.model = new CustomRenderedItemModel(baseModel);
 	}
 
-	@Override
-	public void renderByItem(ItemStack stack, ItemDisplayContext transformType, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay) {
-		CustomRenderedItemModel mainModel = (CustomRenderedItemModel) Minecraft.getInstance()
-			.getItemRenderer()
-			.getModel(stack, null, null, 0);
+	public void renderByItem(ItemStack stack, ItemDisplayContext transformType, PoseStack ms,
+		SuperRenderTypeBuffer buffer, int light, int overlay) {
 		PartialItemModelRenderer renderer = PartialItemModelRenderer.of(stack, transformType, ms, buffer, overlay);
 
 		ms.pushPose();
 		ms.translate(0.5F, 0.5F, 0.5F);
-		render(stack, mainModel, renderer, transformType, ms, buffer, light, overlay);
+		render(stack, model, renderer, transformType, ms, buffer, light, overlay);
 		ms.popPose();
 	}
 
-	protected abstract void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer, ItemDisplayContext transformType,
-		PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay);
-
+	protected abstract void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer,
+		ItemDisplayContext transformType, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay);
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.sandPaper;
 
+import com.simibubi.create.Create;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -19,6 +21,11 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class SandPaperItemRenderer extends CustomRenderedItemModelRenderer {
+
+	public SandPaperItemRenderer() {
+		super(Create.asResource("item/sand_paper"));
+	}
+
 
 	@Override
 	protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer,

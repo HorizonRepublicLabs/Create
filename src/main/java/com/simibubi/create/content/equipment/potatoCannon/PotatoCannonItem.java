@@ -16,7 +16,6 @@ import com.simibubi.create.api.equipment.potatoCannon.PotatoCannonProjectileType
 import com.simibubi.create.content.equipment.armor.BacktankUtil;
 import com.simibubi.create.content.equipment.zapper.ShootableGadgetItemMethods;
 import com.simibubi.create.foundation.item.CustomArmPoseItem;
-import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.CreateLang;
 import com.simibubi.create.foundation.utility.GlobalRegistryAccess;
 import com.simibubi.create.infrastructure.config.AllConfigs;
@@ -296,12 +295,6 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 		return null;
 	}
 
-	/// Client extensions are registered through an event now rather than
-	/// handed to a consumer; see ClientEvents.
-	@OnlyIn(Dist.CLIENT)
-	public IClientItemExtensions clientExtensions() {
-		return SimpleCustomRenderer.create(this, new PotatoCannonItemRenderer());
-	}
 
 	public record Ammo(ItemStack stack, PotatoCannonProjectileType type) {
 	}

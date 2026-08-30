@@ -8,7 +8,6 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.Create;
-import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -34,12 +33,6 @@ public class WrenchItem extends Item {
 		super(properties);
 	}
 
-	/// Client extensions are registered through an event now rather than
-	/// handed to a consumer; see ClientEvents.
-	@OnlyIn(Dist.CLIENT)
-	public IClientItemExtensions clientExtensions() {
-		return SimpleCustomRenderer.create(this, new WrenchItemRenderer());
-	}
 
 	@NotNull
 	@Override

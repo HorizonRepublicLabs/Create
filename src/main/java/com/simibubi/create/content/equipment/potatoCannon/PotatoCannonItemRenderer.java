@@ -26,6 +26,11 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.IItemDecorator;
 
 public class PotatoCannonItemRenderer extends CustomRenderedItemModelRenderer {
+
+	public PotatoCannonItemRenderer() {
+		super(Create.asResource("item/potato_cannon/item"));
+	}
+
 	public static final IItemDecorator DECORATOR = (guiGraphics, font, stack, xOffset, yOffset) -> {
 		LocalPlayer player = Minecraft.getInstance().player;
 		if (player == null) {

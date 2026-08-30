@@ -7,7 +7,6 @@ import java.util.function.Consumer;
 import com.simibubi.create.AllDataComponents;
 import com.simibubi.create.content.equipment.zapper.PlacementPatterns;
 import com.simibubi.create.content.equipment.zapper.ZapperItem;
-import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.gui.ScreenOpener;
@@ -31,12 +30,6 @@ public class WorldshaperItem extends ZapperItem {
 		super(properties);
 	}
 
-	/// Client extensions are registered through an event now rather than
-	/// handed to a consumer; see ClientEvents.
-	@OnlyIn(Dist.CLIENT)
-	public IClientItemExtensions clientExtensions() {
-		return SimpleCustomRenderer.create(this, new WorldshaperItemRenderer());
-	}
 
 	@Override
 	@OnlyIn(value = Dist.CLIENT)

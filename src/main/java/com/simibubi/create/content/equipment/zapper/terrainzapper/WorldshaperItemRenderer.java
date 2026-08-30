@@ -23,6 +23,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class WorldshaperItemRenderer extends ZapperItemRenderer {
 
+	public WorldshaperItemRenderer() {
+		super(Create.asResource("item/handheld_worldshaper/item"));
+	}
+
+
 	protected static final PartialModel CORE = PartialModel.of(Create.asResource("item/handheld_worldshaper/core"));
 	protected static final PartialModel CORE_GLOW = PartialModel.of(Create.asResource("item/handheld_worldshaper/core_glow"));
 	protected static final PartialModel ACCELERATOR = PartialModel.of(Create.asResource("item/handheld_worldshaper/accelerator"));

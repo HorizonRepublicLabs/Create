@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import net.minecraft.resources.Identifier;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -21,6 +23,11 @@ import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class ZapperItemRenderer extends CustomRenderedItemModelRenderer {
+
+	protected ZapperItemRenderer(Identifier baseModel) {
+		super(baseModel);
+	}
+
 
 	@Override
 	protected void render(ItemStack stack, CustomRenderedItemModel model, PartialItemModelRenderer renderer, ItemDisplayContext transformType,

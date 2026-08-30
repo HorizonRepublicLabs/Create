@@ -19,6 +19,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class ExtendoGripItemRenderer extends CustomRenderedItemModelRenderer {
 
+	public ExtendoGripItemRenderer() {
+		super(Create.asResource("item/extendo_grip/item"));
+	}
+
+
 	protected static final PartialModel COG = PartialModel.of(Create.asResource("item/extendo_grip/cog"));
 	protected static final PartialModel THIN_SHORT = PartialModel.of(Create.asResource("item/extendo_grip/thin_short"));
 	protected static final PartialModel WIDE_SHORT = PartialModel.of(Create.asResource("item/extendo_grip/wide_short"));

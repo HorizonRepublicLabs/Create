@@ -10,7 +10,6 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler;
 import com.simibubi.create.content.redstone.link.RedstoneLinkNetworkHandler.Frequency;
 import com.simibubi.create.foundation.item.ItemHelper;
-import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 
 import net.createmod.catnip.api.data.Couple;
 import net.minecraft.core.BlockPos;
@@ -144,10 +143,4 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 		return Component.translatable(getDescriptionId());
 	}
 
-	/// Client extensions are registered through an event now rather than
-	/// handed to a consumer; see ClientEvents.
-	@OnlyIn(Dist.CLIENT)
-	public IClientItemExtensions clientExtensions() {
-		return SimpleCustomRenderer.create(this, new LinkedControllerItemRenderer());
-	}
 }

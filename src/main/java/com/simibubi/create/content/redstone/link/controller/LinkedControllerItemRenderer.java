@@ -28,6 +28,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class LinkedControllerItemRenderer extends CustomRenderedItemModelRenderer {
 
+	public LinkedControllerItemRenderer() {
+		super(Create.asResource("item/linked_controller/item"));
+	}
+
+
 	protected static final PartialModel POWERED = PartialModel.of(Create.asResource("item/linked_controller/powered"));
 	protected static final PartialModel BUTTON = PartialModel.of(Create.asResource("item/linked_controller/button"));
 

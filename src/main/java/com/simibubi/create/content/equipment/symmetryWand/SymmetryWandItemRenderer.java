@@ -18,6 +18,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class SymmetryWandItemRenderer extends CustomRenderedItemModelRenderer {
 
+	public SymmetryWandItemRenderer() {
+		super(Create.asResource("item/wand_of_symmetry/item"));
+	}
+
+
 	protected static final PartialModel BITS = PartialModel.of(Create.asResource("item/wand_of_symmetry/bits"));
 	protected static final PartialModel CORE = PartialModel.of(Create.asResource("item/wand_of_symmetry/core"));
 	protected static final PartialModel CORE_GLOW = PartialModel.of(Create.asResource("item/wand_of_symmetry/core_glow"));

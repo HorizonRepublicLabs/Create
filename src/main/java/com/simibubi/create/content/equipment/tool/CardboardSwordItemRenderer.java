@@ -14,6 +14,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class CardboardSwordItemRenderer extends CustomRenderedItemModelRenderer {
 
+	public CardboardSwordItemRenderer() {
+		super(Create.asResource("item/cardboard_sword/item"));
+	}
+
+
 	protected static final PartialModel HELD = PartialModel.of(Create.asResource("item/cardboard_sword/item_in_hand"));
 
 	@Override

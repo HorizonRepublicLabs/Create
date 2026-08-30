@@ -17,6 +17,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class WrenchItemRenderer extends CustomRenderedItemModelRenderer {
 
+	public WrenchItemRenderer() {
+		super(Create.asResource("item/wrench/item"));
+	}
+
+
 	protected static final PartialModel GEAR = PartialModel.of(Create.asResource("item/wrench/gear"));
 
 	@Override

@@ -1,5 +1,25 @@
 package com.simibubi.create.foundation.events;
 
+import com.simibubi.create.content.equipment.tool.CardboardSwordItemRenderer;
+
+import com.simibubi.create.content.equipment.sandPaper.SandPaperItemRenderer;
+
+import com.simibubi.create.content.equipment.zapper.terrainzapper.WorldshaperItemRenderer;
+
+import com.simibubi.create.content.equipment.symmetryWand.SymmetryWandItemRenderer;
+
+import com.simibubi.create.content.equipment.extendoGrip.ExtendoGripItemRenderer;
+
+import com.simibubi.create.content.redstone.link.controller.LinkedControllerItemRenderer;
+
+import com.simibubi.create.content.equipment.wrench.WrenchItemRenderer;
+
+import com.simibubi.create.foundation.item.render.CustomRenderedItems;
+
+import com.simibubi.create.foundation.item.render.CustomRenderedItemModelWrapper;
+
+import net.neoforged.neoforge.client.event.RegisterItemModelsEvent;
+
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -355,19 +375,20 @@ public class ClientEvents {
 	}
 
 
-	/// Item client extensions are registered here rather than being declared
-	/// on the item, which is what initializeClient used to do.
+	/// Hand-drawn items name their renderer in their model, so the names are
+	/// bound to the renderers before models bake.
 	@SubscribeEvent
-	public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-		event.registerItem(AllItems.WRENCH.get().clientExtensions(), AllItems.WRENCH.get());
-		event.registerItem(AllItems.LINKED_CONTROLLER.get().clientExtensions(), AllItems.LINKED_CONTROLLER.get());
-		event.registerItem(AllItems.EXTENDO_GRIP.get().clientExtensions(), AllItems.EXTENDO_GRIP.get());
-		event.registerItem(AllItems.WAND_OF_SYMMETRY.get().clientExtensions(), AllItems.WAND_OF_SYMMETRY.get());
-		event.registerItem(AllItems.POTATO_CANNON.get().clientExtensions(), AllItems.POTATO_CANNON.get());
-		event.registerItem(AllItems.WORLDSHAPER.get().clientExtensions(), AllItems.WORLDSHAPER.get());
-		event.registerItem(AllItems.SAND_PAPER.get().clientExtensions(), AllItems.SAND_PAPER.get());
-		event.registerItem(AllItems.RED_SAND_PAPER.get().clientExtensions(), AllItems.RED_SAND_PAPER.get());
-		event.registerItem(AllItems.CARDBOARD_SWORD.get().clientExtensions(), AllItems.CARDBOARD_SWORD.get());
+	public static void registerCustomItemRenderers(RegisterItemModelsEvent event) {
+		event.register(Create.asResource("custom_rendered"), CustomRenderedItemModelWrapper.Unbaked.MAP_CODEC);
+
+		CustomRenderedItems.register(Create.asResource("wrench"), WrenchItemRenderer::new);
+		CustomRenderedItems.register(Create.asResource("linked_controller"), LinkedControllerItemRenderer::new);
+		CustomRenderedItems.register(Create.asResource("extendo_grip"), ExtendoGripItemRenderer::new);
+		CustomRenderedItems.register(Create.asResource("wand_of_symmetry"), SymmetryWandItemRenderer::new);
+		CustomRenderedItems.register(Create.asResource("potato_cannon"), PotatoCannonItemRenderer::new);
+		CustomRenderedItems.register(Create.asResource("worldshaper"), WorldshaperItemRenderer::new);
+		CustomRenderedItems.register(Create.asResource("sand_paper"), SandPaperItemRenderer::new);
+		CustomRenderedItems.register(Create.asResource("cardboard_sword"), CardboardSwordItemRenderer::new);
 	}
 
 	@SubscribeEvent
