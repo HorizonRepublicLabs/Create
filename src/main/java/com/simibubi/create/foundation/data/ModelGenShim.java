@@ -6,6 +6,7 @@ import com.tterrag.registrate.providers.generators.RegistrateLegacyBlockModelBui
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
+import net.neoforged.neoforge.client.model.generators.template.ExtendedModelTemplateBuilder;
 
 /// The old block model provider was reached through VariantModels.models(prov) and built
 /// models by name. Registrate's generator builds them through templates
