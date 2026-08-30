@@ -233,7 +233,7 @@ public class PipeConnection {
 		if (hasFlow()) {
 			CompoundTag flowData = new CompoundTag();
 			Flow flow = this.flow.get();
-			flowData.store("Fluid", ItemStack.OPTIONAL_CODEC, flow.fluid);
+			flowData.store("Fluid", FluidStack.OPTIONAL_CODEC, flow.fluid);
 			flowData.putBoolean("In", flow.inbound);
 			if (!flow.complete)
 				flowData.put("Progress", LerpedFloatNbt.write(flow.progress));
