@@ -4,25 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.foundation.model.BakedQuadHelper;
 
 import net.createmod.catnip.api.math.VecHelper;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-
 import net.neoforged.neoforge.client.model.DelegateBlockStateModel;
-import net.neoforged.neoforge.model.data.ModelData;
 
+/// Models hand out parts rather than quads, and the tilt no longer travels as
+/// model data, so it is read off the track itself when the parts are collected.
 public class TrackModel extends DelegateBlockStateModel {
 
 	public TrackModel(BlockStateModel originalModel) {
@@ -30,15 +33,28 @@ public class TrackModel extends DelegateBlockStateModel {
 	}
 
 	@Override
-	public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side,
-											 @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
-		List<BakedQuad> templateQuads = super.getQuads(state, side, rand, extraData, renderType);
-		if (templateQuads.isEmpty())
-			return templateQuads;
-		if (!extraData.has(TrackBlockEntityTilt.ASCENDING_PROPERTY))
-			return templateQuads;
+	public void collectParts(BlockAndTintGetter level, BlockPos pos, BlockState state, RandomSource random,
+		List<BlockStateModelPart> parts) {
+		List<BlockStateModelPart> collected = new ArrayList<>();
+		super.collectParts(level, pos, state, random, collected);
 
-		double angleIn = extraData.get(TrackBlockEntityTilt.ASCENDING_PROPERTY);
+		UnaryOperator<Vec3> transform = tiltOf(level, pos, state);
+		if (transform == null) {
+			parts.addAll(collected);
+			return;
+		}
+
+		for (BlockStateModelPart part : collected)
+			parts.add(new TiltedPart(part, transform));
+	}
+
+	@Nullable
+	private static UnaryOperator<Vec3> tiltOf(BlockAndTintGetter level, BlockPos pos, BlockState state) {
+		BlockEntity be = level.getBlockEntity(pos);
+		if (!(be instanceof TrackBlockEntity track) || !track.isTilted())
+			return null;
+
+		double angleIn = track.tilt.smoothingAngle.orElse(0d);
 		double angle = Math.abs(angleIn);
 		boolean flip = angleIn < 0;
 
@@ -56,7 +72,7 @@ public class TrackModel extends DelegateBlockStateModel {
 			(trackShape == TrackShape.ND || trackShape == TrackShape.PD) ? new Vec3((Mth.SQRT_OF_TWO - 1) / 2, 0, 0)
 				: Vec3.ZERO;
 
-		UnaryOperator<Vec3> transform = v -> {
+		return v -> {
 			v = v.add(verticalOffset);
 			v = VecHelper.rotateCentered(v, hAngle, Axis.Y);
 			v = v.add(diagonalRotationPoint);
@@ -66,18 +82,36 @@ public class TrackModel extends DelegateBlockStateModel {
 			v = v.subtract(verticalOffset);
 			return v;
 		};
-
-		int size = templateQuads.size();
-		List<BakedQuad> quads = new ArrayList<>();
-		for (BakedQuad templateQuad : templateQuads) {
-			BakedQuad quad = BakedQuadHelper.clone(templateQuad);
-			int[] vertexData = quad.getVertices();
-			for (int j = 0; j < 4; j++)
-				BakedQuadHelper.setXYZ(vertexData, j, transform.apply(BakedQuadHelper.getXYZ(vertexData, j)));
-			quads.add(quad);
-		}
-
-		return quads;
 	}
 
+	private record TiltedPart(BlockStateModelPart delegate,
+		UnaryOperator<Vec3> transform) implements BlockStateModelPart {
+
+		@Override
+		public List<BakedQuad> getQuads(@Nullable Direction direction) {
+			List<BakedQuad> quads = new ArrayList<>();
+			for (BakedQuad templateQuad : delegate.getQuads(direction)) {
+				BakedQuadHelper.Editor editor = BakedQuadHelper.edit(templateQuad);
+				for (int j = 0; j < 4; j++)
+					editor.setXYZ(j, transform.apply(editor.getXYZ(j)));
+				quads.add(editor.build());
+			}
+			return quads;
+		}
+
+		@Override
+		public boolean useAmbientOcclusion() {
+			return delegate.useAmbientOcclusion();
+		}
+
+		@Override
+		public Material.Baked particleMaterial() {
+			return delegate.particleMaterial();
+		}
+
+		@Override
+		public int materialFlags() {
+			return delegate.materialFlags();
+		}
+	}
 }

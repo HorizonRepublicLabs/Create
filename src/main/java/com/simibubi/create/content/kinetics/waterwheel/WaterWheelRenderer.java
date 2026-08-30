@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.waterwheel;
 
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import java.util.ArrayList;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import java.util.List;
@@ -146,15 +150,24 @@ public class WaterWheelRenderer<T extends WaterWheelBlockEntity> extends Kinetic
 			.get(state);
 		if (model == null)
 			return null;
+		// A model hands out parts and each part its quads now.
 		RandomSource random = RandomSource.create();
 		random.setSeed(42L);
-		List<BakedQuad> quads = model.getQuads(state, side, random, ModelData.EMPTY, null);
+		List<BlockStateModelPart> parts = new ArrayList<>();
+		model.collectParts(random, parts);
+
+		List<BakedQuad> quads = new ArrayList<>();
+		for (BlockStateModelPart part : parts)
+			quads.addAll(part.getQuads(side));
 		if (!quads.isEmpty()) {
 			return quads.get(0)
-				.getSprite();
+				.materialInfo()
+				.sprite();
 		}
-		random.setSeed(42L);
-		quads = model.getQuads(state, null, random, ModelData.EMPTY, null);
+
+		quads.clear();
+		for (BlockStateModelPart part : parts)
+			quads.addAll(part.getQuads(null));
 		if (!quads.isEmpty()) {
 			for (BakedQuad quad : quads) {
 				if (quad.direction() == side) {
@@ -162,7 +175,8 @@ public class WaterWheelRenderer<T extends WaterWheelBlockEntity> extends Kinetic
 				}
 			}
 		}
-		return model.getParticleIcon(ModelData.EMPTY);
+		return model.particleMaterial()
+			.sprite();
 	}
 
 	public enum Variant {
