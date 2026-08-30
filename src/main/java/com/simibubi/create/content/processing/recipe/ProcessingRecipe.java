@@ -1,5 +1,13 @@
 package com.simibubi.create.content.processing.recipe;
 
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+
+import net.minecraft.world.item.crafting.PlacementInfo;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -116,7 +124,7 @@ public abstract class ProcessingRecipe<I extends RecipeInput, P extends Processi
 		return params;
 	}
 
-	@Override
+	/// Recipe no longer lists its ingredients; Create's own machines still ask.
 	public NonNullList<Ingredient> getIngredients() {
 		return ingredients;
 	}
@@ -170,16 +178,12 @@ public abstract class ProcessingRecipe<I extends RecipeInput, P extends Processi
 
 	@Override
 	public ItemStack assemble(I t) {
-		return getResultItem(provider);
+		return getResultItem(null);
 	}
 
-	@Override
-	public boolean canCraftInDimensions(int width, int height) {
-		return true;
-	}
-
-	@Override
-	public ItemStack getResultItem(HolderLookup.Provider provider) {
+	/// No longer part of Recipe, but every Create machine reads its result this
+	/// way and none of them have a registry lookup on hand.
+	public ItemStack getResultItem(@Nullable HolderLookup.Provider provider) {
 		return getRollableResults().isEmpty() ? ItemStack.EMPTY
 				: getRollableResults().getFirst()
 				.getStack();
@@ -192,18 +196,37 @@ public abstract class ProcessingRecipe<I extends RecipeInput, P extends Processi
 
 	// Processing recipes do not show up in the recipe book
 	@Override
-	public String getGroup() {
+	public String group() {
 		return "processing";
 	}
 
 	@Override
-	public RecipeSerializer<? extends Recipe<?>> getSerializer() {
-		return serializer;
+	public boolean showNotification() {
+		return false;
+	}
+
+	/// Create's machines place their own ingredients, so there is nothing for
+	/// the recipe book to lay out.
+	@Override
+	public PlacementInfo placementInfo() {
+		return PlacementInfo.NOT_PLACEABLE;
 	}
 
 	@Override
-	public RecipeType<? extends Recipe<?>> getType() {
-		return type;
+	public RecipeBookCategory recipeBookCategory() {
+		return RecipeBookCategories.CRAFTING_MISC;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public RecipeSerializer<? extends Recipe<I>> getSerializer() {
+		return (RecipeSerializer<? extends Recipe<I>>) serializer;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public RecipeType<? extends Recipe<I>> getType() {
+		return (RecipeType<? extends Recipe<I>>) type;
 	}
 
 	public IRecipeTypeInfo getTypeInfo() {

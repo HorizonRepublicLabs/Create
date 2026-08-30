@@ -78,14 +78,14 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 																						 RecipeType<R> type, Class<R> recipeClass) {
 		List<RecipeHolder<SequencedAssemblyRecipe>> all = RecipeLookup.allOfType(level, AllRecipeTypes.SEQUENCED_ASSEMBLY.getType());
 		for (RecipeHolder<SequencedAssemblyRecipe> sequencedAssemblyRecipe : all) {
-			if (!sequencedAssemblyRecipe.value().appliesTo(sequencedAssemblyRecipe.id(), item))
+			if (!sequencedAssemblyRecipe.value().appliesTo(sequencedAssemblyRecipe.id().identifier(), item))
 				continue;
 			SequencedRecipe<?> nextRecipe = sequencedAssemblyRecipe.value().getNextRecipe(item);
 			ProcessingRecipe<?, ?> recipe = nextRecipe.getRecipe();
 			if (recipe.getType() != type || !recipeClass.isInstance(recipe))
 				continue;
-			recipe.enforceNextResult(() -> sequencedAssemblyRecipe.value().advance(sequencedAssemblyRecipe.id(), item, level.getRandom()));
-			return Optional.of(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, sequencedAssemblyRecipe.id()), recipeClass.cast(recipe)));
+			recipe.enforceNextResult(() -> sequencedAssemblyRecipe.value().advance(sequencedAssemblyRecipe.id().identifier(), item, level.getRandom()));
+			return Optional.of(new RecipeHolder<>(sequencedAssemblyRecipe.id(), recipeClass.cast(recipe)));
 		}
 		return Optional.empty();
 	}
@@ -96,11 +96,11 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 		List<RecipeHolder<R>> result = new ArrayList<>();
 
 		for (RecipeHolder<SequencedAssemblyRecipe> holder : all) {
-			if (holder.value().appliesTo(holder.id(), item)) {
+			if (holder.value().appliesTo(holder.id().identifier(), item)) {
 				ProcessingRecipe<?, ?> recipe = holder.value().getNextRecipe(item).getRecipe();
 
 				if (recipe.getType() == type && recipeClass.isInstance(recipe)) {
-					recipe.enforceNextResult(() -> holder.value().advance(holder.id(), item, level.getRandom()));
+					recipe.enforceNextResult(() -> holder.value().advance(holder.id().identifier(), item, level.getRandom()));
 					R castedRecipe = recipeClass.cast(recipe);
 					RecipeHolder<R> h = new RecipeHolder<>(holder.id(), castedRecipe);
 					if (recipeFilter.test(h))
