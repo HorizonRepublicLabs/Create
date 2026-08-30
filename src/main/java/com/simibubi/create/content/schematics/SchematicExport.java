@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics;
 
+import java.util.List;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -41,7 +43,8 @@ public class SchematicExport {
 		BlockPos bounds = new BlockPos(bb.getXSpan(), bb.getYSpan(), bb.getZSpan());
 
 		StructureTemplate structure = new StructureTemplate();
-		structure.fillFromWorld(level, origin, bounds, true, Blocks.AIR);
+		// The ignore list is a list of blocks now.
+		structure.fillFromWorld(level, origin, bounds, true, List.of(Blocks.AIR));
 		CompoundTag data = structure.save(new CompoundTag());
 		SchematicAndQuillItem.replaceStructureVoidWithAir(data);
 		SchematicAndQuillItem.clampGlueBoxes(level, new AABB(Vec3.atLowerCornerOf(origin), Vec3.atLowerCornerOf(origin.offset(bounds))), data);

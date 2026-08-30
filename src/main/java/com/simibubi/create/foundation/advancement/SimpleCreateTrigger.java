@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.advancement;
 
+import java.util.function.Predicate;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -21,7 +23,9 @@ public class SimpleCreateTrigger extends CriterionTriggerBase<SimpleCreateTrigge
 	}
 
 	public void trigger(ServerPlayer player) {
-		super.trigger(player, null);
+		// Two trigger overloads take a null second argument now, so the
+		// predicate form is named explicitly.
+		super.trigger(player, (Predicate<SimpleCreateTrigger.Instance>) instance -> true);
 	}
 
 	public SimpleCreateTrigger.Instance instance() {

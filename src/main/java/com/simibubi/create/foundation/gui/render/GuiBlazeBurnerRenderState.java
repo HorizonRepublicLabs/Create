@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 /// source. Screens hand 3D content to a picture-in-picture renderer now, so the
 /// pose the blaze is drawn with travels here instead.
 public record GuiBlazeBurnerRenderState(BlockState blockState, HeatLevel heatLevel, float animation,
-	float horizontalAngle, boolean canDrawFlame, boolean drawGoggles, @Nullable PartialModel hat, int hashCode,
+	float horizontalAngle, boolean canDrawFlame, boolean drawGoggles, @Nullable PartialModel hat, int identity,
 	int x0, int y0, int x1, int y1, float scale, @Nullable ScreenRectangle scissorArea,
 	@Nullable ScreenRectangle bounds) implements PictureInPictureRenderState {
 }

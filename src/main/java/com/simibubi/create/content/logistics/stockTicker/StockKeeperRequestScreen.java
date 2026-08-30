@@ -545,7 +545,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 
 			graphics.submitPictureInPictureRenderState(new GuiBlazeBurnerRenderState(keeperBE.getBlockState(), heatLevel,
 				animation, AngleHelper.rad(270), heatLevel.isAtLeast(HeatLevel.FADING), keeperBE.goggles,
-				AllPartialModels.LOGISTICS_HAT, keeperBE.hashCode(), entityX - 24, entityY - 40, entityX + 24, entityY + 8,
+				AllPartialModels.LOGISTICS_HAT, System.identityHashCode(keeperBE), entityX - 24, entityY - 40, entityX + 24, entityY + 8,
 				48, null, null));
 		}
 

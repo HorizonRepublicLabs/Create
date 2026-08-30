@@ -316,7 +316,7 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 		double pMouseX = event.x();
 		double pMouseY = event.y();
 		int pButton = event.button();
-		if (minecraft.options.keyUse.matchesMouse(pButton)) {
+		if (minecraft.options.keyUse.matchesMouse(event)) {
 			saveAndClose(pMouseX, pMouseY);
 			return true;
 		}
