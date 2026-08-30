@@ -48,18 +48,17 @@ public class SchematicProcessor implements StructureProcessor {
 	public StructureTemplate.StructureEntityInfo processEntity(LevelReader world, BlockPos pos, StructureTemplate.StructureEntityInfo rawInfo,
 			StructureTemplate.StructureEntityInfo info, StructurePlaceSettings settings, StructureTemplate template) {
 		return EntityType.by(info.nbt).flatMap(type -> {
-			if (world instanceof Level) {
-				Entity e = type.create((Level) world);
-				if (e != null && !e.onlyOpCanSetNbt()) {
-					return Optional.of(info);
-				}
-			}
+			// The restriction is a property of the type rather than a question
+			// asked of an instance, so nothing has to be spawned to check it.
+			if (!type.onlyOpCanSetNbt())
+				return Optional.of(info);
 			return Optional.empty();
 		}).orElse(null);
 	}
 
+	/// The processor names its codec directly rather than a type that carries it.
 	@Override
-	protected StructureProcessorType<?> getType() {
-		return AllStructureProcessorTypes.SCHEMATIC.get();
+	public MapCodec<? extends StructureProcessor> codec() {
+		return CODEC;
 	}
 }

@@ -11,9 +11,12 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.ApiStatus.Internal;
 
 public class AllStructureProcessorTypes {
-	private static final DeferredRegister<StructureProcessorType<?>> REGISTER = DeferredRegister.create(Registries.STRUCTURE_PROCESSOR, Create.ID);
+	private static final DeferredRegister<StructureProcessorType> REGISTER = DeferredRegister.create(Registries.STRUCTURE_PROCESSOR, Create.ID);
 
-	public static final DeferredHolder<StructureProcessorType<?>, StructureProcessorType<SchematicProcessor>> SCHEMATIC = REGISTER.register("schematic", () -> () -> SchematicProcessor.CODEC);
+	/// A processor type is no longer parameterised; the processor names its own
+	/// codec, and the type is just the registry entry.
+	public static final DeferredHolder<StructureProcessorType, StructureProcessorType> SCHEMATIC =
+		REGISTER.register("schematic", () -> new StructureProcessorType() {});
 
 	@Internal
 	public static void register(IEventBus modEventBus) {

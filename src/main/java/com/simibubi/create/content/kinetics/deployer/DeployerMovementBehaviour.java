@@ -255,7 +255,9 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 		Inventory inv = player.getInventory();
 		FilterItemStack filter = context.getFilterFromBE();
 
-		for (List<ItemStack> list : Arrays.asList(inv.armor, inv.offhand, inv.items)) {
+		// The inventory keeps its equipment apart from the rest; the whole lot is
+		// walked through the container.
+		for (List<ItemStack> list : Arrays.asList(inv.getNonEquipmentItems())) {
 			for (int i = 0; i < list.size(); ++i) {
 				ItemStack itemstack = list.get(i);
 				if (itemstack.isEmpty())
