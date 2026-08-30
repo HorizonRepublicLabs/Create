@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.glue;
 
+import net.minecraft.world.level.storage.TagValueOutput;
+
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import net.minecraft.world.level.storage.ValueInput;
 
 import net.minecraft.world.level.storage.ValueOutput;
@@ -272,14 +276,14 @@ public class SuperGlueEntity extends Entity implements IEntityWithComplexSpawn, 
 
 	@Override
 	public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
-		CompoundTag compound = new CompoundTag();
-		addAdditionalSaveData(compound);
-		buffer.writeNbt(compound);
+		TagValueOutput out = ValueIOShim.output(registryAccess());
+		addAdditionalSaveData(out);
+		buffer.writeNbt(out.buildResult());
 	}
 
 	@Override
 	public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
-		readAdditionalSaveData(additionalData.readNbt());
+		readAdditionalSaveData(ValueIOShim.inputOf(additionalData.readNbt(), registryAccess()));
 	}
 
 	@Override

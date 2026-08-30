@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import net.minecraft.world.level.storage.TagValueOutput;
+
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.minecraft.world.entity.EntityTypes;
@@ -350,14 +354,14 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 
 	@Override
 	public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
-		CompoundTag compound = new CompoundTag();
-		addAdditionalSaveData(compound);
-		buffer.writeNbt(compound);
+		TagValueOutput out = ValueIOShim.output(registryAccess());
+		addAdditionalSaveData(out);
+		buffer.writeNbt(out.buildResult());
 	}
 
 	@Override
 	public void readSpawnData(RegistryFriendlyByteBuf additionalData) {
-		readAdditionalSaveData(additionalData.readNbt());
+		readAdditionalSaveData(ValueIOShim.inputOf(additionalData.readNbt(), registryAccess()));
 	}
 
 }
