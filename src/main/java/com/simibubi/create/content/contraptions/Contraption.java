@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.utility.AABBNbt;
+
 import net.minecraft.world.level.chunk.PaletteResize;
 
 import net.minecraft.core.UUIDUtil;
@@ -801,7 +803,7 @@ public abstract class Contraption {
 		});
 
 		if (nbt.contains("BoundsFront"))
-			bounds = NBTHelper.readAABB(nbt.getListOrEmpty("BoundsFront"));
+			bounds = AABBNbt.read(nbt.getListOrEmpty("BoundsFront"));
 
 		stalled = nbt.getBooleanOr("Stalled", false);
 		hasUniversalCreativeCrate = nbt.getBooleanOr("BottomlessSupply", false);
@@ -894,7 +896,7 @@ public abstract class Contraption {
 		nbt.putBoolean("BottomlessSupply", hasUniversalCreativeCrate);
 
 		if (bounds != null) {
-			ListTag bb = NBTHelper.writeAABB(bounds);
+			ListTag bb = AABBNbt.write(bounds);
 			nbt.put("BoundsFront", bb);
 		}
 
