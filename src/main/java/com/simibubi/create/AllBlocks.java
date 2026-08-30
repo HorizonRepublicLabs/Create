@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.world.level.storage.loot.LootContext;
+
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import com.simibubi.create.foundation.data.ItemModelGenShim;
@@ -1154,7 +1156,7 @@ public class AllBlocks {
 					return existing;
 				return VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + partName + powered + flipped,
-						existing.location())
+						existing)
 					.texture("2", p.modLoc("block/" + c.getName() + powered + flipped));
 			}))
 			.transform(CStress.setNoImpact())
@@ -2188,7 +2190,7 @@ public class AllBlocks {
 						.when(ExplosionCondition.survivesExplosion())
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(block)
-								.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
+								.apply(CopyNameFunction.copyName(LootContext.BlockEntityTarget.BLOCK_ENTITY))
 								.apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
 										.include(AllDataComponents.TOOLBOX_UUID)
 										.include(AllDataComponents.TOOLBOX_INVENTORY)

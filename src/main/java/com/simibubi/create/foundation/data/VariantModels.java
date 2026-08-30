@@ -204,6 +204,20 @@ public class VariantModels {
 		}, BlockStateProperties.WATERLOGGED);
 	}
 
+	/// For the blocks that pick a different model per state.
+	public static void horizontalFaceBlock(RegistrateBlockModelGenerator generator, Block block,
+		Function<BlockState, Identifier> modelFunc) {
+		forAllStatesExcept(generator, block, state -> {
+			AttachFace face = state.getValue(BlockStateProperties.ATTACH_FACE);
+			return ConfiguredModel.builder()
+				.modelFile(modelFunc.apply(state))
+				.rotationX(face == AttachFace.FLOOR ? 0 : face == AttachFace.WALL ? 90 : 180)
+				.rotationY((((int) state.getValue(BlockStateProperties.HORIZONTAL_FACING).toYRot())
+					+ (face == AttachFace.CEILING ? 0 : 180)) % 360)
+				.build();
+		}, BlockStateProperties.WATERLOGGED);
+	}
+
 	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block,
 		Function<BlockState, Identifier> modelFunc) {
 		forAllStatesExcept(generator, block, state -> ConfiguredModel.of(modelFunc.apply(state)).toArray(),
