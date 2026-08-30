@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.client.resources.model.sprite.Material;
+
 import net.minecraft.world.level.storage.loot.LootContext;
 
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -530,7 +532,8 @@ public class AllBlocks {
 				return VariantModels.models(p)
 					.withExistingParent(c.getName() + "_" + suffix + powered,
 						p.modLoc("block/encased_chain_drive/" + suffix))
-					.texture("side", p.modLoc("block/" + c.getName() + powered));
+					.texture("side", p.modLoc("block/" + c.getName() + powered))
+					.build();
 			}).generate(c, p))
 			.item()
 			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("block/encased_chain_drive/item"))
@@ -1157,7 +1160,8 @@ public class AllBlocks {
 				return VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + partName + powered + flipped,
 						existing)
-					.texture("2", p.modLoc("block/" + c.getName() + powered + flipped));
+					.texture("2", p.modLoc("block/" + c.getName() + powered + flipped))
+					.build();
 			}))
 			.transform(CStress.setNoImpact())
 			.item()
@@ -1703,7 +1707,7 @@ public class AllBlocks {
 			.blockstate(() -> new FunnelGenerator("andesite", false)::generate)
 			.item(FunnelItem::new)
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
-			.model(FunnelGenerator.itemModel("andesite"))
+			.model(() -> FunnelGenerator.itemModel("andesite"))
 			.build()
 			.register();
 
@@ -1729,7 +1733,7 @@ public class AllBlocks {
 			.blockstate(() -> new FunnelGenerator("brass", true)::generate)
 			.item(FunnelItem::new)
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
-			.model(FunnelGenerator.itemModel("brass"))
+			.model(() -> FunnelGenerator.itemModel("brass"))
 			.build()
 			.register();
 
@@ -1862,7 +1866,8 @@ public class AllBlocks {
 						.withExistingParent(colourName + "_postbox_" + suffix,
 							p.modLoc("block/package_postbox/block_" + suffix))
 						.texture("0", p.modLoc("block/post_box/post_box_" + colourName))
-						.texture("1", p.modLoc("block/post_box/post_box_" + colourName + "_" + suffix));
+						.texture("1", p.modLoc("block/post_box/post_box_" + colourName + "_" + suffix))
+						.build();
 				});
 			})
 			.tag(AllBlockTags.POSTBOXES.tag)
@@ -2610,8 +2615,9 @@ public class AllBlocks {
 				.requiresCorrectToolForDrops()
 				.sound(SoundType.DEEPSLATE))
 			.transform(pickaxeOnly())
-			.blockstate(() -> (c, p) -> p.axisBlock(c.get(), p.modLoc("block/palettes/rose_quartz_side"),
-				p.modLoc("block/palettes/rose_quartz_top")))
+			.blockstate(() -> (c, p) -> p.generateAxisBlock(c.get(),
+				new Material(p.modLoc("block/palettes/rose_quartz_side")),
+				new Material(p.modLoc("block/palettes/rose_quartz_top"))))
 			.recipe((c, p) -> p.stonecutting(DataIngredient.items(AllItems.ROSE_QUARTZ.get()),
 				RecipeCategory.BUILDING_BLOCKS, c::get, 2))
 			.simpleItem()
