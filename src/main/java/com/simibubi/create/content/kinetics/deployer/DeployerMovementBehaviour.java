@@ -1,5 +1,13 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
+import net.minecraft.util.ProblemReporter;
+
+import net.minecraft.world.level.storage.TagValueOutput;
+
+import net.minecraft.world.ItemStackWithSlot;
+
 import com.simibubi.create.foundation.utility.StackNbt;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -228,8 +236,13 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 			return;
 
 		cancelStall(context);
-		context.blockEntityData.put("Inventory", player.getInventory()
-			.save(new ListTag()));
+		// The inventory writes itself into a typed list on a value output.
+		TagValueOutput inventoryOutput =
+			TagValueOutput.createWithContext(ProblemReporter.DISCARDING, player.registryAccess());
+		player.getInventory()
+			.save(inventoryOutput.list("Inventory", ItemStackWithSlot.CODEC));
+		context.blockEntityData.put("Inventory", inventoryOutput.buildResult()
+			.get("Inventory"));
 		player.discard();
 	}
 
@@ -263,7 +276,7 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 				if (itemstack.isEmpty())
 					continue;
 
-				if (list == inv.items && i == inv.getSelectedSlot() && filter.test(context.world, itemstack))
+				if (i == inv.getSelectedSlot() && filter.test(context.world, itemstack))
 					continue;
 
 				collectOrDropItem(context, itemstack);
@@ -286,7 +299,8 @@ public class DeployerMovementBehaviour implements MovementBehaviour {
 			DeployerFakePlayer deployerFakePlayer = new DeployerFakePlayer((ServerLevel) context.world, owner);
 			deployerFakePlayer.onMinecartContraption = context.contraption instanceof MountedContraption;
 			deployerFakePlayer.getInventory()
-				.load(context.blockEntityData.getListOrEmpty("Inventory"));
+				.load(ValueIOShim.inputOf(context.blockEntityData, context.world.registryAccess())
+					.listOrEmpty("Inventory", ItemStackWithSlot.CODEC));
 			if (context.data.contains("HeldItem"))
 				deployerFakePlayer.setItemInHand(InteractionHand.MAIN_HAND,
 					StackNbt.parse(context.world.registryAccess(), context.data.getCompoundOrEmpty("HeldItem")));
