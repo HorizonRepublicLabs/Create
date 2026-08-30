@@ -391,9 +391,9 @@ public class BlockStateGen {
 
 			for (WhistleSize size : WhistleSize.values()) {
 				String basePathSize = basePath + size.getSerializedName() + "_";
-				ExistingModelFile topRim = models.getExistingFile(Create.asResource(basePathSize + "top_rim"));
-				ExistingModelFile single = models.getExistingFile(Create.asResource(basePathSize + "single"));
-				ExistingModelFile double_ = models.getExistingFile(Create.asResource(basePathSize + "double"));
+				Identifier topRim = models.getExistingFile(Create.asResource(basePathSize + "top_rim"));
+				Identifier single = models.getExistingFile(Create.asResource(basePathSize + "single"));
+				Identifier double_ = models.getExistingFile(Create.asResource(basePathSize + "double"));
 
 				builder.part()
 					.modelFile(topRim)
