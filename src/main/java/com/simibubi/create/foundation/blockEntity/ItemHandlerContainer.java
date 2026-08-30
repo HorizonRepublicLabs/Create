@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity;
 
+import net.minecraft.world.entity.ContainerUser;
+
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -95,10 +97,10 @@ public class ItemHandlerContainer implements Container {
 	}
 
 	@Override
-	public void startOpen(Player player) {
+	public void startOpen(ContainerUser containerUser) {
 	}
 
 	@Override
-	public void stopOpen(Player player) {
+	public void stopOpen(ContainerUser containerUser) {
 	}
 }

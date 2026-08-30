@@ -1,5 +1,9 @@
 package com.simibubi.create.content.logistics.chute;
 
+import net.neoforged.neoforge.transfer.item.ItemResource;
+
+import net.neoforged.neoforge.transfer.ResourceHandler;
+
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import java.util.EnumMap;
@@ -90,7 +94,8 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 
 	VersionedInventoryTrackerBehaviour invVersionTracker;
 
-	private final EnumMap<Direction, BlockCapabilityCache<IItemHandler, @Nullable Direction>> capCaches = new EnumMap<>(Direction.class);
+	private final EnumMap<Direction, BlockCapabilityCache<ResourceHandler<ItemResource>, @Nullable Direction>> capCaches =
+		new EnumMap<>(Direction.class);
 
 	public ChuteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -509,19 +514,20 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		}
 		if (capCaches.get(side) == null) {
 			if (level instanceof ServerLevel serverLevel) {
-				BlockCapabilityCache<IItemHandler, @Nullable Direction> cache = BlockCapabilityCache.create(
+				BlockCapabilityCache<ResourceHandler<ItemResource>, @Nullable Direction> cache = BlockCapabilityCache.create(
 						Capabilities.Item.BLOCK,
 						serverLevel,
 						pos,
 						side.getOpposite()
 				);
 				capCaches.put(side, cache);
-				return cache.getCapability();
+				return ItemCaps.asItemHandler(cache.getCapability());
 			} else {
 				return ItemCaps.at(level, pos, side.getOpposite());
 			}
 		} else {
-			return capCaches.get(side).getCapability();
+			return ItemCaps.asItemHandler(capCaches.get(side)
+				.getCapability());
 		}
 	}
 

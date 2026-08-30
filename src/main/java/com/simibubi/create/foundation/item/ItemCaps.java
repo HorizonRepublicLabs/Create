@@ -54,6 +54,12 @@ public class ItemCaps {
 		return handler == null ? null : IItemHandler.of(handler);
 	}
 
+	/// A resource handler straight from a capability, as an item handler.
+	@Nullable
+	public static IItemHandler asItemHandler(@Nullable ResourceHandler<ItemResource> handler) {
+		return handler == null ? null : IItemHandler.of(handler);
+	}
+
 	/// The other direction: Create's inventories are item handlers, and the
 	/// capability wants a resource handler.
 	@Nullable

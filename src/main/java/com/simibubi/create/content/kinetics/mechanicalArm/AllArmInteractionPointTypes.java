@@ -1,5 +1,11 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+
+import net.minecraft.world.item.crafting.RecipeType;
+
+import net.minecraft.server.level.ServerLevel;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.Optional;
@@ -518,12 +524,17 @@ public class AllArmInteractionPointTypes {
 			BlockEntity blockEntity = level.getBlockEntity(pos);
 			if (!(blockEntity instanceof CampfireBlockEntity campfireBE))
 				return stack;
-			Optional<RecipeHolder<CampfireCookingRecipe>> recipe = campfireBE.getCookableRecipe(stack);
+			// A campfire no longer looks its own recipe up, and only takes food
+			// on the server.
+			if (!(level instanceof ServerLevel serverLevel))
+				return stack;
+			Optional<RecipeHolder<CampfireCookingRecipe>> recipe = serverLevel.recipeAccess()
+				.getRecipeFor(RecipeType.CAMPFIRE_COOKING, new SingleRecipeInput(stack), serverLevel);
 			if (recipe.isEmpty())
 				return stack;
 			if (simulate) {
 				boolean hasSpace = false;
-				for (ItemStack campfireStack : ItemHelper.ingredientStacks(campfireBE)) {
+				for (ItemStack campfireStack : campfireBE.getItems()) {
 					if (campfireStack.isEmpty()) {
 						hasSpace = true;
 						break;
@@ -536,8 +547,7 @@ public class AllArmInteractionPointTypes {
 				return remainder;
 			}
 			ItemStack remainder = stack.copy();
-			campfireBE.placeFood(null, remainder, recipe.get().value()
-				.getCookingTime());
+			campfireBE.placeFood(serverLevel, null, remainder);
 			return remainder;
 		}
 	}

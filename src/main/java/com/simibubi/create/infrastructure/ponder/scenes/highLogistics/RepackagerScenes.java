@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.ponder.scenes.highLogistics;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.List;
 
 import com.simibubi.create.content.kinetics.crafter.MechanicalCrafterBlockEntity;
@@ -383,7 +385,7 @@ public class RepackagerScenes {
 		scene.world()
 			.modifyBlockEntity(util.grid()
 				.at(3, 2, 5), BlockEntity.class, be -> {
-					IItemHandler handler = be.getLevel().getCapability(ItemHandler.BLOCK, be.getBlockPos(), null);
+					IItemHandler handler = ItemCaps.at(be.getLevel(), be.getBlockPos(), null);
 					if (handler == null)
 						return;
 					ItemHandlerHelper.insertItemStacked(handler, stack, false);

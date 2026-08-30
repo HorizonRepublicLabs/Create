@@ -1,5 +1,11 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
+import net.neoforged.neoforge.transfer.item.ItemResource;
+
+import net.neoforged.neoforge.transfer.ResourceHandler;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.api.registry.CreateBuiltInRegistries;
@@ -32,7 +38,7 @@ public class ArmInteractionPoint {
 	protected Mode mode = Mode.DEPOSIT;
 
 	protected BlockState cachedState;
-	protected BlockCapabilityCache<IItemHandler, Direction> cachedHandler;
+	protected BlockCapabilityCache<ResourceHandler<ItemResource>, Direction> cachedHandler;
 	protected ArmAngleTarget cachedAngles;
 
 	public ArmInteractionPoint(ArmInteractionPointType type, Level level, BlockPos pos, BlockState state) {
@@ -109,7 +115,9 @@ public class ArmInteractionPoint {
 				() -> cachedHandler = null
 			);
 		}
-		return cachedHandler.getCapability();
+		// The capability hands back a resource handler; Create's plumbing speaks
+		// in item handlers.
+		return ItemCaps.asItemHandler(cachedHandler.getCapability());
 	}
 
 	public ItemStack insert(ArmBlockEntity armBlockEntity, ItemStack stack, boolean simulate) {
@@ -162,7 +170,10 @@ public class ArmInteractionPoint {
 		Identifier id = Identifier.tryParse(nbt.getStringOr("Type", ""));
 		if (id == null)
 			return null;
-		ArmInteractionPointType type = CreateBuiltInRegistries.ARM_INTERACTION_POINT_TYPE.get(id);
+		// A registry hands back a holder now.
+		ArmInteractionPointType type = CreateBuiltInRegistries.ARM_INTERACTION_POINT_TYPE.get(id)
+			.map(holder -> holder.value())
+			.orElse(null);
 		if (type == null)
 			return null;
 		BlockPos pos = NBTHelper.readBlockPos(nbt, "Pos").offset(anchor);

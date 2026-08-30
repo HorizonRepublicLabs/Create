@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour.animatedContainer;
 
+import net.minecraft.world.entity.ContainerUser;
+
 import java.util.function.Consumer;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -76,8 +78,10 @@ public class AnimatedContainerBehaviour<M extends MenuBase<? extends SmartBlockE
 		}
 	}
 
-	public void startOpen(Player player) {
-		if (player.isSpectator())
+	public void startOpen(ContainerUser containerUser) {
+		// A container is opened by a user rather than a player now.
+		if (containerUser.getLivingEntity()
+			.isSpectator())
 			return;
 		if (getWorld().isClientSide())
 			return;
@@ -89,8 +93,9 @@ public class AnimatedContainerBehaviour<M extends MenuBase<? extends SmartBlockE
 		blockEntity.sendData();
 	}
 
-	public void stopOpen(Player player) {
-		if (player.isSpectator())
+	public void stopOpen(ContainerUser containerUser) {
+		if (containerUser.getLivingEntity()
+			.isSpectator())
 			return;
 		if (getWorld().isClientSide())
 			return;
