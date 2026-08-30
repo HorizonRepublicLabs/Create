@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import net.minecraft.client.renderer.SubmitNodeCollector;
+
 import net.minecraft.world.entity.player.PlayerModelPart;
 
 import net.minecraft.resources.Identifier;
@@ -85,7 +87,7 @@ public abstract class ShootableGadgetRenderHandler {
 		ItemInHandRenderer firstPersonRenderer = mc.getEntityRenderDispatcher().getItemInHandRenderer();
 
 		PoseStack ms = event.getPoseStack();
-		SuperRenderTypeBuffer buffer = event.getSubmitNodeCollector();
+		SubmitNodeCollector buffer = event.getSubmitNodeCollector();
 		int light = event.getPackedLight();
 		float pt = event.getPartialTick();
 

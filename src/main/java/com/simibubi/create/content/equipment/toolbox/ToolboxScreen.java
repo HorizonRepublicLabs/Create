@@ -1,5 +1,13 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.minecraft.util.LightCoordsUtil;
+
+import net.minecraft.client.renderer.Sheets;
+
+import com.simibubi.create.foundation.render.CreateCachedBuffers;
+
+import com.simibubi.create.foundation.gui.render.GuiWorldGeometryRenderState;
+
 import org.joml.Matrix3x2fStack;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -126,36 +134,47 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 		}
 	}
 
+	/// The toolbox and its moving parts are 3D, and the gui stack is not, so the
+	/// whole thing is drawn picture-in-picture where a real stack is on hand.
 	private void renderToolbox(GuiGraphicsExtractor graphics, int x, int y, float partialTicks) {
-        Matrix3x2fStack ms = graphics.pose();
-		TransformStack.of(ms)
-			.pushPose()
-			.translate(x, y, 100)
-			.scale(50)
-			.rotateXDegrees(-22)
-			.rotateYDegrees(-202);
+		float lid = menu.contentHolder.lid.getValue(partialTicks);
+		graphics.submitPictureInPictureRenderState(new GuiWorldGeometryRenderState((ms, collector, buffer) -> {
+			TransformStack.of(ms)
+				.pushPose()
+				.scale(50)
+				.rotateXDegrees(-22)
+				.rotateYDegrees(-202);
 
-		GuiGameElement.of(AllBlocks.TOOLBOXES.get(color)
-			.getDefaultState())
-			.submit(graphics);
+			CreateCachedBuffers.partial(AllPartialModels.TOOLBOX_LIDS.get(color),
+				AllBlocks.TOOLBOXES.get(color)
+					.getDefaultState())
+				.light(LightCoordsUtil.FULL_BRIGHT)
+				.renderInto(ms, buffer.getBuffer(Sheets.cutoutBlockItemSheet()));
 
-        TransformStack.of(ms)
-			.pushPose()
-			.translate(0, -6 / 16f, 12 / 16f)
-			.rotateXDegrees(-105 * menu.contentHolder.lid.getValue(partialTicks))
-			.translate(0, 6 / 16f, -12 / 16f);
-		GuiGameElement.of(AllPartialModels.TOOLBOX_LIDS.get(color))
-			.render(graphics);
-		ms.popMatrix();
+			ms.pushPose();
+			TransformStack.of(ms)
+				.translate(0, -6 / 16f, 12 / 16f)
+				.rotateXDegrees(-105 * lid)
+				.translate(0, 6 / 16f, -12 / 16f);
+			CreateCachedBuffers.partial(AllPartialModels.TOOLBOX_LIDS.get(color),
+				AllBlocks.TOOLBOXES.get(color)
+					.getDefaultState())
+				.light(LightCoordsUtil.FULL_BRIGHT)
+				.renderInto(ms, buffer.getBuffer(Sheets.cutoutBlockItemSheet()));
+			ms.popPose();
 
-		for (int offset : Iterate.zeroAndOne) {
-			ms.pushMatrix();
-			ms.translate(0, (float) (-offset * 1 / 8f));
-			GuiGameElement.of(AllPartialModels.TOOLBOX_DRAWER)
-				.render(graphics);
-			ms.popMatrix();
-		}
-		ms.popMatrix();
+			for (int offset : Iterate.zeroAndOne) {
+				ms.pushPose();
+				ms.translate(0, -offset * 1 / 8f, 0);
+				CreateCachedBuffers.partial(AllPartialModels.TOOLBOX_DRAWER, AllBlocks.TOOLBOXES.get(color)
+					.getDefaultState())
+					.light(LightCoordsUtil.FULL_BRIGHT)
+					.renderInto(ms, buffer.getBuffer(Sheets.cutoutBlockItemSheet()));
+				ms.popPose();
+			}
+
+			ms.popPose();
+		}, x - 50, y - 60, x + 50, y + 40, 50, null, null));
 	}
 
 	@Override
