@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation;
 
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -22,7 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class CreateNBTProcessors {
 	public static void register() {
-		NBTProcessors.addProcessor(BlockEntityType.LECTERN, data -> {
+		NBTProcessors.addProcessor(BlockEntityTypes.LECTERN, data -> {
 			if (!data.contains("Book", Tag.TAG_COMPOUND))
 				return data;
 			CompoundTag book = data.getCompoundOrEmpty("Book");

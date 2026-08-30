@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,10 +53,10 @@ public class AllDisplaySources {
 		.associate(Blocks.RESPAWN_ANCHOR)
 		.register();
 	public static final RegistryEntry<DisplaySource, ScoreboardDisplaySource> SCOREBOARD = REGISTRATE.displaySource("scoreboard", ScoreboardDisplaySource::new)
-		.associate(BlockEntityType.COMMAND_BLOCK)
+		.associate(BlockEntityTypes.COMMAND_BLOCK)
 		.register();
 	public static final RegistryEntry<DisplaySource, EnchantPowerDisplaySource> ENCHANT_POWER = REGISTRATE.displaySource("enchant_power", EnchantPowerDisplaySource::new)
-		.associate(BlockEntityType.ENCHANTING_TABLE)
+		.associate(BlockEntityTypes.ENCHANTING_TABLE)
 		.register();
 	public static final RegistryEntry<DisplaySource, RedstonePowerDisplaySource> REDSTONE_POWER = REGISTRATE.displaySource("redstone_power", RedstonePowerDisplaySource::new)
 		.associate(Blocks.TARGET)
