@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.AllEntityDataSerializers;
+
 import net.minecraft.server.level.ServerLevel;
 
 
@@ -90,7 +92,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	private static final EntityDataAccessor<Boolean> STALLED =
 		SynchedEntityData.defineId(AbstractContraptionEntity.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Optional<UUID>> CONTROLLED_BY =
-		SynchedEntityData.defineId(AbstractContraptionEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+		SynchedEntityData.defineId(AbstractContraptionEntity.class, AllEntityDataSerializers.OPTIONAL_UUID);
 
 	public final Map<Entity, MutableInt> collidingEntities;
 

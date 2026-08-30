@@ -64,7 +64,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 	private static final EntityDataAccessor<CarriageSyncData> CARRIAGE_DATA =
 		SynchedEntityData.defineId(CarriageContraptionEntity.class, AllEntityDataSerializers.CARRIAGE_DATA);
 	private static final EntityDataAccessor<Optional<UUID>> TRACK_GRAPH =
-		SynchedEntityData.defineId(CarriageContraptionEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+		SynchedEntityData.defineId(CarriageContraptionEntity.class, AllEntityDataSerializers.OPTIONAL_UUID);
 	private static final EntityDataAccessor<Boolean> SCHEDULED =
 		SynchedEntityData.defineId(CarriageContraptionEntity.class, EntityDataSerializers.BOOLEAN);
 

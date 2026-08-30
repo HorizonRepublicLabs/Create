@@ -1,5 +1,13 @@
 package com.simibubi.create;
 
+import net.minecraft.network.codec.ByteBufCodecs;
+
+import net.minecraft.core.UUIDUtil;
+
+import java.util.UUID;
+
+import java.util.Optional;
+
 import com.simibubi.create.content.trains.entity.CarriageSyncDataSerializer;
 
 import net.minecraft.network.syncher.EntityDataSerializer;
@@ -16,6 +24,14 @@ public class AllEntityDataSerializers {
 	public static final CarriageSyncDataSerializer CARRIAGE_DATA = new CarriageSyncDataSerializer();
 
 	public static final DeferredHolder<EntityDataSerializer<?>, CarriageSyncDataSerializer> CARRIAGE_DATA_ENTRY = REGISTER.register("carriage_data", () -> CARRIAGE_DATA);
+
+	/// Vanilla dropped its optional-uuid serializer; the contraptions still track
+	/// who is controlling them that way.
+	public static final EntityDataSerializer<Optional<UUID>> OPTIONAL_UUID =
+		EntityDataSerializer.forValueType(ByteBufCodecs.optional(UUIDUtil.STREAM_CODEC));
+
+	public static final DeferredHolder<EntityDataSerializer<?>, EntityDataSerializer<Optional<UUID>>> OPTIONAL_UUID_ENTRY =
+		REGISTER.register("optional_uuid", () -> OPTIONAL_UUID);
 
 	@Internal
 	public static void register(IEventBus modEventBus) {

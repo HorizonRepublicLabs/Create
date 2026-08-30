@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.AllEntityDataSerializers;
+
 import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
 
 import net.minecraft.core.UUIDUtil;
@@ -66,7 +68,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 	private static final Ingredient FUEL_ITEMS = Ingredient.of(Items.COAL, Items.CHARCOAL);
 
 	private static final EntityDataAccessor<Optional<UUID>> COUPLING =
-		SynchedEntityData.defineId(OrientedContraptionEntity.class, EntityDataSerializers.OPTIONAL_UUID);
+		SynchedEntityData.defineId(OrientedContraptionEntity.class, AllEntityDataSerializers.OPTIONAL_UUID);
 	private static final EntityDataAccessor<Direction> INITIAL_ORIENTATION =
 		SynchedEntityData.defineId(OrientedContraptionEntity.class, EntityDataSerializers.DIRECTION);
 
