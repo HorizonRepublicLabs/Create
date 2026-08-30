@@ -16,7 +16,6 @@ import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import com.simibubi.create.foundation.utility.CreateLang;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.simibubi.create.compat.Mods;
 import com.simibubi.create.compat.ftb.FTBIntegration;
@@ -47,7 +46,7 @@ import net.createmod.catnip.api.client.render.CachedBuffers;
 import net.createmod.catnip.api.client.render.SuperByteBufferCache;
 import net.createmod.ponder.api.client.PonderIndex;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.GraphicsStatus;
+import net.minecraft.client.GraphicsPreset;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ClickEvent;
@@ -155,7 +154,7 @@ public class CreateClient {
 		if (mc.player == null)
 			return;
 
-		if (mc.options.graphicsMode().get() != GraphicsStatus.FABULOUS)
+		if (mc.options.graphicsPreset().get() != GraphicsPreset.FABULOUS)
 			return;
 
 		if (AllConfigs.client().ignoreFabulousWarning.get())
