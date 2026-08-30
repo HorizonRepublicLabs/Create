@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.schedule.destination;
 
+import com.simibubi.create.foundation.gui.widget.FilteredEditBox;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +73,7 @@ public class DestinationInstruction extends TextScheduleInstruction {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	protected void modifyEditBox(EditBox box) {
+	protected void modifyEditBox(FilteredEditBox box) {
 		box.setFilter(s -> StringUtils.countMatches(s, '*') <= 3);
 	}
 
