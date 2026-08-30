@@ -71,7 +71,7 @@ public class CreateAdvancement {
 	public boolean isAlreadyAwardedTo(Player player) {
 		if (!(player instanceof ServerPlayer sp))
 			return true;
-		AdvancementHolder advancement = sp.getServer()
+		AdvancementHolder advancement = sp.level().getServer()
 			.getAdvancements()
 			.get(Create.asResource(id));
 		if (advancement == null)

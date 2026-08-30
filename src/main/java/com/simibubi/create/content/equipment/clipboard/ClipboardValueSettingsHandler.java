@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.ArrayList;
@@ -77,7 +79,7 @@ public class ClipboardValueSettingsHandler {
 			return;
 
 		VertexConsumer vb = event.getSubmitNodeCollector()
-			.getBuffer(RenderType.lines());
+			.getBuffer(RenderTypes.lines());
 		Vec3 camPos = event.getCamera()
 			.getPosition();
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import com.simibubi.create.foundation.gui.HudState;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -152,7 +154,7 @@ public class TrackBlockOutline {
 		if (result == null)
 			return;
 
-		VertexConsumer vb = buffer.getBuffer(RenderType.lines());
+		VertexConsumer vb = buffer.getBuffer(RenderTypes.lines());
 		Vec3 vec = result.vec()
 			.subtract(camera);
 		Vec3 angles = result.angles();
@@ -182,7 +184,7 @@ public class TrackBlockOutline {
 			return;
 
 		VertexConsumer vb = event.getSubmitNodeCollector()
-			.getBuffer(RenderType.lines());
+			.getBuffer(RenderTypes.lines());
 		Vec3 camPos = event.getCamera()
 			.getPosition();
 

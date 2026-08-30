@@ -77,7 +77,7 @@ public class TrainCommand {
 		}
 
 		ResourceKey<Level> levelKey = presentDimensions.get(0);
-		ServerLevel serverLevel = serverPlayer.getServer().getLevel(levelKey);
+		ServerLevel serverLevel = serverPlayer.level().getServer().getLevel(levelKey);
 		Optional<BlockPos> positionInDimension = train.getPositionInDimension(levelKey);
 
 		if (positionInDimension.isEmpty() || serverLevel == null) {

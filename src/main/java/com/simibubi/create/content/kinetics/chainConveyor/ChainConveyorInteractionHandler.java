@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.chainConveyor;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -161,7 +163,7 @@ public class ChainConveyorInteractionHandler {
 		if (selectedLift == null || selectedShape == null)
 			return;
 
-		VertexConsumer vb = buffer.getBuffer(RenderType.lines());
+		VertexConsumer vb = buffer.getBuffer(RenderTypes.lines());
 		ms.pushPose();
 		ms.translate(selectedLift.getX() - camera.x, selectedLift.getY() - camera.y, selectedLift.getZ() - camera.z);
 		selectedShape.drawOutline(selectedLift, ms, vb);
