@@ -1,24 +1,12 @@
 package com.simibubi.create.content.trains;
 
-import org.jetbrains.annotations.NotNull;
-
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexFormat;
-
-import net.createmod.ponder.enums.PonderSpecialTextures;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.util.LightCoordsUtil;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
@@ -43,25 +31,14 @@ public class CubeParticle extends Particle {
 		// RIGHT
 		new Vec3(1, -1, 1), new Vec3(1, 1, 1), new Vec3(1, 1, -1), new Vec3(1, -1, -1) };
 
-	private static final ParticleRenderType RENDER_TYPE = new ParticleRenderType() {
+	/// Own group so the six faces can be submitted as custom geometry; the
+	/// vanilla types all assume a single billboard quad.
+	public static final ParticleRenderType CUBES = new ParticleRenderType("CREATE_CUBES", "CC");
 
-		@Override
-		public @NotNull BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
-			PonderSpecialTextures.BLANK.bind();
-
-			// transparent, additive blending
-
-			// opaque
-//			RenderSystem.depthMask(true);
-//			RenderSystem.disableBlend();
-//			RenderSystem.enableLighting();
-
-			BufferBuilder builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
-
-
-			return builder;
-		}
-	};
+	protected float rCol = 1;
+	protected float gCol = 1;
+	protected float bCol = 1;
+	protected float alpha = 1;
 
 	protected float scale;
 	protected boolean hot;
@@ -73,6 +50,12 @@ public class CubeParticle extends Particle {
 		this.zd = motionZ;
 
 		setScale(0.2F);
+	}
+
+	/// The group culls by position, and it lives beside rather than inside the
+	/// particle, so the coordinates need reading from outside.
+	public Vec3 position() {
+		return new Vec3(x, y, z);
 	}
 
 	public void setScale(float scale) {
@@ -113,44 +96,37 @@ public class CubeParticle extends Particle {
 		super.tick();
 	}
 
-	@Override
-	public void render(VertexConsumer builder, Camera renderInfo, float p_225606_3_) {
+	/// Cubes shrink over their lifetime, so the size handed to the render state
+	/// already carries the fade.
+	public void extract(CubeParticleRenderState state, Camera renderInfo, float partialTicks) {
 		Vec3 projectedView = renderInfo.position();
-		float lerpedX = (float) (Mth.lerp(p_225606_3_, this.xo, this.x) - projectedView.x());
-		float lerpedY = (float) (Mth.lerp(p_225606_3_, this.yo, this.y) - projectedView.y());
-		float lerpedZ = (float) (Mth.lerp(p_225606_3_, this.zo, this.z) - projectedView.z());
+		float lerpedX = (float) (Mth.lerp(partialTicks, this.xo, this.x) - projectedView.x());
+		float lerpedY = (float) (Mth.lerp(partialTicks, this.yo, this.y) - projectedView.y());
+		float lerpedZ = (float) (Mth.lerp(partialTicks, this.zo, this.z) - projectedView.z());
 
-		// int light = getBrightnessForRender(p_225606_3_);
-		int light = LightCoordsUtil.FULL_BRIGHT;
-		double ageMultiplier = 1 - Math.pow(Mth.clamp(age + p_225606_3_, 0, lifetime), 3) / Math.pow(lifetime, 3);
+		double ageMultiplier =
+			1 - Math.pow(Mth.clamp(age + partialTicks, 0, lifetime), 3) / Math.pow(lifetime, 3);
 
-		for (int i = 0; i < 6; i++) {
-			// 6 faces to a cube
-			for (int j = 0; j < 4; j++) {
-				Vec3 vec = CUBE[i * 4 + j].scale(-1);
-				vec = vec
-					/* .rotate(?) */
-					.scale(scale * ageMultiplier)
-					.add(lerpedX, lerpedY, lerpedZ);
+		state.add(lerpedX, lerpedY, lerpedZ, (float) (scale * ageMultiplier), rCol, gCol, bCol, alpha,
+			LightCoordsUtil.FULL_BRIGHT);
+	}
 
-				builder.addVertex((float) vec.x, (float) vec.y, (float) vec.z)
-					.setUv((float) j / 2, j % 2)
-					.setColor(rCol, gCol, bCol, alpha)
-					.setLight(light);
-			}
-		}
+	public void setColor(float r, float g, float b) {
+		this.rCol = r;
+		this.gCol = g;
+		this.bCol = b;
 	}
 
 	@Override
-	public ParticleRenderType getRenderType() {
-		return RENDER_TYPE;
+	public ParticleRenderType getGroup() {
+		return CUBES;
 	}
 
 	public static class Factory implements ParticleProvider<CubeParticleData> {
 
 		@Override
 		public Particle createParticle(CubeParticleData data, ClientLevel world, double x, double y, double z, double motionX,
-			double motionY, double motionZ) {
+			double motionY, double motionZ, net.minecraft.util.RandomSource random) {
 			CubeParticle particle = new CubeParticle(world, x, y, z, motionX, motionY, motionZ);
 			particle.setColor(data.r, data.g, data.b);
 			particle.setScale(data.scale);

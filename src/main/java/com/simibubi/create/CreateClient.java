@@ -1,5 +1,11 @@
 package com.simibubi.create;
 
+import com.simibubi.create.content.trains.CubeParticleGroup;
+
+import com.simibubi.create.content.trains.CubeParticle;
+
+import net.neoforged.neoforge.client.event.RegisterParticleGroupsEvent;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import com.simibubi.create.foundation.utility.CreateLang;
@@ -73,11 +79,18 @@ public class CreateClient {
 		onCtorClient(modEventBus);
 	}
 
+	/// Cube particles draw their own geometry, so their group needs a factory of
+	/// its own rather than the vanilla quad one.
+	private static void registerParticleGroups(RegisterParticleGroupsEvent event) {
+		event.register(CubeParticle.CUBES, CubeParticleGroup::new);
+	}
+
 	public static void onCtorClient(IEventBus modEventBus) {
 		IEventBus neoEventBus = NeoForge.EVENT_BUS;
 
 		modEventBus.addListener(CreateClient::clientInit);
 		modEventBus.addListener(AllParticleTypes::registerFactories);
+		modEventBus.addListener(CreateClient::registerParticleGroups);
 
 		AllInstanceTypes.init();
 
