@@ -130,7 +130,8 @@ public class ChromaticCompoundItem extends Item {
 		while (testPos.getY() > minHeight) {
 			testPos.move(Direction.DOWN);
 			BlockState state = world.getBlockState(testPos);
-			if (state.getLightBlock(world, testPos) >= 15 && state.getBlock() != Blocks.BEDROCK)
+			// Light blocking is a state property now rather than a level query.
+			if (state.getLightDampening() >= 15 && state.getBlock() != Blocks.BEDROCK)
 				break;
 			if (state.getBlock() == Blocks.BEACON) {
 				BlockEntity be = world.getBlockEntity(testPos);

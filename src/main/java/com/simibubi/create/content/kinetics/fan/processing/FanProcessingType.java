@@ -33,7 +33,12 @@ public interface FanProcessingType {
 
 	@Nullable
 	static FanProcessingType parse(String str) {
-		return CreateBuiltInRegistries.FAN_PROCESSING_TYPE.get(Identifier.tryParse(str));
+		// A registry answers with a holder now.
+		Identifier id = Identifier.tryParse(str);
+		return id == null ? null
+			: CreateBuiltInRegistries.FAN_PROCESSING_TYPE.get(id)
+				.map(holder -> holder.value())
+				.orElse(null);
 	}
 
 	@Nullable
