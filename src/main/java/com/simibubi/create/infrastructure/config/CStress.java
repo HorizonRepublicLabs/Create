@@ -1,5 +1,9 @@
 package com.simibubi.create.infrastructure.config;
 
+import net.createmod.catnip.api.config.ConfigValueAccess;
+
+import net.createmod.catnip.api.config.ConfigSpecBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.DoubleSupplier;
@@ -29,20 +33,24 @@ public class CStress extends ConfigBase {
 	private static final Object2DoubleMap<Identifier> DEFAULT_IMPACTS = new Object2DoubleOpenHashMap<>();
 	private static final Object2DoubleMap<Identifier> DEFAULT_CAPACITIES = new Object2DoubleOpenHashMap<>();
 
-	protected final Map<Identifier, ConfigValue<Double>> capacities = new HashMap<>();
-	protected final Map<Identifier, ConfigValue<Double>> impacts = new HashMap<>();
+	protected final Map<Identifier, ConfigValueAccess<Double>> capacities = new HashMap<>();
+	protected final Map<Identifier, ConfigValueAccess<Double>> impacts = new HashMap<>();
 
 	@Override
-	public void registerAll(Builder builder) {
+	/// catnip's config api is platform-neutral now: values are defined with a
+	/// range and popped by count.
+	public void registerAll(ConfigSpecBuilder builder) {
 		builder.comment(".", Comments.su, Comments.impact)
 			.push("impact");
-		DEFAULT_IMPACTS.forEach((id, value) -> this.impacts.put(id, builder.define(id.getPath(), value)));
-		builder.pop();
+		DEFAULT_IMPACTS.forEach((id, value) -> this.impacts.put(id,
+			builder.defineInRange(id.getPath(), (double) value, 0, Double.MAX_VALUE)));
+		builder.pop(1);
 
 		builder.comment(".", Comments.su, Comments.capacity)
 			.push("capacity");
-		DEFAULT_CAPACITIES.forEach((id, value) -> this.capacities.put(id, builder.define(id.getPath(), value)));
-		builder.pop();
+		DEFAULT_CAPACITIES.forEach((id, value) -> this.capacities.put(id,
+			builder.defineInRange(id.getPath(), (double) value, 0, Double.MAX_VALUE)));
+		builder.pop(1);
 	}
 
 	@Override
@@ -53,14 +61,14 @@ public class CStress extends ConfigBase {
 	@Nullable
 	public DoubleSupplier getImpact(Block block) {
 		Identifier id = RegisteredObjectsHelper.getKeyOrThrow(block);
-		ConfigValue<Double> value = this.impacts.get(id);
+		ConfigValueAccess<Double> value = this.impacts.get(id);
 		return value == null ? null : value::get;
 	}
 
 	@Nullable
 	public DoubleSupplier getCapacity(Block block) {
 		Identifier id = RegisteredObjectsHelper.getKeyOrThrow(block);
-		ConfigValue<Double> value = this.capacities.get(id);
+		ConfigValueAccess<Double> value = this.capacities.get(id);
 		return value == null ? null : value::get;
 	}
 

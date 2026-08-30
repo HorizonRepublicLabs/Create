@@ -3,7 +3,7 @@ package com.simibubi.create.foundation.recipe;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -55,7 +55,7 @@ public class DummyCraftingContainer extends TransientCraftingContainer {
 	public void clearContent() {}
 
 	@Override
-	public void fillStackedContents(@NotNull StackedContents helper) {}
+	public void fillStackedContents(@NotNull StackedItemContents helper) {}
 
 	private static NonNullList<ItemStack> createInventory(IItemHandler itemHandler, int[] extractedItemsFromSlot) {
 		NonNullList<ItemStack> inv = NonNullList.create();

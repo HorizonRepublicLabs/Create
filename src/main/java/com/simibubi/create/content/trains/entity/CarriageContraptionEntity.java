@@ -99,7 +99,7 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 	}
 
 	@Override
-	public boolean isControlledByLocalInstance() {
+	public boolean isLocalInstanceAuthoritative() {
 		return true;
 	}
 

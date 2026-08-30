@@ -1,5 +1,7 @@
 package com.simibubi.create.api.contraption.storage.item.menu;
 
+import net.minecraft.world.entity.ContainerUser;
+
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -30,7 +32,7 @@ public class StorageInteractionWrapper extends ItemHandlerContainer {
 	}
 
 	@Override
-	public void stopOpen(Player player) {
-		this.onClose.accept(player);
+	public void stopOpen(ContainerUser containerUser) {
+		this.onClose.accept(containerUser.getLivingEntity() instanceof Player player ? player : null);
 	}
 }

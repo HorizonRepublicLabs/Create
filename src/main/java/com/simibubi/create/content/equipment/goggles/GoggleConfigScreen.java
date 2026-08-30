@@ -80,8 +80,9 @@ public class GoggleConfigScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean mouseDragged(double p_mouseDragged_1_, double p_mouseDragged_3_, int p_mouseDragged_5_,
-								double p_mouseDragged_6_, double p_mouseDragged_8_) {
+	public boolean mouseDragged(MouseButtonEvent event, double p_mouseDragged_6_, double p_mouseDragged_8_) {
+		double p_mouseDragged_1_ = event.x();
+		double p_mouseDragged_3_ = event.y();
 		updateOffset(p_mouseDragged_1_, p_mouseDragged_3_);
 
 		return true;

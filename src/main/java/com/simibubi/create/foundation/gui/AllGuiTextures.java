@@ -293,7 +293,6 @@ public enum AllGuiTextures implements ScreenElement, TextureSheetSegment {
 		this.startY = startY;
 	}
 
-	@Override
 	public Identifier getLocation() {
 		return location;
 	}
