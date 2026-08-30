@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -59,8 +61,7 @@ public class ManualApplicationRecipe extends ItemApplicationRecipe {
 			return;
 
 		RecipeType<Recipe<RecipeWrapper>> type = AllRecipeTypes.ITEM_APPLICATION.getType();
-		Optional<RecipeHolder<Recipe<RecipeWrapper>>> foundRecipe = level.recipeAccess()
-			.getAllRecipesFor(type)
+		Optional<RecipeHolder<Recipe<RecipeWrapper>>> foundRecipe = RecipeLookup.allOfType(level, type)
 			.stream()
 			.filter(r -> {
 				ManualApplicationRecipe mar = (ManualApplicationRecipe) r.value();

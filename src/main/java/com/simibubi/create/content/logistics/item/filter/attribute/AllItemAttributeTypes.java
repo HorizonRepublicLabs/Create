@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.item.filter.attribute;
 
+import net.minecraft.world.item.equipment.Equippable;
+
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import java.util.function.BiPredicate;

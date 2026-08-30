@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.sequenced;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -74,8 +76,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 
 	public static <R extends ProcessingRecipe<?, ?>> Optional<RecipeHolder<R>> getRecipe(Level level, ItemStack item,
 																						 RecipeType<R> type, Class<R> recipeClass) {
-		List<RecipeHolder<SequencedAssemblyRecipe>> all = level.recipeAccess()
-			.getAllRecipesFor(AllRecipeTypes.SEQUENCED_ASSEMBLY.getType());
+		List<RecipeHolder<SequencedAssemblyRecipe>> all = RecipeLookup.allOfType(level, AllRecipeTypes.SEQUENCED_ASSEMBLY.getType());
 		for (RecipeHolder<SequencedAssemblyRecipe> sequencedAssemblyRecipe : all) {
 			if (!sequencedAssemblyRecipe.value().appliesTo(sequencedAssemblyRecipe.id(), item))
 				continue;
@@ -90,8 +91,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 	}
 
 	public static <R extends ProcessingRecipe<?, ?>> List<RecipeHolder<R>> getRecipes(Level level, ItemStack item, RecipeType<R> type, Class<R> recipeClass, Predicate<? super RecipeHolder<R>> recipeFilter) {
-		List<RecipeHolder<SequencedAssemblyRecipe>> all = level.recipeAccess()
-			.getAllRecipesFor(AllRecipeTypes.SEQUENCED_ASSEMBLY.getType());
+		List<RecipeHolder<SequencedAssemblyRecipe>> all = RecipeLookup.allOfType(level, AllRecipeTypes.SEQUENCED_ASSEMBLY.getType());
 
 		List<RecipeHolder<R>> result = new ArrayList<>();
 
