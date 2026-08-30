@@ -1,5 +1,23 @@
 package com.simibubi.create.content.equipment.symmetryWand;
 
+import net.minecraft.util.LightCoordsUtil;
+
+import net.minecraft.core.Direction;
+
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
+
+import net.createmod.catnip.api.data.Iterate;
+
+import com.mojang.blaze3d.vertex.QuadInstance;
+
+import java.util.List;
+
+import java.util.ArrayList;
+
 import net.minecraft.util.ARGB;
 
 import com.simibubi.create.foundation.render.CreateRenderTypes;
@@ -46,7 +64,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import net.neoforged.neoforge.model.data.ModelData;
-import net.neoforged.neoforge.event.level.BreakBlockEvent;
 import net.neoforged.neoforge.event.level.BlockEvent.EntityPlaceEvent;
 
 @EventBusSubscriber
@@ -108,8 +125,7 @@ public class SymmetryHandler {
 			double speed = 1 / 16d;
 			yShift = Mth.sin((float) (AnimationTickHolder.getRenderTime() * speed)) / 5f;
 
-			SuperRenderTypeBuffer buffer = mc.renderBuffers()
-				.bufferSource();
+			SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();
 			Camera info = mc.gameRenderer.mainCamera();
 			Vec3 view = info.position();
 
@@ -122,13 +138,26 @@ public class SymmetryHandler {
 				.get();
 			VertexConsumer builder = buffer.getBuffer(CreateRenderTypes.solidMovingBlock());
 
-			mc.getBlockRenderer()
-				.getModelRenderer()
-				.tesselateBlock(player.level(), model, Blocks.AIR.defaultBlockState(), pos, ms, builder, true,
-					random, Mth.getSeed(pos), OverlayTexture.NO_OVERLAY, ModelData.EMPTY, CreateRenderTypes.solidMovingBlock());
+			// Models hand out parts and each part its quads now, rather than a
+			// block renderer walking the model for a render type.
+			QuadInstance quadInstance = new QuadInstance();
+			quadInstance.setLightCoords(LightCoordsUtil.FULL_BRIGHT);
+			quadInstance.setOverlayCoords(OverlayTexture.NO_OVERLAY);
+			quadInstance.setColor(-1);
+			random.setSeed(Mth.getSeed(pos));
+			List<BlockStateModelPart> parts = new ArrayList<>();
+			model.collectParts(random, parts);
+			PoseStack.Pose last = ms.last();
+			for (BlockStateModelPart part : parts) {
+				for (Direction direction : Iterate.directions)
+					for (BakedQuad quad : part.getQuads(direction))
+						builder.putBakedQuad(last, quad, quadInstance);
+				for (BakedQuad quad : part.getQuads(null))
+					builder.putBakedQuad(last, quad, quadInstance);
+			}
 
 			ms.popPose();
-			buffer.endBatch();
+			buffer.draw();
 		}
 	}
 

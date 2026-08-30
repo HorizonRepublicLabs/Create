@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import net.minecraft.world.item.component.TypedEntityData;
+
 import net.minecraft.core.HolderSet;
 
 import com.simibubi.create.foundation.recipe.RecipeResult;
@@ -57,10 +59,10 @@ public class BlueprintItem extends Item {
 		Level world = ctx.getLevel();
 		HangingEntity hangingentity = new BlueprintEntity(world, pos, face, face.getAxis()
 			.isHorizontal() ? Direction.DOWN : ctx.getHorizontalDirection());
-		CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
+		TypedEntityData<EntityType<?>> entityData = stack.get(DataComponents.ENTITY_DATA);
 
-		if (customData != null)
-			EntityType.updateCustomEntityTag(world, player, hangingentity, customData);
+		if (entityData != null)
+			EntityType.updateCustomEntityTag(world, player, hangingentity, entityData);
 		if (!hangingentity.survives())
 			return InteractionResult.CONSUME;
 		if (!world.isClientSide()) {
@@ -73,7 +75,7 @@ public class BlueprintItem extends Item {
 	}
 
 	public static void assignCompleteRecipe(Level level, ItemStackHandler inv, Recipe<?> recipe) {
-		NonNullList<Ingredient> ingredients = recipe.placementInfo()
+		List<Ingredient> ingredients = recipe.placementInfo()
 			.ingredients();
 
 		for (int i = 0; i < 9; i++)
@@ -91,58 +93,38 @@ public class BlueprintItem extends Item {
 		}
 	}
 
+	/// An ingredient is a HolderSet now rather than a list of values: a named
+	/// set is what used to be a tag value, anything else a list of items.
 	private static ItemStack convertIngredientToFilter(Ingredient ingredient) {
 		boolean isCompoundIngredient = ingredient.getCustomIngredient() instanceof CompoundIngredient;
-		Value[] acceptedItems = ingredient.values;
-		if (acceptedItems == null || acceptedItems.length > 18)
-			return ItemStack.EMPTY;
-		if (acceptedItems.length == 0)
-			return ItemStack.EMPTY;
-		if (acceptedItems.length == 1)
-			return convertIItemListToFilter(acceptedItems[0], isCompoundIngredient);
-
-		ItemStack result = AllItems.FILTER.asStack();
-		ItemStackHandler filterItems = AllItems.FILTER.get().getFilterItemHandler(result);
-		for (int i = 0; i < acceptedItems.length; i++)
-			filterItems.setStackInSlot(i, convertIItemListToFilter(acceptedItems[i], isCompoundIngredient));
-		result.set(AllDataComponents.FILTER_ITEMS, ItemHelper.containerContentsFromHandler(filterItems));
-		return result;
-	}
-
-	/// Ingredients carry a HolderSet now rather than a list of values; a named
-	/// set is what used to be a TagValue, anything else an ItemValue.
-	private static ItemStack convertIItemListToFilter(Ingredient itemList, boolean isCompoundIngredient) {
-		HolderSet<Item> values = itemList.getValues();
-		if (!(values instanceof HolderSet.Named<Item> namedTag)) {
-			for (ItemStack itemStack : ItemHelper.ingredientStacks(itemList))
-				return itemStack;
-		}
+		HolderSet<Item> values = ingredient.getValues();
 
 		if (values instanceof HolderSet.Named<Item> tagValue) {
 			ItemStack filterItem = AllItems.ATTRIBUTE_FILTER.asStack();
 			filterItem.set(AllDataComponents.ATTRIBUTE_FILTER_WHITELIST_MODE, AttributeFilterWhitelistMode.WHITELIST_DISJ);
 			List<ItemAttributeEntry> attributes = new ArrayList<>();
-			ItemAttribute at = new InTagAttribute(ItemTags.create(tagValue.key().location()));
+			ItemAttribute at = new InTagAttribute(ItemTags.create(tagValue.key()
+				.location()));
 			attributes.add(new ItemAttribute.ItemAttributeEntry(at, false));
 			filterItem.set(AllDataComponents.ATTRIBUTE_FILTER_MATCHED_ATTRIBUTES, attributes);
 			return filterItem;
 		}
 
-		if (isCompoundIngredient) {
-			ItemStack result = AllItems.FILTER.asStack();
-			ItemStackHandler filterItems = AllItems.FILTER.get().getFilterItemHandler(result);
-			int i = 0;
-			for (ItemStack itemStack : stacks) {
-				if (i >= 18)
-					break;
-				filterItems.setStackInSlot(i++, itemStack);
-			}
-			result.set(AllDataComponents.FILTER_ITEMS, ItemHelper.containerContentsFromHandler(filterItems));
+		List<ItemStack> stacks = ItemHelper.ingredientStacks(ingredient);
+		if (stacks.isEmpty() || stacks.size() > 18)
+			return ItemStack.EMPTY;
+		if (stacks.size() == 1 && !isCompoundIngredient)
+			return stacks.get(0);
+
+		ItemStack result = AllItems.FILTER.asStack();
+		ItemStackHandler filterItems = AllItems.FILTER.get()
+			.getFilterItemHandler(result);
+		int i = 0;
+		for (ItemStack itemStack : stacks)
+			filterItems.setStackInSlot(i++, itemStack);
+		result.set(AllDataComponents.FILTER_ITEMS, ItemHelper.containerContentsFromHandler(filterItems));
+		if (isCompoundIngredient)
 			result.set(AllDataComponents.FILTER_ITEMS_RESPECT_NBT, true);
-			return result;
-		}
-
-		return ItemStack.EMPTY;
+		return result;
 	}
-
 }
