@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.client.resources.model.sprite.Material;
+
+import net.minecraft.tags.BlockItemTags;
+
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -142,7 +146,7 @@ public class BuilderTransformers {
 				Identifier top = AssetLookup.partialBaseModel(c, p, "top");
 				Identifier open = AssetLookup.partialBaseModel(c, p, "open");
 				if (orientable)
-					p.trapdoorBlock(c.get(), bottom, top, open, orientable);
+					VariantModels.trapdoorBlock(p, c.get(), bottom, top, open, orientable);
 				else
 					BlockStateGen.uvLockedTrapdoorBlock(c.get(), bottom, top, open)
 						.accept(c, p);
@@ -151,7 +155,7 @@ public class BuilderTransformers {
 			.tag(BlockTags.TRAPDOORS)
 			.onRegister(interactionBehaviour(new TrapdoorMovingInteraction()))
 			.item()
-			.tag(ItemTags.TRAPDOORS)
+			.tag(BlockItemTags.TRAPDOORS.item())
 			.build();
 	}
 
@@ -162,7 +166,7 @@ public class BuilderTransformers {
 			.blockstate(() -> (c, p) -> {
 				Identifier bottom = AssetLookup.partialBaseModel(c, p, "bottom");
 				Identifier top = AssetLookup.partialBaseModel(c, p, "top");
-				p.doorBlock(c.get(), bottom, bottom, bottom, bottom, top, top, top, top);
+				VariantModels.doorBlock(p, c.get(), bottom, top);
 			})
 			.transform(pickaxeOnly())
 			.onRegister(interactionBehaviour(new DoorMovingInteraction()))
@@ -172,9 +176,9 @@ public class BuilderTransformers {
 			.tag(AllBlockTags.NON_DOUBLE_DOOR.tag)
 			.loot((lr, block) -> lr.add(block, lr.createDoorTable(block)))
 			.item()
-			.tag(ItemTags.DOORS)
+			.tag(BlockItemTags.DOORS.item())
 			.tag(AllItemTags.CONTRAPTION_CONTROLLED.tag)
-			.model(() -> (c, p) -> p.blockSprite(c, p.modLoc("item/" + type + "_door")))
+			.model(() -> (c, p) -> p.generateFlatItem(c.get(), new Material(p.modLoc("item/" + type + "_door"))))
 			.build();
 	}
 
@@ -252,7 +256,7 @@ public class BuilderTransformers {
 			.tag(BlockTags.CLIMBABLE)
 			.item()
 			.recipe((c, p) -> p.stonecutting(ingredient.get(), RecipeCategory.DECORATIONS, c::get, 2))
-			.model(() -> (c, p) -> p.blockSprite(c::get, p.modLoc("block/ladder_" + name)))
+			.model(() -> (c, p) -> p.generateFlatItem(c.get(), new Material(p.modLoc("block/ladder_" + name))))
 			.build();
 	}
 
@@ -321,9 +325,9 @@ public class BuilderTransformers {
 			.transform(axeOrPickaxe())
 			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 				.cubeColumn(c.getName(), ct.get()
-						.getOriginalResourceLocation(),
+						.getOriginalIdentifier(),
 					ct2.get()
-						.getOriginalResourceLocation())))
+						.getOriginalIdentifier())))
 			.onRegister(connectedTextures(() -> new HorizontalCTBehaviour(ct.get(), ct2.get())))
 			.onRegister(casingConnectivity((block, cc) -> cc.makeCasing(block, ct.get())))
 			.tag(AllBlockTags.CASING.tag)

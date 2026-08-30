@@ -1,5 +1,13 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.world.level.block.TrapDoorBlock;
+
+import net.minecraft.world.level.block.DoorBlock;
+
+import net.minecraft.client.data.models.MultiVariant;
+
+import net.minecraft.client.data.models.BlockModelGenerators;
+
 import net.createmod.catnip.api.registry.RegisteredObjectsHelper;
 
 import java.util.ArrayList;
@@ -120,6 +128,22 @@ public class VariantModels {
 	/// friends taking a model file. Registrate's generator renamed and reshaped
 	/// them, so these keep the original call shape on top of forAllStatesExcept.
 	/// Forge's provider had a two-argument form that used the block's own model.
+	/// The generator takes variants rather than model names now, and Create only
+	/// ever hands it models it has already written.
+	public static void trapdoorBlock(RegistrateBlockModelGenerator generator, TrapDoorBlock block, Identifier bottom,
+		Identifier top, Identifier open, boolean orientable) {
+		generator.generateTrapdoorBlock(block, BlockModelGenerators.plainVariant(bottom),
+			BlockModelGenerators.plainVariant(top), BlockModelGenerators.plainVariant(open), orientable);
+	}
+
+	public static void doorBlock(RegistrateBlockModelGenerator generator, DoorBlock block, Identifier bottom,
+		Identifier top) {
+		MultiVariant bottomVariant = BlockModelGenerators.plainVariant(bottom);
+		MultiVariant topVariant = BlockModelGenerators.plainVariant(top);
+		generator.generateDoorBlock(block, bottomVariant, bottomVariant, bottomVariant, bottomVariant, topVariant,
+			topVariant, topVariant, topVariant);
+	}
+
 	public static void simpleBlock(RegistrateBlockModelGenerator generator, Block block) {
 		simpleBlock(generator, block, generator.modLoc("block/" + RegisteredObjectsHelper.getKeyOrThrow(block)
 			.getPath()));
