@@ -297,7 +297,7 @@ public class AllFanProcessingTypes {
 					SoundSource.NEUTRAL, 1.25f, 0.65f);
 
 				SkeletonHorse skeletonHorse = EntityTypes.SKELETON_HORSE.create(level);
-				CompoundTag serializeNBT = horse.saveWithoutId(new CompoundTag());
+				CompoundTag serializeNBT = ValueIOShim.saveEntity(horse, level.registryAccess());
 				serializeNBT.remove("UUID");
 				if (!horse.getBodyArmorItem()
 					.isEmpty())

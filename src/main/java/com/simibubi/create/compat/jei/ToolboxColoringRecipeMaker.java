@@ -35,7 +35,7 @@ public final class ToolboxColoringRecipeMaker {
 		String group = "create.toolbox.color";
 		ItemStack baseShulkerStack = AllBlocks.TOOLBOXES.get(DyeColor.BROWN)
 			.asStack();
-		Ingredient baseShulkerIngredient = Ingredient.of(baseShulkerStack);
+		Ingredient baseShulkerIngredient = Ingredient.of(baseShulkerStack.getItem());
 
 		return Arrays.stream(DyeColor.values())
 			.filter(dc -> dc != DyeColor.BROWN)

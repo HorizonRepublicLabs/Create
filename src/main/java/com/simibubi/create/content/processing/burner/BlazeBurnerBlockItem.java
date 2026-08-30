@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +92,8 @@ public class BlazeBurnerBlockItem extends BlockItem {
 		}
 
 		for (SpawnData e : possibleSpawns) {
-			Optional<EntityType<?>> optionalEntity = EntityType.by(e.entityToSpawn());
+			Optional<EntityType<?>> optionalEntity =
+				EntityType.by(ValueIOShim.inputOf(e.entityToSpawn(), world.registryAccess()));
 			if (optionalEntity.isEmpty() || !AllEntityTags.BLAZE_BURNER_CAPTURABLE.matches(optionalEntity.get()))
 				continue;
 

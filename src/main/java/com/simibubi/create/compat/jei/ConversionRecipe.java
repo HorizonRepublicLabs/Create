@@ -30,7 +30,7 @@ public class ConversionRecipe extends StandardProcessingRecipe<RecipeWrapper> {
 	public static RecipeHolder<ConversionRecipe> create(ItemStack from, ItemStack to) {
 		Identifier recipeId = Create.asResource("conversion_" + counter++);
 		ConversionRecipe recipe = new Builder<>(ConversionRecipe::new, recipeId)
-			.withItemIngredients(Ingredient.of(from))
+			.withItemIngredients(Ingredient.of(from.getItem()))
 			.withSingleItemOutput(to)
 			.build();
 		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, recipeId), recipe);

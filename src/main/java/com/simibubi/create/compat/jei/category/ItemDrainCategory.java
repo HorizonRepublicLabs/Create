@@ -54,7 +54,7 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 		for (ItemStack stack : ingredientManager.getAllIngredients(VanillaTypes.ITEM_STACK)) {
 			if (PotionFluidHandler.isPotionItem(stack)) {
 				FluidStack fluidFromPotionItem = PotionFluidHandler.getFluidFromPotionItem(stack);
-				Ingredient potion = Ingredient.of(stack);
+				Ingredient potion = Ingredient.of(stack.getItem());
 				Identifier id = Create.asResource("potions");
 				EmptyingRecipe recipe = new StandardProcessingRecipe.Builder<>(EmptyingRecipe::new, id)
 						.withItemIngredients(potion)
@@ -83,7 +83,7 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 			// instead of the copy.
 			result = ItemHelper.sameItem(stack, result) ? stack : emptiedItems.addOrGet(result);
 
-			Ingredient ingredient = Ingredient.of(stack);
+			Ingredient ingredient = Ingredient.of(stack.getItem());
 			Identifier itemName = RegisteredObjectsHelper.getKeyOrThrow(stack.getItem());
 			Identifier fluidName = RegisteredObjectsHelper.getKeyOrThrow(extracted.getFluid());
 
