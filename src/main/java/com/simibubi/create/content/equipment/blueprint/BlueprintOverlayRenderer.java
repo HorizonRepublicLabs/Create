@@ -179,7 +179,8 @@ public class BlueprintOverlayRenderer {
 
 	private static boolean canAfford(Player player, BigItemStack entry) {
 		int itemsPresent = 0;
-		for (int i = 0; i < player.getInventory().items.size(); i++) {
+		for (int i = 0; i < player.getInventory()
+			.getContainerSize(); i++) {
 			ItemStack item = player.getInventory()
 				.getItem(i);
 			if (item.isEmpty() || !ItemStack.isSameItemSameComponents(item, entry.stack))
@@ -200,7 +201,7 @@ public class BlueprintOverlayRenderer {
 
 	public static void rebuild(BlueprintSection sectionAt, boolean sneak) {
 		cachedRenderedFilters.clear();
-		ItemStackHandler items = ItemHelper.ingredientStacks(sectionAt);
+		ItemStackHandler items = sectionAt.getItems();
 		boolean empty = true;
 		for (int i = 0; i < 9; i++) {
 			if (!items.getStackInSlot(i)
@@ -267,7 +268,7 @@ public class BlueprintOverlayRenderer {
 				if (!recipe.isPresent())
 					recipe = RecipeLookup.find(mc.level, RecipeType.CRAFTING, craftingInventory.asCraftInput());
 				ItemStack resultFromRecipe = recipe.filter(r -> r.value().matches(craftingInventory.asCraftInput(), mc.level))
-					.map(r -> r.value().assemble(craftingInventory.asCraftInput(), mc.level.registryAccess()))
+					.map(r -> r.value().assemble(craftingInventory.asCraftInput()))
 					.orElse(ItemStack.EMPTY);
 
 				if (resultFromRecipe.isEmpty()) {
@@ -345,8 +346,9 @@ public class BlueprintOverlayRenderer {
 		int y = guiGraphics.guiHeight() - 100;
 
 		if (shopContext != null) {
-			TooltipRenderUtil.renderTooltipBackground(guiGraphics, x - 2, y + 1, w + 4, 19, 0, 0x55_000000, 0x55_000000, 0,
-				0);
+			// The background is drawn during extraction and takes a style rather
+			// than the colours spelled out.
+			TooltipRenderUtil.extractTooltipBackground(guiGraphics, x - 2, y + 1, w + 4, 19, null);
 
 			AllGuiTextures.TRADE_OVERLAY.render(guiGraphics, guiGraphics.guiWidth() / 2 - 48, y - 19);
 			if (shopContext.purchases() > 0) {
@@ -406,9 +408,9 @@ public class BlueprintOverlayRenderer {
 						cycle++;
 						continue;
 					}
-					if ((mc.gui.getGuiTicks() / 40) % cycle != i)
+					if ((mc.gui.hud.getGuiTicks() / 40) % cycle != i)
 						continue;
-					guiGraphics.setTooltipForNextFrame(mc.gui.getFont(), tooltipLines, java.util.Optional.empty(), mc.getWindow()
+					guiGraphics.setTooltipForNextFrame(mc.font, tooltipLines, java.util.Optional.empty(), mc.getWindow()
 							.getGuiScaledWidth(), mc.getWindow()
 							.getGuiScaledHeight());
 				}
@@ -419,7 +421,7 @@ public class BlueprintOverlayRenderer {
 	public static void drawItemStack(GuiGraphicsExtractor graphics, Minecraft mc, int x, int y, ItemStack itemStack,
 									 String count) {
 		if (itemStack.getItem() instanceof FilterItem) {
-			int step = AnimationTickHolder.getTicks(mc.level) / 10;
+			int step = AnimationTickHolder.getTicks() / 10;
 			ItemStack[] itemsMatchingFilter = getItemsMatchingFilter(itemStack);
 			if (itemsMatchingFilter.length > 0)
 				itemStack = itemsMatchingFilter[step % itemsMatchingFilter.length];

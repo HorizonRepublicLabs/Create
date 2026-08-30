@@ -289,7 +289,7 @@ public class BlueprintEntity extends HangingEntity
 
 		Vec3 hitVec = rayTrace.get();
 		BlueprintSection sectionAt = getSectionAt(hitVec.subtract(position()));
-		ItemStackHandler items = ItemHelper.ingredientStacks(sectionAt);
+		ItemStackHandler items = sectionAt.getItems();
 
 		if (items.getStackInSlot(9)
 			.isEmpty())
@@ -358,7 +358,7 @@ public class BlueprintEntity extends HangingEntity
 
 		boolean holdingWrench = AllItems.WRENCH.isIn(player.getItemInHand(hand));
 		BlueprintSection section = getSectionAt(vec);
-		ItemStackHandler items = ItemHelper.ingredientStacks(section);
+		ItemStackHandler items = section.getItems();
 
 		if (!holdingWrench && !level().isClientSide() && !items.getStackInSlot(9)
 			.isEmpty()) {
