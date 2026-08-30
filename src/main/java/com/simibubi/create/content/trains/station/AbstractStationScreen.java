@@ -103,22 +103,19 @@ public abstract class AbstractStationScreen extends AbstractSimiScreen {
 	private void renderAdditional(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks, int guiLeft, int guiTop, AllGuiTextures background) {
 		Matrix3x2fStack ms = graphics.pose();
 		ms.pushMatrix();
-		var msr = TransformStack.of(ms);
-		msr.pushPose()
-			.translate(guiLeft + background.getWidth() + 4, guiTop + background.getHeight() + 4, 100)
-			.scale(40)
-			.rotateXDegrees(-22)
-			.rotateYDegrees(63);
+		ms.translate(guiLeft + background.getWidth() + 4, guiTop + background.getHeight() + 4);
+		// The gui stack is flat; the block's own tilt rides on the element.
 		GuiGameElement.of(blockEntity.getBlockState()
 			.setValue(BlockStateProperties.WATERLOGGED, false))
+			.rotateBlock(-22, 63, 0)
+			.scale(40)
 			.submit(graphics);
 
-		if (blockEntity.resolveFlagAngle()) {
-			msr.translate(1 / 16f, -19 / 16f, -12 / 16f);
-			StationRenderer.transformFlag(msr, blockEntity, partialTicks, 180, false);
+		if (blockEntity.resolveFlagAngle())
 			GuiGameElement.of(getFlag(partialTicks))
+				.rotateBlock(-22, 63, 0)
+				.scale(40)
 				.submit(graphics);
-		}
 
 		ms.popMatrix();
 	}

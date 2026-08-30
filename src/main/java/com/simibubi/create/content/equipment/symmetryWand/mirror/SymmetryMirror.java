@@ -120,6 +120,12 @@ public abstract class SymmetryMirror {
 
 	public void applyModelTransform(PoseStack ms) {}
 
+	/// The gui stack is flat, so a screen drawing this mirror hands the angle
+	/// to the element rather than rotating the stack itself.
+	public float getModelYRotation() {
+		return 0;
+	}
+
 	protected Vec3 getDiff(BlockPos position) {
 		return this.position.scale(-1)
 			.add(position.getX(), position.getY(), position.getZ());

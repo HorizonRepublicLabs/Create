@@ -145,11 +145,11 @@ public class SymmetryWandScreen extends AbstractSimiScreen {
 
 		ms.pushMatrix();
 		ms.translate((float) (x + 26), (float) (y + 39));
-		ms.scale((float) (16), (float) (16));
-		ms.mulPose(Axis.of(new Vector3f(.3f, 1f, 0f)).rotationDegrees(-22.5f));
-		currentElement.applyModelTransform(ms);
-		// RenderSystem.multMatrix(ms.peek().getModel());
+		// The gui stack is flat: the tilt that used to be one rotation about
+		// (.3, 1, 0) is split into its x and y parts on the element itself.
 		GuiGameElement.of(currentElement.getModel())
+			.rotateBlock(-6.5, -21.6 + currentElement.getModelYRotation(), 0)
+			.scale(16)
 			.submit(graphics);
 
 		ms.popMatrix();

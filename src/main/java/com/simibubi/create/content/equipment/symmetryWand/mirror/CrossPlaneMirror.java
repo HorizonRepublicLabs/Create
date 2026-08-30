@@ -104,6 +104,11 @@ public class CrossPlaneMirror extends SymmetryMirror {
 	}
 
 	@Override
+	public float getModelYRotation() {
+		return ((Align) orientation) == Align.Y ? 0 : 45;
+	}
+
+	@Override
 	public List<Component> getAlignToolTips() {
 		return ImmutableList.of(CreateLang.translateDirect("orientation.orthogonal"), CreateLang.translateDirect("orientation.diagonal"));
 	}

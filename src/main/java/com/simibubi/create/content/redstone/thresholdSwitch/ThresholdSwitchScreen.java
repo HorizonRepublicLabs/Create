@@ -211,13 +211,10 @@ public class ThresholdSwitchScreen extends AbstractSimiScreen {
 		Matrix3x2fStack ms = graphics.pose();
 		ms.pushMatrix();
 		ms.translate((float) (torchX - 5), (float) (torchY + 14));
-		TransformStack.of(ms)
-			.rotateXDegrees(-22.5f)
-			.rotateYDegrees(45);
-
 		for (boolean power : Iterate.trueAndFalse) {
 			GuiGameElement.of(Blocks.REDSTONE_TORCH.defaultBlockState()
 					.setValue(RedstoneTorchBlock.LIT, blockEntity.isInverted() ^ power))
+				.rotateBlock(-22.5, 45, 0)
 				.scale(20)
 				.submit(graphics);
 			ms.translate((float) (0), (float) (26));

@@ -100,6 +100,11 @@ public class PlaneMirror extends SymmetryMirror {
 	}
 
 	@Override
+	public float getModelYRotation() {
+		return ((Align) orientation) == Align.XY ? 0 : 90;
+	}
+
+	@Override
 	public List<Component> getAlignToolTips() {
 		return ImmutableList.of(CreateLang.translateDirect("orientation.alongZ"), CreateLang.translateDirect("orientation.alongX"));
 	}

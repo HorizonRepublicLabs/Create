@@ -575,8 +575,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		matrixStack.popMatrix();
 
 		if (xOffset + 16 > cardWidth - 26) {
-			TransformStack.of(matrixStack)
-				.rotateZDegrees(-90);
+			matrixStack.rotate(-Mth.HALF_PI);
 			graphics.fillGradient(-cardHeight + 2, 18, -2 - cardHeader, 28, 0x44000000, 0x00000000);
 			graphics.fillGradient(-cardHeight + 2, cardWidth - 26, -2 - cardHeader, cardWidth - 16, 0x00000000,
 				0x44000000);

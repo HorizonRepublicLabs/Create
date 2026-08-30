@@ -139,10 +139,9 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 
 			for (int slot = 0; slot < 8; slot++) {
 				ms.pushMatrix();
-				TransformStack.of(ms)
-					.rotateZDegrees(slot * 45 - 45)
-					.translate(0, -40 + (10 * (1 - fade) * (1 - fade)), 0)
-					.rotateZDegrees(-slot * 45 + 45);
+				ms.rotate((slot * 45 - 45) * Mth.DEG_TO_RAD);
+				ms.translate(0, -40 + (10 * (1 - fade) * (1 - fade)));
+				ms.rotate((-slot * 45 + 45) * Mth.DEG_TO_RAD);
 				ms.translate((float) (-12), (float) (-12));
 
 				if (state == State.SELECT_ITEM || state == State.SELECT_ITEM_UNEQUIP) {
