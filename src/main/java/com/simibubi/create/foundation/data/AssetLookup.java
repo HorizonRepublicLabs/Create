@@ -107,7 +107,8 @@ public class AssetLookup {
 			Integer integer = state.getValue(property);
 			return VariantModels.models(prov)
 				.withExistingParent(ctx.getName() + "_" + integer, baseModel)
-				.texture("indicator", "block/indicator/" + integer);
+				.texture("indicator", prov.modLoc("block/indicator/" + integer))
+				.build();
 		};
 	}
 
