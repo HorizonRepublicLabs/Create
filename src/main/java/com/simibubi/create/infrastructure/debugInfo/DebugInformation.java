@@ -75,7 +75,7 @@ public class DebugInformation {
 			.put("Mod Git Commit", CreateBuildInfo.GIT_COMMIT)
 			.put("Ponder Version", getVersionOfMod("ponder"))
 			.put("NeoForge Version", getVersionOfMod("neoforge"))
-			.put("Minecraft Version", SharedConstants.getCurrentVersion().getName())
+			.put("Minecraft Version", SharedConstants.getCurrentVersion().name())
 			.buildTo(DebugInformation::registerBothInfo);
 
 		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> {
