@@ -1,5 +1,11 @@
 package com.simibubi.create.foundation.render;
 
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+
+import net.minecraft.client.renderer.SubmitNodeCollector;
+
 import net.minecraft.world.level.BlockAndLightGetter;
 
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
@@ -60,7 +66,7 @@ public class BlockEntityRenderHelper {
 			if (VisualizationManager.supportsVisualization(realLevel) && VisualizationHelper.skipVanillaRender(blockEntity))
 				continue;
 
-			BlockEntityRenderer<BlockEntity> renderer = Minecraft.getInstance()
+			BlockEntityRenderer<BlockEntity, BlockEntityRenderState> renderer = Minecraft.getInstance()
 				.getBlockEntityRenderDispatcher()
 				.getRenderer(blockEntity);
 			if (renderer == null) {
@@ -85,7 +91,18 @@ public class BlockEntityRenderHelper {
 					light = realLevelLight;
 				}
 
-				renderer.render(blockEntity, pt, ms, buffer, light, OverlayTexture.NO_OVERLAY);
+				// A block entity is extracted into a render state and submitted
+				// now; the light the contraption worked out is written onto that
+				// state before it goes to the collector.
+				SubmitNodeCollector collector = buffer.getCollector();
+				if (collector == null)
+					continue;
+
+				CameraRenderState cameraRenderState = Minecraft.getInstance().gameRenderer.gameRenderState().levelRenderState.cameraRenderState;
+				BlockEntityRenderState state = renderer.createRenderState();
+				renderer.extractRenderState(blockEntity, state, pt, cameraRenderState.pos, null);
+				state.lightCoords = light;
+				renderer.submit(state, ms, collector, cameraRenderState);
 
 			} catch (Exception e) {
 				// Prevent this BE from causing more issues in the future.
