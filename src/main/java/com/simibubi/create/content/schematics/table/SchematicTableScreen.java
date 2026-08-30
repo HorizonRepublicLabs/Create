@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.table;
 
+import net.minecraft.client.renderer.RenderPipelines;
+
 import static com.simibubi.create.foundation.gui.AllGuiTextures.PLAYER_INVENTORY;
 import static com.simibubi.create.foundation.gui.AllGuiTextures.SCHEMATIC_TABLE_PROGRESS;
 
@@ -164,7 +166,7 @@ public class SchematicTableScreen extends AbstractSimiContainerScreen<SchematicT
 		int width = (int) (SCHEMATIC_TABLE_PROGRESS.getWidth()
 			* Mth.lerp(partialTicks, lastChasingProgress, chasingProgress));
 		int height = SCHEMATIC_TABLE_PROGRESS.getHeight();
-		graphics.blit(SCHEMATIC_TABLE_PROGRESS.location, x + 70, y + 59, SCHEMATIC_TABLE_PROGRESS.getStartX(),
+		graphics.blit(RenderPipelines.GUI_TEXTURED, SCHEMATIC_TABLE_PROGRESS.location, x + 70, y + 59, SCHEMATIC_TABLE_PROGRESS.getStartX(),
 			SCHEMATIC_TABLE_PROGRESS.getStartY(), width, height);
 	}
 

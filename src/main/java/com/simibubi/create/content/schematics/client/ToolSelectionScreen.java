@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.client;
 
+import net.minecraft.client.renderer.RenderPipelines;
+
 import org.joml.Matrix3x2fStack;
 
 import java.util.List;
@@ -74,7 +76,7 @@ public class ToolSelectionScreen extends Screen {
 
 		AllGuiTextures gray = AllGuiTextures.HUD_BACKGROUND;
 
-		graphics.blit(gray.location, x - 15, y, gray.getStartX(), gray.getStartY(), w, h, gray.getWidth(), gray.getHeight());
+		graphics.blit(RenderPipelines.GUI_TEXTURED, gray.location, x - 15, y, gray.getStartX(), gray.getStartY(), w, h, gray.getWidth(), gray.getHeight());
 
 		float toolTipAlpha = yOffset / 10;
 		List<Component> toolTip = tools.get(selection)
@@ -82,7 +84,7 @@ public class ToolSelectionScreen extends Screen {
 		int stringAlphaComponent = ((int) (toolTipAlpha * 0xFF)) << 24;
 
 		if (toolTipAlpha > 0.25f) {
-			graphics.blit(gray.location, x - 15, y + 33, gray.getStartX(), gray.getStartY(), w, h + 22, gray.getWidth(), gray.getHeight());
+			graphics.blit(RenderPipelines.GUI_TEXTURED, gray.location, x - 15, y + 33, gray.getStartX(), gray.getStartY(), w, h + 22, gray.getWidth(), gray.getHeight());
 
 			if (toolTip.size() > 0)
 				graphics.text(font, toolTip.get(0), x - 10, y + 38, 0xEEEEEE + stringAlphaComponent, false);

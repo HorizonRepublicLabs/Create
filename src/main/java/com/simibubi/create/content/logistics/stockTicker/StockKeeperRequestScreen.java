@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import net.minecraft.client.renderer.RenderPipelines;
+
 import com.simibubi.create.foundation.gui.render.GuiBlazeBurnerRenderState;
 
 import com.simibubi.create.foundation.render.CreateRenderTypes;
@@ -645,7 +647,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 
 		// Search bar
 		AllGuiTextures.STOCK_KEEPER_REQUEST_SEARCH.render(graphics, x + 42, searchBox.getY() - 5);
-		searchBox.render(graphics, mouseX, mouseY, partialTicks);
+		searchBox.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 		if (searchBox.getValue()
 			.isBlank() && !searchBox.isFocused())
 			graphics.text(font, searchBox.getMessage(),
@@ -735,7 +737,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 			ms.pushMatrix();
 			ms.translate((float) ((float) (0)), (float) ((float) ((currentScroll * rowHeight)) / totalH * (windowH - 2)));
 			AllGuiTextures pad = AllGuiTextures.STOCK_KEEPER_REQUEST_SCROLL_PAD;
-			graphics.blit(pad.location, barX, barY, pad.getWidth(), barSize, pad.getStartX(), pad.getStartY(),
+			graphics.blit(RenderPipelines.GUI_TEXTURED, pad.location, barX, barY, pad.getWidth(), barSize, pad.getStartX(), pad.getStartY(),
 				pad.getWidth(), pad.getHeight(), 256, 256);
 			AllGuiTextures.STOCK_KEEPER_REQUEST_SCROLL_TOP.render(graphics, barX, barY);
 			if (barSize > 16)
@@ -905,7 +907,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 					break;
 			}
 
-			graphics.blit(NUMBERS.location, 14 + x, 10, 0, NUMBERS.getStartX() + xOffset, NUMBERS.getStartY(),
+			graphics.blit(RenderPipelines.GUI_TEXTURED, NUMBERS.location, 14 + x, 10, 0, NUMBERS.getStartX() + xOffset, NUMBERS.getStartY(),
 				spriteWidth, NUMBERS.getHeight(), 256, 256);
 			x += spriteWidth - 1;
 		}
@@ -1369,7 +1371,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		int pScanCode = event.scancode();
 		int pModifiers = event.modifiers();
 		ignoreTextInput = false;
-		if (!addressBox.isFocused() && !searchBox.isFocused() && minecraft.options.keyChat.matches(pKeyCode, pScanCode)) {
+		if (!addressBox.isFocused() && !searchBox.isFocused() && minecraft.options.keyChat.matches(event)) {
 			ignoreTextInput = true;
 			searchBox.setFocused(true);
 			return true;
@@ -1490,9 +1492,9 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 	}
 
 	@Override
-	public boolean keyReleased(int pKeyCode, int pScanCode, int pModifiers) {
+	public boolean keyReleased(KeyEvent event) {
 		ignoreTextInput = false;
-		return super.keyReleased(pKeyCode, pScanCode, pModifiers);
+		return super.keyReleased(event);
 	}
 
 	@Override

@@ -333,7 +333,7 @@ public class SchematicannonScreen extends AbstractSimiContainerScreen<Schematica
 
 	protected void renderChecklistPrinterProgress(GuiGraphicsExtractor graphics, int x, int y, float progress) {
 		AllGuiTextures sprite = AllGuiTextures.SCHEMATICANNON_CHECKLIST_PROGRESS;
-		graphics.blit(sprite.location, x + 154, y + 20, sprite.getStartX(), sprite.getStartY(), (int) (sprite.getWidth() * progress),
+		graphics.blit(RenderPipelines.GUI_TEXTURED, sprite.location, x + 154, y + 20, sprite.getStartX(), sprite.getStartY(), (int) (sprite.getWidth() * progress),
 			sprite.getHeight());
 	}
 

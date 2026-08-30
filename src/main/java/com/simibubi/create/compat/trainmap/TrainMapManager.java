@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.trainmap;
 
+import net.minecraft.client.renderer.RenderPipelines;
+
 import net.minecraft.util.ARGB;
 
 import org.joml.Matrix3x2fStack;
@@ -419,7 +421,7 @@ public class TrainMapManager {
 					int sheetX = col * 16 + colorCol * 128;
 					int sheetY = row * 16 + colorRow * 64;
 
-					graphics.blit(sprite.location, positionX, positionY, sheetX, sheetY, 16, 16, sprite.getWidth(),
+					graphics.blit(RenderPipelines.GUI_TEXTURED, sprite.location, positionX, positionY, sheetX, sheetY, 16, 16, sprite.getWidth(),
 						sprite.getHeight());
 				}
 

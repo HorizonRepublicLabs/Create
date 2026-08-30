@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.gui.widget;
 
+import net.minecraft.client.renderer.RenderPipelines;
+
 import com.simibubi.create.AllKeys;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 
@@ -39,7 +41,7 @@ public class IconButton extends AbstractSimiWidget {
 	}
 
 	protected void drawBg(GuiGraphicsExtractor graphics, AllGuiTextures button) {
-		graphics.blit(button.location, getX(), getY(), button.getStartX(), button.getStartY(), button.getWidth(),
+		graphics.blit(RenderPipelines.GUI_TEXTURED, button.location, getX(), getY(), button.getStartX(), button.getStartY(), button.getWidth(),
 			button.getHeight());
 	}
 

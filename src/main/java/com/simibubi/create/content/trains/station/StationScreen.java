@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import net.minecraft.client.renderer.RenderPipelines;
+
 import net.minecraft.client.input.MouseButtonInfo;
 
 import org.joml.Matrix3x2fStack;
@@ -361,7 +363,7 @@ public class StationScreen extends AbstractStationScreen {
 			int sheetX = col * 16 + colorCol * 128;
 			int sheetY = row * 16 + colorRow * 64;
 
-			graphics.blit(sprite.location, positionX, positionY, sheetX, sheetY, 16, 16, sprite.getWidth(), sprite.getHeight());
+			graphics.blit(RenderPipelines.GUI_TEXTURED, sprite.location, positionX, positionY, sheetX, sheetY, 16, 16, sprite.getWidth(), sprite.getHeight());
 		}
 	}
 
