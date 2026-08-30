@@ -23,7 +23,8 @@ import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball;
-import net.minecraft.world.entity.projectile.ThrownPotion;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.AbstractThrownPotion;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrownSplashPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
@@ -134,8 +135,7 @@ public class AllMountedDispenseItemBehaviors {
 	private static final MountedDispenseBehavior POTIONS = new MountedProjectileDispenseBehavior() {
 		@Override
 		protected Projectile getProjectile(Level level, double x, double y, double z, ItemStack stack, Direction facing) {
-			ThrownPotion potion = new ThrownPotion(level, x, y, z);
-			potion.setItem(stack); // copies item
+			AbstractThrownPotion potion = new ThrownSplashPotion(level, x, y, z, stack);
 			return potion;
 		}
 
