@@ -1,5 +1,11 @@
 package com.simibubi.create;
 
+import com.simibubi.create.foundation.gui.render.GuiBlazeBurnerRenderer;
+
+import com.simibubi.create.foundation.gui.render.GuiBlazeBurnerRenderState;
+
+import net.neoforged.neoforge.client.event.RegisterPictureInPictureRenderersEvent;
+
 import com.simibubi.create.content.trains.CubeParticleGroup;
 
 import com.simibubi.create.content.trains.CubeParticle;
@@ -85,12 +91,18 @@ public class CreateClient {
 		event.register(CubeParticle.CUBES, CubeParticleGroup::new);
 	}
 
+	/// 3D content in a screen goes through a picture-in-picture renderer now.
+	private static void registerPictureInPictureRenderers(RegisterPictureInPictureRenderersEvent event) {
+		event.register(GuiBlazeBurnerRenderState.class, GuiBlazeBurnerRenderer::new);
+	}
+
 	public static void onCtorClient(IEventBus modEventBus) {
 		IEventBus neoEventBus = NeoForge.EVENT_BUS;
 
 		modEventBus.addListener(CreateClient::clientInit);
 		modEventBus.addListener(AllParticleTypes::registerFactories);
 		modEventBus.addListener(CreateClient::registerParticleGroups);
+		modEventBus.addListener(CreateClient::registerPictureInPictureRenderers);
 
 		AllInstanceTypes.init();
 

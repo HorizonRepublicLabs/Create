@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.gui.render.GuiBlazeBurnerRenderState;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import net.minecraft.client.input.CharacterEvent;
@@ -526,38 +528,22 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 				.getYsize() - 1) * 25);
 			int entityX = x - 35 - entitySizeOffset;
 			int entityY = y + windowHeight - 47 - entitySizeOffsetY;
-			InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, entityX - 100, entityY - 100, entityX + 100,
+			InventoryScreen.extractEntityInInventoryFollowsMouse(graphics, entityX - 100, entityY - 100, entityX + 100,
 				entityY + 100, 50, 0, mouseX, Mth.clamp(mouseY, entityY - 50, entityY + 10), keeper);
 			ms.popMatrix();
 		}
 
 		BlazeBurnerBlockEntity keeperBE = blaze.get();
 		if (keeperBE != null && !keeperBE.isRemoved()) {
-			ms.pushMatrix();
 			int entityX = x - 35;
 			int entityY = y + windowHeight - 43;
-			ms.translate((float) (entityX), (float) (entityY));
-			ms.scale((float) (48), (float) (-48));
 			float animation = keeperBE.headAnimation.getValue(AnimationTickHolder.getPartialTicks()) * .175f;
-			float horizontalAngle = AngleHelper.rad(270);
 			HeatLevel heatLevel = keeperBE.getHeatLevelForRender();
-			boolean canDrawFlame = heatLevel.isAtLeast(HeatLevel.FADING);
-			boolean drawGoggles = keeperBE.goggles;
-			PartialModel drawHat = AllPartialModels.LOGISTICS_HAT;
-			int hashCode = keeperBE.hashCode();
-			Lighting.setupForEntityInInventory();
 
-			VertexConsumer cutout = graphics.bufferSource().getBuffer(CreateRenderTypes.cutoutMovingBlock());
-			CreateCachedBuffers.partial(AllPartialModels.BLAZE_CAGE, keeperBE.getBlockState())
-				.rotateCentered(horizontalAngle + Mth.PI, Direction.UP)
-				.light(LightCoordsUtil.FULL_BRIGHT)
-				.renderInto(ms, cutout);
-
-			BlazeBurnerRenderer.renderShared(ms, null, graphics.bufferSource(), minecraft.level,
-				keeperBE.getBlockState(), heatLevel, animation, horizontalAngle, canDrawFlame, drawGoggles, drawHat,
-				hashCode);
-			Lighting.setupFor3DItems();
-			ms.popMatrix();
+			graphics.submitPictureInPictureRenderState(new GuiBlazeBurnerRenderState(keeperBE.getBlockState(), heatLevel,
+				animation, AngleHelper.rad(270), heatLevel.isAtLeast(HeatLevel.FADING), keeperBE.goggles,
+				AllPartialModels.LOGISTICS_HAT, keeperBE.hashCode(), entityX - 24, entityY - 40, entityX + 24, entityY + 8,
+				48, null, null));
 		}
 
 		// Render static item icons
