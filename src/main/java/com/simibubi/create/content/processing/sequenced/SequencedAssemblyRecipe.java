@@ -1,5 +1,11 @@
 package com.simibubi.create.content.processing.sequenced;
 
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+
+import net.minecraft.world.item.crafting.PlacementInfo;
+
 import com.simibubi.create.foundation.recipe.RecipeLookup;
 
 import net.minecraft.core.registries.Registries;
@@ -178,12 +184,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 		return ItemStack.EMPTY;
 	}
 
-	@Override
-	public boolean canCraftInDimensions(int width, int height) {
-		return false;
-	}
-
-	@Override
+	/// Kept for the machines and the JEI categories that read a recipe's result.
 	public ItemStack getResultItem(HolderLookup.Provider registries) {
 		return resultPool.getFirst().getStack();
 	}
@@ -196,7 +197,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 	}
 
 	@Override
-	public RecipeSerializer<? extends Recipe<?>> getSerializer() {
+	public RecipeSerializer<? extends Recipe<RecipeWrapper>> getSerializer() {
 		return AllRecipeTypes.SEQUENCED_ASSEMBLY.getSerializer();
 	}
 
@@ -206,7 +207,29 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 	}
 
 	@Override
-	public RecipeType<? extends Recipe<?>> getType() {
+	public boolean showNotification() {
+		return false;
+	}
+
+	@Override
+	public String group() {
+		return "processing";
+	}
+
+	/// The assembly is driven by Create's machines rather than laid out in the
+	/// recipe book.
+	@Override
+	public PlacementInfo placementInfo() {
+		return PlacementInfo.NOT_PLACEABLE;
+	}
+
+	@Override
+	public RecipeBookCategory recipeBookCategory() {
+		return RecipeBookCategories.CRAFTING_MISC;
+	}
+
+	@Override
+	public RecipeType<? extends Recipe<RecipeWrapper>> getType() {
 		return AllRecipeTypes.SEQUENCED_ASSEMBLY.getType();
 	}
 
@@ -216,10 +239,8 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 		if (!stack.has(AllDataComponents.SEQUENCED_ASSEMBLY))
 			return;
 		SequencedAssembly sequencedAssembly = stack.get(AllDataComponents.SEQUENCED_ASSEMBLY);
-		@SuppressWarnings({"RedundantCast", "DataFlowIssue"}) // The java compiler thinks `byKey` returns an Optional<RecipeHolder<?>>
-		Optional<RecipeHolder<? extends Recipe<?>>> optionalRecipe =
-			(Optional<RecipeHolder<?>>) Minecraft.getInstance().level.recipeAccess()
-				.byKey(sequencedAssembly.id());
+		Optional<RecipeHolder<?>> optionalRecipe =
+			RecipeLookup.byId(Minecraft.getInstance().level, sequencedAssembly.id());
 		if (optionalRecipe.isEmpty())
 			return;
 		Recipe<?> recipe = optionalRecipe.get().value();

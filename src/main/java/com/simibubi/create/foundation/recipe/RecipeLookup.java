@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.recipe;
 
+import net.minecraft.resources.Identifier;
+
 import java.util.List;
 
 import java.util.Collection;
@@ -43,6 +45,16 @@ public class RecipeLookup {
 				.getType() == type)
 			.map(holder -> (RecipeHolder<T>) holder)
 			.toList();
+	}
+
+	/// RecipeAccess no longer looks recipes up by id, so this walks what the
+	/// client was sent instead.
+	public static Optional<RecipeHolder<?>> byId(Level level, Identifier id) {
+		return allRecipes(level).stream()
+			.filter(holder -> holder.id()
+				.identifier()
+				.equals(id))
+			.findFirst();
 	}
 
 	public static <I extends RecipeInput, T extends Recipe<I>> Optional<RecipeHolder<T>> find(Level level,
