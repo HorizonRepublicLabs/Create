@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.bearing;
 
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -83,7 +85,7 @@ public class StabilizedBearingMovementBehaviour implements MovementBehaviour {
 
 		// render
 		superBuffer.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(matrices.getViewProjection(), buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 	}
 

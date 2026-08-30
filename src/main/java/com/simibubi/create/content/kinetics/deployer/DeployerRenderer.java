@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -221,13 +223,13 @@ public class DeployerRenderer extends SafeBlockEntityRenderer<DeployerBlockEntit
 		transform(hand, blockState, false);
 
 		shaft.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(matrices.getViewProjection(), builder);
 		pole.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(matrices.getViewProjection(), builder);
 		hand.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(matrices.getViewProjection(), builder);
 
 		m.popPose();

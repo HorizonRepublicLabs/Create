@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.roller;
 
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -89,7 +91,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 		superBuffer.translate(0, -.5, .5)
 			.rotateYDegrees(90)
 			.light(contraptionWorldLight)
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(viewProjection, vc);
 		viewProjection.popPose();
 
@@ -97,7 +99,7 @@ public class RollerRenderer extends SmartBlockEntityRenderer<RollerBlockEntity> 
 			.transform(matrices.getModel())
 			.rotateCentered(AngleHelper.rad(AngleHelper.horizontalAngle(facing) + 180), Direction.UP)
 			.light(contraptionWorldLight)
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(viewProjection, vc);
 	}
 

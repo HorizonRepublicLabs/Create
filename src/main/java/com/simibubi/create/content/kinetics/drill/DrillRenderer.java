@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -58,7 +60,7 @@ public class DrillRenderer extends KineticBlockEntityRenderer<DrillBlockEntity> 
 			.rotateZDegrees(angle)
 			.uncenter()
 			.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(matrices.getViewProjection(), buffer.getBuffer(CreateRenderTypes.solidMovingBlock()));
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -241,7 +243,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 
 		superBuffer.uncenter()
 			.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(matrices.getViewProjection(), buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 

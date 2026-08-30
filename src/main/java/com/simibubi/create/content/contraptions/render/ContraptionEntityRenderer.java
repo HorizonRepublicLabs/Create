@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.render;
 
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -129,7 +131,7 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 				if (!sbb.isEmpty()) {
 					VertexConsumer vc = buffers.getBuffer(renderType);
 					sbb.transform(matrices.getModel())
-						.useLevelLight(level, matrices.getWorld())
+						.useLevelLight((BlockAndTintGetter) level, matrices.getWorld())
 						.renderInto(poseStack, vc);
 				}
 			}

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.harvester;
 
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -63,7 +65,7 @@ public class HarvesterRenderer extends SafeBlockEntityRenderer<HarvesterBlockEnt
 		transform(context.world, facing, superBuffer, speed, PIVOT);
 
 		superBuffer.light(BlockEntityRenderHelper.lightColorAt(renderWorld, context.localPos))
-			.useLevelLight(context.world, matrices.getWorld())
+			.useLevelLight((BlockAndTintGetter) context.world, matrices.getWorld())
 			.renderInto(matrices.getViewProjection(), buffers.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
 	}
 
