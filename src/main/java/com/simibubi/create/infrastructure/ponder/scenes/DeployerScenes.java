@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.ponder.scenes;
 
+import net.minecraft.world.entity.EntitySpawnReason;
+
 import net.minecraft.world.entity.EntityTypes;
 
 import com.simibubi.create.foundation.utility.StackNbt;
@@ -183,7 +185,7 @@ public class DeployerScenes {
 		scene.idle(70);
 
 		ElementLink<EntityElement> sheep = scene.world().createEntity(w -> {
-			Sheep entity = EntityTypes.SHEEP.create(w);
+			Sheep entity = EntityTypes.SHEEP.create(w, EntitySpawnReason.TRIGGERED);
 			entity.setColor(DyeColor.PINK);
 			Vec3 p = util.vector().topOf(util.grid().at(1, 0, 2));
 			entity.setPos(p.x, p.y, p.z);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan.processing;
 
+import net.minecraft.world.entity.EntitySpawnReason;
+
 import net.minecraft.server.level.ServerLevel;
 
 import com.simibubi.create.foundation.recipe.RecipeLookup;
@@ -296,7 +298,7 @@ public class AllFanProcessingTypes {
 				level.playSound(null, entity.blockPosition(), SoundEvents.GENERIC_EXTINGUISH_FIRE,
 					SoundSource.NEUTRAL, 1.25f, 0.65f);
 
-				SkeletonHorse skeletonHorse = EntityTypes.SKELETON_HORSE.create(level);
+				SkeletonHorse skeletonHorse = EntityTypes.SKELETON_HORSE.create(level, EntitySpawnReason.TRIGGERED);
 				CompoundTag serializeNBT = ValueIOShim.saveEntity(horse, level.registryAccess());
 				serializeNBT.remove("UUID");
 				if (!horse.getBodyArmorItem()

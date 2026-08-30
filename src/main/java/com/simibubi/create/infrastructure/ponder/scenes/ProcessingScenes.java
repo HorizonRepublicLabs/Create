@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.ponder.scenes;
 
+import net.minecraft.world.entity.EntitySpawnReason;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.minecraft.world.entity.EntityTypes;
@@ -574,7 +576,7 @@ public class ProcessingScenes {
 		BlockPos center = util.grid().at(2, 0, 2);
 
 		scene.world().createEntity(w -> {
-			Blaze blazeEntity = EntityTypes.BLAZE.create(w);
+			Blaze blazeEntity = EntityTypes.BLAZE.create(w, EntitySpawnReason.TRIGGERED);
 			Vec3 v = util.vector().topOf(center);
 			blazeEntity.setPosRaw(v.x, v.y, v.z);
 			blazeEntity.setYRot(blazeEntity.yRotO = 180);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import net.minecraft.world.entity.EntitySpawnReason;
+
 import com.simibubi.create.foundation.item.TooltipLines;
 
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -131,7 +133,7 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 		ItemStack ammoStackCopy = ammoStack.copy();
 
 		for (int i = 0; i < projectileType.split(); i++) {
-			PotatoProjectileEntity projectile = AllEntityTypes.POTATO_PROJECTILE.create(level);
+			PotatoProjectileEntity projectile = AllEntityTypes.POTATO_PROJECTILE.create(level, EntitySpawnReason.TRIGGERED);
 			projectile.setItem(ammoStackCopy);
 			projectile.setEnchantmentEffectsFromCannon(heldStack);
 

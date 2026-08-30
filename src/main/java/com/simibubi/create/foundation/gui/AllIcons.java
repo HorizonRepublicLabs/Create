@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.gui;
 
+import net.minecraft.client.renderer.RenderPipelines;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -192,7 +194,7 @@ public class AllIcons implements ScreenElement {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void render(GuiGraphicsExtractor graphics, int x, int y) {
-		graphics.blit(ICON_ATLAS, x, y, 0, iconX, iconY, 16, 16, 256, 256);
+		graphics.blit(RenderPipelines.GUI_TEXTURED, ICON_ATLAS, x, y, iconX, iconY, 16, 16, 256, 256);
 	}
 
 	@OnlyIn(Dist.CLIENT)

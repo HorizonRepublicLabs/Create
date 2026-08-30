@@ -293,9 +293,9 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
 		ValueIOShim.load(inventory, registries, compound.getCompoundOrEmpty("Inventory"));
 		super.read(compound, registries, clientPacket);
-		if (compound.contains("UniqueId", 11))
+		if (compound.contains("UniqueId"))
 			this.uniqueId = compound.read("UniqueId", UUIDUtil.CODEC).orElseThrow();
-		if (compound.contains("CustomName", 8))
+		if (compound.contains("CustomName"))
 			this.customName = ComponentJson.fromJson(compound.getStringOr("CustomName", ""), registries);
 	}
 

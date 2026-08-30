@@ -166,8 +166,8 @@ public class SchematicTableScreen extends AbstractSimiContainerScreen<SchematicT
 		int width = (int) (SCHEMATIC_TABLE_PROGRESS.getWidth()
 			* Mth.lerp(partialTicks, lastChasingProgress, chasingProgress));
 		int height = SCHEMATIC_TABLE_PROGRESS.getHeight();
-		graphics.blit(RenderPipelines.GUI_TEXTURED, SCHEMATIC_TABLE_PROGRESS.location, x + 70, y + 59, SCHEMATIC_TABLE_PROGRESS.getStartX(),
-			SCHEMATIC_TABLE_PROGRESS.getStartY(), width, height);
+		graphics.blit(RenderPipelines.GUI_TEXTURED, SCHEMATIC_TABLE_PROGRESS.location, x + 70, y + 59,
+			SCHEMATIC_TABLE_PROGRESS.getStartX(), SCHEMATIC_TABLE_PROGRESS.getStartY(), width, height, 256, 256);
 	}
 
 	@Override
