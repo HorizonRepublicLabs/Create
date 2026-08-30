@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import net.minecraft.world.item.crafting.CookingBookCategory;
+
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 
 import net.minecraft.world.item.crafting.PlacementInfo;
@@ -1694,9 +1696,12 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 				return register(recipeOutput -> {
 					boolean isOtherMod = compatDatagenOutput != null;
 
+					// The builder picks its serializer from the factory now; the one
+					// passed in still names the generated file.
 					SimpleCookingRecipeBuilder b = builder.apply(SimpleCookingRecipeBuilder.generic(ingredient.get(),
-						RecipeCategory.MISC, isOtherMod ? Items.DIRT : result.get(), exp,
-						(int) (cookingTime * cookingTimeModifier), serializer, factory));
+						RecipeCategory.MISC, CookingBookCategory.MISC,
+						new ItemStack(isOtherMod ? Items.DIRT : result.get()), exp,
+						(int) (cookingTime * cookingTimeModifier), factory));
 					if (unlockedBy != null)
 						b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
 
@@ -1704,7 +1709,8 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 					b.save(
 						isOtherMod ? new ModdedCookingRecipeOutput(conditionalOutput, compatDatagenOutput) : conditionalOutput,
-						createSimpleLocation(RegisteredObjectsHelper.getKeyOrThrow(serializer).getPath())
+						ResourceKey.create(Registries.RECIPE,
+							createSimpleLocation(RegisteredObjectsHelper.getKeyOrThrow(serializer).getPath()))
 					);
 				});
 			}
@@ -1723,7 +1729,8 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 	@ParametersAreNonnullByDefault
 	private static class ModdedCookingRecipeOutputShim implements Recipe<RecipeInput> {
 
-		private static final Map<RecipeType<?>, Serializer> serializers = new ConcurrentHashMap<>();
+		private static final Map<RecipeType<?>, RecipeSerializer<ModdedCookingRecipeOutputShim>> serializers =
+			new ConcurrentHashMap<>();
 
 		private final Recipe<?> wrapped;
 		private final Identifier overrideID;
@@ -1767,17 +1774,14 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		}
 
 		@Override
-		@SuppressWarnings("unchecked")
 		public RecipeSerializer<ModdedCookingRecipeOutputShim> getSerializer() {
-			return serializers.computeIfAbsent(
-				getType(),
-				t -> Serializer.create(wrapped)
-			);
+			return serializers.computeIfAbsent(getType(), t -> Serializer.create(wrapped));
 		}
 
 		@Override
-		public RecipeType<? extends Recipe<?>> getType() {
-			return wrapped.getType();
+		@SuppressWarnings("unchecked")
+		public RecipeType<? extends Recipe<RecipeInput>> getType() {
+			return (RecipeType<? extends Recipe<RecipeInput>>) wrapped.getType();
 		}
 
 		/// RecipeSerializer is a record of (codec, streamCodec) in 26.x rather than
@@ -1854,8 +1858,13 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		}
 
 		@Override
-		public void accept(Identifier id, Recipe<?> recipe, @Nullable AdvancementHolder advancement, ICondition... conditions) {
-			wrapped.accept(ResourceKey.create(Registries.RECIPE, id), new ModdedCookingRecipeOutputShim(recipe, outputOverride), advancement, conditions);
+		public void includeRootAdvancement() {
+			wrapped.includeRootAdvancement();
+		}
+
+		@Override
+		public void accept(ResourceKey<Recipe<?>> id, Recipe<?> recipe, @Nullable AdvancementHolder advancement, ICondition... conditions) {
+			wrapped.accept(id, new ModdedCookingRecipeOutputShim(recipe, outputOverride), advancement, conditions);
 		}
 	}
 }
