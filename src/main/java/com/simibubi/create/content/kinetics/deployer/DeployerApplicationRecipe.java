@@ -44,7 +44,7 @@ public class DeployerApplicationRecipe extends ItemApplicationRecipe implements 
 	public static RecipeHolder<DeployerApplicationRecipe> convert(RecipeHolder<?> sandpaperRecipe) {
 		Identifier id = Identifier.fromNamespaceAndPath(
 				sandpaperRecipe.id().getNamespace(),
-				sandpaperRecipe.id().getPath() + "_using_deployer"
+				sandpaperRecipe.id().identifier().getPath() + "_using_deployer"
 		);
 		DeployerApplicationRecipe recipe = new ItemApplicationRecipe.Builder<>(DeployerApplicationRecipe::new, id)
 				.require(sandpaperRecipe.value().placementInfo()
