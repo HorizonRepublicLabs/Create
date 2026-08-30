@@ -35,7 +35,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
 import net.neoforged.neoforge.common.Tags;
 
 @EventBusSubscriber(Dist.CLIENT)
@@ -171,11 +171,13 @@ public class ChainConveyorInteractionHandler {
 	}
 
 	@SubscribeEvent
-	public static void hideVanillaBlockSelection(RenderHighlightEvent.Block event) {
+	public static void hideVanillaBlockSelection(ExtractBlockOutlineRenderStateEvent event) {
 		if (selectedLift == null || selectedShape == null)
 			return;
 
-		event.setCanceled(true);
+		// The outline is drawn by the interaction handler itself, so vanilla's
+		// is suppressed by a renderer that draws nothing.
+		event.addCustomRenderer((renderState, collector, poseStack, levelRenderState) -> true);
 	}
 
 }

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.trains.track;
 
+import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
+
+import org.apache.commons.lang3.mutable.MutableBoolean;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.gui.HudState;
@@ -42,7 +46,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
 
 @EventBusSubscriber(Dist.CLIENT)
 public class TrackBlockOutline {
@@ -170,12 +174,13 @@ public class TrackBlockOutline {
 		ms.popPose();
 	}
 
+	/// A block outline is extracted now: the handler registers a renderer that
+	/// draws in the submit pass and says whether vanilla's outline is replaced.
 	@SubscribeEvent
-	public static void drawCustomBlockSelection(RenderHighlightEvent.Block event) {
+	public static void drawCustomBlockSelection(ExtractBlockOutlineRenderStateEvent event) {
 		Minecraft mc = Minecraft.getInstance();
-		BlockHitResult target = event.getTarget();
-		BlockPos pos = target.getBlockPos();
-		BlockState blockstate = mc.level.getBlockState(pos);
+		BlockPos pos = event.getBlockPos();
+		BlockState blockstate = event.getBlockState();
 
 		if (!(blockstate.getBlock() instanceof TrackBlock))
 			return;
@@ -183,27 +188,33 @@ public class TrackBlockOutline {
 			.isWithinBounds(pos))
 			return;
 
-		VertexConsumer vb = event.getSubmitNodeCollector()
-			.getBuffer(RenderTypes.lines());
 		Vec3 camPos = event.getCamera()
 			.getPosition();
 
-		PoseStack ms = event.getPoseStack();
+		event.addCustomRenderer((renderState, collector, ms, levelRenderState) -> {
+			SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();
+			buffer.setCollector(collector);
+			VertexConsumer vb = buffer.getBuffer(RenderTypes.lines());
 
-		ms.pushPose();
-		ms.translate(pos.getX() - camPos.x, pos.getY() - camPos.y, pos.getZ() - camPos.z);
+			ms.pushPose();
+			ms.translate(pos.getX() - camPos.x, pos.getY() - camPos.y, pos.getZ() - camPos.z);
 
-		boolean holdingTrack = AllTags.AllBlockTags.TRACKS.matches(Minecraft.getInstance().player.getMainHandItem());
-		TrackShape shape = blockstate.getValue(TrackBlock.SHAPE);
-		boolean canConnectFrom = !shape.isJunction()
-			&& !(mc.level.getBlockEntity(pos)instanceof TrackBlockEntity tbe && tbe.isTilted());
+			boolean holdingTrack = AllTags.AllBlockTags.TRACKS.matches(mc.player.getMainHandItem());
+			TrackShape shape = blockstate.getValue(TrackBlock.SHAPE);
+			boolean canConnectFrom = !shape.isJunction()
+				&& !(mc.level.getBlockEntity(pos) instanceof TrackBlockEntity tbe && tbe.isTilted());
 
-		walkShapes(shape, TransformStack.of(ms), s -> {
-			renderShape(s, ms, vb, holdingTrack ? canConnectFrom : null);
-			event.setCanceled(true);
+			MutableBoolean replaced = new MutableBoolean(false);
+			walkShapes(shape, TransformStack.of(ms), s -> {
+				renderShape(s, ms, vb, holdingTrack ? canConnectFrom : null);
+				replaced.setTrue();
+			});
+
+			ms.popPose();
+			buffer.draw();
+			buffer.setCollector(null);
+			return replaced.booleanValue();
 		});
-
-		ms.popPose();
 	}
 
 	public static void renderShape(VoxelShape s, PoseStack ms, VertexConsumer vb, Boolean valid) {

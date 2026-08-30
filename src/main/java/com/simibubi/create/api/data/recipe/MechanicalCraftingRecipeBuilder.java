@@ -1,5 +1,11 @@
 package com.simibubi.create.api.data.recipe;
 
+import net.minecraft.world.item.ItemStackTemplate;
+
+import net.minecraft.world.item.crafting.CraftingRecipe;
+
+import net.minecraft.world.item.crafting.Recipe;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -142,11 +148,13 @@ public class MechanicalCraftingRecipeBuilder {
 	 */
 	public void build(RecipeOutput output, Identifier id) {
 		validate(id);
+		// The group and the book category travel together as book info now,
+		// and the result is a template rather than a stack.
 		MechanicalCraftingRecipe recipe = new MechanicalCraftingRecipe(
-			"",
-			CraftingBookCategory.MISC,
+			new Recipe.CommonInfo(true),
+			new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, ""),
 			ShapedRecipePattern.of(key, pattern),
-			new ItemStack(result, count),
+			new ItemStackTemplate(result, count),
 			acceptMirrored
 		);
 		output.accept(ResourceKey.create(Registries.RECIPE, id), recipe, null, recipeConditions.toArray(ICondition[]::new));

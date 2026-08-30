@@ -1,5 +1,9 @@
 package com.simibubi.create.compat.jei;
 
+import net.minecraft.world.item.ItemStackTemplate;
+
+import net.minecraft.world.item.crafting.Recipe;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -52,7 +56,9 @@ public final class ToolboxColoringRecipeMaker {
 				Block coloredShulkerBox = AllBlocks.TOOLBOXES.get(color)
 					.get();
 				ItemStack output = new ItemStack(coloredShulkerBox);
-				ShapelessRecipe recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC, output, inputs);
+				ShapelessRecipe recipe = new ShapelessRecipe(new Recipe.CommonInfo(true),
+					new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, group),
+					new ItemStackTemplate(coloredShulkerBox.asItem()), inputs);
 				return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, Create.asResource(group + "/" + color)), recipe);
 			});
 	}

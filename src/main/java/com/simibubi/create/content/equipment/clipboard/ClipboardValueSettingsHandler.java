@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -39,7 +41,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.ICancellableEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RenderHighlightEvent.Block;
+import net.neoforged.neoforge.client.event.ExtractBlockOutlineRenderStateEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract;
@@ -52,11 +54,11 @@ public class ClipboardValueSettingsHandler {
 
 	@SubscribeEvent
 	@OnlyIn(Dist.CLIENT)
-	public static void drawCustomBlockSelection(Block event) {
+	public static void drawCustomBlockSelection(ExtractBlockOutlineRenderStateEvent event) {
 		Minecraft mc = Minecraft.getInstance();
-		BlockHitResult target = event.getTarget();
-		BlockPos pos = target.getBlockPos();
-		BlockState blockstate = mc.level.getBlockState(pos);
+		BlockHitResult target = event.getHitResult();
+		BlockPos pos = event.getBlockPos();
+		BlockState blockstate = event.getBlockState();
 
 		if (mc.player == null || mc.player.isSpectator())
 			return;
@@ -78,19 +80,25 @@ public class ClipboardValueSettingsHandler {
 		if (shape.isEmpty())
 			return;
 
-		VertexConsumer vb = event.getSubmitNodeCollector()
-			.getBuffer(RenderTypes.lines());
 		Vec3 camPos = event.getCamera()
 			.getPosition();
 
-		PoseStack ms = event.getPoseStack();
+		// The outline is drawn in the submit pass now, and the renderer says it
+		// replaces vanilla's.
+		event.addCustomRenderer((renderState, collector, ms, levelRenderState) -> {
+			SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();
+			buffer.setCollector(collector);
+			VertexConsumer vb = buffer.getBuffer(RenderTypes.lines());
 
-		ms.pushPose();
-		ms.translate(pos.getX() - camPos.x, pos.getY() - camPos.y, pos.getZ() - camPos.z);
-		TrackBlockOutline.renderShape(shape, ms, vb, true);
-		event.setCanceled(true);
+			ms.pushPose();
+			ms.translate(pos.getX() - camPos.x, pos.getY() - camPos.y, pos.getZ() - camPos.z);
+			TrackBlockOutline.renderShape(shape, ms, vb, true);
+			ms.popPose();
 
-		ms.popPose();
+			buffer.draw();
+			buffer.setCollector(null);
+			return true;
+		});
 	}
 
 	@OnlyIn(Dist.CLIENT)

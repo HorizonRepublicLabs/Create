@@ -1,5 +1,11 @@
 package com.simibubi.create.compat.jei.category;
 
+import net.minecraft.world.item.Items;
+
+import net.minecraft.world.item.ItemStackTemplate;
+
+import net.minecraft.world.item.crafting.Recipe;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -66,7 +72,7 @@ public class BlockCuttingCategory extends CreateRecipeCategory<CondensedBlockCut
 		List<ItemStack> outputs = new ArrayList<>();
 
 		public CondensedBlockCuttingRecipe(Ingredient ingredient) {
-			super("", ingredient, ItemStack.EMPTY);
+			super(new Recipe.CommonInfo(true), ingredient, new ItemStackTemplate(Items.AIR));
 		}
 
 		public void addOutput(ItemStack stack) {
