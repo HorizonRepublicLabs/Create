@@ -123,7 +123,7 @@ public class MetalBarsGen {
 			.withExistingParent(name + "_" + suffix, p.modLoc("block/bars/" + suffix))
 			.texture("bars", barsTexture)
 			.texture("particle", barsTexture)
-			.texture("edge", edgeTexture);
+			.texture("edge", edgeTexture).build();
 	}
 
 	public static BlockEntry<IronBarsBlock> createBars(String name, boolean specialEdge,

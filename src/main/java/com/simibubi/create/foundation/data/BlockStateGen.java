@@ -266,14 +266,14 @@ public class BlockStateGen {
 				faces.add(VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + suffix,
 						p.modLoc(templateModelPath + "/" + suffix))
-					.texture("side", side));
+					.texture("side", side)).build();
 			}
 			for (Axis axis : Iterate.axes) {
 				String suffix = "side_" + axis.getSerializedName();
 				stickyFaces.add(VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + suffix + "_sticky",
 						p.modLoc(templateModelPath + "/" + suffix))
-					.texture("side", side_sticky));
+					.texture("side", side_sticky)).build();
 			}
 
 			MultipartModels.Builder builder = MultipartModels.getMultipartBuilder(p, c.get());

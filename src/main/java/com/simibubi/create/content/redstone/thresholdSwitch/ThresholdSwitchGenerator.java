@@ -34,7 +34,7 @@ public class ThresholdSwitchGenerator extends SpecialBlockStateGen {
 			.name());
 		return VariantModels.models(prov)
 			.withExistingParent(path + "_" + level, Create.asResource(path))
-			.texture("level", Create.asResource("block/threshold_switch/level_" + level));
+			.texture("level", Create.asResource("block/threshold_switch/level_" + level)).build();
 	}
 
 }

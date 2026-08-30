@@ -38,7 +38,7 @@ public class WhistleGenerator extends SpecialBlockStateGen {
 		Identifier parentLocation = model.getLocation();
 		return VariantModels.models(prov)
 			.withExistingParent(parentLocation.getPath() + "_powered", parentLocation)
-			.texture("2", Create.asResource("block/copper_redstone_plate_powered"));
+			.texture("2", Create.asResource("block/copper_redstone_plate_powered")).build();
 	}
 
 }

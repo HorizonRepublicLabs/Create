@@ -24,9 +24,9 @@ public class PoweredLatchGenerator extends AbstractDiodeGenerator {
 		Identifier on = existing("latch_on");
 
 		models.add(prov.withExistingParent(name, off)
-			.texture("top", texture(ctx, "idle")));
+			.texture("top", texture(ctx, "idle"))).build();
 		models.add(prov.withExistingParent(name + "_powered", on)
-			.texture("top", texture(ctx, "powering")));
+			.texture("top", texture(ctx, "powering"))).build();
 
 		return models;
 	}

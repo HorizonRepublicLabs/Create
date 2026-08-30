@@ -52,7 +52,7 @@ public class BeltFunnelGenerator extends SpecialBlockStateGen {
 			.texture("block", materialBlockTexture)
 			.texture("direction", prov.modLoc(prefix + type + "_funnel" + shapeSuffix))
 			.texture("redstone", prov.modLoc(prefix + type + "_funnel" + poweredSuffix))
-			.texture("base", prov.modLoc(prefix + type + "_funnel"));
+			.texture("base", prov.modLoc(prefix + type + "_funnel")).build();
 	}
 
 }

@@ -32,7 +32,7 @@ public class NixieTubeGenerator extends SpecialBlockStateGen {
 	public <T extends Block> Identifier getModel(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		BlockState state) {
 		return VariantModels.models(prov)
-			.withExistingParent(ctx.getName(), prov.modLoc("block/nixie_tube/block"));
+			.withExistingParent(ctx.getName(), prov.modLoc("block/nixie_tube/block")).build();
 	}
 
 }

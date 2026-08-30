@@ -412,7 +412,7 @@ public class BuilderTransformers {
 						.withExistingParent("block/crate/" + type + "/" + variant, p.modLoc("block/crate/" + variant))
 						.texture("crate", crate)
 						.texture("side", side)
-						.texture("casing", casing));
+						.texture("casing", casing)).build();
 
 				VariantModels.forAllStates(p, c.get(), state -> {
 						String variant = "single";

@@ -61,7 +61,7 @@ public class FluidTankGenerator extends SpecialBlockStateGen {
 				.texture("3", prov.modLoc("block/" + prefix + "fluid_tank_window"))
 				.texture("4", prov.modLoc("block/" + prefix + "casing"))
 				.texture("5", prov.modLoc("block/" + prefix + "fluid_tank_window_single"))
-				.texture("particle", prov.modLoc("block/" + prefix + "fluid_tank"));
+				.texture("particle", prov.modLoc("block/" + prefix + "fluid_tank")).build();
 
 		return AssetLookup.partialBaseModel(ctx, prov, modelName);
 	}

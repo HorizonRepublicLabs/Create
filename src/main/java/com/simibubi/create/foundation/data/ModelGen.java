@@ -27,7 +27,7 @@ public class ModelGen {
 			.texture("side", side)
 			.texture("top", top)
 			.texture("bottom", bottom)
-			.texture("overlay", overlay);
+			.texture("overlay", overlay).build();
 	}
 
 	public static <I extends BlockItem, P> NonNullFunction<ItemBuilder<I, P>, P> customItemModel() {

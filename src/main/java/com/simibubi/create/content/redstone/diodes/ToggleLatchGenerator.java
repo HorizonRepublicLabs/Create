@@ -25,10 +25,10 @@ public class ToggleLatchGenerator extends AbstractDiodeGenerator {
 
 		models.add(prov.getExistingFile(off));
 		models.add(prov.withExistingParent(name + "_off_powered", off)
-			.texture("top", texture(ctx, "powered")));
+			.texture("top", texture(ctx, "powered"))).build();
 		models.add(prov.getExistingFile(on));
 		models.add(prov.withExistingParent(name + "_on_powered", on)
-			.texture("top", texture(ctx, "powered_powering")));
+			.texture("top", texture(ctx, "powered_powering"))).build();
 
 		return models;
 	}

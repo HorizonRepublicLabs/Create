@@ -43,7 +43,7 @@ public class BracketGenerator extends DirectionalAxisBlockStateGen {
 		return VariantModels.models(prov)
 			.withExistingParent(path + "_" + material, prov.modLoc(path))
 			.texture("bracket", prov.modLoc("block/bracket_" + material))
-			.texture("plate", prov.modLoc("block/bracket_plate_" + material));
+			.texture("plate", prov.modLoc("block/bracket_plate_" + material)).build();
 	}
 
 	public static <I extends BlockItem, P> NonNullFunction<ItemBuilder<I, P>, P> itemModel(String material) {
