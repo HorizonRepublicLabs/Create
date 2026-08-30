@@ -288,9 +288,9 @@ public class TrainMapManager {
 				pose.pushMatrix();
 				pose.translate((float) (x - 2), (float) (y - 2));
 
-				pose.translate(sprite.getWidth() / 2.0, sprite.getHeight() / 2.0, 0);
+				pose.translate((float) (sprite.getWidth() / 2.0), (float) (sprite.getHeight() / 2.0));
 				pose.rotate((float) Math.toRadians(90 * (rotation / 2)));
-				pose.translate(-sprite.getWidth() / 2.0, -sprite.getHeight() / 2.0, 0);
+				pose.translate((float) (-sprite.getWidth() / 2.0), (float) (-sprite.getHeight() / 2.0));
 
 				sprite.render(graphics, 0, 0);
 				sprite.render(graphics, 0, 0);

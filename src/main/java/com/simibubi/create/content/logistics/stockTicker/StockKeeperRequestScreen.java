@@ -859,7 +859,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 		if (isStackHovered)
 			scaleFromHover += .075f;
 
-		ms.translate((colWidth - 18) / 2.0, (rowHeight - 18) / 2.0, 0);
+		ms.translate((float) ((colWidth - 18) / 2.0), (float) ((rowHeight - 18) / 2.0));
 		ms.translate((float) (18 / 2.0), (float) (18 / 2.0));
 		ms.scale((float) (scale), (float) (scale));
 		ms.scale((float) (scaleFromHover), (float) (scaleFromHover));
