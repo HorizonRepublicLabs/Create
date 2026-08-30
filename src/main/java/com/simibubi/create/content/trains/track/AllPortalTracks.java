@@ -134,10 +134,14 @@ public class AllPortalTracks {
 		if (dimensiontransition == null)
 			return null;
 
-		if (!minecraftServer.isLevelEnabled(dimensiontransition.newLevel()))
+		// The server lists its levels by key now, and a transition names its
+		// position rather than a bare pos.
+		if (!minecraftServer.levelKeys()
+			.contains(dimensiontransition.newLevel()
+				.dimension()))
 			return null;
 
-		BlockPos otherPortalPos = BlockPos.containing(dimensiontransition.pos());
+		BlockPos otherPortalPos = BlockPos.containing(dimensiontransition.position());
 		BlockState otherPortalState = otherLevel.getBlockState(otherPortalPos);
 		if (!otherPortalState.is(portalState.getBlock()))
 			return null;

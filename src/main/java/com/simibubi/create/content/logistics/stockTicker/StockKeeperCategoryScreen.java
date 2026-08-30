@@ -242,7 +242,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 			entry.isEmpty() ? CreateLang.translate("gui.stock_ticker.empty_category_name_placeholder")
 				.string()
 				: entry.getHoverName()
-				.getStringOr(20, "")
+				.getString(20)
 				.stripTrailing()
 				+ (entry.getHoverName()
 				.getString()
@@ -401,7 +401,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		if (editingItem == null)
 			return super.keyPressed(event);
 
-		InputConstants.Key mouseKey = InputConstants.getKey(pKeyCode, pScanCode);
+		InputConstants.Key mouseKey = InputConstants.getKey(event);
 		boolean hitEscape = pKeyCode == GLFW.GLFW_KEY_ESCAPE;
 		boolean hitEnter = getFocused() instanceof EditBox && (pKeyCode == 257 || pKeyCode == 335);
 		boolean hitE = getFocused() == null && minecraft.options.keyInventory.isActiveAndMatches(mouseKey);

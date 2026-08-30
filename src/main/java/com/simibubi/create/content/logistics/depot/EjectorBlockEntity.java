@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import net.minecraft.core.component.DataComponents;
+
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import com.simibubi.create.foundation.utility.LerpedFloatNbt;
@@ -54,7 +56,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ElytraItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.ClipContext.Block;
@@ -190,8 +191,9 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 				+ launcher.getVerticalDistance() * launcher.getVerticalDistance() >= 25 * 25)
 				ClientNetworkHelper.INSTANCE.sendToServer(new EjectorAwardPacket(worldPosition));
 
-			if (!(playerEntity.getItemBySlot(EquipmentSlot.CHEST)
-				.getItem() instanceof ElytraItem))
+			// Gliding is a component now rather than an item class.
+			if (!playerEntity.getItemBySlot(EquipmentSlot.CHEST)
+				.has(DataComponents.GLIDER))
 				continue;
 
 			playerEntity.setXRot(-35);
