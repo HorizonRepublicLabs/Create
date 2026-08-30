@@ -1,6 +1,8 @@
 
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.client.data.models.model.TextureSlot;
+
 import com.simibubi.create.foundation.data.VariantModels;
 
 import com.simibubi.create.foundation.data.MultipartModels;
@@ -463,32 +465,29 @@ public class BlockStateGen {
 					String modelName = path + "/" + s + "_" + axis.getSerializedName();
 					coreModels.put(key, VariantModels.models(p)
 						.withExistingParent(modelName, parent)
-						.element()
-						.from(4, 4, 4)
-						.to(12, 12, 12)
-						.face(Direction.get(AxisDirection.POSITIVE, axis))
-						.end()
-						.face(Direction.get(AxisDirection.NEGATIVE, axis))
-						.end()
-						.faces((d, builder) -> {
-							Pair<Integer, Integer> pair = uvs.get(s);
-							float u = pair.getKey();
-							float v = pair.getValue();
-							if (d == Direction.UP)
-								builder.uvs(u + 4, v + 4, u, v);
-							if (d == Direction.DOWN)
-								builder.uvs(u + 4, v, u, v + 4);
-							if (d == Direction.NORTH)
-								builder.uvs(u, v, u + 4, v + 4);
-							if (d == Direction.SOUTH)
-								builder.uvs(u + 4, v, u, v + 4);
-							if (d == Direction.EAST)
-								builder.uvs(u, v, u + 4, v + 4);
-							if (d == Direction.WEST)
-								builder.uvs(u + 4, v, u, v + 4);
-							builder.texture("#0");
-						})
-						.end());
+						.element(element -> element.from(4, 4, 4)
+							.to(12, 12, 12)
+							.face(Direction.get(AxisDirection.POSITIVE, axis), face -> {})
+							.face(Direction.get(AxisDirection.NEGATIVE, axis), face -> {})
+							.faces((d, face) -> {
+								Pair<Integer, Integer> pair = uvs.get(s);
+								float u = pair.getKey();
+								float v = pair.getValue();
+								if (d == Direction.UP)
+									face.uvs(u + 4, v + 4, u, v);
+								if (d == Direction.DOWN)
+									face.uvs(u + 4, v, u, v + 4);
+								if (d == Direction.NORTH)
+									face.uvs(u, v, u + 4, v + 4);
+								if (d == Direction.SOUTH)
+									face.uvs(u + 4, v, u, v + 4);
+								if (d == Direction.EAST)
+									face.uvs(u, v, u + 4, v + 4);
+								if (d == Direction.WEST)
+									face.uvs(u + 4, v, u, v + 4);
+								face.texture(TextureSlot.create("0"));
+							}))
+						.build());
 				}
 			}
 

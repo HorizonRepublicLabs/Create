@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.data;
 
+import net.neoforged.neoforge.client.model.generators.template.ElementBuilder;
+
+import java.util.function.Consumer;
+
 import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 import com.tterrag.registrate.providers.generators.RegistrateLegacyBlockModelBuilder;
 
@@ -89,6 +93,13 @@ public class ModelGenShim {
 			TextureSlot key = TextureSlot.create(slot);
 			template.requiredTextureSlot(key);
 			mapping.put(key, new Material(texture));
+			return this;
+		}
+
+		/// The template builds its elements through a consumer rather than a
+		/// chain that has to be ended.
+		public Builder element(Consumer<ElementBuilder> action) {
+			template.element(action);
 			return this;
 		}
 
