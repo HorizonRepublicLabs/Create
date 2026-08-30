@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import net.minecraft.world.item.crafting.Recipe;
+
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import org.jetbrains.annotations.NotNull;

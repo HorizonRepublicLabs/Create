@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.minecraft.world.item.crafting.Recipe;
+
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllRecipeTypes;
 

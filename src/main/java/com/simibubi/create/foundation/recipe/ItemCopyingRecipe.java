@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.recipe;
 
+import net.minecraft.world.item.crafting.Recipe;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllRecipeTypes;

@@ -1,5 +1,11 @@
 package com.simibubi.create;
 
+import net.minecraft.world.entity.EquipmentSlot;
+
+import net.minecraft.world.item.equipment.Equippable;
+
+import net.minecraft.core.component.DataComponents;
+
 import com.simibubi.create.foundation.data.VariantModels;
 
 import static com.simibubi.create.AllTags.AllItemTags.CREATE_INGOTS;
@@ -258,7 +264,9 @@ public class AllItems {
 			.register();
 
 	public static final ItemEntry<GogglesItem> GOGGLES = REGISTRATE.item("goggles", GogglesItem::new)
-		.properties(p -> p.stacksTo(1))
+		.properties(p -> p.stacksTo(1)
+			.component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.HEAD)
+				.build()))
 		.onRegister(CreateRegistrate.itemModel(() -> GogglesModel::new))
 		.lang("Engineer's Goggles")
 		.register();
