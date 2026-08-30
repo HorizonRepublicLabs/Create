@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.config;
 
+import net.createmod.catnip.impl.neoforge.config.NeoForgeConfigSpecBuilder;
+
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -45,9 +47,11 @@ public class AllConfigs {
 	}
 
 	private static <T extends ConfigBase> T register(Supplier<T> factory, ModConfig.Type side) {
+		// catnip's config api is platform-neutral now, so the NeoForge builder
+		// is wrapped on the way in and the built spec kept opaque.
 		Pair<T, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(builder -> {
 			T config = factory.get();
-			config.registerAll(builder);
+			config.registerAll(new NeoForgeConfigSpecBuilder(builder));
 			return config;
 		});
 
@@ -63,7 +67,7 @@ public class AllConfigs {
 		server = register(CServer::new, ModConfig.Type.SERVER);
 
 		for (Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet())
-			container.registerConfig(pair.getKey(), pair.getValue().specification);
+			container.registerConfig(pair.getKey(), (ModConfigSpec) pair.getValue().specification);
 
 		CStress stress = server().kinetics.stressValues;
 		BlockStressValues.IMPACTS.registerProvider(stress::getImpact);
