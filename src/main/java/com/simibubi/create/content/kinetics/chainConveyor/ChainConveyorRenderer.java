@@ -188,8 +188,10 @@ public class ChainConveyorRenderer extends KineticBlockEntityRenderer<ChainConve
 			int light2 = LightCoordsUtil.pack(level.getBrightness(LightLayer.BLOCK, tilePos.offset(blockPos)),
 				level.getBrightness(LightLayer.SKY, tilePos.offset(blockPos)));
 
+			// The block entity dispatcher no longer holds a camera; the entity
+			// one does.
 			boolean far = Minecraft.getInstance().level == be.getLevel() && !Minecraft.getInstance()
-				.getBlockEntityRenderDispatcher().camera.position()
+				.getEntityRenderDispatcher().camera.position()
 					.closerThan(Vec3.atCenterOf(tilePos)
 						.add(blockPos.getX() / 2f, blockPos.getY() / 2f, blockPos.getZ() / 2f), MIP_DISTANCE);
 

@@ -67,10 +67,6 @@ public class FilteredBlockAndTintGetter implements BlockAndTintGetter {
 		return wrapped.getLightEngine();
 	}
 
-	@Override
-	public int getBlockTint(BlockPos pBlockPos, ColorResolver pColorResolver) {
-		return wrapped.getBlockTint(pBlockPos, pColorResolver);
-	}
 	
 	@Override
 	public ModelData getModelData(BlockPos pPos) {
