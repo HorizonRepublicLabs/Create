@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.advancement;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+
+import net.minecraft.world.item.ItemStackTemplate;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -97,7 +101,9 @@ public class CreateAdvancement {
 		if (createBuilder.func != null)
 			createBuilder.icon(createBuilder.func.apply(registries));
 
-		mcBuilder.display(createBuilder.icon, Component.translatable(titleKey()),
+		// An advancement's icon is a stack template now.
+		mcBuilder.display(new ItemStackTemplate(createBuilder.icon.getItem(), createBuilder.icon.getCount(),
+			createBuilder.icon.getComponentsPatch()), Component.translatable(titleKey()),
 			Component.translatable(descriptionKey()).withStyle(s -> s.withColor(0xDBA213)),
 			id.equals("root") ? BACKGROUND : null, createBuilder.type.advancementType, createBuilder.type.toast,
 			createBuilder.type.announce, createBuilder.type.hide);
@@ -199,7 +205,9 @@ public class CreateAdvancement {
 
 		Builder whenItemCollected(TagKey<Item> tag) {
 			return externalTrigger(InventoryChangeTrigger.TriggerInstance
-				.hasItems(ItemPredicate.Builder.item().of(tag).build()));
+				.hasItems(ItemPredicate.Builder.item()
+					.of(BuiltInRegistries.ITEM, tag)
+					.build()));
 		}
 
 		Builder awardedForFree() {

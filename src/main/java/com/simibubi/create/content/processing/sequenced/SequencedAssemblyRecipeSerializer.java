@@ -54,16 +54,8 @@ public class SequencedAssemblyRecipeSerializer {
 		}
 	);
 
-	@Override
-	public @NotNull MapCodec<SequencedAssemblyRecipe> codec() {
-		return CODEC;
-	}
-
-	@Override
-	public @NotNull StreamCodec<RegistryFriendlyByteBuf, SequencedAssemblyRecipe> streamCodec() {
-		return STREAM_CODEC;
-	}
-
+	// A recipe serializer is a record of the two codecs now, so this only
+	// builds one rather than being one.
 	public RecipeSerializer<SequencedAssemblyRecipe> asSerializer() {
 		return new RecipeSerializer<>(CODEC, STREAM_CODEC);
 	}

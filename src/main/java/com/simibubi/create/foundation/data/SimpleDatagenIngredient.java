@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.world.item.Item;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -62,8 +64,10 @@ public class SimpleDatagenIngredient implements ICustomIngredient {
 		return stack.typeHolder().getKey().identifier().equals(mod.asResource(id));
 	}
 
+	/// An ingredient lists item holders now; this one stands in for an item
+	/// from another mod, which is not in the registry at datagen time.
 	@Override
-	public @NotNull Stream<ItemStack> getItems() {
+	public @NotNull Stream<Holder<Item>> items() {
 		return Stream.empty();
 	}
 
