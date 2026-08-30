@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.fluid;
 
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
+
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
@@ -38,6 +40,19 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 
 public class FluidHelper {
+
+	/**
+	 * Matching stacks for a sized ingredient. NeoForge dropped getFluids(); the
+	 * ingredient now only lists its fluids, so pair each with the amount.
+	 */
+	public static List<FluidStack> matchingStacks(SizedFluidIngredient ingredient) {
+		return ingredient.ingredient()
+			.fluids()
+			.stream()
+			.map(fluid -> new FluidStack(fluid, ingredient.amount()))
+			.toList();
+	}
+
 
 	/// FluidIngredient.getFluids returned stacks; fluids() is a list of fluid
 	/// holders now, so this rebuilds the stacks callers display, at the amount

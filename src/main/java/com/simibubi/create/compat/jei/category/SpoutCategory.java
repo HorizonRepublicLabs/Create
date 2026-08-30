@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.fluid.FluidHelper;
+
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import net.minecraft.core.registries.Registries;
@@ -134,8 +136,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 	public void draw(FillingRecipe recipe, IRecipeSlotsView iRecipeSlotsView, GuiGraphicsExtractor graphics, double mouseX, double mouseY) {
 		AllGuiTextures.JEI_SHADOW.render(graphics, 62, 57);
 		AllGuiTextures.JEI_DOWN_ARROW.render(graphics, 126, 29);
-		spout.withFluids(Arrays.asList(recipe.getRequiredFluid()
-				.getFluids()))
+		spout.withFluids(FluidHelper.matchingStacks(recipe.getRequiredFluid()))
 			.draw(graphics, getBackground().getWidth() / 2 - 13, 22);
 	}
 

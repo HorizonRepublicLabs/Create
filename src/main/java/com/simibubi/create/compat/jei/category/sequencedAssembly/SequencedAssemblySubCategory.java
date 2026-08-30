@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category.sequencedAssembly;
 
+import com.simibubi.create.foundation.fluid.FluidHelper;
+
 import org.joml.Matrix3x2fStack;
 
 import java.util.Arrays;
@@ -86,10 +88,9 @@ public abstract class SequencedAssemblySubCategory {
 			ms.pushMatrix();
 			ms.translate((float) (-7), (float) (50));
 			ms.scale((float) (.75f), (float) (.75f));
-			spout.withFluids(Arrays.asList(recipe.getRecipe()
+			spout.withFluids(FluidHelper.matchingStacks(recipe.getRecipe()
 					.getFluidIngredients()
-					.get(0)
-					.getFluids()))
+					.get(0)))
 				.draw(graphics, getWidth() / 2, 0);
 			ms.popMatrix();
 		}

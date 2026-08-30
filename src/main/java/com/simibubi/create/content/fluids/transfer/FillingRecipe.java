@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.transfer;
 
+import com.simibubi.create.foundation.fluid.FluidHelper;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -68,8 +70,7 @@ public class FillingRecipe extends StandardProcessingRecipe<SingleRecipeInput> i
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public Component getDescriptionForAssembly() {
-		List<FluidStack> matchingFluidStacks = Arrays.asList(fluidIngredients.get(0)
-			.getFluids());
+		List<FluidStack> matchingFluidStacks = FluidHelper.matchingStacks(fluidIngredients.get(0));
 		if (matchingFluidStacks.size() == 0) {
             return Component.literal("Invalid");
         }
