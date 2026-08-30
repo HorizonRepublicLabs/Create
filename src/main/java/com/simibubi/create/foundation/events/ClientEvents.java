@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.events;
 
+import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
+
+import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
+
 import com.simibubi.create.content.equipment.tool.CardboardSwordItemRenderer;
 
 import com.simibubi.create.content.equipment.sandPaper.SandPaperItemRenderer;
@@ -377,6 +381,12 @@ public class ClientEvents {
 
 	/// Hand-drawn items name their renderer in their model, so the names are
 	/// bound to the renderers before models bake.
+	/// A model selects on a named property now; the clipboard's type is one.
+	@SubscribeEvent
+	public static void registerSelectProperties(RegisterSelectItemModelPropertyEvent event) {
+		event.register(ClipboardOverrides.ClipboardType.ID, ClipboardOverrides.TypeProperty.TYPE);
+	}
+
 	@SubscribeEvent
 	public static void registerCustomItemRenderers(RegisterItemModelsEvent event) {
 		event.register(Create.asResource("custom_rendered"), CustomRenderedItemModelWrapper.Unbaked.MAP_CODEC);

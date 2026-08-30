@@ -2229,7 +2229,7 @@ public class AllBlocks {
 		.loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
 		.item(ClipboardBlockItem::new)
 		.onRegister(ClipboardBlockItem::registerModelOverrides)
-		.model(() -> (c, p) -> ClipboardOverrides.addOverrideModels(c, p))
+		.model(() -> ClipboardOverrides::addOverrideModels)
 		.build()
 		.register();
 

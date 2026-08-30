@@ -1,5 +1,29 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
+import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.world.item.ItemStack;
+
+import net.minecraft.world.item.ItemDisplayContext;
+
+import net.minecraft.world.entity.LivingEntity;
+
+import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
+
+import net.minecraft.client.renderer.item.SelectItemModel;
+
+import net.minecraft.client.multiplayer.ClientLevel;
+
+import net.minecraft.client.data.models.model.ItemModelUtils;
+
+import com.mojang.serialization.MapCodec;
+
+import java.util.List;
+
+import java.util.ArrayList;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -41,26 +65,44 @@ public class ClipboardOverrides {
 		}
 	}
 
+	/// Item model overrides are gone; a model selects between cases on a named
+	/// property instead, so the clipboard's type becomes one.
 	@OnlyIn(Dist.CLIENT)
-	public static void registerModelOverridesClient(ClipboardBlockItem item) {
-		ItemProperties.register(item, ClipboardType.ID, (pStack, pLevel, pEntity, pSeed) ->
-			pStack.getOrDefault(AllDataComponents.CLIPBOARD_CONTENT, ClipboardContent.EMPTY).type().ordinal()
-		);
+	public record TypeProperty() implements SelectItemModelProperty<ClipboardType> {
+
+		public static final Codec<ClipboardType> VALUE_CODEC = ClipboardType.CODEC;
+		public static final SelectItemModelProperty.Type<TypeProperty, ClipboardType> TYPE =
+			SelectItemModelProperty.Type.create(MapCodec.unit(new TypeProperty()), VALUE_CODEC);
+
+		@Override
+		public ClipboardType get(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed,
+			ItemDisplayContext displayContext) {
+			return stack.getOrDefault(AllDataComponents.CLIPBOARD_CONTENT, ClipboardContent.EMPTY)
+				.type();
+		}
+
+		@Override
+		public SelectItemModelProperty.Type<TypeProperty, ClipboardType> type() {
+			return TYPE;
+		}
+
+		@Override
+		public Codec<ClipboardType> valueCodec() {
+			return VALUE_CODEC;
+		}
 	}
 
-	public static ItemModelGenShim.Builder addOverrideModels(DataGenContext<Item, ClipboardBlockItem> c,
-		RegistrateItemModelGenerator p) {
-		ItemModelGenShim.Builder builder = p.generated(c::get);
+	public static void addOverrideModels(DataGenContext<Item, ClipboardBlockItem> c, RegistrateItemModelGenerator p) {
+		List<SelectItemModel.SwitchCase<ClipboardType>> cases = new ArrayList<>();
 		for (ClipboardType type : ClipboardType.values()) {
-			int i = type.ordinal();
-			builder.override()
-					.predicate(ClipboardType.ID, i)
-					.model(p.getBuilder(c.getName() + "_" + i)
-							.parent(new Identifier("item/generated"))
-							.texture("layer0", Create.asResource("item/" + type.file)))
-					.end();
+			Identifier model = p.modLoc("item/" + type.file);
+			VariantModels.models(p)
+				.withExistingParent("item/" + type.file, Identifier.withDefaultNamespace("item/generated"))
+				.texture("layer0", Create.asResource("item/" + type.file))
+				.build();
+			cases.add(ItemModelUtils.when(type, ItemModelUtils.plainModel(model)));
 		}
-		return builder;
+		p.itemModelOutput.accept(c.get(), ItemModelUtils.select(new TypeProperty(), cases));
 	}
 
 }

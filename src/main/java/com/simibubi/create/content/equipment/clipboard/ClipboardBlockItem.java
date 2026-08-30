@@ -78,7 +78,6 @@ public class ClipboardBlockItem extends BlockItem implements SupportsItemCopying
 	}
 
 	public void registerModelOverrides() {
-		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> ClipboardOverrides.registerModelOverridesClient(this));
 	}
 
 	@Override
