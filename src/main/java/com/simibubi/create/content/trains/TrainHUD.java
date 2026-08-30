@@ -212,7 +212,8 @@ public class TrainHUD {
 
 		poseStack.translate((float) (91), (float) (-9));
 		poseStack.scale((float) (0.925f), (float) (0.925f));
-		PlacementClient.textured(poseStack, 0, 0, 1, snappedAngle);
+		// The overlay is drawn from the graphics now rather than a bare stack.
+		PlacementClient.textured(guiGraphics, 0, 0, 1, snappedAngle);
 
 		poseStack.popMatrix();
 	}

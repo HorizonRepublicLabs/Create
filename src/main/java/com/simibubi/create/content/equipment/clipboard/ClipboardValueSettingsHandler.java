@@ -187,7 +187,6 @@ public class ClipboardValueSettingsHandler {
 
 				switch (event) {
 					case EntityInteract e -> e.setCancellationResult(InteractionResult.SUCCESS);
-					case EntityInteract e -> e.setCancellationResult(InteractionResult.SUCCESS);
 					case RightClickBlock e -> e.setCancellationResult(InteractionResult.SUCCESS);
 					case RightClickItem e -> e.setCancellationResult(InteractionResult.SUCCESS);
 					default -> {}

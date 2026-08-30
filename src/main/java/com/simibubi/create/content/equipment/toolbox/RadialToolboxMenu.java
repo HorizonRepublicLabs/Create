@@ -372,7 +372,7 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 		int modifiers = event.modifiers();
 		KeyMapping[] hotbarBinds = minecraft.options.keyHotbarSlots;
 		for (int i = 0; i < hotbarBinds.length && i < 8; i++) {
-			if (hotbarBinds[i].matches(code, scanCode)) {
+			if (hotbarBinds[i].matches(event)) {
 
 				if (state == State.SELECT_ITEM || state == State.SELECT_ITEM_UNEQUIP) {
 					ToolboxInventory inv = selectedBox.inventory;

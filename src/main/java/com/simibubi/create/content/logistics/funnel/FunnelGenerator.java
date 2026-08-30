@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.funnel;
 
+import com.simibubi.create.foundation.data.ModelGenShim;
+
 import com.simibubi.create.foundation.data.VariantModels;
 
 import com.simibubi.create.Create;

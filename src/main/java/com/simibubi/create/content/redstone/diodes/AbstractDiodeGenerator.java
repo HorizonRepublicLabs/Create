@@ -1,5 +1,7 @@
 package com.simibubi.create.content.redstone.diodes;
 
+import com.simibubi.create.foundation.data.ItemModelGenShim;
+
 import com.simibubi.create.foundation.data.ModelGenShim;
 
 import com.simibubi.create.foundation.data.VariantModels;
