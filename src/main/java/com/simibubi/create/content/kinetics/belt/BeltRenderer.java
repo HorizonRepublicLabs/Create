@@ -59,9 +59,11 @@ public class BeltRenderer extends SafeBlockEntityRenderer<BeltBlockEntity> {
 
 	public BeltRenderer(BlockEntityRendererProvider.Context context) {}
 
+	/// Off-screen rendering is decided for the renderer as a whole now rather
+	/// than per block entity, so the controller check has nowhere to go.
 	@Override
 	public boolean shouldRenderOffScreen() {
-		return be.isController();
+		return true;
 	}
 
 	@Override

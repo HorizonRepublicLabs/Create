@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.burner;
 
+import net.minecraft.network.chat.Component;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import java.util.ArrayList;
@@ -62,8 +64,8 @@ public class BlazeBurnerBlockItem extends BlockItem {
 	}
 
 	@Override
-	public String getDescriptionId() {
-		return hasCapturedBlaze() ? super.getDescriptionId() : "item.create." + RegisteredObjectsHelper.getKeyOrThrow(this).getPath();
+	public Component getName(ItemStack stack) {
+		return hasCapturedBlaze() ? super.getName(stack) : Component.translatable("item.create." + RegisteredObjectsHelper.getKeyOrThrow(this).getPath());
 	}
 
 	@Override

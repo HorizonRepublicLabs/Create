@@ -126,9 +126,11 @@ public class FluidTankRenderer extends SafeBlockEntityRenderer<FluidTankBlockEnt
 		ms.popPose();
 	}
 
+	/// Off-screen rendering is decided for the renderer as a whole now rather
+	/// than per block entity, so the controller check has nowhere to go.
 	@Override
 	public boolean shouldRenderOffScreen() {
-		return be.isController();
+		return true;
 	}
 
 }

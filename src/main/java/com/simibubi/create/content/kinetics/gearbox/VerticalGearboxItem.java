@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.gearbox;
 
+import net.minecraft.network.chat.Component;
+
 import java.util.Map;
 
 import com.simibubi.create.AllBlocks;
@@ -25,8 +27,10 @@ public class VerticalGearboxItem extends BlockItem {
 	}
 
 	@Override
-	public String getDescriptionId() {
-		return "item.create.vertical_gearbox";
+	/// The description id is fixed at construction now, so the name is what
+	/// this one answers instead.
+	public Component getName(ItemStack stack) {
+		return Component.translatable("item.create.vertical_gearbox");
 	}
 
 	@Override

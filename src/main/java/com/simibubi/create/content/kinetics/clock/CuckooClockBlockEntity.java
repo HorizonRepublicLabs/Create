@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.clock;
 
+import net.minecraft.world.entity.animal.pig.PigSoundVariants;
+
 import java.util.List;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
@@ -149,7 +151,12 @@ public class CuckooClockBlockEntity extends KineticBlockEntity {
 						playSound(SoundEvents.CHEST_OPEN, 1 / 16f, 2f);
 					if (value == phase) {
 						if (animationType == Animation.PIG)
-							playSound(SoundEvents.PIG_AMBIENT, 1 / 4f, 1f);
+							// Pig sounds are per-variant now; the classic set is the one
+							// the clock has always used.
+							playSound(SoundEvents.PIG_SOUNDS.get(PigSoundVariants.SoundSet.CLASSIC)
+								.adultSounds()
+								.ambientSound()
+								.value(), 1 / 4f, 1f);
 						else
 							playSound(SoundEvents.CREEPER_HURT, 1 / 4f, 3f);
 					}

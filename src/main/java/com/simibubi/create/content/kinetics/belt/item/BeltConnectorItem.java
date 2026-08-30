@@ -40,11 +40,7 @@ public class BeltConnectorItem extends BlockItem {
 		super(AllBlocks.BELT.get(), properties);
 	}
 
-	@Override
-	public String getDescriptionId() {
-		return super.getDescriptionId();
-	}
-
+	
 	@NotNull
 	@Override
 	public InteractionResult useOn(UseOnContext context) {
