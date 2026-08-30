@@ -13,7 +13,7 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import dev.engine_room.flywheel.lib.transform.TransformStack;
-import net.createmod.catnip.api.client.config.BaseConfigScreen;
+import net.neoforged.neoforge.client.gui.modlist.ModListScreen;
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.client.gui.AbstractSimiScreen;
 import net.createmod.catnip.api.client.gui.ScreenOpener;
@@ -149,7 +149,10 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 		addRenderableWidget(Button.builder(CreateLang.translateDirect("menu.return"), $ -> linkTo(parent))
 			.bounds(center - 100, yStart + 92, bLongWidth, bHeight)
 			.build());
-		addRenderableWidget(Button.builder(CreateLang.translateDirect("menu.configure"), $ -> linkTo(new BaseConfigScreen(this, Create.ID)))
+		// catnip's own config screen is excluded from its build for 26.x, so the
+		// button opens the mod list, where Create's config sits.
+		addRenderableWidget(Button.builder(CreateLang.translateDirect("menu.configure"),
+			$ -> linkTo(ModListScreen.create(this)))
 			.bounds(center - 100, yStart + 24 + -16, bLongWidth, bHeight)
 			.build());
 
@@ -222,8 +225,8 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 		}
 
 		@Override
-		protected void renderWidget(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pt) {
-			super.renderWidget(graphics, pMouseX, pMouseY, pt);
+		protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pt) {
+			super.extractWidgetRenderState(graphics, pMouseX, pMouseY, pt);
 			Matrix3x2fStack pPoseStack = graphics.pose();
 			pPoseStack.pushMatrix();
 			pPoseStack.translate((float) (getX() + width / 2 - (icon.getWidth() * scale) / 2), (float) (getY() + height / 2 - (icon.getHeight() * scale) / 2));
