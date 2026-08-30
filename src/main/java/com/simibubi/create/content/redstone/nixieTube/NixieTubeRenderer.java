@@ -1,5 +1,9 @@
 package com.simibubi.create.content.redstone.nixieTube;
 
+import net.minecraft.network.chat.Component;
+
+import com.simibubi.create.foundation.render.CreateTextRenderer;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
@@ -115,14 +119,10 @@ public class NixieTubeRenderer extends SafeBlockEntityRenderer<NixieTubeBlockEnt
 	}
 
 	public static void drawInWorldString(PoseStack ms, SuperRenderTypeBuffer buffer, String c, int color) {
-		Font fontRenderer = Minecraft.getInstance().font;
-		fontRenderer.drawInBatch(c, 0, 0, color, false, ms.last()
-			.pose(), buffer, Font.DisplayMode.NORMAL, 0, LightCoordsUtil.FULL_BRIGHT);
-		if (buffer instanceof BufferSource) {
-			BakedGlyph texturedglyph = fontRenderer.getFontSet(Style.DEFAULT_FONT)
-				.whiteGlyph();
-			((BufferSource) buffer).endBatch(texturedglyph.renderType(Font.DisplayMode.NORMAL));
-		}
+		CreateTextRenderer.drawInBatch(Minecraft.getInstance().font, Component.literal(c), 0, 0, color, false,
+			ms.last()
+				.pose(),
+			buffer, Font.DisplayMode.NORMAL, 0, LightCoordsUtil.FULL_BRIGHT);
 	}
 
 	private void renderAsSignal(NixieTubeBlockEntity be, float partialTicks, PoseStack ms, SuperRenderTypeBuffer buffer,

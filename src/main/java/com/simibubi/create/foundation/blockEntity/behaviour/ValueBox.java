@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import com.simibubi.create.foundation.render.CreateTextRenderer;
+
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -228,14 +230,15 @@ public class ValueBox extends ChasingAABBOutline {
 
 	private static void drawString(PoseStack ms, SuperRenderTypeBuffer buffer, Component text, float x, float y,
 								   int color) {
-		Minecraft.getInstance().font.drawInBatch(text, x, y, color, false, ms.last()
+		CreateTextRenderer.drawInBatch(Minecraft.getInstance().font, text, x, y, color, false, ms.last()
 			.pose(), buffer, Font.DisplayMode.NORMAL, 0, LightCoordsUtil.FULL_BRIGHT);
 	}
 
 	private static void drawString8x(PoseStack ms, SuperRenderTypeBuffer buffer, Component text, float x, float y,
 									 int color) {
-		Minecraft.getInstance().font.drawInBatch8xOutline(text.getVisualOrderText(), x, y, color, 0xff333333, ms.last()
-			.pose(), buffer, LightCoordsUtil.FULL_BRIGHT);
+		CreateTextRenderer.drawInBatch8xOutline(Minecraft.getInstance().font, text.getVisualOrderText(), x, y, color,
+			0xff333333, ms.last()
+				.pose(), buffer, LightCoordsUtil.FULL_BRIGHT);
 	}
 
 }

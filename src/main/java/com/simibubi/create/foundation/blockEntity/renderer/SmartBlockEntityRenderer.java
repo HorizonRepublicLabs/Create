@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.renderer;
 
+import com.simibubi.create.foundation.render.CreateTextRenderer;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import org.joml.Matrix4f;
@@ -54,9 +56,10 @@ public class SmartBlockEntityRenderer<T extends SmartBlockEntity> extends SafeBl
 		int j = (int) (f2 * 255.0F) << 24;
 		Font font = mc.font;
 		float f1 = (float) (-font.width(tag) / 2);
-		font.drawInBatch(tag, f1, (float) 0, 553648127, false, matrix4f, buffer, Font.DisplayMode.SEE_THROUGH, j,
-			light);
-		font.drawInBatch(tag, f1, (float) 0, -1, false, matrix4f, buffer, Font.DisplayMode.NORMAL, 0, light);
+		CreateTextRenderer.drawInBatch(font, tag, f1, (float) 0, 553648127, false, matrix4f, buffer,
+			Font.DisplayMode.SEE_THROUGH, j, light);
+		CreateTextRenderer.drawInBatch(font, tag, f1, (float) 0, -1, false, matrix4f, buffer, Font.DisplayMode.NORMAL,
+			0, light);
 		ms.popPose();
 	}
 
