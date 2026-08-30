@@ -54,7 +54,7 @@ public class DeployerFakePlayer extends FakePlayer {
 	private UUID owner;
 
 	public DeployerFakePlayer(ServerLevel world, @Nullable UUID owner) {
-		super(world, new DeployerGameProfile(fallbackID, "Deployer", owner));
+		super(world, deployerProfile(owner));
 		this.owner = owner;
 	}
 
@@ -89,11 +89,8 @@ public class DeployerFakePlayer extends FakePlayer {
 		return false;
 	}
 
-	@Override
-	public ItemStack eat(Level level, ItemStack food, FoodProperties foodProperties) {
-		food.shrink(1);
-		return food;
-	}
+	// Eating runs through the consumable component now, with no hook to
+	// override; canEat above already keeps the deployer from starting a meal.
 
 	@Override
 	public boolean canBeAffected(MobEffectInstance pEffectInstance) {
@@ -161,45 +158,14 @@ public class DeployerFakePlayer extends FakePlayer {
 	}
 
 	// Credit to Mekanism for this approach. Helps fake players get past claims and
-	// protection by other mods
-	private static class DeployerGameProfile extends GameProfile {
-
-		private UUID owner;
-
-		public DeployerGameProfile(UUID id, String name, UUID owner) {
-			super(id, name);
-			this.owner = owner;
-		}
-
-		@Override
-		public UUID getId() {
-			return owner == null ? super.getId() : owner;
-		}
-
-		@Override
-		public String getName() {
-			if (owner == null)
-				return super.getName();
-			String lastKnownUsername = UsernameCache.getLastKnownUsername(owner);
-			return lastKnownUsername == null ? super.getName() : lastKnownUsername;
-		}
-
-		@Override
-		public boolean equals(final Object o) {
-			if (this == o)
-				return true;
-			if (!(o instanceof GameProfile otherProfile))
-				return false;
-			return Objects.equals(getId(), otherProfile.id()) && Objects.equals(getName(), otherProfile.name());
-		}
-
-		@Override
-		public int hashCode() {
-			UUID id = getId();
-			String name = getName();
-			int result = id == null ? 0 : id.hashCode();
-			result = 31 * result + (name == null ? 0 : name.hashCode());
-			return result;
-		}
+	// protection by other mods. GameProfile is a final record now, so rather than
+	// answering as the owner on each call the profile is simply built as theirs.
+	// A username learned after the deployer was placed no longer shows up until it
+	// is placed again.
+	private static GameProfile deployerProfile(@Nullable UUID owner) {
+		if (owner == null)
+			return new GameProfile(fallbackID, "Deployer");
+		String lastKnownUsername = UsernameCache.getLastKnownUsername(owner);
+		return new GameProfile(owner, lastKnownUsername == null ? "Deployer" : lastKnownUsername);
 	}
 }
