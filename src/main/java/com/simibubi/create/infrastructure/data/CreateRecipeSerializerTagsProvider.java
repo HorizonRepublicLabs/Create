@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.data;
 
+import net.minecraft.resources.ResourceKey;
+
 import java.util.concurrent.CompletableFuture;
 
 import org.jetbrains.annotations.Nullable;
@@ -23,8 +25,10 @@ public class CreateRecipeSerializerTagsProvider extends TagsProvider<RecipeSeria
 
 	@Override
 	protected void addTags(Provider pProvider) {
-		tag(AllRecipeSerializerTags.AUTOMATION_IGNORE.tag).addOptional(Mods.OCCULTISM.rl("spirit_trade"))
-		.addOptional(Mods.OCCULTISM.rl("ritual"));
+		// A tag takes resource keys now rather than bare identifiers.
+		tag(AllRecipeSerializerTags.AUTOMATION_IGNORE.tag)
+			.addOptional(ResourceKey.create(Registries.RECIPE_SERIALIZER, Mods.OCCULTISM.rl("spirit_trade")))
+			.addOptional(ResourceKey.create(Registries.RECIPE_SERIALIZER, Mods.OCCULTISM.rl("ritual")));
 	}
 
 	@Override

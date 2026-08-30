@@ -66,7 +66,7 @@ public record TrainRelocationPacket(UUID trainId, BlockPos pos, Vec3 lookAngle, 
 			Create.LOGGER.warn(messagePrefix + train.name.getString() + ": player too far from clicked pos");
 			return;
 		}
-		if (!sender.canInteractWithEntity(cce, verifyDistance)) {
+		if (!sender.isWithinEntityInteractionRange(cce, verifyDistance)) {
 			Create.LOGGER.warn(messagePrefix + train.name.getString() + ": player too far from carriage entity");
 			return;
 		}

@@ -35,7 +35,7 @@ public abstract class CustomItemUseEffectsMixin extends Entity {
 		if (item instanceof CustomUseEffectsItem handler) {
 			TriState result = handler.shouldTriggerUseEffects(using, (LivingEntity) (Object) this);
 			if (result != TriState.DEFAULT) {
-				cir.setReturnValue(result.getValue());
+				cir.setReturnValue(result.isTrue());
 			}
 		}
 	}

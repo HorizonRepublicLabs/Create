@@ -53,7 +53,9 @@ public class CreateCodecs {
 
 	public static Codec<SizedFluidIngredient> FLAT_SIZED_FLUID_INGREDIENT_WITH_TYPE = RecordCodecBuilder.create(instance -> instance.group(
 		NeoForgeRegistries.FLUID_INGREDIENT_TYPES.byNameCodec().fieldOf("type").forGetter(i -> i.ingredient().getType()),
-		FluidIngredient.MAP_CODEC_NONEMPTY.forGetter(SizedFluidIngredient::ingredient),
+		// There is one fluid ingredient codec now.
+		FluidIngredient.CODEC.fieldOf("ingredient")
+			.forGetter(SizedFluidIngredient::ingredient),
 		NeoForgeExtraCodecs.optionalFieldAlwaysWrite(ExtraCodecs.POSITIVE_INT, "amount", 1000).forGetter(SizedFluidIngredient::amount)
 	).apply(instance, (type, ingredient, amount) -> new SizedFluidIngredient(ingredient, amount)));
 

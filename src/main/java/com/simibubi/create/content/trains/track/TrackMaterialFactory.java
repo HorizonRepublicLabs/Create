@@ -1,5 +1,9 @@
 package com.simibubi.create.content.trains.track;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+
+import net.neoforged.neoforge.common.crafting.CompoundIngredient;
+
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.function.Supplier;
@@ -24,7 +28,12 @@ public class TrackMaterialFactory {
 	private String langName;
 	private NonNullSupplier<NonNullSupplier<? extends TrackBlock>> trackBlock;
 	private Ingredient sleeperIngredient = null;
-	private Ingredient railsIngredient = Ingredient.fromValues(Stream.of(new Ingredient.TagValue(Items.NUGGETS_IRON), new Ingredient.TagValue(CommonMetal.ZINC.nuggets)));
+	// Ingredients are holder sets now; a compound keeps the two nugget tags
+	// separate the way the old tag values did.
+	private Ingredient railsIngredient = CompoundIngredient.of(Ingredient.of(BuiltInRegistries.ITEM.get(Items.NUGGETS_IRON)
+		.orElseThrow()),
+		Ingredient.of(BuiltInRegistries.ITEM.get(CommonMetal.ZINC.nuggets)
+			.orElseThrow()));
 	private Identifier particle;
 	private TrackMaterial.TrackType trackType = TrackMaterial.TrackType.STANDARD;
 
