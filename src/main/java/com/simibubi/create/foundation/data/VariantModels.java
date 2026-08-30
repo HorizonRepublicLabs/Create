@@ -68,6 +68,7 @@ public class VariantModels {
 			private int rotationY;
 			private boolean uvLock;
 			private int weight = 1;
+			private final java.util.List<ConfiguredModel> finished = new java.util.ArrayList<>();
 
 			public Builder modelFile(Identifier model) {
 				this.model = model;
@@ -94,6 +95,18 @@ public class VariantModels {
 				return this;
 			}
 
+			/// Finishes the variant being built and starts another, so a weighted
+			/// set of models can be described in one chain.
+			public Builder nextModel() {
+				finished.add(new ConfiguredModel(model, rotationX, rotationY, uvLock, weight));
+				model = null;
+				rotationX = 0;
+				rotationY = 0;
+				uvLock = false;
+				weight = 1;
+				return this;
+			}
+
 			/// The old builder could finish a single variant; keeping the name
 			/// means the callers that end on one variant do not have to change.
 			public ConfiguredModel buildLast() {
@@ -101,7 +114,9 @@ public class VariantModels {
 			}
 
 			public ConfiguredModel[] build() {
-				return new ConfiguredModel[] { new ConfiguredModel(model, rotationX, rotationY, uvLock, weight) };
+				java.util.List<ConfiguredModel> all = new java.util.ArrayList<>(finished);
+				all.add(new ConfiguredModel(model, rotationX, rotationY, uvLock, weight));
+				return all.toArray(new ConfiguredModel[0]);
 			}
 		}
 	}

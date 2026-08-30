@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.client.data.models.BlockModelGenerators;
+
+import net.minecraft.client.resources.model.sprite.Material;
+
 import com.simibubi.create.foundation.data.VariantModels;
 
 import com.simibubi.create.foundation.data.ItemModelGenShim;
@@ -202,7 +206,7 @@ public class WindowGen {
 	public static BlockEntry<GlassPaneBlock> standardGlassPane(String name, Supplier<? extends Block> parent,
 															   Identifier sideTexture, Identifier topTexture, Supplier<Supplier<RenderType>> renderType) {
 		NonNullBiConsumer<DataGenContext<Block, GlassPaneBlock>, RegistrateBlockModelGenerator> stateProvider =
-			(c, p) -> p.paneBlock(c.get(), sideTexture, topTexture);
+			(c, p) -> p.generatePaneBlock(c.get(), new Material(sideTexture), new Material(topTexture));
 		return glassPane(name, parent, sideTexture, topTexture, GlassPaneBlock::new, renderType, $ -> {
 		}, stateProvider, true).register();
 	}
@@ -223,8 +227,10 @@ public class WindowGen {
 			noSideAlt = getPaneModelProvider(CGPparents, prefix, "noside_alt", sideTexture, topTexture);
 
 		NonNullBiConsumer<DataGenContext<Block, ConnectedGlassPaneBlock>, RegistrateBlockModelGenerator> stateProvider =
-			(c, p) -> p.paneBlock(c.get(), post.apply(p), side.apply(p), sideAlt.apply(p), noSide.apply(p),
-				noSideAlt.apply(p));
+			(c, p) -> p.generatePaneBlock(c.get(), BlockModelGenerators.plainVariant(post.apply(p)),
+				BlockModelGenerators.plainVariant(side.apply(p)), BlockModelGenerators.plainVariant(sideAlt.apply(p)),
+				BlockModelGenerators.plainVariant(noSide.apply(p)),
+				BlockModelGenerators.plainVariant(noSideAlt.apply(p)));
 
 		return glassPane(name, parent, itemSideTexture, topTexture, ConnectedGlassPaneBlock::new, renderType,
 			connectedTextures, stateProvider, colorless);
