@@ -75,7 +75,7 @@ public class MechanicalCraftingRecipe extends ShapedRecipe {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
+	public RecipeType<? extends Recipe<?>> getType() {
 		return AllRecipeTypes.MECHANICAL_CRAFTING.getType();
 	}
 
@@ -85,7 +85,7 @@ public class MechanicalCraftingRecipe extends ShapedRecipe {
 	}
 
 	@Override
-	public @NotNull RecipeSerializer<?> getSerializer() {
+	public @NotNull RecipeSerializer<? extends Recipe<?>> getSerializer() {
 		return AllRecipeTypes.MECHANICAL_CRAFTING.getSerializer();
 	}
 

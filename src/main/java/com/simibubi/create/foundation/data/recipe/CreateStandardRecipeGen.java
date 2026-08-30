@@ -1776,7 +1776,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		}
 
 		@Override
-		public RecipeType<?> getType() {
+		public RecipeType<? extends Recipe<?>> getType() {
 			return wrapped.getType();
 		}
 

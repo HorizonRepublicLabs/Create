@@ -196,7 +196,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 	}
 
 	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<? extends Recipe<?>> getSerializer() {
 		return AllRecipeTypes.SEQUENCED_ASSEMBLY.getSerializer();
 	}
 
@@ -206,7 +206,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 	}
 
 	@Override
-	public RecipeType<?> getType() {
+	public RecipeType<? extends Recipe<?>> getType() {
 		return AllRecipeTypes.SEQUENCED_ASSEMBLY.getType();
 	}
 

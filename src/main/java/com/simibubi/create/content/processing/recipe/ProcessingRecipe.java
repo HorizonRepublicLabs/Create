@@ -197,12 +197,12 @@ public abstract class ProcessingRecipe<I extends RecipeInput, P extends Processi
 	}
 
 	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<? extends Recipe<?>> getSerializer() {
 		return serializer;
 	}
 
 	@Override
-	public RecipeType<?> getType() {
+	public RecipeType<? extends Recipe<?>> getType() {
 		return type;
 	}
 
