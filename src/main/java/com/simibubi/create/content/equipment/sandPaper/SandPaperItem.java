@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.sandPaper;
 
+import net.minecraft.world.item.ItemInstance;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.function.Consumer;
@@ -196,7 +198,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 	}
 
 	@Override
-	public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
+	public boolean canPerformAction(ItemInstance stack, ItemAbility itemAbility) {
 		return itemAbility == ItemAbilities.AXE_SCRAPE || itemAbility == ItemAbilities.AXE_WAX_OFF;
 	}
 
@@ -238,7 +240,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		return 32;
 	}
 
-	@Override
+	/// Enchantability is a component now; nothing asks the item.
 	public int getEnchantmentValue() {
 		return 1;
 	}
