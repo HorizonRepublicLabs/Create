@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.spout;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -50,8 +52,7 @@ public class FillingBySpout {
 				return requiredFluid.amount();
 		}
 
-		for (RecipeHolder<Recipe<SingleRecipeInput>> recipe : world.recipeAccess()
-			.getRecipesFor(AllRecipeTypes.FILLING.getType(), input, world)) {
+		for (RecipeHolder<Recipe<SingleRecipeInput>> recipe : RecipeLookup.allOfType(world, AllRecipeTypes.FILLING.getType())) {
 			FillingRecipe fillingRecipe = (FillingRecipe) recipe.value();
 			SizedFluidIngredient requiredFluid = fillingRecipe.getRequiredFluid();
 			if (requiredFluid.ingredient().test(availableFluid))
@@ -72,8 +73,7 @@ public class FillingBySpout {
 			.filter(fr -> fr.value().getRequiredFluid()
 					.test(toFill))
 				.orElseGet(() -> {
-					for (RecipeHolder<Recipe<SingleRecipeInput>> recipe : level.recipeAccess()
-						.getRecipesFor(AllRecipeTypes.FILLING.getType(), input, level)) {
+					for (RecipeHolder<Recipe<SingleRecipeInput>> recipe : RecipeLookup.allOfType(level, AllRecipeTypes.FILLING.getType())) {
 						FillingRecipe fr = (FillingRecipe) recipe.value();
 						SizedFluidIngredient requiredFluid = fr.getRequiredFluid();
 						if (requiredFluid.test(toFill))

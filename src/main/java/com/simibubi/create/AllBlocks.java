@@ -703,7 +703,7 @@ public class AllBlocks {
 				.noOcclusion()
 				.noLootTable()
 				.air()
-				.noCollission()
+				.noCollision()
 				.pushReaction(PushReaction.BLOCK))
 			.blockstate(() -> (c, p) -> VariantModels.forAllStatesExcept(p, c.get(), BlockStateGen.mapToAir(p), CrushingWheelControllerBlock.FACING))
 			.register();
@@ -1605,7 +1605,7 @@ public class AllBlocks {
 
 	public static final BlockEntry<FakeTrackBlock> FAKE_TRACK = REGISTRATE.block("fake_track", FakeTrackBlock::new)
 		.properties(p -> p.mapColor(MapColor.METAL)
-			.noCollission()
+			.noCollision()
 			.noOcclusion()
 			.replaceable())
 		.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)

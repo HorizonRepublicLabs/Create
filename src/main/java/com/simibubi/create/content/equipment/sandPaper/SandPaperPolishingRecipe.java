@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.sandPaper;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -52,7 +54,6 @@ public class SandPaperPolishingRecipe extends StandardProcessingRecipe<SingleRec
 	}
 
 	public static List<RecipeHolder<Recipe<SingleRecipeInput>>> getMatchingRecipes(Level world, ItemStack stack) {
-		return world.recipeAccess()
-			.getRecipesFor(AllRecipeTypes.SANDPAPER_POLISHING.getType(), new SingleRecipeInput(stack), world);
+		return RecipeLookup.allOfType(world, AllRecipeTypes.SANDPAPER_POLISHING.getType());
 	}
 }
