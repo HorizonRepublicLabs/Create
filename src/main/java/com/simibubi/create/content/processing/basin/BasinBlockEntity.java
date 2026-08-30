@@ -547,8 +547,8 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			InvManipulationBehaviour inserter =
 				be == null ? null : BlockEntityBehaviour.get(level, be.getBlockPos(), InvManipulationBehaviour.TYPE);
 			IItemHandler targetInv = be == null ? null
-				: ItemCaps.at(Optional.ofNullable(level, be.getBlockPos(), direction.getOpposite()))
-				.orElse(inserter == null ? null : inserter.getInventory());
+				: Optional.ofNullable(ItemCaps.at(level, be.getBlockPos(), direction.getOpposite()))
+					.orElse(inserter == null ? null : inserter.getInventory());
 			IFluidHandler targetTank = be == null ? null
 				: FluidCaps.at(level, be.getBlockPos(), direction.getOpposite());
 			boolean externalTankNotPresent = targetTank == null;
