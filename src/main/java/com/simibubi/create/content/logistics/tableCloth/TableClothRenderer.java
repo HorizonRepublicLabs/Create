@@ -70,7 +70,7 @@ public class TableClothRenderer extends SmartBlockEntityRenderer<TableClothBlock
 				TransformStack.of(ms)
 					.rotate(-rotationInRadians + Mth.PI, Direction.UP);
 
-			DepotRenderer.renderItem(ms, buffer, light, OverlayTexture.NO_OVERLAY, entry, 0,
+			DepotRenderer.item(ms, buffer, light, OverlayTexture.NO_OVERLAY, entry, 0,
 				null, Vec3.atCenterOf(blockEntity.getBlockPos()), true);
 			ms.popPose();
 		}

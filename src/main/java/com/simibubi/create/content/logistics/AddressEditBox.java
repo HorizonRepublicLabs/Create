@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics;
 
+import net.minecraft.client.input.MouseButtonInfo;
+
 import net.minecraft.client.input.KeyEvent;
 
 import net.minecraft.client.input.MouseButtonEvent;
@@ -49,7 +51,7 @@ public class AddressEditBox extends EditBox {
 		setResponder(mainResponder);
 		setBordered(false);
 		setFocused(false);
-		mouseClicked(0, 0, 0);
+		mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 		setMaxLength(25);
 	}
 
@@ -63,7 +65,7 @@ public class AddressEditBox extends EditBox {
 		if (isFocused() && pKeyCode == GLFW.GLFW_KEY_ENTER) {
 			setFocused(false);
 			moveCursorToEnd(false);
-			mouseClicked(0, 0, 0);
+			mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 			return true;
 		}
 		return super.keyPressed(event);
@@ -126,7 +128,7 @@ public class AddressEditBox extends EditBox {
 
 		int itemX = getX() + width + 4;
 		int itemY = getY() - 4;
-		pGuiGraphics.renderItem(AllBlocks.CLIPBOARD.asStack(), itemX, itemY);
+		pGuiGraphics.item(AllBlocks.CLIPBOARD.asStack(), itemX, itemY);
 		if (pMouseX >= itemX && pMouseX < itemX + 16 && pMouseY >= itemY && pMouseY < itemY + 16) {
 			List<Component> promiseTip = List.of();
 			promiseTip = List.of(CreateLang.translate("gui.address_box.clipboard_tip")

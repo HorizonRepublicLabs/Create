@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.gui;
 
+import net.minecraft.client.input.MouseButtonInfo;
+
+import net.minecraft.client.input.MouseButtonEvent;
+
 import com.simibubi.create.foundation.gui.widget.FilteredEditBox;
 
 import java.util.function.BiConsumer;
@@ -82,7 +86,7 @@ public class ModularGuiLineBuilder {
 		input.setBordered(false);
 		input.setTextColor(0xffffff);
 		input.setFocused(false);
-		input.mouseClicked(0, 0, 0);
+		input.mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 		TooltipArea tooltipArea = new TooltipArea(this.x + x, y - 4, width, 18);
 		inputTransform.accept(input, tooltipArea);
 		target.add(Pair.of(input, dataKey));

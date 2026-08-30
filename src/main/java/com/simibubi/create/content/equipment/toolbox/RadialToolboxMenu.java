@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.minecraft.client.input.MouseButtonInfo;
+
 import org.joml.Matrix3x2fStack;
 
 import net.minecraft.client.input.KeyEvent;
@@ -387,7 +389,7 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 
 				scrollMode = true;
 				scrollSlot = i;
-				mouseClicked(0, 0, 0);
+				mouseClicked(new MouseButtonEvent(0, 0, new MouseButtonInfo(0, 0)), false);
 				return true;
 			}
 		}

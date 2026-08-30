@@ -129,7 +129,7 @@ public abstract class ShootableGadgetRenderHandler {
 		ms.mulPose(Axis.YP.rotationDegrees(flip * f6 * 70.0F));
 		ms.mulPose(Axis.ZP.rotationDegrees(flip * f5 * -20.0F));
 		transformTool(ms, flip, equipProgress, recoil, pt);
-		firstPersonRenderer.renderItem(mc.player, heldItem,
+		firstPersonRenderer.item(mc.player, heldItem,
 			rightHand ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND
 				: ItemDisplayContext.FIRST_PERSON_LEFT_HAND,
 			!rightHand, ms, buffer, light);

@@ -120,7 +120,7 @@ public class ExtendoGripRenderHandler {
 			ItemInHandRenderer firstPersonRenderer = mc.getEntityRenderDispatcher().getItemInHandRenderer();
 			ItemDisplayContext transform =
 				rightHand ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND;
-			firstPersonRenderer.renderItem(mc.player, notInOffhand ? heldItem : offhandItem, transform,
+			firstPersonRenderer.item(mc.player, notInOffhand ? heldItem : offhandItem, transform,
 				event.getPoseStack(), event.getSubmitNodeCollector(), event.getPackedLight());
 
 			if (!notInOffhand) {
@@ -134,7 +134,7 @@ public class ExtendoGripRenderHandler {
 					ms.scale(1.25f, 1.25f, 1.25f);
 				}
 
-				firstPersonRenderer.renderItem(mc.player, heldItem, transform, event.getPoseStack(),
+				firstPersonRenderer.item(mc.player, heldItem, transform, event.getPoseStack(),
 					event.getSubmitNodeCollector(), event.getPackedLight());
 			}
 

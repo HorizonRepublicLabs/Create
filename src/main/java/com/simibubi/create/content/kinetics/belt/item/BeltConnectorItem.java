@@ -42,7 +42,7 @@ public class BeltConnectorItem extends BlockItem {
 
 	@Override
 	public String getDescriptionId() {
-		return getOrCreateDescriptionId();
+		return super.getDescriptionId();
 	}
 
 	@NotNull
@@ -100,7 +100,7 @@ public class BeltConnectorItem extends BlockItem {
 
 		heldStack.set(AllDataComponents.BELT_FIRST_SHAFT, pos);
 		playerEntity.getCooldowns()
-			.addCooldown(this, 5);
+			.addCooldown(heldStack, 5);
 		return InteractionResult.SUCCESS;
 	}
 
