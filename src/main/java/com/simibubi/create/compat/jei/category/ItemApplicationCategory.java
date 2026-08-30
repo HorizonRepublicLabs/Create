@@ -42,9 +42,9 @@ public class ItemApplicationCategory extends CreateRecipeCategory<ItemApplicatio
 		builder.addSlot(RecipeIngredientRole.INPUT, 51, 5)
 				.setBackground(getRenderedSlot(), -1, -1)
 				.addIngredients(recipe.getRequiredHeldItem())
-				.addTooltipCallback(
+				.addRichTooltipCallback(
 					recipe.shouldKeepHeldItem()
-						? (view, tooltip) -> tooltip.add(1, CreateLang.translateDirect("recipe.deploying.not_consumed")
+						? (view, tooltip) -> tooltip.add(CreateLang.translateDirect("recipe.deploying.not_consumed")
 							.withStyle(ChatFormatting.GOLD))
 						: (view, tooltip) -> {}
 				);

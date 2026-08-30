@@ -64,12 +64,12 @@ public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAss
 				.addSlot(RecipeIngredientRole.OUTPUT, 132 + xOffset, 91)
 				.setBackground(getRenderedSlot(recipe.getOutputChance()), -1 , -1)
 				.addItemStack(getResultItem(recipe))
-				.addTooltipCallback((recipeSlotView, tooltip) -> {
+				.addRichTooltipCallback((recipeSlotView, tooltip) -> {
 					if (noRandomOutput)
 						return;
 
 					float chance = recipe.getOutputChance();
-					tooltip.add(1, chanceComponent(chance));
+					tooltip.add(chanceComponent(chance));
 				});
 
 		int width = 0;

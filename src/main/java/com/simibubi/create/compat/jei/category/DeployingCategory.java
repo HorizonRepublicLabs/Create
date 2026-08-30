@@ -49,7 +49,7 @@ public class DeployingCategory extends CreateRecipeCategory<DeployerApplicationR
 		}
 
 		if (recipe.shouldKeepHeldItem())
-			handItemSlot.addTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(1, CreateLang.translateDirect("recipe.deploying.not_consumed").withStyle(ChatFormatting.GOLD)));
+			handItemSlot.addRichTooltipCallback((recipeSlotView, tooltip) -> tooltip.add(CreateLang.translateDirect("recipe.deploying.not_consumed").withStyle(ChatFormatting.GOLD)));
 
 	}
 
