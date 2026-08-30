@@ -118,7 +118,7 @@ public class AddressEditBox extends EditBox {
 		Matrix3x2fStack matrixStack = pGuiGraphics.pose();
 		matrixStack.pushMatrix();
 		matrixStack.translate((float) (0), (float) (0));
-		destinationSuggestions.render(pGuiGraphics, pMouseX, pMouseY);
+		destinationSuggestions.extractRenderState(pGuiGraphics, pMouseX, pMouseY);
 		matrixStack.popMatrix();
 
 		if (!destinationSuggestions.isEmpty())

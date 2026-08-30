@@ -381,13 +381,13 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		partialTicks = minecraft.getTimer().getGameTimeDeltaPartialTick(false);
+		partialTicks = minecraft.getDeltaTracker().getGameTimeDeltaPartialTick(false);
 
 		if (menu.slotsActive)
 			super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 		else {
+			// The background hook draws the window itself now.
 			extractBackground(graphics, mouseX, mouseY, partialTicks);
-			renderBg(graphics, partialTicks, mouseX, mouseY);
 			for (Renderable widget : this.renderables)
 				widget.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 			renderForeground(graphics, mouseX, mouseY, partialTicks);
@@ -990,7 +990,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		if (destinationSuggestions != null) {
 			matrixStack.pushMatrix();
 			matrixStack.translate((float) (0), (float) (0));
-			destinationSuggestions.render(graphics, mouseX, mouseY);
+			destinationSuggestions.extractRenderState(graphics, mouseX, mouseY);
 			matrixStack.popMatrix();
 		}
 

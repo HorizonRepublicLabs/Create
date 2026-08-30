@@ -84,7 +84,7 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 	protected void renderWindow(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		float f = (float) (Util.getMillis() - this.firstRenderTime) / 1000.0F;
 		float alpha = Mth.clamp(f, 0.0F, 1.0F);
-		float elapsedPartials = minecraft.getTimer().getGameTimeDeltaPartialTick(false);
+		float elapsedPartials = minecraft.getDeltaTracker().getGameTimeDeltaPartialTick(false);
 
 		if (parent instanceof TitleScreen)
 			PANORAMA.extractRenderState(graphics, this.width, this.height);

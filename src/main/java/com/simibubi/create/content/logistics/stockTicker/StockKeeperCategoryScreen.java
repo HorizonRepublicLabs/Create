@@ -179,8 +179,8 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 		if (menu.slotsActive)
 			super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 		else {
+			// The background hook draws the window itself now.
 			extractBackground(graphics, mouseX, mouseY, partialTicks);
-			renderBg(graphics, partialTicks, mouseX, mouseY);
 			for (Renderable widget : this.renderables)
 				widget.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 			renderForeground(graphics, mouseX, mouseY, partialTicks);
