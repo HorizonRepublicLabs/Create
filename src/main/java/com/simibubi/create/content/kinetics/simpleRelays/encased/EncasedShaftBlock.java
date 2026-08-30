@@ -53,8 +53,8 @@ public class EncasedShaftBlock extends AbstractEncasedShaftBlock
 	@Override
 	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData,
 		Player player) {
-		if (target instanceof BlockHitResult)
-			return ((BlockHitResult) target).getDirection()
+		if (player != null && player.pick(player.blockInteractionRange(), 0, false) instanceof BlockHitResult hit)
+			return hit.getDirection()
 				.getAxis() == getRotationAxis(state) ? AllBlocks.SHAFT.asStack() : getCasing().asItem().getDefaultInstance();
 		return super.getCloneItemStack(level, pos, state, includeData, player);
 	}
