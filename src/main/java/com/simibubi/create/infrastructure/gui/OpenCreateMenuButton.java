@@ -36,11 +36,12 @@ public class OpenCreateMenuButton extends Button {
 		super(x, y, 20, 20, CommonComponents.EMPTY, OpenCreateMenuButton::click, DEFAULT_NARRATION);
 	}
 
+	/// A button draws its own contents now rather than a string; the goggles
+	/// sit on the default sprite.
 	@Override
-	public void renderString(GuiGraphicsExtractor graphics, Font pFont, int pColor) {
-		// the model lookup only guarded the draw; graphics.item resolves its own
-		ItemStack icon = AllItems.GOGGLES.asStack();
-		graphics.item(icon, getX() + 2, getY() + 2);
+	protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+		extractDefaultSprite(graphics);
+		graphics.item(AllItems.GOGGLES.asStack(), getX() + 2, getY() + 2);
 	}
 
 	public static void click(Button b) {

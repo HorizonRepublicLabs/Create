@@ -1,5 +1,9 @@
 package com.simibubi.create.infrastructure.command;
 
+import net.minecraft.world.phys.Vec3;
+
+import net.minecraft.world.entity.EntitySpawnReason;
+
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.actors.seat.SeatBlock;
@@ -30,12 +34,12 @@ public class DebugHatsCommand {
 					for (EntityType<?> entityType : BuiltInRegistries.ENTITY_TYPE) {
 						ServerLevel level = ctx.getSource().getLevel();
 
-						Entity entity = entityType.create(level);
+						Entity entity = entityType.create(level, EntitySpawnReason.COMMAND);
 						if (entity instanceof LivingEntity) {
 							level.setBlockAndUpdate(pos, AllBlocks.SEATS.get(DyeColor.RED).getDefaultState());
 							level.setBlockAndUpdate(pos.east(), AllBlocks.STOCK_TICKER.getDefaultState().setValue(StockTickerBlock.FACING, Direction.EAST));
 
-							entity.snapTo(pos.getCenter());
+							entity.snapTo(Vec3.atCenterOf(pos));
 
 							if (entity instanceof Mob mob)
 								mob.setNoAi(true);
