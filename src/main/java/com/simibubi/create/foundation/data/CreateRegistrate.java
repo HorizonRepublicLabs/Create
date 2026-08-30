@@ -225,20 +225,19 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 	public <T extends BaseFlowingFluid> FluidBuilder<T, CreateRegistrate> virtualFluid(String name,
 																						Identifier still, Identifier flow, FluidBuilder.FluidTypeFactory typeFactory,
 																						NonNullFunction<BaseFlowingFluid.Properties, T> sourceFactory, NonNullFunction<BaseFlowingFluid.Properties, T> flowingFactory) {
-		return entry(name, c -> new VirtualFluidBuilder<>(self(), self(), name, c, still, flow, typeFactory, sourceFactory, flowingFactory));
+		return entry(name, c -> new VirtualFluidBuilder<>(self(), self(), name, c, typeFactory, sourceFactory, flowingFactory));
 	}
 
 	public FluidBuilder<VirtualFluid, CreateRegistrate> virtualFluid(String name) {
 		return entry(name,
-			c -> new VirtualFluidBuilder<>(self(), self(), name, c,
-				Identifier.fromNamespaceAndPath(getModid(), "fluid/" + name + "_still"), Identifier.fromNamespaceAndPath(getModid(), "fluid/" + name + "_flow"),
-				CreateRegistrate::defaultFluidType, VirtualFluid::createSource, VirtualFluid::createFlowing));
+			c -> new VirtualFluidBuilder<>(self(), self(), name, c, CreateRegistrate::defaultFluidType,
+				VirtualFluid::createSource, VirtualFluid::createFlowing));
 	}
 
 	public FluidBuilder<VirtualFluid, CreateRegistrate> virtualFluid(String name, Identifier still,
 																	 Identifier flow) {
-		return entry(name, c -> new VirtualFluidBuilder<>(self(), self(), name, c, still, flow,
-			CreateRegistrate::defaultFluidType, VirtualFluid::createSource, VirtualFluid::createFlowing));
+		return entry(name, c -> new VirtualFluidBuilder<>(self(), self(), name, c, CreateRegistrate::defaultFluidType,
+			VirtualFluid::createSource, VirtualFluid::createFlowing));
 	}
 
 	public FluidBuilder<BaseFlowingFluid.Flowing, CreateRegistrate> standardFluid(String name) {
@@ -251,24 +250,10 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 			typeFactory);
 	}
 
-	public static FluidType defaultFluidType(FluidType.Properties properties, Identifier stillTexture,
-											 Identifier flowingTexture) {
-		return new FluidType(properties) {
-			@Override
-			public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-				consumer.accept(new IClientFluidTypeExtensions() {
-					@Override
-					public Identifier getStillTexture() {
-						return stillTexture;
-					}
-
-					@Override
-					public Identifier getFlowingTexture() {
-						return flowingTexture;
-					}
-				});
-			}
-		};
+	/// Fluid textures are registered against the fluid rather than carried by
+	/// its type, so the default type is just the properties.
+	public static FluidType defaultFluidType(FluidType.Properties properties) {
+		return new FluidType(properties);
 	}
 
 	/* Util */

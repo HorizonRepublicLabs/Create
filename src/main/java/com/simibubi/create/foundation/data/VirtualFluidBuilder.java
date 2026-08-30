@@ -15,13 +15,13 @@ import net.neoforged.neoforge.fluids.BaseFlowingFluid.Properties;
  */
 public class VirtualFluidBuilder<T extends BaseFlowingFluid, P> extends FluidBuilder<T, P> {
 
+	/// Textures no longer travel with the builder; they are registered against
+	/// the fluid itself.
 	public VirtualFluidBuilder(AbstractRegistrate<?> owner, P parent, String name, BuilderCallback callback,
-		Identifier stillTexture, Identifier flowingTexture, FluidBuilder.FluidTypeFactory typeFactory,
-		NonNullFunction<Properties, T> sourceFactory,
-	    NonNullFunction<Properties, T> flowingFactory
-   ) {
-		super(owner, parent, name, callback, stillTexture, flowingTexture, typeFactory, flowingFactory);
-		source(sourceFactory);
+		FluidBuilder.FluidTypeFactory typeFactory, NonNullFunction<Properties, T> sourceFactory,
+		NonNullFunction<Properties, T> flowingFactory) {
+		super(owner, parent, name, callback, typeFactory, flowingFactory::apply);
+		source(sourceFactory::apply);
 	}
 
 	@Override
