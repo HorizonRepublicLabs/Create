@@ -64,10 +64,11 @@ public class SymmetryWandItem extends Item {
 		BlockPos pos = context.getClickedPos();
 		if (player == null)
 			return InteractionResult.PASS;
-		player.getCooldowns()
-			.addCooldown(this, 5);
 		ItemStack wand = player.getItemInHand(context.getHand());
 		checkComponents(wand);
+		// Cooldowns are keyed by the stack now.
+		player.getCooldowns()
+			.addCooldown(wand, 5);
 
 		// Shift -> open GUI
 		if (player.isShiftKeyDown()) {
@@ -76,7 +77,7 @@ public class SymmetryWandItem extends Item {
 					openWandGUI(wand, context.getHand());
 				});
 				player.getCooldowns()
-					.addCooldown(this, 5);
+					.addCooldown(wand, 5);
 			}
 			return InteractionResult.SUCCESS;
 		}
@@ -138,7 +139,7 @@ public class SymmetryWandItem extends Item {
 					openWandGUI(playerIn.getItemInHand(handIn), handIn);
 				});
 				playerIn.getCooldowns()
-					.addCooldown(this, 5);
+					.addCooldown(wand, 5);
 			}
 			return InteractionResult.SUCCESS.heldItemTransformedTo(wand);
 		}
@@ -205,9 +206,11 @@ public class SymmetryWandItem extends Item {
 
 			if (world.isUnobstructed(block, position, CollisionContext.of(player))) {
 				BlockState blockState = blockSet.get(position);
+				// The shape update names the level, the tick access and the
+				// neighbour it is reacting to.
 				for (Direction face : Iterate.directions)
-					blockState = blockState.updateShape(face, world.getBlockState(position.relative(face)), world,
-						position, position.relative(face));
+					blockState = blockState.updateShape(world, world, position, face, position.relative(face),
+						world.getBlockState(position.relative(face)), world.getRandom());
 
 				if (player.isCreative()) {
 					world.setBlockAndUpdate(position, blockState);
