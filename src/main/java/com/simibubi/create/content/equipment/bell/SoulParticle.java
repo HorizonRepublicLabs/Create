@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.bell;
 
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
+
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.simibubi.create.AllParticleTypes;
@@ -82,10 +84,10 @@ public class SoulParticle extends CustomRotationParticle {
 	}
 
 	@Override
-	public void render(VertexConsumer builder, Camera camera, float partialTicks) {
+	public void extract(QuadParticleRenderState particleState, Camera camera, float partialTicks) {
 		if (!isVisible)
 			return;
-		super.render(builder, camera, partialTicks);
+		super.extract(particleState, camera, partialTicks);
 	}
 
 	public void setFrame(int frame) {

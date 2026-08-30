@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.base;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
+
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.content.equipment.goggles.GogglesItem;
 
@@ -60,10 +64,10 @@ public class RotationIndicatorParticle extends SimpleAnimatedParticle {
 	}
 
 	@Override
-	public void render(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
+	public void extract(QuadParticleRenderState particleState, Camera camera, float partialTicks) {
 		if (!isVisible)
 			return;
-		super.render(buffer, renderInfo, partialTicks);
+		super.extract(particleState, camera, partialTicks);
 	}
 
 	public void move(double x, double y, double z) {
@@ -85,7 +89,7 @@ public class RotationIndicatorParticle extends SimpleAnimatedParticle {
 		}
 
 		public Particle createParticle(RotationIndicatorParticleData data, ClientLevel worldIn, double x, double y, double z,
-				double xSpeed, double ySpeed, double zSpeed) {
+				double xSpeed, double ySpeed, double zSpeed, RandomSource randomSource) {
 			Minecraft mc = Minecraft.getInstance();
 			LocalPlayer player = mc.player;
 			boolean visible = worldIn != mc.level || player != null && GogglesItem.isWearingGoggles(player);

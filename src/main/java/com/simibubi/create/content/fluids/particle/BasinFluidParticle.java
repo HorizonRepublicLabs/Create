@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.particle;
 
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
+
 import org.joml.Quaternionf;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -83,15 +85,13 @@ public class BasinFluidParticle extends FluidStackParticle {
 		}
 	}
 
+	/// Lies flat rather than facing the camera; the quad's rotation is handed
+	/// to the render state directly now instead of being swapped in on the
+	/// camera.
 	@Override
-	public void render(VertexConsumer vb, Camera info, float pt) {
-		Quaternionf rotation = info.rotation();
-		Quaternionf prevRotation = new Quaternionf(rotation);
-		rotation.set(-1, 0, 0, 1);
-		rotation.normalize();
-		super.render(vb, info, pt);
-		rotation.set(0, 0, 0, 1);
-		rotation.mul(prevRotation);
+	public void extract(QuadParticleRenderState particleState, Camera camera, float pt) {
+		Quaternionf rotation = new Quaternionf(-1, 0, 0, 1).normalize();
+		extractRotatedQuad(particleState, camera, rotation, pt);
 	}
 
 	@Override

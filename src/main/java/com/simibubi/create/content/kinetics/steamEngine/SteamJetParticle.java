@@ -1,5 +1,11 @@
 package com.simibubi.create.content.kinetics.steamEngine;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.util.ARGB;
+
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
+
 import net.minecraft.client.particle.SingleQuadParticle;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -45,59 +51,35 @@ public class SteamJetParticle extends SimpleAnimatedParticle {
 		return SingleQuadParticle.Layer.TRANSLUCENT;
 	}
 
-	public void render(VertexConsumer pBuffer, Camera pRenderInfo, float pPartialTicks) {
-		Vec3 vec3 = pRenderInfo.position();
+	/// Four quads around the jet's axis. A particle hands each quad to the
+	/// render state as a rotation now, so the vertex offset that used to be
+	/// applied before rotating becomes an offset of the quad's centre.
+	@Override
+	public void extract(QuadParticleRenderState particleState, Camera camera, float pPartialTicks) {
+		Vec3 vec3 = camera.position();
 		float f = (float) (x - vec3.x);
 		float f1 = (float) (y - vec3.y);
 		float f2 = (float) (z - vec3.z);
 		float f3 = Mth.lerp(pPartialTicks, this.oRoll, this.roll);
-		float f7 = this.getU0();
-		float f8 = this.getU1();
-		float f5 = this.getV0();
-		float f6 = this.getV1();
 		float f4 = this.getQuadSize(pPartialTicks);
+		int light = this.getLightCoords(pPartialTicks);
+		int color = ARGB.colorFromFloat(this.alpha, this.rCol, this.gCol, this.bCol);
 
 		for (int i = 0; i < 4; i++) {
 			Quaternionf quaternion = Axis.YP.rotation(yaw);
 			quaternion.mul(Axis.XP.rotation(pitch));
 			quaternion.mul(Axis.YP.rotation(f3 + Mth.PI / 2 * i + roll));
-			Vector3f vector3f1 = new Vector3f(-1.0F, -1.0F, 0.0F);
-			vector3f1.rotate(quaternion);
 
-			Vector3f[] avector3f = new Vector3f[] { new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F),
-				new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F) };
+			Vector3f offset = new Vector3f(0, 1, 0).rotate(quaternion)
+				.mul(f4);
 
-			for (int j = 0; j < 4; ++j) {
-				Vector3f vector3f = avector3f[j];
-				vector3f.add(0, 1, 0);
-				vector3f.rotate(quaternion);
-				vector3f.mul(f4);
-				vector3f.add(f, f1, f2);
-			}
-
-			int j = this.getLightColor(pPartialTicks);
-			pBuffer.addVertex(avector3f[0].x(), avector3f[0].y(), avector3f[0].z())
-				.setUv(f8, f6)
-				.setColor(this.rCol, this.gCol, this.bCol, this.alpha)
-				.setLight(j);
-			pBuffer.addVertex(avector3f[1].x(), avector3f[1].y(), avector3f[1].z())
-				.setUv(f8, f5)
-				.setColor(this.rCol, this.gCol, this.bCol, this.alpha)
-				.setLight(j);
-			pBuffer.addVertex(avector3f[2].x(), avector3f[2].y(), avector3f[2].z())
-				.setUv(f7, f5)
-				.setColor(this.rCol, this.gCol, this.bCol, this.alpha)
-				.setLight(j);
-			pBuffer.addVertex(avector3f[3].x(), avector3f[3].y(), avector3f[3].z())
-				.setUv(f7, f6)
-				.setColor(this.rCol, this.gCol, this.bCol, this.alpha)
-				.setLight(j);
-
+			particleState.add(getLayer(), f + offset.x(), f1 + offset.y(), f2 + offset.z(), quaternion.x, quaternion.y,
+				quaternion.z, quaternion.w, f4, this.getU0(), this.getU1(), this.getV0(), this.getV1(), color, light);
 		}
 	}
 
 	@Override
-	public int getLightColor(float partialTick) {
+	public int getLightCoords(float partialTick) {
 		BlockPos blockpos = BlockPos.containing(this.x, this.y, this.z);
 		return this.level.isLoaded(blockpos) ? BlockEntityRenderHelper.lightColorAt(level, blockpos) : 0;
 	}
@@ -110,7 +92,7 @@ public class SteamJetParticle extends SimpleAnimatedParticle {
 		}
 
 		public Particle createParticle(SteamJetParticleData data, ClientLevel worldIn, double x, double y, double z,
-			double xSpeed, double ySpeed, double zSpeed) {
+			double xSpeed, double ySpeed, double zSpeed, RandomSource randomSource) {
 			return new SteamJetParticle(worldIn, data, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
 		}
 	}

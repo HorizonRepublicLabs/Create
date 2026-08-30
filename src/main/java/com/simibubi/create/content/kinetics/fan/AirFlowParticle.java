@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import net.minecraft.util.RandomSource;
+
 import net.minecraft.client.particle.SingleQuadParticle;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -110,7 +112,7 @@ public class AirFlowParticle extends SimpleAnimatedParticle {
 		return source.getAirCurrent().getTypeAt((float) distance);
 	}
 
-	public int getLightColor(float partialTick) {
+	public int getLightCoords(float partialTick) {
 		BlockPos blockpos = BlockPos.containing(this.x, this.y, this.z);
 		return this.level.isLoaded(blockpos) ? BlockEntityRenderHelper.lightColorAt(level, blockpos) : 0;
 	}
@@ -128,7 +130,7 @@ public class AirFlowParticle extends SimpleAnimatedParticle {
 
 		@Override
 		public Particle createParticle(AirFlowParticleData data, ClientLevel worldIn, double x, double y, double z,
-									   double xSpeed, double ySpeed, double zSpeed) {
+									   double xSpeed, double ySpeed, double zSpeed, RandomSource randomSource) {
 			BlockEntity be = worldIn.getBlockEntity(new BlockPos(data.posX, data.posY, data.posZ));
 			if (!(be instanceof IAirCurrentSource))
 				be = null;
