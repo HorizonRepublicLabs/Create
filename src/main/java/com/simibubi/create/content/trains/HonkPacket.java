@@ -29,7 +29,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class HonkPacket implements ClientboundCreatePayload {
+public abstract class HonkPacket implements CreatePacketPayload {
 	protected final UUID trainId;
 	protected final boolean isHonk;
 

@@ -31,7 +31,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class TrainEditPacket implements ClientboundCreatePayload {
+public abstract class TrainEditPacket implements CreatePacketPayload {
 	protected final UUID id;
 	protected final String name;
 	protected final Identifier iconType;

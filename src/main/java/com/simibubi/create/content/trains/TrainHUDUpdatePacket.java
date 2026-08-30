@@ -28,7 +28,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class TrainHUDUpdatePacket implements ClientboundCreatePayload {
+public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
 	protected final UUID trainId;
 
 	@Nullable
