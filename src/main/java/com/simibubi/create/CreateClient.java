@@ -170,9 +170,8 @@ public class CreateClient {
 			.append(Component.literal(" Some of Create's visual features will not be available while Fabulous graphics are enabled!"))
 			.withStyle(style -> {
                 return style
-                    .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/create dismissFabulousWarning"))
-                    .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                            Component.literal("Click here to disable this warning")));
+                    .withClickEvent(new ClickEvent.RunCommand("/create dismissFabulousWarning"))
+                    .withHoverEvent(new HoverEvent.ShowText(Component.literal("Click here to disable this warning")));
             });
 
 		CreateLang.sendStatus(mc.player, text, false);

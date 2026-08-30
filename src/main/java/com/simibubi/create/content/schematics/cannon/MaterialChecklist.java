@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import net.minecraft.world.item.ItemStackTemplate;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -240,7 +242,7 @@ public class MaterialChecklist {
         MutableComponent tc = Component.empty();
 		tc.append(item.getItemName()
 			.setStyle(Style.EMPTY
-				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(item)))));
+				.withHoverEvent(new HoverEvent.ShowItem(ItemStackTemplate.fromNonEmptyStack(item)))));
 
 		if (!unfinished && forBook)
 			tc.append(" \u2714");
