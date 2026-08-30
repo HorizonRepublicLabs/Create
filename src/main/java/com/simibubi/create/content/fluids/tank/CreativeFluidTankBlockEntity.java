@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -29,12 +31,11 @@ public class CreativeFluidTankBlockEntity extends FluidTankBlockEntity {
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.CREATIVE_FLUID_TANK.get(),
-				(be, context) -> {
+				FluidCaps.fluids((be, context) -> {
 					if (be.fluidCapability == null)
 						be.refreshCapability();
 					return be.fluidCapability;
-				}
-		);
+				}));
 	}
 
 	@Override

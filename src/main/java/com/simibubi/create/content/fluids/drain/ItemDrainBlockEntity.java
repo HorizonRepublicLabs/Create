@@ -84,12 +84,11 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.ITEM_DRAIN.get(),
-				(be, context) -> {
+				FluidCaps.fluids((be, context) -> {
 					if (context != Direction.UP)
 						return be.internalTank.getCapability();
 					return null;
-				}
-		);
+				}));
 	}
 
 	@Override

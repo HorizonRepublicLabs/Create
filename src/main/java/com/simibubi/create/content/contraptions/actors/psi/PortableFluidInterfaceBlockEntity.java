@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.content.contraptions.Contraption;
 
@@ -25,8 +27,7 @@ public class PortableFluidInterfaceBlockEntity extends PortableStorageInterfaceB
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.PORTABLE_FLUID_INTERFACE.get(),
-				(be, context) -> be.capability
-		);
+				FluidCaps.fluids((be, context) -> be.capability));
 	}
 
 	@Override

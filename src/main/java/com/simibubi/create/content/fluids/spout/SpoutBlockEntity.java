@@ -66,12 +66,11 @@ public class SpoutBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.SPOUT.get(),
-				(be, context) -> {
+				FluidCaps.fluids((be, context) -> {
 					if (context != Direction.DOWN)
 						return be.tank.getCapability();
 					return null;
-				}
-		);
+				}));
 	}
 
 	@Override

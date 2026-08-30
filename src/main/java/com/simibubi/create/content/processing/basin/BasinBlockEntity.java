@@ -145,8 +145,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.BASIN.get(),
-				(be, context) -> be.fluidCapability
-		);
+				FluidCaps.fluids((be, context) -> be.fluidCapability));
 	}
 
 	@Override

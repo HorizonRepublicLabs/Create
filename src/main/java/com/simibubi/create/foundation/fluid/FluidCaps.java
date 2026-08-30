@@ -1,5 +1,13 @@
 package com.simibubi.create.foundation.fluid;
 
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+
+import net.neoforged.neoforge.transfer.ResourceHandler;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -18,26 +26,43 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 public class FluidCaps {
 	@Nullable
 	public static IFluidHandler at(Level level, BlockPos pos, @Nullable Direction side) {
-		var handler = FluidCaps.at(level, pos, side);
+		var handler = level.getCapability(Capabilities.Fluid.BLOCK, pos, side);
 		return handler == null ? null : IFluidHandler.of(handler);
 	}
 
 	@Nullable
 	public static IFluidHandler at(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be,
 		@Nullable Direction side) {
-		var handler = FluidCaps.at(level, pos, state, be, side);
+		var handler = level.getCapability(Capabilities.Fluid.BLOCK, pos, state, be, side);
 		return handler == null ? null : IFluidHandler.of(handler);
 	}
 
 	@Nullable
 	public static IFluidHandler of(Entity entity, @Nullable Direction side) {
-		var handler = FluidCaps.of(entity, side);
+		var handler = entity.getCapability(Capabilities.Fluid.ENTITY, side);
 		return handler == null ? null : IFluidHandler.of(handler);
 	}
 
 	@Nullable
+	/// An item's own tank is reached through an access to the stack now, rather
+	/// than the stack answering directly.
 	public static IFluidHandler of(ItemStack stack) {
-		var handler = FluidCaps.of(stack);
+		var handler = ItemAccess.forStack(stack)
+			.getCapability(Capabilities.Fluid.ITEM);
 		return handler == null ? null : IFluidHandler.of(handler);
+	}
+
+	/// The other direction: Create's tanks are fluid handlers, and the
+	/// capability wants a resource handler.
+	@Nullable
+	public static ResourceHandler<FluidResource> asResourceHandler(@Nullable IFluidHandler handler) {
+		return FluidHandlerResourceAdapter.of(handler);
+	}
+
+	/// Wraps a provider that still hands out fluid handlers so it can be
+	/// registered against the fluid capability.
+	public static <O, C> ICapabilityProvider<O, C, ResourceHandler<FluidResource>> fluids(
+		ICapabilityProvider<O, C, IFluidHandler> provider) {
+		return (object, context) -> asResourceHandler(provider.getCapability(object, context));
 	}
 }

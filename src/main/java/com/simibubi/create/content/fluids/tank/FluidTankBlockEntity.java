@@ -97,12 +97,11 @@ public class FluidTankBlockEntity extends SmartBlockEntity implements IHaveGoggl
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.FLUID_TANK.get(),
-				(be, context) -> {
+				FluidCaps.fluids((be, context) -> {
 					if (be.fluidCapability == null)
 						be.refreshCapability();
 					return be.fluidCapability;
-				}
-		);
+				}));
 	}
 
 	protected SmartFluidTank createInventory() {

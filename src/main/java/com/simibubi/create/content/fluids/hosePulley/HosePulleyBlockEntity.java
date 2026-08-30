@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.hosePulley;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import com.simibubi.create.foundation.utility.LerpedFloatNbt;
@@ -53,12 +55,11 @@ public class HosePulleyBlockEntity extends KineticBlockEntity {
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.HOSE_PULLEY.get(),
-				(be, context) -> {
+				FluidCaps.fluids((be, context) -> {
 					if (context == null || HosePulleyBlock.hasPipeTowards(be.level, be.worldPosition, be.getBlockState(), context))
 						return be.handler;
 					return null;
-				}
-		);
+				}));
 	}
 
 	@Override
