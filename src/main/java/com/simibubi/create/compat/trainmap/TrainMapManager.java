@@ -81,12 +81,9 @@ public class TrainMapManager {
 		bounds.setWidth(bounds.getWidth() + 2 * offScreenMargin);
 		bounds.setHeight(bounds.getHeight() + 2 * offScreenMargin);
 
-		TrainMapRenderer.INSTANCE.render(graphics, linearFiltering, bounds);
+		TrainMapRenderer.INSTANCE.extractRenderState(graphics, linearFiltering, bounds);
 		hoveredElement = drawTrains(graphics, mouseX, mouseY, hoveredElement, bounds);
 		hoveredElement = drawPoints(graphics, mouseX, mouseY, hoveredElement, bounds);
-
-		graphics.bufferSource()
-			.endBatch();
 
 		if (hoveredElement instanceof GlobalStation station) {
             return List.of(Component.literal(station.name));

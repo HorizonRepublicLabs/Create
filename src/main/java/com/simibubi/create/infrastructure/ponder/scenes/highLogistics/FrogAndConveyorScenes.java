@@ -1,5 +1,15 @@
 package com.simibubi.create.infrastructure.ponder.scenes.highLogistics;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+
+import net.minecraft.client.renderer.state.CameraRenderState;
+
+import net.minecraft.client.Camera;
+
+import net.minecraft.client.renderer.SubmitNodeCollector;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -323,9 +333,8 @@ public class FrogAndConveyorScenes {
 		}
 
 		@Override
-		protected void renderLast(PonderLevel world, SuperRenderTypeBuffer buffer, GuiGraphicsExtractor graphics, float fade,
-								  float pt) {
-			PoseStack poseStack = graphics.pose();
+		protected void renderLast(PonderLevel world, SuperRenderTypeBuffer buffer, SubmitNodeCollector queue,
+			Camera camera, CameraRenderState cameraRenderState, PoseStack poseStack, float fade, float pt) {
 			EntityRenderDispatcher entityrenderermanager = Minecraft.getInstance()
 				.getEntityRenderDispatcher();
 
@@ -359,17 +368,15 @@ public class FrogAndConveyorScenes {
 			poseStack.mulPose(Axis.ZP.rotationDegrees(90));
 			poseStack.scale(1.5f, 1.5f, 1.5f);
 			poseStack.translate(-0.1, 0.2, -0.6);
-			BlockStateModel bakedmodel = Minecraft.getInstance()
-				.getItemRenderer()
-				.getModel(wrench.getItem(), world, null, 0);
-			Minecraft.getInstance()
-				.getItemRenderer()
-				.render(wrench.getItem(), ItemDisplayContext.GROUND, false, poseStack, buffer,
-					lightCoordsFromFade(fade), OverlayTexture.NO_OVERLAY, bakedmodel);
+			buffer.setCollector(queue);
+			CreateItemRenderer.render(wrench.getItem(), ItemDisplayContext.GROUND, poseStack, buffer,
+				lightCoordsFromFade(fade), OverlayTexture.NO_OVERLAY);
+			buffer.setCollector(null);
 			poseStack.popPose();
 
 			entity.flapSpeed = 2;
-			entityrenderermanager.render(entity, 0, 0, 0, 0, pt, poseStack, buffer, lightCoordsFromFade(fade));
+			EntityRenderState state = entityrenderermanager.extractEntity(entity, pt);
+			entityrenderermanager.submit(state, cameraRenderState, 0, 0, 0, poseStack, queue);
 			poseStack.popPose();
 		}
 
