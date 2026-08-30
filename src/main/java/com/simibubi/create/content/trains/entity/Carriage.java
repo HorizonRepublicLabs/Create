@@ -1,5 +1,15 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
+import net.minecraft.world.entity.EntitySpawnReason;
+
+import net.minecraft.world.entity.EntitySpawnRequest;
+
+import net.minecraft.util.ProblemReporter;
+
+import net.minecraft.world.level.storage.TagValueOutput;
+
 import net.minecraft.core.UUIDUtil;
 
 import net.createmod.catnip.api.platform.services.PlatformHelper;
@@ -486,9 +496,10 @@ public class Carriage {
 			Map<UUID, Integer> mapping = contraption.getSeatMapping();
 			for (Entity passenger : entity.getPassengers())
 				if (mapping.containsKey(passenger.getUUID())) {
-					CompoundTag data = new CompoundTag();
+					TagValueOutput data = TagValueOutput.createWithContext(ProblemReporter.DISCARDING,
+						entity.registryAccess());
 					if (passenger.saveAsPassenger(data))
-						passengerMap.put(mapping.get(passenger.getUUID()), data);
+						passengerMap.put(mapping.get(passenger.getUUID()), data.buildResult());
 				}
 		}
 
@@ -510,8 +521,9 @@ public class Carriage {
 	}
 
 	private void serialize(Entity entity) {
-		serialisedEntity = new CompoundTag();
-		entity.saveAsPassenger(serialisedEntity);
+		TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, entity.registryAccess());
+		entity.saveAsPassenger(output);
+		serialisedEntity = output.buildResult();
 		serialisedEntity.remove("Passengers");
 		serialisedEntity.getCompoundOrEmpty("Contraption")
 			.remove("Passengers");
@@ -732,10 +744,11 @@ public class Carriage {
 						.getPlayer(tag.read("PlayerPassenger", UUIDUtil.CODEC).orElseThrow());
 
 				} else {
-					passenger = EntityType.loadEntityRecursive(tag, entity.level(), e -> {
-						e.moveTo(positionAnchor);
-						return e;
-					});
+					passenger = EntityType.loadEntityRecursive(tag, entity.level(),
+						new EntitySpawnRequest(EntitySpawnReason.LOAD, false), e -> {
+							e.snapTo(positionAnchor);
+							return e;
+						});
 					if (passenger != null)
 						sLevel.tryAddFreshEntityWithPassengers(passenger);
 				}
@@ -768,9 +781,10 @@ public class Carriage {
 					continue;
 				}
 
-				CompoundTag passengerData = new CompoundTag();
+				TagValueOutput passengerData =
+					TagValueOutput.createWithContext(ProblemReporter.DISCARDING, passenger.registryAccess());
 				passenger.saveAsPassenger(passengerData);
-				serialisedPassengers.put(seat, passengerData);
+				serialisedPassengers.put(seat, passengerData.buildResult());
 				passenger.discard();
 			}
 
@@ -801,7 +815,7 @@ public class Carriage {
 					continue;
 				ServerLevel level = sLevel.getServer()
 					.getLevel(other.getKey());
-				sp.teleportTo(level, loc.x, loc.y, loc.z, sp.getYRot(), sp.getXRot());
+				sp.teleportTo(level, loc.x, loc.y, loc.z, Set.of(), sp.getYRot(), sp.getXRot(), true);
 				sp.setPortalCooldown();
 				AllAdvancements.TRAIN_PORTAL.awardTo(sp);
 			}
@@ -834,7 +848,8 @@ public class Carriage {
 		private void createEntity(Level level, boolean loadPassengers) {
 			if (positionAnchor != null)
 				serialisedEntity.put("Pos", VecHelper.writeNBT(positionAnchor));
-			Entity entity = EntityType.create(serialisedEntity, level)
+			Entity entity = EntityType.create(ValueIOShim.inputOf(serialisedEntity, level.registryAccess()), level,
+				new EntitySpawnRequest(EntitySpawnReason.LOAD, false))
 				.orElse(null);
 
 			if (!(entity instanceof CarriageContraptionEntity cce)) {
@@ -842,7 +857,7 @@ public class Carriage {
 				return;
 			}
 
-			entity.moveTo(positionAnchor);
+			entity.snapTo(positionAnchor);
 			this.entity = new WeakReference<>(cce);
 
 			cce.setCarriage(Carriage.this);
@@ -869,9 +884,10 @@ public class Carriage {
 						continue;
 					}
 
-					CompoundTag passengerData = new CompoundTag();
+					TagValueOutput passengerData =
+						TagValueOutput.createWithContext(ProblemReporter.DISCARDING, passenger.registryAccess());
 					passenger.saveAsPassenger(passengerData);
-					serialisedPassengers.put(seat, passengerData);
+					serialisedPassengers.put(seat, passengerData.buildResult());
 				}
 			}
 
