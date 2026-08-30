@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import com.simibubi.create.foundation.data.ItemModelGenShim;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -97,7 +99,7 @@ public class WindowGen {
 					.cubeColumn(c.getName() + "_4", side_texture, ends.apply(4)))
 				.build()))
 			.item()
-			.model(() -> (c, p) -> p.cubeColumn(c.getName(), side_texture, ends.apply(1)))
+			.model(() -> (c, p) -> VariantModels.models(p).cubeColumn(c.getName(), side_texture, ends.apply(1)))
 			.build();
 	}
 
@@ -158,7 +160,7 @@ public class WindowGen {
 				.tag(Tags.Blocks.GLASS_BLOCKS_COLORLESS, BlockTags.IMPERMEABLE)
 			.item()
 				.tag(Tags.Items.GLASS_BLOCKS_COLORLESS)
-			.model(() -> (c, p) -> p.cubeColumn(c.getName(), p.modLoc(palettesDir() + c.getName()),
+			.model(() -> (c, p) -> VariantModels.models(p).cubeColumn(c.getName(), p.modLoc(palettesDir() + c.getName()),
 				p.modLoc("block/palettes/framed_glass")))
 			.build()
 			.register();

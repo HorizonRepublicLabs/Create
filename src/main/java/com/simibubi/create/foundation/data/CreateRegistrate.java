@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.platform.services.PlatformHelper;
@@ -198,7 +200,7 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 			.tag(BlockTags.MOSS_REPLACEABLE)
 			.tag(BlockTags.LUSH_GROUND_REPLACEABLE)
 			.item()
-			.model(() -> (c, p) -> p.cubeAll(c.getName(),
+			.model(() -> (c, p) -> VariantModels.models(p).cubeAll(c.getName(),
 				p.modLoc(hasNaturalVariants ? "block/palettes/stone_types/natural/" + name + "_1"
 					: "block/palettes/stone_types/" + c.getName())))
 			.build();

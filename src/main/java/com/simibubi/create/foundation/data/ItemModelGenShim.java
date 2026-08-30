@@ -21,6 +21,14 @@ public class ItemModelGenShim {
 		this.generator = generator;
 	}
 
+	/// A few item models reuse the block cube_column shape.
+	public Identifier cubeColumn(String name, Identifier side, Identifier end) {
+		return withExistingParent(name, Identifier.withDefaultNamespace("block/cube_column"))
+			.texture("side", side)
+			.texture("end", end)
+			.build();
+	}
+
 	public Builder withExistingParent(String name, Identifier parent) {
 		return new Builder(name, parent);
 	}

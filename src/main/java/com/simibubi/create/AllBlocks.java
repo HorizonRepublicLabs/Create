@@ -1297,7 +1297,7 @@ public class AllBlocks {
 			.item()
 			.model(() -> (c, p) -> {
 				String path = "block/" + c.getName();
-				p.cubeColumn(c.getName(), p.modLoc(path + "_side"), p.modLoc(path + "_end"));
+				VariantModels.models(p).cubeColumn(c.getName(), p.modLoc(path + "_side"), p.modLoc(path + "_end"));
 			})
 			.build()
 			.register();
