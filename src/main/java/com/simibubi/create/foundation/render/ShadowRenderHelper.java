@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.render;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.minecraft.world.level.dimension.DimensionType;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -33,7 +35,7 @@ public class ShadowRenderHelper {
 	}
 
 	private static final RenderType SHADOW_LAYER =
-		RenderType.entityNoOutline(Identifier.withDefaultNamespace("textures/misc/shadow.png"));
+		RenderTypes.entityNoOutline(Identifier.withDefaultNamespace("textures/misc/shadow.png"));
 
 	public static void renderShadow(PoseStack matrixStack, SuperRenderTypeBuffer buffer, float opacity, float radius) {
 		PoseStack.Pose entry = matrixStack.last();

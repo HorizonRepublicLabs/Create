@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.simibubi.create.AllItems;
@@ -56,7 +58,7 @@ public class NetheriteBacktankFirstPersonRenderer {
 		model.setupAnim(player, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
 		ModelPart armPart = event.getArm() == HumanoidArm.LEFT ? model.leftSleeve : model.rightSleeve;
 		armPart.xRot = 0.0F;
-		armPart.render(event.getPoseStack(), buffer.getBuffer(RenderType.entitySolid(BACKTANK_ARMOR_LOCATION)),
+		armPart.render(event.getPoseStack(), buffer.getBuffer(RenderTypes.entitySolid(BACKTANK_ARMOR_LOCATION)),
 			LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY);
 		event.setCanceled(true);
 	}

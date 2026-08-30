@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.map;
 
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+
 import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
 
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -51,7 +53,7 @@ public class StationMapDecorationRenderer implements IMapDecorationRenderer {
 		float V0 = sprite.getV0();
 		float U1 = sprite.getU1();
 		float V1 = sprite.getV1();
-		VertexConsumer buffer = bufferSource.getBuffer(RenderType.text(sprite.atlasLocation()));
+		VertexConsumer buffer = bufferSource.getBuffer(RenderTypes.text(sprite.atlasLocation()));
 		Matrix4f mat = poseStack.last().pose();
 		float zOffset = -0.001f;
 		buffer.addVertex(mat, -1.0F, 1.0F, index * zOffset).setColor(-1).setUv(U0, V0).setLight(packedLight);
