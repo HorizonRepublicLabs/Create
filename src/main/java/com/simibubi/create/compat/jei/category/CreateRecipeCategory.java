@@ -100,7 +100,18 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 		return title;
 	}
 
+	/// A category reports its size rather than handing back a background to
+	/// draw; Create still keeps the drawable and paints it itself.
 	@Override
+	public int getWidth() {
+		return background.getWidth();
+	}
+
+	@Override
+	public int getHeight() {
+		return background.getHeight();
+	}
+
 	public IDrawable getBackground() {
 		return background;
 	}
