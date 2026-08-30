@@ -36,7 +36,9 @@ public final class ContraptionType {
 		}
 
 		Identifier id = Identifier.tryParse(typeId);
-		ContraptionType type = CreateBuiltInRegistries.CONTRAPTION_TYPE.get(id);
+		ContraptionType type = CreateBuiltInRegistries.CONTRAPTION_TYPE.get(id)
+			.map(holder -> holder.value())
+			.orElse(null);
 		return type == null ? null : type.factory.get();
 	}
 }

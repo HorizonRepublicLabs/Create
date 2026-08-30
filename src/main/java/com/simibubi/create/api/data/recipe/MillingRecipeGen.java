@@ -1,5 +1,11 @@
 package com.simibubi.create.api.data.recipe;
 
+import net.minecraft.resources.Identifier;
+
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.tags.TagKey;
+
 import java.util.concurrent.CompletableFuture;
 
 import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval;
@@ -32,7 +38,7 @@ public abstract class MillingRecipeGen extends StandardProcessingRecipeGen<Milli
 	@Deprecated(since = "6.0.7", forRemoval = true)
 	protected GeneratedRecipe metalOre(String name, ItemEntry<? extends Item> crushed, int duration) {
 		return create(name + "_ore", b -> b.duration(duration)
-			.withCondition(new NotCondition(new TagEmptyCondition("c", "ores/" + name)))
+			.withCondition(new NotCondition(new TagEmptyCondition<>(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "ores/" + name)))))
 			.require(AllTags.commonItemTag("ores/" + name))
 			.output(crushed.get()));
 	}
