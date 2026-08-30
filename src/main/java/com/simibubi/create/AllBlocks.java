@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+
 import com.simibubi.create.foundation.data.ItemModelGenShim;
 
 import net.minecraft.resources.ResourceKey;
@@ -355,7 +357,7 @@ public class AllBlocks {
 					.setRolls(ConstantValue.exactly(1))
 					.add(LootItem.lootTableItem(AllBlocks.SCHEMATICANNON.get()
 							.asItem())
-						.apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+						.apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
 							.include(AllDataComponents.SCHEMATICANNON_OPTIONS)))));
 			})
 			.item()
@@ -2187,7 +2189,7 @@ public class AllBlocks {
 						.setRolls(ConstantValue.exactly(1))
 						.add(LootItem.lootTableItem(block)
 								.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
-								.apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+								.apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
 										.include(AllDataComponents.TOOLBOX_UUID)
 										.include(AllDataComponents.TOOLBOX_INVENTORY)
 								)

@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import static com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour.interactionBehaviour;
@@ -437,7 +439,7 @@ public class BuilderTransformers {
 					.when(survivesExplosion)
 					.setRolls(ConstantValue.exactly(1))
 					.add(LootItem.lootTableItem(drop.get())
-						.apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+						.apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
 							.include(AllDataComponents.BACKTANK_AIR)))));
 			});
 	}
