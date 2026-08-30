@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -50,7 +54,7 @@ public class DeployerApplicationRecipe extends ItemApplicationRecipe implements 
 						.output(RecipeResult.of(sandpaperRecipe.value(), Minecraft.getInstance().level.registryAccess()))
 						.build();
 
-		return new RecipeHolder<>(id, recipe);
+		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), recipe);
 	}
 
 	@Override

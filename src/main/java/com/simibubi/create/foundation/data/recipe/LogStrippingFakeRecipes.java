@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.data.recipe;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +70,7 @@ public class LogStrippingFakeRecipes {
 				.output(toItem)
 				.build();
 
-		return new RecipeHolder<>(id, recipe);
+		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), recipe);
 	}
 
 }

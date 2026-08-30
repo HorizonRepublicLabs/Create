@@ -1,5 +1,9 @@
 package com.simibubi.create.content.processing.sequenced;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +84,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 			if (recipe.getType() != type || !recipeClass.isInstance(recipe))
 				continue;
 			recipe.enforceNextResult(() -> sequencedAssemblyRecipe.value().advance(sequencedAssemblyRecipe.id(), item, level.getRandom()));
-			return Optional.of(new RecipeHolder<>(sequencedAssemblyRecipe.id(), recipeClass.cast(recipe)));
+			return Optional.of(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, sequencedAssemblyRecipe.id()), recipeClass.cast(recipe)));
 		}
 		return Optional.empty();
 	}
@@ -98,7 +102,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 				if (recipe.getType() == type && recipeClass.isInstance(recipe)) {
 					recipe.enforceNextResult(() -> holder.value().advance(holder.id(), item, level.getRandom()));
 					R castedRecipe = recipeClass.cast(recipe);
-					RecipeHolder<R> h = new RecipeHolder<>(holder.id(), castedRecipe);
+					RecipeHolder<R> h = new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, holder.id()), castedRecipe);
 					if (recipeFilter.test(h))
 						result.add(h);
 				}

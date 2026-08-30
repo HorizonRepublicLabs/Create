@@ -1,5 +1,9 @@
 package com.simibubi.create.compat.jei.category;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -60,7 +64,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 					.withFluidIngredients(fluidIngredient)
 						.withSingleItemOutput(stack)
 						.build();
-				consumer.accept(new RecipeHolder<>(id, recipe));
+				consumer.accept(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), recipe));
 				continue;
 			}
 
@@ -103,7 +107,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 						.withFluidIngredients(fluidIngredient)
 							.withSingleItemOutput(container)
 							.build();
-					consumer.accept(new RecipeHolder<>(id, recipe));
+					consumer.accept(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), recipe));
 				}
 			}
 		}

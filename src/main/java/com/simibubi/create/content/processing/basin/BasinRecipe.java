@@ -1,5 +1,9 @@
 package com.simibubi.create.content.processing.basin;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import java.util.ArrayList;
@@ -185,7 +189,7 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 			.ingredients())
 				.withSingleItemOutput(RecipeResult.of(recipe.value(), Minecraft.getInstance().level.registryAccess()))
 				.build();
-		return new RecipeHolder<>(recipe.id(), basinRecipe);
+		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, recipe.id()), basinRecipe);
 	}
 
 	protected BasinRecipe(IRecipeTypeInfo type, ProcessingRecipeParams params) {

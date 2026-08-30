@@ -1,5 +1,9 @@
 package com.simibubi.create.compat.jei.category;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import java.util.function.Consumer;
@@ -57,7 +61,7 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 						.withFluidOutputs(fluidFromPotionItem)
 						.withSingleItemOutput(new ItemStack(Items.GLASS_BOTTLE))
 						.build();
-				consumer.accept(new RecipeHolder<>(id, recipe));
+				consumer.accept(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), recipe));
 				continue;
 			}
 
@@ -90,7 +94,7 @@ public class ItemDrainCategory extends CreateRecipeCategory<EmptyingRecipe> {
 					.withFluidOutputs(extracted)
 					.withSingleItemOutput(result)
 					.build();
-			consumer.accept(new RecipeHolder<>(id, recipe));
+			consumer.accept(new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), recipe));
 		}
 	}
 

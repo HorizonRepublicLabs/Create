@@ -49,7 +49,7 @@ public interface MountedDispenseBehavior {
 	}
 
 	static Direction getClosestFacingDirection(Vec3 facing) {
-		return Direction.getNearest(facing.x, facing.y, facing.z, Direction.UP);
+		return Direction.getNearest((int) facing.x, (int) facing.y, (int) facing.z, Direction.UP);
 	}
 
 	/**

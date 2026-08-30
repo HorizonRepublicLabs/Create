@@ -210,7 +210,7 @@ public class SawRenderer extends SafeBlockEntityRenderer<SawBlockEntity> {
 			.getUnitVec3i());
 		facingVec = context.rotation.apply(facingVec);
 
-		Direction closestToFacing = Direction.getNearest(facingVec.x, facingVec.y, facingVec.z, Direction.UP);
+		Direction closestToFacing = Direction.getNearest((int) facingVec.x, (int) facingVec.y, (int) facingVec.z, Direction.UP);
 
 		boolean horizontal = closestToFacing.getAxis()
 			.isHorizontal();

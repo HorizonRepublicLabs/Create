@@ -1,5 +1,9 @@
 package com.simibubi.create.content.processing.sequenced;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.ArrayList;
@@ -98,7 +102,7 @@ public class SequencedAssemblyRecipeBuilder {
 	}
 
 	public RecipeHolder<SequencedAssemblyRecipe> build() {
-		return new RecipeHolder<>(id, recipe);
+		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), recipe);
 	}
 
 	public void build(RecipeOutput consumer) {

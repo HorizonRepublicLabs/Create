@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.potion;
 
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.ArrayList;
@@ -157,7 +159,7 @@ public class PotionMixingRecipes {
 				.requiresHeat(HeatCondition.HEATED)
 				.build();
 
-		return new RecipeHolder<>(recipeId, recipe);
+		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, recipeId), recipe);
 	}
 
 	private static Map<Item, List<MixingRecipe>> sortRecipesByItem(List<RecipeHolder<MixingRecipe>> all) {

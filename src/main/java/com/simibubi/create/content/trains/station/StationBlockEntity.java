@@ -660,7 +660,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 			.get(0)
 			.normalize()
 			.scale(axisDirection.getStep());
-		return assemblyDirection = Direction.getNearest(axis.x, axis.y, axis.z, Direction.UP);
+		return assemblyDirection = Direction.getNearest((int) axis.x, (int) axis.y, (int) axis.z, Direction.UP);
 	}
 
 	@Override
@@ -986,7 +986,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 		if (axis == null)
 			return false;
 
-		Direction nearest = Direction.getNearest(axis.x, 0, axis.z, Direction.UP);
+		Direction nearest = Direction.getNearest((int) axis.x, (int) 0, (int) axis.z, Direction.UP);
 		flagYRot = (int) (-nearest.toYRot() - 90);
 
 		Vec3 diff = Vec3.atLowerCornerOf(trackPos.subtract(worldPosition))

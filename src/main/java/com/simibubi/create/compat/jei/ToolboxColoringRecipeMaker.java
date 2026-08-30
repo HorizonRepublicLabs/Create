@@ -1,5 +1,9 @@
 package com.simibubi.create.compat.jei;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.neoforged.neoforge.common.crafting.CompoundIngredient;
@@ -49,7 +53,7 @@ public final class ToolboxColoringRecipeMaker {
 					.get();
 				ItemStack output = new ItemStack(coloredShulkerBox);
 				ShapelessRecipe recipe = new ShapelessRecipe(group, CraftingBookCategory.MISC, output, inputs);
-				return new RecipeHolder<>(Create.asResource(group + "/" + color), recipe);
+				return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, Create.asResource(group + "/" + color)), recipe);
 			});
 	}
 

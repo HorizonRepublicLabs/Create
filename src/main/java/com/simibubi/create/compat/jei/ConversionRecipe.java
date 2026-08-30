@@ -1,5 +1,9 @@
 package com.simibubi.create.compat.jei;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.simibubi.create.AllRecipeTypes;
@@ -29,7 +33,7 @@ public class ConversionRecipe extends StandardProcessingRecipe<RecipeWrapper> {
 			.withItemIngredients(Ingredient.of(from))
 			.withSingleItemOutput(to)
 			.build();
-		return new RecipeHolder<>(recipeId, recipe);
+		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, recipeId), recipe);
 	}
 
 	public ConversionRecipe(ProcessingRecipeParams params) {

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.List;
@@ -142,7 +146,7 @@ public class ManualApplicationRecipe extends ItemApplicationRecipe {
 			builder.output(output);
 		if (mar.shouldKeepHeldItem())
 			builder.toolNotConsumed();
-		return new RecipeHolder<>(id, builder.build());
+		return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, id), builder.build());
 	}
 
 	public boolean testBlock(BlockState in) {

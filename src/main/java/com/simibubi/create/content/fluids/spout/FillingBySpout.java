@@ -1,5 +1,9 @@
 package com.simibubi.create.content.fluids.spout;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -73,7 +77,7 @@ public class FillingBySpout {
 						FillingRecipe fr = (FillingRecipe) recipe.value();
 						SizedFluidIngredient requiredFluid = fr.getRequiredFluid();
 						if (requiredFluid.test(toFill))
-							return new RecipeHolder<>(recipe.id(), fr);
+							return new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, recipe.id()), fr);
 					}
 					return null;
 				});
