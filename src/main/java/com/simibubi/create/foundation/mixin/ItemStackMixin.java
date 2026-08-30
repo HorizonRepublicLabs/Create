@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.mixin;
 
+import net.minecraft.world.item.Item;
+
+import net.minecraft.core.Holder;
+
 import java.util.function.BiFunction;
 
 import com.simibubi.create.content.equipment.clipboard.ClipboardBlockItem;
@@ -23,9 +27,11 @@ import net.minecraft.world.level.ItemLike;
 @Deprecated(since = "6.0.7", forRemoval = true)
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
-	@Inject(method = "<init>(Lnet/minecraft/world/level/ItemLike;ILnet/minecraft/core/component/PatchedDataComponentMap;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;verifyComponentsAfterLoad(Lnet/minecraft/world/item/ItemStack;)V"))
-	private void create$migrateOldClipboardComponents(ItemLike item, int count, PatchedDataComponentMap components, CallbackInfo ci) {
-		if (!(item.asItem() instanceof ClipboardBlockItem) || components.isPatchEmpty() || components.has(AllDataComponents.CLIPBOARD_CONTENT))
+	/// The stack's private constructor takes a holder now and no longer calls
+	/// verifyComponentsAfterLoad, so the migration runs when it returns.
+	@Inject(method = "<init>(Lnet/minecraft/core/Holder;ILnet/minecraft/core/component/PatchedDataComponentMap;)V", at = @At("RETURN"))
+	private void create$migrateOldClipboardComponents(Holder<Item> item, int count, PatchedDataComponentMap components, CallbackInfo ci) {
+		if (!(item.value() instanceof ClipboardBlockItem) || components.isPatchEmpty() || components.has(AllDataComponents.CLIPBOARD_CONTENT))
 			return;
 
 		ClipboardContent content = ClipboardContent.EMPTY;

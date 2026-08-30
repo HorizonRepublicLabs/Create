@@ -32,7 +32,8 @@ public class SmithingMenuMixin {
 		method = "createResult",
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/world/item/crafting/SmithingRecipe;assemble(Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;"
+			// a recipe assembles from its input alone now
+			target = "Lnet/minecraft/world/item/crafting/SmithingRecipe;assemble(Lnet/minecraft/world/item/crafting/RecipeInput;)Lnet/minecraft/world/item/ItemStack;"
 		)
 	)
 	private ItemStack create$preventUnbreakingOnBacktanks(ItemStack original) {
