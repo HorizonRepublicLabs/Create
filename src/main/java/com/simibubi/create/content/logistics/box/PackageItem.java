@@ -337,7 +337,7 @@ public class PackageItem extends Item {
 			}
 		}
 
-		return new InteractionResult(InteractionResult.SUCCESS, box);
+		return InteractionResult.SUCCESS.heldItemTransformedTo(box);
 	}
 
 	@Override

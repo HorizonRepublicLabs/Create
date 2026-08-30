@@ -191,12 +191,12 @@ public class ShoppingListItem extends Item {
 	@Override
 	public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
 		if (pUsedHand == InteractionHand.OFF_HAND || pPlayer == null || !pPlayer.isShiftKeyDown())
-			return new InteractionResult(InteractionResult.PASS, pPlayer.getItemInHand(pUsedHand));
+			return InteractionResult.PASS;
 
 		CreateLang.translate("table_cloth.shopping_list_discarded")
 			.sendStatus(pPlayer);
 		pPlayer.playSound(SoundEvents.BOOK_PAGE_TURN);
-		return new InteractionResult(InteractionResult.SUCCESS, ItemStack.EMPTY);
+		return InteractionResult.SUCCESS.heldItemTransformedTo(ItemStack.EMPTY);
 	}
 
 	@Override

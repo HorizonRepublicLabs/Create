@@ -153,7 +153,7 @@ public class SchematicItem extends Item {
 	public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		if (!onItemUse(playerIn, handIn))
 			return super.use(worldIn, playerIn, handIn);
-		return new InteractionResult(InteractionResult.SUCCESS, playerIn.getItemInHand(handIn));
+		return InteractionResult.SUCCESS.heldItemTransformedTo(playerIn.getItemInHand(handIn));
 	}
 
 	private boolean onItemUse(Player player, InteractionHand hand) {

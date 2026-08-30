@@ -116,11 +116,11 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 				player.getCooldowns()
 					.addCooldown(item.getItem(), 10);
 			}
-			return new InteractionResult(InteractionResult.SUCCESS, item);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(item);
 		}
 
 		if (ShootableGadgetItemMethods.shouldSwap(player, item, hand, this::isZapper))
-			return new InteractionResult(InteractionResult.FAIL, item);
+			return InteractionResult.FAIL;
 
 		// Check if can be used
 		Component msg = validateUsage(item);
@@ -128,7 +128,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 			AllSoundEvents.DENY.play(world, player, player.blockPosition());
 			CreateLang.sendStatus(player, msg.plainCopy()
 				.withStyle(ChatFormatting.RED), true);
-			return new InteractionResult(InteractionResult.FAIL, item);
+			return InteractionResult.FAIL;
 		}
 
 		BlockState stateToUse = Blocks.AIR.defaultBlockState();
@@ -153,7 +153,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 		// No target
 		if (pos == null || stateReplaced.getBlock() == Blocks.AIR) {
 			ShootableGadgetItemMethods.applyCooldown(player, item, hand, this::isZapper, getCooldownDelay(item));
-			return new InteractionResult(InteractionResult.SUCCESS, item);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(item);
 		}
 
 		// Find exact position of gun barrel for VFX
@@ -162,7 +162,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 		// Client side
 		if (world.isClientSide()) {
 			CreateClient.ZAPPER_RENDER_HANDLER.dontAnimateItem(hand);
-			return new InteractionResult(InteractionResult.SUCCESS, item);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(item);
 		}
 
 		// Server side
@@ -172,7 +172,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 				b -> new ZapperBeamPacket(barrelPos, hand, b, raytrace.getLocation()));
 		}
 
-		return new InteractionResult(InteractionResult.SUCCESS, item);
+		return InteractionResult.SUCCESS.heldItemTransformedTo(item);
 	}
 
 	public Component validateUsage(ItemStack item) {

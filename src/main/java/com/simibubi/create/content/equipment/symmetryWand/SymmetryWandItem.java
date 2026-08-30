@@ -141,12 +141,12 @@ public class SymmetryWandItem extends Item {
 				playerIn.getCooldowns()
 					.addCooldown(this, 5);
 			}
-			return new InteractionResult(InteractionResult.SUCCESS, wand);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(wand);
 		}
 
 		// No Shift -> Clear Mirror
 		wand.set(AllDataComponents.SYMMETRY_WAND_ENABLE, false);
-		return new InteractionResult(InteractionResult.SUCCESS, wand);
+		return InteractionResult.SUCCESS.heldItemTransformedTo(wand);
 	}
 
 	@OnlyIn(Dist.CLIENT)

@@ -54,11 +54,11 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 	@Override
 	public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
-		InteractionResult FAIL = new InteractionResult(InteractionResult.FAIL, itemstack);
+		InteractionResult FAIL = InteractionResult.FAIL;
 
 		if (itemstack.has(AllDataComponents.SAND_PAPER_POLISHING)) {
 			playerIn.startUsingItem(handIn);
-			return new InteractionResult(InteractionResult.PASS, itemstack);
+			return InteractionResult.PASS;
 		}
 
 		InteractionHand otherHand =
@@ -70,7 +70,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 			playerIn.startUsingItem(handIn);
 			itemstack.set(AllDataComponents.SAND_PAPER_POLISHING, new SandPaperItemComponent(toPolish));
 			playerIn.setItemInHand(otherHand, item);
-			return new InteractionResult(InteractionResult.SUCCESS, itemstack);
+			return InteractionResult.SUCCESS.heldItemTransformedTo(itemstack);
 		}
 
 		BlockHitResult raytraceresult = getPlayerPOVHitResult(worldIn, playerIn, ClipContext.Fluid.NONE);
@@ -108,7 +108,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 				pickUp.setItem(item);
 		}
 
-		return new InteractionResult(InteractionResult.SUCCESS, itemstack);
+		return InteractionResult.SUCCESS.heldItemTransformedTo(itemstack);
 	}
 
 	@Override
