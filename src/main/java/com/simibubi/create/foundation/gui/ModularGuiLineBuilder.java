@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.gui;
 
+import com.simibubi.create.foundation.gui.widget.FilteredEditBox;
+
 import java.util.function.BiConsumer;
 
 import com.simibubi.create.foundation.gui.widget.Label;
@@ -74,9 +76,9 @@ public class ModularGuiLineBuilder {
 		})), dataKey);
 	}
 
-	public ModularGuiLineBuilder addTextInput(int x, int width, BiConsumer<EditBox, TooltipArea> inputTransform,
+	public ModularGuiLineBuilder addTextInput(int x, int width, BiConsumer<FilteredEditBox, TooltipArea> inputTransform,
 											  String dataKey) {
-		EditBox input = new EditBox(font, x + this.x + 5, y, width - 9, 8, CommonComponents.EMPTY);
+		FilteredEditBox input = new FilteredEditBox(font, x + this.x + 5, y, width - 9, 8, CommonComponents.EMPTY);
 		input.setBordered(false);
 		input.setTextColor(0xffffff);
 		input.setFocused(false);

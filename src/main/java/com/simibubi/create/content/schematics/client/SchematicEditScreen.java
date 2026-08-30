@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.client;
 
+import com.simibubi.create.foundation.gui.widget.FilteredEditBox;
+
 import net.minecraft.client.input.MouseButtonInfo;
 
 import net.minecraft.client.input.MouseButtonEvent;
@@ -43,9 +45,9 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 
 	private AllGuiTextures background;
 
-	private EditBox xInput;
-	private EditBox yInput;
-	private EditBox zInput;
+	private FilteredEditBox xInput;
+	private FilteredEditBox yInput;
+	private FilteredEditBox zInput;
 	private IconButton confirmButton;
 
 	private ScrollInput rotationArea;
@@ -66,9 +68,9 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 		int x = guiLeft;
 		int y = guiTop + 2;
 
-		xInput = new EditBox(font, x + 50, y + 26, 34, 10, CommonComponents.EMPTY);
-		yInput = new EditBox(font, x + 90, y + 26, 34, 10, CommonComponents.EMPTY);
-		zInput = new EditBox(font, x + 130, y + 26, 34, 10, CommonComponents.EMPTY);
+		xInput = new FilteredEditBox(font, x + 50, y + 26, 34, 10, CommonComponents.EMPTY);
+		yInput = new FilteredEditBox(font, x + 90, y + 26, 34, 10, CommonComponents.EMPTY);
+		zInput = new FilteredEditBox(font, x + 130, y + 26, 34, 10, CommonComponents.EMPTY);
 
 		BlockPos anchor = handler.getTransformation()
 			.getAnchor();
@@ -83,7 +85,7 @@ public class SchematicEditScreen extends AbstractSimiScreen {
 			zInput.setValue("" + alt.getZ());
 		}
 
-		for (EditBox widget : new EditBox[]{xInput, yInput, zInput}) {
+		for (FilteredEditBox widget : new FilteredEditBox[]{xInput, yInput, zInput}) {
 			widget.setMaxLength(6);
 			widget.setBordered(false);
 			widget.setTextColor(0xFFFFFF);

@@ -1,5 +1,11 @@
 package com.simibubi.create.content.contraptions.mounted;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
+import net.minecraft.util.ProblemReporter;
+
+import net.minecraft.world.level.storage.TagValueOutput;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -221,11 +227,12 @@ public class CartAssemblerBlockEntity extends SmartBlockEntity implements IDispl
 	protected void disassembleCart(AbstractMinecart cart) {
 		cart.ejectPassengers();
 		if (cart instanceof MinecartFurnace) {
-			CompoundTag nbt = new CompoundTag();
-			cart.saveAsPassenger(nbt);
+			TagValueOutput output = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, cart.registryAccess());
+			cart.saveAsPassenger(output);
+			CompoundTag nbt = output.buildResult();
 			nbt.putDouble("PushZ", cart.getDeltaMovement().x);
 			nbt.putDouble("PushX", cart.getDeltaMovement().z);
-			cart.load(nbt);
+			cart.load(ValueIOShim.inputOf(nbt, cart.registryAccess()));
 		}
 	}
 
