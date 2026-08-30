@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import java.util.ArrayList;
@@ -25,7 +27,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.neoforge.capabilities.Capabilities.FluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 
@@ -141,7 +142,7 @@ public abstract class BasinOperatingBlockEntity extends KineticBlockEntity {
 		try {
 
 			IItemHandler availableItems = ItemCaps.at(level, basin.getBlockPos(), null);
-			IFluidHandler availableFluids = level.getCapability(FluidHandler.BLOCK, basin.getBlockPos(), null);
+			IFluidHandler availableFluids = FluidCaps.at(level, basin.getBlockPos(), null);
 
 			// no point even searching, since no recipe will ever match
 			if (availableItems == null && availableFluids == null) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -34,7 +36,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import net.neoforged.neoforge.capabilities.Capabilities.FluidHandler;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
@@ -68,7 +69,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 				continue;
 			}
 
-			IFluidHandlerItem capability = stack.getCapability(FluidHandler.ITEM);
+			IFluidHandlerItem capability = FluidCaps.of(stack);
 			if (capability == null)
 				continue;
 
@@ -82,7 +83,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 					continue;
 
 				ItemStack copy = stack.copy();
-				IFluidHandlerItem fhi = copy.getCapability(FluidHandler.ITEM);
+				IFluidHandlerItem fhi = FluidCaps.of(copy);
 				if (fhi != null) {
 					if (!GenericItemFilling.isFluidHandlerValid(copy, fhi))
 						continue;
