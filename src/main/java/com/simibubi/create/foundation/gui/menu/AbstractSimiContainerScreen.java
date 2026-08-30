@@ -111,7 +111,7 @@ public abstract class AbstractSimiContainerScreen<T extends AbstractContainerMen
 
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		partialTicks = AnimationTickHolder.getPartialTicksUI();
+		partialTicks = AnimationTickHolder.getGuiPartialTicks();
 
 		super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 
@@ -127,7 +127,7 @@ public abstract class AbstractSimiContainerScreen<T extends AbstractContainerMen
 	}
 
 	protected void renderForeground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		renderTooltip(graphics, mouseX, mouseY);
+		extractTooltip(graphics, mouseX, mouseY);
 		for (Renderable widget : renderables) {
 			if (widget instanceof AbstractSimiWidget simiWidget && simiWidget.isMouseOver(mouseX, mouseY)) {
 				List<Component> tooltip = simiWidget.getToolTip();

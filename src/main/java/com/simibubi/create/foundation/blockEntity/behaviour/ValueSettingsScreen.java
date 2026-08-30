@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.blockEntity.behaviour;
 
+import net.minecraft.client.input.KeyEvent;
+
 import net.minecraft.client.input.MouseButtonEvent;
 
 import com.simibubi.create.foundation.gui.Modifiers;
@@ -298,15 +300,15 @@ public class ValueSettingsScreen extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean keyReleased(int pKeyCode, int pScanCode, int pModifiers) {
-		if (minecraft.options.keyUse.matches(pKeyCode, pScanCode)) {
+	public boolean keyReleased(KeyEvent event) {
+		if (minecraft.options.keyUse.matches(event)) {
 			Window window = minecraft.getWindow();
 			double x = minecraft.mouseHandler.xpos() * window.getGuiScaledWidth() / window.getScreenWidth();
 			double y = minecraft.mouseHandler.ypos() * window.getGuiScaledHeight() / window.getScreenHeight();
 			saveAndClose(x, y);
 			return true;
 		}
-		return super.keyReleased(pKeyCode, pScanCode, pModifiers);
+		return super.keyReleased(event);
 	}
 
 	@Override

@@ -174,7 +174,7 @@ public class StockKeeperCategoryScreen extends AbstractSimiContainerScreen<Stock
 
 	@Override
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
-		partialTicks = AnimationTickHolder.getPartialTicksUI();
+		partialTicks = AnimationTickHolder.getGuiPartialTicks();
 
 		if (menu.slotsActive)
 			super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
