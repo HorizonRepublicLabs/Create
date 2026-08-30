@@ -25,6 +25,11 @@ import net.minecraft.world.phys.Vec3;
  *
  */
 public class MinecartSim2020 {
+
+	/// AbstractMinecart.getSlopeAdjustment is gone; it was this constant, and
+	/// Create's simulation has to match vanilla's slope handling.
+	private static final double SLOPE_ADJUSTMENT = 0.0078125D;
+
 	private static final Map<RailShape, Pair<Vec3i, Vec3i>> MATRIX =
 		Util.make(Maps.newEnumMap(RailShape.class), (map) -> {
 			Vec3i west = Direction.WEST.getUnitVec3i();
@@ -84,19 +89,19 @@ public class MinecartSim2020 {
 		RailShape railshape = abstractrailblock.getRailDirection(trackState, cart.level(), cartPos, cart);
 		switch (railshape) {
 		case ASCENDING_EAST:
-			forcedMovement = forcedMovement.add(-1 * cart.getSlopeAdjustment(), 0.0D, 0.0D);
+			forcedMovement = forcedMovement.add(-1 * SLOPE_ADJUSTMENT, 0.0D, 0.0D);
 			actualY++;
 			break;
 		case ASCENDING_WEST:
-			forcedMovement = forcedMovement.add(cart.getSlopeAdjustment(), 0.0D, 0.0D);
+			forcedMovement = forcedMovement.add(SLOPE_ADJUSTMENT, 0.0D, 0.0D);
 			actualY++;
 			break;
 		case ASCENDING_NORTH:
-			forcedMovement = forcedMovement.add(0.0D, 0.0D, cart.getSlopeAdjustment());
+			forcedMovement = forcedMovement.add(0.0D, 0.0D, SLOPE_ADJUSTMENT);
 			actualY++;
 			break;
 		case ASCENDING_SOUTH:
-			forcedMovement = forcedMovement.add(0.0D, 0.0D, -1 * cart.getSlopeAdjustment());
+			forcedMovement = forcedMovement.add(0.0D, 0.0D, -1 * SLOPE_ADJUSTMENT);
 			actualY++;
 		default:
 			break;
