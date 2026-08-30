@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.blaze3d.platform.GlUtil;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.simibubi.create.Create;
 import com.simibubi.create.CreateBuildInfo;
 import com.simibubi.create.compat.pojav.PojavChecker;
@@ -87,8 +87,13 @@ public class DebugInformation {
 						.toString())
 					.orElse("None"))
 				.put("Flywheel Backend", () -> Backend.REGISTRY.getIdOrThrow(BackendManager.currentBackend()).toString())
-				.put("OpenGL Renderer", GlUtil::getRenderer)
-				.put("OpenGL Version", GlUtil::getOpenGLVersion)
+				// The gpu describes itself now rather than the gl bindings being asked.
+				.put("Graphics Device", () -> RenderSystem.getDevice()
+					.getDeviceInfo()
+					.name())
+				.put("Graphics Backend", () -> RenderSystem.getDevice()
+					.getDeviceInfo()
+					.backendName())
 				.put("Graphics Mode", () -> Minecraft.getInstance().options.graphicsPreset().get().name().toLowerCase(Locale.ROOT))
 				.put("PojavLauncher Detected", () -> String.valueOf(PojavChecker.IS_PRESENT))
 				.buildTo(DebugInformation::registerClientInfo);
