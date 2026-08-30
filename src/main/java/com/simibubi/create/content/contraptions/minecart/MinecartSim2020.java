@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
+
 import java.util.Map;
 
 import com.google.common.collect.Maps;
@@ -82,7 +84,7 @@ public class MinecartSim2020 {
 		double actualY = y;
 		double actualZ = z;
 
-		Vec3 actualVec = cart.getPos(actualX, actualY, actualZ);
+		Vec3 actualVec = ((OldMinecartBehavior) cart.getBehavior()).getPos(actualX, actualY, actualZ);
 		actualY = cartPos.getY() + 1;
 
 		BaseRailBlock abstractrailblock = (BaseRailBlock) trackState.getBlock();
@@ -159,7 +161,7 @@ public class MinecartSim2020 {
 		y = cart.getY();
 		z = cart.getZ();
 
-		Vec3 Vector3d3 = cart.getPos(x, y, z);
+		Vec3 Vector3d3 = ((OldMinecartBehavior) cart.getBehavior()).getPos(x, y, z);
 		if (Vector3d3 != null && actualVec != null) {
 			double d17 = (actualVec.y - Vector3d3.y) * 0.05D;
 			Vec3 Vector3d4 = cart.getDeltaMovement();

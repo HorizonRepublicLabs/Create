@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
+
 import net.minecraft.core.UUIDUtil;
 
 import static net.createmod.catnip.api.math.AngleHelper.angleLerp;
@@ -579,11 +581,11 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		double cartX = Mth.lerp(partialTicks, cart.xOld, cart.getX());
 		double cartY = Mth.lerp(partialTicks, cart.yOld, cart.getY());
 		double cartZ = Mth.lerp(partialTicks, cart.zOld, cart.getZ());
-		Vec3 cartPos = cart.getPos(cartX, cartY, cartZ);
+		Vec3 cartPos = ((OldMinecartBehavior) cart.getBehavior()).getPos(cartX, cartY, cartZ);
 
 		if (cartPos != null) {
-			Vec3 cartPosFront = cart.getPosOffs(cartX, cartY, cartZ, (double) 0.3F);
-			Vec3 cartPosBack = cart.getPosOffs(cartX, cartY, cartZ, (double) -0.3F);
+			Vec3 cartPosFront = ((OldMinecartBehavior) cart.getBehavior()).getPosOffs(cartX, cartY, cartZ, (double) 0.3F);
+			Vec3 cartPosBack = ((OldMinecartBehavior) cart.getBehavior()).getPosOffs(cartX, cartY, cartZ, (double) -0.3F);
 			if (cartPosFront == null)
 				cartPosFront = cartPos;
 			if (cartPosBack == null)

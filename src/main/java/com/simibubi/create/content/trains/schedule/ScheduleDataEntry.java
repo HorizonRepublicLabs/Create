@@ -28,7 +28,7 @@ public abstract class ScheduleDataEntry implements IScheduleInput {
 
 	protected <T> T enumData(String key, Class<T> enumClass) {
 		T[] enumConstants = enumClass.getEnumConstants();
-		return enumConstants[data.getOrDefault(key, 0) % enumConstants.length];
+		return enumConstants[data.getIntOr(key, 0) % enumConstants.length];
 	}
 
 	protected String textData(String key) {
@@ -36,7 +36,7 @@ public abstract class ScheduleDataEntry implements IScheduleInput {
 	}
 
 	protected int intData(String key) {
-		return data.getOrDefault(key, 0);
+		return data.getIntOr(key, 0);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -144,12 +146,12 @@ public class CouplingRenderer {
 		Vec3 frontVec = positionVec.add(VecHelper.rotate(new Vec3(.5, 0, 0), 180 - yaw, Direction.Axis.Y));
 		Vec3 backVec = positionVec.add(VecHelper.rotate(new Vec3(-.5, 0, 0), 180 - yaw, Direction.Axis.Y));
 
-		Vec3 railVecOfPos = cart.getPos(xIn, yIn, zIn);
+		Vec3 railVecOfPos = ((OldMinecartBehavior) cart.getBehavior()).getPos(xIn, yIn, zIn);
 		boolean flip = false;
 
 		if (railVecOfPos != null) {
-			frontVec = cart.getPosOffs(xIn, yIn, zIn, (double) 0.3F);
-			backVec = cart.getPosOffs(xIn, yIn, zIn, (double) -0.3F);
+			frontVec = ((OldMinecartBehavior) cart.getBehavior()).getPosOffs(xIn, yIn, zIn, (double) 0.3F);
+			backVec = ((OldMinecartBehavior) cart.getBehavior()).getPosOffs(xIn, yIn, zIn, (double) -0.3F);
 			if (frontVec == null)
 				frontVec = railVecOfPos;
 			if (backVec == null)
