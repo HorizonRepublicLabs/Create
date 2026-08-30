@@ -343,7 +343,7 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 	}
 
 	@Override
-	public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+	protected VoxelShape getOcclusionShape(BlockState pState) {
 		return OCCLUSION_BOX;
 	}
 

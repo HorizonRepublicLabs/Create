@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.minecraft.world.item.ItemInstance;
+
 import java.util.List;
 
 import com.simibubi.create.foundation.advancement.AllAdvancements;
@@ -41,7 +43,7 @@ public class DivingHelmetItem extends BaseArmorItem {
 	}
 
 	@Override
-	public int getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment) {
+	public int getEnchantmentLevel(ItemInstance stack, Holder<Enchantment> enchantment) {
 		if (enchantment.is(Enchantments.AQUA_AFFINITY))
 			return 1;
 		return super.getEnchantmentLevel(stack, enchantment);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import net.minecraft.world.level.BlockAndLightGetter;
+
 import net.minecraft.world.level.BlockGetter;
 
 import net.minecraft.core.BlockPos;
@@ -24,7 +26,7 @@ public class ConnectedGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	public boolean shouldDisplayFluidOverlay(BlockState state, BlockGetter world, BlockPos pos, FluidState fluidState) {
+	public boolean shouldDisplayFluidOverlay(BlockState state, BlockAndLightGetter world, BlockPos pos, FluidState fluidState) {
 		return true;
 	}
 }
