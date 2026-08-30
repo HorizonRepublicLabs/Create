@@ -54,7 +54,7 @@ public class CogwheelBlockItem extends BlockItem {
 		BlockHitResult ray = new BlockHitResult(context.getClickLocation(), context.getClickedFace(), pos, true);
 		if (helper.matchesState(state) && player != null && !player.isShiftKeyDown()) {
 			return helper.getOffset(player, world, state, pos, ray)
-				.placeInWorld(world, this, player, context.getHand(), ray).result();
+				.placeInWorld(world, this, player, context.getHand(), ray);
 		}
 
 		if (integratedCogHelper != null) {
@@ -62,7 +62,7 @@ public class CogwheelBlockItem extends BlockItem {
 
 			if (helper.matchesState(state) && player != null && !player.isShiftKeyDown()) {
 				return helper.getOffset(player, world, state, pos, ray)
-					.placeInWorld(world, this, player, context.getHand(), ray).result();
+					.placeInWorld(world, this, player, context.getHand(), ray);
 			}
 		}
 

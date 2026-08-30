@@ -461,7 +461,7 @@ public class BlockHelper {
 				player.getItemInHand(hand), level, player, hand, ray
 		);
 		if (iteminteractionresult.consumesAction()) {
-			return iteminteractionresult.result();
+			return iteminteractionresult;
 		}
 
 		if (iteminteractionresult == InteractionResult.TRY_WITH_EMPTY_HAND && hand == InteractionHand.MAIN_HAND) {

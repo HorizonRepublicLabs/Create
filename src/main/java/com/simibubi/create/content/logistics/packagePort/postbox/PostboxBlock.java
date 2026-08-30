@@ -93,7 +93,7 @@ public class PostboxBlock extends HorizontalDirectionalBlock
 
 	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-		return onBlockEntityUse(level, pos, be -> be.use(player).result());
+		return onBlockEntityUse(level, pos, be -> be.use(player));
 	}
 
 	@Override
