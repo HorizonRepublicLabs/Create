@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packager;
 
+import net.minecraft.client.renderer.texture.OverlayTexture;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.CreateItemRenderer;
@@ -75,7 +77,7 @@ public class PackagerRenderer extends SmartBlockEntityRenderer<PackagerBlockEnti
 				.rotateYDegrees(facing.toYRot())
 				.translate(0, 2 / 16f, 0)
 				.scale(1.49f, 1.49f, 1.49f);
-			CreateItemRenderer.render(null, renderedBox, ms, buffer, ItemDisplayContext.FIXED, false, light);
+			CreateItemRenderer.render(renderedBox, ItemDisplayContext.FIXED, ms, buffer, light, OverlayTexture.NO_OVERLAY);
 			ms.popPose();
 		}
 	}

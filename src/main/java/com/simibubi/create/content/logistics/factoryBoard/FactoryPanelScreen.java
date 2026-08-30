@@ -83,7 +83,6 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 
 	public FactoryPanelScreen(FactoryPanelBehaviour behaviour) {
 		this.behaviour = behaviour;
-		minecraft = Minecraft.getInstance();
 		restocker = behaviour.panelBE().restocker;
 		availableCraftingRecipe = null;
 		craftingActive = !behaviour.activeCraftingArrangement.isEmpty();

@@ -1,5 +1,8 @@
 package com.simibubi.create;
 
+
+import net.minecraft.core.registries.BuiltInRegistries;
+
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
@@ -43,7 +46,10 @@ public class AllEnchantments {
 						EnchantmentEffectComponents.AMMO_USE,
 						new SetValue(LevelBasedValue.perLevel(0.0F, 33.3333333333F)),
 						MatchTool.toolMatches(
-								ItemPredicate.Builder.item().of() // TODO - Fix potato recovery
+								// The predicate takes a lookup and what it matches; the
+								// enchantment only ever applies to the cannon itself.
+								ItemPredicate.Builder.item()
+									.of(BuiltInRegistries.ITEM, AllItems.POTATO_CANNON.get())
 						)
 				)
 		);
