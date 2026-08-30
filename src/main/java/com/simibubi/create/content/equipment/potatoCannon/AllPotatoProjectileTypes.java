@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import net.minecraft.world.item.component.Consumables;
+
 import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
 import com.simibubi.create.api.equipment.potatoCannon.PotatoCannonProjectileType;
@@ -162,7 +164,7 @@ public class AllPotatoProjectileTypes {
 			.knockback(0.05f)
 			.renderTumbling()
 			.soundPitch(1.1f)
-			.onEntityHit(new FoodEffects(Foods.ENCHANTED_GOLDEN_APPLE, false))
+			.onEntityHit(new FoodEffects(Consumables.ENCHANTED_GOLDEN_APPLE, false))
 			.addItems(Items.ENCHANTED_GOLDEN_APPLE)
 			.build());
 
@@ -267,7 +269,7 @@ public class AllPotatoProjectileTypes {
 			.velocity(1.1f)
 			.renderTowardMotion(140, 1)
 			.sticky()
-			.onEntityHit(new FoodEffects(Foods.PUFFERFISH, false))
+			.onEntityHit(new FoodEffects(Consumables.PUFFERFISH, false))
 			.soundPitch(1.1f)
 			.addItems(Items.PUFFERFISH)
 			.build());
