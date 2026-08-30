@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import net.minecraft.world.entity.player.PlayerModelPart;
+
+import net.minecraft.resources.Identifier;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -117,10 +121,16 @@ public abstract class ShootableGadgetRenderHandler {
 		ms.translate(flip * 5.6F, 0.0F, 0.0F);
 		ms.mulPose(Axis.YP.rotationDegrees(flip * 40.0F));
 		transformHand(ms, flip, equipProgress, recoil, pt);
+		// The hand is drawn from the skin and sleeve rather than the player.
+		Identifier skinTexture = player.getSkin()
+			.body()
+			.texturePath();
 		if (rightHand)
-			playerrenderer.renderRightHand(ms, buffer, light, player);
+			playerrenderer.renderRightHand(ms, buffer, light, skinTexture,
+				player.isModelPartShown(PlayerModelPart.RIGHT_SLEEVE), player);
 		else
-			playerrenderer.renderLeftHand(ms, buffer, light, player);
+			playerrenderer.renderLeftHand(ms, buffer, light, skinTexture,
+				player.isModelPartShown(PlayerModelPart.LEFT_SLEEVE), player);
 		ms.popPose();
 
 		// Render gadget
@@ -129,10 +139,10 @@ public abstract class ShootableGadgetRenderHandler {
 		ms.mulPose(Axis.YP.rotationDegrees(flip * f6 * 70.0F));
 		ms.mulPose(Axis.ZP.rotationDegrees(flip * f5 * -20.0F));
 		transformTool(ms, flip, equipProgress, recoil, pt);
-		firstPersonRenderer.item(mc.player, heldItem,
+		firstPersonRenderer.renderItem(mc.player, heldItem,
 			rightHand ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND
 				: ItemDisplayContext.FIRST_PERSON_LEFT_HAND,
-			!rightHand, ms, buffer, light);
+			ms, buffer, light);
 		ms.popPose();
 
 		event.setCanceled(true);

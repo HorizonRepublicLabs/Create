@@ -1,5 +1,9 @@
 package com.simibubi.create.content.fluids.tank;
 
+import net.minecraft.util.ProblemReporter;
+
+import net.minecraft.world.level.storage.TagValueOutput;
+
 import com.simibubi.create.foundation.utility.StackNbt;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -59,10 +63,15 @@ public class FluidTankItem extends BlockItem {
 				FluidStack fluid = StackNbt.parseFluid(minecraftserver.registryAccess(), nbt.getCompoundOrEmpty("TankContent"));
 				if (!fluid.isEmpty()) {
 					fluid.setAmount(Math.min(FluidTankBlockEntity.getCapacityMultiplier(), fluid.getAmount()));
-					nbt.store("TankContent", ItemStack.OPTIONAL_CODEC, fluid);
+					// A compound stores fluids through their own codec.
+					nbt.store("TankContent", FluidStack.OPTIONAL_CODEC, fluid);
 				}
 			}
-			BlockEntity.addEntityType(nbt, ((IBE<?>) this.getBlock()).getBlockEntityType());
+			// The block entity type is written into a value output.
+			TagValueOutput typeOutput =
+				TagValueOutput.createWithContext(ProblemReporter.DISCARDING, minecraftserver.registryAccess());
+			BlockEntity.addEntityType(typeOutput, ((IBE<?>) this.getBlock()).getBlockEntityType());
+			nbt.merge(typeOutput.buildResult());
 			itemStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(nbt));
 		}
 		return super.updateCustomBlockEntityTag(blockPos, level, player, itemStack, blockState);
