@@ -749,7 +749,7 @@ public class ChainConveyorBlockEntity extends KineticBlockEntity implements Tran
 			else if (j == inv.getSelectedSlot())
 				continue;
 
-			ItemStack stackInSlot = (offhand ? inv.offhand : inv.items).get(i);
+			ItemStack stackInSlot = (offhand ? inv.getItem(Inventory.SLOT_OFFHAND) : inv.getItem(i));
 			if (!stackInSlot.is(chain.getItem()))
 				continue;
 			if (found >= cost)

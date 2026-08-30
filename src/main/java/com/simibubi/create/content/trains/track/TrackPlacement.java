@@ -423,7 +423,7 @@ public class TrackPlacement {
 					else if (j == inv.getSelectedSlot())
 						continue;
 
-					ItemStack stackInSlot = (offhand ? inv.offhand : inv.items).get(i);
+					ItemStack stackInSlot = (offhand ? inv.getItem(Inventory.SLOT_OFFHAND) : inv.getItem(i));
 					boolean isTrack = AllTags.AllBlockTags.TRACKS.matches(stackInSlot) && stackInSlot.is(stack.getItem());
 					if (!isTrack && (!shouldPave || offhandItem.getItem() != stackInSlot.getItem()))
 						continue;
