@@ -115,6 +115,7 @@ repositories {
         }
     }
     maven { url "https://chocolateminecraft.com/maven" } // Xaero
+    maven { url = "https://maven.caffeinemc.net/releases" } // Sodium API
 }
 
 configurations {
@@ -154,6 +155,8 @@ dependencies {
     localRuntimeOnly("top.theillusivec4.curios:curios-neoforge:$curios_version+$minecraft_version")
 
     compileOnly("maven.modrinth:sodium:mc$minecraft_version-$sodium_version-neoforge")
+    // The mod jar no longer carries the api classes; they ship separately now
+    compileOnly("net.caffeinemc:sodium-neoforge-api:$sodium_version+mc$minecraft_version")
 
     if (cc_tweaked_enable.toBoolean()) {
         compileOnly("cc.tweaked:cc-tweaked-$minecraft_version-core-api:$cc_tweaked_version")
