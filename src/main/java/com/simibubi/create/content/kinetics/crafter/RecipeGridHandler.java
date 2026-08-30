@@ -149,11 +149,11 @@ public class RecipeGridHandler {
 		if (AllConfigs.server().recipes.allowRegularCraftingInCrafter.get())
 			result = RecipeLookup.find(world, RecipeType.CRAFTING, craftingInput)
 				.filter(r -> isRecipeAllowed(r, craftingInput))
-				.map(r -> r.value().assemble(craftingInput, registryAccess))
+				.map(r -> r.value().assemble(craftingInput))
 				.orElse(null);
 		if (result == null)
 			result = AllRecipeTypes.MECHANICAL_CRAFTING.find(craftingInput, world)
-				.map(r -> r.value().assemble(craftingInput, registryAccess))
+				.map(r -> r.value().assemble(craftingInput))
 				.orElse(null);
 		return result;
 	}
