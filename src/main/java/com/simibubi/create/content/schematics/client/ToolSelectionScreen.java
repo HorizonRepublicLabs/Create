@@ -36,8 +36,8 @@ public class ToolSelectionScreen extends Screen {
 	protected int h;
 
 	public ToolSelectionScreen(List<ToolType> tools, Consumer<ToolType> callback) {
+		// A screen takes its client from the constructor now.
 		super(Component.literal("Tool Selection"));
-		this.minecraft = Minecraft.getInstance();
 		this.tools = tools;
 		this.callback = callback;
 		focused = false;
@@ -66,7 +66,7 @@ public class ToolSelectionScreen extends Screen {
 		Matrix3x2fStack matrixStack = graphics.pose();
 		Window mainWindow = minecraft.getWindow();
 		if (!initialized)
-			init(minecraft, mainWindow.getGuiScaledWidth(), mainWindow.getGuiScaledHeight());
+			init(mainWindow.getGuiScaledWidth(), mainWindow.getGuiScaledHeight());
 
 		int x = (mainWindow.getGuiScaledWidth() - w) / 2 + 15;
 		int y = mainWindow.getGuiScaledHeight() - h - 75;

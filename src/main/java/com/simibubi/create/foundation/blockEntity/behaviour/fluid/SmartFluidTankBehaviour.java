@@ -185,10 +185,10 @@ public class SmartFluidTankBehaviour extends BlockEntityBehaviour {
 	public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
 		super.read(nbt, registries, clientPacket);
 		MutableInt index = new MutableInt(0);
-		NBTHelper.iterateCompoundList(nbt.getList(getType().getName() + "Tanks", Tag.TAG_COMPOUND), c -> {
+		NBTHelper.iterateCompoundList(nbt.getListOrEmpty(getType().getName() + "Tanks"), c -> {
 			if (index.intValue() >= tanks.length)
 				return;
-			LerpedFloatNbt.read(tanks[index.intValue()], c, registries, clientPacket);
+			tanks[index.intValue()].readNBT(c, registries, clientPacket);
 			index.increment();
 		});
 	}

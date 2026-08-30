@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tableCloth;
 
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import com.simibubi.create.foundation.render.CreateRenderTypes;
@@ -66,12 +68,13 @@ public class TableClothRenderer extends SmartBlockEntityRenderer<TableClothBlock
 				ms.mulPose(Axis.YP.rotationDegrees(-i * (360f / stacks.size()) - 45f));
 			}
 			
-			if (!blockItem)
+			// Whether a stack draws as a block is asked of the item pipeline now.
+			if (!CreateItemRenderer.isBlockItem(entry, blockEntity.getLevel()))
 				TransformStack.of(ms)
 					.rotate(-rotationInRadians + Mth.PI, Direction.UP);
 
-			DepotRenderer.item(ms, buffer, light, OverlayTexture.NO_OVERLAY, entry, 0,
-				null, Vec3.atCenterOf(blockEntity.getBlockPos()), true);
+			DepotRenderer.renderItem(ms, buffer, light, OverlayTexture.NO_OVERLAY, entry, 0, null,
+				Vec3.atCenterOf(blockEntity.getBlockPos()), true);
 			ms.popPose();
 		}
 
