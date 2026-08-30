@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.resources.ResourceKey;
+
 import java.util.List;
 
 import net.minecraft.client.resources.model.sprite.Material;
@@ -217,7 +219,8 @@ public class BuilderTransformers {
 					.texture("particle", Create.asResource("block/" + casing + "_casing"))
 					.texture("4", Create.asResource("block/" + gearbox))
 					.texture("1", Identifier.withDefaultNamespace("block/stripped_" + wood + "_log_top"))
-					.texture("side", Create.asResource("block/" + casing + encasedSuffix));
+					.texture("side", Create.asResource("block/" + casing + encasedSuffix))
+					.build();
 			}, false))
 			.item()
 			.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("block/" + blockFolder + "/item"))
@@ -279,7 +282,8 @@ public class BuilderTransformers {
 							.texture("side", p.modLoc("block/scaffold/" + name + "_scaffold"))
 							.texture("casing", p.modLoc("block/" + name + "_casing"))
 							.texture("particle", p.modLoc("block/scaffold/" + name + "_scaffold"))
-							.build());
+							.build())
+						.build();
 				}, MetalScaffoldingBlock.WATERLOGGED, MetalScaffoldingBlock.DISTANCE))
 			.onRegister(connectedTextures(
 				() -> new MetalScaffoldingCTBehaviour(scaffoldShift, scaffoldInsideShift, casingShift)))
@@ -502,7 +506,8 @@ public class BuilderTransformers {
 			ItemBuilder<TableClothBlockItem, BlockBuilder<B, P>> item = b.initialProperties(initialProps)
 				.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 					.withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/block"))
-					.texture("0", p.modLoc("block/table_cloth/" + name))))
+					.texture("0", p.modLoc("block/table_cloth/" + name))
+					.build()))
 				.onRegister(CreateRegistrate.blockModel(() -> TableClothModel::new))
 				.tag(AllBlockTags.TABLE_CLOTHS.tag, soundTag)
 				.onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "block.create.table_cloth"))
@@ -512,12 +517,14 @@ public class BuilderTransformers {
 				item.tag(AllItemTags.DYED_TABLE_CLOTHS.tag);
 
 			return item.model(() -> (c, p) -> VariantModels.models(p).withExistingParent(name + "_table_cloth", p.modLoc("block/table_cloth/item"))
-					.texture("0", p.modLoc("block/table_cloth/" + name)))
+					.texture("0", p.modLoc("block/table_cloth/" + name))
+					.build())
 				.tag(AllItemTags.TABLE_CLOTHS.tag)
 				.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, c.get())
 					.requires(c.get())
 					.unlockedBy("has_" + c.getName(), p.has(c.get()))
-					.save(p, Create.asResource("crafting/logistics/" + c.getName() + "_clear")))
+					.save(p, ResourceKey.create(Registries.RECIPE,
+						Create.asResource("crafting/logistics/" + c.getName() + "_clear"))))
 				.build();
 		};
 	}
