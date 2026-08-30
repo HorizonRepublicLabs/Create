@@ -101,23 +101,13 @@ public class StickerBlock extends WrenchableDirectionalBlock implements IBE<Stic
 		p_152429_.causeFallDamage(p_152430_, 1.0F, p_152426_.damageSources().fall());
 	}
 
+	/// Blocks no longer adjust a landing entity themselves; they say how bouncy
+	/// they are and the entity applies it. Bounce suppression is handled there.
 	@Override
-	public void updateEntityAfterFallOn(BlockGetter p_176216_1_, Entity p_176216_2_) {
-		if (!isUprightSticker(p_176216_1_, p_176216_2_.blockPosition()
-			.below()) || p_176216_2_.isSuppressingBounce()) {
-			super.updateEntityAfterFallOn(p_176216_1_, p_176216_2_);
-		} else {
-			this.bounceUp(p_176216_2_);
-		}
+	public float getBounceRestitution(Level level, BlockPos pos, BlockState blockState, Entity entity) {
+		return isUprightSticker(level, pos.below()) ? 1 : 0;
 	}
 
-	private void bounceUp(Entity p_226946_1_) {
-		Vec3 Vector3d = p_226946_1_.getDeltaMovement();
-		if (Vector3d.y < 0.0D) {
-			double d0 = p_226946_1_ instanceof LivingEntity ? 1.0D : 0.8D;
-			p_226946_1_.setDeltaMovement(Vector3d.x, -Vector3d.y * d0, Vector3d.z);
-		}
-	}
 
 	@Override
 	public void stepOn(Level p_152431_, BlockPos p_152432_, BlockState p_152433_, Entity p_152434_) {

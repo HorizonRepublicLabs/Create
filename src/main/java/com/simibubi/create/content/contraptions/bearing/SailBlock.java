@@ -196,22 +196,13 @@ public class SailBlock extends WrenchableDirectionalBlock {
 		super.fallOn(p_152426_, p_152427_, p_152428_, p_152429_, 0);
 	}
 
-	public void updateEntityAfterFallOn(BlockGetter p_176216_1_, Entity p_176216_2_) {
-		if (frame || p_176216_2_.isSuppressingBounce()) {
-			super.updateEntityAfterFallOn(p_176216_1_, p_176216_2_);
-		} else {
-			this.bounce(p_176216_2_);
-		}
+	/// Blocks no longer adjust a landing entity themselves; they say how bouncy
+	/// they are and the entity applies it. Bounce suppression is handled there.
+	@Override
+	public float getBounceRestitution(Level level, BlockPos pos, BlockState blockState, Entity entity) {
+		return frame ? 0 : 0.26F;
 	}
 
-	private void bounce(Entity p_226860_1_) {
-		Vec3 Vector3d = p_226860_1_.getDeltaMovement();
-		if (Vector3d.y < 0.0D) {
-			double d0 = p_226860_1_ instanceof LivingEntity ? 1.0D : 0.8D;
-			p_226860_1_.setDeltaMovement(Vector3d.x, -Vector3d.y * (double) 0.26F * d0, Vector3d.z);
-		}
-
-	}
 
 	@Override
 	protected boolean isPathfindable(BlockState state, PathComputationType pathComputationType) {

@@ -85,33 +85,29 @@ public class SeatBlock extends Block implements ProperWaterloggedBlock {
 		return fluidState(pState);
 	}
 
+	/// Blocks no longer adjust a landing entity themselves, so the seating
+	/// happens as the entity lands and the bounce for everything else is a
+	/// restitution the entity applies.
 	@Override
-	public void fallOn(Level p_152426_, BlockState p_152427_, BlockPos p_152428_, Entity p_152429_, double p_152430_) {
-		super.fallOn(p_152426_, p_152427_, p_152428_, p_152429_, p_152430_ * 0.5F);
+	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, double distance) {
+		super.fallOn(level, state, pos, entity, distance * 0.5F);
+
+		BlockPos seat = entity.blockPosition();
+		if (entity instanceof Player || !(entity instanceof LivingEntity) || !canBePickedUp(entity)
+			|| isSeatOccupied(entity.level(), seat))
+			return;
+		if (level.getBlockState(seat)
+			.getBlock() != this)
+			return;
+		sitDown(entity.level(), seat, entity);
 	}
 
 	@Override
-	public void updateEntityAfterFallOn(BlockGetter reader, Entity entity) {
-		BlockPos pos = entity.blockPosition();
-		if (entity instanceof Player || !(entity instanceof LivingEntity) || !canBePickedUp(entity)
-			|| isSeatOccupied(entity.level(), pos)) {
-			if (entity.isSuppressingBounce()) {
-				super.updateEntityAfterFallOn(reader, entity);
-				return;
-			}
-
-			Vec3 vec3 = entity.getDeltaMovement();
-			if (vec3.y < 0.0D) {
-				double d0 = entity instanceof LivingEntity ? 1.0D : 0.8D;
-				entity.setDeltaMovement(vec3.x, -vec3.y * (double) 0.66F * d0, vec3.z);
-			}
-
-			return;
-		}
-		if (reader.getBlockState(pos)
-			.getBlock() != this)
-			return;
-		sitDown(entity.level(), pos, entity);
+	public float getBounceRestitution(Level level, BlockPos pos, BlockState blockState, Entity entity) {
+		if (!(entity instanceof Player) && entity instanceof LivingEntity && canBePickedUp(entity)
+			&& !isSeatOccupied(entity.level(), entity.blockPosition()))
+			return 0;
+		return 0.66F;
 	}
 
 	@Override
@@ -201,7 +197,7 @@ public class SeatBlock extends Block implements ProperWaterloggedBlock {
 		SeatEntity seat = new SeatEntity(level);
 		seat.setPos(pos.getX() + .5, pos.getY(), pos.getZ() + .5);
 		level.addFreshEntity(seat);
-		entity.startRiding(seat, true);
+		entity.startRiding(seat, true, true);
 		if (entity instanceof TamableAnimal ta)
 			ta.setInSittingPose(true);
 	}
