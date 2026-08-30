@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
+
 
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
@@ -29,7 +31,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class TrainEditPacket implements CreatePacketPayload {
+public abstract class TrainEditPacket implements ClientboundCreatePayload {
 	protected final UUID id;
 	protected final String name;
 	protected final Identifier iconType;
@@ -66,7 +68,7 @@ public abstract class TrainEditPacket implements CreatePacketPayload {
 			NetworkHelper.INSTANCE.sendToAllClients(new TrainEditReturnPacket(id, name, iconType, mapColor));
 	}
 
-	public static class Serverbound extends TrainEditPacket implements SelfHandlingPayload, CreatePacketPayload {
+	public static class Serverbound extends TrainEditPacket implements SelfHandlingPayload, ClientboundCreatePayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(UUID id, String name, Identifier iconType, int mapColor) {
@@ -84,7 +86,7 @@ public abstract class TrainEditPacket implements CreatePacketPayload {
 		}
 	}
 
-	public static class TrainEditReturnPacket extends TrainEditPacket implements CreatePacketPayload {
+	public static class TrainEditReturnPacket extends TrainEditPacket implements ClientboundCreatePayload {
 		public static final StreamCodec<ByteBuf, TrainEditReturnPacket> STREAM_CODEC = codec(TrainEditReturnPacket::new);
 
 		public TrainEditReturnPacket(UUID id, String name, Identifier iconType,  int mapColor) {

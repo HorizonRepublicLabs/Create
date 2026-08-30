@@ -27,7 +27,7 @@ public interface ISyncPersistentData {
 		NetworkHelper.INSTANCE.sendToClientsTrackingEntity(self, new PersistentDataPacket(self));
 	}
 
-	record PersistentDataPacket(int entityId, CompoundTag readData) implements CreatePacketPayload {
+	record PersistentDataPacket(int entityId, CompoundTag readData) implements ClientboundCreatePayload {
 		public static final StreamCodec<FriendlyByteBuf, PersistentDataPacket> STREAM_CODEC = StreamCodec.composite(
 				ByteBufCodecs.VAR_INT, PersistentDataPacket::entityId,
 				ByteBufCodecs.COMPOUND_TAG, PersistentDataPacket::readData,

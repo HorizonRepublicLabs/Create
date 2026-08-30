@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains;
 
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
+
 
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
@@ -26,7 +28,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
+public abstract class TrainHUDUpdatePacket implements ClientboundCreatePayload {
 	protected final UUID trainId;
 
 	@Nullable
@@ -51,7 +53,7 @@ public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
 		);
 	}
 
-	public static class Clientbound extends TrainHUDUpdatePacket implements CreatePacketPayload {
+	public static class Clientbound extends TrainHUDUpdatePacket implements ClientboundCreatePayload {
 		public static final StreamCodec<ByteBuf, Clientbound> STREAM_CODEC = codec(Clientbound::new);
 
 		public Clientbound(Train train) {
@@ -87,7 +89,7 @@ public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
 		}
 	}
 
-	public static class Serverbound extends TrainHUDUpdatePacket implements SelfHandlingPayload, CreatePacketPayload {
+	public static class Serverbound extends TrainHUDUpdatePacket implements SelfHandlingPayload, ClientboundCreatePayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(Train train, Double sendThrottle) {

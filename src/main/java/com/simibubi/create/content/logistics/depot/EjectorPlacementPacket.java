@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facing) implements SelfHandlingPayload, CreatePacketPayload {
+public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facing) implements SelfHandlingPayload, ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, EjectorPlacementPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, EjectorPlacementPacket::h,
 			ByteBufCodecs.INT, EjectorPlacementPacket::v,
@@ -51,7 +51,7 @@ public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facin
 			world.setBlockAndUpdate(pos, state.setValue(EjectorBlock.HORIZONTAL_FACING, facing));
 	}
 
-	public record ClientBoundRequest(BlockPos pos) implements CreatePacketPayload {
+	public record ClientBoundRequest(BlockPos pos) implements ClientboundCreatePayload {
 		public static final StreamCodec<ByteBuf, ClientBoundRequest> STREAM_CODEC = BlockPos.STREAM_CODEC.map(
 				ClientBoundRequest::new, ClientBoundRequest::pos
 		);

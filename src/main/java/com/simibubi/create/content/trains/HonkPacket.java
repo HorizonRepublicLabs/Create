@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains;
 
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
+
 
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
@@ -27,7 +29,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public abstract class HonkPacket implements CreatePacketPayload {
+public abstract class HonkPacket implements ClientboundCreatePayload {
 	protected final UUID trainId;
 	protected final boolean isHonk;
 
@@ -44,7 +46,7 @@ public abstract class HonkPacket implements CreatePacketPayload {
 		);
 	}
 
-	public static class Clientbound extends HonkPacket implements CreatePacketPayload {
+	public static class Clientbound extends HonkPacket implements ClientboundCreatePayload {
 		public static final StreamCodec<ByteBuf, Clientbound> STREAM_CODEC = codec(Clientbound::new);
 
 		public Clientbound(Train train, boolean isHonk) {
@@ -74,7 +76,7 @@ public abstract class HonkPacket implements CreatePacketPayload {
 		}
 	}
 
-	public static class Serverbound extends HonkPacket implements SelfHandlingPayload, CreatePacketPayload {
+	public static class Serverbound extends HonkPacket implements SelfHandlingPayload, ClientboundCreatePayload {
 		public static final StreamCodec<ByteBuf, Serverbound> STREAM_CODEC = codec(Serverbound::new);
 
 		public Serverbound(Train train, boolean isHonk) {

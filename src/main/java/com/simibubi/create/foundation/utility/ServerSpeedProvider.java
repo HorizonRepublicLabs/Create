@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.utility;
 
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
+
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -52,7 +54,7 @@ public class ServerSpeedProvider {
 		return modifier.getValue();
 	}
 
-	public enum Packet implements CreatePacketPayload {
+	public enum Packet implements ClientboundCreatePayload {
 		INSTANCE;
 
 		public static final StreamCodec<ByteBuf, Packet> STREAM_CODEC = StreamCodec.unit(INSTANCE);

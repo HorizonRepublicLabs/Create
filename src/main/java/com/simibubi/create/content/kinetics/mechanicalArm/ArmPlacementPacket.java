@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements SelfHandlingPayload, CreatePacketPayload {
+public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements SelfHandlingPayload, ClientboundCreatePayload {
 	public static final StreamCodec<FriendlyByteBuf, ArmPlacementPacket> STREAM_CODEC = StreamCodec.composite(
 			CatnipStreamCodecs.COMPOUND_LIST_TAG, ArmPlacementPacket::tag,
 			BlockPos.STREAM_CODEC, ArmPlacementPacket::pos,
@@ -58,7 +58,7 @@ public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements SelfHandl
 		arm.interactionPointTag = this.tag;
 	}
 
-	public record ClientBoundRequest(BlockPos pos) implements CreatePacketPayload {
+	public record ClientBoundRequest(BlockPos pos) implements ClientboundCreatePayload {
 		public static final StreamCodec<ByteBuf, ClientBoundRequest> STREAM_CODEC = BlockPos.STREAM_CODEC.map(
 				ClientBoundRequest::new, ClientBoundRequest::pos
 		);
