@@ -237,10 +237,11 @@ public class BlockStateGen {
 					models.add(VariantModels.models(p)
 						.withExistingParent(
 							c.getName() + (isTopSticky ? "_top" : "") + (isBottomSticky ? "_bottom" : ""),
-							"block/cube_bottom_top")
+							Identifier.withDefaultNamespace("block/cube_bottom_top"))
 						.texture("side", side)
 						.texture("bottom", isBottomSticky ? top_sticky : top)
-						.texture("top", isTopSticky ? top_sticky : top));
+						.texture("top", isTopSticky ? top_sticky : top)
+						.build());
 			BiFunction<Boolean, Boolean, Identifier> modelFunc = (t, b) -> models.get((t ? 0 : 2) + (b ? 0 : 1));
 
 			axisBlock(c, p, state -> modelFunc.apply(state.getValue(LinearChassisBlock.STICKY_TOP),
@@ -265,14 +266,16 @@ public class BlockStateGen {
 				faces.add(VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + suffix,
 						p.modLoc(templateModelPath + "/" + suffix))
-					.texture("side", side)).build();
+					.texture("side", side)
+					.build());
 			}
 			for (Axis axis : Iterate.axes) {
 				String suffix = "side_" + axis.getSerializedName();
 				stickyFaces.add(VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + suffix + "_sticky",
 						p.modLoc(templateModelPath + "/" + suffix))
-					.texture("side", side_sticky)).build();
+					.texture("side", side_sticky)
+					.build());
 			}
 
 			MultipartModels.Builder builder = MultipartModels.getMultipartBuilder(p, c.get());
