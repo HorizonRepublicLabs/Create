@@ -1,5 +1,13 @@
 package com.simibubi.create.content.schematics.client;
 
+import com.simibubi.create.foundation.render.DiscardingVertexConsumer;
+
+import net.createmod.catnip.api.client.render.model.BakedModelBufferer;
+
+import java.util.stream.StreamSupport;
+
+import java.util.Iterator;
+
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -20,8 +28,6 @@ import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -36,7 +42,7 @@ public class SchematicRenderer {
 
 	private static final ThreadLocal<ThreadLocalObjects> THREAD_LOCAL_OBJECTS = ThreadLocal.withInitial(ThreadLocalObjects::new);
 
-	private final Map<RenderType, SuperByteBuffer> bufferCache = new LinkedHashMap<>(getLayerCount());
+	private final Map<ChunkSectionLayer, SuperByteBuffer> bufferCache = new LinkedHashMap<>(getLayerCount());
 	private boolean changed;
 	protected final SchematicLevel schematic;
 	private final BlockPos anchor;
@@ -87,59 +93,47 @@ public class SchematicRenderer {
 		}
 	}
 
-	protected SuperByteBuffer drawLayer(RenderType layer) {
-		BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
-		ModelBlockRenderer renderer = dispatcher.getModelRenderer();
+	/// Blocks buffer for every layer in one pass now, rather than a model saying
+	/// which layers it belongs to, so the geometry for the other layers is
+	/// dropped as it arrives. The schematic is drawn at its own coordinates, so
+	/// the anchor comes back off the positions the blocks are read from.
+	protected SuperByteBuffer drawLayer(ChunkSectionLayer layer) {
 		ThreadLocalObjects objects = THREAD_LOCAL_OBJECTS.get();
 
 		PoseStack poseStack = objects.poseStack;
-		RandomSource random = objects.random;
-		BlockPos.MutableBlockPos mutableBlockPos = objects.mutableBlockPos;
 		SchematicLevel renderWorld = schematic;
 		BoundingBox bounds = renderWorld.getBounds();
 
 		ShadedBlockSbbBuilder sbbBuilder = objects.sbbBuilder;
 		sbbBuilder.begin();
 
+		Iterator<BlockPos> positions = StreamSupport
+			.stream(BlockPos.betweenClosed(bounds.minX(), bounds.minY(), bounds.minZ(), bounds.maxX(), bounds.maxY(),
+				bounds.maxZ())
+				.spliterator(), false)
+			.map(localPos -> localPos.offset(anchor))
+			.iterator();
+
 		renderWorld.renderMode = true;
-		ModelBlockRenderer.enableCaching();
-		for (BlockPos localPos : BlockPos.betweenClosed(bounds.minX(), bounds.minY(), bounds.minZ(), bounds.maxX(), bounds.maxY(), bounds.maxZ())) {
-			BlockPos pos = mutableBlockPos.setWithOffset(localPos, anchor);
-			BlockState state = renderWorld.getBlockState(pos);
+		poseStack.pushPose();
+		poseStack.translate(-anchor.getX(), -anchor.getY(), -anchor.getZ());
 
-			if (state.getRenderShape() == RenderShape.MODEL) {
-				BlockStateModel model = dispatcher.getBlockModel(state);
-				BlockEntity blockEntity = renderWorld.getBlockEntity(localPos);
-				ModelData modelData = blockEntity != null ? blockEntity.getModelData() : ModelData.EMPTY;
-				modelData = model.getModelData(renderWorld, pos, state, modelData);
-				long seed = state.getSeed(pos);
-				random.setSeed(seed);
-				if (model.getRenderTypes(state, random, modelData).contains(layer)) {
-					poseStack.pushPose();
-					poseStack.translate(localPos.getX(), localPos.getY(), localPos.getZ());
+		BakedModelBufferer.bufferBlocks(positions, new SchematicTintGetter(renderWorld), poseStack, false,
+			(bufferedLayer, shade) -> bufferedLayer == layer ? sbbBuilder.unwrap(shade)
+				: DiscardingVertexConsumer.INSTANCE);
 
-					renderer.tesselateBlock(renderWorld, model, state, pos, poseStack, sbbBuilder, true,
-						random, seed, OverlayTexture.NO_OVERLAY, modelData, layer);
-
-					poseStack.popPose();
-				}
-			}
-		}
-		ModelBlockRenderer.clearCache();
+		poseStack.popPose();
 		renderWorld.renderMode = false;
 
 		return sbbBuilder.end();
 	}
 
 	private static int getLayerCount() {
-		return RenderType.chunkBufferLayers()
-			.size();
+		return ChunkSectionLayer.values().length;
 	}
 
 	private static class ThreadLocalObjects {
 		public final PoseStack poseStack = new PoseStack();
-		public final RandomSource random = RandomSource.createNewThreadLocalInstance();
-		public final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 		public final ShadedBlockSbbBuilder sbbBuilder = ShadedBlockSbbBuilder.create();
 	}
 
