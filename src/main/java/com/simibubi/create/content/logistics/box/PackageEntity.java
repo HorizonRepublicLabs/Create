@@ -395,7 +395,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 			if (itemstack.getItem() instanceof SpawnEggItem sei) {
 				EntityType<?> entitytype = sei.getType(itemstack);
 				Entity entity =
-					entitytype.spawn(level, itemstack, null, blockPosition(), EntitySpawnReason.SPAWN_EGG, false, false);
+					entitytype.spawn(level, itemstack, null, blockPosition(), EntitySpawnReason.SPAWN_ITEM_USE, false, false);
 				if (entity != null)
 					itemstack.shrink(1);
 			}

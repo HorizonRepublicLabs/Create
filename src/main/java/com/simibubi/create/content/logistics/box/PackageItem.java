@@ -312,7 +312,7 @@ public class PackageItem extends Item {
 							.add(playerIn.getLookAngle()
 								.multiply(1, 0, 1)
 								.normalize())),
-						EntitySpawnReason.SPAWN_EGG, false, false);
+						EntitySpawnReason.SPAWN_ITEM_USE, false, false);
 					if (entity != null)
 						itemstack.shrink(1);
 				}

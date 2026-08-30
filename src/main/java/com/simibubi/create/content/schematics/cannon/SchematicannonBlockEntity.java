@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import net.minecraft.core.component.DataComponentGetter;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import java.util.Arrays;
@@ -905,7 +907,7 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentInput componentInput) {
+	protected void applyImplicitComponents(DataComponentGetter componentInput) {
 		SchematicannonOptions options = componentInput.getOrDefault(AllDataComponents.SCHEMATICANNON_OPTIONS,
 				new SchematicannonOptions(2, true, false));
 		replaceMode = options.replaceMode;

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import net.minecraft.core.component.DataComponentGetter;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import com.simibubi.create.foundation.utility.ComponentJson;
@@ -390,7 +392,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentInput componentInput) {
+	protected void applyImplicitComponents(DataComponentGetter componentInput) {
 		setUniqueId(componentInput.get(AllDataComponents.TOOLBOX_UUID));
 		readInventory(componentInput.get(AllDataComponents.TOOLBOX_INVENTORY));
 	}

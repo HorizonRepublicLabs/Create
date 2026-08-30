@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.minecraft.core.component.DataComponentGetter;
+
 import com.simibubi.create.foundation.utility.ComponentJson;
 
 import java.util.List;
@@ -148,7 +150,7 @@ public class BacktankBlockEntity extends KineticBlockEntity implements Nameable 
 	}
 
 	@Override
-	protected void applyImplicitComponents(DataComponentInput componentInput) {
+	protected void applyImplicitComponents(DataComponentGetter componentInput) {
 		setAirLevel(componentInput.getOrDefault(AllDataComponents.BACKTANK_AIR, 0));
 	}
 
