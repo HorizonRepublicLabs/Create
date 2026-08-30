@@ -315,7 +315,7 @@ public class AllItems {
 
 	NETHERITE_BACKTANK = REGISTRATE
 		.item("netherite_backtank",
-			p -> new BacktankItem.Layered(ArmorMaterials.NETHERITE, p, Create.asResource("netherite_diving"),
+			p -> new BacktankItem.Layered(AllArmorMaterials.NETHERITE_DIVING, p, Create.asResource("netherite_diving"),
 				NETHERITE_BACKTANK_PLACEABLE))
 		.model(() -> AssetLookup.customGenericItemModel("_", "item"))
 		.properties(p -> p.fireResistant())
@@ -333,7 +333,7 @@ public class AllItems {
 
 	NETHERITE_DIVING_HELMET = REGISTRATE
 		.item("netherite_diving_helmet",
-			p -> new DivingHelmetItem(ArmorMaterials.NETHERITE, p, Create.asResource("netherite_diving")))
+			p -> new DivingHelmetItem(AllArmorMaterials.NETHERITE_DIVING, p, Create.asResource("netherite_diving")))
 		.properties(p -> p.fireResistant().durability(ArmorType.HELMET.getDurability(37)))
 		.tag(ItemTags.HEAD_ARMOR)
 		.register();
@@ -348,7 +348,7 @@ public class AllItems {
 
 	NETHERITE_DIVING_BOOTS = REGISTRATE
 		.item("netherite_diving_boots",
-			p -> new DivingBootsItem(ArmorMaterials.NETHERITE, p, Create.asResource("netherite_diving")))
+			p -> new DivingBootsItem(AllArmorMaterials.NETHERITE_DIVING, p, Create.asResource("netherite_diving")))
 		.properties(p -> p.fireResistant().durability(ArmorType.BOOTS.getDurability(37)))
 		.tag(ItemTags.FOOT_ARMOR)
 		.register();

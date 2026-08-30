@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllDataComponents;
-import com.simibubi.create.foundation.item.LayeredArmorItem;
 
 import net.minecraft.core.Holder;
 import net.minecraft.resources.Identifier;
@@ -107,14 +106,12 @@ public class BacktankItem extends BaseArmorItem {
 		}
 	}
 
-	public static class Layered extends BacktankItem implements LayeredArmorItem {
-		public Layered(ArmorMaterial material, Properties properties, Identifier textureLoc, Supplier<BacktankBlockItem> placeable) {
+	/// The two armor layers come from the equipment asset now, so a layered
+	/// backtank is just a backtank pointed at one that declares both.
+	public static class Layered extends BacktankItem {
+		public Layered(ArmorMaterial material, Properties properties, Identifier textureLoc,
+			Supplier<BacktankBlockItem> placeable) {
 			super(material, properties, textureLoc, placeable);
-		}
-
-		@Override
-		public String getArmorTextureLocation(LivingEntity entity, EquipmentSlot slot, ItemStack stack, int layer) {
-			return String.format(Locale.ROOT, "%s:textures/models/armor/%s_layer_%d.png", textureLoc.getNamespace(), textureLoc.getPath(), layer);
 		}
 	}
 }

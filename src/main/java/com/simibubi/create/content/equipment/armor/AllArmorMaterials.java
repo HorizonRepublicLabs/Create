@@ -21,6 +21,15 @@ public class AllArmorMaterials {
 	public static final ResourceKey<EquipmentAsset> COPPER_ASSET = asset("copper");
 	public static final ResourceKey<EquipmentAsset> CARDBOARD_ASSET = asset("cardboard");
 
+	/// The layered backtank draws two armor textures, which one asset carries.
+	public static final ResourceKey<EquipmentAsset> NETHERITE_DIVING_ASSET = asset("netherite_diving");
+
+	/// Netherite's own numbers, pointed at Create's diving textures. The custom
+	/// armor renderer that used to supply them is gone.
+	public static final ArmorMaterial NETHERITE_DIVING = new ArmorMaterial(
+		37, defense(3, 6, 8, 3, 19), 15, SoundEvents.ARMOR_EQUIP_NETHERITE, 3.0F, 0.1F,
+		ItemTags.REPAIRS_NETHERITE_ARMOR, NETHERITE_DIVING_ASSET);
+
 	public static final ArmorMaterial COPPER = new ArmorMaterial(
 		11, defense(1, 3, 4, 2, 4), 7, AllSoundEvents.COPPER_ARMOR_EQUIP.getMainEventHolder(), 0.0F, 0.0F,
 		ItemTags.REPAIRS_COPPER_ARMOR, COPPER_ASSET);

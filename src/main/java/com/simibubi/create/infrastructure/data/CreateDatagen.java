@@ -29,15 +29,13 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 public class CreateDatagen {
+	/// The event is split by side now, and no longer filters by mod -- each mod
+	/// only hears about its own run.
 	public static void gatherDataHighPriority(GatherDataEvent event) {
-		if (event.getMods().contains(Create.ID))
-			addExtraRegistrateData();
+		addExtraRegistrateData();
 	}
 
 	public static void gatherData(GatherDataEvent event) {
-		if (!event.getMods().contains(Create.ID))
-			return;
-
 		DataGenerator generator = event.getGenerator();
 		PackOutput output = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
@@ -61,10 +59,10 @@ public class CreateDatagen {
 		generator.addProvider(true, new CuriosDataGenerator(output, lookupProvider));
 		generator.addProvider(true, new CreateEnchantmentTagsProvider(output, lookupProvider));
 		generator.addProvider(true, new CreateWikiBlockInfoProvider(output));
+		generator.addProvider(event instanceof GatherDataEvent.Client, new CreateEquipmentAssetProvider(output));
 
-		if (event.includeServer()) {
+		if (event instanceof GatherDataEvent.Server)
 			CreateRecipeProvider.registerAllProcessing(generator, output, lookupProvider);
-		}
 	}
 
 	private static void addExtraRegistrateData() {
