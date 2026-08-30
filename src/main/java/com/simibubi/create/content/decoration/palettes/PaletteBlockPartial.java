@@ -1,5 +1,15 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import net.minecraft.client.data.models.model.TextureMapping;
+
+import net.minecraft.client.data.models.model.ModelTemplates;
+
+import net.minecraft.tags.BlockItemTags;
+
+import net.minecraft.client.resources.model.sprite.Material;
+
+import net.minecraft.client.data.models.BlockModelGenerators;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -124,7 +134,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		@Override
 		protected void generateBlockState(DataGenContext<Block, StairBlock> ctx, RegistrateBlockModelGenerator prov,
 										  String variantName, PaletteBlockPattern pattern, Supplier<? extends Block> block) {
-			prov.stairsBlock(ctx.get(), getTexture(variantName, pattern, 0));
+			prov.generateStairsBlock(ctx.get(), new Material(getTexture(variantName, pattern, 0)));
 		}
 
 		@Override
@@ -134,7 +144,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 
 		@Override
 		protected Iterable<TagKey<Item>> getItemTags() {
-			return Arrays.asList(ItemTags.STAIRS);
+			return Arrays.asList(BlockItemTags.STAIRS.item());
 		}
 
 		@Override
@@ -187,7 +197,8 @@ public abstract class PaletteBlockPartial<B extends Block> {
 					.getExistingFile(prov.modLoc(pattern.createName(variantName)));
 			}
 
-			prov.slabBlock(ctx.get(), bottom, top, doubleSlab);
+			prov.generateSlabBlock(ctx.get(), BlockModelGenerators.plainVariant(bottom),
+				BlockModelGenerators.plainVariant(top), BlockModelGenerators.plainVariant(doubleSlab));
 		}
 
 		@Override
@@ -197,7 +208,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 
 		@Override
 		protected Iterable<TagKey<Item>> getItemTags() {
-			return Arrays.asList(ItemTags.SLABS);
+			return Arrays.asList(BlockItemTags.SLABS.item());
 		}
 
 		@Override
@@ -238,14 +249,18 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		protected ItemBuilder<BlockItem, BlockBuilder<WallBlock, CreateRegistrate>> transformItem(
 			ItemBuilder<BlockItem, BlockBuilder<WallBlock, CreateRegistrate>> builder, String variantName,
 			PaletteBlockPattern pattern) {
-			builder.model(() -> (c, p) -> p.wallInventory(c.getName(), getTexture(variantName, pattern, 0)));
+			// The inventory model comes from the wall template rather than a
+			// helper of its own.
+			builder.model(() -> (c, p) -> p.generateWithTemplate(c.get(), ModelTemplates.WALL_INVENTORY,
+				TextureMapping.wall(new Material(getTexture(variantName, pattern, 0)))));
 			return super.transformItem(builder, variantName, pattern);
 		}
 
 		@Override
 		protected void generateBlockState(DataGenContext<Block, WallBlock> ctx, RegistrateBlockModelGenerator prov,
 										  String variantName, PaletteBlockPattern pattern, Supplier<? extends Block> block) {
-			prov.wallBlock(ctx.get(), pattern.createName(variantName), getTexture(variantName, pattern, 0));
+			prov.generateWallBlock(ctx.get(), pattern.createName(variantName),
+				new Material(getTexture(variantName, pattern, 0)));
 		}
 
 		@Override

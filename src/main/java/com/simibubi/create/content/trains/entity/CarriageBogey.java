@@ -196,7 +196,7 @@ public class CarriageBogey {
 		tag.put("Points", points.serializeEach(tp -> tp.write(dimensions)));
 		tag.putBoolean("UpsideDown", upsideDown);
 		bogeyData.putBoolean(UPSIDE_DOWN_KEY, upsideDown);
-		NBTHelper.writeResourceLocation(bogeyData, BOGEY_STYLE_KEY, getStyle().id);
+		NBTHelper.writeIdentifier(bogeyData, BOGEY_STYLE_KEY, getStyle().id);
 		tag.put(BOGEY_DATA_KEY, bogeyData);
 		return tag;
 	}
@@ -212,7 +212,7 @@ public class CarriageBogey {
 	}
 
 	public BogeyStyle getStyle() {
-		Identifier location = NBTHelper.readResourceLocation(this.bogeyData, BOGEY_STYLE_KEY);
+		Identifier location = NBTHelper.readIdentifier(this.bogeyData, BOGEY_STYLE_KEY);
 		BogeyStyle style = AllBogeyStyles.BOGEY_STYLES.get(location);
 		return style != null ? style : AllBogeyStyles.STANDARD; // just for safety
 	}
@@ -224,7 +224,7 @@ public class CarriageBogey {
 	private CompoundTag createBogeyData() {
 		BogeyStyle style = type != null ? type.getDefaultStyle() : AllBogeyStyles.STANDARD;
 		CompoundTag nbt = style.defaultData != null ? style.defaultData : new CompoundTag();
-		NBTHelper.writeResourceLocation(nbt, BOGEY_STYLE_KEY, style.id);
+		NBTHelper.writeIdentifier(nbt, BOGEY_STYLE_KEY, style.id);
 		nbt.putBoolean(UPSIDE_DOWN_KEY, isUpsideDown());
 		return nbt;
 	}

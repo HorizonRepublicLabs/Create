@@ -125,7 +125,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 
 		CompoundTag beTag = new CompoundTag();
 		beTag.store("TargetOffset", BlockPos.CODEC, selectedPos.subtract(placedPos));
-		NBTHelper.writeResourceLocation(beTag, "TargetDimension", selectedDim);
+		NBTHelper.writeIdentifier(beTag, "TargetDimension", selectedDim);
 		BlockEntity.addEntityType(beTag, ((IBE<?>) this.getBlock()).getBlockEntityType());
 		stack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(beTag));
 

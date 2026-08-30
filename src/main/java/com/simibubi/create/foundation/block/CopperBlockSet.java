@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.block;
 
+import net.minecraft.client.resources.model.sprite.Material;
+
+import net.minecraft.client.data.models.BlockModelGenerators;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import com.simibubi.create.foundation.data.VariantModels;
@@ -306,7 +310,10 @@ public class CopperBlockSet {
 			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
 			Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
 
-			prov.slabBlock(ctx.get(), fullModel, texture, endTexture, endTexture);
+			// Slabs name their double model as a variant and their faces as
+			// materials now.
+			prov.generateSlabBlock(ctx.get(), BlockModelGenerators.plainVariant(fullModel), new Material(texture),
+				new Material(endTexture), new Material(endTexture));
 		}
 
 		@Override
@@ -350,7 +357,8 @@ public class CopperBlockSet {
 			String baseLoc = "block" + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
 			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
 			Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
-			prov.stairsBlock(ctx.get(), texture, endTexture, endTexture);
+			prov.generateStairsBlock(ctx.get(), new Material(texture), new Material(endTexture),
+				new Material(endTexture));
 		}
 
 		@Override

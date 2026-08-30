@@ -40,7 +40,7 @@ public abstract class AbstractBogeyBlockEntity extends CachedRenderBBBlockEntity
 	public void setBogeyData(@NotNull CompoundTag newData) {
 		if (!newData.contains(BOGEY_STYLE_KEY)) {
 			Identifier style = getDefaultStyle().id;
-			NBTHelper.writeResourceLocation(newData, BOGEY_STYLE_KEY, style);
+			NBTHelper.writeIdentifier(newData, BOGEY_STYLE_KEY, style);
 		}
 		this.bogeyData = newData;
 	}
@@ -48,14 +48,14 @@ public abstract class AbstractBogeyBlockEntity extends CachedRenderBBBlockEntity
 	public void setBogeyStyle(@NotNull BogeyStyle style) {
 		Identifier location = style.id;
 		CompoundTag data = this.getBogeyData();
-		NBTHelper.writeResourceLocation(data, BOGEY_STYLE_KEY, location);
+		NBTHelper.writeIdentifier(data, BOGEY_STYLE_KEY, location);
 		markUpdated();
 	}
 
 	@NotNull
 	public BogeyStyle getStyle() {
 		CompoundTag data = this.getBogeyData();
-		Identifier currentStyle = NBTHelper.readResourceLocation(data, BOGEY_STYLE_KEY);
+		Identifier currentStyle = NBTHelper.readIdentifier(data, BOGEY_STYLE_KEY);
 		BogeyStyle style = AllBogeyStyles.BOGEY_STYLES.get(currentStyle);
 		if (style == null) {
 			setBogeyStyle(getDefaultStyle());
@@ -82,7 +82,7 @@ public abstract class AbstractBogeyBlockEntity extends CachedRenderBBBlockEntity
 
 	private CompoundTag createBogeyData() {
 		CompoundTag nbt = new CompoundTag();
-		NBTHelper.writeResourceLocation(nbt, BOGEY_STYLE_KEY, getDefaultStyle().id);
+		NBTHelper.writeIdentifier(nbt, BOGEY_STYLE_KEY, getDefaultStyle().id);
 		boolean upsideDown = false;
 		if (getBlockState().getBlock() instanceof AbstractBogeyBlock<?> bogeyBlock)
 			upsideDown = bogeyBlock.isUpsideDown(getBlockState());

@@ -49,7 +49,7 @@ public class LogisticsNetwork {
 			CompoundTag nbt = new CompoundTag();
 			nbt.store("Pos", BlockPos.CODEC, p.pos());
 			if (p.dimension() != Level.OVERWORLD)
-				NBTHelper.writeResourceLocation(nbt, "Dim", p.dimension().identifier());
+				NBTHelper.writeIdentifier(nbt, "Dim", p.dimension().identifier());
 			return nbt;
 		}));
 
@@ -66,7 +66,7 @@ public class LogisticsNetwork {
 
 		NBTHelper.iterateCompoundList(tag.getListOrEmpty("Links"), nbt -> {
 			network.totalLinks.add(GlobalPos.of(nbt.contains("Dim")
-				? ResourceKey.create(Registries.DIMENSION, NBTHelper.readResourceLocation(nbt, "Dim"))
+				? ResourceKey.create(Registries.DIMENSION, NBTHelper.readIdentifier(nbt, "Dim"))
 				: Level.OVERWORLD, NBTHelper.readBlockPos(nbt, "Pos")));
 		});
 
