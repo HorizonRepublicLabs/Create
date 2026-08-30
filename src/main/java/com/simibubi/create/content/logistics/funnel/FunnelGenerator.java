@@ -60,11 +60,14 @@ public class FunnelGenerator extends SpecialBlockStateGen {
 			.texture("redstone", p.modLoc(prefix + type + "_funnel" + powered))
 			.texture("direction", p.modLoc(prefix + type + "_funnel" + extracting));
 
+		// A model generator hands back the identifier it built.
 		if (horizontal)
-			return model.texture("block", blockTexture);
+			return model.texture("block", blockTexture)
+				.build();
 
 		return model.texture("frame", p.modLoc(prefix + type + "_funnel_frame"))
-			.texture("open", p.modLoc(prefix + "funnel" + closed));
+			.texture("open", p.modLoc(prefix + "funnel" + closed))
+			.build();
 	}
 
 	public static NonNullBiConsumer<DataGenContext<Item, FunnelItem>, RegistrateItemModelGenerator> itemModel(

@@ -1,5 +1,9 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import net.minecraft.world.entity.EntitySpawnRequest;
+
+import net.minecraft.world.entity.EntitySpawnReason;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import java.util.Arrays;
@@ -209,7 +213,10 @@ public abstract class LaunchedItem {
 		public boolean update(Level world) {
 			if (deferredTag != null && entity == null) {
 				try {
-					Optional<Entity> loadEntityUnchecked = EntityType.create(deferredTag, world);
+					// An entity is created from a value input now.
+					Optional<Entity> loadEntityUnchecked = EntityType.create(
+						ValueIOShim.inputOf(deferredTag, world.registryAccess()), world,
+						new EntitySpawnRequest(EntitySpawnReason.LOAD, true));
 					if (!loadEntityUnchecked.isPresent())
 						return true;
 					entity = loadEntityUnchecked.get();

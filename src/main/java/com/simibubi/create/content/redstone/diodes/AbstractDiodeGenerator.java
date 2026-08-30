@@ -29,7 +29,8 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 		String name = c.getName();
 		String path = "block/diodes/";
 		ItemModelGenShim.Builder builder = VariantModels.models(p).withExistingParent(name, p.modLoc(path + name));
-		builder.texture("top", path + name + "/item");
+		builder.texture("top", p.modLoc(path + name + "/item"))
+			.build();
 	}
 
 	@Override
