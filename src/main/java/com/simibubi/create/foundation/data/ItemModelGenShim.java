@@ -23,6 +23,13 @@ public class ItemModelGenShim {
 	}
 
 	/// A few item models reuse the block cube_column shape.
+	/// An item that draws as a full cube, for the block items whose model is
+	/// just the block texture on every face.
+	public Identifier cubeAll(String name, Identifier texture) {
+		return withExistingParent(name, Identifier.withDefaultNamespace("block/cube_all")).texture("all", texture)
+			.build();
+	}
+
 	public Identifier cubeColumn(String name, Identifier side, Identifier end) {
 		return withExistingParent(name, Identifier.withDefaultNamespace("block/cube_column"))
 			.texture("side", side)

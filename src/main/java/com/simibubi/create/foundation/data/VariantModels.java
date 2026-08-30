@@ -94,6 +94,12 @@ public class VariantModels {
 				return this;
 			}
 
+			/// The old builder could finish a single variant; keeping the name
+			/// means the callers that end on one variant do not have to change.
+			public ConfiguredModel buildLast() {
+				return build()[0];
+			}
+
 			public ConfiguredModel[] build() {
 				return new ConfiguredModel[] { new ConfiguredModel(model, rotationX, rotationY, uvLock, weight) };
 			}
