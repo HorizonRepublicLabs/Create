@@ -316,15 +316,15 @@ public class StationScreen extends AbstractStationScreen {
 
 		List<Carriage> carriages = train.carriages;
 		for (int i = carriages.size() - 1; i > 0; i--) {
-			RenderSystem.setShaderColor(1, 1, 1, Math.min(1f,
-				Math.min((position + offset - 10) / 30f, (background.getWidth() - 40 - position - offset) / 30f)));
+			float alpha = Math.min(1f,
+				Math.min((position + offset - 10) / 30f, (background.getWidth() - 40 - position - offset) / 30f));
 			Carriage carriage = carriages.get(blockEntity.trainBackwards ? carriages.size() - i - 1 : i);
-			offset += icon.render(carriage.bogeySpacing, graphics, x + offset, y + 20) + 1;
+			offset += icon.render(carriage.bogeySpacing, graphics, x + offset, y + 20, alpha) + 1;
 		}
 
-		RenderSystem.setShaderColor(1, 1, 1,
-			Math.min(1f, Math.min((position + offset - 10) / 30f, (background.getWidth() - 40 - position - offset) / 30f)));
-		offset += icon.render(TrainIconType.ENGINE, graphics, x + offset, y + 20);
+		float engineAlpha = Math.min(1f,
+			Math.min((position + offset - 10) / 30f, (background.getWidth() - 40 - position - offset) / 30f));
+		offset += icon.render(TrainIconType.ENGINE, graphics, x + offset, y + 20, engineAlpha);
 		ms.popMatrix();
 
 

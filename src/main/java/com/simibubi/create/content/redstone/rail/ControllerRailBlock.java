@@ -1,5 +1,11 @@
 package com.simibubi.create.content.redstone.rail;
 
+import net.minecraft.server.level.ServerLevel;
+
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
+import net.minecraft.world.entity.Entity;
+
 import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -138,12 +144,20 @@ public class ControllerRailBlock extends BaseRailBlock implements IWrenchable {
 		p_206840_1_.add(SHAPE, POWER, BACKWARDS, WATERLOGGED);
 	}
 
+	/// NeoForge dropped its rail pass hook, so the cart is caught by the plain
+	/// entityInside instead.
 	@Override
-	public void onMinecartPass(BlockState state, Level world, BlockPos pos, AbstractMinecart cart) {
+	protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity,
+		InsideBlockEffectApplier effectApplier, boolean isPrecise) {
+		if (!(entity instanceof AbstractMinecart cart))
+			return;
 		if (world.isClientSide())
 			return;
 		Vec3 accelerationVec = Vec3.atLowerCornerOf(getAccelerationVector(state));
-		double targetSpeed = cart.getMaxSpeedWithRail() * state.getValue(POWER) / 15f;
+		// A cart's speed ceiling comes from its behaviour, on the server.
+		double maxSpeed = world instanceof ServerLevel serverLevel ? cart.getBehavior()
+			.getMaxSpeed(serverLevel) : 0.4;
+		double targetSpeed = maxSpeed * state.getValue(POWER) / 15f;
 
 		if (cart instanceof MinecartFurnace fme) {
 			fme.push = new Vec3(accelerationVec.x, 0, accelerationVec.z);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
+import net.minecraft.util.ARGB;
+
 import net.minecraft.client.renderer.RenderPipelines;
 
 import java.util.HashMap;
@@ -58,11 +60,13 @@ public class TrainIconType {
 	public static final int ENGINE = -1;
 	public static final int FLIPPED_ENGINE = -2;
 
+	/// A shader colour is no longer set globally, so the fade rides on the blit.
 	@OnlyIn(Dist.CLIENT)
-	public int render(int lengthOrEngine, GuiGraphicsExtractor graphics, int x, int y) {
+	public int render(int lengthOrEngine, GuiGraphicsExtractor graphics, int x, int y, float alpha) {
 		int offset = getIconOffset(lengthOrEngine);
 		int width = getIconWidth(lengthOrEngine);
-		graphics.blit(RenderPipelines.GUI_TEXTURED, sheet, x, y, this.x + offset, this.y, width, 10, 256, 256);
+		graphics.blit(RenderPipelines.GUI_TEXTURED, sheet, x, y, this.x + offset, this.y, width, 10, 256, 256,
+			ARGB.white(alpha));
 		return width;
 	}
 
