@@ -254,7 +254,7 @@ public class StationPeripheral extends SyncedPeripheral<StationBlockEntity> {
 			CreateLuaTable table = new CreateLuaTable();
 			CompoundTag compoundTag = (CompoundTag) tag;
 
-			for (String compoundKey : compoundTag.getAllKeys()) {
+			for (String compoundKey : compoundTag.keySet()) {
 				table.put(
 					StringHelper.camelCaseToSnakeCase(compoundKey),
 					fromNBTTag(compoundKey, compoundTag.get(compoundKey))

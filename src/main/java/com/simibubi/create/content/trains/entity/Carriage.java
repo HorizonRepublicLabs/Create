@@ -534,7 +534,7 @@ public class Carriage {
 				.read(c, registries));
 
 		CompoundTag passengersTag = tag.getCompoundOrEmpty("Passengers");
-		passengersTag.getAllKeys()
+		passengersTag.keySet()
 			.forEach(key -> carriage.serialisedPassengers.put(Integer.valueOf(key.substring(4)),
 				passengersTag.getCompoundOrEmpty(key)));
 

@@ -22,7 +22,6 @@ import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator
 import com.tterrag.registrate.providers.generators.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonnullType;
 
 import net.createmod.catnip.api.lang.Lang;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -58,7 +57,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		this.name = name;
 	}
 
-	public @NonnullType BlockBuilder<B, CreateRegistrate> create(String variantName, PaletteBlockPattern pattern,
+	public BlockBuilder<B, CreateRegistrate> create(String variantName, PaletteBlockPattern pattern,
 																 BlockEntry<? extends Block> block, AllPaletteStoneTypes variant) {
 		String patternName = Lang.nonPluralId(pattern.createName(variantName));
 		String blockName = patternName + "_" + this.name;

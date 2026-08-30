@@ -32,7 +32,6 @@ import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.generators.RegistrateBlockModelGenerator;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
-import com.tterrag.registrate.util.nullness.NonnullType;
 
 import net.createmod.catnip.api.data.Iterate;
 import net.createmod.catnip.api.math.Pointing;
@@ -531,7 +530,7 @@ public class BlockStateGen {
 			.end();
 	}
 
-	public static Function<BlockState, ConfiguredModel[]> mapToAir(@NonnullType RegistrateBlockModelGenerator p) {
+	public static Function<BlockState, ConfiguredModel[]> mapToAir(RegistrateBlockModelGenerator p) {
 		return state -> ConfiguredModel.builder()
 			.modelFile(VariantModels.models(p)
 				.getExistingFile(p.mcLoc("block/air")))
