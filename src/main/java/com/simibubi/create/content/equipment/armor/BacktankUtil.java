@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.minecraft.world.entity.EquipmentSlotGroup;
+
+import net.minecraft.world.entity.EquipmentSlot;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -39,9 +43,12 @@ public class BacktankUtil {
 	static {
 		addBacktankSupplier(entity -> {
 			List<ItemStack> stacks = new ArrayList<>();
-			for (ItemStack itemStack : entity.getArmorSlots())
+			// Armour is walked by slot group now rather than handed out as a list.
+			for (EquipmentSlot slot : EquipmentSlotGroup.ARMOR) {
+				ItemStack itemStack = entity.getItemBySlot(slot);
 				if (AllTags.AllItemTags.PRESSURIZED_AIR_SOURCES.matches(itemStack))
 					stacks.add(itemStack);
+			}
 
 			return stacks;
 		});

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.contraptionControls;
 
+import net.minecraft.tags.BlockItemTags;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 import net.createmod.catnip.api.network.NetworkHelper;
 
@@ -103,7 +105,7 @@ public class ContraptionControlsMovingInteraction extends MovingInteractionBehav
 
 		if (!(contraptionEntity instanceof CarriageContraptionEntity cce))
 			return true;
-		if (!filter.is(ItemTags.DOORS))
+		if (!filter.is(BlockItemTags.DOORS.item()))
 			return true;
 
 		// Special case: Doors are toggled on all carriages of a train

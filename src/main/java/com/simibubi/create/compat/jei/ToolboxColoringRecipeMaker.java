@@ -1,5 +1,9 @@
 package com.simibubi.create.compat.jei;
 
+import net.minecraft.util.RandomSource;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+
 import net.minecraft.world.item.ItemStackTemplate;
 
 import net.minecraft.world.item.crafting.Recipe;
@@ -44,8 +48,11 @@ public final class ToolboxColoringRecipeMaker {
 		return Arrays.stream(DyeColor.values())
 			.filter(dc -> dc != DyeColor.BROWN)
 			.map(color -> {
-				DyeItem dye = DyeItem.byColor(color);
-				ItemStack dyeStack = new ItemStack(dye);
+				// A dye's item is found through its tag now.
+				ItemStack dyeStack = BuiltInRegistries.ITEM.get(color.getTag())
+					.flatMap(set -> set.getRandomElement(RandomSource.create(0)))
+					.map(ItemStack::new)
+					.orElse(ItemStack.EMPTY);
 				TagKey<Item> colorTag = color.getTag();
 				// ingredients are holder sets now; a compound keeps the tag intact
 				// rather than flattening it into the recipe

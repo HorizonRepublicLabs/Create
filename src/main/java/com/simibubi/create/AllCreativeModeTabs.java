@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.world.item.ItemDisplayContext;
+
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;

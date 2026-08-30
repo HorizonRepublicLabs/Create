@@ -323,7 +323,8 @@ public class AllTags {
 		}
 
 		public boolean matches(EntityType<?> type) {
-			return type.is(tag);
+			return type.builtInRegistryHolder()
+				.is(tag);
 		}
 
 		public boolean matches(Entity entity) {

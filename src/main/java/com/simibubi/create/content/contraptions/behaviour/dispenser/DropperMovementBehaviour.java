@@ -73,7 +73,7 @@ public class DropperMovementBehaviour implements MovementBehaviour {
 
 		return switch (filledSlots.size()) {
 			case 0 -> -1;
-			case 1 -> filledSlots.getOrDefault(0, 0);
+			case 1 -> filledSlots.getInt(0);
 			default -> Util.getRandom(filledSlots, random);
 		};
 	}
