@@ -96,21 +96,17 @@ public class EjectorBlock extends HorizontalKineticBlock implements IBE<EjectorB
 		withBlockEntityDo(world, pos, EjectorBlockEntity::updateSignal);
 	}
 
-	@Override
-	public void fallOn(Level p_180658_1_, BlockState p_152427_, BlockPos p_180658_2_, Entity p_180658_3_,
-		double p_180658_4_) {
-		Optional<EjectorBlockEntity> blockEntityOptional = getBlockEntityOptional(p_180658_1_, p_180658_2_);
-		if (blockEntityOptional.isPresent() && !p_180658_3_.isSuppressingBounce()) {
-			p_180658_3_.causeFallDamage(p_180658_4_, 1.0F, p_180658_1_.damageSources().fall());
-			return;
-		}
-		super.fallOn(p_180658_1_, p_152427_, p_180658_2_, p_180658_3_, p_180658_4_);
-	}
-
+	/// The two fall hooks collapsed into one signature: an ejector takes the
+	/// fall damage itself rather than bouncing, then handles what landed.
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos landedPos, Entity entityIn, double fallDistance) {
 		BlockGetter worldIn = level;
-		super.fallOn(level, state, landedPos, entityIn, fallDistance);
+		Optional<EjectorBlockEntity> blockEntityOptional = getBlockEntityOptional(level, landedPos);
+		if (blockEntityOptional.isPresent() && !entityIn.isSuppressingBounce())
+			entityIn.causeFallDamage(fallDistance, 1.0F, level.damageSources()
+				.fall());
+		else
+			super.fallOn(level, state, landedPos, entityIn, fallDistance);
 		BlockPos position = entityIn.getOnPosLegacy();
 		if (!AllBlocks.WEIGHTED_EJECTOR.has(worldIn.getBlockState(position)))
 			return;

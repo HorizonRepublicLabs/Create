@@ -270,15 +270,6 @@ public class NixieTubeBlock extends DoubleFaceAttachedBlock
 	}
 
 	@Override
-	public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData,
-		Player player) {
-		if (color != DyeColor.ORANGE)
-			return AllBlocks.ORANGE_NIXIE_TUBE.get()
-				.getCloneItemStack(level, pos, state, includeData, player);
-		return super.getCloneItemStack(level, pos, state, includeData, player);
-	}
-
-	@Override
 	public FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : Fluids.EMPTY.defaultFluidState();
 	}
