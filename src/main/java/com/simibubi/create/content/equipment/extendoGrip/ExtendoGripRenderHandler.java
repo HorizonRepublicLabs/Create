@@ -1,5 +1,11 @@
 package com.simibubi.create.content.equipment.extendoGrip;
 
+import net.minecraft.world.entity.player.PlayerModelPart;
+
+import net.minecraft.resources.Identifier;
+
+import com.simibubi.create.foundation.render.CreateItemRenderer;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -45,10 +51,7 @@ public class ExtendoGripRenderHandler {
 			return;
 		if (!(main.getItem() instanceof BlockItem))
 			return;
-		if (!Minecraft.getInstance()
-			.getItemRenderer()
-			.getModel(main, null, null, 0)
-			.isGui3d())
+		if (!CreateItemRenderer.isBlockItem(main, Minecraft.getInstance().level))
 			return;
 		pose = AllPartialModels.DEPLOYER_HAND_HOLDING;
 	}
@@ -98,12 +101,17 @@ public class ExtendoGripRenderHandler {
 
 			AvatarRenderer playerrenderer = (AvatarRenderer) mc.getEntityRenderDispatcher()
 				.getRenderer(player);
+			// The hand is drawn from the skin and sleeve rather than the player.
+			Identifier skinTexture = player.getSkin()
+				.body()
+				.texturePath();
 			if (rightHand)
 				playerrenderer.renderRightHand(event.getPoseStack(), event.getSubmitNodeCollector(),
-					event.getPackedLight(), player);
+					event.getPackedLight(), skinTexture, player.isModelPartShown(PlayerModelPart.RIGHT_SLEEVE),
+					player);
 			else
 				playerrenderer.renderLeftHand(event.getPoseStack(), event.getSubmitNodeCollector(),
-					event.getPackedLight(), player);
+					event.getPackedLight(), skinTexture, player.isModelPartShown(PlayerModelPart.LEFT_SLEEVE), player);
 			ms.popPose();
 
 			// Render gun
@@ -112,23 +120,21 @@ public class ExtendoGripRenderHandler {
 			ItemInHandRenderer firstPersonRenderer = mc.getEntityRenderDispatcher().getItemInHandRenderer();
 			ItemDisplayContext transform =
 				rightHand ? ItemDisplayContext.FIRST_PERSON_RIGHT_HAND : ItemDisplayContext.FIRST_PERSON_LEFT_HAND;
-			firstPersonRenderer.renderItem(mc.player, notInOffhand ? heldItem : offhandItem, transform, !rightHand,
+			firstPersonRenderer.renderItem(mc.player, notInOffhand ? heldItem : offhandItem, transform,
 				event.getPoseStack(), event.getSubmitNodeCollector(), event.getPackedLight());
 
 			if (!notInOffhand) {
-				ClientHooks.handleCameraTransforms(ms, mc.getItemRenderer()
-					.getModel(offhandItem, null, null, 0), transform, !rightHand);
+				// The item pipeline applies a stack's camera transform itself, so
+				// the grip only adds the offsets it wants on top.
 				ms.translate(flip * -.05f, .15f, -1.2f);
 				ms.translate(0, 0, -animation * 2.25f);
-				if (blockItem && mc.getItemRenderer()
-					.getModel(heldItem, null, null, 0)
-					.isGui3d()) {
+				if (blockItem && CreateItemRenderer.isBlockItem(heldItem, mc.level)) {
 					msr.rotateYDegrees(flip * 45);
 					ms.translate(flip * 0.15f, -0.15f, -.05f);
 					ms.scale(1.25f, 1.25f, 1.25f);
 				}
 
-				firstPersonRenderer.renderItem(mc.player, heldItem, transform, !rightHand, event.getPoseStack(),
+				firstPersonRenderer.renderItem(mc.player, heldItem, transform, event.getPoseStack(),
 					event.getSubmitNodeCollector(), event.getPackedLight());
 			}
 
