@@ -1,5 +1,9 @@
 package com.simibubi.create.content.processing.recipe;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+
+import java.util.Collections;
+
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -76,7 +80,9 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 	}
 
 	public S withFluidIngredients(SizedFluidIngredient... ingredients) {
-		return withFluidIngredients(NonNullList.of(new SizedFluidIngredient(FluidIngredient.empty(), 1000), ingredients));
+		NonNullList<SizedFluidIngredient> list = NonNullList.create();
+		Collections.addAll(list, ingredients);
+		return withFluidIngredients(list);
 	}
 
 	public S withFluidIngredients(NonNullList<SizedFluidIngredient> ingredients) {
@@ -154,8 +160,10 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 		return require(SizedFluidIngredient.of(fluid.getSource(), amount));
 	}
 
+	/// A fluid ingredient is built from a holder set now rather than a tag key.
 	public S require(TagKey<Fluid> fluidTag, int amount) {
-		return require(SizedFluidIngredient.of(fluidTag, amount));
+		return require(new SizedFluidIngredient(FluidIngredient.of(BuiltInRegistries.FLUID.get(fluidTag)
+			.orElseThrow()), amount));
 	}
 
 	public S require(SizedFluidIngredient ingredient) {

@@ -164,7 +164,9 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 					for (FluidStack fluidStack : basinRecipe.getFluidResults())
 						if (!fluidStack.isEmpty())
 							recipeOutputFluids.add(fluidStack);
-					for (ItemStack stack : basinRecipe.getRemainingItems(remainderInput))
+					// Only crafting recipes carry remainders now; a processing
+					// recipe leaves whatever its ingredients leave behind.
+					for (ItemStack stack : CraftingRecipe.defaultCraftingReminder(remainderInput))
 						if (!stack.isEmpty())
 							recipeOutputItems.add(stack);
 
@@ -189,7 +191,9 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 
 	public static RecipeHolder<BasinRecipe> convertShapeless(RecipeHolder<?> recipe) {
 		BasinRecipe basinRecipe =
-			new Builder<>(BasinRecipe::new, recipe.id()).withItemIngredients(recipe.value().placementInfo()
+			new Builder<>(BasinRecipe::new, recipe.id()
+				.identifier()).withItemIngredients(recipe.value()
+				.placementInfo()
 			.ingredients())
 				.withSingleItemOutput(RecipeResult.of(recipe.value(), Minecraft.getInstance().level.registryAccess()))
 				.build();
