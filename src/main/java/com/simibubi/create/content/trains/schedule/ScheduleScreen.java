@@ -386,7 +386,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		if (menu.slotsActive)
 			super.extractRenderState(graphics, mouseX, mouseY, partialTicks);
 		else {
-			renderBackground(graphics, mouseX, mouseY, partialTicks);
+			extractBackground(graphics, mouseX, mouseY, partialTicks);
 			renderBg(graphics, partialTicks, mouseX, mouseY);
 			for (Renderable widget : this.renderables)
 				widget.extractRenderState(graphics, mouseX, mouseY, partialTicks);

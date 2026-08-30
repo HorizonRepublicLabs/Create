@@ -476,11 +476,11 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 	}
 
 	@Override
-	public void renderBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
 		Matrix3x2fStack ms = guiGraphics.pose();
 		ms.pushMatrix();
 		ms.translate((float) (0), (float) (0));
-		super.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+		super.extractBackground(guiGraphics, mouseX, mouseY, partialTick);
 		ms.popMatrix();
 	}
 

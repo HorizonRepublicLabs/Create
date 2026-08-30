@@ -104,7 +104,7 @@ public abstract class AbstractSimiContainerScreen<T extends AbstractContainerMen
 	}
 
 	/*@Override
-	public void renderBackground(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+	public void extractBackground(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
 		NeoForge.EVENT_BUS.post(new ContainerScreenEvent.Render.Background(this, pGuiGraphics, pMouseX, pMouseY));
 		renderBg(pGuiGraphics, pPartialTick, pMouseX, pMouseY);
 	}*/
