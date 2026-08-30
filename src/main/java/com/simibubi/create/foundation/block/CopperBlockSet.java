@@ -247,7 +247,7 @@ public class CopperBlockSet {
 			Block block = ctx.get();
 			String path = RegisteredObjectsHelper.getKeyOrThrow(block)
 				.getPath();
-			String baseLoc = ModelProvider.BLOCK_FOLDER + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
+			String baseLoc = "block" + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
 
 			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
 			if (Objects.equals(blocks.getName(), blocks.getEndTextureName())) {
@@ -300,9 +300,9 @@ public class CopperBlockSet {
 		public void generateBlockState(DataGenContext<Block, SlabBlock> ctx, RegistrateBlockModelGenerator prov,
 									   CopperBlockSet blocks, WeatherState state, boolean waxed) {
 			Identifier fullModel =
-				prov.modLoc(ModelProvider.BLOCK_FOLDER + "/" + getWeatherStatePrefix(state) + blocks.getName());
+				prov.modLoc("block" + "/" + getWeatherStatePrefix(state) + blocks.getName());
 
-			String baseLoc = ModelProvider.BLOCK_FOLDER + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
+			String baseLoc = "block" + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
 			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
 			Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
 
@@ -347,7 +347,7 @@ public class CopperBlockSet {
 		@Override
 		public void generateBlockState(DataGenContext<Block, StairBlock> ctx, RegistrateBlockModelGenerator prov,
 									   CopperBlockSet blocks, WeatherState state, boolean waxed) {
-			String baseLoc = ModelProvider.BLOCK_FOLDER + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
+			String baseLoc = "block" + "/" + blocks.generalDirectory + getWeatherStatePrefix(state);
 			Identifier texture = prov.modLoc(baseLoc + blocks.getName());
 			Identifier endTexture = prov.modLoc(baseLoc + blocks.getEndTextureName());
 			prov.stairsBlock(ctx.get(), texture, endTexture, endTexture);
