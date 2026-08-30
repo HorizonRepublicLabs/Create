@@ -117,8 +117,11 @@ public class PotionFluidHandler {
 		boolean flag = true;
 		for (MobEffectInstance mobeffectinstance : effects) {
 			flag = false;
-			MutableComponent mutablecomponent = mobeffectinstance.getItemName();
 			Holder<MobEffect> holder = mobeffectinstance.getEffect();
+			// An effect instance no longer names itself; the effect does.
+			MutableComponent mutablecomponent = holder.value()
+				.getDisplayName()
+				.copy();
 			holder.value().createModifiers(mobeffectinstance.getAmplifier(),
 				(h, m) -> list.add(Pair.of(h, m)));
 			if (mobeffectinstance.getAmplifier() > 0) {

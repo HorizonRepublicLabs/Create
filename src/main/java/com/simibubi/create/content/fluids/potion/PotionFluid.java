@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.potion;
 
+import net.minecraft.network.chat.Component;
+
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -78,12 +80,15 @@ public class PotionFluid extends VirtualFluid {
 			return stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).getColor() | 0xff000000;
 		}
 
+		/// The potion's name is a component, so the description hook that hands
+		/// one back is the one to answer.
 		@Override
-		public String getDescriptionId(FluidStack stack) {
+		public Component getDescription(FluidStack stack) {
 			PotionContents contents = stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
 			ItemLike itemFromBottleType =
 				PotionFluidHandler.itemFromBottleType(stack.getOrDefault(AllDataComponents.POTION_FLUID_BOTTLE_TYPE, BottleType.REGULAR));
-			return contents.getName(itemFromBottleType.asItem().getDescriptionId() + ".effect.");
+			return contents.getName(itemFromBottleType.asItem()
+				.getDescriptionId() + ".effect.");
 		}
 
 		@Override
