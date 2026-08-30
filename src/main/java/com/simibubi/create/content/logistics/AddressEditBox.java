@@ -98,7 +98,7 @@ public class AddressEditBox extends EditBox {
 			}
 			return true;
 		}
-		if (destinationSuggestions.mouseClicked((int) pMouseX, (int) pMouseY, pButton))
+		if (destinationSuggestions.mouseClicked(event))
 			return true;
 		return false;
 	}

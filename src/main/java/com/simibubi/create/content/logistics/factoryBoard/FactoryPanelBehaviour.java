@@ -862,7 +862,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 
 	@Override
 	public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
-		CompoundTag panelTag = nbt.getCompound(CreateLang.asId(slot.name()));
+		CompoundTag panelTag = nbt.getCompoundOrEmpty(CreateLang.asId(slot.name()));
 		if (panelTag.isEmpty()) {
 			active = false;
 			return;

@@ -231,7 +231,7 @@ public class LinkedControllerClientHandler {
 		poseStack.pushMatrix();
 		Screen tooltipScreen = new Screen(CommonComponents.EMPTY) {
 		};
-		tooltipScreen.init(mc, width1, height1);
+		tooltipScreen.init(width1, height1);
 
 		Object[] keys = new Object[6];
 		List<KeyMapping> controls = ControlsUtil.getControls();
