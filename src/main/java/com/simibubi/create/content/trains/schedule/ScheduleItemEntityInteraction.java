@@ -88,7 +88,7 @@ public class ScheduleItemEntityInteraction {
 			}
 
 			player.getCooldowns()
-				.addCooldown(AllItems.SCHEDULE.get(), 5);
+				.addCooldown(AllItems.SCHEDULE.asStack(), 5);
 			event.setCancellationResult(InteractionResult.SUCCESS);
 			event.setCanceled(true);
 			return;
@@ -117,7 +117,7 @@ public class ScheduleItemEntityInteraction {
 		}
 
 		player.getCooldowns()
-			.addCooldown(AllItems.SCHEDULE.get(), 5);
+			.addCooldown(AllItems.SCHEDULE.asStack(), 5);
 		event.setCancellationResult(InteractionResult.SUCCESS);
 		event.setCanceled(true);
 		return;
