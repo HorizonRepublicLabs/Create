@@ -54,7 +54,7 @@ public abstract class AbstractDiodeGenerator extends SpecialBlockStateGen {
 	}
 
 	protected Identifier existingModel(ModelGenShim prov, String name) {
-		return VariantModels.models(prov).getExistingFile(existing(name));
+		return prov.getExistingFile(existing(name));
 	}
 
 	protected Identifier existing(String name) {

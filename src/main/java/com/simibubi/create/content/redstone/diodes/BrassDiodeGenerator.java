@@ -22,13 +22,13 @@ public class BrassDiodeGenerator extends AbstractDiodeGenerator {
 		String name = ctx.getName();
 		Identifier template = existing(name);
 
-		models.add(VariantModels.models(prov).getExistingFile(template));
-		models.add(VariantModels.models(prov).withExistingParent(name + "_powered", template)
+		models.add(prov.getExistingFile(template));
+		models.add(prov.withExistingParent(name + "_powered", template)
 			.texture("top", texture(ctx, "powered")));
-		models.add(VariantModels.models(prov).withExistingParent(name + "_powering", template)
+		models.add(prov.withExistingParent(name + "_powering", template)
 			.texture("torch", poweredTorch())
 			.texture("top", texture(ctx, "powering")));
-		models.add(VariantModels.models(prov).withExistingParent(name + "_powered_powering", template)
+		models.add(prov.withExistingParent(name + "_powered_powering", template)
 			.texture("torch", poweredTorch())
 			.texture("top", texture(ctx, "powered_powering")));
 
