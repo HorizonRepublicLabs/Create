@@ -52,15 +52,8 @@ public class CardboardSwordItem extends Item {
 		return enchantment.getKey() == Enchantments.KNOCKBACK;
 	}
 
-	@Override
-	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-		ItemEnchantments enchants = book.getOrDefault(DataComponents.STORED_ENCHANTMENTS, ItemEnchantments.EMPTY);
-		for (Holder<Enchantment> enchantment : enchants.keySet()) {
-			if (enchantment.getKey() != Enchantments.KNOCKBACK)
-				return false;
-		}
-		return true;
-	}
+	// isBookEnchantable is gone; supportsEnchantment above is what the anvil
+	// asks now, and it already allows only knockback.
 
 	@SubscribeEvent
 	public static void cardboardSwordsMakeNoiseOnClick(PlayerInteractEvent.LeftClickBlock event) {
@@ -79,7 +72,9 @@ public class CardboardSwordItem extends Item {
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void cardboardSwordsCannotHurtYou(AttackEntityEvent event) {
 		Player attacker = event.getEntity();
-		if (!(event.getTarget() instanceof LivingEntity target) || target.getType().is(EntityTypeTags.ARTHROPOD))
+		if (!(event.getTarget() instanceof LivingEntity target) || target.getType()
+			.builtInRegistryHolder()
+			.is(EntityTypeTags.ARTHROPOD))
 			return;
 		ItemStack stack = attacker.getItemInHand(InteractionHand.MAIN_HAND);
 		if (!(AllItems.CARDBOARD_SWORD.isIn(stack)))
