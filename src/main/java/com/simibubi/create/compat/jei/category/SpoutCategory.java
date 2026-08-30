@@ -117,7 +117,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 					if (container.isEmpty())
 						continue;
 
-					Ingredient bucket = Ingredient.of(stack);
+					Ingredient bucket = Ingredient.of(stack.getItem());
 					Identifier itemName = RegisteredObjectsHelper.getKeyOrThrow(stack.getItem());
 					Identifier fluidName = RegisteredObjectsHelper.getKeyOrThrow(fluidCopy.getFluid());
 					Identifier id = Create.asResource("fill_" + itemName.getNamespace() + "_" + itemName.getPath()
