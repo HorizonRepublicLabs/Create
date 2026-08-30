@@ -1,5 +1,13 @@
 package com.simibubi.create.content.kinetics.base;
 
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import java.util.List;
+
+import java.util.ArrayList;
+
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 
 import com.simibubi.create.foundation.render.CreateRenderTypes;
@@ -35,19 +43,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.model.data.ModelData;
 
 public class KineticBlockEntityRenderer<T extends KineticBlockEntity> extends SafeBlockEntityRenderer<T> {
 
 	public static final SuperByteBufferCache.Compartment<BlockState> KINETIC_BLOCK = new SuperByteBufferCache.Compartment<>();
 	public static boolean rainbowMode = false;
-
-	protected static final RenderType[] REVERSED_CHUNK_BUFFER_LAYERS = RenderType.chunkBufferLayers().toArray(RenderType[]::new);
-
-	static {
-		ArrayUtils.reverse(REVERSED_CHUNK_BUFFER_LAYERS);
-	}
 
 	public KineticBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
 	}
@@ -66,14 +67,20 @@ public class KineticBlockEntityRenderer<T extends KineticBlockEntity> extends Sa
 		return be.getBlockState();
 	}
 
+	/// A model no longer names its chunk layers; its quads carry the material,
+	/// so a translucent part is what decides the moving block's render type.
 	protected RenderType getRenderType(T be, BlockState state) {
-		// TODO: this is not very clean
 		BlockStateModel model = Minecraft.getInstance()
-			.getModelManager().getBlockStateModelSet().get(state);
-		ChunkRenderTypeSet typeSet = model.getRenderTypes(state, RandomSource.create(42L), ModelData.EMPTY);
-		for (RenderType type : REVERSED_CHUNK_BUFFER_LAYERS)
-			if (typeSet.contains(type))
-				return type;
+			.getModelManager()
+			.getBlockStateModelSet()
+			.get(state);
+
+		List<BlockStateModelPart> parts = new ArrayList<>();
+		model.collectParts(RandomSource.create(42L), parts);
+		for (BlockStateModelPart part : parts)
+			if ((part.materialFlags() & BakedQuad.FLAG_TRANSLUCENT) != 0)
+				return CreateRenderTypes.translucentMovingBlock();
+
 		return CreateRenderTypes.cutoutMovingBlock();
 	}
 

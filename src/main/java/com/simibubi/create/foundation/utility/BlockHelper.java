@@ -285,18 +285,18 @@ public class BlockHelper {
 		int idx = chunk.getSectionIndex(target.getY());
 		LevelChunkSection chunksection = chunk.getSection(idx);
 		if (chunksection == null) {
-			chunksection = new LevelChunkSection(world.registryAccess()
-				.lookupOrThrow(Registries.BIOME));
+			// A section is built from the level's container factory now.
+			chunksection = new LevelChunkSection(world.palettedContainerFactory());
 			chunk.getSections()[idx] = chunksection;
 		}
 		BlockState old = chunksection.setBlockState(SectionPos.sectionRelative(target.getX()),
 			SectionPos.sectionRelative(target.getY()), SectionPos.sectionRelative(target.getZ()), state);
-		chunk.setUnsaved(true);
+		chunk.markUnsaved();
 		world.markAndNotifyBlock(target, chunk, old, state, 82, 512);
 
 		world.setBlock(target, state, Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE | Block.UPDATE_MOVE_BY_PISTON);
 		world.neighborChanged(target, world.getBlockState(target.below())
-			.getBlock(), target.below());
+			.getBlock(), null);
 	}
 
 	public static CompoundTag prepareBlockEntityData(Level level, BlockState blockState, BlockEntity blockEntity) {
