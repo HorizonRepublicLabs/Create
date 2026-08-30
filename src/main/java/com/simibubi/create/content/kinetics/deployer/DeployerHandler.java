@@ -354,10 +354,10 @@ public class DeployerHandler {
 		if (onItemRightClick.consumesAction() && item instanceof MobBucketItem bucketItem)
 			bucketItem.checkExtraContent(player, level, stack, clickedPos);
 
-		ItemStack resultStack = onItemRightClick.getObject();
+		ItemStack resultStack = (onItemRightClick instanceof InteractionResult.Success s ? s.heldItemTransformedTo() : ItemStack.EMPTY);
 		if (resultStack != stack || resultStack.getCount() != stack.getCount() || resultStack.getUseDuration(player) > 0
 			|| resultStack.getDamageValue() != stack.getDamageValue()) {
-			player.setItemInHand(hand, onItemRightClick.getObject());
+			player.setItemInHand(hand, (onItemRightClick instanceof InteractionResult.Success s ? s.heldItemTransformedTo() : ItemStack.EMPTY));
 		}
 
 		if (stack.getItem() instanceof SandPaperItem && stack.has(AllDataComponents.SAND_PAPER_POLISHING)) {

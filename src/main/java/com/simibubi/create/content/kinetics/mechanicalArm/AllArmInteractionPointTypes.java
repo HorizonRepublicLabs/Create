@@ -365,7 +365,7 @@ public class AllArmInteractionPointTypes {
 			ItemStack input = stack.copy();
 			InteractionResult res =
 				BlazeBurnerBlock.tryInsert(cachedState, level, pos, input, false, false, simulate);
-			ItemStack remainder = res.getObject();
+			ItemStack remainder = (res instanceof InteractionResult.Success s ? s.heldItemTransformedTo() : ItemStack.EMPTY);
 			if (input.isEmpty()) {
 				return remainder;
 			} else {

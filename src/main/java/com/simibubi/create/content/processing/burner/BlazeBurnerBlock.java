@@ -168,7 +168,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 
 		InteractionResult res =
 			tryInsert(state, level, pos, stack, doNotConsume, forceOverflow, false);
-		ItemStack leftover = res.getObject();
+		ItemStack leftover = (res instanceof InteractionResult.Success s ? s.heldItemTransformedTo() : ItemStack.EMPTY);
 		if (!level.isClientSide() && !doNotConsume && !leftover.isEmpty()) {
 			if (stack.isEmpty()) {
 				player.setItemInHand(hand, leftover);
