@@ -1,5 +1,9 @@
 package com.simibubi.create.content.processing.recipe;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.ArrayList;
@@ -117,7 +121,7 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 			errors.add(recipe.getClass().getSimpleName() + "with id " + id + " failed validation:");
 			Create.LOGGER.warn(Joiner.on('\n').join(errors));
 		}
-		consumer.accept(id, recipe, null, recipeConditions.toArray(new ICondition[0]));
+		consumer.accept(ResourceKey.create(Registries.RECIPE, id), recipe, null, recipeConditions.toArray(new ICondition[0]));
 	}
 
 	// Datagen shortcuts

@@ -1855,7 +1855,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 
 		@Override
 		public void accept(Identifier id, Recipe<?> recipe, @Nullable AdvancementHolder advancement, ICondition... conditions) {
-			wrapped.accept(id, new ModdedCookingRecipeOutputShim(recipe, outputOverride), advancement, conditions);
+			wrapped.accept(ResourceKey.create(Registries.RECIPE, id), new ModdedCookingRecipeOutputShim(recipe, outputOverride), advancement, conditions);
 		}
 	}
 }

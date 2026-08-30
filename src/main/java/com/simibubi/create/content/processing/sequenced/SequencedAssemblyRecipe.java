@@ -102,7 +102,7 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 				if (recipe.getType() == type && recipeClass.isInstance(recipe)) {
 					recipe.enforceNextResult(() -> holder.value().advance(holder.id(), item, level.getRandom()));
 					R castedRecipe = recipeClass.cast(recipe);
-					RecipeHolder<R> h = new RecipeHolder<>(ResourceKey.create(Registries.RECIPE, holder.id()), castedRecipe);
+					RecipeHolder<R> h = new RecipeHolder<>(holder.id(), castedRecipe);
 					if (recipeFilter.test(h))
 						result.add(h);
 				}

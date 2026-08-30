@@ -111,6 +111,6 @@ public class SequencedAssemblyRecipeBuilder {
 		Identifier id = Identifier.fromNamespaceAndPath(holder.id().getNamespace(),
 				AllRecipeTypes.SEQUENCED_ASSEMBLY.getId().getPath() + "/" + holder.id().getPath());
 
-		consumer.accept(id, holder.value(), null, recipeConditions.toArray(new ICondition[0]));
+		consumer.accept(ResourceKey.create(Registries.RECIPE, id), holder.value(), null, recipeConditions.toArray(new ICondition[0]));
 	}
 }

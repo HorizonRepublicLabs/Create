@@ -1,5 +1,9 @@
 package com.simibubi.create.api.data.recipe;
 
+import net.minecraft.core.registries.Registries;
+
+import net.minecraft.resources.ResourceKey;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.ArrayList;
@@ -145,7 +149,7 @@ public class MechanicalCraftingRecipeBuilder {
 			new ItemStack(result, count),
 			acceptMirrored
 		);
-		output.accept(id, recipe, null, recipeConditions.toArray(ICondition[]::new));
+		output.accept(ResourceKey.create(Registries.RECIPE, id), recipe, null, recipeConditions.toArray(ICondition[]::new));
 	}
 
 	/**
