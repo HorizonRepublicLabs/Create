@@ -246,12 +246,14 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 	public BlockState getAppearance(BlockState state, BlockAndLightGetter level, BlockPos pos, Direction side,
 									@Nullable BlockState queryState, @Nullable BlockPos queryPos) {
 
-		if (isIgnoredConnectivitySide(level, state, side, pos, queryPos))
+		if (!(level instanceof BlockAndTintGetter tintGetter))
+			return state;
+		if (isIgnoredConnectivitySide(tintGetter, state, side, pos, queryPos))
 			return state;
 
-		ModelData modelData = level.getModelData(pos);
+		ModelData modelData = tintGetter.getModelData(pos);
 		if (modelData == ModelData.EMPTY)
-			return getMaterial(level, pos);
+			return getMaterial(tintGetter, pos);
 		return CopycatModel.getMaterial(modelData);
 	}
 
@@ -337,7 +339,10 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 
 	@Override
 	public float getEnchantPowerBonus(BlockState state, BlockGetter level, BlockPos pos) {
-		return getMaterial(level, pos).getEnchantPowerBonus(level, pos);
+		if (!(level instanceof LevelReader levelReader))
+			return 0;
+		return getMaterial(levelReader, pos)
+			.getEnchantPowerBonus(levelReader, pos);
 	}
 
 	@Override
