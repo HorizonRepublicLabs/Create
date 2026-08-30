@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packager.repackager;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -145,8 +147,7 @@ public class RepackagerBlockEntity extends PackagerBlockEntity {
 		event.registerBlockEntity(
 			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.REPACKAGER.get(),
-			(be, context) -> be.inventory
-		);
+			ItemCaps.items((be, context) -> be.inventory));
 
 		if (Mods.COMPUTERCRAFT.isLoaded()) {
 			event.registerBlockEntity(

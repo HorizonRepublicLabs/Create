@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.utility.ComponentJson;
 
 import net.minecraft.core.UUIDUtil;
@@ -142,8 +144,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 		event.registerBlockEntity(
 			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.TRACK_STATION.get(),
-			(be, context) -> be.depotBehaviour.itemHandler
-		);
+			ItemCaps.items((be, context) -> be.depotBehaviour.itemHandler));
 
 		if (Mods.COMPUTERCRAFT.isLoaded()) {
 			event.registerBlockEntity(

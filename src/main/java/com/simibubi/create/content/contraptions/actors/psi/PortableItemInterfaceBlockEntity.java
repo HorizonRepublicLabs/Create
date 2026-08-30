@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.content.contraptions.Contraption;
 import com.simibubi.create.foundation.item.ItemHandlerWrapper;
@@ -26,8 +28,7 @@ public class PortableItemInterfaceBlockEntity extends PortableStorageInterfaceBl
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.PORTABLE_STORAGE_INTERFACE.get(),
-				(be, context) -> be.capability
-		);
+				ItemCaps.items((be, context) -> be.capability));
 	}
 
 	@Override

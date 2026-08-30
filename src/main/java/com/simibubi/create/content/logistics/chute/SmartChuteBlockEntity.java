@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.chute;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.List;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -28,8 +30,7 @@ public class SmartChuteBlockEntity extends ChuteBlockEntity implements Clearable
 		event.registerBlockEntity(
 			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.SMART_CHUTE.get(),
-			(be, context) -> be.itemHandler
-		);
+			ItemCaps.items((be, context) -> be.itemHandler));
 	}
 
 	@Override

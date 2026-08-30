@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.crate;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -34,8 +36,7 @@ public class CreativeCrateBlockEntity extends CrateBlockEntity implements Cleara
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.CREATIVE_CRATE.get(),
-				(be, context) -> be.inv
-		);
+				ItemCaps.items((be, context) -> be.inv));
 	}
 
 	@Override

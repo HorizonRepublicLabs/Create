@@ -1,5 +1,13 @@
 package com.simibubi.create.foundation.item;
 
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+
+import net.neoforged.neoforge.transfer.item.ItemResource;
+
+import net.neoforged.neoforge.transfer.ResourceHandler;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
@@ -37,8 +45,25 @@ public class ItemCaps {
 	}
 
 	@Nullable
+	/// An item's own inventory is reached through an access to the stack now,
+	/// rather than the stack answering directly.
 	public static IItemHandler of(ItemStack stack) {
-		var handler = stack.getCapability(Capabilities.Item.ITEM);
+		var handler = ItemAccess.forStack(stack)
+			.getCapability(Capabilities.Item.ITEM);
 		return handler == null ? null : IItemHandler.of(handler);
+	}
+
+	/// The other direction: Create's inventories are item handlers, and the
+	/// capability wants a resource handler.
+	@Nullable
+	public static ResourceHandler<ItemResource> asResourceHandler(@Nullable IItemHandler handler) {
+		return ItemHandlerResourceAdapter.of(handler);
+	}
+
+	/// Wraps a provider that still hands out item handlers so it can be
+	/// registered against the item capability.
+	public static <O, C> ICapabilityProvider<O, C, ResourceHandler<ItemResource>> items(
+		ICapabilityProvider<O, C, IItemHandler> provider) {
+		return (object, context) -> asResourceHandler(provider.getCapability(object, context));
 	}
 }

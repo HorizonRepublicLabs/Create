@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.toolbox;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.minecraft.core.component.DataComponentGetter;
 
 import com.simibubi.create.foundation.utility.ValueIOShim;
@@ -87,8 +89,7 @@ public class ToolboxBlockEntity extends SmartBlockEntity implements MenuProvider
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.TOOLBOX.get(),
-				(be, context) -> be.inventory
-		);
+				ItemCaps.items((be, context) -> be.inventory));
 	}
 
 	public DyeColor getColor() {

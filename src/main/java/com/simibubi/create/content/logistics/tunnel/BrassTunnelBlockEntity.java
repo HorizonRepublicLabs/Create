@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tunnel;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -100,8 +102,7 @@ public class BrassTunnelBlockEntity extends BeltTunnelBlockEntity implements IHa
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.BRASS_TUNNEL.get(),
-				(be, context) -> be.tunnelCapability
-		);
+				ItemCaps.items((be, context) -> be.tunnelCapability));
 	}
 
 	@Override

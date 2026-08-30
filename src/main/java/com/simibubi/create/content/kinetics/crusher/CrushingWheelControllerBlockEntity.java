@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crusher;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import net.minecraft.core.UUIDUtil;
@@ -92,8 +94,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 		event.registerBlockEntity(
 			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.CRUSHING_WHEEL_CONTROLLER.get(),
-			(be, context) -> be.inventory
-		);
+			ItemCaps.items((be, context) -> be.inventory));
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.utility.LerpedFloatNbt;
 
 import com.simibubi.create.foundation.utility.StackNbt;
@@ -111,8 +113,7 @@ public class EjectorBlockEntity extends KineticBlockEntity {
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.WEIGHTED_EJECTOR.get(),
-				(be, context) -> be.depotBehaviour.itemHandler
-		);
+				ItemCaps.items((be, context) -> be.depotBehaviour.itemHandler));
 	}
 
 	@Override

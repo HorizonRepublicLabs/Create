@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.crafter;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.createmod.catnip.api.data.Iterate;
@@ -158,8 +160,7 @@ public class MechanicalCrafterBlockEntity extends KineticBlockEntity implements 
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.MECHANICAL_CRAFTER.get(),
-				(be, context) -> be.getInvCapability()
-		);
+				ItemCaps.items((be, context) -> be.getInvCapability()));
 	}
 
 	protected IItemHandler getInvCapability() {

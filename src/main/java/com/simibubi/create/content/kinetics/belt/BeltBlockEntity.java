@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import static com.simibubi.create.content.kinetics.belt.BeltPart.MIDDLE;
 import static com.simibubi.create.content.kinetics.belt.BeltSlope.HORIZONTAL;
 import static net.minecraft.core.Direction.AxisDirection.NEGATIVE;
@@ -87,14 +89,13 @@ public class BeltBlockEntity extends KineticBlockEntity implements Clearable {
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.BELT.get(),
-				(be, context) -> {
+				ItemCaps.items((be, context) -> {
 						if (!BeltBlock.canTransportObjects(be.getBlockState()))
 							return null;
 						if (!be.isRemoved() && be.itemHandler == null)
 							be.initializeItemHandler();
 						return be.itemHandler;
-				}
-		);
+				}));
 	}
 
 	@Override

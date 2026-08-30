@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagePort.postbox;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -49,8 +51,7 @@ public class PostboxBlockEntity extends PackagePortBlockEntity {
 		event.registerBlockEntity(
 			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.PACKAGE_POSTBOX.get(),
-			(be, context) -> be.itemHandler
-		);
+			ItemCaps.items((be, context) -> be.itemHandler));
 	}
 
 	@Override

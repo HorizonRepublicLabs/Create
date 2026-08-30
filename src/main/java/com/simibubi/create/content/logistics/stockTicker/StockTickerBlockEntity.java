@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.minecraft.core.UUIDUtil;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -88,8 +90,7 @@ public class StockTickerBlockEntity extends StockCheckingBlockEntity implements 
 		event.registerBlockEntity(
 			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.STOCK_TICKER.get(),
-			(be, context) -> be.receivedPayments
-		);
+			ItemCaps.items((be, context) -> be.receivedPayments));
 
 		if (Mods.COMPUTERCRAFT.isLoaded()) {
 			event.registerBlockEntity(

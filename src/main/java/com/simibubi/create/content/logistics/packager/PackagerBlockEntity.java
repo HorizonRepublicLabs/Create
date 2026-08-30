@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packager;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,8 +120,7 @@ public class PackagerBlockEntity extends SmartBlockEntity implements Clearable {
 		event.registerBlockEntity(
 			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.PACKAGER.get(),
-			(be, context) -> be.inventory
-		);
+			ItemCaps.items((be, context) -> be.inventory));
 
 		if (Mods.COMPUTERCRAFT.isLoaded()) {
 			event.registerBlockEntity(

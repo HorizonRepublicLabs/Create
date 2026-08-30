@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import com.simibubi.create.foundation.utility.StackNbt;
@@ -139,8 +141,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.BASIN.get(),
-				(be, context) -> be.itemCapability
-		);
+				ItemCaps.items((be, context) -> be.itemCapability));
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
 				AllBlockEntityTypes.BASIN.get(),

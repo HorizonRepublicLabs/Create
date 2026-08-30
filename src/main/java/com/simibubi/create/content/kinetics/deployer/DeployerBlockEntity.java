@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.minecraft.core.UUIDUtil;
@@ -126,12 +128,11 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.DEPLOYER.get(),
-				(be, context) ->  {
+				ItemCaps.items((be, context) ->  {
 					if (be.invHandler == null)
 						be.initHandler();
 					return be.invHandler;
-				}
-		);
+				}));
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.minecraft.tags.BlockItemTags;
 
 import com.simibubi.create.foundation.utility.ValueIOShim;
@@ -102,12 +104,11 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.SAW.get(),
-				(be, context) -> {
+				ItemCaps.items((be, context) -> {
 					if (context != Direction.DOWN)
 						return be.inventory;
 					return null;
-				}
-		);
+				}));
 	}
 
 	@Override

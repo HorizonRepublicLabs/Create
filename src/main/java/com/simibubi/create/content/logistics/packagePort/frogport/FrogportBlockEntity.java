@@ -89,8 +89,7 @@ public class FrogportBlockEntity extends PackagePortBlockEntity implements IHave
 		event.registerBlockEntity(
 			Capabilities.Item.BLOCK,
 			AllBlockEntityTypes.PACKAGE_FROGPORT.get(),
-			(be, context) -> be.itemHandler
-		);
+			ItemCaps.items((be, context) -> be.itemHandler));
 
 		if (Mods.COMPUTERCRAFT.isLoaded()) {
 			event.registerBlockEntity(

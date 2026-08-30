@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.chute;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -105,8 +107,7 @@ public class ChuteBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.CHUTE.get(),
-				(be, context) -> be.itemHandler
-		);
+				ItemCaps.items((be, context) -> be.itemHandler));
 	}
 
 	@Override

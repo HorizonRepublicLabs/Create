@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.millstone;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import java.util.List;
@@ -59,8 +61,7 @@ public class MillstoneBlockEntity extends KineticBlockEntity implements Clearabl
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.MILLSTONE.get(),
-				(be, context) -> be.capability
-		);
+				ItemCaps.items((be, context) -> be.capability));
 	}
 
 	@Override

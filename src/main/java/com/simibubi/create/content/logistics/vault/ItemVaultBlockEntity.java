@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.vault;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -85,13 +87,12 @@ public class ItemVaultBlockEntity extends SmartBlockEntity implements IMultiBloc
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.ITEM_VAULT.get(),
-				(be, context) -> {
+				ItemCaps.items((be, context) -> {
 					be.initCapability();
 					if (be.itemCapability == null)
 						return null;
 					return be.itemCapability.getCapability();
-				}
-		);
+				}));
 	}
 
 	@Override

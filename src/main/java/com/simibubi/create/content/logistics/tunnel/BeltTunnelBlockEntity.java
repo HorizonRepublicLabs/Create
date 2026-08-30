@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tunnel;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import net.createmod.catnip.api.network.NetworkHelper;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
@@ -60,7 +62,7 @@ public class BeltTunnelBlockEntity extends SmartBlockEntity {
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.ANDESITE_TUNNEL.get(),
-				(be, context) ->  {
+				ItemCaps.items((be, context) ->  {
 					if (be.cap == null) {
 						if (AllBlocks.BELT.has(be.level.getBlockState(be.worldPosition.below()))) {
 							BlockEntity beBelow = be.level.getBlockEntity(be.worldPosition.below());
@@ -73,8 +75,7 @@ public class BeltTunnelBlockEntity extends SmartBlockEntity {
 						}
 					}
 					return be.cap;
-				}
-		);
+				}));
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.drain;
 
+import com.simibubi.create.foundation.item.ItemCaps;
+
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import net.minecraft.world.Containers;
@@ -73,12 +75,11 @@ public class ItemDrainBlockEntity extends SmartBlockEntity implements IHaveGoggl
 		event.registerBlockEntity(
 				Capabilities.Item.BLOCK,
 				AllBlockEntityTypes.ITEM_DRAIN.get(),
-				(be, context) -> {
+				ItemCaps.items((be, context) -> {
 					if (context != null && context.getAxis().isHorizontal())
 						return be.itemHandlers.get(context);
 					return null;
-				}
-		);
+				}));
 
 		event.registerBlockEntity(
 				Capabilities.Fluid.BLOCK,
