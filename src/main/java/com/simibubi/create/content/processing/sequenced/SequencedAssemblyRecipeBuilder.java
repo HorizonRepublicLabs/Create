@@ -108,7 +108,7 @@ public class SequencedAssemblyRecipeBuilder {
 	public void build(RecipeOutput consumer) {
 		RecipeHolder<SequencedAssemblyRecipe> holder = build();
 
-		Identifier id = Identifier.fromNamespaceAndPath(holder.id().getNamespace(),
+		Identifier id = Identifier.fromNamespaceAndPath(holder.id().identifier().getNamespace(),
 				AllRecipeTypes.SEQUENCED_ASSEMBLY.getId().getPath() + "/" + holder.id().identifier().getPath());
 
 		consumer.accept(ResourceKey.create(Registries.RECIPE, id), holder.value(), null, recipeConditions.toArray(new ICondition[0]));

@@ -39,7 +39,7 @@ public abstract class BaseRecipeProvider extends RecipeProvider {
 	@Override
 	public void buildRecipes(RecipeOutput recipeOutput) {
 		all.forEach(c -> c.register(recipeOutput));
-		Create.LOGGER.info("{} registered {} recipe{}", getName(), all.size(), all.size() == 1 ? "" : "s");
+		Create.LOGGER.info("{} registered {} recipe{}", getClass().getSimpleName(), all.size(), all.size() == 1 ? "" : "s");
 	}
 
 	@FunctionalInterface
