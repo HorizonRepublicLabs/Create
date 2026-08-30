@@ -876,8 +876,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		double pMouseX = event.x();
 		double pMouseY = event.y();
 		int pButton = event.button();
-		if (destinationSuggestions != null
-			&& destinationSuggestions.mouseClicked((int) pMouseX, (int) pMouseY, pButton))
+		if (destinationSuggestions != null && destinationSuggestions.mouseClicked(event))
 			return true;
 		if (editorConfirm != null && editorConfirm.isMouseOver(pMouseX, pMouseY) && onEditorClose != null) {
 			onEditorClose.accept(true);
@@ -904,7 +903,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 			return true;
 		if (editingCondition == null && editingDestination == null)
 			return super.keyPressed(event);
-		InputConstants.Key mouseKey = InputConstants.getKey(pKeyCode, pScanCode);
+		InputConstants.Key mouseKey = InputConstants.getKey(event);
 		boolean hitEnter = getFocused() instanceof EditBox && (pKeyCode == 257 || pKeyCode == 335);
 		boolean hitE = getFocused() == null || minecraft.options.keyInventory.isActiveAndMatches(mouseKey);
 		if (hitEnter) {

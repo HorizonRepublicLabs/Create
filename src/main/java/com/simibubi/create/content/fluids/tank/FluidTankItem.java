@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import net.minecraft.world.level.block.entity.BlockEntityType;
+
 import net.minecraft.world.item.component.TypedEntityData;
 
 import net.minecraft.util.ProblemReporter;
@@ -53,7 +55,7 @@ public class FluidTankItem extends BlockItem {
 		MinecraftServer minecraftserver = level.getServer();
 		if (minecraftserver == null)
 			return false;
-		CustomData blockEntityData = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
+		TypedEntityData<BlockEntityType<?>> blockEntityData = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
 		if (blockEntityData != null) {
 			CompoundTag nbt = blockEntityData.copyTagWithoutId();
 			nbt.remove("Luminosity");

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.vault;
 
+import net.minecraft.world.level.block.entity.BlockEntityType;
+
 import net.minecraft.world.item.component.TypedEntityData;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -48,7 +50,7 @@ public class ItemVaultItem extends BlockItem {
 		MinecraftServer minecraftserver = level.getServer();
 		if (minecraftserver == null)
 			return false;
-		CustomData blockEntityData = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
+		TypedEntityData<BlockEntityType<?>> blockEntityData = itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
 		if (blockEntityData != null) {
 			CompoundTag nbt = blockEntityData.copyTagWithoutId();
 			nbt.remove("Length");

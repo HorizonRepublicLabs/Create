@@ -172,7 +172,10 @@ public class StockTickerBlockEntity extends StockCheckingBlockEntity implements 
 		tag.put("HiddenCategories", NBTHelper.writeCompoundList(hiddenCategoriesByPlayer.entrySet(), e -> {
 			CompoundTag c = new CompoundTag();
 			c.store("Id", UUIDUtil.CODEC, e.getKey());
-			c.putIntArray("Indices", e.getValue());
+			c.putIntArray("Indices", e.getValue()
+				.stream()
+				.mapToInt(Integer::intValue)
+				.toArray());
 			return c;
 		}));
 
@@ -190,9 +193,12 @@ public class StockTickerBlockEntity extends StockCheckingBlockEntity implements 
 		hiddenCategoriesByPlayer.clear();
 
 		NBTHelper.iterateCompoundList(tag.getListOrEmpty("HiddenCategories"),
-			c -> hiddenCategoriesByPlayer.put(c.read("Id", UUIDUtil.CODEC).orElseThrow(), IntStream.of(c.getIntArray("Indices"))
-				.boxed()
-				.toList()));
+			c -> hiddenCategoriesByPlayer.put(c.read("Id", UUIDUtil.CODEC)
+				.orElseThrow(),
+				IntStream.of(c.getIntArray("Indices")
+					.orElseGet(() -> new int[0]))
+					.boxed()
+					.toList()));
 
 		if (clientPacket)
 			activeLinks = tag.getIntOr("ActiveLinks", 0);
