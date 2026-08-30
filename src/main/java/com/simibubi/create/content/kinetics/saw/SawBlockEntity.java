@@ -200,7 +200,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 		}
 
 		Vec3 itemMovement = getItemMovementVec();
-		Direction itemMovementFacing = Direction.getNearest(itemMovement.x, itemMovement.y, itemMovement.z);
+		Direction itemMovementFacing = Direction.getNearest(itemMovement.x, itemMovement.y, itemMovement.z, Direction.UP);
 		if (inventory.remainingTime > 0)
 			return;
 		inventory.remainingTime = 0;
