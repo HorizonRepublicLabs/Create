@@ -1,5 +1,17 @@
 package com.simibubi.create.compat.jei.category;
 
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+
+import net.neoforged.neoforge.capabilities.Capabilities;
+
+import net.neoforged.neoforge.transfer.transaction.Transaction;
+
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+
+import net.neoforged.neoforge.transfer.ResourceHandler;
+
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+
 import com.simibubi.create.foundation.fluid.FluidHelper;
 
 import com.simibubi.create.foundation.fluid.FluidCaps;
@@ -71,7 +83,7 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 				continue;
 			}
 
-			IFluidHandlerItem capability = FluidCaps.of(stack);
+			IFluidHandler capability = FluidCaps.of(stack);
 			if (capability == null)
 				continue;
 
@@ -84,15 +96,22 @@ public class SpoutCategory extends CreateRecipeCategory<FillingRecipe> {
 				if (numTanks == 1 && (!existingFluid.isEmpty() && !FluidStack.isSameFluidSameComponents(existingFluid, fluidStack)))
 					continue;
 
+				// The container is reached through an access to the stack, which
+				// holds what it turned into once the fill goes through.
 				ItemStack copy = stack.copy();
-				IFluidHandlerItem fhi = FluidCaps.of(copy);
+				ItemAccess access = ItemAccess.forStack(copy);
+				ResourceHandler<FluidResource> fhi = access.getCapability(Capabilities.Fluid.ITEM);
 				if (fhi != null) {
-					if (!GenericItemFilling.isFluidHandlerValid(copy, fhi))
+					if (!GenericItemFilling.isFluidHandlerValid(copy, IFluidHandler.of(fhi)))
 						continue;
 					FluidStack fluidCopy = fluidStack.copy();
 					fluidCopy.setAmount(1000);
-					fhi.fill(fluidCopy, FluidAction.EXECUTE);
-					ItemStack container = fhi.getContainer();
+					try (Transaction transaction = Transaction.openRoot()) {
+						fhi.insert(FluidResource.of(fluidCopy), 1000, transaction);
+						transaction.commit();
+					}
+					ItemStack container = access.getResource()
+						.toStack();
 					if (ItemHelper.sameItem(container, copy))
 						continue;
 					if (container.isEmpty())
