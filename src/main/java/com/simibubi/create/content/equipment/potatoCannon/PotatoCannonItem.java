@@ -159,7 +159,7 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 		}
 
 		if (!BacktankUtil.canAbsorbDamage(player, maxUses()))
-			heldStack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+			heldStack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 
 		ShootableGadgetItemMethods.applyCooldown(player, heldStack, hand, s -> s.getItem() instanceof PotatoCannonItem, projectileType.reloadTicks());
 		ShootableGadgetItemMethods.sendPackets(player,

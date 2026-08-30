@@ -137,7 +137,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 			}
 
 			stack.remove(AllDataComponents.SAND_PAPER_POLISHING);
-			stack.hurtAndBreak(1, entityLiving, LivingEntity.getSlotForHand(entityLiving.getUsedItemHand()));
+			stack.hurtAndBreak(1, entityLiving, entityLiving.getUsedItemHand().asEquipmentSlot());
 		}
 
 		return stack;
@@ -188,7 +188,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		if (newState != null) {
 			level.setBlockAndUpdate(pos, newState);
 			if (player != null)
-				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(player.getUsedItemHand()));
+				stack.hurtAndBreak(1, player, player.getUsedItemHand().asEquipmentSlot());
 			return (level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER);
 		}
 

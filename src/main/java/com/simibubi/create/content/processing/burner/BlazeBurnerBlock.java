@@ -156,7 +156,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 					level.getRandom().nextFloat() * 0.4F + 0.8F);
 				if (level.isClientSide())
 					return InteractionResult.SUCCESS;
-				stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+				stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
 				level.setBlockAndUpdate(pos, AllBlocks.LIT_BLAZE_BURNER.getDefaultState());
 				return InteractionResult.SUCCESS;
 			}

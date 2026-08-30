@@ -33,7 +33,7 @@ public class TimeOfDayDisplaySource extends SingleLineDisplaySource {
 		boolean c12 = context.sourceConfig()
 			.getIntOr("Cycle", 0) == 0;
 		boolean isNatural = sLevel.dimensionType()
-			.natural();
+			.defaultClock().isPresent();
 
 		int dayTime = (int) (sLevel.getDefaultClockTime() % 24000);
 		int hours = (dayTime / 1000 + 6) % 24;
