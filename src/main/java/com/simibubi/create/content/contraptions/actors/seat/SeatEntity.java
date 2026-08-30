@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.actors.seat;
 
+import net.minecraft.world.damagesource.DamageSource;
+
+import net.minecraft.server.level.ServerLevel;
+
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 
 import net.minecraft.world.level.storage.ValueInput;
@@ -35,6 +39,13 @@ import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.entity.IEntityWithComplexSpawn;
 
 public class SeatEntity extends Entity implements IEntityWithComplexSpawn {
+	/// Seats take no damage; the interaction that removes one goes through the
+	/// block.
+	@Override
+	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+		return false;
+	}
+
 	public SeatEntity(EntityType<?> entityType, Level level) {
 		super(entityType, level);
 	}

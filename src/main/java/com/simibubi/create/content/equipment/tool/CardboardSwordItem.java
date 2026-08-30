@@ -120,7 +120,12 @@ public class CardboardSwordItem extends Item {
 
 	public static void knockback(LivingEntity target, double knockbackStrength, float yRot) {
 		target.stopRiding();
-		target.knockback(knockbackStrength * 0.5F, Mth.sin(yRot * Mth.DEG_TO_RAD), -Mth.cos(yRot * Mth.DEG_TO_RAD));
+		// Knockback names the damage that caused it now; the cardboard sword deals
+		// none of its own.
+		target.knockback(knockbackStrength * 0.5F, Mth.sin(yRot * Mth.DEG_TO_RAD), -Mth.cos(yRot * Mth.DEG_TO_RAD),
+			target.damageSources()
+				.generic(),
+			0);
 	}
 
 }
