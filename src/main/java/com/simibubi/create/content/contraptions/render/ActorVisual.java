@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.render;
 
+import net.minecraft.world.level.BlockGetter;
+
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 
 import dev.engine_room.flywheel.api.instance.InstancerProvider;
@@ -16,7 +18,7 @@ public abstract class ActorVisual implements Visual {
 
 	private boolean deleted;
 
-    public ActorVisual(VisualizationContext visualizationContext, BlockAndTintGetter world, MovementContext context) {
+    public ActorVisual(VisualizationContext visualizationContext, BlockGetter world, MovementContext context) {
         this.visualizationContext = visualizationContext;
 		this.instancerProvider = visualizationContext.instancerProvider();
         this.simulationWorld = world;

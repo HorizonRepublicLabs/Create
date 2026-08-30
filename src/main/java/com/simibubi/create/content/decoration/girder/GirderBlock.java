@@ -316,7 +316,7 @@ public class GirderBlock extends Block implements SimpleWaterloggedBlock, IWrenc
 		return false;
 	}
 
-	public static boolean isConnected(BlockAndTintGetter world, BlockPos pos, BlockState state, Direction side) {
+	public static boolean isConnected(BlockGetter world, BlockPos pos, BlockState state, Direction side) {
 		Axis axis = side.getAxis();
 		if (state.getBlock() instanceof GirderBlock && !state.getValue(axis == Axis.X ? X : Z))
 			return false;

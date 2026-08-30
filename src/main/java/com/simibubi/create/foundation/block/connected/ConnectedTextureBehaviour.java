@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.block.connected;
 
+import net.minecraft.world.level.BlockGetter;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,7 +29,7 @@ public abstract class ConnectedTextureBehaviour {
 
 	// TODO: allow more than one data type per state/face?
 	@Nullable
-	public abstract CTType getDataType(BlockAndTintGetter world, BlockPos pos, BlockState state, Direction direction);
+	public abstract CTType getDataType(BlockGetter world, BlockPos pos, BlockState state, Direction direction);
 
 	public boolean buildContextForOccludedDirections() {
 		return false;
@@ -272,7 +274,7 @@ public abstract class ConnectedTextureBehaviour {
 
 		@Override
 		@Nullable
-		public CTType getDataType(BlockAndTintGetter world, BlockPos pos, BlockState state, Direction direction) {
+		public CTType getDataType(BlockGetter world, BlockPos pos, BlockState state, Direction direction) {
 			CTSpriteShiftEntry shift = getShift(state, direction, null);
 			if (shift == null) {
 				return null;

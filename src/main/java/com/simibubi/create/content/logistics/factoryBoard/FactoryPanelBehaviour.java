@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.world.level.BlockGetter;
+
 import net.minecraft.core.UUIDUtil;
 
 import net.createmod.catnip.api.network.NetworkHelper;
@@ -155,7 +157,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 	}
 
 	@Nullable
-	public static FactoryPanelBehaviour at(BlockAndTintGetter world, FactoryPanelConnection connection) {
+	public static FactoryPanelBehaviour at(BlockGetter world, FactoryPanelConnection connection) {
 		Object cached = connection.cachedSource.get();
 		if (cached instanceof FactoryPanelBehaviour fbe && !fbe.blockEntity.isRemoved())
 			return fbe;
@@ -165,7 +167,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 	}
 
 	@Nullable
-	public static FactoryPanelBehaviour at(BlockAndTintGetter world, FactoryPanelPosition pos) {
+	public static FactoryPanelBehaviour at(BlockGetter world, FactoryPanelPosition pos) {
 		if (world instanceof Level l && !l.isLoaded(pos.pos()))
 			return null;
 		if (!(world.getBlockEntity(pos.pos()) instanceof FactoryPanelBlockEntity fpbe))
@@ -177,7 +179,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 	}
 
 	@Nullable
-	public static FactoryPanelSupportBehaviour linkAt(BlockAndTintGetter world, FactoryPanelConnection connection) {
+	public static FactoryPanelSupportBehaviour linkAt(BlockGetter world, FactoryPanelConnection connection) {
 		Object cached = connection.cachedSource.get();
 		if (cached instanceof FactoryPanelSupportBehaviour fpsb && !fpsb.blockEntity.isRemoved())
 			return fpsb;
@@ -187,7 +189,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 	}
 
 	@Nullable
-	public static FactoryPanelSupportBehaviour linkAt(BlockAndTintGetter world, FactoryPanelPosition pos) {
+	public static FactoryPanelSupportBehaviour linkAt(BlockGetter world, FactoryPanelPosition pos) {
 		if (world instanceof Level l && !l.isLoaded(pos.pos()))
 			return null;
 		return BlockEntityBehaviour.get(world, pos.pos(), FactoryPanelSupportBehaviour.TYPE);

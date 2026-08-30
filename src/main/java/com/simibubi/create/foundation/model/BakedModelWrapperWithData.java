@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.model;
 
+import net.minecraft.world.level.BlockGetter;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
@@ -15,7 +17,7 @@ public abstract class BakedModelWrapperWithData extends DelegateBlockStateModel 
 	}
 
 	@Override
-	public final ModelData getModelData(BlockAndTintGetter world, BlockPos pos, BlockState state, ModelData blockEntityData) {
+	public final ModelData getModelData(BlockGetter world, BlockPos pos, BlockState state, ModelData blockEntityData) {
 		Builder builder = ModelData.builder();
 		if (originalModel instanceof BakedModelWrapperWithData)
 			((BakedModelWrapperWithData) originalModel).gatherModelData(builder, world, pos, state, blockEntityData);
@@ -23,7 +25,7 @@ public abstract class BakedModelWrapperWithData extends DelegateBlockStateModel 
 		return builder.build();
 	}
 
-	protected abstract ModelData.Builder gatherModelData(ModelData.Builder builder, BlockAndTintGetter world,
+	protected abstract ModelData.Builder gatherModelData(ModelData.Builder builder, BlockGetter world,
 		BlockPos pos, BlockState state, ModelData blockEntityData);
 
 }

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.tunnel;
 
+import net.minecraft.world.level.BlockGetter;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllSpriteShifts;
@@ -16,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class BrassTunnelCTBehaviour extends ConnectedTextureBehaviour.Base {
 
 	@Override
-	public @Nullable CTType getDataType(BlockAndTintGetter world, BlockPos pos, BlockState state, Direction direction) {
+	public @Nullable CTType getDataType(BlockGetter world, BlockPos pos, BlockState state, Direction direction) {
 		if (!(world.getBlockEntity(pos) instanceof BrassTunnelBlockEntity tunnelBE)
 			|| !tunnelBE.hasDistributionBehaviour())
 			return null;

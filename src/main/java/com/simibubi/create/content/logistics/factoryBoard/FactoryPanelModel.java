@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import net.minecraft.world.level.BlockGetter;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 
 import com.simibubi.create.foundation.model.DataDrivenModel;
@@ -44,7 +46,7 @@ public class FactoryPanelModel extends DataDrivenModel<FactoryPanelModel.Factory
 	}
 
 	@Override
-	protected FactoryPanelModelData gatherData(BlockAndTintGetter world, BlockPos pos, BlockState state) {
+	protected FactoryPanelModelData gatherData(BlockGetter world, BlockPos pos, BlockState state) {
 		FactoryPanelModelData data = new FactoryPanelModelData();
 		for (PanelSlot slot : PanelSlot.values()) {
 			FactoryPanelBehaviour behaviour = FactoryPanelBehaviour.at(world, new FactoryPanelPosition(pos, slot));

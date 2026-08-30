@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import net.minecraft.world.level.BlockGetter;
+
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
@@ -47,7 +49,7 @@ public class WeatheredIronWindowPaneCTBehaviour extends GlassPaneCTBehaviour {
 	}
 
 	@Override
-	public @Nullable CTType getDataType(BlockAndTintGetter world, BlockPos pos, BlockState state, Direction direction) {
+	public @Nullable CTType getDataType(BlockGetter world, BlockPos pos, BlockState state, Direction direction) {
 		return AllCTTypes.RECTANGLE;
 	}
 

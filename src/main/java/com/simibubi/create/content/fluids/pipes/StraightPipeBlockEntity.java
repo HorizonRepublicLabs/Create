@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.pipes;
 
+import net.minecraft.world.level.BlockGetter;
+
 import java.util.List;
 
 import com.simibubi.create.content.decoration.bracket.BracketedBlockEntityBehaviour;
@@ -41,7 +43,7 @@ public class StraightPipeBlockEntity extends SmartBlockEntity {
 		}
 
 		@Override
-		public AttachmentTypes getRenderedRimAttachment(BlockAndTintGetter world, BlockPos pos, BlockState state,
+		public AttachmentTypes getRenderedRimAttachment(BlockGetter world, BlockPos pos, BlockState state,
 			Direction direction) {
 			AttachmentTypes attachment = super.getRenderedRimAttachment(world, pos, state, direction);
 			BlockState otherState = world.getBlockState(pos.relative(direction));

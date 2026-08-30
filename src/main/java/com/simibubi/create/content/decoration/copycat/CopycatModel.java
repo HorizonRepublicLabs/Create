@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.world.level.BlockGetter;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 
 import com.simibubi.create.foundation.model.DelegateModelPart;
@@ -45,7 +47,7 @@ public abstract class CopycatModel extends BakedModelWrapperWithData {
 	}
 
 	@Override
-	protected Builder gatherModelData(Builder builder, BlockAndTintGetter world, BlockPos pos, BlockState state,
+	protected Builder gatherModelData(Builder builder, BlockGetter world, BlockPos pos, BlockState state,
 		ModelData blockEntityData) {
 		BlockState material = getMaterial(blockEntityData);
 		builder.with(MATERIAL_PROPERTY, material);

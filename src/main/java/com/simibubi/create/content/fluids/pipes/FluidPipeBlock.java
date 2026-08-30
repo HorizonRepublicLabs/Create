@@ -183,7 +183,7 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 		return state.getBlock() instanceof FluidPipeBlock;
 	}
 
-	public static boolean canConnectTo(BlockAndTintGetter world, BlockPos neighbourPos, BlockState neighbour,
+	public static boolean canConnectTo(BlockGetter world, BlockPos neighbourPos, BlockState neighbour,
 		Direction direction) {
 		if (FluidPropagator.hasFluidCapability(world, neighbourPos, direction.getOpposite()))
 			return true;
@@ -200,7 +200,7 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 		return transport.canHaveFlowToward(neighbour, direction.getOpposite());
 	}
 
-	public static boolean shouldDrawRim(BlockAndTintGetter world, BlockPos pos, BlockState state, Direction direction) {
+	public static boolean shouldDrawRim(BlockGetter world, BlockPos pos, BlockState state, Direction direction) {
 		BlockPos offsetPos = pos.relative(direction);
 		BlockState facingState = world.getBlockState(offsetPos);
 		if (facingState.getBlock() instanceof EncasedPipeBlock)
@@ -216,12 +216,12 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 		return state.getValue(PROPERTY_BY_DIRECTION.get(direction));
 	}
 
-	public static boolean isCornerOrEndPipe(BlockAndTintGetter world, BlockPos pos, BlockState state) {
+	public static boolean isCornerOrEndPipe(BlockGetter world, BlockPos pos, BlockState state) {
 		return isPipe(state) && FluidPropagator.getStraightPipeAxis(state) == null
 			&& !shouldDrawCasing(world, pos, state);
 	}
 
-	public static boolean shouldDrawCasing(BlockAndTintGetter world, BlockPos pos, BlockState state) {
+	public static boolean shouldDrawCasing(BlockGetter world, BlockPos pos, BlockState state) {
 		if (!isPipe(state))
 			return false;
 		for (Axis axis : Iterate.axes) {
@@ -262,7 +262,7 @@ public class FluidPipeBlock extends PipeBlock implements SimpleWaterloggedBlock,
 	}
 
 	public BlockState updateBlockState(BlockState state, Direction preferredDirection, @Nullable Direction ignore,
-		BlockAndTintGetter world, BlockPos pos) {
+		BlockGetter world, BlockPos pos) {
 
 		BracketedBlockEntityBehaviour bracket = BlockEntityBehaviour.get(world, pos, BracketedBlockEntityBehaviour.TYPE);
 		if (bracket != null && bracket.isBracketPresent())

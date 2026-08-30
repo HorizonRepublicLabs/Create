@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import net.minecraft.world.level.BlockGetter;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
@@ -236,7 +238,7 @@ public abstract class FluidTransportBehaviour extends BlockEntityBehaviour {
 				interfaces.put(d, new PipeConnection(d));
 	}
 
-	public AttachmentTypes getRenderedRimAttachment(BlockAndTintGetter world, BlockPos pos, BlockState state,
+	public AttachmentTypes getRenderedRimAttachment(BlockGetter world, BlockPos pos, BlockState state,
 		Direction direction) {
 		if (!canHaveFlowToward(state, direction))
 			return AttachmentTypes.NONE;

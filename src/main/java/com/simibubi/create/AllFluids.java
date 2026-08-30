@@ -1,5 +1,7 @@
 package com.simibubi.create;
 
+import net.minecraft.world.level.BlockGetter;
+
 import net.minecraft.client.renderer.fog.FogData;
 
 import net.minecraft.client.renderer.fog.environment.FogEnvironment;
@@ -265,7 +267,7 @@ public class AllFluids {
 		 * render layer)
 		 */
 		@Override
-		public int getTintColor(FluidState state, BlockAndTintGetter world, BlockPos pos) {
+		public int getTintColor(FluidState state, BlockGetter world, BlockPos pos) {
 			return 0x00ffffff;
 		}
 

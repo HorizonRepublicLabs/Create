@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration;
 
+import net.minecraft.world.level.BlockGetter;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.foundation.block.connected.AllCTTypes;
@@ -137,7 +139,7 @@ public class RoofBlockCTBehaviour extends ConnectedTextureBehaviour.Base {
 	}
 
 	@Override
-	public @Nullable CTType getDataType(BlockAndTintGetter world, BlockPos pos, BlockState state, Direction direction) {
+	public @Nullable CTType getDataType(BlockGetter world, BlockPos pos, BlockState state, Direction direction) {
 		return isUprightStair(state) ? AllCTTypes.ROOF_STAIR : AllCTTypes.ROOF;
 	}
 
