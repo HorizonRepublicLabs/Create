@@ -1,5 +1,13 @@
 package com.simibubi.create.foundation.map;
 
+import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
+
+import net.minecraft.client.renderer.texture.TextureAtlas;
+
+import net.minecraft.client.renderer.SubmitNodeCollector;
+
+import net.minecraft.client.renderer.state.MapRenderState;
+
 import com.simibubi.create.foundation.render.CreateTextRenderer;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -14,7 +22,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.MapDecorationTextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
@@ -22,17 +29,24 @@ import net.neoforged.neoforge.client.gui.map.IMapDecorationRenderer;
 
 public class StationMapDecorationRenderer implements IMapDecorationRenderer {
 	@Override
-	public boolean render(MapDecoration decoration, PoseStack poseStack, SuperRenderTypeBuffer bufferSource, @NotNull MapItemSavedData mapData, MapDecorationTextureManager decorationTextures, boolean inItemFrame, int packedLight, int index) {
+	public boolean render(MapRenderState.MapDecorationRenderState decoration, PoseStack poseStack,
+		SubmitNodeCollector collector, MapRenderState mapRenderState, TextureAtlas decorationSprites,
+		boolean inItemFrame, int packedLight, int index) {
+		SuperRenderTypeBuffer bufferSource = DefaultSuperRenderTypeBuffer.getInstance();
+		bufferSource.setCollector(collector);
 		poseStack.pushPose();
 
-		poseStack.translate(decoration.x() / 2D + 64.0, decoration.y() / 2D + 64.0, -0.02D);
+		poseStack.translate(decoration.x / 2D + 64.0, decoration.y / 2D + 64.0, -0.02D);
 
 		poseStack.pushPose();
 
 		poseStack.translate(0.5f, 0f, 0);
 		poseStack.scale(4.5F, 4.5F, 3.0F);
 
-		TextureAtlasSprite sprite = decorationTextures.get(decoration);
+		// The sprite travels on the render state rather than being looked up.
+		TextureAtlasSprite sprite = decoration.atlasSprite;
+		if (sprite == null)
+			return true;
 		float U0 = sprite.getU0();
 		float V0 = sprite.getV0();
 		float U1 = sprite.getU1();
@@ -47,9 +61,9 @@ public class StationMapDecorationRenderer implements IMapDecorationRenderer {
 
 		poseStack.popPose();
 
-		if (decoration.name().isPresent()) {
+		if (decoration.name != null) {
 			Font font = Minecraft.getInstance().font;
-			Component component = decoration.name().get();
+			Component component = decoration.name;
 			float f6 = (float)font.width(component);
 //			float f7 = Mth.clamp(25.0F / f6, 0.0F, 6.0F / 9.0F);
 			poseStack.pushPose();
@@ -66,6 +80,8 @@ public class StationMapDecorationRenderer implements IMapDecorationRenderer {
 
 		poseStack.popPose();
 
+		bufferSource.draw();
+		bufferSource.setCollector(null);
 		return true;
 	}
 }
