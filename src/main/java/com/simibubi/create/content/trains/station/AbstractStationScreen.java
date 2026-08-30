@@ -117,7 +117,7 @@ public abstract class AbstractStationScreen extends AbstractSimiScreen {
 			msr.translate(1 / 16f, -19 / 16f, -12 / 16f);
 			StationRenderer.transformFlag(msr, blockEntity, partialTicks, 180, false);
 			GuiGameElement.of(getFlag(partialTicks))
-				.render(graphics);
+				.submit(graphics);
 		}
 
 		ms.popMatrix();

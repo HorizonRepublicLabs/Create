@@ -150,7 +150,7 @@ public class SymmetryWandScreen extends AbstractSimiScreen {
 		currentElement.applyModelTransform(ms);
 		// RenderSystem.multMatrix(ms.peek().getModel());
 		GuiGameElement.of(currentElement.getModel())
-			.render(graphics);
+			.submit(graphics);
 
 		ms.popMatrix();
 	}
