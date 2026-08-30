@@ -156,7 +156,8 @@ public class ElevatorContactBlock extends WrenchableDirectionalBlock
 	}
 
 	public void scheduleActivation(LevelReader pLevel, ScheduledTickAccess tickAccess, BlockPos pPos) {
-		if (!pLevel.getBlockTicks()
+		// Scheduled ticks are asked of the tick access now.
+		if (!tickAccess.getBlockTicks()
 			.hasScheduledTick(pPos, this))
 			tickAccess.scheduleTick(pPos, this, 1);
 	}

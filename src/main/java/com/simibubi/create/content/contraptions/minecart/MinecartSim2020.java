@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import net.minecraft.server.level.ServerLevel;
+
 import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
 
 import java.util.Map;
@@ -143,7 +145,10 @@ public class MinecartSim2020 {
 
 		cart.setPos(actualX, actualY, actualZ);
 		cart.setDeltaMovement(forcedMovement);
-		cart.moveMinecartOnRail(cartPos);
+		// A cart moves along its track on the server now.
+		if (cart.level() instanceof ServerLevel serverLevel)
+			cart.getBehavior()
+				.moveAlongTrack(serverLevel);
 
 		x = cart.getX();
 		y = cart.getY();
