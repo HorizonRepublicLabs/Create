@@ -507,7 +507,7 @@ public class CartAssemblerScenes {
 		scene.idle(20);
 
 		cart = scene.special().createCart(util.vector().topOf(assembler.east(2)
-			.below()), 0, MinecartFurnace::new);
+			.below()), 0, PonderCarts.FURNACE_MINECART);
 		scene.idle(10);
 		scene.overlay().showText(50)
 			.attachKeyFrame()

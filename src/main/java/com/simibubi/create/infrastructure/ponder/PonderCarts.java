@@ -4,8 +4,6 @@ import net.createmod.ponder.api.client.element.MinecartElement.MinecartConstruct
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
-import net.minecraft.world.entity.vehicle.minecart.Minecart;
-import net.minecraft.world.entity.vehicle.minecart.MinecartChest;
 
 /// Minecarts are built from their entity type and placed afterwards rather than
 /// taking a position, so the scenes name the type they want.
@@ -13,6 +11,7 @@ public class PonderCarts {
 
 	public static final MinecartConstructor MINECART = of(EntityTypes.MINECART);
 	public static final MinecartConstructor CHEST_MINECART = of(EntityTypes.CHEST_MINECART);
+	public static final MinecartConstructor FURNACE_MINECART = of(EntityTypes.FURNACE_MINECART);
 
 	private static MinecartConstructor of(EntityType<? extends AbstractMinecart> type) {
 		return (level, x, y, z) -> {
@@ -24,8 +23,5 @@ public class PonderCarts {
 	}
 
 	private PonderCarts() {
-		// only the constants
-		Minecart.class.getName();
-		MinecartChest.class.getName();
 	}
 }
