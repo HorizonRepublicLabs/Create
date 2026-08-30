@@ -54,7 +54,7 @@ public class PipeAttachmentModel extends DataDrivenModel<PipeAttachmentModel.Pip
 	}
 
 	@Override
-	protected PipeModelData gatherData(BlockGetter world, BlockPos pos, BlockState state) {
+	protected PipeModelData gatherData(BlockAndTintGetter world, BlockPos pos, BlockState state) {
 		PipeModelData data = new PipeModelData();
 		FluidTransportBehaviour transport = BlockEntityBehaviour.get(world, pos, FluidTransportBehaviour.TYPE);
 		BracketedBlockEntityBehaviour bracket = BlockEntityBehaviour.get(world, pos, BracketedBlockEntityBehaviour.TYPE);
