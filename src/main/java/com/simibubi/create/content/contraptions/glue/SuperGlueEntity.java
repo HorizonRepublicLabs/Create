@@ -172,7 +172,6 @@ public class SuperGlueEntity extends Entity implements IEntityWithComplexSpawn, 
 	public void tick() {
 		xRotO = getXRot();
 		yRotO = getYRot();
-		walkDistO = walkDist;
 		xo = getX();
 		yo = getY();
 		zo = getZ();
@@ -217,20 +216,20 @@ public class SuperGlueEntity extends Entity implements IEntityWithComplexSpawn, 
 	}
 
 	@Override
-	public InteractionResult interact(Player player, InteractionHand hand) {
+	public InteractionResult interact(Player player, InteractionHand hand, Vec3 location) {
 		return InteractionResult.PASS;
 	}
 
 	@Override
 	public void addAdditionalSaveData(ValueOutput compound) {
 		Vec3 position = position();
-		writeBoundingBox(compound, getBoundingBox().move(position.scale(-1)));
+		writeBoundingBox(ValueIOShim.tagOf(compound), getBoundingBox().move(position.scale(-1)));
 	}
 
 	@Override
 	public void readAdditionalSaveData(ValueInput compound) {
 		Vec3 position = position();
-		setBoundingBox(readBoundingBox(compound).move(position));
+		setBoundingBox(readBoundingBox(ValueIOShim.tagOf(compound)).move(position));
 	}
 
 	public static void writeBoundingBox(CompoundTag compound, AABB bb) {

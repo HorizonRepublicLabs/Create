@@ -1,14 +1,12 @@
 package com.simibubi.create.compat.sodium;
 
-import java.util.function.Function;
-
 import com.simibubi.create.Create;
 
 import net.caffeinemc.mods.sodium.api.texture.SpriteUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -24,11 +22,12 @@ public class SodiumCompat {
 		Minecraft mc = Minecraft.getInstance();
 		neoEventBus.addListener((RenderLevelStageEvent event) -> {
 			if ((event instanceof RenderLevelStageEvent.AfterOpaqueFeatures)) {
-				Function<Identifier, TextureAtlasSprite> atlas = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
-				TextureAtlasSprite sawSprite = atlas.apply(SAW_TEXTURE);
+				TextureAtlas atlas = mc.getAtlasManager()
+					.getAtlasOrThrow(TextureAtlas.LOCATION_BLOCKS);
+				TextureAtlasSprite sawSprite = atlas.getSprite(SAW_TEXTURE);
 				SpriteUtil.INSTANCE.markSpriteActive(sawSprite);
 
-				TextureAtlasSprite factoryPanelSprite = atlas.apply(FACTORY_PANEL_TEXTURE);
+				TextureAtlasSprite factoryPanelSprite = atlas.getSprite(FACTORY_PANEL_TEXTURE);
 				SpriteUtil.INSTANCE.markSpriteActive(factoryPanelSprite);
 			}
 		});

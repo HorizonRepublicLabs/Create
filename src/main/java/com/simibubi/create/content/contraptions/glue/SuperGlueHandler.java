@@ -21,7 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -96,9 +96,9 @@ public class SuperGlueHandler {
 			return;
 
 		SuperGlueEntity entity = new SuperGlueEntity(world, SuperGlueEntity.span(gluePos, gluePos.relative(face)));
-		CustomData customData = itemstack.get(DataComponents.CUSTOM_DATA);
-		if (customData != null)
-			EntityType.updateCustomEntityTag(world, placer, entity, customData);
+		TypedEntityData<EntityType<?>> entityData = itemstack.get(DataComponents.ENTITY_DATA);
+		if (entityData != null)
+			EntityType.updateCustomEntityTag(world, placer, entity, entityData);
 
 		if (SuperGlueEntity.isValidFace(world, gluePos, face)) {
 			if (!world.isClientSide()) {

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.mounted;
 
+import net.minecraft.server.level.ServerLevel;
+
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import net.minecraft.util.ProblemReporter;
@@ -99,7 +101,7 @@ public class CartAssemblerBlockEntity extends SmartBlockEntity implements IDispl
 						.isRedstoneConductor(level, worldPosition.relative(d)))
 						facing = d.getOpposite();
 
-				float speed = block.getRailMaxSpeed(state, level, worldPosition, cart);
+				float speed = maxSpeedOf(cart);
 				cart.setDeltaMovement(facing.getStepX() * speed, facing.getStepY() * speed, facing.getStepZ() * speed);
 			}
 		}
@@ -108,7 +110,7 @@ public class CartAssemblerBlockEntity extends SmartBlockEntity implements IDispl
 				ControllerRailBlock.getAccelerationVector(AllBlocks.CONTROLLER_RAIL.getDefaultState()
 					.setValue(ControllerRailBlock.SHAPE, state.getValue(CartAssemblerBlock.RAIL_SHAPE))
 					.setValue(ControllerRailBlock.BACKWARDS, state.getValue(CartAssemblerBlock.BACKWARDS)));
-			float speed = block.getRailMaxSpeed(state, level, worldPosition, cart);
+			float speed = maxSpeedOf(cart);
 			cart.setDeltaMovement(Vec3.atLowerCornerOf(accelerationVector)
 				.scale(speed));
 		}
@@ -117,6 +119,15 @@ public class CartAssemblerBlockEntity extends SmartBlockEntity implements IDispl
 				.subtract(cart.position());
 			cart.setDeltaMovement(diff.x / 16f, 0, diff.z / 16f);
 		}
+	}
+
+	/// NeoForge's rail speed hook is gone; a cart's ceiling comes from its own
+	/// behaviour now, and that only answers on the server, where assembly runs.
+	private float maxSpeedOf(AbstractMinecart cart) {
+		if (level instanceof ServerLevel serverLevel)
+			return (float) cart.getBehavior()
+				.getMaxSpeed(serverLevel);
+		return 0.4f;
 	}
 
 	protected void assemble(Level world, BlockPos pos, AbstractMinecart cart) {
@@ -169,14 +180,8 @@ public class CartAssemblerBlockEntity extends SmartBlockEntity implements IDispl
 		world.addFreshEntity(entity);
 		entity.startRiding(cart);
 
-		if (cart instanceof MinecartFurnace) {
-			CompoundTag nbt = new CompoundTag();
-			if (cart.save(nbt)) {
-				nbt.putDouble("PushZ", 0);
-				nbt.putDouble("PushX", 0);
-				cart.load(nbt);
-			}
-		}
+			if (cart instanceof MinecartFurnace furnaceCart)
+				furnaceCart.push = Vec3.ZERO;
 
 		if (contraption.containsBlockBreakers())
 			award(AllAdvancements.CONTRAPTION_ACTORS);

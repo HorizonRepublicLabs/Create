@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.mounted;
 
+import net.minecraft.world.level.redstone.Orientation;
+
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,9 +121,13 @@ public class CartAssemblerBlock extends BaseRailBlock
 		return false;
 	}
 
+	/// NeoForge dropped its rail pass hook, so the cart is caught by the plain
+	/// entityInside instead.
 	@Override
-	public void onMinecartPass(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos,
-		AbstractMinecart cart) {
+	protected void entityInside(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos,
+		@NotNull Entity entity, @NotNull InsideBlockEffectApplier effectApplier, boolean isPrecise) {
+		if (!(entity instanceof AbstractMinecart cart))
+			return;
 		if (!canAssembleTo(cart))
 			return;
 		if (world.isClientSide())
@@ -162,7 +170,7 @@ public class CartAssemblerBlock extends BaseRailBlock
 	}
 
 	public static boolean canAssembleTo(AbstractMinecart cart) {
-		return cart.canBeRidden() || cart instanceof MinecartFurnace || cart instanceof MinecartChest;
+		return cart.isRideable() || cart instanceof MinecartFurnace || cart instanceof MinecartChest;
 	}
 
 	@Override
@@ -192,14 +200,14 @@ public class CartAssemblerBlock extends BaseRailBlock
 	}
 
 	@Override
-	public void neighborChanged(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos,
-								@NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
+	protected void neighborChanged(@NotNull BlockState state, @NotNull Level worldIn, @NotNull BlockPos pos,
+								@NotNull Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
 		if (worldIn.isClientSide())
 			return;
 		boolean previouslyPowered = state.getValue(POWERED);
 		if (previouslyPowered != worldIn.hasNeighborSignal(pos))
 			worldIn.setBlock(pos, state.cycle(POWERED), Block.UPDATE_CLIENTS);
-		super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
+		super.neighborChanged(state, worldIn, pos, blockIn, orientation, isMoving);
 	}
 
 	@Override
