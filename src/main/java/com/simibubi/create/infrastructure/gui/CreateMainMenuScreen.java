@@ -97,8 +97,9 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 			ms.translate((float) (width / 2), (float) (60));
 			ms.scale((float) (24 * side), (float) (24 * side));
 			ms.translate((float) (-1.75 * ((alpha * alpha) / 2f + .5f)), (float) (.25f));
-			TransformStack.of(ms)
-				.rotateXDegrees(45);
+			// The gui stack is 2D; the tilt the cog was drawn with has no
+			// equivalent here.
+			ms.rotate(0);
 			GuiGameElement.of(AllBlocks.LARGE_COGWHEEL.getDefaultState())
 				.rotateBlock(0, Util.getMillis() / 32f * side, 0)
 				.submit(graphics);
@@ -224,9 +225,10 @@ public class CreateMainMenuScreen extends AbstractSimiScreen {
 			setTooltip(tooltip);
 		}
 
+		/// A button draws its own contents; the frame is drawn for it.
 		@Override
-		protected void extractWidgetRenderState(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pt) {
-			super.extractWidgetRenderState(graphics, pMouseX, pMouseY, pt);
+		protected void extractContents(GuiGraphicsExtractor graphics, int pMouseX, int pMouseY, float pt) {
+			super.extractContents(graphics, pMouseX, pMouseY, pt);
 			Matrix3x2fStack pPoseStack = graphics.pose();
 			pPoseStack.pushMatrix();
 			pPoseStack.translate((float) (getX() + width / 2 - (icon.getWidth() * scale) / 2), (float) (getY() + height / 2 - (icon.getHeight() * scale) / 2));
