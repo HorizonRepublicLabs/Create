@@ -38,16 +38,17 @@ public class ScheduleItemEntityInteraction {
 			return;
 		if (!(entity instanceof LivingEntity living))
 			return;
+		ItemStack itemStack = event.getItemStack();
+		// Cooldowns are keyed by the stack now.
 		if (player.getCooldowns()
-			.isOnCooldown(AllItems.SCHEDULE.get()))
+			.isOnCooldown(itemStack))
 			return;
 
-		ItemStack itemStack = event.getItemStack();
 		if (itemStack.getItem() instanceof ScheduleItem si) {
 			InteractionResult result = si.handScheduleTo(itemStack, player, living, event.getHand());
 			if (result.consumesAction()) {
 				player.getCooldowns()
-					.addCooldown(AllItems.SCHEDULE.get(), 5);
+					.addCooldown(itemStack, 5);
 				event.setCancellationResult(result);
 				event.setCanceled(true);
 				return;

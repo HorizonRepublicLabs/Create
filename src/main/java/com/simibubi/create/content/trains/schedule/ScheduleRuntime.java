@@ -389,9 +389,14 @@ public class ScheduleRuntime {
 		if (schedule != null)
 			tag.put("Schedule", schedule.write(registries));
 		NBTHelper.writeEnum(tag, "State", state);
-		tag.putIntArray("ConditionProgress", conditionProgress);
+		// Int arrays are primitive on the tag, and reading one is optional.
+		tag.putIntArray("ConditionProgress", conditionProgress.stream()
+			.mapToInt(Integer::intValue)
+			.toArray());
 		tag.put("ConditionContext", NBTHelper.writeCompoundList(conditionContext, CompoundTag::copy));
-		tag.putIntArray("TransitTimes", predictionTicks);
+		tag.putIntArray("TransitTimes", predictionTicks.stream()
+			.mapToInt(Integer::intValue)
+			.toArray());
 		return tag;
 	}
 
@@ -404,7 +409,8 @@ public class ScheduleRuntime {
 		if (tag.contains("Schedule"))
 			schedule = Schedule.fromTag(registries, tag.getCompoundOrEmpty("Schedule"));
 		state = NBTHelper.readEnum(tag, "State", State.class);
-		for (int i : tag.getIntArray("ConditionProgress"))
+		for (int i : tag.getIntArray("ConditionProgress")
+			.orElse(new int[0]))
 			conditionProgress.add(i);
 		NBTHelper.iterateCompoundList(tag.getListOrEmpty("ConditionContext"), conditionContext::add);
 
