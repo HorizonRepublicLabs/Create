@@ -1,5 +1,9 @@
 package com.simibubi.create.content.equipment.goggles;
 
+import net.minecraft.core.component.DataComponents;
+
+import net.minecraft.world.item.equipment.Equippable;
+
 import net.minecraft.core.dispenser.EquipmentDispenseItemBehavior;
 
 import java.util.ArrayList;
@@ -34,8 +38,13 @@ public class GogglesItem extends Item {
 		return EquipmentSlot.HEAD;
 	}
 
+	/// Equipping is driven by the equippable component now.
 	public InteractionResult use(Level worldIn, Player playerIn, InteractionHand handIn) {
-		return swapWithEquipmentSlot(this, worldIn, playerIn, handIn);
+		ItemStack stack = playerIn.getItemInHand(handIn);
+		Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
+		if (equippable == null)
+			return InteractionResult.PASS;
+		return equippable.swapWithEquipmentSlot(stack, playerIn);
 	}
 
 	public static boolean isWearingGoggles(Player player) {

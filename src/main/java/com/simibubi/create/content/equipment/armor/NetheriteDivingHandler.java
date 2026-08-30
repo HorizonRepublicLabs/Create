@@ -57,7 +57,8 @@ public final class NetheriteDivingHandler {
 	}
 
 	public static boolean isNetheriteArmor(ItemStack stack) {
-		return stack.getItem() instanceof ArmorItem && stack.has(DataComponents.DAMAGE_RESISTANT);
+		// Armour is an equippable component now rather than an item class.
+		return stack.has(DataComponents.EQUIPPABLE) && stack.has(DataComponents.DAMAGE_RESISTANT);
 	}
 
 	public static void setBit(LivingEntity entity, EquipmentSlot slot) {

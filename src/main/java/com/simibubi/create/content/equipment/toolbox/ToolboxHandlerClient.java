@@ -79,7 +79,7 @@ public class ToolboxHandlerClient {
 
 		} else if (hitResult.getType() == HitResult.Type.ENTITY) {
 			Entity entity = ((EntityHitResult) hitResult).getEntity();
-			result = entity.getPickedResult(hitResult);
+			result = entity.getPickResult();
 		}
 
 		if (result.isEmpty())
