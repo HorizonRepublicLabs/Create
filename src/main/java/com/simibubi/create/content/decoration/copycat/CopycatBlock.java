@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.client.color.block.BlockTintSource;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllBlockEntityTypes;
@@ -9,7 +11,6 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -356,22 +357,31 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 
 	//
 
+	/// BlockColor gave way to BlockTintSource, which colours from the state
+	/// alone by default and takes the level only for the in-world variant.
 	@OnlyIn(Dist.CLIENT)
-	public static BlockColor wrappedColor() {
+	public static BlockTintSource wrappedColor() {
 		return new WrappedBlockColor();
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static class WrappedBlockColor implements BlockColor {
+	public static class WrappedBlockColor implements BlockTintSource {
 
 		@Override
-		public int getColor(BlockState pState, @Nullable BlockAndTintGetter pLevel, @Nullable BlockPos pPos,
-							int pTintIndex) {
-			if (pLevel == null || pPos == null)
-				return GrassColor.get(0.5D, 1.0D);
+		public int color(BlockState state) {
+			return GrassColor.get(0.5D, 1.0D);
+		}
+
+		@Override
+		public int colorInWorld(BlockState state, BlockAndTintGetter level, BlockPos pos) {
+			BlockState material = getMaterial(level, pos);
 			return Minecraft.getInstance()
 				.getBlockColors()
-				.getColor(getMaterial(pLevel, pPos), pLevel, pPos, pTintIndex);
+				.getTintSources(material)
+				.stream()
+				.findFirst()
+				.map(source -> source.colorInWorld(material, level, pos))
+				.orElseGet(() -> color(state));
 		}
 
 	}
