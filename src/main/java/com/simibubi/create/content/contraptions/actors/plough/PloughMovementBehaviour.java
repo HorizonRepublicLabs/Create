@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.plough;
 
+import net.minecraft.util.Unit;
+
 import com.simibubi.create.AllTags.AllBlockTags;
 import com.simibubi.create.content.contraptions.actors.plough.PloughBlock.PloughFakePlayer;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
@@ -18,7 +20,6 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.Unbreakable;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.ClipContext.Block;
@@ -144,7 +145,8 @@ public class PloughMovementBehaviour extends BlockBreakingMovementBehaviour {
 		if (!(context.temporaryData instanceof PloughFakePlayer) && context.world != null) {
 			PloughFakePlayer player = new PloughFakePlayer((ServerLevel) context.world);
 			ItemStack heldItem = new ItemStack(Items.DIAMOND_HOE);
-			heldItem.set(DataComponents.UNBREAKABLE, new Unbreakable(false));
+			// Unbreakable is a marker component now.
+			heldItem.set(DataComponents.UNBREAKABLE, Unit.INSTANCE);
 			player.setItemInHand(InteractionHand.MAIN_HAND, heldItem);
 			context.temporaryData = player;
 		}

@@ -53,10 +53,6 @@ public class BacktankItem extends BaseArmorItem {
 			.useOn(ctx);
 	}
 
-	@Override
-	public boolean isEnchantable(ItemStack p_77616_1_) {
-		return true;
-	}
 
 	@Override
 	public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
@@ -94,11 +90,6 @@ public class BacktankItem extends BaseArmorItem {
 		public BacktankBlockItem(Block block, Supplier<Item> actualItem, Properties properties) {
 			super(block, properties);
 			this.actualItem = actualItem;
-		}
-
-		@Override
-		public String getDescriptionId() {
-			return super.getDescriptionId();
 		}
 
 		public Item getActualItem() {

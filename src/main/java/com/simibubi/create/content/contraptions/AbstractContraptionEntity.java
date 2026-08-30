@@ -165,7 +165,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 				entity.stopRiding();
 			}
 		}
-		passenger.startRiding(this, true);
+		passenger.startRiding(this, true, true);
 		if (passenger instanceof TamableAnimal ta)
 			ta.setInSittingPose(true);
 		if (level().isClientSide())
@@ -917,7 +917,7 @@ public abstract class AbstractContraptionEntity extends Entity implements IEntit
 	}
 
 	@Override
-	protected boolean updateInWaterStateAndDoFluidPushing() {
+	protected boolean updateFluidInteraction() {
 		/*
 		 * Override this with an empty method to reduce enormous calculation time when
 		 * contraptions are in water WARNING: THIS HAS A BUNCH OF SIDE EFFECTS! - Fluids

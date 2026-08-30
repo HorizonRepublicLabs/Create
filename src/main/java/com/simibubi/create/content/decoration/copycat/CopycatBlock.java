@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import net.minecraft.world.level.BlockAndLightGetter;
+
 import net.minecraft.client.color.block.BlockTintSource;
 
 import org.jetbrains.annotations.Nullable;
@@ -241,7 +243,7 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public BlockState getAppearance(BlockState state, BlockAndTintGetter level, BlockPos pos, Direction side,
+	public BlockState getAppearance(BlockState state, BlockAndLightGetter level, BlockPos pos, Direction side,
 									@Nullable BlockState queryState, @Nullable BlockPos queryPos) {
 
 		if (isIgnoredConnectivitySide(level, state, side, pos, queryPos))
@@ -334,7 +336,7 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 	}
 
 	@Override
-	public float getEnchantPowerBonus(BlockState state, LevelReader level, BlockPos pos) {
+	public float getEnchantPowerBonus(BlockState state, BlockGetter level, BlockPos pos) {
 		return getMaterial(level, pos).getEnchantPowerBonus(level, pos);
 	}
 

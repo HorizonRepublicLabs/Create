@@ -22,11 +22,6 @@ public class BlankSailBlockItem extends BlockItem {
 		}
 	}
 
-	@Override
-	public void removeFromBlockToItemMap(Map<Block, Item> blockToItemMap, Item item) {
-		super.removeFromBlockToItemMap(blockToItemMap, item);
-		for (BlockEntry<SailBlock> entry : AllBlocks.DYED_SAILS) {
-			blockToItemMap.remove(entry.get());
-		}
-	}
+	// Items are no longer removed from the block-to-item map by name; the map
+	// is rebuilt from the registry.
 }
