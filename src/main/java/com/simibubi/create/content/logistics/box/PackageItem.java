@@ -65,15 +65,12 @@ public class PackageItem extends Item {
 	public PackageStyle style;
 
 	public PackageItem(Properties properties, PackageStyle style) {
-		super(properties);
+		// The description id is fixed at construction now rather than answered
+		// per call, so the style picks it here.
+		super(properties.overrideDescription("item." + Create.ID + (style.rare() ? ".rare_package" : ".package")));
 		this.style = style;
 		PackageStyles.ALL_BOXES.add(this);
 		(style.rare() ? PackageStyles.RARE_BOXES : PackageStyles.STANDARD_BOXES).add(this);
-	}
-
-	@Override
-	public String getDescriptionId() {
-		return "item." + Create.ID + (style.rare() ? ".rare_package" : ".package");
 	}
 
 	public static boolean isPackage(ItemStack stack) {
@@ -384,18 +381,18 @@ public class PackageItem extends Item {
 	}
 
 	@Override
-	public void releaseUsing(ItemStack stack, Level world, LivingEntity entity, int ticks) {
+	public boolean releaseUsing(ItemStack stack, Level world, LivingEntity entity, int ticks) {
 		if (!(entity instanceof Player player))
-			return;
+			return false;
 		int i = this.getUseDuration(stack, entity) - ticks;
 		if (i < 0)
-			return;
+			return false;
 
 		float f = getPackageVelocity(i);
 		if (f < 0.1D)
-			return;
+			return false;
 		if (world.isClientSide())
-			return;
+			return false;
 
 		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SNOWBALL_THROW,
 			SoundSource.NEUTRAL, 0.5F, 0.5F);
@@ -415,6 +412,7 @@ public class PackageItem extends Item {
 		packageEntity.setDeltaMovement(motion);
 		packageEntity.tossedBy = new WeakReference<>(player);
 		world.addFreshEntity(packageEntity);
+		return true;
 	}
 
 	public static float getPackageVelocity(int p_185059_0_) {

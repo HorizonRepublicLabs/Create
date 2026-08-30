@@ -33,19 +33,14 @@ import net.neoforged.neoforge.fluids.FluidType;
  *
  * @see com.simibubi.create.infrastructure.data.CreateDatagen
  */
-public final class CreateRecipeProvider extends RecipeProvider {
+/// Nothing is generated here directly: this only collects the processing
+/// recipe generators and the tags they share, so it is no longer a
+/// RecipeProvider itself.
+public final class CreateRecipeProvider {
 
 	static final List<ProcessingRecipeGen<?, ?, ?>> GENERATORS = new ArrayList<>();
 	static final int BUCKET = FluidType.BUCKET_VOLUME;
 	static final int BOTTLE = 250;
-
-	public CreateRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-		super(output, registries);
-	}
-
-	@Override
-	protected void buildRecipes(RecipeOutput recipeOutput) {
-	}
 
 	public static void registerAllProcessing(DataGenerator gen, PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		GENERATORS.add(new CreateCrushingRecipeGen(output, registries));

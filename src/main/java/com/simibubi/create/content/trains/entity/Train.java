@@ -1113,7 +1113,8 @@ public class Train {
 		return Penalties.ANY_TRAIN;
 	}
 
-	public void burnFuel() {
+	/// Burn times come from the level's fuel values now rather than the stack.
+	public void burnFuel(Level level) {
 		if (fuelTicks > 0) {
 			fuelTicks--;
 			return;
@@ -1131,7 +1132,7 @@ public class Train {
 
 			for (int slot = 0; slot < fuelItems.getSlots(); slot++) {
 				ItemStack stack = fuelItems.extractItem(slot, 1, true);
-				int burnTime = stack.getBurnTime(null);
+				int burnTime = stack.getBurnTime(null, level.fuelValues());
 				if (burnTime <= 0)
 					continue;
 
@@ -1168,7 +1169,9 @@ public class Train {
 		if (graph != null)
 			tag.store("Graph", UUIDUtil.CODEC, graph.id);
 		tag.put("Carriages", NBTHelper.writeCompoundList(carriages, c -> c.write(dimensions, registries)));
-		tag.putIntArray("CarriageSpacing", carriageSpacing);
+		tag.putIntArray("CarriageSpacing", carriageSpacing.stream()
+			.mapToInt(Integer::intValue)
+			.toArray());
 		tag.putBoolean("DoubleEnded", doubleEnded);
 		tag.putDouble("Speed", speed);
 		tag.putDouble("Throttle", throttle);
@@ -1218,7 +1221,8 @@ public class Train {
 		NBTHelper.iterateCompoundList(tag.getListOrEmpty("Carriages"),
 			c -> carriages.add(Carriage.read(c, registries, graph, dimensions)));
 		List<Integer> carriageSpacing = new ArrayList<>();
-		for (int i : tag.getIntArray("CarriageSpacing"))
+		for (int i : tag.getIntArray("CarriageSpacing")
+			.orElseGet(() -> new int[0]))
 			carriageSpacing.add(i);
 		boolean doubleEnded = tag.getBooleanOr("DoubleEnded", false);
 		int mapColorIndex = tag.getIntOr("MapColorIndex", 0);
