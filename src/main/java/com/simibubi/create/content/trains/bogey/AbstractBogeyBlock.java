@@ -177,7 +177,8 @@ public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> ext
 		if (level.isClientSide())
 			return InteractionResult.TRY_WITH_EMPTY_HAND;
 
-		if (!player.isShiftKeyDown() && stack.is(AllItems.WRENCH.get()) && !player.getCooldowns().isOnCooldown(stack.getItem())
+		if (!player.isShiftKeyDown() && stack.is(AllItems.WRENCH.get()) && !player.getCooldowns()
+			.isOnCooldown(stack)
 				&& AllBogeyStyles.BOGEY_STYLES.size() > 1) {
 
 			BlockEntity be = level.getBlockEntity(pos);

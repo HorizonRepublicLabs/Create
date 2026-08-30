@@ -1,5 +1,9 @@
 package com.simibubi.create;
 
+import java.util.List;
+
+import net.minecraft.client.color.block.BlockTintSource;
+
 import net.minecraft.client.resources.model.sprite.Material;
 
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -1256,8 +1260,9 @@ public class AllBlocks {
 			.initialProperties(() -> Blocks.POWERED_RAIL)
 			.transform(pickaxeOnly())
 			.blockstate(() -> new ControllerRailGenerator()::generate)
-			.color(() -> () -> (state, world, pos, layer) -> RedStoneWireBlock
-				.getColorForPower(pos != null && world != null ? state.getValue(BlockStateProperties.POWER) : 0))
+			// A block colour is a tint source now, coloured from the state alone.
+			.color(() -> () -> List.of((BlockTintSource) state -> RedStoneWireBlock
+				.getColorForPower(state.getValue(BlockStateProperties.POWER))))
 			.tag(BlockTags.RAILS)
 			.item()
 			.model(() -> (c, p) -> new ItemModelGenShim(p).generated(c, Create.asResource("block/" + c.getName())))

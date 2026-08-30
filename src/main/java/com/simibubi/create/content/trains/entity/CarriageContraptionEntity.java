@@ -98,10 +98,8 @@ public class CarriageContraptionEntity extends OrientedContraptionEntity {
 			.multiply(1, .25f, 1);
 	}
 
-	@Override
-	public boolean isLocalInstanceAuthoritative() {
-		return true;
-	}
+	// Local authority is final now; a carriage is controlled by whoever is
+	// riding it, which the vehicle logic already decides.
 
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
