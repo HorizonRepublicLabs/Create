@@ -24,7 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facing) implements SelfHandlingPayload, ClientboundCreatePayload {
+public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facing) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, EjectorPlacementPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, EjectorPlacementPacket::h,
 			ByteBufCodecs.INT, EjectorPlacementPacket::v,

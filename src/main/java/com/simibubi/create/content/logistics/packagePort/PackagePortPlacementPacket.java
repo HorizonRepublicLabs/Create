@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
-public record PackagePortPlacementPacket(PackagePortTarget target, BlockPos pos) implements SelfHandlingPayload, ClientboundCreatePayload {
+public record PackagePortPlacementPacket(PackagePortTarget target, BlockPos pos) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, PackagePortPlacementPacket> STREAM_CODEC = StreamCodec.composite(
 	    PackagePortTarget.STREAM_CODEC, PackagePortPlacementPacket::target,
 	    BlockPos.STREAM_CODEC, PackagePortPlacementPacket::pos,

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
+import org.joml.Vector3f;
+
 import org.joml.Quaternionf;
 
 import com.simibubi.create.AllParticleTypes;
@@ -40,7 +42,9 @@ public class WiFiParticle extends CustomRotationParticle {
 
 	@Override
 	public Quaternionf getCustomRotation(Camera camera, float partialTicks) {
-		return new Quaternionf().rotateY(-camera.getYRot() * Mth.DEG_TO_RAD)
+		// A camera hands out its rotation rather than its angles.
+		return new Quaternionf().rotateY(-camera.rotation()
+			.getEulerAnglesYXZ(new Vector3f()).y)
 			.mul(new Quaternionf().rotateZ(downward ? Mth.PI : 0));
 	}
 
