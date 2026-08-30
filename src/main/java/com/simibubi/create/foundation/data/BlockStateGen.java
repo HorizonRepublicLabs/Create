@@ -1,6 +1,8 @@
 
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.data.VariantModels;
+
 import com.simibubi.create.foundation.data.MultipartModels;
 
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ public class BlockStateGen {
 
 	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> directionalBlockProvider(
 		boolean customItem) {
-		return (c, p) -> p.directionalBlock(c.get(), getBlockModel(customItem, c, p));
+		return (c, p) -> VariantModels.directionalBlock(p, c.get(), getBlockModel(customItem, c, p));
 	}
 
 	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> directionalBlockProviderIgnoresWaterlogged(
@@ -69,7 +71,7 @@ public class BlockStateGen {
 
 	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> horizontalBlockProvider(
 		boolean customItem) {
-		return (c, p) -> p.horizontalBlock(c.get(), getBlockModel(customItem, c, p));
+		return (c, p) -> VariantModels.horizontalBlock(p, c.get(), getBlockModel(customItem, c, p));
 	}
 
 	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> horizontalAxisBlockProvider(
@@ -79,7 +81,7 @@ public class BlockStateGen {
 
 	public static <T extends Block> NonNullBiConsumer<DataGenContext<Block, T>, RegistrateBlockModelGenerator> simpleCubeAll(
 		String path) {
-		return (c, p) -> p.simpleBlock(c.get(), VariantModels.models(p)
+		return (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 			.cubeAll(c.getName(), p.modLoc("block/" + path)));
 	}
 
@@ -193,7 +195,7 @@ public class BlockStateGen {
 	public static <T extends Block> void cubeAll(DataGenContext<Block, T> ctx, RegistrateBlockModelGenerator prov,
 		String textureSubDir, String name) {
 		String texturePath = "block/" + textureSubDir + name;
-		prov.simpleBlock(ctx.get(), VariantModels.models(prov)
+		VariantModels.simpleBlock(prov, ctx.get(), VariantModels.models(prov)
 			.cubeAll(ctx.getName(), prov.modLoc(texturePath)));
 	}
 
