@@ -100,6 +100,7 @@ public abstract class SyncedBlockEntity extends BlockEntity {
 	}
 
 	public HolderGetter<Block> blockHolderGetter() {
-		return level != null ? level.holderLookup(Registries.BLOCK) : BuiltInRegistries.BLOCK.asLookup();
+		// A registry is a lookup itself now.
+		return level != null ? level.holderLookup(Registries.BLOCK) : BuiltInRegistries.BLOCK;
 	}
 }

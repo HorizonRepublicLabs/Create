@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.command;
 
+import java.util.Set;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -87,14 +89,10 @@ public class TrainCommand {
 
 		BlockPos pos = positionInDimension.get();
 
-		serverPlayer.teleportTo(
-			serverLevel,
-			pos.getX(),
-			pos.getY() + 5,
-			pos.getZ(),
-			serverPlayer.getViewYRot(0),
-			serverPlayer.getViewXRot(0)
-		);
+		// Teleporting names which coordinates stay relative and whether the
+		// camera resets.
+		serverPlayer.teleportTo(serverLevel, pos.getX(), pos.getY() + 5, pos.getZ(), Set.of(),
+			serverPlayer.getViewYRot(0), serverPlayer.getViewXRot(0), false);
 
 		source.sendSuccess(() -> {
 			return Component.literal("Teleported to Train '").append(train.name)

@@ -349,7 +349,7 @@ public class ClientEvents {
 			return;
 
 		Fluid fluid = fluidState.getType();
-		Entity entity = camera.getEntity();
+		Entity entity = camera.entity();
 
 		if (entity.isSpectator())
 			return;
