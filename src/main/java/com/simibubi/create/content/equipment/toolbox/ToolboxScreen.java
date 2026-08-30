@@ -118,7 +118,9 @@ public class ToolboxScreen extends AbstractSimiContainerScreen<ToolboxMenu> {
 
 			if (isHovering(slot.x, slot.y, 16, 16, mouseX, mouseY)) {
 				hoveredToolboxSlot = slot;
-				int slotColor = this.getSlotColor(baseIndex);
+				// The screen no longer picks a highlight colour per slot; this is
+				// the value it used.
+				int slotColor = -2130706433;
 				graphics.fillGradient(i, j, i + 16, j + 16, slotColor, slotColor);
 			}
 		}

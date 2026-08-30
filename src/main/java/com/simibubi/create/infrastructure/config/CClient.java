@@ -4,7 +4,6 @@ package com.simibubi.create.infrastructure.config;
 import com.simibubi.create.content.logistics.stockTicker.StockKeeperRequestScreen.SearchSyncMode;
 
 import net.createmod.catnip.api.config.ConfigBase;
-import net.createmod.catnip.api.client.config.ConfigAnnotations;
 
 public class CClient extends ConfigBase {
 
@@ -127,15 +126,15 @@ public class CClient extends ConfigBase {
 		static String overlayCustomColor = "Enable this to use your custom colors for the Goggle- and Hover- Overlay";
 		static String[] overlayBackgroundColor = new String[]{
 				"The custom background color to use for the Goggle- and Hover- Overlays, if enabled",
-				"[in Hex: #AaRrGgBb]", ConfigAnnotations.IntDisplay.HEX.asComment()
+				"[in Hex: #AaRrGgBb]", "[@int_display:hex]"
 		};
 		static String[] overlayBorderColorTop = new String[]{
 				"The custom top color of the border gradient to use for the Goggle- and Hover- Overlays, if enabled",
-				"[in Hex: #AaRrGgBb]", ConfigAnnotations.IntDisplay.HEX.asComment()
+				"[in Hex: #AaRrGgBb]", "[@int_display:hex]"
 		};
 		static String[] overlayBorderColorBot = new String[]{
 				"The custom bot color of the border gradient to use for the Goggle- and Hover- Overlays, if enabled",
-				"[in Hex: #AaRrGgBb]", ConfigAnnotations.IntDisplay.HEX.asComment()
+				"[in Hex: #AaRrGgBb]", "[@int_display:hex]"
 		};
 		static String sound = "Sound settings";
 		static String enableAmbientSounds = "Make cogs rumble and machines clatter.";
