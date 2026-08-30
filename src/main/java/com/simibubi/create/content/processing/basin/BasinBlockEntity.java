@@ -177,7 +177,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 			preferredSpoutput = NBTHelper.readEnum(compound, "PreferredSpoutput", Direction.class);
 		disabledSpoutputs.clear();
 		ListTag disabledList = compound.getListOrEmpty("DisabledSpoutput");
-		disabledList.forEach(d -> disabledSpoutputs.add(Direction.valueOf(((StringTag) d).getAsString())));
+		disabledList.forEach(d -> disabledSpoutputs.add(Direction.valueOf(((StringTag) d).value())));
 		spoutputBuffer = NBTHelper.readItemList(compound.getListOrEmpty("Overflow"), registries);
 		spoutputFluidBuffer = NBTHelper.readCompoundList(compound.getListOrEmpty("FluidOverflow"), tag -> StackNbt.parseFluid(registries, tag));
 
@@ -767,6 +767,7 @@ public class BasinBlockEntity extends SmartBlockEntity implements IHaveGoggleInf
 				continue;
 			CreateLang.text("")
 				.add(stackInSlot.getItemName()
+					.copy()
 					.withStyle(ChatFormatting.GRAY))
 				.add(CreateLang.text(" x" + stackInSlot.getCount())
 					.style(ChatFormatting.GREEN))
