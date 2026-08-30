@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import net.minecraft.nbt.DoubleTag;
+
 import com.simibubi.create.AllEntityDataSerializers;
 
 import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
@@ -182,12 +184,20 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		setCouplingId(compound.contains("OnCoupling") ? compound.read("OnCoupling", UUIDUtil.CODEC).orElseThrow() : null);
 	}
 
+	/// Entity lost its list helper along with its nbt saving.
+	private static ListTag doubleList(double... values) {
+		ListTag list = new ListTag();
+		for (double value : values)
+			list.add(DoubleTag.valueOf(value));
+		return list;
+	}
+
 	@Override
 	protected void writeAdditional(CompoundTag compound, HolderLookup.Provider registries, boolean spawnPacket) {
 		super.writeAdditional(compound, registries, spawnPacket);
 
 		if (motionBeforeStall != null)
-			compound.put("CachedMotion", newDoubleList(motionBeforeStall.x, motionBeforeStall.y, motionBeforeStall.z));
+			compound.put("CachedMotion", doubleList(motionBeforeStall.x, motionBeforeStall.y, motionBeforeStall.z));
 
 		Direction optional = entityData.get(INITIAL_ORIENTATION);
 		if (optional.getAxis()
@@ -373,7 +383,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 
 		if (!rotationLock) {
 			if (riding instanceof AbstractMinecart minecartEntity) {
-				BlockPos railPosition = minecartEntity.getCurrentRailPosition();
+				BlockPos railPosition = minecartEntity.getCurrentBlockPosOrRailBelow();
 				BlockState blockState = level().getBlockState(railPosition);
 				if (blockState.getBlock() instanceof BaseRailBlock abstractRailBlock) {
 					RailShape railDirection =
@@ -425,7 +435,9 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 
 		BlockPos blockpos = new BlockPos(i, j, k);
 		BlockState blockstate = this.level().getBlockState(blockpos);
-		if (furnaceCart.canUseRail() && blockstate.is(BlockTags.RAILS))
+		// A cart no longer says whether it can ride rails; being on one is what
+		// the check was for.
+		if (furnaceCart.isOnRails() && blockstate.is(BlockTags.RAILS))
 			if (fuel > 1)
 				riding.setDeltaMovement(riding.getDeltaMovement()
 					.normalize()

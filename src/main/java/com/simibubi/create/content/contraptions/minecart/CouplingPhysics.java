@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import net.minecraft.server.level.ServerLevel;
+
 import com.simibubi.create.content.contraptions.minecart.capability.MinecartController;
 
 import net.createmod.catnip.api.data.Couple;
@@ -45,7 +47,7 @@ public class CouplingPhysics {
 			carts = carts.swap();
 
 		Couple<Vec3> corrections = Couple.create(null, null);
-		Couple<Float> maxSpeed = carts.map(AbstractMinecart::getMaxCartSpeedOnRail);
+		Couple<Float> maxSpeed = carts.map(CouplingPhysics::maxSpeedOf);
 		boolean firstLoop = true;
 		for (boolean current : new boolean[]{true, false, true}) {
 			AbstractMinecart cart = carts.get(current);
@@ -58,7 +60,7 @@ public class CouplingPhysics {
 				continue;
 
 			RailShape shape = null;
-			BlockPos railPosition = cart.getCurrentRailPosition();
+			BlockPos railPosition = cart.getCurrentBlockPosOrRailBelow();
 			BlockState railState = world.getBlockState(railPosition.above());
 
 			if (railState.getBlock() instanceof BaseRailBlock block) {
@@ -96,8 +98,17 @@ public class CouplingPhysics {
 		}
 	}
 
+	/// A cart no longer reports a rail speed cap; its behaviour holds the
+	/// ceiling and only answers on the server, where coupling physics runs.
+	private static float maxSpeedOf(AbstractMinecart cart) {
+		if (cart.level() instanceof ServerLevel serverLevel)
+			return (float) cart.getBehavior()
+				.getMaxSpeed(serverLevel);
+		return 0.4f;
+	}
+
 	public static void softCollisionStep(Level world, Couple<AbstractMinecart> carts, double couplingLength) {
-		Couple<Float> maxSpeed = carts.map(AbstractMinecart::getMaxCartSpeedOnRail);
+		Couple<Float> maxSpeed = carts.map(CouplingPhysics::maxSpeedOf);
 		Couple<Boolean> canAddmotion = carts.map(MinecartSim2020::canAddMotion);
 
 		// Assuming Minecarts will never move faster than 1 block/tick

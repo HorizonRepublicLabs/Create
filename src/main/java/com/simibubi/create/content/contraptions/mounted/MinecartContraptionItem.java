@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.mounted;
 
+import net.minecraft.network.chat.Component;
+
+import net.minecraft.world.entity.EntitySpawnReason;
+
 import com.simibubi.create.foundation.utility.StackNbt;
 
 import java.util.List;
@@ -147,7 +151,7 @@ public class MinecartContraptionItem extends Item {
 			}
 
 			AbstractMinecart abstractminecartentity = AbstractMinecart.createMinecart(world, d0, d1 + d3, d2,
-				((MinecartContraptionItem) stack.getItem()).minecartType, stack, null);
+				((MinecartContraptionItem) stack.getItem()).minecartType, EntitySpawnReason.DISPENSER, stack, null);
 			if (stack.has(DataComponents.CUSTOM_NAME))
 				abstractminecartentity.setCustomName(stack.getHoverName());
 			world.addFreshEntity(abstractminecartentity);
@@ -185,7 +189,8 @@ public class MinecartContraptionItem extends Item {
 
 				AbstractMinecart abstractminecartentity =
 					AbstractMinecart.createMinecart(serverlevel, (double) blockpos.getX() + 0.5D,
-						(double) blockpos.getY() + 0.0625D + d0, (double) blockpos.getZ() + 0.5D, this.minecartType, itemstack, null);
+						(double) blockpos.getY() + 0.0625D + d0, (double) blockpos.getZ() + 0.5D, this.minecartType,
+						EntitySpawnReason.DISPENSER, itemstack, null);
 				if (itemstack.has(DataComponents.CUSTOM_NAME))
 					abstractminecartentity.setCustomName(itemstack.getHoverName());
 				Player player = context.getPlayer();
@@ -218,9 +223,11 @@ public class MinecartContraptionItem extends Item {
 		}
 	}
 
+	/// An item's description id is fixed at construction, so the name is what
+	/// this one answers instead.
 	@Override
-	public String getDescriptionId(ItemStack stack) {
-		return "item.create.minecart_contraption";
+	public Component getName(ItemStack stack) {
+		return Component.translatable("item.create.minecart_contraption");
 	}
 
 	@SubscribeEvent
