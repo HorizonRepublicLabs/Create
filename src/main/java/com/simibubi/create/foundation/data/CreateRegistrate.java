@@ -218,8 +218,7 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 																					   FluidBuilder.FluidTypeFactory typeFactory, NonNullFunction<BaseFlowingFluid.Properties, T> sourceFactory,
 																					   NonNullFunction<BaseFlowingFluid.Properties, T> flowingFactory) {
 		return entry(name,
-			c -> new VirtualFluidBuilder<>(self(), self(), name, c, Identifier.fromNamespaceAndPath(getModid(), "fluid/" + name + "_still"),
-				Identifier.fromNamespaceAndPath(getModid(), "fluid/" + name + "_flow"), typeFactory, sourceFactory, flowingFactory));
+			c -> new VirtualFluidBuilder<>(self(), self(), name, c, typeFactory, sourceFactory, flowingFactory));
 	}
 
 	public <T extends BaseFlowingFluid> FluidBuilder<T, CreateRegistrate> virtualFluid(String name,

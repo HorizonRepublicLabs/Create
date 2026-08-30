@@ -210,15 +210,14 @@ public class CreateRegistrateTags {
 
 		prov.tag(Tags.Items.ENCHANTABLES).addTag(AllItemTags.PRESSURIZED_AIR_SOURCES.tag);
 
+		// Tags name their entries by key, one at a time.
 		prov.tag(ItemTags.TRIMMABLE_ARMOR)
-			.remove(
-				AllItems.COPPER_DIVING_BOOTS.getId(),
-				AllItems.COPPER_BACKTANK.getId(),
-				AllItems.COPPER_DIVING_HELMET.getId(),
-				AllItems.NETHERITE_DIVING_BOOTS.getId(),
-				AllItems.NETHERITE_BACKTANK.getId(),
-				AllItems.NETHERITE_DIVING_HELMET.getId()
-			);
+			.remove(AllItems.COPPER_DIVING_BOOTS.getKey())
+			.remove(AllItems.COPPER_BACKTANK.getKey())
+			.remove(AllItems.COPPER_DIVING_HELMET.getKey())
+			.remove(AllItems.NETHERITE_DIVING_BOOTS.getKey())
+			.remove(AllItems.NETHERITE_BACKTANK.getKey())
+			.remove(AllItems.NETHERITE_DIVING_HELMET.getKey());
 
 		prov.tag(ItemTags.DURABILITY_ENCHANTABLE)
 			.addTag(AllItemTags.SANDPAPER.tag);
