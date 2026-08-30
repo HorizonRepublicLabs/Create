@@ -56,8 +56,10 @@ public class AssetLookup {
 	 */
 	public static <I extends BlockItem> ItemModelGenShim.Builder customItemModel(DataGenContext<Item, I> ctx,
 		RegistrateItemModelGenerator prov) {
-		return prov.blockItem(() -> ctx.getEntry()
-			.getBlock(), "/item");
+		// Registrate no longer builds a block-item model by suffix, so the parent
+		// is named directly.
+		return VariantModels.models(prov)
+			.withExistingParent("item/" + ctx.getName(), prov.modLoc("block/" + ctx.getName() + "/item"));
 	}
 
 	/**
@@ -101,8 +103,7 @@ public class AssetLookup {
 	public static Function<BlockState, Identifier> withIndicator(DataGenContext<?, ?> ctx,
 		RegistrateBlockModelGenerator prov, Function<BlockState, Identifier> baseModelFunc, IntegerProperty property) {
 		return state -> {
-			Identifier baseModel = baseModelFunc.apply(state)
-				.location();
+			Identifier baseModel = baseModelFunc.apply(state);
 			Integer integer = state.getValue(property);
 			return VariantModels.models(prov)
 				.withExistingParent(ctx.getName() + "_" + integer, baseModel)

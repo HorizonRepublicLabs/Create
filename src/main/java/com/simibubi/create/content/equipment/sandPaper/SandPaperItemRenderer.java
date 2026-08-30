@@ -81,7 +81,7 @@ public class SandPaperItemRenderer extends CustomRenderedItemModelRenderer {
 			}
 		}
 
-		itemRenderer.render(stack, ItemDisplayContext.NONE, false, ms, buffer, light, overlay, model.getOriginalModel());
+		renderer.render(model.getOriginalModel(), light);
 
 		ms.popPose();
 	}
