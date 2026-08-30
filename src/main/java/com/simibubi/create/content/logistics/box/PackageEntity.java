@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.box;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.utility.StackNbt;
 
 import net.minecraft.world.entity.InterpolationHandler;
@@ -93,7 +95,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 
 	public static PackageEntity fromDroppedItem(Level world, Entity originalEntity, ItemStack itemstack) {
 		PackageEntity packageEntity = AllEntityTypes.PACKAGE.get()
-			.create(world);
+			.create(world, EntitySpawnReason.TRIGGERED);
 
 		Vec3 position = originalEntity.position();
 		packageEntity.setPos(position);
@@ -111,14 +113,14 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 
 	public static PackageEntity fromItemStack(Level world, Vec3 position, ItemStack itemstack) {
 		PackageEntity packageEntity = AllEntityTypes.PACKAGE.get()
-			.create(world);
+			.create(world, EntitySpawnReason.TRIGGERED);
 		packageEntity.setPos(position);
 		packageEntity.setBox(itemstack);
 		return packageEntity;
 	}
 
 	@Override
-	public ItemStack getPickedResult(HitResult target) {
+	public ItemStack getPickResult() {
 		return box.copy();
 	}
 
@@ -170,8 +172,8 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	}
 
 	@Override
-	public void lerpMotion(double x, double y, double z) {
-		setDeltaMovement(getDeltaMovement().add(x, y, z)
+	public void lerpMotion(Vec3 movement) {
+		setDeltaMovement(getDeltaMovement().add(movement)
 			.scale(.5f));
 	}
 
@@ -207,8 +209,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	protected void verifyInitialEntity() {
 		if (!(originalEntity instanceof ItemEntity itemEntity))
 			return;
-		CompoundTag nbt = new CompoundTag();
-		itemEntity.addAdditionalSaveData(nbt);
+		CompoundTag nbt = ValueIOShim.saveEntity(itemEntity, registryAccess());
 		if (nbt.getIntOr("PickupDelay", 0) != 32767) // See: ItemEntity#makeFakeItem
 			return;
 		discard();
@@ -261,15 +262,15 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	}
 
 	@Override
-	public boolean canBeCollidedWith() {
+	public boolean canBeCollidedWith(@Nullable Entity other) {
 		return false;
 	}
 
 	@Override
-	public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
+	public InteractionResult interact(Player pPlayer, InteractionHand pHand, Vec3 location) {
 		if (!pPlayer.getItemInHand(pHand)
 			.isEmpty())
-			return super.interact(pPlayer, pHand);
+			return super.interact(pPlayer, pHand, location);
 		if (pPlayer.level().isClientSide())
 			return InteractionResult.SUCCESS;
 		pPlayer.setItemInHand(pHand, box);
@@ -338,7 +339,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 		if (source.is(DamageTypeTags.IS_FALL))
 			return false;
 
-		if (this.isInvulnerableTo(source))
+		if (this.isInvulnerableTo(level, source))
 			return false;
 
 		if (source.is(DamageTypeTags.IS_EXPLOSION)) {
@@ -417,12 +418,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	@Override
 	public void addAdditionalSaveData(ValueOutput compound) {
 		super.addAdditionalSaveData(compound);
-		compound.put("Box", StackNbt.save(level().registryAccess(), box));
-	}
-
-	@Override
-	public Iterable<ItemStack> getArmorSlots() {
-		return Collections.emptyList();
+		compound.store("Box", ItemStack.OPTIONAL_CODEC, box);
 	}
 
 	@Override
