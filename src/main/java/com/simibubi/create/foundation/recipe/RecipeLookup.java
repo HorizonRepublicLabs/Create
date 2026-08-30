@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.recipe;
 
+import java.util.List;
+
+import java.util.Collection;
+
 import java.util.Optional;
 
 import net.minecraft.server.MinecraftServer;
@@ -21,6 +25,24 @@ public class RecipeLookup {
 			server = ServerLifecycleHooks.getCurrentServer();
 		return Optional.ofNullable(server)
 			.map(MinecraftServer::getRecipeManager);
+	}
+
+	/// The client no longer holds the full recipe set -- it only receives
+	/// displays -- so listing recipes goes through the server as well.
+	public static Collection<RecipeHolder<?>> allRecipes(Level level) {
+		return manager(level).map(RecipeManager::getRecipes)
+			.orElse(List.of());
+	}
+
+	/// getAllRecipesFor is gone too, so the type filter happens here.
+	@SuppressWarnings("unchecked")
+	public static <I extends RecipeInput, T extends Recipe<I>> List<RecipeHolder<T>> allOfType(Level level,
+		RecipeType<T> type) {
+		return allRecipes(level).stream()
+			.filter(holder -> holder.value()
+				.getType() == type)
+			.map(holder -> (RecipeHolder<T>) holder)
+			.toList();
 	}
 
 	public static <I extends RecipeInput, T extends Recipe<I>> Optional<RecipeHolder<T>> find(Level level,

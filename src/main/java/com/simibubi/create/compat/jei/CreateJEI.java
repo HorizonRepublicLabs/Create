@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import java.util.ArrayList;
@@ -430,18 +432,14 @@ public class CreateJEI implements IModPlugin {
 	}
 
 	public static void consumeAllRecipes(Consumer<? super RecipeHolder<?>> consumer) {
-		Minecraft.getInstance()
-			.getConnection()
-			.getRecipeManager()
-			.getRecipes()
+		RecipeLookup.allRecipes(Minecraft.getInstance().level)
 			.forEach(consumer);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static <T extends Recipe<?>> void consumeTypedRecipes(Consumer<RecipeHolder<?>> consumer, RecipeType<?> type) {
-		List<? extends RecipeHolder<?>> map = Minecraft.getInstance()
-			.getConnection()
-			.getRecipeManager().getAllRecipesFor((RecipeType) type);
+		List<? extends RecipeHolder<?>> map =
+			RecipeLookup.allOfType(Minecraft.getInstance().level, (RecipeType) type);
 		if (!map.isEmpty())
 			map.forEach(consumer);
 	}
