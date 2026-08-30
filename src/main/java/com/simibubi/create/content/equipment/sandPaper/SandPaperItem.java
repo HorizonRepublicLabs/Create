@@ -151,9 +151,9 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 	}
 
 	@Override
-	public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
+	public boolean releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
 		if (!(entityLiving instanceof Player player))
-			return;
+			return false;
 		if (stack.has(AllDataComponents.SAND_PAPER_POLISHING)) {
 			ItemStack toPolish = stack.get(AllDataComponents.SAND_PAPER_POLISHING).item();
 			//noinspection DataFlowIssue - toPolish won't be null as we do call .has before calling .get
@@ -161,6 +161,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 				.placeItemBackInInventory(toPolish);
 			stack.remove(AllDataComponents.SAND_PAPER_POLISHING);
 		}
+		return false;
 	}
 
 	@Override
@@ -215,13 +216,14 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 
 		// After 6 ticks play the sound every 7th
 		if ((entity.getTicksUsingItem() - 6) % 7 == 0)
-			entity.playSound(entity.getEatingSound(stack), 0.9F + 0.2F * random.nextFloat(),
+			// The eating sound is the item's own; entities no longer pick one for
+			// a stack.
+			entity.playSound(getEatingSound(), 0.9F + 0.2F * random.nextFloat(),
 				random.nextFloat() * 0.2F + 0.9F);
 
 		return true;
 	}
 
-	@Override
 	public SoundEvent getEatingSound() {
 		return AllSoundEvents.SANDING_SHORT.getMainEvent();
 	}
