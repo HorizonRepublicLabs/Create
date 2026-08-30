@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.armor;
 
+import net.minecraft.world.entity.EntityReference;
+
 import java.util.UUID;
 
 import com.simibubi.create.foundation.advancement.AllAdvancements;
@@ -93,14 +95,16 @@ public class CardboardArmorHandler {
 		}
 
 		if (entity instanceof NeutralMob nMob && entity.level() instanceof ServerLevel sl) {
-			UUID uuid = nMob.getPersistentAngerTarget();
-			if (uuid != null && testForStealth(sl.getEntity(uuid)))
+			// The anger target is an entity reference now rather than a uuid.
+			EntityReference<LivingEntity> angerTarget = nMob.getPersistentAngerTarget();
+			if (angerTarget != null && testForStealth(EntityReference.getLivingEntity(angerTarget, sl)))
 				nMob.stopBeingAngry();
 		}
 
 		if (testForStealth(mob.getLastHurtByMob())) {
 			mob.setLastHurtByMob(null);
-			mob.setLastHurtByPlayer(null);
+			// Forgetting the player is a zero memory time now.
+			mob.setLastHurtByPlayer((Player) null, 0);
 		}
 	}
 
