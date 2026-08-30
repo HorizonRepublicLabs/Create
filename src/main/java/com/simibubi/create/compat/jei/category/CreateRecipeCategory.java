@@ -131,9 +131,12 @@ public abstract class CreateRecipeCategory<T extends Recipe<?>> implements IReci
 		draw(holder.value(), recipeSlotsView, gui, mouseX, mouseY);
 	}
 
+	/// JEI collects tooltip lines into a builder now rather than taking a list
+	/// back.
 	@Override
-	public List<Component> getTooltipStrings(RecipeHolder<T> holder, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-		return getTooltipStrings(holder.value(), recipeSlotsView, mouseX, mouseY);
+	public void getTooltip(ITooltipBuilder tooltip, RecipeHolder<T> holder, IRecipeSlotsView recipeSlotsView,
+		double mouseX, double mouseY) {
+		getTooltipStrings(holder.value(), recipeSlotsView, mouseX, mouseY).forEach(tooltip::add);
 	}
 
 	protected abstract void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses);

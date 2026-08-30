@@ -56,7 +56,7 @@ public final class ToolboxColoringRecipeMaker {
 				TagKey<Item> colorTag = color.getTag();
 				// ingredients are holder sets now; a compound keeps the tag intact
 				// rather than flattening it into the recipe
-				Ingredient colorIngredient = CompoundIngredient.of(Ingredient.of(dye),
+				Ingredient colorIngredient = CompoundIngredient.of(Ingredient.of(dyeStack.getItem()),
 					ItemHelper.ingredientOf(colorTag));
 				NonNullList<Ingredient> inputs =
 					NonNullList.copyOf(List.of(baseShulkerIngredient, colorIngredient));

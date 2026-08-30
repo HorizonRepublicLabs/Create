@@ -45,7 +45,9 @@ public class BlockCuttingCategory extends CreateRecipeCategory<CondensedBlockCut
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 5, 5)
 				.setBackground(getRenderedSlot(), -1 , -1)
-				.addItemStacks(Arrays.asList(ItemHelper.ingredientStacks(recipe.placementInfo() .ingredients().get(0))));
+				.addItemStacks(ItemHelper.ingredientStacks(recipe.placementInfo()
+					.ingredients()
+					.get(0)));
 
 		int i = 0;
 		for (List<ItemStack> itemStacks : results) {

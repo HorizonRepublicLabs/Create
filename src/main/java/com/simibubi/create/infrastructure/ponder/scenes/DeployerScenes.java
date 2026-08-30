@@ -193,7 +193,8 @@ public class DeployerScenes {
 			entity.yo = p.y;
 			entity.zo = p.z;
 			WalkAnimationState animation = entity.walkAnimation;
-			animation.update(-animation.position(), 1);
+			// The walk animation scales its position now.
+			animation.update(-animation.position(), 1, 1);
 			animation.setSpeed(1);
 			entity.yRotO = 210;
 			entity.setYRot(210);

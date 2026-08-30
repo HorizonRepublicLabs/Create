@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei;
 
+import mezz.jei.api.recipe.types.IRecipeHolderType;
+
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.util.Optional;
@@ -35,7 +37,8 @@ public class BlueprintTransferHandler implements IRecipeTransferHandler<Blueprin
 	}
 
 	@Override
-	public RecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
+	// JEI names recipe holder types now.
+	public IRecipeHolderType<CraftingRecipe> getRecipeType() {
 		return RecipeTypes.CRAFTING;
 	}
 
@@ -44,7 +47,8 @@ public class BlueprintTransferHandler implements IRecipeTransferHandler<Blueprin
 		if (!doTransfer)
 			return null;
 
-		ClientNetworkHelper.INSTANCE.sendToServer(new BlueprintAssignCompleteRecipePacket(craftingRecipe.id()));
+		ClientNetworkHelper.INSTANCE.sendToServer(new BlueprintAssignCompleteRecipePacket(craftingRecipe.id()
+			.identifier()));
 		return null;
 	}
 

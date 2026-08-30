@@ -75,7 +75,10 @@ public class DisplayLinkPeripheral extends SyncedPeripheral<DisplayLinkBlockEnti
 			ObjectLuaTable table = new ObjectLuaTable(map);
 			bytes = new byte[table.length()];
 			for (int i = 0; i < bytes.length; i++) {
-				bytes[i] = (byte) (table.getOrDefault(i + 1, 0) & 0xff);
+				// The table hands back objects; a lua number is what the byte
+				// comes from.
+				Object entry = table.getOrDefault(i + 1, 0);
+				bytes[i] = (byte) ((entry instanceof Number number ? number.intValue() : 0) & 0xff);
 			}
 		} else {
 			throw LuaValues.badArgumentOf(args, 0, "string or table");

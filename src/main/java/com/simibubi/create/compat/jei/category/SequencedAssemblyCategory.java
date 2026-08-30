@@ -59,7 +59,7 @@ public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAss
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 27 + xOffset, 91)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addItemStacks(List.of(ItemHelper.ingredientStacks(recipe.getIngredient())));
+				.addItemStacks(ItemHelper.ingredientStacks(recipe.getIngredient()));
 		builder
 				.addSlot(RecipeIngredientRole.OUTPUT, 132 + xOffset, 91)
 				.setBackground(getRenderedSlot(recipe.getOutputChance()), -1 , -1)
@@ -87,9 +87,9 @@ public class SequencedAssemblyCategory extends CreateRecipeCategory<SequencedAss
 
 		for (int i = 1; i < recipe.getLoops(); i++) {
 			for (SequencedRecipe<?> sequencedRecipe : recipe.getSequence()) {
-				NonNullList<Ingredient> sequencedIngredients = sequencedRecipe.getRecipe()
+				List<Ingredient> sequencedIngredients = sequencedRecipe.getRecipe()
 					.placementInfo()
-			.ingredients();
+					.ingredients();
 				for (Ingredient ingredient : sequencedIngredients.subList(1, sequencedIngredients.size()))
 					builder.addInvisibleIngredients(RecipeIngredientRole.INPUT)
 						.addIngredients(ingredient);

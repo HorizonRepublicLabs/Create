@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.blueprint;
 
+import com.simibubi.create.foundation.recipe.RecipeLookup;
+
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.createmod.catnip.api.network.SelfHandlingPayload;
@@ -19,10 +21,10 @@ public record BlueprintAssignCompleteRecipePacket(Identifier recipeId) implement
 	@Override
 	public void handle(ServerPlayer player) {
 		if (player.containerMenu instanceof BlueprintMenu c) {
-			player.level()
-					.getRecipeManager()
-					.byKey(recipeId)
-					.ifPresent(r -> BlueprintItem.assignCompleteRecipe(c.player.level(), c.ghostInventory, r.value()));
+			// RecipeManager left Level; recipes are looked up by id through
+			// Create's own helper.
+			RecipeLookup.byId(player.level(), recipeId)
+				.ifPresent(r -> BlueprintItem.assignCompleteRecipe(c.player.level(), c.ghostInventory, r.value()));
 		}
 	}
 
