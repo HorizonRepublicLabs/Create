@@ -90,7 +90,7 @@ public class CreateDatagen {
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
 		for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
 			String key = entry.getKey();
-			String value = entry.getValue().getAsString();
+			String value = entry.getValue().getAsJsonPrimitive().getAsString();
 			consumer.accept(key, value);
 		}
 	}

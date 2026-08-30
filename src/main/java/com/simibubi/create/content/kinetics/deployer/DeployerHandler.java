@@ -177,7 +177,10 @@ public class DeployerHandler {
 
 			// Use on entity
 			if (mode == Mode.USE) {
-				InteractionResult cancelResult = CommonHooks.onInteractEntity(player, entity, hand);
+				// The hook names where the entity was hit; the deployer reaches
+				// straight at it.
+				InteractionResult cancelResult = CommonHooks.onInteractEntity(player, entity, hand,
+					entity.position());
 				if (cancelResult == InteractionResult.FAIL) {
 					entity.captureDrops(null);
 					return;
