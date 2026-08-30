@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category.animations;
 
+import com.simibubi.create.foundation.gui.render.GuiWorldGeometryRenderState;
+
 import org.joml.Matrix3x2fStack;
 
 import java.util.List;
@@ -67,26 +69,29 @@ public class AnimatedSpout extends AnimatedKinetics {
 			.scale(scale)
 			.submit(graphics);
 
-		AnimatedKinetics.DEFAULT_LIGHTING.applyLighting();
-		matrixStack.pushMatrix();
-		UIRenderHelper.flipForGuiRender(matrixStack);
-		matrixStack.scale((float) (16), (float) (16));
-		float from = 3f / 16f;
-		float to = 17f / 16f;
+		// Screens no longer hold a buffer source, so the tank and the stream are
+		// drawn picture-in-picture, where a real 3D stack is on hand again.
 		FluidStack fluidStack = fluids.get(0);
-		FluidRenderHelper.renderFluidBox(fluidStack, from, from, from, to, to, to, graphics.bufferSource(), matrixStack, LightCoordsUtil.FULL_BRIGHT, false, true);
-		matrixStack.popMatrix();
-
 		float width = 1 / 128f * squeeze;
-		matrixStack.translate((float) (scale / 2f), (float) (scale * 1.5f));
-		UIRenderHelper.flipForGuiRender(matrixStack);
-		matrixStack.scale((float) (16), (float) (16));
-		matrixStack.translate((float) (-0.5f), (float) (0));
-		from = -width / 2 + 0.5f;
-		to = width / 2 + 0.5f;
-		FluidRenderHelper.renderFluidBox(fluidStack, from, 0, from, to, 2, to, graphics.bufferSource(), matrixStack, LightCoordsUtil.FULL_BRIGHT, false, true);
-		graphics.flush();
-		Lighting.setupFor3DItems();
+		graphics.submitPictureInPictureRenderState(new GuiWorldGeometryRenderState((ms, collector, buffer) -> {
+			AnimatedKinetics.DEFAULT_LIGHTING.apply();
+
+			ms.pushPose();
+			UIRenderHelper.flipForGuiRender(ms);
+			ms.scale(16, 16, 16);
+			FluidRenderHelper.submitFluidBox(fluidStack.getFluid()
+				.defaultFluidState(), 3f / 16f, 3f / 16f, 3f / 16f, 17f / 16f, 17f / 16f, 17f / 16f, collector, ms,
+				LightCoordsUtil.FULL_BRIGHT, false, true);
+			ms.popPose();
+
+			ms.translate(scale / 2f, scale * 1.5f, 0);
+			UIRenderHelper.flipForGuiRender(ms);
+			ms.scale(16, 16, 16);
+			ms.translate(-0.5f, 0, 0);
+			FluidRenderHelper.submitFluidBox(fluidStack.getFluid()
+				.defaultFluidState(), -width / 2 + 0.5f, 0, -width / 2 + 0.5f, width / 2 + 0.5f, 2, width / 2 + 0.5f,
+				collector, ms, LightCoordsUtil.FULL_BRIGHT, false, true);
+		}, xOffset - 2 * scale, yOffset - 3 * scale, xOffset + 2 * scale, yOffset + 2 * scale, scale, null, null));
 
 		matrixStack.popMatrix();
 	}

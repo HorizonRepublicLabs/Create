@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category.animations;
 
+import com.simibubi.create.foundation.gui.render.GuiWorldGeometryRenderState;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -63,9 +65,6 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 			.scale(scale)
 			.render(graphics);
 
-		matrixStack.scale((float) (scale), (float) (-scale));
-		matrixStack.translate((float) (0), (float) (-1.8));
-
 		SpriteShiftEntry spriteShift =
 			heatLevel == HeatLevel.SEETHING ? AllSpriteShifts.SUPER_BURNER_FLAME : AllSpriteShifts.BURNER_FLAME;
 
@@ -90,10 +89,19 @@ public class AnimatedBlazeBurner extends AnimatedKinetics {
 		uScroll = uScroll - Math.floor(uScroll);
 		uScroll = uScroll * spriteWidth / 2;
 
-		CreateCachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
-		.shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll)
-		.light(LightCoordsUtil.FULL_BRIGHT)
-			.renderInto(matrixStack, graphics.bufferSource().getBuffer(CreateRenderTypes.cutoutMovingBlock()));
+		// Screens no longer hold a buffer source, so the flame is drawn
+		// picture-in-picture, where a real 3D stack is on hand again.
+		float scrollU = (float) uScroll;
+		float scrollV = (float) vScroll;
+		graphics.submitPictureInPictureRenderState(new GuiWorldGeometryRenderState((ms, collector, buffer) -> {
+			ms.scale(scale, -scale, scale);
+			ms.translate(0, -1.8, 0);
+			CreateCachedBuffers.partial(AllPartialModels.BLAZE_BURNER_FLAME, Blocks.AIR.defaultBlockState())
+				.shiftUVScrolling(spriteShift, scrollU, scrollV)
+				.light(LightCoordsUtil.FULL_BRIGHT)
+				.renderInto(ms, buffer.getBuffer(CreateRenderTypes.cutoutMovingBlock()));
+		}, xOffset - 2 * scale, yOffset - 3 * scale, xOffset + 2 * scale, yOffset + 2 * scale, scale, null, null));
+
 		matrixStack.popMatrix();
 	}
 

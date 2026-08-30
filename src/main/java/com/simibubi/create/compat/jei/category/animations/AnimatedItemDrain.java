@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category.animations;
 
+import com.simibubi.create.foundation.gui.render.GuiWorldGeometryRenderState;
+
 import org.joml.Matrix3x2fStack;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -35,12 +37,18 @@ public class AnimatedItemDrain extends AnimatedKinetics {
 			.scale(scale)
 			.submit(graphics);
 
-		UIRenderHelper.flipForGuiRender(matrixStack);
-		matrixStack.scale((float) (scale), (float) (scale));
+		// Screens no longer hold a buffer source, so the contents are drawn
+		// picture-in-picture, where a real 3D stack is on hand again.
 		float from = 2 / 16f;
 		float to = 1f - from;
-		FluidRenderHelper.renderFluidBox(fluid, from, from, from, to, 3 / 4f, to, graphics.bufferSource(), matrixStack, LightCoordsUtil.FULL_BRIGHT, false, true);
-		graphics.flush();
+		FluidStack contents = fluid;
+		graphics.submitPictureInPictureRenderState(new GuiWorldGeometryRenderState((ms, collector, buffer) -> {
+			UIRenderHelper.flipForGuiRender(ms);
+			ms.scale(scale, scale, scale);
+			FluidRenderHelper.submitFluidBox(contents.getFluid()
+				.defaultFluidState(), from, from, from, to, 3 / 4f, to, collector, ms, LightCoordsUtil.FULL_BRIGHT,
+				false, true);
+		}, xOffset - scale, yOffset - 2 * scale, xOffset + scale, yOffset + scale, scale, null, null));
 
 		matrixStack.popMatrix();
 	}

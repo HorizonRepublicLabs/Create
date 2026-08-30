@@ -1,5 +1,9 @@
 package com.simibubi.create;
 
+import com.simibubi.create.foundation.gui.render.GuiWorldGeometryRenderer;
+
+import com.simibubi.create.foundation.gui.render.GuiWorldGeometryRenderState;
+
 import com.simibubi.create.foundation.gui.render.GuiBlazeBurnerRenderer;
 
 import com.simibubi.create.foundation.gui.render.GuiBlazeBurnerRenderState;
@@ -93,6 +97,7 @@ public class CreateClient {
 	/// 3D content in a screen goes through a picture-in-picture renderer now.
 	private static void registerPictureInPictureRenderers(RegisterPictureInPictureRenderersEvent event) {
 		event.register(GuiBlazeBurnerRenderState.class, GuiBlazeBurnerRenderer::new);
+		event.register(GuiWorldGeometryRenderState.class, GuiWorldGeometryRenderer::new);
 	}
 
 	public static void onCtorClient(IEventBus modEventBus) {
