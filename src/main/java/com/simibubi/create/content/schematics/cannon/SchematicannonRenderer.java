@@ -1,5 +1,21 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import net.minecraft.client.resources.model.geometry.BakedQuad;
+
+import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
+
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
+import net.minecraft.client.renderer.Sheets;
+
+import net.createmod.catnip.api.data.Iterate;
+
+import com.mojang.blaze3d.vertex.QuadInstance;
+
+import java.util.List;
+
+import java.util.ArrayList;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.CreateItemRenderer;
@@ -186,10 +202,29 @@ public class SchematicannonRenderer extends SafeBlockEntityRenderer<Schematicann
 				}
 				float scale = .3f;
 				ms.scale(scale, scale, scale);
-				Minecraft.getInstance()
-					.getBlockRenderer()
-					.renderSingleBlock(state, ms, buffer, light, overlay,
-						VirtualRenderHelper.VIRTUAL_DATA, null);
+				// There is no block renderer to hand a state to any more: the
+				// model's parts are collected and their quads put in directly.
+				BlockStateModel model = Minecraft.getInstance()
+					.getModelManager()
+					.getBlockStateModelSet()
+					.get(state);
+				List<BlockStateModelPart> parts = new ArrayList<>();
+				RandomSource random = RandomSource.create(42L);
+				model.collectParts(random, parts);
+
+				QuadInstance quadInstance = new QuadInstance();
+				quadInstance.setLightCoords(light);
+				quadInstance.setOverlayCoords(overlay);
+				quadInstance.setColor(-1);
+				VertexConsumer vc = buffer.getBuffer(Sheets.cutoutBlockItemSheet());
+				PoseStack.Pose last = ms.last();
+				for (BlockStateModelPart part : parts) {
+					for (Direction direction : Iterate.directions)
+						for (BakedQuad quad : part.getQuads(direction))
+							vc.putBakedQuad(last, quad, quadInstance);
+					for (BakedQuad quad : part.getQuads(null))
+						vc.putBakedQuad(last, quad, quadInstance);
+				}
 			} else if (launched instanceof ForEntity) {
 				// Render the item
 				float scale = 1.2f;

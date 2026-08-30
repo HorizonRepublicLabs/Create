@@ -186,7 +186,11 @@ public class WaterWheelStructuralBlock extends DirectionalBlock implements IWren
 				BlockPos targetPos = bhr.getBlockPos();
 				WaterWheelStructuralBlock waterWheelStructuralBlock = AllBlocks.WATER_WHEEL_STRUCTURAL.get();
 				if (waterWheelStructuralBlock.stillValid(level, targetPos, state, false))
-					manager.crack(WaterWheelStructuralBlock.getMaster(level, targetPos, state), bhr.getDirection());
+					// The particle engine no longer cracks blocks; the client level
+					// spawns the breaking effect.
+					if (level instanceof ClientLevel clientLevel)
+						clientLevel.addBreakingBlockEffect(
+							WaterWheelStructuralBlock.getMaster(level, targetPos, state), bhr.getDirection(), bhr);
 				return true;
 			}
 			return IClientBlockExtensions.super.addHitEffects(state, level, target, manager);

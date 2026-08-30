@@ -193,7 +193,9 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 
 		missingItem = null;
 		if (compound.contains("MissingItem")) {
-			ItemStack.parse(registries, compound.getCompoundOrEmpty("MissingItem")).ifPresent(i -> missingItem = i);
+			// An item stack is read through its codec now.
+			compound.read("MissingItem", ItemStack.CODEC)
+				.ifPresent(i -> missingItem = i);
 		}
 
 		// Settings
