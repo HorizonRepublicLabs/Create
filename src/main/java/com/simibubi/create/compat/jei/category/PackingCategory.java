@@ -1,5 +1,7 @@
 package com.simibubi.create.compat.jei.category;
 
+import java.util.List;
+
 import com.simibubi.create.compat.jei.category.animations.AnimatedBlazeBurner;
 import com.simibubi.create.compat.jei.category.animations.AnimatedPress;
 import com.simibubi.create.content.processing.basin.BasinRecipe;
@@ -47,7 +49,7 @@ public class PackingCategory extends BasinCategory {
 		}
 
 		int i = 0;
-		NonNullList<Ingredient> ingredients = recipe.placementInfo()
+		List<Ingredient> ingredients = recipe.placementInfo()
 			.ingredients();
 		int size = ingredients.size();
 		int rows = size == 4 ? 2 : 3;

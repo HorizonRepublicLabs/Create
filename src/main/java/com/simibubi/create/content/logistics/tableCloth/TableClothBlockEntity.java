@@ -119,7 +119,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 
 	public void notifyShopUpdate() {
 		if (level instanceof ServerLevel serverLevel)
-			NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new ShopUpdatePacket(worldPosition));
+			NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, ChunkPos.containing(worldPosition), new ShopUpdatePacket(worldPosition));
 	}
 
 	@Override
@@ -155,7 +155,7 @@ public class TableClothBlockEntity extends SmartBlockEntity implements Transform
 			if (manuallyAddedItems.isEmpty() && !computerBehaviour.hasAttachedComputer()) {
 				level.setBlock(worldPosition, getBlockState().setValue(TableClothBlock.HAS_BE, false), Block.UPDATE_ALL);
 				if (level instanceof ServerLevel serverLevel)
-					NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, new ChunkPos(worldPosition), new RemoveBlockEntityPacket(worldPosition));
+					NetworkHelper.INSTANCE.sendToClientsTrackingChunk(serverLevel, ChunkPos.containing(worldPosition), new RemoveBlockEntityPacket(worldPosition));
 			} else
 				notifyUpdate();
 

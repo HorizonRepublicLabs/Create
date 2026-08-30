@@ -185,7 +185,7 @@ public abstract class AbstractBogeyBlock<T extends AbstractBogeyBlockEntity> ext
 			if (!(be instanceof AbstractBogeyBlockEntity sbbe))
 				return InteractionResult.FAIL;
 
-			player.getCooldowns().addCooldown(stack.getItem(), 20);
+			player.getCooldowns().addCooldown(stack, 20);
 			BogeyStyle currentStyle = sbbe.getStyle();
 
 			BogeySizes.BogeySize size = getSize();

@@ -164,7 +164,7 @@ public class ItemHelper {
 		return Mth.floor(f * 14.0F) + (i > 0 ? 1 : 0);
 	}
 
-	public static List<Pair<Ingredient, MutableInt>> condenseIngredients(NonNullList<Ingredient> recipeIngredients) {
+	public static List<Pair<Ingredient, MutableInt>> condenseIngredients(List<Ingredient> recipeIngredients) {
 		List<Pair<Ingredient, MutableInt>> actualIngredients = new ArrayList<>();
 		Ingredients:
 		for (Ingredient igd : recipeIngredients) {
@@ -204,7 +204,7 @@ public class ItemHelper {
 		return false;
 	}
 
-	public static boolean matchAllIngredients(NonNullList<Ingredient> ingredients) {
+	public static boolean matchAllIngredients(List<Ingredient> ingredients) {
 		if (ingredients.size() <= 1)
 			return true;
 		Ingredient firstIngredient = ingredients.get(0);
