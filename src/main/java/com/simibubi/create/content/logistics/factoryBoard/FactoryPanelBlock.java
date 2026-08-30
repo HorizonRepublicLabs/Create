@@ -256,12 +256,12 @@ public class FactoryPanelBlock extends FaceAttachedHorizontalDirectionalBlock
 	}
 
 	@Override
-	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest,
-									   FluidState fluid) {
+	/// The hook carries the tool that broke the block now.
+	public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, ItemStack toolStack,
+		boolean willHarvest, FluidState fluid) {
 		if (tryDestroySubPanelFirst(state, level, pos, player))
 			return false;
-		boolean result = super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
-		return result;
+		return super.onDestroyedByPlayer(state, level, pos, player, toolStack, willHarvest, fluid);
 	}
 
 	private boolean tryDestroySubPanelFirst(BlockState state, Level level, BlockPos pos, Player player) {

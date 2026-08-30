@@ -1,5 +1,11 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import net.minecraft.world.level.storage.TagValueOutput;
+
+import net.minecraft.world.ItemStackWithSlot;
+
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -162,8 +168,13 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 		if (level instanceof ServerLevel sLevel) {
 			player = new DeployerFakePlayer(sLevel, owner);
 			if (deferredInventoryList != null) {
+				// An inventory saves through value io now, so the stored list is
+				// wrapped back into one to load it.
+				CompoundTag wrapper = new CompoundTag();
+				wrapper.put("Inventory", deferredInventoryList);
 				player.getInventory()
-					.load(deferredInventoryList);
+					.load(ValueIOShim.inputOf(wrapper, level.registryAccess())
+						.listOrEmpty("Inventory", ItemStackWithSlot.CODEC));
 				deferredInventoryList = null;
 				heldItem = player.getMainHandItem();
 				sendData();
@@ -422,10 +433,11 @@ public class DeployerBlockEntity extends KineticBlockEntity implements Clearable
 			compound.store("Owner", UUIDUtil.CODEC, owner);
 
 		if (player != null) {
-			ListTag invNBT = new ListTag();
+			TagValueOutput inventoryOutput = ValueIOShim.output(registries);
 			player.getInventory()
-				.save(invNBT);
-			compound.put("Inventory", invNBT);
+				.save(inventoryOutput.list("Inventory", ItemStackWithSlot.CODEC));
+			compound.put("Inventory", inventoryOutput.buildResult()
+				.getListOrEmpty("Inventory"));
 			compound.store("HeldItem", ItemStack.OPTIONAL_CODEC, player.getMainHandItem());
 			compound.put("Overflow", NBTHelper.writeItemList(overflowItems, registries));
 		} else if (deferredInventoryList != null) {
