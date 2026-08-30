@@ -1152,7 +1152,7 @@ public class AllBlocks {
 					return existing;
 				return VariantModels.models(p)
 					.withExistingParent("block/" + c.getName() + "_" + partName + powered + flipped,
-						existing.getLocation())
+						existing.location())
 					.texture("2", p.modLoc("block/" + c.getName() + powered + flipped));
 			}))
 			.transform(CStress.setNoImpact())

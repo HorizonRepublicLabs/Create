@@ -94,7 +94,7 @@ public class AssetLookup {
 		RegistrateBlockModelGenerator prov, Function<BlockState, Identifier> baseModelFunc, IntegerProperty property) {
 		return state -> {
 			Identifier baseModel = baseModelFunc.apply(state)
-				.getLocation();
+				.location();
 			Integer integer = state.getValue(property);
 			return VariantModels.models(prov)
 				.withExistingParent(ctx.getName() + "_" + integer, baseModel)
