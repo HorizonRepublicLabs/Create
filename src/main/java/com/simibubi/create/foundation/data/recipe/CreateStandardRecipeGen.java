@@ -1416,8 +1416,8 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		return create(result::get);
 	}
 
-	GeneratedRecipe createSpecial(Function<CraftingBookCategory, Recipe<?>> builder, String recipeType,
-								  String path) {
+	/// A special recipe is built from nothing now; it fixes its own category.
+	GeneratedRecipe createSpecial(Supplier<Recipe<?>> builder, String recipeType, String path) {
 		Identifier location = Create.asResource(recipeType + "/" + currentFolder + "/" + path);
 		return register(consumer -> {
 			SpecialRecipeBuilder b = SpecialRecipeBuilder.special(builder);

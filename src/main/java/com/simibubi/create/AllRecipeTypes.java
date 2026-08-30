@@ -85,20 +85,8 @@ public enum AllRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
 	MECHANICAL_CRAFTING(MechanicalCraftingRecipe.Serializer::create),
 	SEQUENCED_ASSEMBLY(() -> new SequencedAssemblyRecipeSerializer().asSerializer()),
 
-	TOOLBOX_DYEING(() -> new RecipeSerializer<>(
-		RecordCodecBuilder.mapCodec(i -> i.group(
-			CraftingBookCategory.CODEC.fieldOf("category")
-				.orElse(CraftingBookCategory.MISC)
-				.forGetter(CustomRecipe::category))
-			.apply(i, ToolboxDyeingRecipe::new)),
-		StreamCodec.composite(CraftingBookCategory.STREAM_CODEC, CustomRecipe::category, ToolboxDyeingRecipe::new)), () -> RecipeType.CRAFTING, false),
-	ITEM_COPYING(() -> new RecipeSerializer<>(
-		RecordCodecBuilder.mapCodec(i -> i.group(
-			CraftingBookCategory.CODEC.fieldOf("category")
-				.orElse(CraftingBookCategory.MISC)
-				.forGetter(CustomRecipe::category))
-			.apply(i, ItemCopyingRecipe::new)),
-		StreamCodec.composite(CraftingBookCategory.STREAM_CODEC, CustomRecipe::category, ItemCopyingRecipe::new)), () -> RecipeType.CRAFTING, false);
+	TOOLBOX_DYEING(() -> new RecipeSerializer<>(MapCodec.unit(ToolboxDyeingRecipe::new), StreamCodec.unit(new ToolboxDyeingRecipe())), () -> RecipeType.CRAFTING, false),
+	ITEM_COPYING(() -> new RecipeSerializer<>(MapCodec.unit(ItemCopyingRecipe::new), StreamCodec.unit(new ItemCopyingRecipe())), () -> RecipeType.CRAFTING, false);
 
 	public static final Predicate<RecipeHolder<?>> CAN_BE_AUTOMATED = r -> !r.id()
 			.getPath()

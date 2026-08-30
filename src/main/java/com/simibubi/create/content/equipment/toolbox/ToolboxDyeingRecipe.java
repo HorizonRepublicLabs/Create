@@ -21,8 +21,8 @@ import net.neoforged.neoforge.common.Tags;
 
 public class ToolboxDyeingRecipe extends CustomRecipe {
 
-	public ToolboxDyeingRecipe(CraftingBookCategory category) {
-		super(category);
+	/// A custom recipe fixes its own category and group; nothing is passed in.
+	public ToolboxDyeingRecipe() {
 	}
 
 	@Override
@@ -84,8 +84,9 @@ public class ToolboxDyeingRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public RecipeSerializer<? extends Recipe<?>> getSerializer() {
-		return AllRecipeTypes.TOOLBOX_DYEING.getSerializer();
+	@SuppressWarnings("unchecked")
+	public RecipeSerializer<? extends CustomRecipe> getSerializer() {
+		return (RecipeSerializer<? extends CustomRecipe>) AllRecipeTypes.TOOLBOX_DYEING.getSerializer();
 	}
 
 }

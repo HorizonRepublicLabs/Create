@@ -38,8 +38,8 @@ public class ItemCopyingRecipe extends CustomRecipe {
 		DataComponentType<?> getComponentType();
 	}
 
-	public ItemCopyingRecipe(CraftingBookCategory category) {
-		super(category);
+	/// A custom recipe fixes its own category and group; nothing is passed in.
+	public ItemCopyingRecipe() {
 	}
 
 	@Override
@@ -99,8 +99,9 @@ public class ItemCopyingRecipe extends CustomRecipe {
 		return IntAttached.with(copyTargets, itemToCopy);
 	}
 
-	public RecipeSerializer<? extends Recipe<?>> getSerializer() {
-		return AllRecipeTypes.ITEM_COPYING.getSerializer();
+	@SuppressWarnings("unchecked")
+	public RecipeSerializer<? extends CustomRecipe> getSerializer() {
+		return (RecipeSerializer<? extends CustomRecipe>) AllRecipeTypes.ITEM_COPYING.getSerializer();
 	}
 
 	public boolean canCraftInDimensions(int width, int height) {
