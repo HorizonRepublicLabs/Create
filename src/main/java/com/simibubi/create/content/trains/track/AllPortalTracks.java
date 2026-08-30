@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Portal;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.portal.DimensionTransition;
+import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.AABB;
 
 /**
@@ -130,7 +130,7 @@ public class AllPortalTracks {
 		SuperGlueEntity probe = new SuperGlueEntity(level, new AABB(portalPos));
 		probe.setYRot(inboundTrack.getFace().toYRot());
 
-		DimensionTransition dimensiontransition = portal.getPortalDestination(level, probe, probe.blockPosition());
+		TeleportTransition dimensiontransition = portal.getPortalDestination(level, probe, probe.blockPosition());
 		if (dimensiontransition == null)
 			return null;
 

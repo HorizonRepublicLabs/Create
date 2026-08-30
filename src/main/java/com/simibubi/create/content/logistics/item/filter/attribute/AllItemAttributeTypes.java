@@ -1,5 +1,7 @@
 package com.simibubi.create.content.logistics.item.filter.attribute;
 
+import net.minecraft.server.level.ServerLevel;
+
 import net.minecraft.world.item.equipment.Equippable;
 
 import com.simibubi.create.foundation.fluid.FluidCaps;
@@ -57,7 +59,9 @@ public class AllItemAttributeTypes {
 			return equippable != null && equippable.slot()
 				.getType() != EquipmentSlot.Type.HAND;
 		}),
-		FURNACE_FUEL = singleton("furnace_fuel", AbstractFurnaceBlockEntity::isFuel),
+		// Fuel is a level-side lookup now rather than a furnace static.
+		FURNACE_FUEL = singleton("furnace_fuel", (s, w) -> w.fuelValues()
+			.isFuel(s)),
 		WASHABLE = singleton("washable", AllFanProcessingTypes.SPLASHING::canProcess),
 		HAUNTABLE = singleton("hauntable", AllFanProcessingTypes.HAUNTING::canProcess),
 		CRUSHABLE = singleton("crushable", (s, w) -> testRecipe(s, w, AllRecipeTypes.CRUSHING.getType())
@@ -79,9 +83,9 @@ public class AllItemAttributeTypes {
 		BOOK_COPY = register("book_copy", new BookCopyAttribute.Type());
 
 	private static <T extends Recipe<SingleRecipeInput>> boolean testRecipe(ItemStack s, Level w, RecipeType<T> type) {
-		return w.getRecipeManager()
-				.getRecipeFor(type, new SingleRecipeInput(s.copy()), w)
-				.isPresent();
+		return w instanceof ServerLevel serverLevel && serverLevel.recipeAccess()
+			.getRecipeFor(type, new SingleRecipeInput(s.copy()), serverLevel)
+			.isPresent();
 	}
 
 	private static boolean maxEnchanted(ItemStack s) {
