@@ -1,5 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.item.TooltipLines;
 
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -230,7 +232,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 				data.putInt("x", pos.getX());
 				data.putInt("y", pos.getY());
 				data.putInt("z", pos.getZ());
-				blockEntity.loadWithComponents(data, world.registryAccess());
+				blockEntity.loadWithComponents(ValueIOShim.inputOf(data, world.registryAccess()));
 			}
 		}
 	}

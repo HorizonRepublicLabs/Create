@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.utility;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import net.minecraft.world.attribute.EnvironmentAttributes;
 
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
@@ -394,7 +396,7 @@ public class BlockHelper {
 				if (blockEntity instanceof IMultiBlockEntityContainer imbe)
 					if (!imbe.isController())
 						data.store("Controller", BlockPos.CODEC, imbe.getController());
-				blockEntity.loadWithComponents(data, world.registryAccess());
+				blockEntity.loadWithComponents(ValueIOShim.inputOf(data, world.registryAccess()));
 			}
 		}
 

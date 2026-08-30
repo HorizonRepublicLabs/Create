@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -255,7 +257,7 @@ public class SchematicPrinter {
 			blockEntity = ((EntityBlock) blockState.getBlock()).newBlockEntity(target, blockState);
 			CompoundTag data = BlockHelper.prepareBlockEntityData(blockReader, blockState, blockReader.getBlockEntity(target));
 			if (blockEntity != null && data != null)
-				blockEntity.loadWithComponents(data, blockReader.registryAccess());
+				blockEntity.loadWithComponents(ValueIOShim.inputOf(data, blockReader.registryAccess()));
 		}
 		return ItemRequirement.of(blockState, blockEntity);
 	}

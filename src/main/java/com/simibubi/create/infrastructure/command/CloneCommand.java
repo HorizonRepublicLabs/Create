@@ -1,5 +1,7 @@
 package com.simibubi.create.infrastructure.command;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -148,7 +150,7 @@ public class CloneCommand {
 				info.nbt().putInt("x", info.pos().getX());
 				info.nbt().putInt("y", info.pos().getY());
 				info.nbt().putInt("z", info.pos().getZ());
-				be.loadWithComponents(info.nbt(), world.registryAccess());
+				be.loadWithComponents(ValueIOShim.inputOf(info.nbt(), world.registryAccess()));
 				be.setChanged();
 			}
 

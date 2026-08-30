@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.utility.ValueIOShim;
+
 import com.simibubi.create.foundation.utility.AABBNbt;
 
 import net.minecraft.world.level.chunk.PaletteResize;
@@ -1198,7 +1200,7 @@ public abstract class Contraption {
 						}
 					}
 
-					blockEntity.loadWithComponents(tag, world.registryAccess());
+					blockEntity.loadWithComponents(ValueIOShim.inputOf(tag, world.registryAccess()));
 				}
 
 				storage.unmount(world, block, targetPos, blockEntity);
