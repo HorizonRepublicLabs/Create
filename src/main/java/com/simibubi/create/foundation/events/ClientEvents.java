@@ -110,7 +110,6 @@ import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import net.neoforged.neoforge.client.event.RenderFrameEvent;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent.Stage;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -235,7 +234,7 @@ public class ClientEvents {
 
 	@SubscribeEvent
 	public static void onRenderWorld(RenderLevelStageEvent event) {
-		if (event.getStage() != Stage.AFTER_PARTICLES)
+		if (!(event instanceof RenderLevelStageEvent.AfterTranslucentParticles))
 			return;
 
 		PoseStack ms = event.getPoseStack();

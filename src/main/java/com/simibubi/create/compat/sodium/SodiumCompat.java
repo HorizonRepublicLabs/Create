@@ -12,7 +12,6 @@ import net.minecraft.world.inventory.InventoryMenu;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent.Stage;
 
 /**
  * Fixes the Mechanical Saw's sprite and Factory Gauge's sprite
@@ -24,7 +23,7 @@ public class SodiumCompat {
 	public static void init(IEventBus modEventBus, IEventBus neoEventBus) {
 		Minecraft mc = Minecraft.getInstance();
 		neoEventBus.addListener((RenderLevelStageEvent event) -> {
-			if (event.getStage() == Stage.AFTER_ENTITIES) {
+			if ((event instanceof RenderLevelStageEvent.AfterOpaqueFeatures)) {
 				Function<Identifier, TextureAtlasSprite> atlas = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
 				TextureAtlasSprite sawSprite = atlas.apply(SAW_TEXTURE);
 				SpriteUtil.INSTANCE.markSpriteActive(sawSprite);
