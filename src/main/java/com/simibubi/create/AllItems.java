@@ -191,7 +191,7 @@ public class AllItems {
 			.burnTime(1000)
 			.properties(p -> p.stacksTo(1))
 			.properties(p -> p.attributes(SwordItem.createAttributes(AllToolMaterials.CARDBOARD, 3, 1)))
-			.model(AssetLookup.itemModelWithPartials())
+			.model(AssetLookup.customItemModel("cardboard_sword"))
 			.register();
 
 	public static final ItemEntry<Item> RAW_ZINC =
@@ -392,16 +392,18 @@ public class AllItems {
 
 	public static final ItemEntry<SandPaperItem> SAND_PAPER = REGISTRATE.item("sand_paper", SandPaperItem::new)
 		.tag(AllTags.AllItemTags.SANDPAPER.tag)
+		.model(() -> AssetLookup.customFlatItemModel("sand_paper"))
 		.register();
 
 	public static final ItemEntry<SandPaperItem> RED_SAND_PAPER = REGISTRATE.item("red_sand_paper", SandPaperItem::new)
 		.tag(AllTags.AllItemTags.SANDPAPER.tag)
 		.onRegister(s -> ItemDescription.referKey(s, SAND_PAPER))
+		.model(() -> AssetLookup.customFlatItemModel("red_sand_paper"))
 		.register();
 
 	public static final ItemEntry<WrenchItem> WRENCH = REGISTRATE.item("wrench", WrenchItem::new)
 		.properties(p -> p.stacksTo(1))
-		.model(() -> AssetLookup.itemModelWithPartials())
+		.model(() -> AssetLookup.customItemModel("wrench"))
 		.tag(Items.TOOLS_WRENCH)
 		.register();
 
@@ -422,34 +424,34 @@ public class AllItems {
 	public static final ItemEntry<LinkedControllerItem> LINKED_CONTROLLER =
 		REGISTRATE.item("linked_controller", LinkedControllerItem::new)
 			.properties(p -> p.stacksTo(1))
-			.model(() -> AssetLookup.itemModelWithPartials())
+			.model(() -> AssetLookup.customItemModel("linked_controller"))
 			.register();
 
 	public static final ItemEntry<PotatoCannonItem> POTATO_CANNON =
 		REGISTRATE.item("potato_cannon", PotatoCannonItem::new)
 			.properties(p -> p.durability(100))
-			.model(() -> AssetLookup.itemModelWithPartials())
+			.model(() -> AssetLookup.customItemModel("potato_cannon"))
 			.tag(Tags.Items.ENCHANTABLES, ItemTags.DURABILITY_ENCHANTABLE, ItemTags.BOW_ENCHANTABLE)
 			.register();
 
 	public static final ItemEntry<ExtendoGripItem> EXTENDO_GRIP = REGISTRATE.item("extendo_grip", ExtendoGripItem::new)
 		.properties(p -> p.rarity(Rarity.UNCOMMON))
 		.tag(ItemTags.DURABILITY_ENCHANTABLE)
-		.model(() -> AssetLookup.itemModelWithPartials())
+		.model(() -> AssetLookup.customItemModel("extendo_grip"))
 		.register();
 
 	public static final ItemEntry<SymmetryWandItem> WAND_OF_SYMMETRY =
 		REGISTRATE.item("wand_of_symmetry", SymmetryWandItem::new)
 			.properties(p -> p.stacksTo(1)
 				.rarity(Rarity.UNCOMMON))
-			.model(() -> AssetLookup.itemModelWithPartials())
+			.model(() -> AssetLookup.customItemModel("wand_of_symmetry"))
 			.register();
 
 	public static final ItemEntry<WorldshaperItem> WORLDSHAPER =
 		REGISTRATE.item("handheld_worldshaper", WorldshaperItem::new)
 			.properties(p -> p.rarity(Rarity.EPIC))
 			.lang("Creative Worldshaper")
-			.model(() -> AssetLookup.itemModelWithPartials())
+			.model(() -> AssetLookup.customItemModel("worldshaper"))
 			.register();
 
 	public static final ItemEntry<TreeFertilizerItem> TREE_FERTILIZER =

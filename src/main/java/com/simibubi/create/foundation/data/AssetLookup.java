@@ -1,5 +1,13 @@
 package com.simibubi.create.foundation.data;
 
+import net.minecraft.client.resources.model.sprite.Material;
+
+import com.simibubi.create.Create;
+
+import com.simibubi.create.foundation.item.render.CustomRenderedItemModelWrapper;
+
+import java.util.Optional;
+
 import java.util.function.Function;
 
 import com.tterrag.registrate.providers.DataGenContext;
@@ -114,4 +122,33 @@ public class AssetLookup {
 		return (c, p) -> VariantModels.models(p).withExistingParent("item/" + c.getName(), p.modLoc("item/" + c.getName() + "/item"));
 	}
 
+
+	/// An item that draws itself names its renderer in its model definition, and
+	/// the base model still supplies the transforms, so both are written here.
+	public static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelGenerator> customItemModel(
+		String rendererName) {
+		return (c, p) -> {
+			Identifier base = p.modLoc("item/" + c.getName() + "/item");
+			VariantModels.models(p)
+				.withExistingParent("item/" + c.getName(), base);
+			named(c, p, base, rendererName);
+		};
+	}
+
+	/// For the hand-drawn items whose base is a plain flat model rather than a
+	/// folder of parts.
+	public static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelGenerator> customFlatItemModel(
+		String rendererName) {
+		return (c, p) -> {
+			Identifier base = p.modLoc("item/" + c.getName());
+			p.generateFlatItem(c.get(), new Material(base));
+			named(c, p, base, rendererName);
+		};
+	}
+
+	private static <T extends Item> void named(DataGenContext<Item, T> c, RegistrateItemModelGenerator p,
+		Identifier base, String rendererName) {
+		p.itemModelOutput.accept(c.get(),
+			new CustomRenderedItemModelWrapper.Unbaked(base, Create.asResource(rendererName), Optional.empty()));
+	}
 }

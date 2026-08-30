@@ -387,7 +387,9 @@ public class ClientEvents {
 		CustomRenderedItems.register(Create.asResource("wand_of_symmetry"), SymmetryWandItemRenderer::new);
 		CustomRenderedItems.register(Create.asResource("potato_cannon"), PotatoCannonItemRenderer::new);
 		CustomRenderedItems.register(Create.asResource("worldshaper"), WorldshaperItemRenderer::new);
-		CustomRenderedItems.register(Create.asResource("sand_paper"), SandPaperItemRenderer::new);
+		CustomRenderedItems.register(Create.asResource("sand_paper"), () -> new SandPaperItemRenderer("sand_paper"));
+		CustomRenderedItems.register(Create.asResource("red_sand_paper"),
+			() -> new SandPaperItemRenderer("red_sand_paper"));
 		CustomRenderedItems.register(Create.asResource("cardboard_sword"), CardboardSwordItemRenderer::new);
 	}
 

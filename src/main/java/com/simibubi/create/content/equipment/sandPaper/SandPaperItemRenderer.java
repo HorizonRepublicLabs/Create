@@ -22,8 +22,8 @@ import net.minecraft.world.item.ItemStack;
 
 public class SandPaperItemRenderer extends CustomRenderedItemModelRenderer {
 
-	public SandPaperItemRenderer() {
-		super(Create.asResource("item/sand_paper"));
+	public SandPaperItemRenderer(String name) {
+		super(Create.asResource("item/" + name));
 	}
 
 
