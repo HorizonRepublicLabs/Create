@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.utility.ValueIOShim;
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.world.level.storage.TagValueInput;
 
 import net.minecraft.util.ProblemReporter;
 
@@ -301,7 +302,7 @@ public class BlueprintEntity extends HangingEntity
 
 	@Override
 	public void dropItem(ServerLevel level, @Nullable Entity p_110128_1_) {
-		if (!level().getGameRules()
+		if (!level.getGameRules()
 			.get(GameRules.ENTITY_DROPS))
 			return;
 
@@ -352,7 +353,8 @@ public class BlueprintEntity extends HangingEntity
 
 	@Override
 	public void readSpawnData(RegistryFriendlyByteBuf registryFriendlyByteBuf) {
-		readAdditionalSaveData(registryFriendlyByteBuf.readNbt());
+		readAdditionalSaveData(TagValueInput.create(ProblemReporter.DISCARDING, registryAccess(),
+			registryFriendlyByteBuf.readNbt()));
 		getPersistentData().merge(registryFriendlyByteBuf.readNbt());
 	}
 
@@ -410,7 +412,7 @@ public class BlueprintEntity extends HangingEntity
 					if (!recipe.isPresent())
 						recipe = RecipeLookup.find(level(), RecipeType.CRAFTING, craftingInventory.asCraftInput());
 					ItemStack result = recipe.filter(r -> r.value().matches(craftingInventory.asCraftInput(), level()))
-						.map(r -> r.value().assemble(craftingInventory.asCraftInput(), registryAccess()))
+						.map(r -> r.value().assemble(craftingInventory.asCraftInput()))
 						.orElse(ItemStack.EMPTY);
 
 					if (result.isEmpty()) {
@@ -419,10 +421,13 @@ public class BlueprintEntity extends HangingEntity
 						success = false;
 					} else {
 						amountCrafted += result.getCount();
-						result.onCraftedBy(player.level(), player, 1);
+						result.onCraftedBy(player, 1);
 						EventHooks.firePlayerCraftingEvent(player, result, craftingInventory);
-						NonNullList<ItemStack> nonnulllist = level().recipeAccess()
-							.getRemainingItemsFor(RecipeType.CRAFTING, craftingInventory.asCraftInput(), level());
+						// The recipe hands back its own leftovers now rather than the
+						// manager looking them up again.
+						NonNullList<ItemStack> nonnulllist = recipe.map(r -> r.value())
+							.map(r -> r.getRemainingItems(craftingInventory.asCraftInput()))
+							.orElseGet(() -> CraftingRecipe.defaultCraftingReminder(craftingInventory.asCraftInput()));
 
 						if (firstPass)
 							level().playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS,
@@ -563,8 +568,8 @@ public class BlueprintEntity extends HangingEntity
 
 		@Override
 		public Component getDisplayName() {
-			return AllItems.CRAFTING_BLUEPRINT.get()
-				.getDescription();
+			return Component.translatable(AllItems.CRAFTING_BLUEPRINT.get()
+				.getDescriptionId());
 		}
 
 		@Override
