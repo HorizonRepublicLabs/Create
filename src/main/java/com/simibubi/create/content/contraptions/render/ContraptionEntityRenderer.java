@@ -1,5 +1,9 @@
 package com.simibubi.create.content.contraptions.render;
 
+import com.simibubi.create.foundation.render.DiscardingVertexConsumer;
+
+import net.createmod.catnip.api.client.render.model.BakedModelBufferer;
+
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
@@ -28,8 +32,6 @@ import net.createmod.catnip.api.client.render.SuperByteBuffer;
 import net.createmod.catnip.api.client.render.SuperByteBufferCache;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -52,41 +54,29 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 		super(context);
 	}
 
-	public static SuperByteBuffer getBuffer(Contraption contraption, VirtualRenderWorld renderWorld, RenderType renderType) {
-		return SuperByteBufferCache.getInstance().get(CONTRAPTION, Pair.of(contraption, renderType), () -> buildStructureBuffer(contraption, renderWorld, renderType));
+	public static SuperByteBuffer getBuffer(Contraption contraption, VirtualRenderWorld renderWorld,
+		ChunkSectionLayer renderType) {
+		return SuperByteBufferCache.getInstance()
+			.get(CONTRAPTION, Pair.of(contraption, renderType),
+				() -> buildStructureBuffer(contraption, renderWorld, renderType));
 	}
 
-	private static SuperByteBuffer buildStructureBuffer(Contraption contraption, VirtualRenderWorld renderWorld, RenderType layer) {
-		BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
-		ModelBlockRenderer renderer = dispatcher.getModelRenderer();
+	/// Blocks are buffered for every layer in one pass now, rather than the
+	/// renderer asking a model which layers it belongs to, so the geometry for
+	/// the other layers is dropped as it arrives.
+	private static SuperByteBuffer buildStructureBuffer(Contraption contraption, VirtualRenderWorld renderWorld,
+		ChunkSectionLayer layer) {
 		ThreadLocalObjects objects = THREAD_LOCAL_OBJECTS.get();
-
-		PoseStack poseStack = objects.poseStack;
-		RandomSource random = objects.random;
 		var clientContraption = contraption.getOrCreateClientContraptionLazy();
 		RenderedBlocks blocks = clientContraption.getRenderedBlocks();
 
 		ShadedBlockSbbBuilder sbbBuilder = objects.sbbBuilder;
 		sbbBuilder.begin();
 
-		ModelBlockRenderer.enableCaching();
-		for (BlockPos pos : blocks.positions()) {
-			BlockState state = blocks.lookup().apply(pos);
-			if (state.getRenderShape() == RenderShape.MODEL) {
-				BlockStateModel model = dispatcher.getBlockModel(state);
-				ModelData modelData = renderWorld.getModelData(pos);
-				modelData = model.getModelData(renderWorld, pos, state, modelData);
-				long randomSeed = state.getSeed(pos);
-				random.setSeed(randomSeed);
-				if (model.getRenderTypes(state, random, modelData).contains(layer)) {
-					poseStack.pushPose();
-					poseStack.translate(pos.getX(), pos.getY(), pos.getZ());
-					renderer.tesselateBlock(renderWorld, model, state, pos, poseStack, sbbBuilder, true, random, randomSeed, OverlayTexture.NO_OVERLAY, modelData, layer);
-					poseStack.popPose();
-				}
-			}
-		}
-		ModelBlockRenderer.clearCache();
+		BakedModelBufferer.bufferBlocks(blocks.positions()
+			.iterator(), renderWorld, objects.poseStack, false,
+			(bufferedLayer, shade) -> bufferedLayer == layer ? sbbBuilder.unwrap(shade)
+				: DiscardingVertexConsumer.INSTANCE);
 
 		return sbbBuilder.end();
 	}
@@ -176,7 +166,6 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 
 	private static class ThreadLocalObjects {
 		public final PoseStack poseStack = new PoseStack();
-		public final RandomSource random = RandomSource.createNewThreadLocalInstance();
 		public final ShadedBlockSbbBuilder sbbBuilder = ShadedBlockSbbBuilder.create();
 	}
 }
