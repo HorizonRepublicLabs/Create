@@ -327,7 +327,7 @@ public class StationScreen extends AbstractStationScreen {
 
 
 		AllGuiTextures.STATION_TEXTBOX_TOP.render(graphics, x + 21, y + 42);
-		UIRenderHelper.drawStretched(graphics, x + 21, y + 60, 150, 26, 0, AllGuiTextures.STATION_TEXTBOX_MIDDLE);
+		UIRenderHelper.drawStretched(graphics, x + 21, y + 60, 150, 26, AllGuiTextures.STATION_TEXTBOX_MIDDLE);
 		AllGuiTextures.STATION_TEXTBOX_BOTTOM.render(graphics, x + 21, y + 86);
 
 		ms.pushMatrix();

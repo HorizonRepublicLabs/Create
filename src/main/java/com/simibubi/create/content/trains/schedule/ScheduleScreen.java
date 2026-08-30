@@ -397,7 +397,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 	protected void renderSchedule(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTicks) {
 		Matrix3x2fStack matrixStack = graphics.pose();
 
-		UIRenderHelper.drawStretched(graphics, leftPos + 33, topPos + 16, 3, 173, 200,
+		UIRenderHelper.drawStretched(graphics, leftPos + 33, topPos + 16, 3, 173,
 			AllGuiTextures.SCHEDULE_STRIP_DARK);
 
 		int yOffset = 25;
@@ -421,7 +421,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 			matrixStack.pushMatrix();
 			matrixStack.translate((float) (0), (float) (scrollOffset));
 			if (i == 0 || entries.size() == 0)
-				UIRenderHelper.drawStretched(graphics, leftPos + 33, topPos + 16, 3, 10, -100,
+				UIRenderHelper.drawStretched(graphics, leftPos + 33, topPos + 16, 3, 10,
 					AllGuiTextures.SCHEDULE_STRIP_LIGHT);
 
 			if (i == entries.size()) {
@@ -628,7 +628,7 @@ public class ScheduleScreen extends AbstractSimiContainerScreen<ScheduleMenu> {
 		AllGuiTextures right = AllGuiTextures.SCHEDULE_CONDITION_RIGHT;
 
 		matrixStack.translate((float) (x), (float) (y));
-		UIRenderHelper.drawStretched(graphics, 0, 0, fieldSize, 16, 0, middle);
+		UIRenderHelper.drawStretched(graphics, 0, 0, fieldSize, 16, middle);
 		left.render(graphics, clean ? 0 : -3, 0);
 		right.render(graphics, fieldSize - 2, 0);
 		if (hasItem)

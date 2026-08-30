@@ -616,7 +616,7 @@ public class StockKeeperRequestScreen extends AbstractSimiContainerScreen<StockK
 					.getRGB();
 				int w = font.width(msg) + 14;
 				AllGuiTextures.STOCK_KEEPER_REQUEST_BANNER_L.render(graphics, msgX - 8, msgY - 4);
-				UIRenderHelper.drawStretched(graphics, msgX, msgY - 4, w, 16, 0,
+				UIRenderHelper.drawStretched(graphics, msgX, msgY - 4, w, 16,
 					AllGuiTextures.STOCK_KEEPER_REQUEST_BANNER_M);
 				AllGuiTextures.STOCK_KEEPER_REQUEST_BANNER_R.render(graphics, msgX + font.width(msg) + 10, msgY - 4);
 				graphics.text(font, msg, msgX + 5, msgY, c3, false);
