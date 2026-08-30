@@ -317,7 +317,7 @@ public class PackageEntity extends LivingEntity implements IEntityWithComplexSpa
 	}
 
 	@Override
-	public boolean hurt(DamageSource source, float amount) {
+	public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
 		if (source.getEntity() instanceof Player player && !CommonHooks.onPlayerAttackTarget(player, this))
 			return false;
 

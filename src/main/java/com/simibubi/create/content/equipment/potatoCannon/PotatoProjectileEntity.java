@@ -320,7 +320,7 @@ public class PotatoProjectileEntity extends AbstractHurtingProjectile implements
 	}
 
 	@Override
-	public boolean hurt(@NotNull DamageSource source, float amt) {
+	public boolean hurtServer(ServerLevel level, @NotNull DamageSource source, float amt) {
 		if (source.is(DamageTypeTags.IS_FIRE))
 			return false;
 		if (this.isInvulnerableTo(source))
