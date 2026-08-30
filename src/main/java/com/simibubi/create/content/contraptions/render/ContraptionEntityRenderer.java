@@ -1,5 +1,13 @@
 package com.simibubi.create.content.contraptions.render;
 
+import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
+
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+
+import net.minecraft.client.renderer.SubmitNodeCollector;
+
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
+
 import com.simibubi.create.foundation.render.DiscardingVertexConsumer;
 
 import net.createmod.catnip.api.client.render.model.BakedModelBufferer;
@@ -46,8 +54,20 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 
 import net.neoforged.neoforge.model.data.ModelData;
 
-public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> extends EntityRenderer<C> {
-	public static final SuperByteBufferCache.Compartment<Pair<Contraption, RenderType>> CONTRAPTION = new SuperByteBufferCache.Compartment<>();
+public class ContraptionEntityRenderer<C extends AbstractContraptionEntity>
+	extends EntityRenderer<C, ContraptionEntityRenderer.ContraptionRenderState> {
+
+	/// The contraption's geometry is assembled from the render world and the
+	/// matrices, which only mean anything alongside the entity they belong to,
+	/// so the state carries it through to submit.
+	public static class ContraptionRenderState extends EntityRenderState {
+		public AbstractContraptionEntity entity;
+		public Contraption contraption;
+		public Level level;
+	}
+
+	public static final SuperByteBufferCache.Compartment<Pair<Contraption, ChunkSectionLayer>> CONTRAPTION =
+		new SuperByteBufferCache.Compartment<>();
 	private static final ThreadLocal<ThreadLocalObjects> THREAD_LOCAL_OBJECTS = ThreadLocal.withInitial(ThreadLocalObjects::new);
 
 	public ContraptionEntityRenderer(EntityRendererProvider.Context context) {
@@ -82,11 +102,6 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 	}
 
 	@Override
-	public Identifier getTextureLocation(C entity) {
-		return null;
-	}
-
-	@Override
 	public boolean shouldRender(C entity, Frustum frustum, double cameraX, double cameraY,
 		double cameraZ) {
 		if (entity.getContraption() == null)
@@ -100,20 +115,35 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 	}
 
 	@Override
-	public void render(C entity, float yaw, float partialTicks, PoseStack poseStack, SuperRenderTypeBuffer buffers,
-		int overlay) {
-		super.render(entity, yaw, partialTicks, poseStack, buffers, overlay);
+	public ContraptionRenderState createRenderState() {
+		return new ContraptionRenderState();
+	}
 
-		Contraption contraption = entity.getContraption();
-		if (contraption == null) {
+	@Override
+	public void extractRenderState(C entity, ContraptionRenderState state, float partialTicks) {
+		super.extractRenderState(entity, state, partialTicks);
+		state.entity = entity;
+		state.contraption = entity.getContraption();
+		state.level = entity.level();
+	}
+
+	@Override
+	public void submit(ContraptionRenderState state, PoseStack poseStack, SubmitNodeCollector collector,
+		CameraRenderState camera) {
+		super.submit(state, poseStack, collector, camera);
+
+		Contraption contraption = state.contraption;
+		if (contraption == null)
 			return;
-		}
 
-		Level level = entity.level();
+		Level level = state.level;
 		ClientContraption clientContraption = contraption.getOrCreateClientContraptionLazy();
 		VirtualRenderWorld renderWorld = clientContraption.getRenderLevel();
 		ContraptionMatrices matrices = clientContraption.getMatrices();
-		matrices.setup(poseStack, entity);
+		matrices.setup(poseStack, state.entity);
+
+		SuperRenderTypeBuffer buffers = DefaultSuperRenderTypeBuffer.getInstance();
+		buffers.setCollector(collector);
 
 		if (!VisualizationManager.supportsVisualization(level)) {
 			for (ChunkSectionLayer renderType : ChunkSectionLayer.values()) {
@@ -121,7 +151,7 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 				if (!sbb.isEmpty()) {
 					VertexConsumer vc = buffers.getBuffer(renderType);
 					sbb.transform(matrices.getModel())
-						.useLevelLight((BlockAndTintGetter) level, matrices.getWorld())
+						.useLevelLight(renderWorld, matrices.getWorld())
 						.renderInto(poseStack, vc);
 				}
 			}
@@ -136,6 +166,8 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 		clientContraption.shouldRenderBlockEntities.andNot(clientContraption.scratchErroredBlockEntities);
 		renderActors(level, renderWorld, contraption, matrices, buffers);
 
+		buffers.draw();
+		buffers.setCollector(null);
 		matrices.clear();
 	}
 

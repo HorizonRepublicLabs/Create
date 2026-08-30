@@ -1,5 +1,17 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.content.contraptions.render.ContraptionEntityRenderer.ContraptionRenderState;
+
+import net.createmod.catnip.api.client.animation.AnimationTickHolder;
+
+import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
+
+import net.minecraft.client.renderer.texture.OverlayTexture;
+
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+
+import net.minecraft.client.renderer.SubmitNodeCollector;
+
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -31,17 +43,25 @@ public class CarriageContraptionEntityRenderer extends ContraptionEntityRenderer
 		return super.shouldRender(entity, clippingHelper, cameraX, cameraY, cameraZ);
 	}
 
+	/// The bogeys are drawn from the carriage itself, which the state carries
+	/// over alongside the contraption.
 	@Override
-	public void render(CarriageContraptionEntity entity, float yaw, float partialTicks, PoseStack ms,
-		SuperRenderTypeBuffer buffers, int overlay) {
-		if (!entity.validForRender || entity.firstPositionUpdate)
+	public void submit(ContraptionRenderState state, PoseStack ms, SubmitNodeCollector collector,
+		CameraRenderState camera) {
+		if (!(state.entity instanceof CarriageContraptionEntity entity) || !entity.validForRender
+			|| entity.firstPositionUpdate)
 			return;
 
-		super.render(entity, yaw, partialTicks, ms, buffers, overlay);
+		super.submit(state, ms, collector, camera);
 
 		Carriage carriage = entity.getCarriage();
 		if (carriage == null)
 			return;
+
+		float partialTicks = AnimationTickHolder.getPartialTicks();
+		int overlay = OverlayTexture.NO_OVERLAY;
+		SuperRenderTypeBuffer buffers = DefaultSuperRenderTypeBuffer.getInstance();
+		buffers.setCollector(collector);
 
 		Vec3 position = entity.getPosition(partialTicks);
 
@@ -75,6 +95,9 @@ public class CarriageContraptionEntityRenderer extends ContraptionEntityRenderer
 			if (!carriage.isOnTwoBogeys())
 				bogey.updateCouplingAnchor(position, viewXRot, viewYRot, bogeySpacing, partialTicks, !bogey.isLeading);
 		});
+
+		buffers.draw();
+		buffers.setCollector(null);
 	}
 
 	public static void translateBogey(PoseStack ms, CarriageBogey bogey, int bogeySpacing, float viewYRot,
