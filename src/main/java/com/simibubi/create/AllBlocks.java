@@ -973,7 +973,8 @@ public class AllBlocks {
 				.requires(colour.getTag())
 				.requires(AllItemTags.VALVE_HANDLES.tag)
 				.unlockedBy("has_valve", p.has(AllItemTags.VALVE_HANDLES.tag))
-				.save(p, Create.asResource("crafting/kinetics/" + c.getName() + "_from_other_valve_handle")))
+				.save(p, ResourceKey.create(Registries.RECIPE,
+					Create.asResource("crafting/kinetics/" + c.getName() + "_from_other_valve_handle"))))
 			.register();
 	});
 
