@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.fluid;
 
+import com.simibubi.create.foundation.render.CreateRenderTypes;
+
 import com.simibubi.create.foundation.fluid.FluidAppearance;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -30,7 +32,8 @@ import net.neoforged.neoforge.fluids.FluidType;
 public class FluidRenderer {
 	public static void renderFluidStream(FluidStack fluidStack, Direction direction, float radius, float progress,
 		boolean inbound, SuperRenderTypeBuffer buffer, PoseStack ms, int light) {
-		renderFluidStream(fluidStack, direction, radius, progress, inbound, FluidRenderHelper.getFluidBuilder(buffer), ms, light);
+		renderFluidStream(fluidStack, direction, radius, progress, inbound,
+			buffer.getBuffer(CreateRenderTypes.translucentMovingBlock()), ms, light);
 	}
 
 	public static void renderFluidStream(FluidStack fluidStack, Direction direction, float radius, float progress,
@@ -71,14 +74,25 @@ public class FluidRenderer {
 		}
 
 		if (progress != 1)
-			FluidRenderHelper.renderStillTiledFace(Direction.DOWN, hMin, hMin, hMax, hMax, yMin, builder, ms, light, color, stillTexture);
+			FluidRenderHelper.renderStillTiledFace(Direction.DOWN, hMin, hMin, hMax, hMax, yMin, builder, ms.last(),
+				light, color, stillTexture);
 
 		ms.popPose();
 	}
 
 	public static void renderFlowingTiledFace(Direction dir, float left, float down, float right, float up,
 		float depth, VertexConsumer builder, PoseStack ms, int light, int color, TextureAtlasSprite texture) {
-		FluidRenderHelper.renderTiledFace(dir, left, down, right, up, depth, builder, ms, light, color, texture, 0.5f);
+		FluidRenderHelper.renderTiledFace(dir, left, down, right, up, depth, builder, ms.last(), light, color, texture,
+			0.5f);
+	}
+
+	/// catnip draws a fluid box into a vertex consumer now, so the render type
+	/// is picked here rather than inside the helper.
+	public static void renderFluidBox(FluidStack fluidStack, float xMin, float yMin, float zMin, float xMax,
+		float yMax, float zMax, SuperRenderTypeBuffer buffer, PoseStack ms, int light, boolean renderBottom,
+		boolean invertGasses) {
+		FluidRenderHelper.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax,
+			buffer.getBuffer(CreateRenderTypes.translucentMovingBlock()), ms, light, renderBottom, invertGasses);
 	}
 
 }

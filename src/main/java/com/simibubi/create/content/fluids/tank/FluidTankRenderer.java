@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.tank;
 
+import com.simibubi.create.foundation.fluid.FluidRenderer;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -81,7 +83,7 @@ public class FluidTankRenderer extends SafeBlockEntityRenderer<FluidTankBlockEnt
 
 		ms.pushPose();
 		ms.translate(0, clampedLevel - totalHeight, 0);
-		FluidRenderHelper.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, buffer,
+		FluidRenderer.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, buffer,
 			ms, light, false, true);
 		ms.popPose();
 	}

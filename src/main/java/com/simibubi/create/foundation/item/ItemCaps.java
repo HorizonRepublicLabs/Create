@@ -1,6 +1,5 @@
 package com.simibubi.create.foundation.item;
 
-import com.simibubi.create.foundation.item.ItemCaps;
 
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 
@@ -29,20 +28,20 @@ import net.neoforged.neoforge.items.IItemHandler;
 public class ItemCaps {
 	@Nullable
 	public static IItemHandler at(Level level, BlockPos pos, @Nullable Direction side) {
-		var handler = ItemCaps.at(level, pos, side);
+		var handler = level.getCapability(Capabilities.Item.BLOCK, pos, side);
 		return handler == null ? null : IItemHandler.of(handler);
 	}
 
 	@Nullable
 	public static IItemHandler at(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be,
 		@Nullable Direction side) {
-		var handler = ItemCaps.at(level, pos, state, be, side);
+		var handler = level.getCapability(Capabilities.Item.BLOCK, pos, state, be, side);
 		return handler == null ? null : IItemHandler.of(handler);
 	}
 
 	@Nullable
 	public static IItemHandler of(Entity entity, @Nullable Direction side) {
-		var handler = ItemCaps.of(entity, side);
+		var handler = entity.getCapability(Capabilities.Item.ENTITY_AUTOMATION, side);
 		return handler == null ? null : IItemHandler.of(handler);
 	}
 

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids.drain;
 
+import com.simibubi.create.foundation.fluid.FluidRenderer;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -148,7 +150,7 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 			float yOffset = (7 / 16f) * level;
 			ms.pushPose();
 			ms.translate(0, yOffset, 0);
-			FluidRenderHelper.renderFluidBox(fluidStack, min, yMin - yOffset, min, max, yMin,
+			FluidRenderer.renderFluidBox(fluidStack, min, yMin - yOffset, min, max, yMin,
 				max, buffer, ms, light, false, false);
 			ms.popPose();
 		}
@@ -173,7 +175,7 @@ public class ItemDrainRenderer extends SmartBlockEntityRenderer<ItemDrainBlockEn
 		if (processingTicks != -1) {
 			radius = (float) (Math.pow(((2 * processingProgress) - 1), 2) - 1);
 			AABB bb = new AABB(0.5, 1.0, 0.5, 0.5, 0.25, 0.5).inflate(radius / 32f);
-			FluidRenderHelper.renderFluidBox(fluidStack2, (float) bb.minX, (float) bb.minY, (float) bb.minZ,
+			FluidRenderer.renderFluidBox(fluidStack2, (float) bb.minX, (float) bb.minY, (float) bb.minZ,
 				(float) bb.maxX, (float) bb.maxY, (float) bb.maxZ, buffer, ms, light, true, false);
 		}
 

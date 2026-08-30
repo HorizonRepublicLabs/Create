@@ -1,5 +1,7 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.fluid.FluidRenderer;
+
 import com.simibubi.create.foundation.render.CreateItemRenderer;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -177,7 +179,7 @@ public class BasinRenderer extends SmartBlockEntityRenderer<BasinBlockEntity> {
 
 				float partial = Mth.clamp(units / totalUnits, 0, 1);
 				xMax += partial * 12 / 16f;
-				FluidRenderHelper.renderFluidBox(renderedFluid, xMin, yMin, zMin, xMax, yMax, zMax,
+				FluidRenderer.renderFluidBox(renderedFluid, xMin, yMin, zMin, xMax, yMax, zMax,
 					buffer, ms, light, false, false);
 
 				xMin = xMax;

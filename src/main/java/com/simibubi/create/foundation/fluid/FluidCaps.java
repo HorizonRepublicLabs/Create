@@ -1,6 +1,5 @@
 package com.simibubi.create.foundation.fluid;
 
-import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 
@@ -28,20 +27,20 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 public class FluidCaps {
 	@Nullable
 	public static IFluidHandler at(Level level, BlockPos pos, @Nullable Direction side) {
-		var handler = FluidCaps.at(level, pos, side);
+		var handler = level.getCapability(Capabilities.Fluid.BLOCK, pos, side);
 		return handler == null ? null : IFluidHandler.of(handler);
 	}
 
 	@Nullable
 	public static IFluidHandler at(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be,
 		@Nullable Direction side) {
-		var handler = FluidCaps.at(level, pos, state, be, side);
+		var handler = level.getCapability(Capabilities.Fluid.BLOCK, pos, state, be, side);
 		return handler == null ? null : IFluidHandler.of(handler);
 	}
 
 	@Nullable
 	public static IFluidHandler of(Entity entity, @Nullable Direction side) {
-		var handler = FluidCaps.of(entity, side);
+		var handler = entity.getCapability(Capabilities.Fluid.ENTITY, side);
 		return handler == null ? null : IFluidHandler.of(handler);
 	}
 
