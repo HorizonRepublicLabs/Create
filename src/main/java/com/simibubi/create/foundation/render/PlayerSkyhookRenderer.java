@@ -14,7 +14,12 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+
+import org.jetbrains.annotations.Nullable;
 
 public class PlayerSkyhookRenderer {
 
@@ -23,6 +28,18 @@ public class PlayerSkyhookRenderer {
 	public static void updatePlayerList(Collection<UUID> uuids) {
 		hangingPlayers.clear();
 		hangingPlayers.addAll(uuids);
+	}
+
+	/// Models animate off a render state now, which carries the entity id rather than
+	/// the player itself.
+	@Nullable
+	public static Player playerFor(HumanoidRenderState state) {
+		if (!(state instanceof AvatarRenderState avatar))
+			return null;
+		Level level = Minecraft.getInstance().level;
+		if (level == null)
+			return null;
+		return level.getEntity(avatar.id) instanceof Player player ? player : null;
 	}
 
 	public static void beforeSetupAnim(Player player, HumanoidModel<?> model) {

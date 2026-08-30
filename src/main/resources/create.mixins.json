@@ -4,7 +4,7 @@
   "priority": 1000,
   "package": "com.simibubi.create.foundation.mixin",
   "plugin": "com.simibubi.create.foundation.mixin.CreateMixinPlugin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
     "ArmorTrimMixin",
     "BeehiveBlockMixin",

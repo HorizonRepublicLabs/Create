@@ -43,8 +43,8 @@ public class TrackMaterial {
 	public final Identifier id;
 	public final String langName;
 	public final NonNullSupplier<NonNullSupplier<? extends TrackBlock>> trackBlock;
-	public final Ingredient sleeperIngredient;
-	public final Ingredient railsIngredient;
+	public final Supplier<Ingredient> sleeperIngredient;
+	public final Supplier<Ingredient> railsIngredient;
 	public final Identifier particle;
 	public final TrackType trackType;
 
@@ -60,13 +60,13 @@ public class TrackMaterial {
 	}
 
 	public TrackMaterial(Identifier id, String langName, NonNullSupplier<NonNullSupplier<? extends TrackBlock>> trackBlock,
-						 Identifier particle, Ingredient sleeperIngredient, Ingredient railsIngredient,
+						 Identifier particle, Supplier<Ingredient> sleeperIngredient, Supplier<Ingredient> railsIngredient,
 						 TrackType trackType, Supplier<Supplier<TrackModelHolder>> modelHolder) {
 		this(id, langName, trackBlock, particle, sleeperIngredient, railsIngredient, trackType, modelHolder, null);
 	}
 
 	public TrackMaterial(Identifier id, String langName, NonNullSupplier<NonNullSupplier<? extends TrackBlock>> trackBlock,
-						 Identifier particle, Ingredient sleeperIngredient, Ingredient railsIngredient,
+						 Identifier particle, Supplier<Ingredient> sleeperIngredient, Supplier<Ingredient> railsIngredient,
 						 TrackType trackType, Supplier<Supplier<TrackModelHolder>> modelHolder,
 						 @Nullable TrackType.TrackBlockFactory customFactory) {
 		this.id = id;

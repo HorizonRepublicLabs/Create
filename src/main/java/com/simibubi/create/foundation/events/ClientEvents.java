@@ -261,10 +261,7 @@ public class ClientEvents {
 	}
 
 	@SubscribeEvent
-	public static void onRenderWorld(RenderLevelStageEvent event) {
-		if (!(event instanceof RenderLevelStageEvent.AfterTranslucentParticles))
-			return;
-
+	public static void onRenderWorld(RenderLevelStageEvent.AfterTranslucentParticles event) {
 		PoseStack ms = event.getPoseStack();
 		ms.pushPose();
 		SuperRenderTypeBuffer buffer = DefaultSuperRenderTypeBuffer.getInstance();

@@ -27,13 +27,12 @@ public class TrackMaterialFactory {
 	private final Identifier id;
 	private String langName;
 	private NonNullSupplier<NonNullSupplier<? extends TrackBlock>> trackBlock;
-	private Ingredient sleeperIngredient = null;
-	// Ingredients are holder sets now; a compound keeps the two nugget tags
-	// separate the way the old tag values did.
-	private Ingredient railsIngredient = CompoundIngredient.of(Ingredient.of(BuiltInRegistries.ITEM.get(Items.NUGGETS_IRON)
-		.orElseThrow()),
-		Ingredient.of(BuiltInRegistries.ITEM.get(CommonMetal.ZINC.nuggets)
-			.orElseThrow()));
+	private Supplier<Ingredient> sleeperIngredient = null;
+	// Ingredients are holder sets now, and tags only bind once a datapack is
+	// loaded, so the default resolves lazily instead of during class init.
+	private Supplier<Ingredient> railsIngredient =
+		() -> CompoundIngredient.of(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(Items.NUGGETS_IRON)),
+			Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(CommonMetal.ZINC.nuggets)));
 	private Identifier particle;
 	private TrackMaterial.TrackType trackType = TrackMaterial.TrackType.STANDARD;
 
@@ -73,22 +72,22 @@ public class TrackMaterialFactory {
 	}
 
 	public TrackMaterialFactory sleeper(Ingredient sleeperIngredient) {
-		this.sleeperIngredient = sleeperIngredient;
+		this.sleeperIngredient = () -> sleeperIngredient;
 		return this;
 	}
 
 	public TrackMaterialFactory sleeper(ItemLike... items) {
-		this.sleeperIngredient = Ingredient.of(items);
+		this.sleeperIngredient = () -> Ingredient.of(items);
 		return this;
 	}
 
 	public TrackMaterialFactory rails(Ingredient railsIngredient) {
-		this.railsIngredient = railsIngredient;
+		this.railsIngredient = () -> railsIngredient;
 		return this;
 	}
 
 	public TrackMaterialFactory rails(ItemLike... items) {
-		this.railsIngredient = Ingredient.of(items);
+		this.railsIngredient = () -> Ingredient.of(items);
 		return this;
 	}
 

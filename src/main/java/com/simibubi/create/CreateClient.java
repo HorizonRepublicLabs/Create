@@ -59,6 +59,10 @@ import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
+import net.createmod.catnip.api.client.network.ClientNetworkHelper;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -88,6 +92,18 @@ public class CreateClient {
 		onCtorClient(modEventBus);
 	}
 
+	/// Clientbound payloads take their handler from the client side now; Create's
+	/// packets still carry the handling code, so each one is wired to itself here.
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private static void registerClientPacketHandlers() {
+		for (AllPackets packet : AllPackets.values()) {
+			if (packet.isServerbound())
+				continue;
+			ClientNetworkHelper.INSTANCE.registerPayloadHandler((CustomPacketPayload.Type) packet.getType(),
+				(payload, player) -> ((ClientboundCreatePayload) payload).handle((LocalPlayer) player));
+		}
+	}
+
 	/// Cube particles draw their own geometry, so their group needs a factory of
 	/// its own rather than the vanilla quad one.
 	private static void registerParticleGroups(RegisterParticleGroupsEvent event) {
@@ -102,6 +118,8 @@ public class CreateClient {
 
 	public static void onCtorClient(IEventBus modEventBus) {
 		IEventBus neoEventBus = NeoForge.EVENT_BUS;
+
+		registerClientPacketHandlers();
 
 		modEventBus.addListener(CreateClient::clientInit);
 		modEventBus.addListener(AllParticleTypes::registerFactories);

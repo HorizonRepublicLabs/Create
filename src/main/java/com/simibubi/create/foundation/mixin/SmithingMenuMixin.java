@@ -5,7 +5,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.advancement.AllAdvancements;
 
@@ -16,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 @Mixin(SmithingMenu.class)
-public class SmithingMenuMixin {
+public abstract class SmithingMenuMixin {
 	@Inject(method = "onTake", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/inventory/ResultContainer;awardUsedRecipes(Lnet/minecraft/world/entity/player/Player;Ljava/util/List;)V"))
 	private void create$awardAdvancementWhenTrimmingCardboardArmor(Player player, ItemStack stack, CallbackInfo ci) {
 		if (AllItems.CARDBOARD_HELMET.isIn(stack) ||
@@ -27,23 +26,17 @@ public class SmithingMenuMixin {
 		}
 	}
 
-	// Only add enchantments to the backtank if it supports them
-	@ModifyExpressionValue(
-		method = "createResult",
-		at = @At(
-			value = "INVOKE",
-			// a recipe assembles from its input alone now
-			target = "Lnet/minecraft/world/item/crafting/SmithingRecipe;assemble(Lnet/minecraft/world/item/crafting/RecipeInput;)Lnet/minecraft/world/item/ItemStack;"
-		)
-	)
-	private ItemStack create$preventUnbreakingOnBacktanks(ItemStack original) {
-		if (AllItems.COPPER_BACKTANK.isIn(original) || AllItems.NETHERITE_BACKTANK.isIn(original)) {
+	// Only add enchantments to the backtank if it supports them.
+	// 26.2 assembles the result inside a lambda, so read it back off the result slot instead.
+	@Inject(method = "createResult", at = @At("TAIL"))
+	private void create$preventUnbreakingOnBacktanks(CallbackInfo ci) {
+		SmithingMenu self = (SmithingMenu) (Object) this;
+		ItemStack result = self.getSlot(self.getResultSlot()).getItem();
+		if (AllItems.COPPER_BACKTANK.isIn(result) || AllItems.NETHERITE_BACKTANK.isIn(result)) {
 			ItemEnchantments.Mutable mutableEnchantments =
-				new ItemEnchantments.Mutable(original.getTagEnchantments());
-			mutableEnchantments.removeIf(enchant -> !original.supportsEnchantment(enchant));
-			original.set(DataComponents.ENCHANTMENTS, mutableEnchantments.toImmutable());
+				new ItemEnchantments.Mutable(result.getTagEnchantments());
+			mutableEnchantments.removeIf(enchant -> !result.supportsEnchantment(enchant));
+			result.set(DataComponents.ENCHANTMENTS, mutableEnchantments.toImmutable());
 		}
-
-		return original;
 	}
 }

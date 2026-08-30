@@ -11,26 +11,29 @@ import com.simibubi.create.foundation.render.PlayerSkyhookRenderer;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.world.entity.player.Player;
 
+/// setupAnim reads a render state now instead of the entity and its animation floats.
 @Mixin(HumanoidModel.class)
-public class HumanoidModelMixin<T extends LivingEntity> {
+public class HumanoidModelMixin<T extends HumanoidRenderState> {
 	@Shadow
 	@Final
 	public ModelPart body;
 
-	@Inject(method = "setupAnim*", at = @At("RETURN"))
-	private void create$afterSetupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch, CallbackInfo callbackInfo) {
-		if (!(pEntity instanceof AbstractClientPlayer player))
+	@Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V", at = @At("RETURN"))
+	private void create$afterSetupAnim(T state, CallbackInfo callbackInfo) {
+		Player player = PlayerSkyhookRenderer.playerFor(state);
+		if (player == null)
 			return;
 
 		PlayerSkyhookRenderer.afterSetupAnim(player, (HumanoidModel<?>) (Object) this);
 	}
 
-	@Inject(method = "setupAnim*", at = @At("HEAD"))
-	private void create$beforeSetupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch, CallbackInfo callbackInfo) {
-		if (!(pEntity instanceof AbstractClientPlayer player))
+	@Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V", at = @At("HEAD"))
+	private void create$beforeSetupAnim(T state, CallbackInfo callbackInfo) {
+		Player player = PlayerSkyhookRenderer.playerFor(state);
+		if (player == null)
 			return;
 
 		PlayerSkyhookRenderer.beforeSetupAnim(player, (HumanoidModel<?>) (Object) this);

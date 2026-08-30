@@ -32,7 +32,7 @@ public class LevelRendererMixin {
 	@Final
 	private Long2ObjectMap<SortedSet<BlockDestructionProgress>> destructionProgress;
 
-	@Inject(method = "destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/BlockDestructionProgress;updateTick(I)V", shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
+	@Inject(method = "destroyBlockProgress(ILnet/minecraft/core/BlockPos;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/BlockDestructionProgress;updateTick(J)V", shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
 	private void create$onDestroyBlockProgress(int breakerId, BlockPos pos, int progress, CallbackInfo ci, BlockDestructionProgress progressObj) {
 		ClientLevel level = (ClientLevel) (Object) this;
 		BlockState state = level.getBlockState(pos);

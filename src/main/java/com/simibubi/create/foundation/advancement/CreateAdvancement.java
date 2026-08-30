@@ -4,9 +4,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.minecraft.world.item.ItemStackTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 import com.simibubi.create.Create;
@@ -95,6 +98,12 @@ public class CreateAdvancement {
 	}
 
 	void save(Consumer<AdvancementHolder> t, HolderLookup.Provider registries) {
+		int keyIndex = 0;
+		for (Supplier<Criterion<?>> criterion : createBuilder.externalCriteria) {
+			mcBuilder.addCriterion(String.valueOf(keyIndex), criterion.get());
+			keyIndex++;
+		}
+
 		if (parent != null)
 			mcBuilder.parent(parent.datagenResult);
 
@@ -102,8 +111,9 @@ public class CreateAdvancement {
 			createBuilder.icon(createBuilder.func.apply(registries));
 
 		// An advancement's icon is a stack template now.
-		mcBuilder.display(new ItemStackTemplate(createBuilder.icon.getItem(), createBuilder.icon.getCount(),
-			createBuilder.icon.getComponentsPatch()), Component.translatable(titleKey()),
+		ItemStack icon = createBuilder.icon.get();
+		mcBuilder.display(new ItemStackTemplate(icon.getItem(), icon.getCount(),
+			icon.getComponentsPatch()), Component.translatable(titleKey()),
 			Component.translatable(descriptionKey()).withStyle(s -> s.withColor(0xDBA213)),
 			id.equals("root") ? BACKGROUND : null, createBuilder.type.advancementType, createBuilder.type.toast,
 			createBuilder.type.announce, createBuilder.type.hide);
@@ -144,8 +154,13 @@ public class CreateAdvancement {
 
 		private TaskType type = TaskType.NORMAL;
 		private boolean externalTrigger;
-		private int keyIndex;
-		private ItemStack icon;
+		/// Predicates resolve tags and item components as they are built, neither of
+		/// which exists while the mod is registering, so criteria are built on save.
+		private final List<Supplier<Criterion<?>>> externalCriteria = new ArrayList<>();
+		/// Item components only bind once registration is done, so an icon stack is
+		/// built when the advancement is written rather than when it is declared.
+		private Supplier<ItemStack> icon;
+		private Supplier<Item> iconItem;
 		private Function<Provider, ItemStack> func;
 
 		Builder special(TaskType type) {
@@ -159,15 +174,27 @@ public class CreateAdvancement {
 		}
 
 		Builder icon(ItemProviderEntry<?, ?> item) {
-			return icon(item.asStack());
+			icon = item::asStack;
+			iconItem = item::asItem;
+			return this;
 		}
 
 		Builder icon(ItemLike item) {
-			return icon(new ItemStack(item));
+			icon = () -> new ItemStack(item);
+			iconItem = item::asItem;
+			return this;
 		}
 
 		Builder icon(ItemStack stack) {
+			icon = () -> stack;
+			iconItem = stack::getItem;
+			return this;
+		}
+
+		Builder icon(Supplier<ItemStack> stack) {
 			icon = stack;
+			iconItem = () -> stack.get()
+				.getItem();
 			return this;
 		}
 
@@ -187,37 +214,35 @@ public class CreateAdvancement {
 		}
 
 		Builder whenBlockPlaced(Block block) {
-			return externalTrigger(ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block));
+			return externalTrigger(() -> ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block));
 		}
 
 		Builder whenIconCollected() {
-			return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(icon.getItem()));
+			return externalTrigger(() -> InventoryChangeTrigger.TriggerInstance.hasItems(iconItem.get()));
 		}
 
 		Builder whenItemCollected(ItemProviderEntry<?, ?> item) {
-			return whenItemCollected(item.asStack()
-				.getItem());
+			return whenItemCollected(item.asItem());
 		}
 
 		Builder whenItemCollected(ItemLike itemProvider) {
-			return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(itemProvider));
+			return externalTrigger(() -> InventoryChangeTrigger.TriggerInstance.hasItems(itemProvider));
 		}
 
 		Builder whenItemCollected(TagKey<Item> tag) {
-			return externalTrigger(InventoryChangeTrigger.TriggerInstance
+			return externalTrigger(() -> InventoryChangeTrigger.TriggerInstance
 				.hasItems(ItemPredicate.Builder.item()
 					.of(BuiltInRegistries.ITEM, tag)
 					.build()));
 		}
 
 		Builder awardedForFree() {
-			return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[] {}));
+			return externalTrigger(() -> InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[] {}));
 		}
 
-		Builder externalTrigger(Criterion<?> trigger) {
-			mcBuilder.addCriterion(String.valueOf(keyIndex), trigger);
+		Builder externalTrigger(Supplier<Criterion<?>> trigger) {
+			externalCriteria.add(trigger);
 			externalTrigger = true;
-			keyIndex++;
 			return this;
 		}
 

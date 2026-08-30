@@ -74,8 +74,12 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		String patternName = Lang.nonPluralId(pattern.createName(variantName));
 		String blockName = patternName + "_" + this.name;
 
+		// Blocks carry their registry id in their properties now, and ofFullCopy does
+		// not copy it, so each partial stamps the id it is about to be registered under.
+		ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Create.asResource(blockName));
+
 		BlockBuilder<B, CreateRegistrate> blockBuilder = Create.registrate()
-			.block(blockName, p -> createBlock(block))
+			.block(blockName, p -> createBlock(block, key))
 			.blockstate(() -> (c, p) -> generateBlockState(c, p, variantName, pattern, block))
 			.recipe((c, p) -> createRecipes(variant, block, c, p))
 			.transform(b -> transformBlock(b, variantName, pattern));
@@ -114,7 +118,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 
 	protected abstract Iterable<TagKey<Item>> getItemTags();
 
-	protected abstract B createBlock(Supplier<? extends Block> block);
+	protected abstract B createBlock(Supplier<? extends Block> block, ResourceKey<Block> key);
 
 	protected abstract void createRecipes(AllPaletteStoneTypes type, BlockEntry<? extends Block> patternBlock,
 										  DataGenContext<Block, ? extends Block> c, RegistrateRecipeProvider p);
@@ -129,8 +133,8 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		}
 
 		@Override
-		protected StairBlock createBlock(Supplier<? extends Block> block) {
-			return new StairBlock(block.get().defaultBlockState(), Properties.ofFullCopy(block.get()));
+		protected StairBlock createBlock(Supplier<? extends Block> block, ResourceKey<Block> key) {
+			return new StairBlock(block.get().defaultBlockState(), Properties.ofFullCopy(block.get()).setId(key));
 		}
 
 		@Override
@@ -169,8 +173,8 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		}
 
 		@Override
-		protected SlabBlock createBlock(Supplier<? extends Block> block) {
-			return new SlabBlock(Properties.ofFullCopy(block.get()));
+		protected SlabBlock createBlock(Supplier<? extends Block> block, ResourceKey<Block> key) {
+			return new SlabBlock(Properties.ofFullCopy(block.get()).setId(key));
 		}
 
 		@Override
@@ -243,8 +247,8 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		}
 
 		@Override
-		protected WallBlock createBlock(Supplier<? extends Block> block) {
-			return new WallBlock(Properties.ofFullCopy(block.get()).forceSolidOn());
+		protected WallBlock createBlock(Supplier<? extends Block> block, ResourceKey<Block> key) {
+			return new WallBlock(Properties.ofFullCopy(block.get()).forceSolidOn().setId(key));
 		}
 
 		@Override

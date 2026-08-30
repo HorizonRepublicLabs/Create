@@ -39,6 +39,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Avatar;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -292,7 +293,7 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 
 	@Override
 	@Nullable
-	public ArmPose getArmPose(ItemStack stack, AbstractClientPlayer player, InteractionHand hand) {
+	public ArmPose getArmPose(ItemStack stack, Avatar player, InteractionHand hand) {
 		if (!player.swinging) {
 			return ArmPose.CROSSBOW_HOLD;
 		}

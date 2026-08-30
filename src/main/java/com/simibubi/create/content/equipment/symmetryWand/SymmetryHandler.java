@@ -100,10 +100,7 @@ public class SymmetryHandler {
 
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
-	public static void onRenderWorld(RenderLevelStageEvent event) {
-		if (!(event instanceof RenderLevelStageEvent.AfterTranslucentParticles))
-			return;
-
+	public static void onRenderWorld(RenderLevelStageEvent.AfterTranslucentParticles event) {
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
 		RandomSource random = RandomSource.create();

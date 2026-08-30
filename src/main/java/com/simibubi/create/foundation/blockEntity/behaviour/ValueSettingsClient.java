@@ -38,8 +38,11 @@ public class ValueSettingsClient implements GuiLayer {
 	public int hoverTicks;
 	public int hoverWarmup;
 
-	public ValueSettingsClient() {
-		mc = Minecraft.getInstance();
+	/// The client instance does not exist yet while mods are constructed.
+	private Minecraft mc() {
+		if (mc == null)
+			mc = Minecraft.getInstance();
+		return mc;
 	}
 
 	public void cancelIfWarmupAlreadyStarted(PlayerInteractEvent.RightClickBlock event) {
@@ -70,26 +73,26 @@ public class ValueSettingsClient implements GuiLayer {
 			hoverTicks--;
 		if (interactHeldTicks == -1)
 			return;
-		Player player = mc.player;
+		Player player = mc().player;
 
 		if (!ValueSettingsInputHandler.canInteract(player) || AllBlocks.CLIPBOARD.isIn(player.getMainHandItem())) {
 			cancelInteraction();
 			return;
 		}
-		HitResult hitResult = mc.hitResult;
+		HitResult hitResult = mc().hitResult;
 		if (!(hitResult instanceof BlockHitResult blockHitResult) || !blockHitResult.getBlockPos()
 			.equals(interactHeldPos)) {
 			cancelInteraction();
 			return;
 		}
-		BlockEntityBehaviour behaviour = BlockEntityBehaviour.get(mc.level, interactHeldPos, interactHeldBehaviour);
+		BlockEntityBehaviour behaviour = BlockEntityBehaviour.get(mc().level, interactHeldPos, interactHeldBehaviour);
 		if (!(behaviour instanceof ValueSettingsBehaviour valueSettingBehaviour)
 			|| valueSettingBehaviour.bypassesInput(player.getMainHandItem())
 			|| !valueSettingBehaviour.testHit(blockHitResult.getLocation())) {
 			cancelInteraction();
 			return;
 		}
-		if (!mc.options.keyUse.isDown()) {
+		if (!mc().options.keyUse.isDown()) {
 			ClientNetworkHelper.INSTANCE.sendToServer(new ValueSettingsPacket(interactHeldPos, 0, 0, interactHeldHand, blockHitResult,
 					interactHeldFace, false, valueSettingBehaviour.netId()));
 			valueSettingBehaviour.onShortInteract(player, interactHeldHand, interactHeldFace, blockHitResult);
@@ -108,7 +111,7 @@ public class ValueSettingsClient implements GuiLayer {
 	}
 
 	public void showHoverTip(List<MutableComponent> tip) {
-		if (mc.gui.screen() != null)
+		if (mc().gui.screen() != null)
 			return;
 		if (hoverWarmup < 6) {
 			hoverWarmup += 2;

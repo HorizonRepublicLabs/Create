@@ -8,16 +8,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.simibubi.create.foundation.item.CustomArmPoseItem;
 
 import net.minecraft.client.model.HumanoidModel.ArmPose;
-import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.world.entity.Avatar;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
 @Mixin(AvatarRenderer.class)
 public class PlayerRendererMixin {
-	@Inject(method = "getArmPose(Lnet/minecraft/client/player/AbstractClientPlayer;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/client/model/HumanoidModel$ArmPose;", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/player/AbstractClientPlayer;getItemInHand(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack;"), cancellable = true)
-	private static void create$onGetArmPose(AbstractClientPlayer player, InteractionHand hand, CallbackInfoReturnable<ArmPose> cir) {
-		ItemStack stack = player.getItemInHand(hand);
+	/// The pose is picked per held stack now, and off an Avatar rather than a client player.
+	@Inject(method = "getArmPose(Lnet/minecraft/world/entity/Avatar;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/client/model/HumanoidModel$ArmPose;", at = @At("HEAD"), cancellable = true)
+	private static void create$onGetArmPose(Avatar player, ItemStack stack, InteractionHand hand, CallbackInfoReturnable<ArmPose> cir) {
 		if (stack.getItem() instanceof CustomArmPoseItem armPoseProvider) {
 			ArmPose pose = armPoseProvider.getArmPose(stack, player, hand);
 			if (pose != null) {

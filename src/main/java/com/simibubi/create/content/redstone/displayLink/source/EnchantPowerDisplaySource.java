@@ -17,7 +17,8 @@ import net.minecraft.world.level.block.entity.EnchantingTableBlockEntity;
 public class EnchantPowerDisplaySource extends NumericSingleLineDisplaySource {
 
 	protected static final RandomSource random = RandomSource.create();
-	protected static final ItemStack stack = new ItemStack(Items.DIAMOND_PICKAXE);
+	/// Item components bind after registration, so the sample stack waits until use.
+	protected static ItemStack stack;
 
 	@Override
 	protected MutableComponent provideLine(DisplayLinkContext context, DisplayTargetStats stats) {
@@ -35,6 +36,9 @@ public class EnchantPowerDisplaySource extends NumericSingleLineDisplaySource {
 			enchantPower += level.getBlockState(pos.offset(offset)).getEnchantPowerBonus(level, pos.offset(offset));
 		}
 
+
+		if (stack == null)
+			stack = new ItemStack(Items.DIAMOND_PICKAXE);
 
 		int cost = EnchantmentHelper.getEnchantmentCost(random, 2, (int) enchantPower, stack);
 

@@ -74,8 +74,15 @@ public class SchematicHandler implements GuiLayer {
 	public SchematicHandler() {
 		overlay = new SchematicHotbarSlotOverlay();
 		currentTool = ToolType.DEPLOY;
-		selectionScreen = new ToolSelectionScreen(ImmutableList.of(ToolType.DEPLOY), this::equip);
 		transformation = new SchematicTransformation();
+	}
+
+	/// Screens read the font off the client instance in their constructor now, so
+	/// the tool menu cannot be built while the mod is still being constructed.
+	private ToolSelectionScreen selectionScreen() {
+		if (selectionScreen == null)
+			selectionScreen = new ToolSelectionScreen(ImmutableList.of(ToolType.DEPLOY), this::equip);
+		return selectionScreen;
 	}
 
 	public void tick() {
@@ -117,7 +124,7 @@ public class SchematicHandler implements GuiLayer {
 		if (syncCooldown == 1)
 			sync();
 
-		selectionScreen.update();
+		selectionScreen().update();
 		currentTool.getTool()
 			.updateSelection();
 	}
@@ -265,7 +272,7 @@ public class SchematicHandler implements GuiLayer {
 			this.overlay.renderOn(guiGraphics, activeHotbarSlot);
 		currentTool.getTool()
 			.renderOverlay(mc.gui, guiGraphics, deltaTracker.getGameTimeDeltaPartialTick(false), guiGraphics.guiWidth(), guiGraphics.guiHeight());
-		selectionScreen.renderPassive(guiGraphics, deltaTracker.getGameTimeDeltaPartialTick(false));
+		selectionScreen().renderPassive(guiGraphics, deltaTracker.getGameTimeDeltaPartialTick(false));
 	}
 
 	public boolean onMouseInput(int button, boolean pressed) {
@@ -293,11 +300,12 @@ public class SchematicHandler implements GuiLayer {
 		if (!AllKeys.TOOL_MENU.doesModifierAndCodeMatch(key))
 			return;
 
-		if (pressed && !selectionScreen.focused)
-			selectionScreen.focused = true;
-		if (!pressed && selectionScreen.focused) {
-			selectionScreen.focused = false;
-			selectionScreen.onClose();
+		ToolSelectionScreen screen = selectionScreen();
+		if (pressed && !screen.focused)
+			screen.focused = true;
+		if (!pressed && screen.focused) {
+			screen.focused = false;
+			screen.onClose();
 		}
 	}
 
@@ -305,8 +313,8 @@ public class SchematicHandler implements GuiLayer {
 		if (!active)
 			return false;
 
-		if (selectionScreen.focused) {
-			selectionScreen.cycle((int) Math.signum(delta));
+		if (selectionScreen().focused) {
+			selectionScreen().cycle((int) Math.signum(delta));
 			return true;
 		}
 		if (AllKeys.ctrlDown())

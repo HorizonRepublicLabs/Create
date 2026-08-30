@@ -147,7 +147,7 @@ dependencies {
     })
 
     // Local dependencies - not published to consumers
-    localRuntimeOnly("dev.engine-room.vanillin:vanillin-neoforge-$minecraft_version:$vanillin_version")
+    localRuntimeOnly("dev.engine-room.vanillin:vanillin-neoforge:$vanillin_version")
 
     localImplementation("mezz.jei:jei-$minecraft_version-neoforge:$jei_version")
 

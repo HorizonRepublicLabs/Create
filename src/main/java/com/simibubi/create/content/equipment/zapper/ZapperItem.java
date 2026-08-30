@@ -32,6 +32,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Avatar;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -214,7 +215,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 
 	@Override
 	@Nullable
-	public ArmPose getArmPose(ItemStack stack, AbstractClientPlayer player, InteractionHand hand) {
+	public ArmPose getArmPose(ItemStack stack, Avatar player, InteractionHand hand) {
 		if (!player.swinging) {
 			return ArmPose.CROSSBOW_HOLD;
 		}

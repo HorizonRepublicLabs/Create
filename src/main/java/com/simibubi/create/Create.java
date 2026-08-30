@@ -61,6 +61,7 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod(Create.ID)
@@ -155,8 +156,13 @@ public class Create {
 		modEventBus.addListener(Create::init);
 		modEventBus.addListener(Create::onRegister);
 		modEventBus.addListener(AllEntityTypes::registerEntityAttributes);
-		modEventBus.addListener(EventPriority.HIGHEST, CreateDatagen::gatherDataHighPriority);
-		modEventBus.addListener(EventPriority.LOWEST, CreateDatagen::gatherData);
+		// GatherDataEvent is abstract now; its client and server halves fire separately.
+		modEventBus.addListener(EventPriority.HIGHEST,
+			(GatherDataEvent.Client event) -> CreateDatagen.gatherDataHighPriority(event));
+		modEventBus.addListener(EventPriority.HIGHEST,
+			(GatherDataEvent.Server event) -> CreateDatagen.gatherDataHighPriority(event));
+		modEventBus.addListener(EventPriority.LOWEST, (GatherDataEvent.Client event) -> CreateDatagen.gatherData(event));
+		modEventBus.addListener(EventPriority.LOWEST, (GatherDataEvent.Server event) -> CreateDatagen.gatherData(event));
 		modEventBus.addListener(AllSoundEvents::register);
 
 		// FIXME: this is not thread-safe

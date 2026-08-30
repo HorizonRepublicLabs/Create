@@ -5,7 +5,6 @@ import net.minecraft.util.ARGB;
 
 import com.mojang.serialization.MapCodec;
 
-import com.simibubi.create.foundation.mixin.accessor.BlockBehaviourAccessor;
 
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
@@ -33,6 +32,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
+import java.util.Map;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
@@ -106,9 +108,15 @@ public class AnalogLeverBlock extends FaceAttachedHorizontalDirectionalBlock imp
 		world.updateNeighborsAt(pos.relative(getConnectedDirection(state).getOpposite()), state.getBlock());
 	}
 
+	/// The vanilla lever bakes its shapes per state, so its own table cannot answer
+	/// for a state of this block; the same box is measured out here instead.
+	private final Map<AttachFace, Map<Direction, VoxelShape>> shapes =
+		Shapes.rotateAttachFace(Block.boxZ(6.0, 8.0, 10.0, 16.0));
+
 	@Override
 	public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return ((BlockBehaviourAccessor) Blocks.LEVER).create$getShape(state, worldIn, pos, context);
+		return shapes.get(state.getValue(FACE))
+			.get(state.getValue(FACING));
 	}
 
 	@Override
