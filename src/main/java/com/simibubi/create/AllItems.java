@@ -1,5 +1,9 @@
 package com.simibubi.create;
 
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+
+import net.minecraft.world.item.component.Consumables;
+
 import net.minecraft.world.entity.EquipmentSlot;
 
 import net.minecraft.world.item.equipment.Equippable;
@@ -174,13 +178,15 @@ public class AllItems {
 		.tag(AllItemTags.UPRIGHT_ON_BELT.tag, Items.FOODS, Items.DRINKS, AllItemTags.DRINKS_TEA.tag)
 		.properties(p -> p
 			.stacksTo(16)
-			.food(new FoodProperties.Builder()
-				.nutrition(1)
+			// Effects hang off the consumable rather than the food itself.
+			.food(new FoodProperties.Builder().nutrition(1)
 				.saturationModifier(.6F)
 				.alwaysEdible()
-				.effect(() -> new MobEffectInstance(MobEffects.HASTE, 3 * 60 * 20, 0, false, false, false), 1F)
-				.build()
-			)
+				.build(),
+				Consumables.defaultDrink()
+					.onConsume(new ApplyStatusEffectsConsumeEffect(
+						new MobEffectInstance(MobEffects.HASTE, 3 * 60 * 20, 0, false, false, false)))
+					.build())
 		)
 		.lang("Builder's Tea")
 		.register();
@@ -189,7 +195,7 @@ public class AllItems {
 		REGISTRATE.item("cardboard_sword", CardboardSwordItem::new)
 			.burnTime(1000)
 			.properties(p -> p.stacksTo(1))
-			.model(AssetLookup.customItemModel("cardboard_sword"))
+			.model(() -> AssetLookup.customItemModel("cardboard_sword"))
 			.register();
 
 	public static final ItemEntry<Item> RAW_ZINC =
