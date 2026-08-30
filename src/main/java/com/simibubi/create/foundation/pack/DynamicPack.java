@@ -1,5 +1,7 @@
 package com.simibubi.create.foundation.pack;
 
+import net.minecraft.util.InclusiveRange;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +24,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.metadata.MetadataSectionSerializer;
+import net.minecraft.server.packs.metadata.MetadataSectionType;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.resources.IoSupplier;
@@ -40,7 +42,11 @@ public class DynamicPack implements PackResources {
 		this.packId = packId;
 		this.packType = packType;
 
-		metadata = new PackMetadataSection(Component.empty(), SharedConstants.getCurrentVersion().getPackVersion(packType));
+		// The section names a range of supported formats, and the version reports
+		// its own pack format per type.
+		metadata = new PackMetadataSection(Component.empty(),
+			new InclusiveRange<>(SharedConstants.getCurrentVersion()
+				.packVersion(packType)));
 		packLocationInfo = new PackLocationInfo(packId, Component.literal(packId), PackSource.BUILT_IN, Optional.empty());
 	}
 
@@ -106,8 +112,10 @@ public class DynamicPack implements PackResources {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public @Nullable <T> T getMetadataSection(@NotNull MetadataSectionSerializer<T> deserializer) throws IOException {
-		return deserializer == PackMetadataSection.TYPE ? (T) metadata : null;
+	public @Nullable <T> T getMetadataSection(@NotNull MetadataSectionType<T> deserializer) throws IOException {
+		return deserializer == PackMetadataSection.CLIENT_TYPE || deserializer == PackMetadataSection.SERVER_TYPE
+			? (T) metadata
+			: null;
 	}
 
 	@Override
