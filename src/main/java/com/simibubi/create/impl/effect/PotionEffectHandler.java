@@ -1,5 +1,7 @@
 package com.simibubi.create.impl.effect;
 
+import net.minecraft.server.level.ServerLevel;
+
 import java.util.List;
 
 import com.simibubi.create.api.effect.OpenPipeEffectHandler;
@@ -27,13 +29,17 @@ public class PotionEffectHandler implements OpenPipeEffectHandler {
 		List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, area, LivingEntity::isAffectedByPotions);
 		for (LivingEntity entity : entities) {
 			contents.forEachEffect(effectInstance -> {
-				MobEffect effect = effectInstance.getEffect().value();
-				if (effect.isInstantenous()) {
-					effect.applyInstantenousEffect(null, null, entity, effectInstance.getAmplifier(), 0.5D);
+				MobEffect effect = effectInstance.getEffect()
+					.value();
+				if (effect.isInstantaneous()) {
+					// An instant effect is applied by the server now.
+					if (level instanceof ServerLevel serverLevel)
+						effect.applyInstantaneousEffect(serverLevel, null, null, entity,
+							effectInstance.getAmplifier(), 0.5D);
 				} else {
 					entity.addEffect(new MobEffectInstance(effectInstance));
 				}
-			});
+			}, 1);
 		}
 	}
 

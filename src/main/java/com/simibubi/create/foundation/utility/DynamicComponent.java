@@ -1,5 +1,9 @@
 package com.simibubi.create.foundation.utility;
 
+import net.minecraft.network.chat.ResolutionContext;
+
+import net.minecraft.server.permissions.PermissionSet;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
@@ -79,8 +83,8 @@ public class DynamicComponent {
 		if (!(level instanceof ServerLevel serverLevel))
 			return null;
 		try {
-			return ComponentUtils.updateForEntity(getCommandSource(serverLevel, pos),
-				ComponentJson.fromJson(customText, level.registryAccess()), null, 0);
+			return ComponentUtils.resolve(ResolutionContext.create(getCommandSource(serverLevel, pos)),
+				ComponentJson.fromJson(customText.toString(), level.registryAccess()));
 		} catch (JsonParseException | CommandSyntaxException e) {
 			return null;
 		}
@@ -91,15 +95,16 @@ public class DynamicComponent {
 		if (!(level instanceof ServerLevel serverLevel))
 			return null;
 		try {
-			return ComponentUtils.updateForEntity(getCommandSource(serverLevel, pos), customText, null, 0);
+			return ComponentUtils.resolve(ResolutionContext.create(getCommandSource(serverLevel, pos)), customText);
 		} catch (JsonParseException | CommandSyntaxException e) {
 			return null;
 		}
 	}
 
 	public static CommandSourceStack getCommandSource(ServerLevel level, BlockPos pos) {
-		return new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, level, 2, Create.ID,
-			Component.literal(Create.ID), level.getServer(), null);
+		// Permission levels became a permission set.
+		return new CommandSourceStack(CommandSource.NULL, Vec3.atCenterOf(pos), Vec2.ZERO, level,
+			PermissionSet.ALL_PERMISSIONS, Create.ID, Component.literal(Create.ID), level.getServer(), null);
 	}
 
 }

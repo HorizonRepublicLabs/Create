@@ -156,24 +156,22 @@ public class MechanicalCraftingCategory extends CreateRecipeCategory<CraftingRec
 			scale = getScale(recipe);
 		}
 
+		/// The gui stack is the only transform an ingredient needs now; the
+		/// model view matrix is not touched during the extract pass.
 		@Override
-		public void extractRenderState(GuiGraphicsExtractor graphics, @NotNull ItemStack ingredient) {
+		public void render(GuiGraphicsExtractor graphics, @NotNull ItemStack ingredient) {
+			if (ingredient == null)
+				return;
+
 			Matrix3x2fStack matrixStack = graphics.pose();
 			matrixStack.pushMatrix();
 			float scale = getScale(recipe);
-			matrixStack.scale((float) (scale), (float) (scale));
+			matrixStack.scale(scale, scale);
 
-			if (ingredient != null) {
-				Matrix4fStack modelViewStack = RenderSystem.getModelViewStack();
-				modelViewStack.pushMatrix();
-				RenderSystem.applyModelViewMatrix();
-				Minecraft minecraft = Minecraft.getInstance();
-				Font font = getFontRenderer(minecraft, ingredient);
-				graphics.item(ingredient, 0, 0);
-				graphics.itemDecorations(font, ingredient, 0, 0, null);
-				modelViewStack.popMatrix();
-				RenderSystem.applyModelViewMatrix();
-			}
+			Minecraft minecraft = Minecraft.getInstance();
+			Font font = getFontRenderer(minecraft, ingredient);
+			graphics.item(ingredient, 0, 0);
+			graphics.itemDecorations(font, ingredient, 0, 0, null);
 
 			matrixStack.popMatrix();
 		}

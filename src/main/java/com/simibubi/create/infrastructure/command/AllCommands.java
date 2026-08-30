@@ -22,7 +22,6 @@ public class AllCommands {
 			.then(ToggleDebugCommand.register())
 			.then(FabulousWarningCommand.register())
 			.then(OverlayConfigCommand.register())
-			.then(FixLightingCommand.register())
 
 			// utility
 			.then(util);
