@@ -39,6 +39,10 @@ import net.minecraft.world.item.ItemStack;
 
 public class RadialToolboxMenu extends AbstractSimiScreen {
 
+	/// Screens no longer hand out a dim colour of their own, so this keeps the
+	/// vanilla one the menus have always faded in over.
+	private static final Color BACKGROUND_COLOR = new Color(0xC0101010, true);
+
 	private State state;
 	private int ticksOpen;
 	private int hoveredSlot;
@@ -392,14 +396,13 @@ public class RadialToolboxMenu extends AbstractSimiScreen {
 	}
 
 	@Override
-	public boolean keyReleased(int code, int scanCode, int modifiers) {
-		InputConstants.Key mouseKey = InputConstants.getKey(code, scanCode);
+	public boolean keyReleased(KeyEvent event) {
 		if (AllKeys.TOOLBELT.getKeybind()
-			.isActiveAndMatches(mouseKey)) {
+			.matches(event)) {
 			onClose();
 			return true;
 		}
-		return super.keyReleased(code, scanCode, modifiers);
+		return super.keyReleased(event);
 	}
 
 	public static enum State {
