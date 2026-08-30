@@ -1,5 +1,7 @@
 package com.simibubi.create.content.schematics.client;
 
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import java.util.ArrayList;
@@ -78,7 +80,7 @@ public class SchematicRenderer {
 	protected void redraw() {
 		bufferCache.clear();
 
-		for (RenderType layer : RenderType.chunkBufferLayers()) {
+		for (ChunkSectionLayer layer : ChunkSectionLayer.values()) {
 			SuperByteBuffer buffer = drawLayer(layer);
 			if (!buffer.isEmpty())
 				bufferCache.put(layer, buffer);

@@ -1,5 +1,7 @@
 package com.simibubi.create.content.kinetics.base;
 
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;

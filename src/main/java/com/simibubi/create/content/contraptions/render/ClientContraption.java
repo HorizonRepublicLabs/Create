@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.render;
 
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collections;
@@ -92,7 +94,7 @@ public class ClientContraption {
 	}
 
 	public void invalidateStructure() {
-		for (RenderType renderType : RenderType.chunkBufferLayers()) {
+		for (ChunkSectionLayer renderType : ChunkSectionLayer.values()) {
 			SuperByteBufferCache.getInstance()
 				.invalidate(ContraptionEntityRenderer.CONTRAPTION, Pair.of(contraption, renderType));
 		}

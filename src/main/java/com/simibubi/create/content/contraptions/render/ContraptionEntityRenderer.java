@@ -1,5 +1,7 @@
 package com.simibubi.create.content.contraptions.render;
 
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
@@ -122,7 +124,7 @@ public class ContraptionEntityRenderer<C extends AbstractContraptionEntity> exte
 		matrices.setup(poseStack, entity);
 
 		if (!VisualizationManager.supportsVisualization(level)) {
-			for (RenderType renderType : RenderType.chunkBufferLayers()) {
+			for (ChunkSectionLayer renderType : ChunkSectionLayer.values()) {
 				SuperByteBuffer sbb = getBuffer(contraption, renderWorld, renderType);
 				if (!sbb.isEmpty()) {
 					VertexConsumer vc = buffers.getBuffer(renderType);
