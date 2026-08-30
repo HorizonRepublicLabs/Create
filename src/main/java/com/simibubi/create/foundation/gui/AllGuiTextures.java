@@ -298,15 +298,20 @@ public enum AllGuiTextures implements ScreenElement, TextureSheetSegment {
 		return location;
 	}
 
+	@Override
+	public Identifier getId() {
+		return location;
+	}
+
 	@OnlyIn(Dist.CLIENT)
 	public void render(GuiGraphicsExtractor graphics, int x, int y) {
 		graphics.blit(RenderPipelines.GUI_TEXTURED, location, x, y, (float) (startX), (float) (startY), width, height, 256, 256);
 	}
 
+	/// The texture is handed to the helper rather than bound first.
 	@OnlyIn(Dist.CLIENT)
-	public void extractRenderState(GuiGraphicsExtractor graphics, int x, int y, Color c) {
-		bind();
-		UIRenderHelper.drawColoredTexture(graphics, c, x, y, startX, startY, width, height);
+	public void render(GuiGraphicsExtractor graphics, int x, int y, Color c) {
+		UIRenderHelper.drawColoredTexture(graphics, bind(), c, x, y, startX, startY, width, height);
 	}
 
 	@Override

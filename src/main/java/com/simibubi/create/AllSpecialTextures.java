@@ -25,4 +25,9 @@ public enum AllSpecialTextures implements BindableTexture {
 		return location;
 	}
 
+	@Override
+	public Identifier getId() {
+		return location;
+	}
+
 }
