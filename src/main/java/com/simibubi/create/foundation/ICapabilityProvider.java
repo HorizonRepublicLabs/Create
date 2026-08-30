@@ -24,6 +24,15 @@ public interface ICapabilityProvider<T> {
 		return new SimpleProvider<>(cap);
 	}
 
+	/// Capabilities hand back resource handlers now, while Create's plumbing
+	/// speaks in fluid and item handlers, so a provider can be converted.
+	static <T, R> ICapabilityProvider<R> mapped(ICapabilityProvider<T> provider, Function<T, R> mapper) {
+		return () -> {
+			T capability = provider.getCapability();
+			return capability == null ? null : mapper.apply(capability);
+		};
+	}
+
 	@ApiStatus.Internal
 	class BlockCapabilityCacheProvider<T, C> implements ICapabilityProvider<T> {
 		private final BlockCapabilityCache<T, C> inner;

@@ -56,6 +56,12 @@ public class FluidCaps {
 			.orElse(null);
 	}
 
+	/// A resource handler straight from a capability, as a fluid handler.
+	@Nullable
+	public static IFluidHandler asFluidHandler(@Nullable ResourceHandler<FluidResource> handler) {
+		return handler == null ? null : IFluidHandler.of(handler);
+	}
+
 	/// The other direction: Create's tanks are fluid handlers, and the
 	/// capability wants a resource handler.
 	@Nullable

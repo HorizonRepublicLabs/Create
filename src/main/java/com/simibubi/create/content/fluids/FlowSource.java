@@ -1,5 +1,7 @@
 package com.simibubi.create.content.fluids;
 
+import com.simibubi.create.foundation.fluid.FluidCaps;
+
 import java.lang.ref.WeakReference;
 import java.util.function.Predicate;
 
@@ -83,7 +85,8 @@ public abstract class FlowSource {
 				BlockEntity blockEntity = level.getBlockEntity(location.getConnectedPos());
 				if (blockEntity != null) {
 					if (level instanceof ServerLevel serverLevel) {
-						fluidHandlerCache = ICapabilityProvider.of((invalidate) -> BlockCapabilityCache.create(
+						fluidHandlerCache = ICapabilityProvider.mapped(
+							ICapabilityProvider.of((invalidate) -> BlockCapabilityCache.create(
 							Capabilities.Fluid.BLOCK,
 							serverLevel,
 							blockEntity.getBlockPos(),
@@ -93,13 +96,13 @@ public abstract class FlowSource {
 								fluidHandlerCache = EMPTY;
 								invalidate.run();
 							}
-						));
+						)), FluidCaps::asFluidHandler);
 					} else if (level instanceof PonderLevel) {
-						fluidHandlerCache = ICapabilityProvider.of(() -> level.getCapability(
+						fluidHandlerCache = ICapabilityProvider.of(() -> FluidCaps.asFluidHandler(level.getCapability(
 							Capabilities.Fluid.BLOCK,
 							blockEntity.getBlockPos(),
 							location.getOppositeFace()
-						));
+						)));
 					}
 				}
 			}
