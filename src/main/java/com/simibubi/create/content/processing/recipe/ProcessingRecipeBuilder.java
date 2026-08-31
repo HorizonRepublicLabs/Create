@@ -183,8 +183,10 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 		return output(1, item, amount);
 	}
 
+	/// A stack cannot be built before item components bind, and runtime datagen runs
+	/// well before that, so an output of plain items skips the stack.
 	public S output(float chance, ItemLike item, int amount) {
-		return output(chance, new ItemStack(item, amount));
+		return output(new ProcessingOutput(item.asItem(), amount, chance));
 	}
 
 	public S output(ItemStack output) {

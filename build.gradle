@@ -77,8 +77,20 @@ neoForge {
             programArgument("--nogui")
         }
 
-        data {
-            data()
+        // 26.2 splits datagen into a client half and a server half
+        clientData {
+            clientData()
+
+            programArguments.addAll(
+                "--mod", mod_id as String,
+                "--all",
+                "--output", file("src/generated/resources/").getAbsolutePath(),
+                "--existing", file("src/main/resources/").getAbsolutePath()
+            )
+        }
+
+        serverData {
+            serverData()
 
             programArguments.addAll(
                 "--mod", mod_id as String,
