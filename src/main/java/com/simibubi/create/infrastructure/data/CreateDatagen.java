@@ -22,7 +22,10 @@ import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
 
 import net.createmod.ponder.api.client.PonderIndex;
+import net.minecraft.SharedConstants;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.component.DataComponentInitializers;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 
@@ -32,7 +35,26 @@ public class CreateDatagen {
 	/// The event is split by side now, and no longer filters by mod -- each mod
 	/// only hears about its own run.
 	public static void gatherDataHighPriority(GatherDataEvent event) {
+		bindItemComponents(event);
 		addExtraRegistrateData();
+	}
+
+	/// Item components bind when a datapack loads, and datagen never loads one, so
+	/// nothing that builds a stack -- ponder scenes, recipe results -- could run.
+	private static void bindItemComponents(GatherDataEvent event) {
+		HolderLookup.Provider registries = event.getLookupProvider()
+			.join();
+
+		// Binding runs the initializers, and NeoForge's development-only check on those
+		// rejects vanilla's own tag-backed components, so it steps aside for the bind.
+		boolean ide = SharedConstants.IS_RUNNING_IN_IDE;
+		SharedConstants.IS_RUNNING_IN_IDE = false;
+		try {
+			BuiltInRegistries.DATA_COMPONENT_INITIALIZERS.build(registries)
+				.forEach(DataComponentInitializers.PendingComponents::apply);
+		} finally {
+			SharedConstants.IS_RUNNING_IN_IDE = ide;
+		}
 	}
 
 	public static void gatherData(GatherDataEvent event) {
@@ -61,8 +83,7 @@ public class CreateDatagen {
 		generator.addProvider(true, new CreateWikiBlockInfoProvider(output));
 		generator.addProvider(event instanceof GatherDataEvent.Client, new CreateEquipmentAssetProvider(output));
 
-		if (event instanceof GatherDataEvent.Server)
-			CreateRecipeProvider.registerAllProcessing(generator, output, lookupProvider);
+		CreateRecipeProvider.registerAllProcessing(generator, output, lookupProvider);
 	}
 
 	private static void addExtraRegistrateData() {

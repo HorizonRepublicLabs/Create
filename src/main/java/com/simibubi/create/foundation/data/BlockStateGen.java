@@ -266,7 +266,7 @@ public class BlockStateGen {
 			for (Axis axis : Iterate.axes) {
 				String suffix = "side_" + axis.getSerializedName();
 				faces.add(VariantModels.models(p)
-					.withExistingParent("block/" + c.getName() + "_" + suffix,
+					.withExistingParent(c.getName() + "_" + suffix,
 						p.modLoc(templateModelPath + "/" + suffix))
 					.texture("side", side)
 					.build());
@@ -274,7 +274,7 @@ public class BlockStateGen {
 			for (Axis axis : Iterate.axes) {
 				String suffix = "side_" + axis.getSerializedName();
 				stickyFaces.add(VariantModels.models(p)
-					.withExistingParent("block/" + c.getName() + "_" + suffix + "_sticky",
+					.withExistingParent(c.getName() + "_" + suffix + "_sticky",
 						p.modLoc(templateModelPath + "/" + suffix))
 					.texture("side", side_sticky)
 					.build());
@@ -462,7 +462,7 @@ public class BlockStateGen {
 				Identifier parent = coreTemplates.get(axis);
 				for (String s : orientations) {
 					Pair<String, Axis> key = Pair.of(s, axis);
-					String modelName = path + "/" + s + "_" + axis.getSerializedName();
+					String modelName = c.getName() + "/" + s + "_" + axis.getSerializedName();
 					coreModels.put(key, VariantModels.models(p)
 						.withExistingParent(modelName, parent)
 						.element(element -> element.from(4, 4, 4)

@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import net.minecraft.client.data.models.BlockModelGenerators;
 
 import net.minecraft.client.resources.model.sprite.Material;
@@ -134,11 +135,11 @@ public class WindowGen {
 		return REGISTRATE.block(name, p -> new WindowBlock(p, translucent))
 			.onRegister(ct == null ? $ -> {
 			} : connectedTextures(() -> new HorizontalCTBehaviour(ct.get())))
-			.recipe((c, p) -> ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
+			.recipe((c, p) -> ShapedRecipeBuilder.shaped(ItemHelper.itemLookup(), RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
 				.pattern(" # ")
 				.pattern("#X#")
 				.define('#', ingredient.get())
-					.define('X', DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.GLASS_BLOCKS_COLORLESS)).toVanilla())
+					.define('X', DataIngredient.tag(ItemHelper.itemsIn(Tags.Items.GLASS_BLOCKS_COLORLESS)).toVanilla())
 				.unlockedBy("has_ingredient", p.has(ingredient.get()))
 				.save(p))
 			.initialProperties(() -> Blocks.GLASS)
@@ -158,7 +159,7 @@ public class WindowGen {
 			.initialProperties(() -> Blocks.GLASS)
 			.properties(WindowGen::glassProperties)
 			.loot((t, g) -> t.dropWhenSilkTouch(g))
-				.recipe((c, p) -> p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.GLASS_BLOCKS_COLORLESS)),
+				.recipe((c, p) -> p.stonecutting(DataIngredient.tag(ItemHelper.itemsIn(Tags.Items.GLASS_BLOCKS_COLORLESS)),
 				RecipeCategory.BUILDING_BLOCKS, c::get))
 			.blockstate(() -> (c, p) -> BlockStateGen.cubeAll(c, p, "palettes/", "framed_glass"))
 				.tag(Tags.Blocks.GLASS_BLOCKS_COLORLESS, BlockTags.IMPERMEABLE)
@@ -266,14 +267,14 @@ public class WindowGen {
 				.defaultMapColor()))
 			.blockstate(() -> stateProvider.get())
 			.recipe((c, p) -> {
-				ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
+				ShapedRecipeBuilder.shaped(ItemHelper.itemLookup(), RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
 					.pattern("###")
 					.pattern("###")
 					.define('#', parent.get())
 					.unlockedBy("has_ingredient", p.has(parent.get()))
 					.save(p);
 				if (colorless)
-					p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.GLASS_PANES_COLORLESS)), RecipeCategory.BUILDING_BLOCKS,
+					p.stonecutting(DataIngredient.tag(ItemHelper.itemsIn(Tags.Items.GLASS_PANES_COLORLESS)), RecipeCategory.BUILDING_BLOCKS,
 						c::get);
 			})
 			.loot((t, g) -> t.dropWhenSilkTouch(g))

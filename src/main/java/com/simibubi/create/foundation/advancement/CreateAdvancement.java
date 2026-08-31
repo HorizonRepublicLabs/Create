@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 import com.simibubi.create.Create;
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 
 import net.minecraft.advancements.Advancement;
@@ -232,7 +233,7 @@ public class CreateAdvancement {
 		Builder whenItemCollected(TagKey<Item> tag) {
 			return externalTrigger(() -> InventoryChangeTrigger.TriggerInstance
 				.hasItems(ItemPredicate.Builder.item()
-					.of(BuiltInRegistries.ITEM, tag)
+					.of(ItemHelper.itemLookup(), tag)
 					.build()));
 		}
 

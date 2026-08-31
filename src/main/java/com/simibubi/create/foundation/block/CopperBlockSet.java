@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.block;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -152,7 +153,7 @@ public class CopperBlockSet {
 			builder.recipe((ctx, prov) -> {
 				if (waxed) {
 					Block unwaxed = get(variant, state, false).get();
-					ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, ctx.get())
+					ShapelessRecipeBuilder.shapeless(ItemHelper.itemLookup(), RecipeCategory.BUILDING_BLOCKS, ctx.get())
 						.requires(unwaxed)
 						.requires(Items.HONEYCOMB)
 						.unlockedBy("has_unwaxed", prov.has(unwaxed))

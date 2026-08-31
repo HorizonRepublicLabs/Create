@@ -156,13 +156,12 @@ public class Create {
 		modEventBus.addListener(Create::init);
 		modEventBus.addListener(Create::onRegister);
 		modEventBus.addListener(AllEntityTypes::registerEntityAttributes);
-		// GatherDataEvent is abstract now; its client and server halves fire separately.
+		// GatherDataEvent is abstract now and its halves fire in separate runs, each of
+		// which prunes what the other wrote; everything is generated in the client run,
+		// which is the one that can reach both sides' providers.
 		modEventBus.addListener(EventPriority.HIGHEST,
 			(GatherDataEvent.Client event) -> CreateDatagen.gatherDataHighPriority(event));
-		modEventBus.addListener(EventPriority.HIGHEST,
-			(GatherDataEvent.Server event) -> CreateDatagen.gatherDataHighPriority(event));
 		modEventBus.addListener(EventPriority.LOWEST, (GatherDataEvent.Client event) -> CreateDatagen.gatherData(event));
-		modEventBus.addListener(EventPriority.LOWEST, (GatherDataEvent.Server event) -> CreateDatagen.gatherData(event));
 		modEventBus.addListener(AllSoundEvents::register);
 
 		// FIXME: this is not thread-safe

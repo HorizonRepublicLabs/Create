@@ -1584,7 +1584,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		GeneratedRecipe viaShaped(UnaryOperator<ShapedRecipeBuilder> builder) {
 			return register(consumer -> {
 				ShapedRecipeBuilder b =
-					builder.apply(ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.MISC, result.get(), amount));
+					builder.apply(ShapedRecipeBuilder.shaped(ItemHelper.itemLookup(), RecipeCategory.MISC, result.get(), amount));
 				if (unlockedBy != null)
 					b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
 				b.save(consumer, ResourceKey.create(Registries.RECIPE, createLocation("crafting")));
@@ -1594,7 +1594,7 @@ public final class CreateStandardRecipeGen extends BaseRecipeProvider {
 		GeneratedRecipe viaShapeless(UnaryOperator<ShapelessRecipeBuilder> builder) {
 			return register(recipeOutput -> {
 				ShapelessRecipeBuilder b =
-					builder.apply(ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, result.get(), amount));
+					builder.apply(ShapelessRecipeBuilder.shapeless(ItemHelper.itemLookup(), RecipeCategory.MISC, result.get(), amount));
 				if (unlockedBy != null)
 					b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
 

@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import net.minecraft.resources.ResourceKey;
 
 import java.util.List;
@@ -78,6 +79,7 @@ import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -358,7 +360,7 @@ public class BuilderTransformers {
 					String shapeName = shape.getSerializedName();
 					return ConfiguredModel.builder()
 						.modelFile(VariantModels.models(p)
-							.withExistingParent(prefix + "/" + shapeName, p.modLoc("block/belt_tunnel/" + shapeName))
+							.withExistingParent(prefix.substring("block/".length()) + "/" + shapeName, p.modLoc("block/belt_tunnel/" + shapeName))
 							.texture("top", p.modLoc(prefix + "_top" + window))
 							.texture("tunnel", p.modLoc(prefix))
 							.texture("direction", p.modLoc(funnel_prefix + "_neutral"))
@@ -370,7 +372,7 @@ public class BuilderTransformers {
 				}))
 			.item(BeltTunnelItem::new)
 			.model(() -> (c, p) -> {
-				VariantModels.models(p).withExistingParent("item/" + type + "_tunnel", p.modLoc("block/belt_tunnel/item"))
+				VariantModels.models(p).withExistingParent(type + "_tunnel", p.modLoc("block/belt_tunnel/item"))
 					.texture("top", p.modLoc(prefix + "_top"))
 					.texture("tunnel", p.modLoc(prefix))
 					.texture("direction", p.modLoc(funnel_prefix + "_neutral"))
@@ -423,7 +425,7 @@ public class BuilderTransformers {
 
 				for (String variant : variants)
 					models.put(variant, VariantModels.models(p)
-						.withExistingParent("block/crate/" + type + "/" + variant, p.modLoc("block/crate/" + variant))
+						.withExistingParent("crate/" + type + "/" + variant, p.modLoc("block/crate/" + variant))
 						.texture("crate", crate)
 						.texture("side", side)
 						.texture("casing", casing)
@@ -483,11 +485,15 @@ public class BuilderTransformers {
 			.properties(p -> p.stacksTo(1))
 			.tag(AllItemTags.PACKAGES.tag)
 			.model(() -> (c, p) -> {
-				if (style.rare())
-					VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("item/package/custom" + size))
-						.texture("2", p.modLoc("item/package/" + style.type()));
-				else
-					VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("item/package/" + style.type() + size));
+				Identifier model = style.rare()
+					? VariantModels.models(p)
+						.withExistingParent(c.getName(), p.modLoc("item/package/custom" + size))
+						.texture("2", p.modLoc("item/package/" + style.type()))
+						.build()
+					: VariantModels.models(p)
+						.withExistingParent(c.getName(), p.modLoc("item/package/" + style.type() + size))
+						.build();
+				p.itemModelOutput.accept(c.get(), ItemModelUtils.plainModel(model));
 			})
 			.lang((style.rare() ? "Rare"
 				: style.type()
@@ -520,7 +526,7 @@ public class BuilderTransformers {
 					.texture("0", p.modLoc("block/table_cloth/" + name))
 					.build())
 				.tag(AllItemTags.TABLE_CLOTHS.tag)
-				.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, RecipeCategory.MISC, c.get())
+				.recipe((c, p) -> ShapelessRecipeBuilder.shapeless(ItemHelper.itemLookup(), RecipeCategory.MISC, c.get())
 					.requires(c.get())
 					.unlockedBy("has_" + c.getName(), p.has(c.get()))
 					.save(p, ResourceKey.create(Registries.RECIPE,
@@ -551,7 +557,7 @@ public class BuilderTransformers {
 			.blockstate(() -> (c, p) -> VariantModels.simpleBlock(p, c.get(), VariantModels.models(p)
 				.cubeColumn(c.getName(), p.modLoc("block/" + c.getName()), p.modLoc("block/" + c.getName() + "_top"))))
 			.tag(AllBlockTags.WRENCH_PICKUP.tag)
-			.recipe((c, p) -> p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.INGOTS_IRON)), RecipeCategory.BUILDING_BLOCKS,
+			.recipe((c, p) -> p.stonecutting(DataIngredient.tag(ItemHelper.itemsIn(Tags.Items.INGOTS_IRON)), RecipeCategory.BUILDING_BLOCKS,
 				c::get, 2))
 			.simpleItem();
 	}

@@ -1,5 +1,10 @@
 package com.simibubi.create.foundation.data;
 
+import java.util.Set;
+import java.util.Map;
+import java.util.IdentityHashMap;
+import java.util.HashSet;
+import java.util.Collections;
 import net.neoforged.neoforge.client.model.generators.template.ElementBuilder;
 
 import java.util.function.Consumer;
@@ -17,6 +22,12 @@ import net.neoforged.neoforge.client.model.generators.template.ExtendedModelTemp
 /// instead, so this keeps the old shape over the top: a model is just an
 /// Identifier now, so getExistingFile hands one straight back.
 public class ModelGenShim {
+
+	/// A blockstate that names the same model for several of its states used to just
+	/// overwrite it; the generator refuses a second definition now, so each model is
+	/// written once per run.
+	private static final Map<RegistrateBlockModelGenerator, Set<Identifier>> WRITTEN =
+		Collections.synchronizedMap(new IdentityHashMap<>());
 
 	private final RegistrateBlockModelGenerator generator;
 
@@ -104,8 +115,13 @@ public class ModelGenShim {
 		}
 
 		public Identifier build() {
+			Identifier id = generator.modLoc("block/" + name);
+			if (!WRITTEN.computeIfAbsent(generator, g -> Collections.synchronizedSet(new HashSet<>()))
+				.add(id))
+				return id;
+
 			RegistrateLegacyBlockModelBuilder builder = generator.withBuilder(template, mapping);
-			return builder.build(generator.modLoc("block/" + name));
+			return builder.build(id);
 		}
 	}
 }

@@ -103,6 +103,9 @@ public class AllEntityTypes {
 				if (immuneToFire)
 					b.fireImmune();
 			})
+			// None of Create's entities drop anything, and an entity that names a loot
+			// table it does not have fails validation now.
+			.properties(EntityType.Builder::noLootTable)
 			.renderer(renderer);
 	}
 

@@ -3,6 +3,8 @@ package com.simibubi.create.foundation.data;
 import com.simibubi.create.content.legacy.ChromaticCompoundColor;
 
 import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
 
 import net.minecraft.client.resources.model.sprite.Material;
 
@@ -63,7 +65,7 @@ public class AssetLookup {
 		// Registrate no longer builds a block-item model by suffix, so the parent
 		// is named directly.
 		return VariantModels.models(prov)
-			.withExistingParent("item/" + ctx.getName(), prov.modLoc("block/" + ctx.getName() + "/item"));
+			.withExistingParent(ctx.getName(), prov.modLoc("block/" + ctx.getName() + "/item"));
 	}
 
 	/**
@@ -77,7 +79,11 @@ public class AssetLookup {
 			String path = "block";
 			for (String string : folders)
 				path += "/" + ("_".equals(string) ? c.getName() : string);
-			VariantModels.models(p).withExistingParent(c.getName(), p.modLoc(path));
+			// An item needs a model definition of its own now, not just a model file
+			Identifier model = VariantModels.models(p)
+				.withExistingParent(c.getName(), p.modLoc(path))
+				.build();
+			p.itemModelOutput.accept(c.get(), ItemModelUtils.plainModel(model));
 		};
 	}
 
@@ -87,7 +93,11 @@ public class AssetLookup {
 			String path = "block";
 			for (String string : folders)
 				path += "/" + ("_".equals(string) ? c.getName() : string);
-			VariantModels.models(p).withExistingParent(c.getName(), p.modLoc(path));
+			// An item needs a model definition of its own now, not just a model file
+			Identifier model = VariantModels.models(p)
+				.withExistingParent(c.getName(), p.modLoc(path))
+				.build();
+			p.itemModelOutput.accept(c.get(), ItemModelUtils.plainModel(model));
 		};
 	}
 
@@ -125,7 +135,7 @@ public class AssetLookup {
 	}
 
 	public static <T extends Item> NonNullBiConsumer<DataGenContext<Item, T>, RegistrateItemModelGenerator> itemModelWithPartials() {
-		return (c, p) -> VariantModels.models(p).withExistingParent("item/" + c.getName(), p.modLoc("item/" + c.getName() + "/item"));
+		return (c, p) -> VariantModels.models(p).withExistingParent(c.getName(), p.modLoc("item/" + c.getName() + "/item"));
 	}
 
 
@@ -136,7 +146,7 @@ public class AssetLookup {
 		return (c, p) -> {
 			Identifier base = p.modLoc("item/" + c.getName() + "/item");
 			VariantModels.models(p)
-				.withExistingParent("item/" + c.getName(), base);
+				.withExistingParent(c.getName(), base);
 			named(c, p, base, rendererName);
 		};
 	}
@@ -147,7 +157,9 @@ public class AssetLookup {
 		String rendererName) {
 		return (c, p) -> {
 			Identifier base = p.modLoc("item/" + c.getName());
-			p.generateFlatItem(c.get(), new Material(base));
+			// Only the model file: generateFlatItem would also claim the item's model
+			// definition, and the custom renderer wants that slot.
+			ModelTemplates.FLAT_ITEM.create(base, TextureMapping.layer0(new Material(base)), p.modelOutput);
 			named(c, p, base, rendererName);
 		};
 	}
