@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.mutable.MutableObject;
+import org.jetbrains.annotations.Nullable;
 
 import com.simibubi.create.AllItems;
 import com.simibubi.create.infrastructure.config.AllConfigs;
@@ -36,12 +37,30 @@ public class OpenCreateMenuButton extends Button {
 		super(x, y, 20, 20, CommonComponents.EMPTY, OpenCreateMenuButton::click, DEFAULT_NARRATION);
 	}
 
+	/// Item components bind when a world loads, and this button is on the title
+	/// screen too, so the icon waits until a stack can be built at all.
+	@Nullable
+	private static ItemStack icon;
+
+	private static ItemStack icon() {
+		if (icon != null)
+			return icon;
+		try {
+			icon = AllItems.GOGGLES.asStack();
+		} catch (NullPointerException componentsNotBoundYet) {
+			return ItemStack.EMPTY;
+		}
+		return icon;
+	}
+
 	/// A button draws its own contents now rather than a string; the goggles
 	/// sit on the default sprite.
 	@Override
 	protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
 		extractDefaultSprite(graphics);
-		graphics.item(AllItems.GOGGLES.asStack(), getX() + 2, getY() + 2);
+		ItemStack goggles = icon();
+		if (!goggles.isEmpty())
+			graphics.item(goggles, getX() + 2, getY() + 2);
 	}
 
 	public static void click(Button b) {
