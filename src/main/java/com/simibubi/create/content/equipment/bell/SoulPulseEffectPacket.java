@@ -1,7 +1,7 @@
 package com.simibubi.create.content.equipment.bell;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -14,7 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-public record SoulPulseEffectPacket(BlockPos pos, int distance, boolean canOverlap) implements CreatePacketPayload {
+public record SoulPulseEffectPacket(BlockPos pos, int distance, boolean canOverlap) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, SoulPulseEffectPacket> STREAM_CODEC = StreamCodec.composite(
 	        BlockPos.STREAM_CODEC, SoulPulseEffectPacket::pos,
 			ByteBufCodecs.INT, SoulPulseEffectPacket::distance,

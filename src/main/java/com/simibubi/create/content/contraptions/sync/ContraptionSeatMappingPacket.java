@@ -1,7 +1,7 @@
 package com.simibubi.create.content.contraptions.sync;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -22,7 +22,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 
-public record ContraptionSeatMappingPacket(int entityId, Map<UUID, Integer> mapping, int dismountedId) implements CreatePacketPayload {
+public record ContraptionSeatMappingPacket(int entityId, Map<UUID, Integer> mapping, int dismountedId) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, ContraptionSeatMappingPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, ContraptionSeatMappingPacket::entityId,
 			ByteBufCodecs.map(HashMap::new, UUIDUtil.STREAM_CODEC, ByteBufCodecs.INT), ContraptionSeatMappingPacket::mapping,

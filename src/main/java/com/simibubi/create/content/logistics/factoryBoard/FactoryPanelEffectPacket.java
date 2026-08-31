@@ -1,7 +1,7 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -18,7 +18,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.state.BlockState;
 
 
-public record FactoryPanelEffectPacket(FactoryPanelPosition fromPos, FactoryPanelPosition toPos, boolean success) implements CreatePacketPayload {
+public record FactoryPanelEffectPacket(FactoryPanelPosition fromPos, FactoryPanelPosition toPos, boolean success) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, FactoryPanelEffectPacket> STREAM_CODEC = StreamCodec.composite(
 		FactoryPanelPosition.STREAM_CODEC, FactoryPanelEffectPacket::fromPos,
 		FactoryPanelPosition.STREAM_CODEC, FactoryPanelEffectPacket::toPos,

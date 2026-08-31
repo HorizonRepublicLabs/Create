@@ -1,7 +1,7 @@
 package com.simibubi.create.compat.trainmap;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -22,7 +22,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 
-public class TrainMapSyncPacket implements CreatePacketPayload {
+public class TrainMapSyncPacket implements ClientboundCreatePayload {
 	public static final StreamCodec<FriendlyByteBuf, TrainMapSyncPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.BOOL, packet -> packet.light,
 			CatnipStreamCodecBuilders.list(Pair.streamCodec(UUIDUtil.STREAM_CODEC, TrainMapSyncEntry.STREAM_CODEC)), packet -> packet.entries,

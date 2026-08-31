@@ -1,7 +1,7 @@
 package com.simibubi.create.content.contraptions.gantry;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -12,7 +12,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-public record GantryContraptionUpdatePacket(int entityID, double coord, double motion, double sequenceLimit) implements CreatePacketPayload {
+public record GantryContraptionUpdatePacket(int entityID, double coord, double motion, double sequenceLimit) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, GantryContraptionUpdatePacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, GantryContraptionUpdatePacket::entityID,
 			ByteBufCodecs.DOUBLE, GantryContraptionUpdatePacket::coord,

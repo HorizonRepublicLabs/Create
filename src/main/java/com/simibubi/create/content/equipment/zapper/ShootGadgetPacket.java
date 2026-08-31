@@ -1,7 +1,7 @@
 package com.simibubi.create.content.equipment.zapper;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -13,7 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
-public abstract class ShootGadgetPacket implements CreatePacketPayload {
+public abstract class ShootGadgetPacket implements ClientboundCreatePayload {
 	protected final Vec3 location;
 	protected final InteractionHand hand;
 	protected final boolean self;

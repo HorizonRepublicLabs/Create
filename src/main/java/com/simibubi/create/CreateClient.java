@@ -99,6 +99,10 @@ public class CreateClient {
 		for (AllPackets packet : AllPackets.values()) {
 			if (packet.isServerbound())
 				continue;
+			if (!ClientboundCreatePayload.class.isAssignableFrom(packet.payloadClass()))
+				throw new IllegalStateException(
+					"Clientbound payload " + packet.payloadClass() + " has no client-side handler");
+
 			ClientNetworkHelper.INSTANCE.registerPayloadHandler((CustomPacketPayload.Type) packet.getType(),
 				(payload, player) -> ((ClientboundCreatePayload) payload).handle((LocalPlayer) player));
 		}

@@ -1,7 +1,7 @@
 package com.simibubi.create.content.logistics.packagerLink;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 
-public record WiFiEffectPacket(BlockPos pos) implements CreatePacketPayload {
+public record WiFiEffectPacket(BlockPos pos) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, WiFiEffectPacket> STREAM_CODEC = BlockPos.STREAM_CODEC
 		.map(WiFiEffectPacket::new, WiFiEffectPacket::pos);
 

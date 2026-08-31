@@ -1,7 +1,7 @@
 package com.simibubi.create.content.kinetics.chainConveyor;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -19,7 +19,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 
-public record ClientboundChainConveyorRidingPacket(Collection<UUID> uuids) implements CreatePacketPayload {
+public record ClientboundChainConveyorRidingPacket(Collection<UUID> uuids) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, ClientboundChainConveyorRidingPacket> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.collection(HashSet::new, UUIDUtil.STREAM_CODEC), ClientboundChainConveyorRidingPacket::uuids,
 	    ClientboundChainConveyorRidingPacket::new

@@ -1,7 +1,7 @@
 package com.simibubi.create.content.contraptions.actors.contraptionControls;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -19,7 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 
 
-public record ContraptionDisableActorPacket(int entityId, ItemStack filter, boolean enable) implements CreatePacketPayload {
+public record ContraptionDisableActorPacket(int entityId, ItemStack filter, boolean enable) implements ClientboundCreatePayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, ContraptionDisableActorPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, ContraptionDisableActorPacket::entityId,
 			ItemStack.OPTIONAL_STREAM_CODEC, ContraptionDisableActorPacket::filter,

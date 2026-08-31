@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.networking;
 
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -12,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 /**
  * A server to client version of {@link BlockEntityConfigurationPacket}
  */
-public abstract class BlockEntityDataPacket<BE extends SyncedBlockEntity> implements CreatePacketPayload {
+public abstract class BlockEntityDataPacket<BE extends SyncedBlockEntity> implements ClientboundCreatePayload {
 	protected final BlockPos pos;
 
 	public BlockEntityDataPacket(BlockPos pos) {

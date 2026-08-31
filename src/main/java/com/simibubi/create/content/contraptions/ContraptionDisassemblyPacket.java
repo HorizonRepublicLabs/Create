@@ -1,7 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -12,7 +12,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import io.netty.buffer.ByteBuf;
 
-public record ContraptionDisassemblyPacket(int entityId, StructureTransform transform) implements CreatePacketPayload {
+public record ContraptionDisassemblyPacket(int entityId, StructureTransform transform) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, ContraptionDisassemblyPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, ContraptionDisassemblyPacket::entityId,
 			StructureTransform.STREAM_CODEC, ContraptionDisassemblyPacket::transform,

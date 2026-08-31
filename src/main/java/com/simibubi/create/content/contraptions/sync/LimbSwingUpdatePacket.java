@@ -1,7 +1,7 @@
 package com.simibubi.create.content.contraptions.sync;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -17,7 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 
-public record LimbSwingUpdatePacket(int entityId, Vec3 position, float limbSwing) implements CreatePacketPayload {
+public record LimbSwingUpdatePacket(int entityId, Vec3 position, float limbSwing) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, LimbSwingUpdatePacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, LimbSwingUpdatePacket::entityId,
 			CatnipStreamCodecs.VEC3, LimbSwingUpdatePacket::position,

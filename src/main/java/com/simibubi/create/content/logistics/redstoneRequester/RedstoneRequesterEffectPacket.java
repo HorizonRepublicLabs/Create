@@ -1,7 +1,7 @@
 package com.simibubi.create.content.logistics.redstoneRequester;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -15,7 +15,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 
-public record RedstoneRequesterEffectPacket(BlockPos pos, boolean success) implements CreatePacketPayload {
+public record RedstoneRequesterEffectPacket(BlockPos pos, boolean success) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, RedstoneRequesterEffectPacket> STREAM_CODEC = StreamCodec.composite(
 	    BlockPos.STREAM_CODEC, RedstoneRequesterEffectPacket::pos,
 		ByteBufCodecs.BOOL, RedstoneRequesterEffectPacket::success,

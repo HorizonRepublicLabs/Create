@@ -1,7 +1,7 @@
 package com.simibubi.create.content.trains.graph;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -12,7 +12,7 @@ import com.simibubi.create.content.trains.GlobalRailwayManager;
 
 import net.minecraft.client.player.LocalPlayer;
 
-public abstract class TrackGraphPacket implements CreatePacketPayload {
+public abstract class TrackGraphPacket implements ClientboundCreatePayload {
 
 	public UUID graphId;
 	public int netId;

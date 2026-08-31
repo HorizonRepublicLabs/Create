@@ -3,7 +3,7 @@ package com.simibubi.create.content.logistics.box;
 import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemHelper;
 
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
 
-public record PackageDestroyPacket(Vec3 location, ItemStack box) implements CreatePacketPayload {
+public record PackageDestroyPacket(Vec3 location, ItemStack box) implements ClientboundCreatePayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, PackageDestroyPacket> STREAM_CODEC = StreamCodec.composite(
 		CatnipStreamCodecs.VEC3, PackageDestroyPacket::location,
 		ItemStack.STREAM_CODEC, PackageDestroyPacket::box,

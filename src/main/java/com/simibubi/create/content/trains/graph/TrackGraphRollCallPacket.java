@@ -1,7 +1,7 @@
 package com.simibubi.create.content.trains.graph;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -26,7 +26,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 
-public record TrackGraphRollCallPacket(List<Entry> entries) implements CreatePacketPayload {
+public record TrackGraphRollCallPacket(List<Entry> entries) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, TrackGraphRollCallPacket> STREAM_CODEC = CatnipStreamCodecBuilders.list(Entry.STREAM_CODEC).map(
 					TrackGraphRollCallPacket::new, TrackGraphRollCallPacket::entries
 			);

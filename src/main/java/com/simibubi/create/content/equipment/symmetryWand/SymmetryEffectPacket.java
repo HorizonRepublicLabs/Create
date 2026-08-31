@@ -1,7 +1,7 @@
 package com.simibubi.create.content.equipment.symmetryWand;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -16,7 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
 
-public record SymmetryEffectPacket(BlockPos mirror, List<BlockPos> positions) implements CreatePacketPayload {
+public record SymmetryEffectPacket(BlockPos mirror, List<BlockPos> positions) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, SymmetryEffectPacket> STREAM_CODEC = StreamCodec.composite(
 	        BlockPos.STREAM_CODEC, SymmetryEffectPacket::mirror,
 			CatnipStreamCodecBuilders.list(BlockPos.STREAM_CODEC), SymmetryEffectPacket::positions,

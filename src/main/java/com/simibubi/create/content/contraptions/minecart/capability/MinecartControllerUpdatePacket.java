@@ -3,7 +3,7 @@ package com.simibubi.create.content.contraptions.minecart.capability;
 import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -23,7 +23,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Entity;
 
 
-public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag nbt) implements CreatePacketPayload {
+public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag nbt) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, MinecartControllerUpdatePacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.INT, MinecartControllerUpdatePacket::entityId,
 			CatnipStreamCodecBuilders.nullable(ByteBufCodecs.COMPOUND_TAG), MinecartControllerUpdatePacket::nbt,

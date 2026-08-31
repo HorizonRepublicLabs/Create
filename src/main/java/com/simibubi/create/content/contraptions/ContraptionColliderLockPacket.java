@@ -1,6 +1,7 @@
 package com.simibubi.create.content.contraptions;
 
 import com.simibubi.create.foundation.ClientOnly;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -17,7 +18,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 
-public record ContraptionColliderLockPacket(int contraption, double offset, int sender) implements CreatePacketPayload {
+public record ContraptionColliderLockPacket(int contraption, double offset, int sender) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, ContraptionColliderLockPacket> STREAM_CODEC = StreamCodec.composite(
 			ByteBufCodecs.VAR_INT, ContraptionColliderLockPacket::contraption,
 			ByteBufCodecs.DOUBLE, ContraptionColliderLockPacket::offset,

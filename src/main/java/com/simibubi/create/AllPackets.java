@@ -257,6 +257,10 @@ public enum AllPackets {
 	/// Direction is taken from the payload itself: anything self handling is
 	/// serverbound, since a clientbound payload cannot handle itself without
 	/// being loaded on the server too.
+	public Class<? extends CustomPacketPayload> payloadClass() {
+		return payloadClass;
+	}
+
 	public boolean isServerbound() {
 		return SelfHandlingPayload.class.isAssignableFrom(payloadClass);
 	}

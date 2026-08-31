@@ -1,7 +1,7 @@
 package com.simibubi.create.content.trains.entity;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -15,7 +15,7 @@ import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-public record TrainPromptPacket(Component text, boolean shadow) implements CreatePacketPayload {
+public record TrainPromptPacket(Component text, boolean shadow) implements ClientboundCreatePayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, TrainPromptPacket> STREAM_CODEC = StreamCodec.composite(
 			ComponentSerialization.STREAM_CODEC, TrainPromptPacket::text,
 			ByteBufCodecs.BOOL, TrainPromptPacket::shadow,

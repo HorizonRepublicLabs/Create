@@ -1,7 +1,7 @@
 package com.simibubi.create.content.equipment.tool;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -13,7 +13,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 
-public record KnockbackPacket(float yRot, float strength) implements CreatePacketPayload {
+public record KnockbackPacket(float yRot, float strength) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, KnockbackPacket> STREAM_CODEC = StreamCodec.composite(
 		ByteBufCodecs.FLOAT, KnockbackPacket::yRot,
 	    ByteBufCodecs.FLOAT, KnockbackPacket::strength,

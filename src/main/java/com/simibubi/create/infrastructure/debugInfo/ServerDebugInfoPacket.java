@@ -1,7 +1,7 @@
 package com.simibubi.create.infrastructure.debugInfo;
 
 import com.simibubi.create.foundation.ClientOnly;
-import com.simibubi.create.foundation.networking.CreatePacketPayload;
+import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -20,7 +20,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 
-public record ServerDebugInfoPacket(String serverInfo) implements CreatePacketPayload {
+public record ServerDebugInfoPacket(String serverInfo) implements ClientboundCreatePayload {
 	public static final StreamCodec<ByteBuf, ServerDebugInfoPacket> STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
 			ServerDebugInfoPacket::new, ServerDebugInfoPacket::serverInfo
 	);
