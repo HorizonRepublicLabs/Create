@@ -10,14 +10,15 @@ import net.minecraft.resources.Identifier;
 /// to resolve back to the renderers themselves.
 public class CustomRenderedItems {
 
-	private static final Map<Identifier, Supplier<CustomRenderedItemModelRenderer>> RENDERERS = new HashMap<>();
+	private static final Map<Identifier, CustomRenderedItemModelRenderer> RENDERERS = new HashMap<>();
 
+	/// Built as it is registered: a renderer asks for its partial models in its
+	/// constructor, and those have to be claimed before models are baked.
 	public static void register(Identifier id, Supplier<CustomRenderedItemModelRenderer> renderer) {
-		RENDERERS.put(id, renderer);
+		RENDERERS.put(id, renderer.get());
 	}
 
 	public static CustomRenderedItemModelRenderer get(Identifier id) {
-		Supplier<CustomRenderedItemModelRenderer> supplier = RENDERERS.get(id);
-		return supplier == null ? null : supplier.get();
+		return RENDERERS.get(id);
 	}
 }
