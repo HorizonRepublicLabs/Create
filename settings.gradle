@@ -17,3 +17,5 @@ if (file("Ponder").exists()) {
 }
 
 rootProject.name = "$mod_id-$minecraft_version"
+
+include("coremods")

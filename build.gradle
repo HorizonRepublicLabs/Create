@@ -141,6 +141,12 @@ configurations {
 
 dependencies {
     // Required dependencies
+    // The stripper has to be a plugin jar, so it rides along rather than being compiled in
+    jarJar(implementation(project(":coremods")))
+    localRuntimeOnly(files("$rootDir/coremods/build/libs/create-coremods-${mod_version}.jar") {
+        builtBy(":coremods:jar")
+    })
+
     jarJar(api("com.tterrag.registrate:Registrate:$registrate_version"))
 
     compileOnlyApi("dev.engine-room.flywheel:flywheel-neoforge:$flywheel_version:api")

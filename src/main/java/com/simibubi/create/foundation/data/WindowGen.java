@@ -205,8 +205,10 @@ public class WindowGen {
 
 	public static BlockEntry<GlassPaneBlock> standardGlassPane(String name, Supplier<? extends Block> parent,
 															   Identifier sideTexture, Identifier topTexture, Supplier<Supplier<RenderType>> renderType) {
-		NonNullBiConsumer<DataGenContext<Block, GlassPaneBlock>, RegistrateBlockModelGenerator> stateProvider =
-			(c, p) -> p.generatePaneBlock(c.get(), new Material(sideTexture), new Material(topTexture));
+		// The model generators only exist on the client, so the state provider is built
+		// when datagen asks for it rather than when the block is declared.
+		Supplier<NonNullBiConsumer<DataGenContext<Block, GlassPaneBlock>, RegistrateBlockModelGenerator>> stateProvider =
+			() -> (c, p) -> p.generatePaneBlock(c.get(), new Material(sideTexture), new Material(topTexture));
 		return glassPane(name, parent, sideTexture, topTexture, GlassPaneBlock::new, renderType, $ -> {
 		}, stateProvider, true).register();
 	}
@@ -219,18 +221,22 @@ public class WindowGen {
 		String CGPparents = "block/connected_glass_pane/";
 		String prefix = name + "_pane_";
 
-		Function<RegistrateBlockModelGenerator, Identifier> post =
-			getPaneModelProvider(CGPparents, prefix, "post", sideTexture, topTexture),
-			side = getPaneModelProvider(CGPparents, prefix, "side", sideTexture, topTexture),
-			sideAlt = getPaneModelProvider(CGPparents, prefix, "side_alt", sideTexture, topTexture),
-			noSide = getPaneModelProvider(CGPparents, prefix, "noside", sideTexture, topTexture),
-			noSideAlt = getPaneModelProvider(CGPparents, prefix, "noside_alt", sideTexture, topTexture);
+		// Built on demand: the model generators are client-only classes, and a block is
+		// declared on both sides.
+		Supplier<NonNullBiConsumer<DataGenContext<Block, ConnectedGlassPaneBlock>, RegistrateBlockModelGenerator>> stateProvider =
+			() -> {
+				Function<RegistrateBlockModelGenerator, Identifier> post =
+					getPaneModelProvider(CGPparents, prefix, "post", sideTexture, topTexture),
+					side = getPaneModelProvider(CGPparents, prefix, "side", sideTexture, topTexture),
+					sideAlt = getPaneModelProvider(CGPparents, prefix, "side_alt", sideTexture, topTexture),
+					noSide = getPaneModelProvider(CGPparents, prefix, "noside", sideTexture, topTexture),
+					noSideAlt = getPaneModelProvider(CGPparents, prefix, "noside_alt", sideTexture, topTexture);
 
-		NonNullBiConsumer<DataGenContext<Block, ConnectedGlassPaneBlock>, RegistrateBlockModelGenerator> stateProvider =
-			(c, p) -> p.generatePaneBlock(c.get(), BlockModelGenerators.plainVariant(post.apply(p)),
-				BlockModelGenerators.plainVariant(side.apply(p)), BlockModelGenerators.plainVariant(sideAlt.apply(p)),
-				BlockModelGenerators.plainVariant(noSide.apply(p)),
-				BlockModelGenerators.plainVariant(noSideAlt.apply(p)));
+				return (c, p) -> p.generatePaneBlock(c.get(), BlockModelGenerators.plainVariant(post.apply(p)),
+					BlockModelGenerators.plainVariant(side.apply(p)), BlockModelGenerators.plainVariant(sideAlt.apply(p)),
+					BlockModelGenerators.plainVariant(noSide.apply(p)),
+					BlockModelGenerators.plainVariant(noSideAlt.apply(p)));
+			};
 
 		return glassPane(name, parent, itemSideTexture, topTexture, ConnectedGlassPaneBlock::new, renderType,
 			connectedTextures, stateProvider, colorless);
@@ -249,7 +255,7 @@ public class WindowGen {
 																						  Supplier<? extends Block> parent, Identifier sideTexture, Identifier topTexture,
 																						  NonNullFunction<Properties, G> factory, Supplier<Supplier<RenderType>> renderType,
 																						  NonNullConsumer<? super G> connectedTextures,
-																						  NonNullBiConsumer<DataGenContext<Block, G>, RegistrateBlockModelGenerator> stateProvider, boolean colorless) {
+																						  Supplier<NonNullBiConsumer<DataGenContext<Block, G>, RegistrateBlockModelGenerator>> stateProvider, boolean colorless) {
 		name += "_pane";
 
 
@@ -258,7 +264,7 @@ public class WindowGen {
 			.initialProperties(() -> Blocks.GLASS_PANE)
 			.properties(p -> p.mapColor(parent.get()
 				.defaultMapColor()))
-			.blockstate(() -> stateProvider)
+			.blockstate(() -> stateProvider.get())
 			.recipe((c, p) -> {
 				ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
 					.pattern("###")

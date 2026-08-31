@@ -1,0 +1,42 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+}
+
+group = "com.simibubi.create"
+version = "${mod_version}"
+
+repositories {
+    maven { url = "https://maven.neoforged.net/releases" }
+    maven { url = "https://libraries.minecraft.net" } // Mojang's logging, which the loader compiles against
+    mavenCentral()
+}
+
+dependencies {
+    // The loader ships the transformation SPI the processor plugs into
+    compileOnly("net.neoforged.fancymodloader:loader:${fml_version}")
+}
+
+jar {
+    archiveBaseName = "create-coremods"
+
+    manifest {
+        attributes([
+            "Automatic-Module-Name": "create.coremods",
+            "FMLModType"           : "LIBRARY"
+        ])
+    }
+}
+
+publishing {
+    publications {
+        register("maven", MavenPublication) {
+            artifactId = "create-coremods"
+            from components.java
+        }
+    }
+}
