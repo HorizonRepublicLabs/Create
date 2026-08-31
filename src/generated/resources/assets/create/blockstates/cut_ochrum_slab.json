@@ -4,7 +4,7 @@
       "model": "create:block/cut_ochrum_slab"
     },
     "type=double": {
-      "model": "create:block/cut_ochrum"
+      "model": "create:cut_ochrum"
     },
     "type=top": {
       "model": "create:block/cut_ochrum_slab_top"

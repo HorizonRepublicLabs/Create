@@ -4,7 +4,7 @@
       "model": "create:block/cut_asurine_slab"
     },
     "type=double": {
-      "model": "create:block/cut_asurine"
+      "model": "create:cut_asurine"
     },
     "type=top": {
       "model": "create:block/cut_asurine_slab_top"

@@ -4,7 +4,7 @@
       "model": "create:block/cut_scoria_brick_slab"
     },
     "type=double": {
-      "model": "create:block/cut_scoria_bricks"
+      "model": "create:cut_scoria_bricks"
     },
     "type=top": {
       "model": "create:block/cut_scoria_brick_slab_top"

@@ -4,7 +4,7 @@
       "model": "create:block/cut_veridium_slab"
     },
     "type=double": {
-      "model": "create:block/cut_veridium"
+      "model": "create:cut_veridium"
     },
     "type=top": {
       "model": "create:block/cut_veridium_slab_top"

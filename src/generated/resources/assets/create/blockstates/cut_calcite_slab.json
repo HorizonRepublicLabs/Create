@@ -4,7 +4,7 @@
       "model": "create:block/cut_calcite_slab"
     },
     "type=double": {
-      "model": "create:block/cut_calcite"
+      "model": "create:cut_calcite"
     },
     "type=top": {
       "model": "create:block/cut_calcite_slab_top"

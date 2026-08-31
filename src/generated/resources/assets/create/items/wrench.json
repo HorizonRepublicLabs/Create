@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "create:custom_rendered",
+    "base": "create:item/wrench/item",
+    "renderer": "create:wrench"
+  }
+}

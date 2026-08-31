@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "create:custom_rendered",
+    "base": "create:item/wand_of_symmetry/item",
+    "renderer": "create:wand_of_symmetry"
+  }
+}

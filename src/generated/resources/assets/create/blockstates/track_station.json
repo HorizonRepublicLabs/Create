@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "assembling=false": {
+      "model": "create:block/track_station/block"
+    },
+    "assembling=true": {
       "model": "create:block/track_station/block"
     }
   }

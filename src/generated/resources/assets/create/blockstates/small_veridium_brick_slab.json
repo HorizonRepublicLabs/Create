@@ -4,7 +4,7 @@
       "model": "create:block/small_veridium_brick_slab"
     },
     "type=double": {
-      "model": "create:block/small_veridium_bricks"
+      "model": "create:small_veridium_bricks"
     },
     "type=top": {
       "model": "create:block/small_veridium_brick_slab_top"

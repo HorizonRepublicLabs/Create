@@ -1,6 +1,63 @@
 {
   "variants": {
-    "": {
+    "blaze=fading,facing=east": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=fading,facing=north": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=fading,facing=south": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=fading,facing=west": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=kindled,facing=east": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=kindled,facing=north": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=kindled,facing=south": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=kindled,facing=west": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=none,facing=east": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=none,facing=north": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=none,facing=south": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=none,facing=west": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=seething,facing=east": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=seething,facing=north": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=seething,facing=south": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=seething,facing=west": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=smouldering,facing=east": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=smouldering,facing=north": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=smouldering,facing=south": {
+      "model": "create:block/blaze_burner/block"
+    },
+    "blaze=smouldering,facing=west": {
       "model": "create:block/blaze_burner/block"
     }
   }

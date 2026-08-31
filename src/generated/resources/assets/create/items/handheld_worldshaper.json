@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "create:custom_rendered",
+    "base": "create:item/handheld_worldshaper/item",
+    "renderer": "create:worldshaper"
+  }
+}

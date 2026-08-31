@@ -4,7 +4,7 @@
       "model": "create:block/cut_asurine_brick_slab"
     },
     "type=double": {
-      "model": "create:block/cut_asurine_bricks"
+      "model": "create:cut_asurine_bricks"
     },
     "type=top": {
       "model": "create:block/cut_asurine_brick_slab_top"

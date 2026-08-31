@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "create:custom_rendered",
+    "base": "create:item/potato_cannon/item",
+    "renderer": "create:potato_cannon"
+  }
+}

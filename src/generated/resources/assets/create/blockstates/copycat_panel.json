@@ -1,7 +1,22 @@
 {
   "variants": {
-    "": {
-      "model": "minecraft:block/air"
+    "facing=down": {
+      "model": "minecraft:air"
+    },
+    "facing=east": {
+      "model": "minecraft:air"
+    },
+    "facing=north": {
+      "model": "minecraft:air"
+    },
+    "facing=south": {
+      "model": "minecraft:air"
+    },
+    "facing=up": {
+      "model": "minecraft:air"
+    },
+    "facing=west": {
+      "model": "minecraft:air"
     }
   }
 }

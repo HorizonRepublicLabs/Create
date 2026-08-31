@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "create:custom_rendered",
+    "base": "create:item/linked_controller/item",
+    "renderer": "create:linked_controller"
+  }
+}

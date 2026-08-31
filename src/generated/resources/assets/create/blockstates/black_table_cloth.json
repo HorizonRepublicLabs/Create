@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "entity=false": {
+      "model": "create:block/black_table_cloth"
+    },
+    "entity=true": {
       "model": "create:block/black_table_cloth"
     }
   }

@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "create:custom_rendered",
+    "base": "create:item/extendo_grip/item",
+    "renderer": "create:extendo_grip"
+  }
+}

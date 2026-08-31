@@ -1,6 +1,9 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "create:block/cart_assembler/minecart_anchor"
+    },
+    "axis=z": {
       "model": "create:block/cart_assembler/minecart_anchor"
     }
   }

@@ -4,7 +4,7 @@
       "model": "create:block/cut_limestone_brick_slab"
     },
     "type=double": {
-      "model": "create:block/cut_limestone_bricks"
+      "model": "create:cut_limestone_bricks"
     },
     "type=top": {
       "model": "create:block/cut_limestone_brick_slab_top"

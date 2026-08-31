@@ -4,7 +4,7 @@
       "model": "create:block/cut_diorite_slab"
     },
     "type=double": {
-      "model": "create:block/cut_diorite"
+      "model": "create:cut_diorite"
     },
     "type=top": {
       "model": "create:block/cut_diorite_slab_top"

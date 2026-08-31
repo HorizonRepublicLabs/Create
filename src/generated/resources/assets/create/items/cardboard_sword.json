@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "create:custom_rendered",
+    "base": "create:item/cardboard_sword/item",
+    "renderer": "create:cardboard_sword"
+  }
+}

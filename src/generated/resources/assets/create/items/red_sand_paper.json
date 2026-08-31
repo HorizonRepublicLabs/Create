@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "create:custom_rendered",
+    "base": "create:item/red_sand_paper",
+    "renderer": "create:red_sand_paper"
+  }
+}
