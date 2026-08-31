@@ -8,6 +8,11 @@ import net.minecraft.world.item.Item;
 
 import net.minecraft.tags.TagKey;
 
+import java.util.Optional;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.ArrayList;
@@ -32,6 +37,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -66,8 +73,44 @@ public class ItemHelper {
 	/// Ingredient.of no longer takes a TagKey; it wants the HolderSet the tag
 	/// resolves to. Items are a static registry, so the built-in lookup is
 	/// enough and callers keep passing tags.
+	/// Recipe builders resolve the tags they are handed; during datagen those hold
+	/// nothing, so this hands back the named-but-empty set rather than failing.
+	public static HolderGetter<Item> itemLookup() {
+		return new HolderGetter<>() {
+			@Override
+			public Optional<Holder.Reference<Item>> get(ResourceKey<Item> key) {
+				return BuiltInRegistries.ITEM.get(key);
+			}
+
+			@Override
+			public Optional<HolderSet.Named<Item>> get(TagKey<Item> tag) {
+				return Optional.of(itemsIn(tag));
+			}
+		};
+	}
+
+	/// A processing recipe is not placeable, so its placement info lists nothing; its
+	/// own ingredients are what Create's machines and JEI read.
+	public static List<Ingredient> ingredientsOf(Recipe<?> recipe) {
+		if (recipe instanceof ProcessingRecipe<?, ?> processing)
+			return processing.getIngredients();
+		return recipe.placementInfo()
+			.ingredients();
+	}
+
 	public static Ingredient ingredientOf(TagKey<Item> tag) {
-		return Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tag));
+		return Ingredient.of(itemsIn(tag));
+	}
+
+	/// Datagen has no datapack, so no tag holds anything there; an ingredient still
+	/// wants to name the tag it was written against, and that is what gets written out.
+	public static HolderSet.Named<Item> itemsIn(TagKey<Item> tag) {
+		try {
+			return BuiltInRegistries.ITEM.get(tag)
+				.orElseGet(() -> HolderSet.emptyNamed(BuiltInRegistries.ITEM, tag));
+		} catch (IllegalStateException tagsNotBoundYet) {
+			return HolderSet.emptyNamed(BuiltInRegistries.ITEM, tag);
+		}
 	}
 
 

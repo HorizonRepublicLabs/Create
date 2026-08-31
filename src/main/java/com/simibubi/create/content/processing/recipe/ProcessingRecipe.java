@@ -42,7 +42,9 @@ public abstract class ProcessingRecipe<I extends RecipeInput, P extends Processi
 	protected NonNullList<Ingredient> ingredients;
 	protected NonNullList<ProcessingOutput> results;
 	protected NonNullList<SizedFluidIngredient> fluidIngredients;
-	protected NonNullList<FluidStack> fluidResults;
+	protected NonNullList<FluidResult> fluidResults;
+	@org.jetbrains.annotations.Nullable
+	private NonNullList<FluidStack> fluidResultStacks;
 	protected int processingDuration;
 	protected HeatCondition requiredHeat;
 
@@ -137,8 +139,14 @@ public abstract class ProcessingRecipe<I extends RecipeInput, P extends Processi
 		return results;
 	}
 
+	/// Built on first use: fluid components bind after recipes are read.
 	public NonNullList<FluidStack> getFluidResults() {
-		return fluidResults;
+		if (fluidResultStacks == null) {
+			NonNullList<FluidStack> stacks = NonNullList.create();
+			fluidResults.forEach(result -> stacks.add(result.toStack()));
+			fluidResultStacks = stacks;
+		}
+		return fluidResultStacks;
 	}
 
 	public List<ItemStack> getRollableResultsAsItemStacks() {

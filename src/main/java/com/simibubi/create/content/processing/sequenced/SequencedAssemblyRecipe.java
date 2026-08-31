@@ -36,6 +36,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -284,6 +285,10 @@ public class SequencedAssemblyRecipe implements Recipe<RecipeWrapper> {
 
 	public ItemStack getTransitionalItem() {
 		return transitionalItem.getStack();
+	}
+
+	public Item getTransitionalItemType() {
+		return transitionalItem.getItem();
 	}
 
 	public record SequencedAssembly(Identifier id, int step, float progress) {

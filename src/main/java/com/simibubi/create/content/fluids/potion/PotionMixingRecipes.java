@@ -166,8 +166,7 @@ public class PotionMixingRecipes {
 		Map<Item, List<MixingRecipe>> byItem = new HashMap<>();
 		Set<Item> processedItems = new HashSet<>();
 		for (RecipeHolder<MixingRecipe> recipe : all) {
-			for (Ingredient ingredient : recipe.value().placementInfo()
-			.ingredients()) {
+			for (Ingredient ingredient : ItemHelper.ingredientsOf(recipe.value())) {
 				for (ItemStack itemStack : ItemHelper.ingredientStacks(ingredient)) {
 					Item item = itemStack.getItem();
 					if (processedItems.add(item)) {

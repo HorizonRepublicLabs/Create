@@ -189,8 +189,7 @@ public class MechanicalPressBlockEntity extends BasinOperatingBlockEntity implem
 	public static boolean canCompress(Recipe<?> recipe) {
 		if (!(recipe instanceof CraftingRecipe) || !AllConfigs.server().recipes.allowShapedSquareInPress.get())
 			return false;
-		List<Ingredient> ingredients = recipe.placementInfo()
-			.ingredients();
+		List<Ingredient> ingredients = ItemHelper.ingredientsOf(recipe);
 		return (ingredients.size() == 4 || ingredients.size() == 9) && ItemHelper.matchAllIngredients(ingredients);
 	}
 

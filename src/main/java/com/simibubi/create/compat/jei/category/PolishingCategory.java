@@ -38,8 +38,7 @@ public class PolishingCategory extends CreateRecipeCategory<SandPaperPolishingRe
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 27, 29)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.placementInfo()
-			.ingredients().get(0));
+				.addIngredients(ItemHelper.ingredientsOf(recipe).get(0));
 
 		ProcessingOutput output = recipe.getRollableResults().get(0);
 		builder
@@ -54,8 +53,7 @@ public class PolishingCategory extends CreateRecipeCategory<SandPaperPolishingRe
 		AllGuiTextures.JEI_SHADOW.render(graphics, 61, 21);
 		AllGuiTextures.JEI_LONG_ARROW.render(graphics, 52, 32);
 
-		List<Ingredient> ingredients = recipe.placementInfo()
-			.ingredients();
+		List<Ingredient> ingredients = ItemHelper.ingredientsOf(recipe);
 		ItemStack[] matchingStacks = ItemHelper.ingredientStacks(ingredients.get(0)).toArray(new ItemStack[0]);
 		if (matchingStacks.length == 0)
 			return;

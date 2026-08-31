@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import org.joml.Matrix3x2fStack;
 
 import java.util.List;
@@ -44,8 +45,7 @@ public abstract class ProcessingViaFanCategory<T extends Recipe<?>> extends Crea
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 21, 48)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.placementInfo()
-			.ingredients().get(0));
+				.addIngredients(ItemHelper.ingredientsOf(recipe).get(0));
 		builder
 				.addSlot(RecipeIngredientRole.OUTPUT, 141, 48)
 				.setBackground(getRenderedSlot(), -1, -1)
@@ -110,8 +110,7 @@ public abstract class ProcessingViaFanCategory<T extends Recipe<?>> extends Crea
 			builder
 					.addSlot(RecipeIngredientRole.INPUT, 5 * xOffsetAmount + 21, 48)
 					.setBackground(getRenderedSlot(), -1, -1)
-					.addIngredients(recipe.placementInfo()
-			.ingredients().get(0));
+					.addIngredients(ItemHelper.ingredientsOf(recipe).get(0));
 
 			int i = 0;
 			boolean excessive = results.size() > 9;

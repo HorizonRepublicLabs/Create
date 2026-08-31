@@ -76,6 +76,12 @@ public class ProcessingOutput {
 		return stack;
 	}
 
+	/// The item alone, for callers that only need its identity: a stack cannot be
+	/// built until item components bind, which happens after recipes are read.
+	public Item getItem() {
+		return item;
+	}
+
 	public ItemStack getStack() {
 		return getStack(count);
 	}
@@ -119,9 +125,16 @@ public class ProcessingOutput {
 		compat -> new ProcessingOutput(compat.getFirst(), compat.getSecond(), chance)
 	)));
 
+	/// The unregistered-id branch is there for datagen against other mods; it must not
+	/// swallow a fluid result, whose own codec cannot parse until fluid components bind.
+	private static final Codec<Identifier> ITEM_ID_CODEC = Identifier.CODEC.validate(
+		id -> BuiltInRegistries.FLUID.containsKey(id)
+			? DataResult.error(() -> "Not an item: " + id)
+			: DataResult.success(id));
+
 	private static final Codec<Either<Item, Identifier>> ITEM_CODEC = Codec.either(
 		BuiltInRegistries.ITEM.byNameCodec(),
-		Identifier.CODEC
+		ITEM_ID_CODEC
 	);
 
 	public static final Codec<ProcessingOutput> CODEC_NEW = RecordCodecBuilder.create(i -> i.group(

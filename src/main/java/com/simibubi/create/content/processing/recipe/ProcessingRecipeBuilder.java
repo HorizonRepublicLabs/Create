@@ -1,5 +1,6 @@
 package com.simibubi.create.content.processing.recipe;
 
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.Collections;
@@ -95,7 +96,9 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 	}
 
 	public S withFluidOutputs(NonNullList<FluidStack> outputs) {
-		params.fluidResults = outputs;
+		NonNullList<FluidResult> results = NonNullList.create();
+		outputs.forEach(output -> results.add(FluidResult.of(output)));
+		params.fluidResults = results;
 		return self();
 	}
 
@@ -160,10 +163,20 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 		return require(SizedFluidIngredient.of(fluid.getSource(), amount));
 	}
 
-	/// A fluid ingredient is built from a holder set now rather than a tag key.
+	/// A fluid ingredient is built from a holder set now rather than a tag key, and
+	/// datagen has no datapack to fill one, so the set is named but empty there.
 	public S require(TagKey<Fluid> fluidTag, int amount) {
-		return require(new SizedFluidIngredient(FluidIngredient.of(BuiltInRegistries.FLUID.get(fluidTag)
-			.orElseThrow()), amount));
+		return require(new SizedFluidIngredient(FluidIngredient.of(fluidsIn(fluidTag)), amount));
+	}
+
+	private static HolderSet<Fluid> fluidsIn(TagKey<Fluid> tag) {
+		try {
+			return BuiltInRegistries.FLUID.get(tag)
+				.map(bound -> (HolderSet<Fluid>) bound)
+				.orElseGet(() -> HolderSet.emptyNamed(BuiltInRegistries.FLUID, tag));
+		} catch (IllegalStateException tagsNotBoundYet) {
+			return HolderSet.emptyNamed(BuiltInRegistries.FLUID, tag);
+		}
 	}
 
 	public S require(SizedFluidIngredient ingredient) {
@@ -224,7 +237,7 @@ public abstract class ProcessingRecipeBuilder<P extends ProcessingRecipeParams, 
 	}
 
 	public S output(FluidStack fluidStack) {
-		params.fluidResults.add(fluidStack);
+		params.fluidResults.add(FluidResult.of(fluidStack));
 		return self();
 	}
 

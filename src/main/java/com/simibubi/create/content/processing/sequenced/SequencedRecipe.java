@@ -43,12 +43,13 @@ public class SequencedRecipe<T extends ProcessingRecipe<?, ?>> {
 	}
 
 	void initFromSequencedAssembly(SequencedAssemblyRecipe parent, boolean isFirst) {
-		if (getAsAssemblyRecipe().supportsAssembly()) {
-			Ingredient transit = Ingredient.of(parent.getTransitionalItem()
-				.getItem());
-			wrapped.placementInfo()
-			.ingredients()
-					.set(0, isFirst ? CompoundIngredient.of(transit, parent.getIngredient()) : transit);
-		}
+		if (!getAsAssemblyRecipe().supportsAssembly())
+			return;
+
+		// A recipe's placement info is derived and immutable now; the step's own
+		// ingredient list is what the machines read anyway.
+		Ingredient transit = Ingredient.of(parent.getTransitionalItemType());
+		wrapped.getIngredients()
+			.set(0, isFirst ? CompoundIngredient.of(transit, parent.getIngredient()) : transit);
 	}
 }

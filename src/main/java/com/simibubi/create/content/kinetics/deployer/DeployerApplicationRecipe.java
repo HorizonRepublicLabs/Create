@@ -46,8 +46,7 @@ public class DeployerApplicationRecipe extends ItemApplicationRecipe implements 
 				sandpaperRecipe.id().identifier().getPath() + "_using_deployer"
 		);
 		DeployerApplicationRecipe recipe = new ItemApplicationRecipe.Builder<>(DeployerApplicationRecipe::new, id)
-				.require(sandpaperRecipe.value().placementInfo()
-			.ingredients()
+				.require(ItemHelper.ingredientsOf(sandpaperRecipe.value())
 						.get(0))
 						.require(AllItemTags.SANDPAPER.tag)
 						.output(RecipeResult.of(sandpaperRecipe.value(), Minecraft.getInstance().level.registryAccess()))

@@ -27,7 +27,7 @@ public class ProcessingRecipeParams {
 	protected NonNullList<Ingredient> ingredients;
 	protected NonNullList<ProcessingOutput> results;
 	protected NonNullList<SizedFluidIngredient> fluidIngredients;
-	protected NonNullList<FluidStack> fluidResults;
+	protected NonNullList<FluidResult> fluidResults;
 	protected int processingDuration;
 	protected HeatCondition requiredHeat;
 
@@ -44,7 +44,7 @@ public class ProcessingRecipeParams {
 		return RecordCodecBuilder.mapCodec(instance -> instance.group(
 			Codec.either(CreateCodecs.SIZED_FLUID_INGREDIENT, Ingredient.CODEC).listOf().fieldOf("ingredients")
 				.forGetter(ProcessingRecipeParams::ingredients),
-			Codec.either(FluidStack.CODEC, ProcessingOutput.CODEC).listOf().fieldOf("results")
+			Codec.either(FluidResult.CODEC, ProcessingOutput.CODEC).listOf().fieldOf("results")
 				.forGetter(ProcessingRecipeParams::results),
 			Codec.INT.optionalFieldOf("processing_time", 0)
 				.forGetter(ProcessingRecipeParams::processingDuration),
@@ -82,8 +82,8 @@ public class ProcessingRecipeParams {
 		return ingredients;
 	}
 
-	protected final List<Either<FluidStack, ProcessingOutput>> results() {
-		List<Either<FluidStack, ProcessingOutput>> results =
+	protected final List<Either<FluidResult, ProcessingOutput>> results() {
+		List<Either<FluidResult, ProcessingOutput>> results =
 			new ArrayList<>(this.results.size() + this.fluidResults.size());
 		this.results.forEach(result -> results.add(Either.right(result)));
 		this.fluidResults.forEach(result -> results.add(Either.left(result)));
@@ -102,7 +102,7 @@ public class ProcessingRecipeParams {
 		CatnipStreamCodecBuilders.nonNullList(Ingredient.CONTENTS_STREAM_CODEC).encode(buffer, ingredients);
 		CatnipStreamCodecBuilders.nonNullList(SizedFluidIngredient.STREAM_CODEC).encode(buffer, fluidIngredients);
 		CatnipStreamCodecBuilders.nonNullList(ProcessingOutput.STREAM_CODEC).encode(buffer, results);
-		CatnipStreamCodecBuilders.nonNullList(FluidStack.STREAM_CODEC).encode(buffer, fluidResults);
+		CatnipStreamCodecBuilders.nonNullList(FluidResult.STREAM_CODEC).encode(buffer, fluidResults);
 		ByteBufCodecs.VAR_INT.encode(buffer, processingDuration);
 		HeatCondition.STREAM_CODEC.encode(buffer, requiredHeat);
 	}
@@ -111,7 +111,7 @@ public class ProcessingRecipeParams {
 		ingredients = CatnipStreamCodecBuilders.nonNullList(Ingredient.CONTENTS_STREAM_CODEC).decode(buffer);
 		fluidIngredients = CatnipStreamCodecBuilders.nonNullList(SizedFluidIngredient.STREAM_CODEC).decode(buffer);
 		results = CatnipStreamCodecBuilders.nonNullList(ProcessingOutput.STREAM_CODEC).decode(buffer);
-		fluidResults = CatnipStreamCodecBuilders.nonNullList(FluidStack.STREAM_CODEC).decode(buffer);
+		fluidResults = CatnipStreamCodecBuilders.nonNullList(FluidResult.STREAM_CODEC).decode(buffer);
 		processingDuration = ByteBufCodecs.VAR_INT.decode(buffer);
 		requiredHeat = HeatCondition.STREAM_CODEC.decode(buffer);
 	}

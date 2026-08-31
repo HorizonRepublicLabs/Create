@@ -75,8 +75,7 @@ public class BlueprintItem extends Item {
 	}
 
 	public static void assignCompleteRecipe(Level level, ItemStackHandler inv, Recipe<?> recipe) {
-		List<Ingredient> ingredients = recipe.placementInfo()
-			.ingredients();
+		List<Ingredient> ingredients = ItemHelper.ingredientsOf(recipe);
 
 		for (int i = 0; i < 9; i++)
 			inv.setStackInSlot(i, ItemStack.EMPTY);

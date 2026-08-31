@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.compat.jei.ConversionRecipe;
@@ -36,8 +37,7 @@ public class MysteriousItemConversionCategory extends CreateRecipeCategory<Conve
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 27, 17)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.placementInfo()
-			.ingredients().get(0));
+				.addIngredients(ItemHelper.ingredientsOf(recipe).get(0));
 		builder
 				.addSlot(RecipeIngredientRole.OUTPUT, 132, 17)
 				.setBackground(getRenderedSlot(), -1, -1)

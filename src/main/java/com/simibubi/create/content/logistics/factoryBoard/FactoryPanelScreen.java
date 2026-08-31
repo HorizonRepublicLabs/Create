@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.recipe.RecipeLookup;
 
 import com.simibubi.create.foundation.recipe.RecipeResult;
@@ -112,8 +113,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 	public static List<BigItemStack> convertRecipeToPackageOrderContext(CraftingRecipe availableCraftingRecipe, List<BigItemStack> inputs, boolean respectAmounts) {
 		List<BigItemStack> craftingIngredients = new ArrayList<>();
 		BigItemStack emptyIngredient = new BigItemStack(ItemStack.EMPTY, 1);
-		List<Ingredient> ingredients = availableCraftingRecipe.placementInfo()
-			.ingredients();
+		List<Ingredient> ingredients = ItemHelper.ingredientsOf(availableCraftingRecipe);
 		List<BigItemStack> mutableInputs = BigItemStack.duplicateWrappers(inputs);
 
 		int width = Math.min(3, ingredients.size());
@@ -611,8 +611,7 @@ public class FactoryPanelScreen extends AbstractSimiScreen {
 					return false;
 
 				Set<Item> itemsUsed = new HashSet<>();
-				for (Ingredient ingredient : r.value().placementInfo()
-			.ingredients()) {
+				for (Ingredient ingredient : ItemHelper.ingredientsOf(r.value())) {
 					if (ingredient.isEmpty())
 						continue;
 					boolean available = false;

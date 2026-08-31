@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.recipe;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import java.util.function.Predicate;
@@ -30,9 +31,7 @@ public class RecipeConditions {
 	}
 
 	public static Predicate<RecipeHolder<? extends Recipe<?>>> firstIngredientMatches(ItemStack stack) {
-		return r -> !r.value().placementInfo()
-			.ingredients().isEmpty() && r.value().placementInfo()
-			.ingredients().get(0).test(stack);
+		return r -> !ItemHelper.ingredientsOf(r.value()).isEmpty() && ItemHelper.ingredientsOf(r.value()).get(0).test(stack);
 	}
 
 	public static Predicate<RecipeHolder<? extends Recipe<?>>> outputMatchesFilter(FilteringBehaviour filtering) {

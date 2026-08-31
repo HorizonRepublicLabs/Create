@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +33,7 @@ public class CrushingCategory extends CreateRecipeCategory<AbstractCrushingRecip
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 51, 3)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.placementInfo()
-			.ingredients().get(0));
+				.addIngredients(ItemHelper.ingredientsOf(recipe).get(0));
 
 		int xOffset = getBackground().getWidth() / 2;
 		int yOffset = 86;

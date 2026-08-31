@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.jei.category.sequencedAssembly;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.fluid.FluidHelper;
 
 import org.joml.Matrix3x2fStack;
@@ -111,8 +112,7 @@ public abstract class SequencedAssemblySubCategory {
 			IRecipeSlotBuilder slot = builder
 					.addSlot(RecipeIngredientRole.INPUT, x + 4, 15)
 					.setBackground(CreateRecipeCategory.getRenderedSlot(), -1, -1)
-					.addIngredients(recipe.getRecipe().placementInfo()
-			.ingredients().get(1));
+					.addIngredients(ItemHelper.ingredientsOf(recipe.getRecipe()).get(1));
 
 			if (recipe.getAsAssemblyRecipe() instanceof DeployerApplicationRecipe deployerRecipe && deployerRecipe.shouldKeepHeldItem()) {
 				slot.addRichTooltipCallback(

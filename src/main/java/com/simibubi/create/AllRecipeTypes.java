@@ -85,8 +85,12 @@ public enum AllRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
 	MECHANICAL_CRAFTING(MechanicalCraftingRecipe.Serializer::create),
 	SEQUENCED_ASSEMBLY(() -> new SequencedAssemblyRecipeSerializer().asSerializer()),
 
-	TOOLBOX_DYEING(() -> new RecipeSerializer<>(MapCodec.unit(ToolboxDyeingRecipe::new), StreamCodec.unit(new ToolboxDyeingRecipe())), () -> RecipeType.CRAFTING, false),
-	ITEM_COPYING(() -> new RecipeSerializer<>(MapCodec.unit(ItemCopyingRecipe::new), StreamCodec.unit(new ItemCopyingRecipe())), () -> RecipeType.CRAFTING, false);
+	// These recipes carry no data, but a unit stream codec only encodes the one
+	// instance it was given, and every parsed recipe is a new one
+	TOOLBOX_DYEING(() -> new RecipeSerializer<>(MapCodec.unit(ToolboxDyeingRecipe::new),
+		StreamCodec.of((buffer, recipe) -> {}, buffer -> new ToolboxDyeingRecipe())), () -> RecipeType.CRAFTING, false),
+	ITEM_COPYING(() -> new RecipeSerializer<>(MapCodec.unit(ItemCopyingRecipe::new),
+		StreamCodec.of((buffer, recipe) -> {}, buffer -> new ItemCopyingRecipe())), () -> RecipeType.CRAFTING, false);
 
 	public static final Predicate<RecipeHolder<?>> CAN_BE_AUTOMATED = r -> !r.id()
 			.identifier()

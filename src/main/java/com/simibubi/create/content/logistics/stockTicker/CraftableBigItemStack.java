@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import java.util.List;
@@ -21,8 +22,7 @@ public class CraftableBigItemStack extends BigItemStack {
 	}
 
 	public List<Ingredient> getIngredients() {
-		return recipe.placementInfo()
-			.ingredients();
+		return ItemHelper.ingredientsOf(recipe);
 	}
 
 	public int getOutputCount(Level level) {

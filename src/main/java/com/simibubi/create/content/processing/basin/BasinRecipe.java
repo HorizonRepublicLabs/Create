@@ -1,5 +1,6 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import com.simibubi.create.foundation.item.ItemCaps;
@@ -88,8 +89,7 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 		List<ItemStack> recipeOutputItems = new ArrayList<>();
 		List<FluidStack> recipeOutputFluids = new ArrayList<>();
 
-		List<Ingredient> ingredients = new LinkedList<>(recipe.placementInfo()
-			.ingredients());
+		List<Ingredient> ingredients = new LinkedList<>(ItemHelper.ingredientsOf(recipe));
 		List<SizedFluidIngredient> fluidIngredients =
 			isBasinRecipe ? ((BasinRecipe) recipe).getFluidIngredients() : Collections.emptyList();
 
@@ -192,9 +192,7 @@ public class BasinRecipe extends StandardProcessingRecipe<RecipeInput> {
 	public static RecipeHolder<BasinRecipe> convertShapeless(RecipeHolder<?> recipe) {
 		BasinRecipe basinRecipe =
 			new Builder<>(BasinRecipe::new, recipe.id()
-				.identifier()).withItemIngredients(recipe.value()
-				.placementInfo()
-			.ingredients())
+				.identifier()).withItemIngredients(ItemHelper.ingredientsOf(recipe.value()))
 				.withSingleItemOutput(RecipeResult.of(recipe.value(), Minecraft.getInstance().level.registryAccess()))
 				.build();
 		return new RecipeHolder<>(recipe.id(), basinRecipe);

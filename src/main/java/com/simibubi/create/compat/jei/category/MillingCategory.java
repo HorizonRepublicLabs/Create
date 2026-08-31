@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.compat.jei.category.animations.AnimatedMillstone;
 import com.simibubi.create.content.kinetics.crusher.AbstractCrushingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
@@ -27,8 +28,7 @@ public class MillingCategory extends CreateRecipeCategory<AbstractCrushingRecipe
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 15, 9)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.placementInfo()
-			.ingredients().get(0));
+				.addIngredients(ItemHelper.ingredientsOf(recipe).get(0));
 
 		List<ProcessingOutput> results = recipe.getRollableResults();
 		boolean single = results.size() == 1;

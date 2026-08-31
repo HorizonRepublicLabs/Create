@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.jei;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.recipe.RecipeResult;
 
 import net.createmod.catnip.api.platform.services.PlatformHelper;
@@ -84,8 +85,7 @@ public class StockKeeperTransferHandler implements IUniversalRecipeTransferHandl
 
 		Recipe<?> recipe = recipeHolder.value();
 
-		if (recipe.placementInfo()
-			.ingredients().size() > 9)
+		if (ItemHelper.ingredientsOf(recipe).size() > 9)
 			return RecipeTransferErrorInternal.INSTANCE;
 
 		for (CraftableBigItemStack cbis : screen.recipesToOrder)

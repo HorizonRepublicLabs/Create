@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import java.util.List;
 
 import com.simibubi.create.compat.jei.category.animations.AnimatedBlazeBurner;
@@ -49,8 +50,7 @@ public class PackingCategory extends BasinCategory {
 		}
 
 		int i = 0;
-		List<Ingredient> ingredients = recipe.placementInfo()
-			.ingredients();
+		List<Ingredient> ingredients = ItemHelper.ingredientsOf(recipe);
 		int size = ingredients.size();
 		int rows = size == 4 ? 2 : 3;
 		while (i < size) {

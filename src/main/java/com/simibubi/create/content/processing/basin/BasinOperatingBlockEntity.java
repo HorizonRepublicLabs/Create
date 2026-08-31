@@ -1,5 +1,6 @@
 package com.simibubi.create.content.processing.basin;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.fluid.FluidCaps;
 
 import com.simibubi.create.foundation.item.ItemCaps;
@@ -164,9 +165,7 @@ public abstract class BasinOperatingBlockEntity extends KineticBlockEntity {
 					list.add(r.value());
 		}
 
-		list.sort((r1, r2) -> r2.placementInfo()
-			.ingredients().size() - r1.placementInfo()
-			.ingredients().size());
+		list.sort((r1, r2) -> ItemHelper.ingredientsOf(r2).size() - ItemHelper.ingredientsOf(r1).size());
 
 		return list;
 	}

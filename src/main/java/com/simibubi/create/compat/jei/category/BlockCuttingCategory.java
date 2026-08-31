@@ -45,8 +45,7 @@ public class BlockCuttingCategory extends CreateRecipeCategory<CondensedBlockCut
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 5, 5)
 				.setBackground(getRenderedSlot(), -1 , -1)
-				.addItemStacks(ItemHelper.ingredientStacks(recipe.placementInfo()
-					.ingredients()
+				.addItemStacks(ItemHelper.ingredientStacks(ItemHelper.ingredientsOf(recipe)
 					.get(0)));
 
 		int i = 0;
@@ -74,7 +73,9 @@ public class BlockCuttingCategory extends CreateRecipeCategory<CondensedBlockCut
 		List<ItemStack> outputs = new ArrayList<>();
 
 		public CondensedBlockCuttingRecipe(Ingredient ingredient) {
-			super(new Recipe.CommonInfo(true), ingredient, new ItemStackTemplate(Items.AIR));
+			// A stack template may not name air; this one stands in for the real outputs,
+			// which the category draws from getCondensedOutputs.
+			super(new Recipe.CommonInfo(true), ingredient, new ItemStackTemplate(Items.BARRIER));
 		}
 
 		public void addOutput(ItemStack stack) {
@@ -112,11 +113,9 @@ public class BlockCuttingCategory extends CreateRecipeCategory<CondensedBlockCut
 	public static List<RecipeHolder<CondensedBlockCuttingRecipe>> condenseRecipes(List<RecipeHolder<?>> stoneCuttingRecipes) {
 		List<RecipeHolder<CondensedBlockCuttingRecipe>> condensed = new ArrayList<>();
 		Recipes: for (RecipeHolder<?> recipe : stoneCuttingRecipes) {
-			Ingredient i1 = recipe.value().placementInfo()
-			.ingredients().get(0);
+			Ingredient i1 = ItemHelper.ingredientsOf(recipe.value()).get(0);
 			for (RecipeHolder<CondensedBlockCuttingRecipe> condensedRecipe : condensed) {
-				if (ItemHelper.matchIngredients(i1, condensedRecipe.value().placementInfo()
-			.ingredients().get(0))) {
+				if (ItemHelper.matchIngredients(i1, ItemHelper.ingredientsOf(condensedRecipe.value()).get(0))) {
 					condensedRecipe.value().addOutput(getResultItem(recipe.value()));
 					continue Recipes;
 				}

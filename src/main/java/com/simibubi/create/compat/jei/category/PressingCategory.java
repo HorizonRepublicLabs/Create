@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.jei.category;
 
+import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.compat.jei.category.animations.AnimatedPress;
 import com.simibubi.create.content.kinetics.press.PressingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingOutput;
@@ -27,8 +28,7 @@ public class PressingCategory extends CreateRecipeCategory<PressingRecipe> {
 		builder
 				.addSlot(RecipeIngredientRole.INPUT, 27, 51)
 				.setBackground(getRenderedSlot(), -1, -1)
-				.addIngredients(recipe.placementInfo()
-			.ingredients().get(0));
+				.addIngredients(ItemHelper.ingredientsOf(recipe).get(0));
 
 		List<ProcessingOutput> results = recipe.getRollableResults();
 		int i = 0;
