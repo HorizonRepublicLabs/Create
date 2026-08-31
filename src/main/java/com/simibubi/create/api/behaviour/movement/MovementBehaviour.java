@@ -1,5 +1,6 @@
 package com.simibubi.create.api.behaviour.movement;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval;
@@ -20,8 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 /**
@@ -113,11 +112,11 @@ public interface MovementBehaviour {
 		return false;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	default void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	@Nullable
 	default ActorVisual createVisual(VisualizationContext visualizationContext, VirtualRenderWorld simulationWorld,
 		MovementContext movementContext) {

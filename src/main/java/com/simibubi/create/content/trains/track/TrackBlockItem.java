@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import com.simibubi.create.AllBlocks;
@@ -32,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -167,7 +167,7 @@ public class TrackBlockItem extends BlockItem {
 	}
 
 	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void sendExtenderPacket(PlayerInteractEvent.RightClickBlock event) {
 		ItemStack stack = event.getItemStack();
 		if (!event.getLevel().isClientSide())

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.schedule.condition;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,8 +17,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class CargoThresholdCondition extends LazyTickedScheduleCondition {
 	public static enum Ops {
@@ -116,7 +115,7 @@ public abstract class CargoThresholdCondition extends LazyTickedScheduleConditio
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(ModularGuiLineBuilder builder) {
 		builder.addSelectionScrollInput(0, 24, (i, l) -> {
 			i.forOptions(Ops.translatedOptions())

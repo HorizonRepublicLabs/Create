@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.item.filter.attribute;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public interface ItemAttribute {
 	Codec<ItemAttribute> CODEC = CreateBuiltInRegistries.ITEM_ATTRIBUTE_TYPE.byNameCodec().dispatch(ItemAttribute::getType, ItemAttributeType::codec);
@@ -51,7 +50,7 @@ public interface ItemAttribute {
 
 	ItemAttributeType getType();
 
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	default MutableComponent format(boolean inverted) {
 		return CreateLang.translateDirect("item_attributes." + getTranslationKey() + (inverted ? ".inverted" : ""),
 			getTranslationParameters());

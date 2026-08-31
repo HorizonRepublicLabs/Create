@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.signal;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -19,8 +20,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record SignalEdgeGroupPacket(List<UUID> ids, List<EdgeGroupColor> colors, boolean add) implements CreatePacketPayload {
 	public static final StreamCodec<FriendlyByteBuf, SignalEdgeGroupPacket> STREAM_CODEC = StreamCodec.composite(
@@ -34,7 +33,7 @@ public record SignalEdgeGroupPacket(List<UUID> ids, List<EdgeGroupColor> colors,
 		this(ImmutableList.of(id), ImmutableList.of(color), true);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		Map<UUID, SignalEdgeGroup> signalEdgeGroups = CreateClient.RAILWAYS.signalEdgeGroups;
 		for (int i = 0; i < ids.size(); i++) {

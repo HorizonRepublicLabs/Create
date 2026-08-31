@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink.source;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.content.kinetics.gauge.StressGaugeBlockEntity;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
 import com.simibubi.create.content.trains.display.FlapDisplayBlockEntity;
@@ -8,8 +9,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.lang.LangBuilder;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class KineticStressDisplaySource extends PercentOrProgressBarDisplaySource {
 
@@ -61,7 +60,7 @@ public class KineticStressDisplaySource extends PercentOrProgressBarDisplaySourc
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(DisplayLinkContext context, ModularGuiLineBuilder builder,
 		boolean isFirstLine) {
 		super.initConfigurationWidgets(context, builder, isFirstLine);

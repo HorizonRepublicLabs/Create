@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.symmetryWand.mirror;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +29,6 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class SymmetryMirror {
 	public static final String EMPTY = "empty";
@@ -115,7 +114,7 @@ public abstract class SymmetryMirror {
 
 	public abstract String typeName();
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public abstract PartialModel getModel();
 
 	public void applyModelTransform(PoseStack ms) {}

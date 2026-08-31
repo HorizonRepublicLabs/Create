@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.level.redstone.Orientation;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -54,8 +55,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ElevatorContactBlock extends WrenchableDirectionalBlock
 	implements IBE<ElevatorContactBlockEntity>, SpecialBlockItemRequirement {
@@ -251,7 +250,7 @@ public class ElevatorContactBlock extends WrenchableDirectionalBlock
 		return InteractionResult.SUCCESS;
 	}
 
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	protected void displayScreen(ElevatorContactBlockEntity be, Player player) {
 		if (player instanceof LocalPlayer)
 			ScreenOpener

@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.fluid;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.fluid.FluidAppearance;
@@ -22,13 +23,11 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 
-@OnlyIn(Dist.CLIENT)
+@ClientOnly
 public class FluidRenderer {
 	public static void renderFluidStream(FluidStack fluidStack, Direction direction, float radius, float progress,
 		boolean inbound, SuperRenderTypeBuffer buffer, PoseStack ms, int light) {

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.processing.burner;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.minecraft.core.Direction;
@@ -64,8 +65,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.util.FakePlayer;
 
 @ParametersAreNonnullByDefault
@@ -252,7 +251,7 @@ public class BlazeBurnerBlock extends HorizontalDirectionalBlock implements IBE<
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
 		if (random.nextInt(10) != 0)
 			return;

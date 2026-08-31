@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink;
 
+import com.simibubi.create.foundation.ClientOnly;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.world.level.redstone.Orientation;
@@ -48,8 +49,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class DisplayLinkBlock extends WrenchableDirectionalBlock implements IBE<DisplayLinkBlockEntity> {
 
@@ -154,7 +153,7 @@ public class DisplayLinkBlock extends WrenchableDirectionalBlock implements IBE<
 		return InteractionResult.SUCCESS;
 	}
 
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	protected void displayScreen(DisplayLinkBlockEntity be, Player player) {
 		if (!(player instanceof LocalPlayer))
 			return;

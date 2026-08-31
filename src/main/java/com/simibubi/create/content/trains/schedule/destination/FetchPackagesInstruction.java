@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.schedule.destination;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.gui.widget.FilteredEditBox;
 
 import java.util.ArrayList;
@@ -35,8 +36,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 
 public class FetchPackagesInstruction extends TextScheduleInstruction {
@@ -84,7 +83,7 @@ public class FetchPackagesInstruction extends TextScheduleInstruction {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	protected void modifyEditBox(FilteredEditBox box) {
 		box.setFilter(s -> StringUtils.countMatches(s, '*') <= 3);
 	}

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.base;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import static net.minecraft.ChatFormatting.GOLD;
@@ -51,8 +52,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation, IHaveHoveringInformation {
 
@@ -597,7 +596,7 @@ public class KineticBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> VisualizationHelper.queueUpdate(this));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void tickAudio() {
 		float componentSpeed = Math.abs(getSpeed());
 		if (componentSpeed == 0)

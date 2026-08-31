@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.glue;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.entity.LivingEntity;
 
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -20,8 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.minecraft.util.TriState;
@@ -56,7 +55,7 @@ public class SuperGlueItem extends Item {
 		return false;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void spawnParticles(Level world, BlockPos pos, Direction direction, boolean fullBlock) {
 		Vec3 vec = Vec3.atLowerCornerOf(direction.getUnitVec3i());
 		Vec3 plane = VecHelper.axisAlingedPlaneOf(vec);

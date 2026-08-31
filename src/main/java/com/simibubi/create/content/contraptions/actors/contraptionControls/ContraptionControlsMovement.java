@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.actors.contraptionControls;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
@@ -18,8 +19,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ContraptionControlsMovement implements MovementBehaviour {
 
@@ -142,7 +141,7 @@ public class ContraptionControlsMovement implements MovementBehaviour {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void renderInContraption(MovementContext ctx, VirtualRenderWorld renderWorld, ContraptionMatrices matrices,
 		SuperRenderTypeBuffer buffer) {
 		ContraptionControlsRenderer.renderInContraption(ctx, renderWorld, matrices, buffer);

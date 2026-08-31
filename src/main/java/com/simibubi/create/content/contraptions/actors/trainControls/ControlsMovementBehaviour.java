@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.actors.trainControls;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.Collection;
@@ -18,8 +19,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ControlsMovementBehaviour implements MovementBehaviour {
 
@@ -55,7 +54,7 @@ public class ControlsMovementBehaviour implements MovementBehaviour {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		if (!(context.temporaryData instanceof LeverAngles angles))

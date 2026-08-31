@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.function.Consumer;
@@ -31,8 +32,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
@@ -106,12 +105,12 @@ public class LinkedControllerItem extends Item implements MenuProvider {
 		return InteractionResult.PASS;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void toggleBindMode(BlockPos pos) {
 		LinkedControllerClientHandler.toggleBindMode(pos);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void toggleActive() {
 		LinkedControllerClientHandler.toggle();
 	}

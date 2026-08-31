@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.redstoneRequester;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -13,8 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record RedstoneRequesterEffectPacket(BlockPos pos, boolean success) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, RedstoneRequesterEffectPacket> STREAM_CODEC = StreamCodec.composite(
@@ -28,7 +27,7 @@ public record RedstoneRequesterEffectPacket(BlockPos pos, boolean success) imple
 		return AllPackets.REDSTONE_REQUESTER_EFFECT;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		if (Minecraft.getInstance().level.getBlockEntity(pos) instanceof RedstoneRequesterBlockEntity plbe)
 			plbe.playEffect(success);

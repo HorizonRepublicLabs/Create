@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.bogey;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import net.createmod.catnip.api.platform.services.PlatformHelper;
@@ -25,8 +26,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class BogeyStyle {
 	public final Identifier id;
@@ -38,7 +37,7 @@ public class BogeyStyle {
 	public final CompoundTag defaultData;
 	private final Map<BogeySizes.BogeySize, Supplier<? extends AbstractBogeyBlock<?>>> sizes;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private Map<BogeySizes.BogeySize, SizeRenderer> sizeRenderers;
 
 	public BogeyStyle(Identifier id, Identifier cycleGroup, Component displayName,
@@ -83,7 +82,7 @@ public class BogeyStyle {
 				.orElse((AbstractBogeyBlock) getBlockForSize(currentSize));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void render(BogeySize size, float partialTick, PoseStack poseStack, SuperRenderTypeBuffer buffers, int light, int overlay, float wheelAngle, @Nullable CompoundTag bogeyData, boolean inContraption) {
 		if (bogeyData == null)
 			bogeyData = new CompoundTag();
@@ -96,7 +95,7 @@ public class BogeyStyle {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	@Nullable
 	public BogeyVisual createVisual(BogeySize size, VisualizationContext ctx, float partialTick, boolean inContraption) {
 		SizeRenderer renderer = sizeRenderers.get(size);
@@ -106,7 +105,7 @@ public class BogeyStyle {
 		return null;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public record SizeRenderer(BogeyRenderer renderer, BogeyVisualizer visualizer) {
 	}
 

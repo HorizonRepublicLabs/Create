@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.box;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
@@ -20,8 +21,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record PackageDestroyPacket(Vec3 location, ItemStack box) implements CreatePacketPayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, PackageDestroyPacket> STREAM_CODEC = StreamCodec.composite(
@@ -35,7 +34,7 @@ public record PackageDestroyPacket(Vec3 location, ItemStack box) implements Crea
 		return AllPackets.PACKAGE_DESTROYED;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		ClientLevel level = Minecraft.getInstance().level;
 		Vec3 motion = VecHelper.offsetRandomly(Vec3.ZERO, level.getRandom(), .125f);

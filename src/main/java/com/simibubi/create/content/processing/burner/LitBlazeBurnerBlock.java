@@ -1,5 +1,6 @@
 package com.simibubi.create.content.processing.burner;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.core.Direction;
 
 import com.simibubi.create.AllBlocks;
@@ -33,8 +34,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.ItemAbility;
 
 public class LitBlazeBurnerBlock extends Block implements IWrenchable {
@@ -91,7 +90,7 @@ public class LitBlazeBurnerBlock extends Block implements IWrenchable {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
 		world.addAlwaysVisibleParticle(ParticleTypes.LARGE_SMOKE, true,
 			(double) pos.getX() + 0.5D + random.nextDouble() / 3.0D * (double) (random.nextBoolean() ? 1 : -1),

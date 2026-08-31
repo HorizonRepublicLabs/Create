@@ -10,12 +10,12 @@ import org.objectweb.asm.tree.ClassNode;
 import net.neoforged.neoforgespi.transformation.ClassProcessor;
 import net.neoforged.neoforgespi.transformation.ProcessorName;
 
-/// Removes members marked @OnlyIn(Dist.CLIENT) from Create's classes. Without this a
-/// dedicated server fails to verify any class holding one, since the client types
-/// those members mention are not shipped with it.
+/// Removes members marked @ClientOnly from Create's classes. Without this a dedicated
+/// server fails to verify any class holding one, since the client types those members
+/// mention are not shipped with it.
 public class DistMemberStripper implements ClassProcessor {
 	private static final ProcessorName NAME = new ProcessorName("create", "dist_member_stripper");
-	private static final String ONLY_IN = "Lnet/neoforged/api/distmarker/OnlyIn;";
+	private static final String CLIENT_ONLY = "Lcom/simibubi/create/foundation/ClientOnly;";
 	private static final Set<String> PACKAGES = Set.of("com/simibubi/create/");
 
 	@Override
@@ -80,17 +80,9 @@ public class DistMemberStripper implements ClassProcessor {
 	private static boolean marksClient(List<AnnotationNode> annotations) {
 		if (annotations == null)
 			return false;
-		for (AnnotationNode annotation : annotations) {
-			if (!ONLY_IN.equals(annotation.desc) || annotation.values == null)
-				continue;
-			for (int i = 0; i < annotation.values.size() - 1; i += 2) {
-				if (!"value".equals(annotation.values.get(i)))
-					continue;
-				if (annotation.values.get(i + 1) instanceof String[] enumValue && enumValue.length == 2
-					&& "CLIENT".equals(enumValue[1]))
-					return true;
-			}
-		}
+		for (AnnotationNode annotation : annotations)
+			if (CLIENT_ONLY.equals(annotation.desc))
+				return true;
 		return false;
 	}
 }

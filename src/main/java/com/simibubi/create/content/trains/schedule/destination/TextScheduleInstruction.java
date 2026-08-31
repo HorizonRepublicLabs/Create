@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.schedule.destination;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.gui.widget.FilteredEditBox;
 
 import java.util.List;
@@ -11,8 +12,6 @@ import com.simibubi.create.foundation.utility.CreateLang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class TextScheduleInstruction extends ScheduleInstruction {
 
@@ -27,12 +26,12 @@ public abstract class TextScheduleInstruction extends ScheduleInstruction {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(ModularGuiLineBuilder builder) {
 		builder.addTextInput(0, 121, (e, t) -> modifyEditBox(e), "Text");
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	protected void modifyEditBox(FilteredEditBox box) {}
 
 }

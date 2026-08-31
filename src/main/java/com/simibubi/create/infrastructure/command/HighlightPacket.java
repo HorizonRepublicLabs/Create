@@ -1,5 +1,6 @@
 package com.simibubi.create.infrastructure.command;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -14,13 +15,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.shapes.Shapes;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record HighlightPacket(BlockPos pos) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, HighlightPacket> STREAM_CODEC = BlockPos.STREAM_CODEC.map(HighlightPacket::new, p -> p.pos);
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		if (!player.level().isLoaded(pos)) {
 			return;

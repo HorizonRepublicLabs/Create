@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.steamEngine;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -14,8 +15,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class SteamJetParticleData implements ParticleOptions, ICustomParticleDataWithSprite<SteamJetParticleData> {
 
@@ -48,7 +47,7 @@ public class SteamJetParticleData implements ParticleOptions, ICustomParticleDat
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public SpriteParticleRegistration<SteamJetParticleData> getMetaFactory() {
 		return SteamJetParticle.Factory::new;
 	}

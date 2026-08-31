@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink.source;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.content.kinetics.gauge.SpeedGaugeBlockEntity;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
 import com.simibubi.create.content.redstone.displayLink.target.DisplayTargetStats;
@@ -7,8 +8,6 @@ import com.simibubi.create.foundation.gui.ModularGuiLineBuilder;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class KineticSpeedDisplaySource extends NumericSingleLineDisplaySource {
 
@@ -32,7 +31,7 @@ public class KineticSpeedDisplaySource extends NumericSingleLineDisplaySource {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(DisplayLinkContext context, ModularGuiLineBuilder builder,
 		boolean isFirstLine) {
 		super.initConfigurationWidgets(context, builder, isFirstLine);

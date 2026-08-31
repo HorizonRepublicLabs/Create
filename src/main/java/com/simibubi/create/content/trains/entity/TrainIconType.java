@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.util.ARGB;
 
 import net.minecraft.client.renderer.RenderPipelines;
@@ -13,8 +14,6 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import io.netty.buffer.ByteBuf;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrainIconType {
 	public static final StreamCodec<ByteBuf, TrainIconType> STREAM_CODEC = Identifier.STREAM_CODEC.map(
@@ -61,7 +60,7 @@ public class TrainIconType {
 	public static final int FLIPPED_ENGINE = -2;
 
 	/// A shader colour is no longer set globally, so the fade rides on the blit.
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public int render(int lengthOrEngine, GuiGraphicsExtractor graphics, int x, int y, float alpha) {
 		int offset = getIconOffset(lengthOrEngine);
 		int width = getIconWidth(lengthOrEngine);

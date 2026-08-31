@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.schedule.condition;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -20,8 +21,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 
 public class ItemThresholdCondition extends CargoThresholdCondition {
@@ -115,7 +114,7 @@ public class ItemThresholdCondition extends CargoThresholdCondition {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(ModularGuiLineBuilder builder) {
 		super.initConfigurationWidgets(builder);
 		builder.addSelectionScrollInput(71, 50, (i, l) -> {

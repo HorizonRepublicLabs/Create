@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.waterwheel;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.utility.CreateLang;
 
 import net.createmod.catnip.api.client.outliner.Outliner;
@@ -12,12 +13,11 @@ import net.minecraft.core.Direction.AxisDirection;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-/// @OnlyIn no longer strips members at runtime, so the outline this draws when the
-/// wheel does not fit lives in a class the server never loads.
-@OnlyIn(Dist.CLIENT)
+/// The outline this draws when the wheel does not fit lives in a class the server
+/// never loads, since nothing marks the method it used to sit in.
+@ClientOnly
 public class LargeWaterWheelPlacementFeedback {
 	public static void showBounds(LargeWaterWheelBlock block, BlockPlaceContext context) {
 		BlockPos pos = context.getClickedPos();

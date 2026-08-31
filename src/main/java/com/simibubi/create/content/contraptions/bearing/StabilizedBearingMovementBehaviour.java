@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.bearing;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 
 import com.simibubi.create.foundation.render.CreateRenderTypes;
@@ -39,8 +40,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class StabilizedBearingMovementBehaviour implements MovementBehaviour {
 
@@ -55,7 +54,7 @@ public class StabilizedBearingMovementBehaviour implements MovementBehaviour {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 									ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		if (VisualizationManager.supportsVisualization(context.world))

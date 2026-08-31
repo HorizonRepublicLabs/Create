@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.lang.ref.WeakReference;
@@ -34,7 +35,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
@@ -44,7 +44,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 public class ContraptionHandlerClient {
 
 	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void preventRemotePlayersWalkingAnimations(PlayerTickEvent.Post event) {
 		if (!(event.getEntity() instanceof RemotePlayer remotePlayer))
 			return;
@@ -67,7 +67,7 @@ public class ContraptionHandlerClient {
 	}
 
 	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void rightClickingOnContraptionsGetsHandledLocally(InputEvent.InteractionKeyMappingTriggered event) {
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
@@ -139,7 +139,7 @@ public class ContraptionHandlerClient {
 		return false;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static Couple<Vec3> getRayInputs(LocalPlayer player) {
 		Minecraft mc = Minecraft.getInstance();
 		Vec3 origin = player.getEyePosition();

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink.source;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -16,8 +17,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class SingleLineDisplaySource extends DisplaySource {
 
@@ -26,13 +25,13 @@ public abstract class SingleLineDisplaySource extends DisplaySource {
 	protected abstract boolean allowsLabeling(DisplayLinkContext context);
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(DisplayLinkContext context, ModularGuiLineBuilder builder, boolean isFirstLine) {
 		if (isFirstLine && allowsLabeling(context))
 			addLabelingTextBox(builder);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	protected void addLabelingTextBox(ModularGuiLineBuilder builder) {
 		builder.addTextInput(0, 137, (e, t) -> {
 			e.setValue("");

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -13,8 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record TrainPromptPacket(Component text, boolean shadow) implements CreatePacketPayload {
 	public static final StreamCodec<RegistryFriendlyByteBuf, TrainPromptPacket> STREAM_CODEC = StreamCodec.composite(
@@ -23,7 +22,7 @@ public record TrainPromptPacket(Component text, boolean shadow) implements Creat
 	        TrainPromptPacket::new
 	);
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		TrainHUD.currentPrompt = text;
 		TrainHUD.currentPromptShadow = shadow;

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.Optional;
@@ -26,8 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 public class SawMovementBehaviour extends BlockBreakingMovementBehaviour {
@@ -106,7 +105,7 @@ public class SawMovementBehaviour extends BlockBreakingMovementBehaviour {
 	}
 
 	@Override
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		SawRenderer.renderInContraption(context, renderWorld, matrices, buffer);

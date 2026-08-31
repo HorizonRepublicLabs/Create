@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.networking;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
 import com.simibubi.create.foundation.blockEntity.SyncedBlockEntity;
@@ -7,8 +8,6 @@ import com.simibubi.create.foundation.blockEntity.SyncedBlockEntity;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 /**
  * A server to client version of {@link BlockEntityConfigurationPacket}
@@ -20,7 +19,7 @@ public abstract class BlockEntityDataPacket<BE extends SyncedBlockEntity> implem
 		this.pos = pos;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		BlockEntity blockEntity = player.level().getBlockEntity(pos);
 

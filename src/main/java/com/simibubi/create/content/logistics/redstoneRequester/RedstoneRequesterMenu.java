@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.redstoneRequester;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -51,7 +50,7 @@ public class RedstoneRequesterMenu extends GhostItemMenu<RedstoneRequesterBlockE
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	protected RedstoneRequesterBlockEntity createOnClient(RegistryFriendlyByteBuf extraData) {
 		BlockPos blockPos = extraData.readBlockPos();
 		return AllBlocks.REDSTONE_REQUESTER.get()

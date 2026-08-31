@@ -1,5 +1,6 @@
 package com.simibubi.create.content.decoration;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -34,8 +35,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class MetalLadderBlock extends LadderBlock implements IWrenchable {
 
@@ -46,13 +45,13 @@ public class MetalLadderBlock extends LadderBlock implements IWrenchable {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public boolean supportsExternalFaceHiding(BlockState state) {
 		return false;
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	@SuppressWarnings("deprecation")
 	public boolean skipRendering(BlockState pState, BlockState pAdjacentBlockState, Direction pDirection) {
 		if (pDirection != null && pDirection.getAxis()

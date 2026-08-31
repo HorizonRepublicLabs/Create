@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.graph;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -24,8 +25,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record TrackGraphRollCallPacket(List<Entry> entries) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, TrackGraphRollCallPacket> STREAM_CODEC = CatnipStreamCodecBuilders.list(Entry.STREAM_CODEC).map(
@@ -40,7 +39,7 @@ public record TrackGraphRollCallPacket(List<Entry> entries) implements CreatePac
 		return new TrackGraphRollCallPacket(entries);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		GlobalRailwayManager manager = Create.RAILWAYS.sided(null);
 		Set<UUID> unusedIds = new HashSet<>(manager.trackNetworks.keySet());

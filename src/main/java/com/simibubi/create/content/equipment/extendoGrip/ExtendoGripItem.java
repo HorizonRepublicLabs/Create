@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.extendoGrip;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -42,8 +43,6 @@ import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -139,7 +138,7 @@ public class ExtendoGripItem extends Item {
 	}
 
 	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void dontMissEntitiesWhenYouHaveHighReachDistance(InputEvent.InteractionKeyMappingTriggered event) {
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;
@@ -272,7 +271,7 @@ public class ExtendoGripItem extends Item {
 	}
 
 	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void notifyServerOfLongRangeAttacks(AttackEntityEvent event) {
 		Entity entity = event.getEntity();
 		Entity target = event.getTarget();
@@ -284,7 +283,7 @@ public class ExtendoGripItem extends Item {
 	}
 
 	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void notifyServerOfLongRangeInteractions(PlayerInteractEvent.EntityInteract event) {
 		Entity entity = event.getEntity();
 		Entity target = event.getTarget();
@@ -296,7 +295,7 @@ public class ExtendoGripItem extends Item {
 	}
 
 	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void notifyServerOfLongRangeSpecificInteractions(PlayerInteractEvent.EntityInteract event) {
 		Player entity = event.getEntity();
 		Entity target = event.getTarget();

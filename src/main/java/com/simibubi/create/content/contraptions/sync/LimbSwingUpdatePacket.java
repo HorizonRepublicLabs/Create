@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.sync;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -15,8 +16,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record LimbSwingUpdatePacket(int entityId, Vec3 position, float limbSwing) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, LimbSwingUpdatePacket> STREAM_CODEC = StreamCodec.composite(
@@ -26,7 +25,7 @@ public record LimbSwingUpdatePacket(int entityId, Vec3 position, float limbSwing
 	        LimbSwingUpdatePacket::new
 	);
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		Entity entity = player.level().getEntity(entityId);
 		if (entity == null)

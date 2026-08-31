@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.drill;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import org.jetbrains.annotations.Nullable;
@@ -20,8 +21,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class DrillMovementBehaviour extends BlockBreakingMovementBehaviour {
 
@@ -44,7 +43,7 @@ public class DrillMovementBehaviour extends BlockBreakingMovementBehaviour {
 	}
 
 	@Override
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
         if (!VisualizationManager.supportsVisualization(context.world))

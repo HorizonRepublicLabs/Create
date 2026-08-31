@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.chassis;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.List;
@@ -27,8 +28,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 public class StickerBlockEntity extends SmartBlockEntity {
@@ -116,7 +115,7 @@ public class StickerBlockEntity extends SmartBlockEntity {
 			update = true;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void playSound(boolean attach) {
 		AllSoundEvents.SLIME_ADDED.play(level, Minecraft.getInstance().player, worldPosition, 0.35f, attach ? 0.75f : 0.2f);
 	}

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.processing.burner;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
@@ -42,8 +43,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class BlazeBurnerBlockEntity extends SmartBlockEntity {
 
@@ -139,13 +138,13 @@ public class BlazeBurnerBlockEntity extends SmartBlockEntity {
 		return null;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private boolean shouldTickAnimation() {
 		// Offload the animation tick to the visual when flywheel in enabled
 		return !VisualizationManager.supportsVisualization(level);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	void tickAnimation() {
 		boolean active = getHeatLevelFromBlock().isAtLeast(HeatLevel.FADING) && isValidBlockAbove();
 

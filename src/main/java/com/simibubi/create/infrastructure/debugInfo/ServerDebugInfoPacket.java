@@ -1,5 +1,6 @@
 package com.simibubi.create.infrastructure.debugInfo;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -18,8 +19,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record ServerDebugInfoPacket(String serverInfo) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ServerDebugInfoPacket> STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
@@ -30,7 +29,7 @@ public record ServerDebugInfoPacket(String serverInfo) implements CreatePacketPa
 		this(printServerInfo(target));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		StringBuilder output = new StringBuilder();
 		List<DebugInfoSection> clientInfo = DebugInformation.getClientInfo();

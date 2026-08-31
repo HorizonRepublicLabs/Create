@@ -1,5 +1,6 @@
 package com.simibubi.create.content.decoration.girder;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -29,12 +30,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class GirderWrenchBehavior {
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void tick() {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.player == null || mc.level == null || !(mc.hitResult instanceof BlockHitResult result))

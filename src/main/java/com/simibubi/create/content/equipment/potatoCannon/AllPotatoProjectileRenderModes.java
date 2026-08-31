@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -16,8 +17,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class AllPotatoProjectileRenderModes {
 	
@@ -41,7 +40,7 @@ public class AllPotatoProjectileRenderModes {
 		public static final MapCodec<Billboard> CODEC = MapCodec.unit(INSTANCE);
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void transform(PoseStack ms, PotatoProjectileEntity entity, float pt) {
 			Minecraft mc = Minecraft.getInstance();
 			Vec3 p1 = mc.getCameraEntity()
@@ -67,7 +66,7 @@ public class AllPotatoProjectileRenderModes {
 		public static final MapCodec<Tumble> CODEC = MapCodec.unit(INSTANCE);
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void transform(PoseStack ms, PotatoProjectileEntity entity, float pt) {
 			Billboard.INSTANCE.transform(ms, entity, pt);
 			TransformStack.of(ms)
@@ -88,7 +87,7 @@ public class AllPotatoProjectileRenderModes {
 		).apply(instance, TowardMotion::new));
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void transform(PoseStack ms, PotatoProjectileEntity entity, float pt) {
 			Vec3 diff = entity.getDeltaMovement();
 			TransformStack.of(ms)
@@ -112,7 +111,7 @@ public class AllPotatoProjectileRenderModes {
 		).apply(instance, StuckToEntity::new));
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void transform(PoseStack ms, PotatoProjectileEntity entity, float pt) {
 			TransformStack.of(ms).rotateYDegrees(AngleHelper.deg(Mth.atan2(offset.x, offset.z)));
 		}

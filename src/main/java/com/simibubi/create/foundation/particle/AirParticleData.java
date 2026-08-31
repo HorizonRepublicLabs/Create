@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.particle;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -12,8 +13,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -59,7 +58,7 @@ public class AirParticleData implements ParticleOptions, ICustomParticleDataWith
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public SpriteParticleRegistration<AirParticleData> getMetaFactory() {
 		return AirParticle.Factory::new;
 	}

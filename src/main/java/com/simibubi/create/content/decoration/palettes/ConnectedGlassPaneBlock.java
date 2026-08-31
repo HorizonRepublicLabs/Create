@@ -1,9 +1,8 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ConnectedGlassPaneBlock extends GlassPaneBlock {
 
@@ -12,7 +11,7 @@ public class ConnectedGlassPaneBlock extends GlassPaneBlock {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
 		if (side.getAxis()
 			.isVertical())

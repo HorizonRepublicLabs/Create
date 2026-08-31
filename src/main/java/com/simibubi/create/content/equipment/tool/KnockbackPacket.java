@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.tool;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -11,8 +12,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record KnockbackPacket(float yRot, float strength) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, KnockbackPacket> STREAM_CODEC = StreamCodec.composite(
@@ -26,7 +25,7 @@ public record KnockbackPacket(float yRot, float strength) implements CreatePacke
 		return AllPackets.KNOCKBACK;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		if (player != null)
 			CardboardSwordItem.knockback(player, strength, yRot);

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.schematics.client;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 
 import java.io.File;
@@ -29,10 +30,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+@ClientOnly
 public class ClientSchematicLoader {
 
 	public static final int PACKET_DELAY = 10;

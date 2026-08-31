@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.minecart;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import com.simibubi.create.AllAttachmentTypes;
@@ -15,8 +16,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -91,7 +90,7 @@ public class MinecartCouplingItem extends Item {
 		return true;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static void cartClicked(Player player, AbstractMinecart interacted) {
 		CouplingHandlerClient.onCartClicked(player, interacted);
 	}

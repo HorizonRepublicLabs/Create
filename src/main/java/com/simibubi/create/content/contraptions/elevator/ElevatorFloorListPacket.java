@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -23,8 +24,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<String>>> floors) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, com.simibubi.create.content.contraptions.elevator.ElevatorFloorListPacket> STREAM_CODEC = StreamCodec.composite(
@@ -37,7 +36,7 @@ public record ElevatorFloorListPacket(int entityId, List<IntAttached<Couple<Stri
 		this(entity.getId(), floors);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		Entity entityByID = player.level().getEntity(entityId);
 		if (!(entityByID instanceof AbstractContraptionEntity ace))

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.crank;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -36,8 +37,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ValveHandleBlockEntity extends HandCrankBlockEntity {
 
@@ -143,13 +142,13 @@ public class ValveHandleBlockEntity extends HandCrankBlockEntity {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public SuperByteBuffer getRenderedHandle() {
 		return CachedBuffers.block(getBlockState());
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public boolean shouldRenderShaft() {
 		return false;
 	}

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.symmetryWand.mirror;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +13,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class EmptyMirror extends SymmetryMirror {
 
@@ -52,7 +51,7 @@ public class EmptyMirror extends SymmetryMirror {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public PartialModel getModel() {
 		return null;
 	}

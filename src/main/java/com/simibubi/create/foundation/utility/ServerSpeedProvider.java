@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.utility;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
@@ -17,8 +18,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ServerSpeedProvider {
 	private static final LerpedFloat modifier = LerpedFloat.linear();
@@ -35,7 +34,7 @@ public class ServerSpeedProvider {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void clientTick() {
 		if (Minecraft.getInstance()
 			.hasSingleplayerServer()
@@ -60,7 +59,7 @@ public class ServerSpeedProvider {
 		public static final StreamCodec<ByteBuf, Packet> STREAM_CODEC = StreamCodec.unit(INSTANCE);
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void handle(LocalPlayer player) {
 			if (!initialized) {
 				initialized = true;

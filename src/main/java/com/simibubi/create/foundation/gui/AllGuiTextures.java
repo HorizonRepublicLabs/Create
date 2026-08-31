@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.gui;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.client.renderer.RenderPipelines;
 
 import com.simibubi.create.Create;
@@ -11,8 +12,6 @@ import net.createmod.catnip.api.theme.Color;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.resources.Identifier;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public enum AllGuiTextures implements ScreenElement, TextureSheetSegment {
 
@@ -302,13 +301,13 @@ public enum AllGuiTextures implements ScreenElement, TextureSheetSegment {
 		return location;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void render(GuiGraphicsExtractor graphics, int x, int y) {
 		graphics.blit(RenderPipelines.GUI_TEXTURED, location, x, y, (float) (startX), (float) (startY), width, height, 256, 256);
 	}
 
 	/// The texture is handed to the helper rather than bound first.
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void render(GuiGraphicsExtractor graphics, int x, int y, Color c) {
 		UIRenderHelper.drawColoredTexture(graphics, bind(), c, x, y, startX, startY, width, height);
 	}

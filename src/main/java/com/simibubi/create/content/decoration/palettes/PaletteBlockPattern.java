@@ -1,5 +1,6 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.data.VariantModels;
 
 import static com.simibubi.create.content.decoration.palettes.PaletteBlockPartial.ALL_PARTIALS;
@@ -35,8 +36,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import com.simibubi.create.foundation.data.VariantModels.ConfiguredModel;
 
 public class PaletteBlockPattern {
@@ -82,7 +81,7 @@ public class PaletteBlockPattern {
 	private NonNullFunction<NonNullSupplier<Block>, NonNullBiConsumer<DataGenContext<Block, ? extends Block>, RegistrateRecipeProvider>> additionalRecipes;
 	private PaletteBlockPartial<? extends Block>[] partials;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private RenderType renderType;
 
 	private static PaletteBlockPattern create(String name, PatternNameType nameType,

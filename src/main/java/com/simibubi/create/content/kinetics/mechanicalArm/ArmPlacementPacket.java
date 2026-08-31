@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.mechanicalArm;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
@@ -23,8 +24,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<FriendlyByteBuf, ArmPlacementPacket> STREAM_CODEC = StreamCodec.composite(
@@ -69,7 +68,7 @@ public record ArmPlacementPacket(ListTag tag, BlockPos pos) implements SelfHandl
 		}
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void handle(LocalPlayer player) {
 			ArmInteractionPointHandler.flushSettings(pos);
 		}

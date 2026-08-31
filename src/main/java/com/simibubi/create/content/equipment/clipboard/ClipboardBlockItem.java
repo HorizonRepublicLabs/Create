@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,8 +25,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ClipboardBlockItem extends BlockItem implements SupportsItemCopying {
 
@@ -71,7 +70,7 @@ public class ClipboardBlockItem extends BlockItem implements SupportsItemCopying
 		return InteractionResult.SUCCESS.heldItemTransformedTo(heldItem);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void openScreen(Player player, DataComponentMap components) {
 		if (Minecraft.getInstance().player == player)
 			ScreenOpener.open(new ClipboardScreen(player.getInventory().getSelectedSlot(), components, null));

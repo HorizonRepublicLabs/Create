@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -55,8 +56,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrackPlacement {
 	public record ConnectingFrom(BlockPos pos, Vec3 axis, Vec3 normal, Vec3 end) {
@@ -590,7 +589,7 @@ public class TrackPlacement {
 	static int hintAngle;
 	static Couple<List<BlockPos>> hints;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void clientTick() {
 		LocalPlayer player = Minecraft.getInstance().player;
 		ItemStack stack = player.getMainHandItem();
@@ -778,7 +777,7 @@ public class TrackPlacement {
 		lastLineCount = segCount;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static void line(int id, Vec3 v1, Vec3 o1, Vec3 ex) {
 		int color = Color.mixColors(0xEA5C2B, 0x95CD41, animation.getValue());
 		Outliner.getInstance().showLine(Pair.of("start", id), v1.subtract(o1), v1.add(ex))

@@ -1,5 +1,6 @@
 package com.simibubi.create.api.behaviour.display;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,8 +35,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class DisplaySource {
 	public static final SimpleRegistry.Multi<Block, DisplaySource> BY_BLOCK = SimpleRegistry.Multi.create();
@@ -109,7 +108,7 @@ public abstract class DisplaySource {
 			.toList();
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(DisplayLinkContext context, ModularGuiLineBuilder builder,
 										 boolean isFirstLine) {
 	}

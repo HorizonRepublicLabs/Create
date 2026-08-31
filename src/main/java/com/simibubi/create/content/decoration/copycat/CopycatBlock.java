@@ -1,5 +1,6 @@
 package com.simibubi.create.content.decoration.copycat;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.level.BlockAndLightGetter;
 
 import net.minecraft.client.color.block.BlockTintSource;
@@ -50,8 +51,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.model.data.ModelData;
 import net.neoforged.neoforge.common.world.AuxiliaryLightManager;
 
@@ -242,7 +241,7 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 	// Connected Textures
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public BlockState getAppearance(BlockState state, BlockAndLightGetter level, BlockPos pos, Direction side,
 									@Nullable BlockState queryState, @Nullable BlockPos queryPos) {
 
@@ -366,12 +365,12 @@ public abstract class CopycatBlock extends Block implements IBE<CopycatBlockEnti
 
 	/// BlockColor gave way to BlockTintSource, which colours from the state
 	/// alone by default and takes the level only for the in-world variant.
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static BlockTintSource wrappedColor() {
 		return new WrappedBlockColor();
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static class WrappedBlockColor implements BlockTintSource {
 
 		@Override

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.crank;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.render.CreateCachedBuffers;
 
 import com.simibubi.create.AllBlocks;
@@ -21,8 +22,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class HandCrankBlockEntity extends GeneratingKineticBlockEntity {
 
@@ -102,7 +101,7 @@ public class HandCrankBlockEntity extends GeneratingKineticBlockEntity {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public SuperByteBuffer getRenderedHandle() {
 		BlockState blockState = getBlockState();
 		Direction facing = blockState.getOptionalValue(HandCrankBlock.FACING)
@@ -110,7 +109,7 @@ public class HandCrankBlockEntity extends GeneratingKineticBlockEntity {
 		return CreateCachedBuffers.partialFacing(AllPartialModels.HAND_CRANK_HANDLE, blockState, facing.getOpposite());
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public boolean shouldRenderShaft() {
 		return true;
 	}
@@ -122,7 +121,7 @@ public class HandCrankBlockEntity extends GeneratingKineticBlockEntity {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void tickAudio() {
 		super.tickAudio();
 		if (inUse > 0 && AnimationTickHolder.getTicks() % 10 == 0) {

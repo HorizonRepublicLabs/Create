@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import static com.simibubi.create.content.trains.track.TrackMaterialFactory.make;
@@ -27,8 +28,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrackMaterial {
 	public static final Map<Identifier, TrackMaterial> ALL = new HashMap<>();
@@ -51,10 +50,10 @@ public class TrackMaterial {
 	@Nullable
 	private final TrackMaterial.TrackType.TrackBlockFactory customFactory;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	protected TrackModelHolder modelHolder;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public TrackModelHolder getModelHolder() {
 		return modelHolder;
 	}
@@ -166,7 +165,7 @@ public class TrackMaterial {
 		return TrackMaterial.ANDESITE;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public record TrackModelHolder(PartialModel tie, PartialModel leftSegment, PartialModel rightSegment) {
 		static final TrackModelHolder DEFAULT = new TrackModelHolder(AllPartialModels.TRACK_TIE,
 			AllPartialModels.TRACK_SEGMENT_LEFT, AllPartialModels.TRACK_SEGMENT_RIGHT);

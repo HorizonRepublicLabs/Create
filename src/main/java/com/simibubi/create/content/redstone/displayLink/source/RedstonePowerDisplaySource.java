@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink.source;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
 import com.simibubi.create.foundation.gui.ModularGuiLineBuilder;
 import com.simibubi.create.foundation.utility.CreateLang;
@@ -8,8 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class RedstonePowerDisplaySource extends PercentOrProgressBarDisplaySource {
 
@@ -46,7 +45,7 @@ public class RedstonePowerDisplaySource extends PercentOrProgressBarDisplaySourc
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(DisplayLinkContext context, ModularGuiLineBuilder builder, boolean isFirstLine) {
 		super.initConfigurationWidgets(context, builder, isFirstLine);
 		if (isFirstLine)

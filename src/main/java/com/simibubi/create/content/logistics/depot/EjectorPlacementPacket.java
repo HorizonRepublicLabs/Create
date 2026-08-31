@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.depot;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
@@ -21,8 +22,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facing) implements SelfHandlingPayload, CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, EjectorPlacementPacket> STREAM_CODEC = StreamCodec.composite(
@@ -62,7 +61,7 @@ public record EjectorPlacementPacket(int h, int v, BlockPos pos, Direction facin
 		}
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void handle(LocalPlayer player) {
 			EjectorTargetHandler.flushSettings(pos);
 		}

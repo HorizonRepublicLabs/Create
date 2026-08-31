@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.link.controller;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import net.minecraft.core.UUIDUtil;
@@ -34,8 +35,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class LecternControllerBlockEntity extends SmartBlockEntity {
 	/// LevelChunk drops the block entity before it calls the block's removal
@@ -152,7 +151,7 @@ public class LecternControllerBlockEntity extends SmartBlockEntity {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void tryToggleActive() {
 		if (user == null && Minecraft.getInstance().player.getUUID().equals(prevUser)) {
 			LinkedControllerClientHandler.deactivateInLectern();

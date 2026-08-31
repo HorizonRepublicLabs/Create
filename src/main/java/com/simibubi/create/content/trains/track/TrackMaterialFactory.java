@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.neoforged.neoforge.common.crafting.CompoundIngredient;
@@ -19,8 +20,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.Tags.Items;
 
 public class TrackMaterialFactory {
@@ -39,13 +38,13 @@ public class TrackMaterialFactory {
 	@Nullable
 	private TrackMaterial.TrackType.TrackBlockFactory customFactory = null;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private TrackMaterial.TrackModelHolder modelHolder;
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private PartialModel tieModel;
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private PartialModel leftSegmentModel;
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private PartialModel rightSegmentModel;
 
 	public TrackMaterialFactory(Identifier id) {

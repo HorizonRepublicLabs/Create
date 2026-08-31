@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.minecart.capability;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
@@ -21,8 +22,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Entity;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag nbt) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, MinecartControllerUpdatePacket> STREAM_CODEC = StreamCodec.composite(
@@ -35,7 +34,7 @@ public record MinecartControllerUpdatePacket(int entityId, @Nullable CompoundTag
 		this(controller.cart().getId(), controller.isEmpty() ? null : ValueIOShim.save(controller, registries));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		Entity entityByID = player.level().getEntity(entityId);
 		if (entityByID == null)

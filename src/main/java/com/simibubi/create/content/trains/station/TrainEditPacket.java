@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 
@@ -28,8 +29,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class TrainEditPacket implements CreatePacketPayload {
 	protected final UUID id;
@@ -94,7 +93,7 @@ public abstract class TrainEditPacket implements CreatePacketPayload {
 		}
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void handle(LocalPlayer player) {
 			handleSided(null);
 		}

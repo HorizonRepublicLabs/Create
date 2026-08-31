@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.trainmap;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -20,8 +21,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrainMapSyncPacket implements CreatePacketPayload {
 	public static final StreamCodec<FriendlyByteBuf, TrainMapSyncPacket> STREAM_CODEC = StreamCodec.composite(
@@ -46,7 +45,7 @@ public class TrainMapSyncPacket implements CreatePacketPayload {
 		entries.add(Pair.of(trainId, data));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		TrainMapSyncClient.receive(this);
 	}

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -19,8 +20,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 @ParametersAreNonnullByDefault
@@ -57,7 +56,7 @@ public class CuttingRecipe extends StandardProcessingRecipe<RecipeWrapper> imple
 	public void addAssemblyIngredients(List<Ingredient> list) {}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public Component getDescriptionForAssembly() {
 		return CreateLang.translateDirect("recipe.assembly.cutting");
 	}

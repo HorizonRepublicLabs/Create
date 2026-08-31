@@ -1,5 +1,6 @@
 package com.simibubi.create.content.decoration.slidingDoor;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
@@ -18,8 +19,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.Entity;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public enum DoorControl {
 
@@ -46,7 +45,7 @@ public enum DoorControl {
 		};
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static Pair<ScrollInput, Label> createWidget(int x, int y, Consumer<DoorControl> callback,
 		DoorControl initial) {
 

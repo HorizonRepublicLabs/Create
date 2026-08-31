@@ -1,5 +1,6 @@
 package com.simibubi.create.content.fluids.transfer;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -12,8 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public record FluidSplashPacket(BlockPos pos, FluidStack fluid) implements CreatePacketPayload {
@@ -23,7 +22,7 @@ public record FluidSplashPacket(BlockPos pos, FluidStack fluid) implements Creat
 	        FluidSplashPacket::new
 	);
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		if (player.position().distanceTo(new Vec3(pos.getX(), pos.getY(), pos.getZ())) > 100)
 			return;

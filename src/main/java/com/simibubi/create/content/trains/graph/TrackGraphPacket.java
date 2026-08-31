@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.graph;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -10,8 +11,6 @@ import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.trains.GlobalRailwayManager;
 
 import net.minecraft.client.player.LocalPlayer;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class TrackGraphPacket implements CreatePacketPayload {
 
@@ -19,7 +18,7 @@ public abstract class TrackGraphPacket implements CreatePacketPayload {
 	public int netId;
 	public boolean packetDeletesGraph;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		this.handle(CreateClient.RAILWAYS, CreateClient.RAILWAYS.getOrCreateGraph(graphId, netId));
 	}

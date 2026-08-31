@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.util.RandomSource;
 
 import net.minecraft.world.level.ScheduledTickAccess;
@@ -46,8 +47,6 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class StationBlock extends Block implements IBE<StationBlockEntity>, IWrenchable, ProperWaterloggedBlock {
 
@@ -151,7 +150,7 @@ public class StationBlock extends Block implements IBE<StationBlockEntity>, IWre
 		return InteractionResult.SUCCESS;
 	}
 
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	protected void displayScreen(StationBlockEntity be, Player player) {
 		if (!(player instanceof LocalPlayer))
 			return;

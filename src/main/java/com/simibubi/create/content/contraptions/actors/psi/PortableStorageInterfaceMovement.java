@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.actors.psi;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import java.util.Optional;
@@ -27,8 +28,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class PortableStorageInterfaceMovement implements MovementBehaviour {
 
@@ -55,7 +54,7 @@ public class PortableStorageInterfaceMovement implements MovementBehaviour {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		if (!VisualizationManager.supportsVisualization(context.world))

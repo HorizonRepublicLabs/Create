@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.item.component.TypedEntityData;
 
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
@@ -48,8 +49,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrackTargetingBlockItem extends BlockItem {
 
@@ -179,7 +178,7 @@ public class TrackTargetingBlockItem extends BlockItem {
 		return type;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public boolean useOnCurve(BezierPointSelection selection, ItemStack stack) {
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;

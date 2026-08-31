@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.network.NetworkHelper;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
@@ -48,8 +49,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.model.data.ModelData;
 
 public class TrackBlockEntity extends SmartBlockEntity implements TransformableBlockEntity, IMergeableBE {
@@ -254,7 +253,7 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public AABB getRenderBoundingBox() {
 		return AABB.INFINITE;
 	}
@@ -365,13 +364,13 @@ public class TrackBlockEntity extends SmartBlockEntity implements TransformableB
 			.build();
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void registerToCurveInteractionUnsafe() {
 		TrackBlockOutline.TRACKS_WITH_TURNS.get(level)
 			.put(worldPosition, this);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void removeFromCurveInteractionUnsafe() {
 		TrackBlockOutline.TRACKS_WITH_TURNS.get(level)
 			.remove(worldPosition);

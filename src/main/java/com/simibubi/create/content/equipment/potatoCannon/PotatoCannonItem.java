@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.potatoCannon;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.entity.EntitySpawnReason;
 
 import com.simibubi.create.foundation.item.TooltipLines;
@@ -56,8 +57,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmPoseItem {
@@ -170,7 +169,7 @@ public class PotatoCannonItem extends ProjectileWeaponItem implements CustomArmP
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
 		Consumer<Component> builder, TooltipFlag flag) {
 		List<Component> tooltip = TooltipLines.forwarding(builder);

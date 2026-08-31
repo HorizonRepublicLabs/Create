@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.gui.menu;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -8,8 +9,6 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 /**
  * A {@link GhostItemMenu} that is linked to the item in a player's main hand. Prevents its owner item from being manipulated.
@@ -24,7 +23,7 @@ public abstract class HeldItemGhostItemMenu extends GhostItemMenu<ItemStack> {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	protected ItemStack createOnClient(RegistryFriendlyByteBuf extraData) {
 		return ItemStack.STREAM_CODEC.decode(extraData);
 	}

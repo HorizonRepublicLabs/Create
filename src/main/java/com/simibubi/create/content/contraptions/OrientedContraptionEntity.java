@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.nbt.DoubleTag;
 
 import com.simibubi.create.AllEntityDataSerializers;
@@ -57,8 +58,6 @@ import net.minecraft.world.level.block.BaseRailBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 /**
  * Ex: Minecarts, Couplings <br>
@@ -530,7 +529,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void applyLocalTransforms(PoseStack matrixStack, float partialTicks) {
 		float angleInitialYaw = getInitialYaw();
 		float angleYaw = getViewYRot(partialTicks);
@@ -557,7 +556,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 			.uncenter();
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void repositionOnContraption(PoseStack matrixStack, float partialTicks, Entity ridingEntity) {
 		Vec3 pos = getContraptionOffset(partialTicks, ridingEntity);
 		matrixStack.translate(pos.x, pos.y, pos.z);
@@ -565,7 +564,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 
 	// Minecarts do not always render at their exact location, so the contraption
 	// has to adjust aswell
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void repositionOnCart(PoseStack matrixStack, float partialTicks, Entity ridingEntity) {
 		Vec3 cartPos = getCartOffset(partialTicks, ridingEntity);
 
@@ -575,7 +574,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		matrixStack.translate(cartPos.x, cartPos.y, cartPos.z);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private Vec3 getContraptionOffset(float partialTicks, Entity ridingEntity) {
 		AbstractContraptionEntity parent = (AbstractContraptionEntity) ridingEntity;
 		Vec3 passengerPosition = parent.getPassengerPosition(this, partialTicks);
@@ -589,7 +588,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		return new Vec3(x, y, z);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private Vec3 getCartOffset(float partialTicks, Entity ridingEntity) {
 		AbstractMinecart cart = (AbstractMinecart) ridingEntity;
 		double cartX = Mth.lerp(partialTicks, cart.xOld, cart.getX());
@@ -615,7 +614,7 @@ public class OrientedContraptionEntity extends AbstractContraptionEntity {
 		return Vec3.ZERO;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void handleRelocationPacket(ContraptionRelocationPacket packet) {
 		if (Minecraft.getInstance().level.getEntity(packet.entityId()) instanceof OrientedContraptionEntity oce)
 			oce.nonDamageTicks = 10;

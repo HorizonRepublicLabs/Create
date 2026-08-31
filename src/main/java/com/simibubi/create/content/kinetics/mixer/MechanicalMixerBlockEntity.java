@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.mixer;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -46,8 +47,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
@@ -312,7 +311,7 @@ public class MechanicalMixerBlockEntity extends BasinOperatingBlockEntity {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void tickAudio() {
 		super.tickAudio();
 

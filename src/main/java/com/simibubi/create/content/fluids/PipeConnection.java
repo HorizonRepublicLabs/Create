@@ -1,5 +1,6 @@
 package com.simibubi.create.content.fluids;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.utility.LerpedFloatNbt;
 
 import com.simibubi.create.foundation.utility.StackNbt;
@@ -34,8 +35,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public class PipeConnection {
@@ -376,7 +375,7 @@ public class PipeConnection {
 		PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> spawnParticlesInner(world, pos, fluid));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void spawnParticlesInner(Level level, BlockPos pos, FluidStack fluid) {
 		if (level == Minecraft.getInstance().level)
 			if (!isRenderEntityWithinDistance(pos))
@@ -387,7 +386,7 @@ public class PipeConnection {
 			spawnRimParticles(level, pos, fluid, 1);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void spawnSplashOnRimInner(Level world, BlockPos pos, FluidStack fluid) {
 		if (world == Minecraft.getInstance().level)
 			if (!isRenderEntityWithinDistance(pos))
@@ -395,7 +394,7 @@ public class PipeConnection {
 		spawnRimParticles(world, pos, fluid, SPLASH_PARTICLE_AMOUNT);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void spawnRimParticles(Level world, BlockPos pos, FluidStack fluid, int amount) {
 		if (hasOpenEnd()) {
 			spawnPouringLiquid(world, pos, fluid, amount);
@@ -406,7 +405,7 @@ public class PipeConnection {
 		FluidFX.spawnRimParticles(world, pos, side, amount, particle, RIM_RADIUS);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void spawnPouringLiquid(Level world, BlockPos pos, FluidStack fluid, int amount) {
 		ParticleOptions particle = FluidFX.getFluidParticle(fluid);
 		Vec3 directionVec = Vec3.atLowerCornerOf(side.getUnitVec3i());
@@ -416,7 +415,7 @@ public class PipeConnection {
 		FluidFX.spawnPouringLiquid(world, pos, amount, particle, RIM_RADIUS, directionVec, flow.inbound);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static boolean isRenderEntityWithinDistance(BlockPos pos) {
 		Entity renderViewEntity = Minecraft.getInstance()
 			.getCameraEntity();

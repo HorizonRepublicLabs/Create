@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.data.VariantModels;
 
 import org.jetbrains.annotations.Nullable;
@@ -40,8 +41,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ClipboardOverrides {
 
@@ -66,7 +65,7 @@ public class ClipboardOverrides {
 
 	/// Item model overrides are gone; a model selects between cases on a named
 	/// property instead, so the clipboard's type becomes one.
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public record TypeProperty() implements SelectItemModelProperty<ClipboardType> {
 
 		public static final Codec<ClipboardType> VALUE_CODEC = ClipboardType.CODEC;

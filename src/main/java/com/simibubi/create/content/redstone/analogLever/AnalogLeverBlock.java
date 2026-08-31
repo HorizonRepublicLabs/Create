@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.analogLever;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.util.ARGB;
 
 
@@ -37,8 +38,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class AnalogLeverBlock extends FaceAttachedHorizontalDirectionalBlock implements IBE<AnalogLeverBlockEntity> {
 
@@ -81,7 +80,7 @@ public class AnalogLeverBlock extends FaceAttachedHorizontalDirectionalBlock imp
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand) {
 		withBlockEntityDo(worldIn, pos, be -> {
 			if (be.state != 0 && rand.nextFloat() < 0.25F)

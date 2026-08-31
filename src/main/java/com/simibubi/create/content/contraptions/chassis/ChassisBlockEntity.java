@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.chassis;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
 import java.util.ArrayList;
@@ -41,8 +42,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ChassisBlockEntity extends SmartBlockEntity {
 
@@ -269,7 +268,7 @@ public class ChassisBlockEntity extends SmartBlockEntity {
 		}
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void newSettingHovered(ValueSettings valueSetting) {
 			if (!level.isClientSide())
 				return;

@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.gui.menu;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.mixin.accessor.AbstractContainerScreenAccessor;
 
 import net.minecraft.client.input.KeyEvent;
@@ -35,10 +36,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+@ClientOnly
 @ParametersAreNonnullByDefault
 public abstract class AbstractSimiContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 

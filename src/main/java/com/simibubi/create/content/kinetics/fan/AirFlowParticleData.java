@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.fan;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -14,8 +15,6 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -69,7 +68,7 @@ public class AirFlowParticleData implements ParticleOptions, ICustomParticleData
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public SpriteParticleRegistration<AirFlowParticleData> getMetaFactory() {
 		return AirFlowParticle.Factory::new;
 	}

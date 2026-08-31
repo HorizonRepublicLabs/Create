@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.network.NetworkHelper;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
@@ -36,8 +37,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class GlobalRailwayManager {
 
@@ -296,7 +295,7 @@ public class GlobalRailwayManager {
 		return m.getValue();
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private void clientManager(MutableObject<GlobalRailwayManager> m) {
 		m.setValue(CreateClient.RAILWAYS);
 	}

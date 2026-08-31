@@ -1,5 +1,6 @@
 package com.simibubi.create.content.schematics;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.TooltipLines;
 
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -50,8 +51,6 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class SchematicItem extends Item {
 
@@ -76,7 +75,7 @@ public class SchematicItem extends Item {
 	}
 
 	@Override
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
 		Consumer<Component> builder, TooltipFlag flagIn) {
 		List<Component> tooltip = TooltipLines.forwarding(builder);
@@ -167,7 +166,7 @@ public class SchematicItem extends Item {
 		return true;
 	}
 
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	protected void displayBlueprintScreen() {
 		ScreenOpener.open(new SchematicEditScreen());
 	}

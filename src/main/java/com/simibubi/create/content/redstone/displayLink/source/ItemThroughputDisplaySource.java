@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink.source;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkBlock;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkBlockEntity;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
@@ -12,8 +13,6 @@ import net.minecraft.nbt.FloatTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ItemThroughputDisplaySource extends AccumulatedItemCountDisplaySource {
 
@@ -99,7 +98,7 @@ public class ItemThroughputDisplaySource extends AccumulatedItemCountDisplaySour
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(DisplayLinkContext context, ModularGuiLineBuilder builder,
 		boolean isFirstLine) {
 		super.initConfigurationWidgets(context, builder, isFirstLine);

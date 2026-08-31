@@ -1,5 +1,6 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.level.BlockAndLightGetter;
 
 import net.minecraft.world.level.BlockGetter;
@@ -10,8 +11,6 @@ import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ConnectedGlassBlock extends TransparentBlock {
 
@@ -20,7 +19,7 @@ public class ConnectedGlassBlock extends TransparentBlock {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
 		return adjacentBlockState.getBlock() instanceof ConnectedGlassBlock || super.skipRendering(state, adjacentBlockState, side);
 	}

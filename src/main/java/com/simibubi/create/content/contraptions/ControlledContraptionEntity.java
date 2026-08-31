@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllEntityTypes;
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
@@ -23,8 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 /**
  * Ex: Pistons, bearings <br>
@@ -237,7 +236,7 @@ public class ControlledContraptionEntity extends AbstractContraptionEntity {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void applyLocalTransforms(PoseStack matrixStack, float partialTicks) {
 		float angle = getAngle(partialTicks);
 		Axis axis = getRotationAxis();

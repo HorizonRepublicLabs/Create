@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.AllMenuTypes;
 import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.gui.menu.GhostItemMenu;
@@ -12,8 +13,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
@@ -42,7 +41,7 @@ public class FactoryPanelSetItemMenu extends GhostItemMenu<FactoryPanelBehaviour
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	protected FactoryPanelBehaviour createOnClient(RegistryFriendlyByteBuf extraData) {
 		FactoryPanelPosition pos = FactoryPanelPosition.STREAM_CODEC.decode(extraData);
 		return FactoryPanelBehaviour.at(Minecraft.getInstance().level, pos);

@@ -1,5 +1,6 @@
 package com.simibubi.create;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.function.Supplier;
 
 import com.simibubi.create.content.equipment.bell.SoulBaseParticle;
@@ -17,8 +18,6 @@ import net.createmod.catnip.api.lang.Lang;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -53,7 +52,7 @@ public enum AllParticleTypes {
 		ParticleEntry.REGISTER.register(modEventBus);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void registerFactories(RegisterParticleProvidersEvent event) {
 		for (AllParticleTypes particle : values())
 			particle.entry.registerFactory(event);
@@ -81,7 +80,7 @@ public enum AllParticleTypes {
 			object = REGISTER.register(name, () -> this.typeFactory.get().createType());
 		}
 
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void registerFactory(RegisterParticleProvidersEvent event) {
 			typeFactory.get()
 				.register(object.get(), event);

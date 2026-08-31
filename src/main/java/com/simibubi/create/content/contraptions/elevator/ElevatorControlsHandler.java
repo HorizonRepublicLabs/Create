@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.elevator;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 
@@ -29,8 +30,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ElevatorControlsHandler {
 
@@ -48,7 +47,7 @@ public class ElevatorControlsHandler {
 
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static boolean onScroll(double delta) {
 		Minecraft mc = Minecraft.getInstance();
 		LocalPlayer player = mc.player;

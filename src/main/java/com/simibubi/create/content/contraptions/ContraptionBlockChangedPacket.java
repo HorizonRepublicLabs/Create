@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -13,8 +14,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.level.block.state.BlockState;
 import io.netty.buffer.ByteBuf;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record ContraptionBlockChangedPacket(int entityId, BlockPos localPos, BlockState newState) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, ContraptionBlockChangedPacket> STREAM_CODEC = StreamCodec.composite(
@@ -24,7 +23,7 @@ public record ContraptionBlockChangedPacket(int entityId, BlockPos localPos, Blo
 			ContraptionBlockChangedPacket::new
 	);
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		AbstractContraptionEntity.handleBlockChangedPacket(this);
 	}

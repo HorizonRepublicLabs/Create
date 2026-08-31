@@ -1,11 +1,10 @@
 package com.simibubi.create.foundation.blockEntity;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class CachedRenderBBBlockEntity extends SyncedBlockEntity {
 
@@ -15,7 +14,7 @@ public abstract class CachedRenderBBBlockEntity extends SyncedBlockEntity {
 		super(type, pos, state);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public AABB getRenderBoundingBox() {
 		if (renderBoundingBox == null) {
 			renderBoundingBox = createRenderBoundingBox();

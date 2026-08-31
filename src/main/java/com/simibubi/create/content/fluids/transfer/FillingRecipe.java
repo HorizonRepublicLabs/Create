@@ -1,5 +1,6 @@
 package com.simibubi.create.content.fluids.transfer;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.fluid.FluidHelper;
 
 import java.util.Arrays;
@@ -21,8 +22,6 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
@@ -68,7 +67,7 @@ public class FillingRecipe extends StandardProcessingRecipe<SingleRecipeInput> i
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public Component getDescriptionForAssembly() {
 		List<FluidStack> matchingFluidStacks = FluidHelper.matchingStacks(fluidIngredients.get(0));
 		if (matchingFluidStacks.size() == 0) {

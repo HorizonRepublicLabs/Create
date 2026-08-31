@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.schedule;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.TooltipLines;
 
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -43,8 +44,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ScheduleItem extends Item implements MenuProvider, SupportsItemCopying {
 
@@ -133,7 +132,7 @@ public class ScheduleItem extends Item implements MenuProvider, SupportsItemCopy
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
 		Consumer<Component> builder, TooltipFlag flagIn) {
 		List<Component> tooltip = TooltipLines.forwarding(builder);

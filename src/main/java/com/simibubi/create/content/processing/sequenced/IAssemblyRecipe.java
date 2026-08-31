@@ -1,5 +1,6 @@
 package com.simibubi.create.content.processing.sequenced;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -10,8 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
 public interface IAssemblyRecipe {
@@ -19,7 +18,7 @@ public interface IAssemblyRecipe {
 		return true;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	Component getDescriptionForAssembly();
 
 	void addRequiredMachines(Set<ItemLike> list);

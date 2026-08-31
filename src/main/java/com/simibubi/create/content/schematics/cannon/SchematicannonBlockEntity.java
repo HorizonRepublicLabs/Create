@@ -1,5 +1,6 @@
 package com.simibubi.create.content.schematics.cannon;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import net.minecraft.core.component.DataComponentGetter;
@@ -74,8 +75,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.AABB;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -905,7 +904,7 @@ public class SchematicannonBlockEntity extends SmartBlockEntity implements MenuP
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public AABB getRenderBoundingBox() {
 		return AABB.INFINITE;
 	}

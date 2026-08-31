@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.network.ClientNetworkHelper;
 import net.createmod.catnip.api.platform.services.PlatformHelper;
 
@@ -64,8 +65,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes.DoubleLineConsumer;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class ContraptionCollider {
 
@@ -334,7 +333,7 @@ public class ContraptionCollider {
 
 	private static int packetCooldown = 0;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static void saveClientPlayerFromClipping(AbstractContraptionEntity contraptionEntity,
 		Vec3 contraptionMotion) {
 		LocalPlayer entity = Minecraft.getInstance().player;
@@ -373,7 +372,7 @@ public class ContraptionCollider {
 			safetyLock.setLeft(null);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void lockPacketReceived(int contraptionId, int remotePlayerId, double suggestedOffset) {
 		ClientLevel level = Minecraft.getInstance().level;
 		if (!(level.getEntity(contraptionId) instanceof ControlledContraptionEntity contraptionEntity))
@@ -384,7 +383,7 @@ public class ContraptionCollider {
 			.put(player, suggestedOffset);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static void saveRemotePlayerFromClipping(Player entity, AbstractContraptionEntity contraptionEntity,
 		Vec3 contraptionMotion) {
 		if (entity.isPassenger())
@@ -398,7 +397,7 @@ public class ContraptionCollider {
 				locksOnThisContraption.remove(entity);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static boolean savePlayerFromClipping(Player entity, AbstractContraptionEntity contraptionEntity,
 		Vec3 contraptionMotion, double yStartOffset) {
 		AABB bb = entity.getBoundingBox()
@@ -576,7 +575,7 @@ public class ContraptionCollider {
 		return isClient.booleanValue() ? PlayerType.CLIENT : PlayerType.REMOTE;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static boolean isClientPlayerEntity(Entity entity) {
 		return entity instanceof LocalPlayer;
 	}

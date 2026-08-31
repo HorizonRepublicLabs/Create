@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.station;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import com.simibubi.create.foundation.utility.ComponentJson;
@@ -101,8 +102,6 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
@@ -923,7 +922,7 @@ public class StationBlockEntity extends SmartBlockEntity implements Transformabl
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public AABB getRenderBoundingBox() {
 		if (isAssembling())
 			return AABB.INFINITE;

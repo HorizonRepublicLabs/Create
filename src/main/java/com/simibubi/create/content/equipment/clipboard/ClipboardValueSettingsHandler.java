@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.clipboard;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
 
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -36,8 +37,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.ICancellableEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -53,7 +52,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClick
 public class ClipboardValueSettingsHandler {
 
 	@SubscribeEvent
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void drawCustomBlockSelection(ExtractBlockOutlineRenderStateEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 		BlockHitResult target = event.getHitResult();
@@ -101,7 +100,7 @@ public class ClipboardValueSettingsHandler {
 		});
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void clientTick() {
 		Minecraft mc = Minecraft.getInstance();
 		if (!(mc.hitResult instanceof BlockHitResult target))

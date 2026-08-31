@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.deployer;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.core.registries.Registries;
 
 import net.minecraft.resources.ResourceKey;
@@ -27,8 +28,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.ItemLike;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class DeployerApplicationRecipe extends ItemApplicationRecipe implements IAssemblyRecipe {
 
@@ -63,7 +62,7 @@ public class DeployerApplicationRecipe extends ItemApplicationRecipe implements 
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public Component getDescriptionForAssembly() {
 		ItemStack[] matchingStacks = ItemHelper.ingredientStacks(ingredients.get(1)).toArray(new ItemStack[0]);
 		if (matchingStacks.length == 0) {

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink.source;
 
+import com.simibubi.create.foundation.ClientOnly;
 import static com.simibubi.create.content.trains.display.FlapDisplaySection.MONOSPACE;
 
 import java.util.ArrayList;
@@ -25,8 +26,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class StationSummaryDisplaySource extends DisplaySource {
 
@@ -194,7 +193,7 @@ public class StationSummaryDisplaySource extends DisplaySource {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(DisplayLinkContext context, ModularGuiLineBuilder builder,
 		boolean isFirstLine) {
 		if (isFirstLine) {

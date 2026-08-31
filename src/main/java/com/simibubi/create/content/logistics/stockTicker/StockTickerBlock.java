@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.mojang.serialization.MapCodec;
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllPartialModels;
@@ -32,8 +33,6 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class StockTickerBlock extends HorizontalDirectionalBlock implements IBE<StockTickerBlockEntity>, IWrenchable {
 
@@ -93,7 +92,7 @@ public class StockTickerBlock extends HorizontalDirectionalBlock implements IBE<
 		return AllShapes.STOCK_TICKER;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public PartialModel getHat(LevelAccessor level, BlockPos pos, LivingEntity keeper) {
 		return AllPartialModels.LOGISTICS_HAT;
 	}

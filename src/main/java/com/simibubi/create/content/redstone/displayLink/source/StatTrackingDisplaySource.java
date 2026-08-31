@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink.source;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.stream.Stream;
 
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
@@ -17,8 +18,6 @@ import net.minecraft.world.scores.Scoreboard;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria.RenderType;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class StatTrackingDisplaySource extends ScoreboardDisplaySource {
 
@@ -59,7 +58,7 @@ public abstract class StatTrackingDisplaySource extends ScoreboardDisplaySource 
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void initConfigurationWidgets(DisplayLinkContext context, ModularGuiLineBuilder builder, boolean isFirstLine) {}
 
 }

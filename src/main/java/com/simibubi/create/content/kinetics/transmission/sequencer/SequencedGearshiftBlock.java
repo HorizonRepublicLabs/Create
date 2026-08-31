@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.transmission.sequencer;
 
+import com.simibubi.create.foundation.ClientOnly;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.world.level.redstone.Orientation;
@@ -41,8 +42,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class SequencedGearshiftBlock extends HorizontalAxisKineticBlock implements IBE<SequencedGearshiftBlockEntity>, TransformableBlock {
 
@@ -106,7 +105,7 @@ public class SequencedGearshiftBlock extends HorizontalAxisKineticBlock implemen
 		return InteractionResult.SUCCESS;
 	}
 
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	protected void displayScreen(SequencedGearshiftBlockEntity be, Player player) {
 		if (player instanceof LocalPlayer)
 			ScreenOpener.open(new SequencedGearshiftScreen(be));

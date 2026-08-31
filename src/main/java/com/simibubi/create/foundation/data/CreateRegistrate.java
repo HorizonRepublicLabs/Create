@@ -1,5 +1,6 @@
 package com.simibubi.create.foundation.data;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.data.VariantModels;
 
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
@@ -56,8 +57,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
@@ -278,20 +277,20 @@ public class CreateRegistrate extends AbstractRegistrate<CreateRegistrate> {
 			.executeOnClientOnly(() -> () -> CreateRegistrateClientHooks.registerCTBehaviour(entry, behavior));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static <T extends Block> void registerCasingConnectivity(T entry,
 																	 BiConsumer<T, CasingConnectivity> consumer) {
 		consumer.accept(entry, CreateClient.CASING_CONNECTIVITY);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static void registerBlockModel(Block entry,
 										   Supplier<NonNullFunction<BlockStateModel, ? extends BlockStateModel>> func) {
 		CreateClient.MODEL_SWAPPER.getCustomBlockModels()
 			.register(RegisteredObjectsHelper.getKeyOrThrow(entry), func.get());
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	private static void registerItemModel(Item entry,
 										  Supplier<NonNullFunction<BlockStateModel, ? extends BlockStateModel>> func) {
 		CreateClient.MODEL_SWAPPER.getCustomItemModels()

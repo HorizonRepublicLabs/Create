@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.render.CreateRenderTypes;
 
 import com.simibubi.create.foundation.render.BlockEntityRenderHelper;
@@ -61,8 +62,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEntityBehaviour {
 
@@ -325,7 +324,7 @@ public class TrackTargetingBehaviour<T extends TrackEdgePoint> extends BlockEnti
 		STATION, SIGNAL, DUAL_SIGNAL, OBSERVER;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void render(LevelAccessor level, BlockPos pos, AxisDirection direction,
 							  BezierTrackPointLocation bezier, PoseStack ms, SuperRenderTypeBuffer buffer, int light, int overlay,
 							  RenderedTrackOverlayType type, float scale) {

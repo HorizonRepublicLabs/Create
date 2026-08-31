@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.factoryBoard;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.level.BlockGetter;
 
 import net.minecraft.core.UUIDUtil;
@@ -88,8 +89,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.Tags.Items;
 
 public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuProvider {
@@ -1065,7 +1064,7 @@ public class FactoryPanelBehaviour extends FilteringBehaviour implements MenuPro
 		};
 	}
 
-	@OnlyIn(value = Dist.CLIENT)
+	@ClientOnly
 	public void displayScreen(Player player) {
 		if (player instanceof LocalPlayer)
 			ScreenOpener.open(new FactoryPanelScreen(this));

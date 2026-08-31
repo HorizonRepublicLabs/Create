@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,8 +29,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public interface ITrackBlock {
 
@@ -159,12 +158,12 @@ public interface ITrackBlock {
 			list.add(secondLocation);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public <Self extends Affine<Self>> PartialModel prepareTrackOverlay(Affine<Self> affine, BlockGetter world, BlockPos pos, BlockState state,
 																		BezierTrackPointLocation bezierPoint, AxisDirection direction,
 																		RenderedTrackOverlayType type);
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public PartialModel prepareAssemblyOverlay(BlockGetter world, BlockPos pos, BlockState state, Direction direction,
 											   PoseStack ms);
 

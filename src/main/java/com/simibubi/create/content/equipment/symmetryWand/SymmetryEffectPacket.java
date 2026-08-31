@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.symmetryWand;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.CreatePacketPayload;
 
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -14,8 +15,6 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public record SymmetryEffectPacket(BlockPos mirror, List<BlockPos> positions) implements CreatePacketPayload {
 	public static final StreamCodec<ByteBuf, SymmetryEffectPacket> STREAM_CODEC = StreamCodec.composite(
@@ -29,7 +28,7 @@ public record SymmetryEffectPacket(BlockPos mirror, List<BlockPos> positions) im
 		return AllPackets.SYMMETRY_EFFECT;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void handle(LocalPlayer player) {
 		if (player.position().distanceTo(Vec3.atLowerCornerOf(mirror)) > 100)
 			return;

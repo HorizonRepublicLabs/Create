@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.belt;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -42,8 +43,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class BeltSlicer {
 
@@ -457,7 +456,7 @@ public class BeltSlicer {
 		return subtract.dot(beltVector) > 0 == (part == BeltPart.END);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void tickHoveringInformation() {
 		Minecraft mc = Minecraft.getInstance();
 		HitResult target = mc.hitResult;

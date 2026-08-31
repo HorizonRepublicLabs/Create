@@ -1,17 +1,16 @@
 package com.simibubi.create.foundation.utility;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.Create;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.util.thread.EffectiveSide;
 
 /** Deprecated so simi doensn't forget to remove debug calls **/
-@OnlyIn(value = Dist.CLIENT)
+@ClientOnly
 public class Debug {
 
 	@Deprecated

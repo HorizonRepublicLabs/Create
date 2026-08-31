@@ -1,5 +1,6 @@
 package com.simibubi.create.content.processing.burner;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.SuperRenderTypeBuffer;
 
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
@@ -27,8 +28,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class BlazeBurnerMovementBehaviour implements MovementBehaviour {
 
@@ -120,7 +119,7 @@ public class BlazeBurnerMovementBehaviour implements MovementBehaviour {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
 		ContraptionMatrices matrices, SuperRenderTypeBuffer buffer) {
 		if (!shouldRender(context))

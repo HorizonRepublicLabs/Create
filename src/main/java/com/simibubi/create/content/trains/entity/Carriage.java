@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.entity;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import net.minecraft.world.entity.EntitySpawnReason;
@@ -65,8 +66,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class Carriage {
 	public static final StreamCodec<RegistryFriendlyByteBuf, Carriage> STREAM_CODEC = StreamCodec.composite(
@@ -835,7 +834,7 @@ public class Carriage {
 			PlatformHelper.INSTANCE.executeOnClientOnly(() -> () -> invalidate(cce));
 		}
 
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		private void invalidate(CarriageContraptionEntity entity) {
 			// Update the portal cutoff first to ensure it's reflected in the updated mesh.
 			entity.updateRenderedPortalCutoff();

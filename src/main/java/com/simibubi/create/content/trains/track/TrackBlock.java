@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.level.ScheduledTickAccess;
 
 import static com.simibubi.create.AllShapes.TRACK_ASC;
@@ -103,8 +104,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.ticks.LevelTickAccess;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TrackBlock extends Block
 	implements IBE<TrackBlockEntity>, IWrenchable, ITrackBlock, SpecialBlockItemRequirement, ProperWaterloggedBlock, IHaveBigOutline {
@@ -636,7 +635,7 @@ public class TrackBlock extends Block
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public PartialModel prepareAssemblyOverlay(BlockGetter world, BlockPos pos, BlockState state, Direction direction,
 											   PoseStack ms) {
 		TransformStack.of(ms)
@@ -645,7 +644,7 @@ public class TrackBlock extends Block
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public <Self extends Affine<Self>> PartialModel prepareTrackOverlay(Affine<Self> affine, BlockGetter world, BlockPos pos, BlockState state,
 																		BezierTrackPointLocation bezierPoint, AxisDirection direction, RenderedTrackOverlayType type) {
 		Vec3 axis = null;

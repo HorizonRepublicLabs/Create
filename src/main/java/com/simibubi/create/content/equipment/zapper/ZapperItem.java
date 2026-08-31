@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.zapper;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.utility.ValueIOShim;
 
 import com.simibubi.create.foundation.item.TooltipLines;
@@ -52,8 +53,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 
@@ -62,7 +61,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display,
 		Consumer<Component> builder, TooltipFlag flagIn) {
 		List<Component> tooltip = TooltipLines.forwarding(builder);
@@ -186,7 +185,7 @@ public abstract class ZapperItem extends Item implements CustomArmPoseItem {
 	protected abstract boolean activate(Level world, Player player, ItemStack item, BlockState stateToUse,
 		BlockHitResult raytrace, CompoundTag data);
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	protected abstract void openHandgunGUI(ItemStack item, InteractionHand hand);
 
 	protected abstract int getCooldownDelay(ItemStack item);

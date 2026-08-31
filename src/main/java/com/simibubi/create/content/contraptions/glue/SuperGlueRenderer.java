@@ -1,13 +1,12 @@
 package com.simibubi.create.content.contraptions.glue;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+@ClientOnly
 public class SuperGlueRenderer extends EntityRenderer<SuperGlueEntity, EntityRenderState> {
 
 	public SuperGlueRenderer(EntityRendererProvider.Context context) {

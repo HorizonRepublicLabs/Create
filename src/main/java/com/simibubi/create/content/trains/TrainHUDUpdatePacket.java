@@ -1,5 +1,6 @@
 package com.simibubi.create.content.trains;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.networking.ClientboundCreatePayload;
 
 
@@ -25,8 +26,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
 	protected final UUID trainId;
@@ -65,7 +64,7 @@ public abstract class TrainHUDUpdatePacket implements CreatePacketPayload {
 		}
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
+		@ClientOnly
 		public void handle(LocalPlayer player) {
 			Train train = Create.RAILWAYS.sided(null).trains.get(trainId);
 			if (train == null)

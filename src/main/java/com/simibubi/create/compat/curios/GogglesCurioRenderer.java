@@ -1,5 +1,6 @@
 package com.simibubi.create.compat.curios;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.client.render.DefaultSuperRenderTypeBuffer;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -33,12 +34,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
-@OnlyIn(Dist.CLIENT)
+@ClientOnly
 public class GogglesCurioRenderer implements ICurioRenderer {
 	public static final ModelLayerLocation LAYER = new ModelLayerLocation(Create.asResource("goggles"), "goggles");
 

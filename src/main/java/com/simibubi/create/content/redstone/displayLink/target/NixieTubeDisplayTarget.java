@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink.target;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.utility.ComponentJson;
 
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -16,8 +17,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class NixieTubeDisplayTarget extends SingleLineDisplayTarget {
 
@@ -41,7 +40,7 @@ public class NixieTubeDisplayTarget extends SingleLineDisplayTarget {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public AABB getMultiblockBounds(LevelAccessor level, BlockPos pos) {
 		MutableObject<BlockPos> start = new MutableObject<>(null);
 		MutableObject<BlockPos> end = new MutableObject<>(null);

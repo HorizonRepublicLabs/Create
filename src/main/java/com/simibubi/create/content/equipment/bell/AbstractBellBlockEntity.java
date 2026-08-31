@@ -1,5 +1,6 @@
 package com.simibubi.create.content.equipment.bell;
 
+import com.simibubi.create.foundation.ClientOnly;
 import java.util.List;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
@@ -15,8 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public abstract class AbstractBellBlockEntity extends SmartBlockEntity {
 
@@ -73,7 +72,7 @@ public abstract class AbstractBellBlockEntity extends SmartBlockEntity {
 		isRinging = true;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public abstract PartialModel getBellModel();
 
 }

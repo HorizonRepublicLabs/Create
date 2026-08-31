@@ -1,5 +1,6 @@
 package com.simibubi.create.content.logistics.stockTicker;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import net.minecraft.core.UUIDUtil;
@@ -56,8 +57,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -254,7 +253,7 @@ public class StockTickerBlockEntity extends StockCheckingBlockEntity implements 
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public boolean addToTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
 		if (receivedPayments.isEmpty())
 			return false;

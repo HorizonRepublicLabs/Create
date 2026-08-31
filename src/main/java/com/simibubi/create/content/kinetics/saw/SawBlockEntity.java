@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.saw;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import net.minecraft.tags.BlockItemTags;
@@ -74,8 +75,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -149,7 +148,7 @@ public class SawBlockEntity extends BlockBreakingKineticBlockEntity implements C
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void tickAudio() {
 		super.tickAudio();
 		if (getSpeed() == 0)

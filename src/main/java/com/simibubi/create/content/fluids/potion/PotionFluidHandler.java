@@ -1,5 +1,6 @@
 package com.simibubi.create.content.fluids.potion;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemHelper;
 
 import java.util.List;
@@ -36,8 +37,6 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluids;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.DataComponentFluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
@@ -107,7 +106,7 @@ public class PotionFluidHandler {
 	}
 
 	// Modified version of PotionContents#addPotionTooltip
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void addPotionTooltip(FluidStack fs, Consumer<Component> tooltipAdder, float durationFactor) {
 		PotionContents contents = fs.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
 		Iterable<MobEffectInstance> effects = contents.getAllEffects();

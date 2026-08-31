@@ -1,5 +1,6 @@
 package com.simibubi.create.content.kinetics.crusher;
 
+import com.simibubi.create.foundation.ClientOnly;
 import com.simibubi.create.foundation.item.ItemCaps;
 
 import com.simibubi.create.foundation.utility.ValueIOShim;
@@ -52,8 +53,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
@@ -280,7 +279,7 @@ public class CrushingWheelControllerBlockEntity extends SmartBlockEntity impleme
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void tickAudio() {
 		float pitch = Mth.clamp((crushingspeed / 256f) + .45f, .85f, 1f);
 		if (entityUUID == null && inventory.getStackInSlot(0)

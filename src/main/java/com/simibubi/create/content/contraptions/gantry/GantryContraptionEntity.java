@@ -1,5 +1,6 @@
 package com.simibubi.create.content.contraptions.gantry;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.createmod.catnip.api.network.NetworkHelper;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -28,8 +29,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class GantryContraptionEntity extends AbstractContraptionEntity {
 
@@ -201,7 +200,7 @@ public class GantryContraptionEntity extends AbstractContraptionEntity {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public void applyLocalTransforms(PoseStack matrixStack, float partialTicks) {
 	}
 
@@ -226,7 +225,7 @@ public class GantryContraptionEntity extends AbstractContraptionEntity {
 				new GantryContraptionUpdatePacket(getId(), getAxisCoord(), axisMotion, sequencedOffsetLimit));
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void handlePacket(GantryContraptionUpdatePacket packet) {
 		Entity entity = Minecraft.getInstance().level.getEntity(packet.entityID());
 		if (!(entity instanceof GantryContraptionEntity ce))

@@ -1,5 +1,6 @@
 package com.simibubi.create.content.redstone.displayLink;
 
+import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.world.item.component.TypedEntityData;
 
 import com.mojang.serialization.Codec;
@@ -34,8 +35,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.minecraft.util.TriState;
@@ -148,7 +147,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 	private static BlockPos lastShownPos = null;
 	private static AABB lastShownAABB = null;
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public static void clientTick() {
 		Player player = Minecraft.getInstance().player;
 		if (player == null)
@@ -184,7 +183,7 @@ public abstract class ClickToLinkBlockItem extends BlockItem {
 		return true;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@ClientOnly
 	public AABB getSelectionBounds(BlockPos pos) {
 		Level world = Minecraft.getInstance().level;
 		BlockState state = world.getBlockState(pos);
