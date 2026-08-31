@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,7 +48,7 @@ public class AllPaletteBlocks {
 
 	public static final BlockEntry<TransparentBlock> TILED_GLASS = REGISTRATE.block("tiled_glass", TransparentBlock::new)
 		.initialProperties(() -> Blocks.GLASS)
-		.recipe((c, p) -> p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(Tags.Items.GLASS_BLOCKS_COLORLESS)), RecipeCategory.BUILDING_BLOCKS, c))
+		.recipe((c, p) -> p.stonecutting(DataIngredient.tag(ItemHelper.itemsIn(Tags.Items.GLASS_BLOCKS_COLORLESS)), RecipeCategory.BUILDING_BLOCKS, c))
 		.blockstate(() -> (c, p) -> BlockStateGen.cubeAll(c, p, "palettes/"))
 		.loot((t, g) -> t.dropWhenSilkTouch(g))
 		.tag(Tags.Blocks.GLASS_BLOCKS_COLORLESS, BlockTags.IMPERMEABLE)

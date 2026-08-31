@@ -1,5 +1,7 @@
 package com.simibubi.create.content.decoration.palettes;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import net.minecraft.client.data.models.model.TextureSlot;
 
 import net.minecraft.client.data.models.model.TextureMapping;
@@ -158,7 +160,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 									 DataGenContext<Block, ? extends Block> c, RegistrateRecipeProvider p) {
 			RecipeCategory category = RecipeCategory.BUILDING_BLOCKS;
 			p.stairs(DataIngredient.items(patternBlock.get()), category, c::get, c.getName(), false);
-			p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(type.materialTag)), category, c::get, 1);
+			p.stonecutting(DataIngredient.tag(ItemHelper.itemsIn(type.materialTag)), category, c::get, 1);
 		}
 
 	}
@@ -222,7 +224,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 									 DataGenContext<Block, ? extends Block> c, RegistrateRecipeProvider p) {
 			RecipeCategory category = RecipeCategory.BUILDING_BLOCKS;
 			p.slab(DataIngredient.items(patternBlock.get()), category, c::get, c.getName(), false);
-			p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(type.materialTag)), category, c::get, 2);
+			p.stonecutting(DataIngredient.tag(ItemHelper.itemsIn(type.materialTag)), category, c::get, 2);
 			DataIngredient ingredient = DataIngredient.items(c.get());
 			ShapelessRecipeBuilder.shapeless(BuiltInRegistries.ITEM, category, patternBlock.get())
 				.requires(ingredient.toVanilla())
@@ -283,7 +285,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
 		protected void createRecipes(AllPaletteStoneTypes type, BlockEntry<? extends Block> patternBlock,
 									 DataGenContext<Block, ? extends Block> c, RegistrateRecipeProvider p) {
 			RecipeCategory category = RecipeCategory.BUILDING_BLOCKS;
-			p.stonecutting(DataIngredient.tag(BuiltInRegistries.ITEM.getOrThrow(type.materialTag)), category, c::get, 1);
+			p.stonecutting(DataIngredient.tag(ItemHelper.itemsIn(type.materialTag)), category, c::get, 1);
 			DataIngredient ingredient = DataIngredient.items(patternBlock.get());
 			ShapedRecipeBuilder.shaped(BuiltInRegistries.ITEM, category, c.get(), 6)
 				.pattern("XXX")

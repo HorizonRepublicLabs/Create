@@ -1,5 +1,7 @@
 package com.simibubi.create.content.trains.track;
 
+import com.simibubi.create.foundation.item.ItemHelper;
+
 import com.simibubi.create.foundation.ClientOnly;
 import net.minecraft.core.registries.BuiltInRegistries;
 
@@ -30,8 +32,8 @@ public class TrackMaterialFactory {
 	// Ingredients are holder sets now, and tags only bind once a datapack is
 	// loaded, so the default resolves lazily instead of during class init.
 	private Supplier<Ingredient> railsIngredient =
-		() -> CompoundIngredient.of(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(Items.NUGGETS_IRON)),
-			Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(CommonMetal.ZINC.nuggets)));
+		() -> CompoundIngredient.of(Ingredient.of(ItemHelper.itemsIn(Items.NUGGETS_IRON)),
+			Ingredient.of(ItemHelper.itemsIn(CommonMetal.ZINC.nuggets)));
 	private Identifier particle;
 	private TrackMaterial.TrackType trackType = TrackMaterial.TrackType.STANDARD;
 
